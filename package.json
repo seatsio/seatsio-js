@@ -1,0 +1,19 @@
+{
+  "name": "seatsio-js",
+  "version": "0.0.1",
+  "description": "JavaScript Client library for the Seats.io V2 REST API",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "",
+    "url": ""
+  },
+  "dependencies": {
+    "axios": "0.16.2",
+    "uuid": "^3.3.2"
+  },
+  "devDependencies": {
+    "jest": "^23.6.0"
+  }
+}
