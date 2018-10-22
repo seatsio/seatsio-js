@@ -26,7 +26,6 @@ class Charts {
                           .then( (res) => res.data );
 
     //need to map result into the Chart class
-
     return promise;
   }
 
@@ -41,6 +40,11 @@ class Charts {
 
   retrieve(key){
     var promise = this.client.get(`charts/${key}`).then( (res) => res.data);
+    return promise;
+  }
+
+  retrievePublishedVersion(key){
+    var promise = this.client.get(`charts/${key}/version/published`).then( (res) => res.data);
     return promise;
   }
 
