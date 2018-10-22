@@ -22,17 +22,26 @@ class Charts {
       requestParams.categories = categories;
     }
 
-    //Axios api call is not working, status error 401
-    var res = this.client.post('charts', JSON.stringify(requestParams))
-                         .then( (res) => console.log("Chart creation successful."))
-                         .catch( (err) => console.log("Chart creation is not successful: " + err));
+    var promise = this.client.post('charts', requestParams)
+                          .then( (res) => res.data );
+
     //need to map result into the Chart class
+
+    return promise;
+  }
+
+  addTag(key, tag){
+    var requestParams = {}
+    requestParams.key = key;
+    requestParams.tag = tag;
+    var url = `charts/${key}/tags/${tag}`;
+    var promise = this.client.post(url, requestParams).then( (res) => res.data );
+    return promise;
   }
 
   retrieve(key){
-    var res = this.client.get('charts/' + key)
-                         .then( (res) => console.log("Chart retrieve successful. "))
-                         .catch( (err) => console.log("Chart retrieve is not successful: " + err));
+    var promise = this.client.get(`charts/${key}`).then( (res) => res.data);
+    return promise;
   }
 
 }
