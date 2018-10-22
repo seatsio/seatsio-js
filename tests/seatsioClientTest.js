@@ -12,8 +12,25 @@ class SeatsioClientTest {
     this.client = "";
   }
 
+  async setUp(){
+    this.baseUrl = 'https://api-staging.seatsio.net/';
+
+    var testUser = axios({
+      method: 'POST',
+      url: this.baseUrl + 'system/public/users/actions/create-test-user'
+    }).then(response => {
+      return response.data;
+    }).catch(error => {
+      console.log(error);
+    });
+
+    this.user = await testUser;
+    this.client =  new SeatsioClient(await this.user.secretKey, this.baseUrl);
+    return this.user;
+  }
+
   createTestUser(){
-    var testAccount = axios({
+    var testUser = axios({
       method: 'POST',
       url: this.baseUrl + 'system/public/users/actions/create-test-user'
     }).then(response => {
@@ -43,7 +60,7 @@ class SeatsioClientTest {
     var requestBody = fs.readFileSync(file);
     var chartKey = uuidv4();
     var client = axios.create();
-    var url = this.baseUrl + 'system/public/' + this.user.designerKey + '/charts/' + chartKey;
+    var url = this.baseUrl + 'system/public/' +this.user.designerKey + '/charts/' + chartKey;
     client.post(url, requestBody)
       .then( (response) => console.log("Chart created in seatsioClientTest"))
       .catch( err => console.log("Chart from file creation error: " + err));
@@ -53,6 +70,8 @@ class SeatsioClientTest {
 }
 
 /*
+//Set up account without promises (wait until async code runs)
+
 var test = new SeatsioClientTest();
 
 test.createTestUser();
@@ -63,6 +82,12 @@ setTimeout( () => console.log("Section Chart key: " + test.createTestChartWithSe
 setTimeout( () => console.log("Table Chart key: " + test.createTestChartWithTables()), 3000);
 setTimeout( () => console.log(test), 2000);
 */
+
+//Set up account with promises/async function
+var test = new SeatsioClientTest();
+test.setUp()
+    .then( (res) => console.log(test))
+    .catch( (err) => console.log("Setup failed: " + err));
 
 module.exports = SeatsioClientTest;
 
