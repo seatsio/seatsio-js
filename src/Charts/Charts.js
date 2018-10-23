@@ -35,6 +35,12 @@ class Charts {
     return promise;
   }
 
+  removeTag(key, tag){
+    var url = `charts/${key}/tags/${encodeURIComponent(tag)}`;
+    return this.client.delete(url).then( (res)=> res.data );
+
+  }
+
   retrieve(key){
     var promise = this.client.get(`charts/${key}`).then( (res) => res.data);
     return promise;

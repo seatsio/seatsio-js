@@ -1,10 +1,9 @@
 const SeatsioClient = require('../../src/SeatsioClient.js');
-const axios = require('axios');
 const testUtils = require('../testUtils.js');
 
 test('should retrieve all tags of all charts', async () =>{
     const user = await testUtils.createTestUser();
-    var client = testUtils.createClient(user.secretKey, testUtils.baseURL);
+    var client = testUtils.createClient(user.secretKey, testUtils.baseUrl);
     var chart1 = await client.charts.create();
     var chart2 = await client.charts.create();
     await client.charts.addTag(chart1.key, 'tag1');

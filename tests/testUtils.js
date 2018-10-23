@@ -3,7 +3,7 @@ const axios = require('axios');
 const uuidv4 = require('uuid/v4');
 
 module.exports = {
-    'baseURL' : 'https://api-staging.seatsio.net/',
+    'baseUrl' : 'https://api-staging.seatsio.net/',
 
     createTestUser: function () {
         var baseUrl = 'https://api-staging.seatsio.net/';
