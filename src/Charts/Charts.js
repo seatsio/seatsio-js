@@ -38,7 +38,6 @@ class Charts {
   removeTag(key, tag){
     var url = `charts/${key}/tags/${encodeURIComponent(tag)}`;
     return this.client.delete(url).then( (res)=> res.data );
-
   }
 
   retrieve(key){
@@ -55,6 +54,9 @@ class Charts {
     return this.client.get('/charts/tags').then( (res) => res.data.tags );
   }
 
+  copy(key){
+    return this.client.post(`charts/${key}/version/published/actions/copy`).then( (res) => res.data);
+  }
 }
 
 module.exports = Charts;
