@@ -30,11 +30,8 @@ class Charts {
   }
 
   addTag(key, tag){
-    var requestParams = {}
-    requestParams.key = key;
-    requestParams.tag = tag;
-    var url = `charts/${key}/tags/${tag}`;
-    var promise = this.client.post(url, requestParams).then( (res) => res.data );
+    var url = `charts/${key}/tags/${encodeURIComponent(tag)}`;
+    var promise = this.client.post(url).then( (res) => res.data );
     return promise;
   }
 

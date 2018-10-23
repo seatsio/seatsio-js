@@ -33,8 +33,35 @@ test('should create a test chart from file', async () => {
   var chart = await createTestChartFromFile(__dirname + '/sampleChart.json',
                                   user.designerKey, chartKey, user.secretKey);
   var retrievedChart = await client.charts.retrieve(chartKey);
-  //console.log(chart);
-  //console.log(retrievedChart);
+  
+  expect(retrievedChart.id).toBeDefined();
+  expect(retrievedChart.key).toBeDefined();
+  expect(retrievedChart.key).toBeTruthy();
+  expect(retrievedChart.publishedVersionThumbnailUrl).toBeDefined();
+});
+
+test('should create a test chart with tables from file', async () => {
+  var user = await createTestUser();
+  var client = createSeatsioClient(user.secretKey, 'https://api-staging.seatsio.net/');
+  var chartKey = uuidv4();
+  var chart = await createTestChartFromFile(__dirname + '/sampleChartWithTables.json',
+                                  user.designerKey, chartKey, user.secretKey);
+  var retrievedChart = await client.charts.retrieve(chartKey);
+
+  expect(retrievedChart.id).toBeDefined();
+  expect(retrievedChart.key).toBeDefined();
+  expect(retrievedChart.key).toBeTruthy();
+  expect(retrievedChart.publishedVersionThumbnailUrl).toBeDefined();
+});
+
+test('should create a test chart with sections from file', async () => {
+  var user = await createTestUser();
+  var client = createSeatsioClient(user.secretKey, 'https://api-staging.seatsio.net/');
+  var chartKey = uuidv4();
+  var chart = await createTestChartFromFile(__dirname + '/sampleChartWithSections.json',
+                                  user.designerKey, chartKey, user.secretKey);
+  var retrievedChart = await client.charts.retrieve(chartKey);
+
   expect(retrievedChart.id).toBeDefined();
   expect(retrievedChart.key).toBeDefined();
   expect(retrievedChart.key).toBeTruthy();
