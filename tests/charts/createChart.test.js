@@ -102,19 +102,3 @@ test('should create chart with categories as instance of Category class', async(
   expect(retrievedChart.venueType).toEqual('MIXED');
   expect(retrievedChart.categories.list).toEqual(expectedCategories);
 });
-
-test('should add tag', async ()=> {
-  const user = await createTestUser();
-  var client = createClient(user.secretKey, 'https://api-staging.seatsio.net/');
-  var chart = await client.charts.create();
-  await client.charts.addTag(chart.key, 'async');
-  var retrievedChart = await client.charts.retrieve(chart.key);
-  expect(retrievedChart.key).toBe(chart.key);
-  expect(retrievedChart.id).not.toBeNull();
-  expect(retrievedChart.name).toBe('Untitled chart');
-  expect(retrievedChart.status).toBe('NOT_USED');
-  expect(retrievedChart.publishedVersionThumbnailUrl).not.toBeNull();
-  expect(retrievedChart.draftVersionThumbnailUrl).not.toBeNull();
-  expect(retrievedChart.archived).toBeFalsy();
-  expect(retrievedChart.events).toBeUndefined();
-});
