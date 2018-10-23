@@ -1,29 +1,11 @@
 const SeatsioClient = require('../../src/SeatsioClient.js');
 const axios = require('axios');
-const Category = require('../../src/Charts/Category.js')
-
-function createTestUser(){
-  var baseUrl = 'https://api-staging.seatsio.net/';
-
-  var testUserPr = axios({
-    method: 'POST',
-    url: baseUrl + 'system/public/users/actions/create-test-user'
-  }).then(response => {
-    return response.data;
-  }).catch(error => {
-    console.log(error);
-  });
-
-  return testUserPr;
-}
-
-function createClient(key, baseUrl){
-  return new SeatsioClient(key, baseUrl);
-}
+const Category = require('../../src/Charts/Category.js');
+const testUtils = require('../testUtils.js');
 
 test('should create a chart with default parameters', async () => {
-    const user = await createTestUser();
-    var client = createClient(user.secretKey, 'https://api-staging.seatsio.net/');
+    const user = await testUtils.createTestUser();
+    var client = testUtils.createClient(user.secretKey, 'https://api-staging.seatsio.net/');
     var chart = await client.charts.create();
     var retrievedChart = await client.charts.retrievePublishedVersion(chart.key);
 
@@ -44,8 +26,8 @@ test('should create a chart with default parameters', async () => {
 });
 
 test('should create chart with name', async () => {
-    const user = await createTestUser();
-    var client = createClient(user.secretKey, 'https://api-staging.seatsio.net/');
+    const user = await testUtils.createTestUser();
+    var client = testUtils.createClient(user.secretKey, 'https://api-staging.seatsio.net/');
     var chart = await client.charts.create('aChart');
     var retrievedChart = await client.charts.retrievePublishedVersion(chart.key);
     expect(retrievedChart.name).toEqual('aChart');
@@ -55,8 +37,8 @@ test('should create chart with name', async () => {
 });
 
 test('should create chart with venue type', async () => {
-    const user = await createTestUser();
-    var client = createClient(user.secretKey, 'https://api-staging.seatsio.net/');
+    const user = await testUtils.createTestUser();
+    var client = testUtils.createClient(user.secretKey, 'https://api-staging.seatsio.net/');
     var chart = await client.charts.create(null, 'BOOTHS');
     var retrievedChart = await client.charts.retrievePublishedVersion(chart.key);
     expect(retrievedChart.name).toEqual('Untitled chart');
@@ -68,8 +50,8 @@ test('should create chart with venue type', async () => {
 test('should create chart with categories as class', async() => {
   var cat1 = {'key': 1, 'label': 'Category 1', 'color': '#aaaaaa'};
   var cat2 = {'key': 3, 'label': 'Category 2', 'color': '#bbbbbb'};
-  const user = await createTestUser();
-  var client = createClient(user.secretKey, 'https://api-staging.seatsio.net/');
+  const user = await testUtils.createTestUser();
+  var client = testUtils.createClient(user.secretKey, 'https://api-staging.seatsio.net/');
   var chart = await client.charts.create(null, null, [cat1, cat2]);
   var retrievedChart = await client.charts.retrievePublishedVersion(chart.key);
 
@@ -81,8 +63,8 @@ test('should create chart with categories as class', async() => {
 test('should create chart with categories as instance of Category class', async() => {
   var cat1 = new Category(1, 'Category 1', '#aaaaaa');
   var cat2 = new Category(2, 'Category 2', '#bbbbbb');
-  const user = await createTestUser();
-  var client = createClient(user.secretKey, 'https://api-staging.seatsio.net/');
+  const user = await testUtils.createTestUser();
+  var client = testUtils.createClient(user.secretKey, 'https://api-staging.seatsio.net/');
   var chart = await client.charts.create(null, null, [cat1, cat2]);
 
   var expectedCategories = [

@@ -45,6 +45,10 @@ class Charts {
     return promise;
   }
 
+  listAllTags(){
+    return this.client.get('/charts/tags').then( (res) => res.data.tags );
+  }
+
 }
 
 module.exports = Charts;

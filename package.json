@@ -11,9 +11,20 @@
   },
   "dependencies": {
     "axios": "0.16.2",
+    "jest-cli": "^23.6.0",
     "uuid": "^3.3.2"
   },
   "devDependencies": {
-    "jest": "^23.6.0"
+    "jest": "^23.6.0",
+    "gulp": "latest",
+    "gulp-util": "latest",
+    "gulp-connect": "latest",
+    "gulp-jest": "latest",
+    "browserify": "latest",
+    "gulplog": "latest",
+    "gulp-tap": "latest",
+    "gulp-buffer": "latest",
+    "gulp-uglify": "latest",
+    "gulp-uglify-es": "latest"
   }
 }

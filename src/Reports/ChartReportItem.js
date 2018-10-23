@@ -14,4 +14,4 @@ class ChartReportItem{
   }
 }
 
-module.exports ChartReportItem;
+module.exports = ChartReportItem;

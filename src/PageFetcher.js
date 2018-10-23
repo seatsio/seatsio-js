@@ -1,3 +1,4 @@
+/*
 class PageFetcher {
   constructor(url, client, pageCreator){
     this.url = url;
@@ -35,3 +36,4 @@ class PageFetcher {
 
 
 }
+*/

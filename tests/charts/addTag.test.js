@@ -1,10 +1,10 @@
 const SeatsioClient = require('../../src/SeatsioClient.js');
 const axios = require('axios');
-const clientFunctions = require('./setUpClient.js');
+const testUtils = require('../testUtils.js');
 
 test('should add tag', async ()=> {
-  const user = await clientFunctions.createTestUser();;
-  var client = clientFunctions.createClient(user.secretKey, 'https://api-staging.seatsio.net/');
+  const user = await testUtils.createTestUser();;
+  var client = testUtils.createClient(user.secretKey, 'https://api-staging.seatsio.net/');
   var chart = await client.charts.create();
   await client.charts.addTag(chart.key, 'tag1');
   var retrievedChart = await client.charts.retrieve(chart.key);
@@ -13,8 +13,8 @@ test('should add tag', async ()=> {
 });
 
 test('should be able to add a tag with special characters', async ()=> {
-  const user = await clientFunctions.createTestUser();
-  var client = clientFunctions.createClient(user.secretKey, 'https://api-staging.seatsio.net/');
+  const user = await testUtils.createTestUser();
+  var client = testUtils.createClient(user.secretKey, 'https://api-staging.seatsio.net/');
   var chart = await client.charts.create();
   await client.charts.addTag(chart.key, 'tag1/:"-<>');
   var retrievedChart = await client.charts.retrieve(chart.key);
