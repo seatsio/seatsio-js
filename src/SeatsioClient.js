@@ -1,6 +1,7 @@
 const Axios = require('axios');
 const Accounts = require('./Accounts/Accounts.js');
 const Charts = require('./Charts/Charts.js');
+const Events = require('./Events/Events.js');
 /*
 const EventReports = require('./Reports/EventReports.js');
 const ChartReports = require('./Reports/Accounts.js');
@@ -22,8 +23,8 @@ class SeatsioClient {
     });
 
     this.charts = new Charts(this.client);
-    /*
     this.events = new Events(this.client);
+    /*
     this.eventReports = new EventReports(this.client);
     this.chartReports = new ChartReports(this.client);
     this.accounts = new Accounts(this.client);

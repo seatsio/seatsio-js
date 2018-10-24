@@ -10,5 +10,4 @@ test('should copy chart', async ()=>{
   expect(copiedChart.name).toEqual('My Chart (copy)');
   expect(copiedChart.key).not.toBe(chart.key);
   expect(retrievedCopiedChart.venueType).toEqual('BOOTHS');
-
 });

@@ -50,12 +50,34 @@ class Charts {
     return promise;
   }
 
+  retrieveDraftVersion(key){
+    return this.client.get(`charts/${key}/version/draft`).then( (res) => res.data);
+  }
+
   listAllTags(){
     return this.client.get('/charts/tags').then( (res) => res.data.tags );
   }
 
   copy(key){
     return this.client.post(`charts/${key}/version/published/actions/copy`).then( (res) => res.data);
+  }
+
+  copyDraftVersion(key){
+    return this.client.post(`charts/${key}/version/draft/actions/copy`).then( (res) => res.data);
+  }
+
+  update(key, name = null, categories = null){
+    var requestParams = {};
+
+    if(name !== null){
+      requestParams.name = name;
+    }
+
+    if(categories !== null){
+      requestParams.categories = categories;
+    }
+
+    return this.client.post(`/charts/${key}`, requestParams).then( (res) => res.data);
   }
 }
 
