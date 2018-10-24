@@ -55,6 +55,11 @@ class Charts {
                       .then( (res) => res.data);
   }
 
+  retrievePublishedVersion(key){
+    return this.client.get(`charts/${key}/version/published`)
+                      .then( (res) => res.data);
+  }
+
   retrieveDraftVersionThumbnail(key){
     return this.client.get(`/charts/${key}/version/draft/thumbnail`)
                       .then( (res) => res.data);
@@ -64,6 +69,7 @@ class Charts {
     return this.client.get(`/charts/${key}/version/published/thumbnail`)
                       .then( (res) => res.data);
   }
+
 
   listAllTags(){
     return this.client.get('/charts/tags')
