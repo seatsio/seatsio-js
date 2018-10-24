@@ -46,24 +46,33 @@ class Charts {
   }
 
   retrievePublishedVersion(key){
-    var promise = this.client.get(`charts/${key}/version/published`).then( (res) => res.data);
-    return promise;
+    return this.client.get(`charts/${key}/version/published`)
+                            .then( (res) => res.data);
   }
 
   retrieveDraftVersion(key){
-    return this.client.get(`charts/${key}/version/draft`).then( (res) => res.data);
+    return this.client.get(`charts/${key}/version/draft`)
+                      .then( (res) => res.data);
   }
 
   listAllTags(){
-    return this.client.get('/charts/tags').then( (res) => res.data.tags );
+    return this.client.get('/charts/tags')
+                      .then( (res) => res.data.tags );
   }
 
   copy(key){
-    return this.client.post(`charts/${key}/version/published/actions/copy`).then( (res) => res.data);
+    return this.client.post(`charts/${key}/version/published/actions/copy`)
+                      .then( (res) => res.data);
   }
 
   copyDraftVersion(key){
-    return this.client.post(`charts/${key}/version/draft/actions/copy`).then( (res) => res.data);
+    return this.client.post(`charts/${key}/version/draft/actions/copy`)
+                      .then( (res) => res.data);
+  }
+
+  copyToSubaccount(key, subaccountId){
+    return this.client.post(`charts/${key}/version/published/actions/copy-to/${subaccountId}`)
+                      .then( (res) => res.data);
   }
 
   discardDraftVersion(key){
