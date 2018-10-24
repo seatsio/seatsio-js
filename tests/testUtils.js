@@ -1,6 +1,7 @@
 const SeatsioClient = require('../src/SeatsioClient.js');
 const axios = require('axios');
-const uuidv4 = require('uuid/v4');
+const uuidv1 = require('uuid/v1');
+const fs = require('fs');
 
 module.exports = {
     'baseUrl' : 'https://api-staging.seatsio.net/',
@@ -23,11 +24,13 @@ module.exports = {
     createClient: function (key, baseUrl) {
         return new SeatsioClient(key, baseUrl);
     },
-
-    createTestChartFromFile: function (file, designerKey, chartKey) {
-        var requestBody = fs.readFileSync(file);
-        var chartReq = axios.create();
+    
+    createTestChartFromFile: function (filePath, designerKey) {
+        var requestBody = fs.readFileSync(__dirname + filePath, 'utf-8');
+        var client = axios.create();
+        var chartKey = uuidv1();
         var url = `https://api-staging.seatsio.net/system/public/${designerKey}/charts/${chartKey}`;
-        return chartReq.post(url, requestBody);
+        client.post(url, requestBody);
+        return chartKey;
     }
 }
