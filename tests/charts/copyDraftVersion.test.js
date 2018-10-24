@@ -1,4 +1,3 @@
-const SeatsioClient = require('../../src/SeatsioClient.js');
 const testUtils = require('../testUtils.js');
 
 test('should copy draft version of a chart', async ()=> {

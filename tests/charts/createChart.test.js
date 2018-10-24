@@ -1,4 +1,3 @@
-const SeatsioClient = require('../../src/SeatsioClient.js');
 const Category = require('../../src/Charts/Category.js');
 const testUtils = require('../testUtils.js');
 

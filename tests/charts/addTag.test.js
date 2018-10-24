@@ -1,4 +1,3 @@
-const SeatsioClient = require('../../src/SeatsioClient.js');
 const testUtils = require('../testUtils.js');
 
 test('should add tag', async ()=> {
