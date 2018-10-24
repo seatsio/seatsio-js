@@ -45,6 +45,11 @@ class Charts {
     return promise;
   }
 
+  retrieveWithEvents(key){
+    return this.client.get(`charts/${key}?expand=events`)
+                      .then( (res) => res.data);
+  }
+
   retrievePublishedVersion(key){
     return this.client.get(`charts/${key}/version/published`)
                             .then( (res) => res.data);
