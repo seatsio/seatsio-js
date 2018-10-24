@@ -55,6 +55,11 @@ class Charts {
                       .then( (res) => res.data);
   }
 
+  retrieveDraftVersionThumbnail(key){
+    return this.client.get(`/charts/${key}/version/draft/thumbnail`)
+                      .then( (res) => res.data);
+  }
+
   listAllTags(){
     return this.client.get('/charts/tags')
                       .then( (res) => res.data.tags );
@@ -92,6 +97,7 @@ class Charts {
 
     return this.client.post(`/charts/${key}`, requestParams).then( (res) => res.data);
   }
+
 }
 
 module.exports = Charts;
