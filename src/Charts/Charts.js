@@ -60,6 +60,11 @@ class Charts {
                       .then( (res) => res.data);
   }
 
+  retrievePublishedVersionThumbnail(key){
+    return this.client.get(`/charts/${key}/version/published/thumbnail`)
+                      .then( (res) => res.data);
+  }
+
   listAllTags(){
     return this.client.get('/charts/tags')
                       .then( (res) => res.data.tags );
