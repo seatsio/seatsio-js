@@ -5,6 +5,7 @@ class Events{
 
   create(chartKey, eventKey = null, bookWholeTablesOrTableBookingModes = null){
     var requestParams = {};
+
     requestParams.chartKey = chartKey;
 
     if(eventKey !== null){
@@ -13,11 +14,12 @@ class Events{
 
     if((bookWholeTablesOrTableBookingModes === true) || (bookWholeTablesOrTableBookingModes === false)){
       requestParams.bookWholeTables = bookWholeTablesOrTableBookingModes;
-    } else if (bookWholeTablesOrTableBookingModes !== null) {
+    } else if (bookWholeTablesOrTableBookingModes) {
       requestParams.tableBookingModes = bookWholeTablesOrTableBookingModes;
     }
 
-    return this.client.post(`events`, requestParams).then( (res) => res.data);
+    return this.client.post(`/events`, requestParams).then( (res) => res.data)
+                                                     .catch( (err) => console.log(err));
   }
 }
 
