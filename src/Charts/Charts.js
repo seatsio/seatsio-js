@@ -1,10 +1,11 @@
 const PageFetcher = require('../PageFetcher.js');
 const Chart = require('./Chart.js');
+const ChartListener = require('./ChartListener');
 
 class Charts {
   constructor(client){
     this.client = client;
-    //more code here
+    //this.archive = new ChartListener();
   }
 
   create(name = null, venueType = null, categories = null){
@@ -97,6 +98,11 @@ class Charts {
 
   publishDraftVersion(key){
     return this.client.post( `charts/${key}/version/draft/actions/publish`)
+                      .then( (res) => res.data);
+  }
+
+  moveToArchive(key){
+    return this.client.post(`charts/${key}/actions/move-to-archive`)
                       .then( (res) => res.data);
   }
 
