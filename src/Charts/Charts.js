@@ -95,6 +95,11 @@ class Charts {
     return this.client.post(`/charts/${key}/version/draft/actions/discard`).then( (res) => res.data);
   }
 
+  publishDraftVersion(key){
+    return this.client.post( `charts/${key}/version/draft/actions/publish`)
+                      .then( (res) => res.data);
+  }
+
   update(key, name = null, categories = null){
     var requestParams = {};
 
