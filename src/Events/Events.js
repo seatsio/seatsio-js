@@ -29,6 +29,11 @@ class Events{
                       .then( (res) => res.data);
   }
 
+  retrieveObjectStatus(eventKey, obj){
+    return this.client.get(`events/${eventKey}/objects/${obj}`)
+                      .then( (res) => res.data);
+  }
+
   delete(eventKey){
     return this.client.delete(`/events/${eventKey}`).then( (res) => res.data);
   }
@@ -64,7 +69,19 @@ class Events{
       requestParams.tableBookingModes = bookWholeTablesOrTableBookingModes;
     }
 
-    return this.client.post(`events/${eventKey}`, requestParams).then( (res) => res.data);
+    return this.client.post(`events/${eventKey}`, requestParams);
+  }
+
+  updateExtraDatas(eventKey, extraDatas){
+    var request = {};
+    request.extraData = extraDatas;
+    return this.client.post(`/events/${eventKey}/actions/update-extra-data`, request);
+  }
+
+  updateExtraData(eventKey, obj, extraData){
+    request = {};
+    request.extraData = extraData;
+    return this.client.post(`/events/${eventKey}/objects/${obj}/actions/update-extra-data`, request);
   }
 }
 
