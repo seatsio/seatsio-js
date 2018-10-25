@@ -25,12 +25,27 @@ class Events{
   }
 
   retrieve(eventKey){
-    return this.client.get(`/events/${eventKey}`, {'key': 'eventKey'})
+    return this.client.get(`/events/${eventKey}`)
                       .then( (res) => res.data);
   }
 
   delete(eventKey){
-    return this.client.delete(`/events/${eventKey}`, {'key': 'eventKey'}).then( (res) => res.data);
+    return this.client.delete(`/events/${eventKey}`).then( (res) => res.data);
+  }
+
+  markAsForSale(eventKey, objects = null, categories = null){
+    var requestParams = {};
+    if(objects){
+      requestParams.objects = objects;
+    }
+    if(categories){
+      requestParams.categories = categories;
+    }
+    return this.client.post(`events/${eventKey}/actions/mark-as-for-sale`, requestParams);
+  }
+
+  markEverythingAsForSale(eventKey){
+    return this.client.post(`events/${eventKey}/actions/mark-everything-as-for-sale`);
   }
 }
 
