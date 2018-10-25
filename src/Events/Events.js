@@ -1,3 +1,5 @@
+const ObjectStatus = require('./ObjectStatus.js');
+
 class Events{
   constructor(client){
     this.client = client;
@@ -23,7 +25,12 @@ class Events{
   }
 
   retrieve(eventKey){
-    return this.client.get(`/events/${eventKey}`, {'key': 'eventKey'}).then( (res) => res.data);
+    return this.client.get(`/events/${eventKey}`, {'key': 'eventKey'})
+                      .then( (res) => res.data);
+  }
+
+  delete(eventKey){
+    return this.client.delete(`/events/${eventKey}`, {'key': 'eventKey'}).then( (res) => res.data);
   }
 }
 
