@@ -78,7 +78,7 @@ class Events{
   }
 
   updateExtraData(eventKey, obj, extraData){
-    request = {};
+    var request = {};
     request.extraData = extraData;
     return this.client.post(`/events/${eventKey}/objects/${obj}/actions/update-extra-data`, request);
   }
