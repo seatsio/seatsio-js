@@ -21,6 +21,10 @@ class Events{
     return this.client.post(`/events`, requestParams).then( (res) => res.data)
                                                      .catch( (err) => console.log(err));
   }
+
+  retrieve(eventKey){
+    return this.client.get(`/events/${eventKey}`, {'key': 'eventKey'}).then( (res) => res.data);
+  }
 }
 
 module.exports = Events;
