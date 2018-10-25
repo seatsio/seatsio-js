@@ -47,6 +47,25 @@ class Events{
   markEverythingAsForSale(eventKey){
     return this.client.post(`events/${eventKey}/actions/mark-everything-as-for-sale`);
   }
+
+  update(eventKey, chartKey = null, newEventKey = null, bookWholeTablesOrTableBookingModes = null){
+    var requestParams = {};
+
+    if(chartKey){
+      requestParams.chartKey = chartKey;
+    }
+
+    if(newEventKey){
+      requestParams.eventKey = newEventKey;
+    }
+    if(typeof bookWholeTablesOrTableBookingModes === 'boolean'){
+      requestParams.bookWholeTables = bookWholeTablesOrTableBookingModes;
+    } else if(typeof bookWholeTablesOrTableBookingModes !== 'undefined' && bookWholeTablesOrTableBookingModes !== null){
+      requestParams.tableBookingModes = bookWholeTablesOrTableBookingModes;
+    }
+
+    return this.client.post(`events/${eventKey}`, requestParams).then( (res) => res.data);
+  }
 }
 
 module.exports = Events;
