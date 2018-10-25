@@ -20,8 +20,7 @@ class Events{
       requestParams.tableBookingModes = bookWholeTablesOrTableBookingModes;
     }
 
-    return this.client.post(`/events`, requestParams).then( (res) => res.data)
-                                                     .catch( (err) => console.log(err));
+    return this.client.post(`/events`, requestParams).then( (res) => res.data);
   }
 
   retrieve(eventKey){
@@ -69,7 +68,7 @@ class Events{
       requestParams.tableBookingModes = bookWholeTablesOrTableBookingModes;
     }
 
-    return this.client.post(`events/${eventKey}`, requestParams);
+    return this.client.post(`events/${eventKey}`, requestParams).then( (res) => res.data);
   }
 
   updateExtraDatas(eventKey, extraDatas){
