@@ -113,6 +113,33 @@ class Events{
     return this.client.post(`/events/${eventKey}/objects/${obj}/actions/update-extra-data`, request);
   }
 
+  changeBestAvailableObjectStatus(eventKey, number, status, categories = null, holdToken = null, extraData = null, orderId = null){
+    var requestParams = {};
+    var bestAvailable = {};
+    bestAvailable.number= number;
+
+    if(categories){
+      bestAvailable.categories = categories;
+    }
+
+    if(extraData){
+      bestAvailable.extraData = extraData;
+    }
+
+    requestParams.bestAvailable = bestAvailable;
+    requestParams.status = status;
+    if(holdToken){
+      requestParams.holdToken = holdToken;
+    }
+
+    if(orderId){
+      requestParams.orderId = orderId;
+    }
+
+    return this.client.post(`/events/${eventKey}/actions/change-object-status`, requestParams)
+                      .then( (res) => res.data);
+  }
+
   normalizeObjects(objectOrObjects){
     if(Array.isArray(objectOrObjects)){
       if(objectOrObjects.length === 0){
