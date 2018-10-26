@@ -35,14 +35,16 @@ class Events{
 
   changeObjectStatus(eventKeyOrKeys, objectOrObjects, status, holdToken = null, orderId = null){
     var request = {};
-    request.objects = objectOrObjects; //may need to normalize
+
+    request.objects = Array.isArray(objectOrObjects) ? objectOrObjects : [objectOrObjects];
+
     request.status = status;
 
-    if(holdToken){
+    if(holdToken !== null){
       request.holdToken = holdToken;
     }
 
-    if(orderId){
+    if(orderId !== null){
       request.orderId = orderId;
     }
 
@@ -54,6 +56,10 @@ class Events{
 
   hold(eventKeyOrKeys, objectOrObjects, holdToken, orderId = null){
     return this.changeObjectStatus(eventKeyOrKeys, objectOrObjects, ObjectStatus.HELD, holdToken, orderId);
+  }
+
+  book(eventKeyOrKeys, objectOrObjects, holdToken = null, orderId = null){
+    return this.changeObjectStatus(eventKeyOrKeys, objectOrObjects, ObjectStatus.BOOKED, holdToken, orderId);
   }
 
   delete(eventKey){
