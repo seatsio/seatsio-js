@@ -16,13 +16,28 @@ test('should change object status for multiple objects as an array of string', a
   expect(objStatus2.status).toBe('lolzor');
 });
 
-test('should change object status for multiple objects as an array of classes', async () => {
+test('should change object status for multiple objects as an array of objects', async () => {
   var user = await testUtils.createTestUser();
   var client = testUtils.createClient(user.secretKey, testUtils.baseUrl);
   var chartKey = testUtils.getChartKey();
   await testUtils.createTestChart(chartKey, user.designerKey);
   var event = await client.events.create(chartKey);
   var objects = [new ObjectProperties('A-1'), new ObjectProperties('A-2')];
+  await client.events.changeObjectStatus(event.key, objects,'lolzor');
+  var objStatus1 = await client.events.retrieveObjectStatus(event.key, 'A-1');
+  var objStatus2 = await client.events.retrieveObjectStatus(event.key, 'A-2');
+
+  expect(objStatus1.status).toBe('lolzor');
+  expect(objStatus2.status).toBe('lolzor');
+});
+
+test('should change object status for multiple objects as an array of classes', async () => {
+  var user = await testUtils.createTestUser();
+  var client = testUtils.createClient(user.secretKey, testUtils.baseUrl);
+  var chartKey = testUtils.getChartKey();
+  await testUtils.createTestChart(chartKey, user.designerKey);
+  var event = await client.events.create(chartKey);
+  var objects = [{'objectId' : 'A-1'}, {'objectId' : 'A-2'}];
   await client.events.changeObjectStatus(event.key, objects,'lolzor');
   var objStatus1 = await client.events.retrieveObjectStatus(event.key, 'A-1');
   var objStatus2 = await client.events.retrieveObjectStatus(event.key, 'A-2');
