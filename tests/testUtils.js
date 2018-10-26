@@ -2,7 +2,7 @@ const SeatsioClient = require('../src/SeatsioClient.js');
 const axios = require('axios');
 const fs = require('fs');
 const uuidv1 = require('uuid/v1');
-
+//const LabelClasses = require('../src/Common/Labels.js');
 
 module.exports = {
     'baseUrl' : 'https://api-staging.seatsio.net/',
@@ -47,5 +47,29 @@ module.exports = {
         var client = axios.create();
         var url = `https://api-staging.seatsio.net/system/public/${designerKey}/charts/${chartKey}`;
         return client.post(url, requestBody).catch( (err) => console.log(err));
+    },
+
+    someLabels(ownLabel, ownType, parentLabel = null, parentType = null, section = null, entrance = null){
+      var labels = {};
+      labels.own = this.aLabelAndType(ownLabel, ownType);
+      if(parentLabel){
+        labels.parent = this.aLabelAndType(parentLabel, parentType);
+      }
+      if(section){
+        labels.section = section;
+      }
+      if(entrance){
+        labels.entrance = {}
+        labels.entrance.label = entrance;
+      }
+      return labels;
+    },
+
+    aLabelAndType(label, type){
+      var labelAndType = {};
+      labelAndType.type = type;
+      labelAndType.label = label;
+      return labelAndType;
     }
+
 }
