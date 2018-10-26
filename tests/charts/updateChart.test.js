@@ -1,7 +1,7 @@
 const testUtils = require('../testUtils.js');
 
 test('should update chart name', async ()=> {
-  const user = await testUtils.createTestUser();
+  var user = await testUtils.createTestUser();
   var client = testUtils.createClient(user.secretKey, testUtils.baseUrl);
   var categories = [
     {
@@ -18,7 +18,7 @@ test('should update chart name', async ()=> {
 });
 
 test('should update chart categories', async ()=> {
-  const user = await testUtils.createTestUser();
+  var user = await testUtils.createTestUser();
   var client = testUtils.createClient(user.secretKey, testUtils.baseUrl);
   var chart = await client.charts.create('aChart')
   var categories = [

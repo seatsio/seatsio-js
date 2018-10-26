@@ -1,7 +1,7 @@
 const testUtils = require('../testUtils.js');
 
 test('should mark everything as for sale', async ()=> {
-  const user = await testUtils.createTestUser();
+  var user = await testUtils.createTestUser();
   var client = testUtils.createClient(user.secretKey, testUtils.baseUrl);
   var chart = await client.charts.create();
   var event = await client.events.create(chart.key);

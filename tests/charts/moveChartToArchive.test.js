@@ -1,7 +1,7 @@
 const testUtils = require('../testUtils.js');
 
 test('should archive a chart', async ()=> {
-  const user = await testUtils.createTestUser();
+  var user = await testUtils.createTestUser();
   var client = testUtils.createClient(user.secretKey, testUtils.baseUrl);
   var chart = await client.charts.create();
   await client.charts.moveToArchive(chart.key);

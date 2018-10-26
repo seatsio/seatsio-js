@@ -1,7 +1,7 @@
 const testUtils = require('../testUtils.js');
 
 test('should retrieve thumbnail for the draft version of chart', async ()=> {
-  const user = await testUtils.createTestUser();
+  var user = await testUtils.createTestUser();
   var client = testUtils.createClient(user.secretKey, testUtils.baseUrl);
   var chart = await client.charts.create();
   await client.events.create(chart.key);

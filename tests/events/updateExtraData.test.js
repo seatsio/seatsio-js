@@ -1,7 +1,7 @@
 const testUtils = require('../testUtils.js');
 
 test('should update extra data of an event', async ()=> {
-  const user = await testUtils.createTestUser();
+  var user = await testUtils.createTestUser();
   var client = testUtils.createClient(user.secretKey, testUtils.baseUrl);
   var chartKey = testUtils.createTestChartFromFile('/sampleChart.json', user.designerKey);
   var event = await client.events.create(chartKey);

@@ -1,7 +1,7 @@
 const testUtils = require('../testUtils.js');
 
 test("should update event's chart key", async ()=> {
-  const user = await testUtils.createTestUser();
+  var user = await testUtils.createTestUser();
   var client = testUtils.createClient(user.secretKey, testUtils.baseUrl);
   var chart1 = await client.charts.create();
   var chart2 = await client.charts.create();
@@ -14,7 +14,7 @@ test("should update event's chart key", async ()=> {
 });
 
 test('should update event key', async ()=> {
-  const user = await testUtils.createTestUser();
+  var user = await testUtils.createTestUser();
   var client = testUtils.createClient(user.secretKey, testUtils.baseUrl);
   var chart = await client.charts.create();
   var event = await client.events.create(chart.key);
@@ -26,7 +26,7 @@ test('should update event key', async ()=> {
 
 
 test('should update bookWholeTables parameter of an event', async ()=> {
-  const user = await testUtils.createTestUser();
+  var user = await testUtils.createTestUser();
   var client = testUtils.createClient(user.secretKey, testUtils.baseUrl);
   var chart = await client.charts.create();
   var event = await client.events.create(chart.key);
@@ -38,7 +38,7 @@ test('should update bookWholeTables parameter of an event', async ()=> {
 });
 
 test('should update tableBookingModes parameter of an event', async ()=> {
-  const user = await testUtils.createTestUser();
+  var user = await testUtils.createTestUser();
   var client = testUtils.createClient(user.secretKey, testUtils.baseUrl);
   var chartKey = await testUtils.createTestChartFromFile('/sampleChartWithTables.json', user.designerKey)
   var event = await client.events.create(chartKey);

@@ -1,7 +1,7 @@
 const testUtils = require('../testUtils.js');
 
 test('should retrieve chart', async ()=> {
-  const user = await testUtils.createTestUser();
+  var user = await testUtils.createTestUser();
   var client = testUtils.createClient(user.secretKey, testUtils.baseUrl);
   var chart = await client.charts.create();
   await client.charts.addTag(chart.key, 'tag1');
@@ -22,7 +22,7 @@ test('should retrieve chart', async ()=> {
 
 
 test('should retrieve chart with events', async ()=> {
-  const user = await testUtils.createTestUser();
+  var user = await testUtils.createTestUser();
   var client = testUtils.createClient(user.secretKey, testUtils.baseUrl);
   var chart = await client.charts.create();
   var event1 = await client.events.create(chart.key);

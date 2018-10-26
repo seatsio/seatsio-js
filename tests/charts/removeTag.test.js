@@ -1,7 +1,7 @@
 const testUtils = require('../testUtils.js');
 
 test('should remove tag', async ()=> {
-  const user = await testUtils.createTestUser();
+  var user = await testUtils.createTestUser();
   var client = testUtils.createClient(user.secretKey, testUtils.baseUrl);
   var chart = await client.charts.create();
   await client.charts.addTag(chart.key, 'tag1');

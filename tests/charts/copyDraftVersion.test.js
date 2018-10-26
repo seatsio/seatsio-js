@@ -1,7 +1,7 @@
 const testUtils = require('../testUtils.js');
 
 test('should copy draft version of a chart', async ()=> {
-  const user = await testUtils.createTestUser();
+  var user = await testUtils.createTestUser();
   var client = testUtils.createClient(user.secretKey, testUtils.baseUrl);
   var chart = await client.charts.create('oldName');
   await client.events.create(chart.key);

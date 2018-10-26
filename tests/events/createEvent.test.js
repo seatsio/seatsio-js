@@ -1,7 +1,7 @@
 const testUtils = require('../testUtils.js');
 
 test('should check that only chart key is required', async ()=> {
-  const user = await testUtils.createTestUser();
+  var user = await testUtils.createTestUser();
   var client = testUtils.createClient(user.secretKey, testUtils.baseUrl);
   var chartFromFileKey = await testUtils.createTestChartFromFile('/sampleChart.json', user.designerKey);
   var event = await client.events.create(chartFromFileKey);
@@ -20,7 +20,7 @@ test('should check that only chart key is required', async ()=> {
 });
 
 test('should pass in event key as a create() param', async ()=>{
-  const user = await testUtils.createTestUser();
+  var user = await testUtils.createTestUser();
   var client = testUtils.createClient(user.secretKey, testUtils.baseUrl);
   var chart = await client.charts.create();
   var event = await client.events.create(chart.key, 'eventKey');
@@ -29,7 +29,7 @@ test('should pass in event key as a create() param', async ()=>{
 });
 
 test('should pass in BookWholeTables as a create() param', async ()=>{
-  const user = await testUtils.createTestUser();
+  var user = await testUtils.createTestUser();
   var client = testUtils.createClient(user.secretKey, testUtils.baseUrl);
   var chart = await client.charts.create();
   var event = await client.events.create(chart.key, null, false);
@@ -39,7 +39,7 @@ test('should pass in BookWholeTables as a create() param', async ()=>{
 });
 
 test('should pass in tableBookingModes as a create() param', async ()=>{
-  const user = await testUtils.createTestUser();
+  var user = await testUtils.createTestUser();
   var client = testUtils.createClient(user.secretKey, testUtils.baseUrl);
   var chartKey = await testUtils.createTestChartFromFile('/sampleChartWithTables.json', user.designerKey);
   var tableBookingModes = {
