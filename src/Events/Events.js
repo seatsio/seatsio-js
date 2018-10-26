@@ -36,7 +36,8 @@ class Events{
   changeObjectStatus(eventKeyOrKeys, objectOrObjects, status, holdToken = null, orderId = null){
     var request = {};
 
-    request.objects = Array.isArray(objectOrObjects) ? objectOrObjects : [objectOrObjects];
+    //request.objects = Array.isArray(objectOrObjects) ? objectOrObjects : [objectOrObjects];
+    request.objects = this.normalizeObjects(objectOrObjects);
 
     request.status = status;
 
@@ -110,6 +111,24 @@ class Events{
     var request = {};
     request.extraData = extraData;
     return this.client.post(`/events/${eventKey}/objects/${obj}/actions/update-extra-data`, request);
+  }
+
+  normalizeObjects(objectOrObjects){
+    if(Array.isArray(objectOrObjects)){
+      if(objectOrObjects.length === 0){
+        return [];
+      }
+      return objectOrObjects.map( (obj) => {
+        if(typeof obj === "object"){
+          return obj;
+        }
+        if(typeof obj === "string"){
+          return {"objectId" : obj};
+        }
+        return obj;
+      });
+    }
+    return this.normalizeObjects([objectOrObjects]);
   }
 }
 
