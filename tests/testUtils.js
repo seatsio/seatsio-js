@@ -1,7 +1,8 @@
 const SeatsioClient = require('../src/SeatsioClient.js');
 const axios = require('axios');
-const uuidv1 = require('uuid/v1');
 const fs = require('fs');
+const uuidv1 = require('uuid/v1');
+
 
 module.exports = {
     'baseUrl' : 'https://api-staging.seatsio.net/',
@@ -21,16 +22,30 @@ module.exports = {
         return testUserPr;
     },
 
+    getChartKey: function(){
+      return uuidv1();
+    },
+
     createClient: function (key, baseUrl) {
         return new SeatsioClient(key, baseUrl);
     },
-    
-    createTestChartFromFile: function (filePath, designerKey) {
+
+    createTestChart: async function(chartKey, designerKey){
+      await this.createTestChartFromFile('/sampleChart.json', chartKey, designerKey);
+    },
+
+    createTestChartWithTables: async function(chartKey, designerKey){
+      await this.createTestChartFromFile('/sampleChartWithTables.json', chartKey, designerKey);
+    },
+
+    createTestChartWithSections: async function(chartKey, designerKey){
+      await this.createTestChartFromFile('/sampleChartWithSections.json', chartKey, designerKey);
+    },
+
+    createTestChartFromFile: function (filePath, chartKey, designerKey) {
         var requestBody = fs.readFileSync(__dirname + filePath, 'utf-8');
         var client = axios.create();
-        var chartKey = uuidv1();
         var url = `https://api-staging.seatsio.net/system/public/${designerKey}/charts/${chartKey}`;
-        client.post(url, requestBody);
-        return chartKey;
+        return client.post(url, requestBody).catch( (err) => console.log(err));
     }
 }

@@ -40,7 +40,8 @@ test('should update bookWholeTables parameter of an event', async ()=> {
 test('should update tableBookingModes parameter of an event', async ()=> {
   var user = await testUtils.createTestUser();
   var client = testUtils.createClient(user.secretKey, testUtils.baseUrl);
-  var chartKey = await testUtils.createTestChartFromFile('/sampleChartWithTables.json', user.designerKey)
+  var chartKey = testUtils.getChartKey();
+  await testUtils.createTestChartWithTables(chartKey, user.designerKey);
   var event = await client.events.create(chartKey);
   await client.events.update(event.key, null, null, {"T1" : "BY_TABLE", "T2" : "BY_SEAT"});
   var retrievedEvent = await client.events.retrieve(event.key);

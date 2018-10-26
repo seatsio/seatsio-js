@@ -3,14 +3,15 @@ const testUtils = require('../testUtils.js');
 test('should check that only chart key is required', async ()=> {
   var user = await testUtils.createTestUser();
   var client = testUtils.createClient(user.secretKey, testUtils.baseUrl);
-  var chartFromFileKey = await testUtils.createTestChartFromFile('/sampleChart.json', user.designerKey);
-  var event = await client.events.create(chartFromFileKey);
+  var chartKey = testUtils.getChartKey();
+  await testUtils.createTestChart(chartKey, user.designerKey);
+  var event = await client.events.create(chartKey);
 
   expect(event.key).toBeDefined();
   expect(event.key).toBeTruthy();
   expect(event.id).toBeDefined();
   expect(event.id).toBeTruthy();
-  expect(event.chartKey).toBe(chartFromFileKey);
+  expect(event.chartKey).toBe(chartKey);
   expect(event.bookWholeTables).toBe(false);
   expect(event.supportsBestAvailable).toBe(true);
   expect(event.createdOn).toBeDefined();
@@ -41,7 +42,8 @@ test('should pass in BookWholeTables as a create() param', async ()=>{
 test('should pass in tableBookingModes as a create() param', async ()=>{
   var user = await testUtils.createTestUser();
   var client = testUtils.createClient(user.secretKey, testUtils.baseUrl);
-  var chartKey = await testUtils.createTestChartFromFile('/sampleChartWithTables.json', user.designerKey);
+  var chartKey = testUtils.getChartKey();
+  await testUtils.createTestChartWithTables(chartKey, user.designerKey);
   var tableBookingModes = {
     'T1' : 'BY_TABLE',
     'T2' : 'BY_SEAT'
