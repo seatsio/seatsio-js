@@ -72,6 +72,11 @@ class Events{
     return this.changeBestAvailableObjectStatus(eventKey, number, ObjectStatus.BOOKED, categories, holdToken, orderId);
   }
 
+  release(eventKeyOrKeys, objectOrObjects, holdToken = null, orderId = null)
+    {
+        return this.changeObjectStatus(eventKeyOrKeys, objectOrObjects, ObjectStatus.FREE, holdToken, orderId);
+    }
+
   delete(eventKey){
     return this.client.delete(`/events/${eventKey}`).then( (res) => res.data);
   }
