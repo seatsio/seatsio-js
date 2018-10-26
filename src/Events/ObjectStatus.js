@@ -1,13 +1,3 @@
-class ObjectStatus{
-  constructor(){
-    this.FREE = 'free';
-    this.BOOKED = 'booked';
-    this.HELD = 'reservedByToken';
-    this.status = '';
-  }
-  setStatus(status){
-    this.status = status;
-  }
-}
+var ObjectStatus = { FREE: 'free', BOOKED: 'booked', HELD: 'reservedByToken'};
 
 module.exports = ObjectStatus;

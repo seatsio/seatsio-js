@@ -33,6 +33,29 @@ class Events{
                       .then( (res) => res.data);
   }
 
+  changeObjectStatus(eventKeyOrKeys, objectOrObjects, status, holdToken = null, orderId = null){
+    var request = {};
+    request.objects = objectOrObjects; //may need to normalize
+    request.status = status;
+
+    if(holdToken){
+      request.holdToken = holdToken;
+    }
+
+    if(orderId){
+      request.orderId = orderId;
+    }
+
+    request.events = Array.isArray(eventKeyOrKeys) ? eventKeyOrKeys : [eventKeyOrKeys];
+
+    return this.client.post(`/seasons/actions/change-object-status?expand=labels`, request)
+                      .then( (res) => res.data);
+  }
+
+  hold(eventKeyOrKeys, objectOrObjects, holdToken, orderId = null){
+    return this.changeObjectStatus(eventKeyOrKeys, objectOrObjects, ObjectStatus.HELD, holdToken, orderId);
+  }
+
   delete(eventKey){
     return this.client.delete(`/events/${eventKey}`).then( (res) => res.data);
   }
