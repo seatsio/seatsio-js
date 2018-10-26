@@ -1,6 +1,7 @@
 const testUtils = require('../testUtils.js');
+const ObjectStatus = require('../../src/Events/ObjectStatus.js');
 
-test('should change change best available object status', async () => {
+test('should change best available object status', async () => {
   var user = await testUtils.createTestUser();
   var client = testUtils.createClient(user.secretKey, testUtils.baseUrl);
   var chartKey = testUtils.getChartKey();
@@ -20,7 +21,7 @@ test('should change change best available object status', async () => {
   expect(bestAvailableObjs.labels).toEqual(labels);
 });
 
-test('should change change best available object status with categories', async () => {
+test('should change best available object status with categories', async () => {
   var user = await testUtils.createTestUser();
   var client = testUtils.createClient(user.secretKey, testUtils.baseUrl);
   var chartKey = testUtils.getChartKey();
@@ -34,7 +35,7 @@ test('should change change best available object status with categories', async 
   expect(bestAvailableObjs.objects.length).toBe(3);
 });
 
-test('should change change best available object status with extra data', async () => {
+test('should change best available object status with extra data', async () => {
   var user = await testUtils.createTestUser();
   var client = testUtils.createClient(user.secretKey, testUtils.baseUrl);
   var chartKey = testUtils.getChartKey();
@@ -52,4 +53,53 @@ test('should change change best available object status with extra data', async 
   expect(bestAvailableObjs.objects.length).toBe(2);
   expect(b4Status.extraData).toEqual(extraData[0]);
   expect(b5Status.extraData).toEqual(extraData[1]);
+});
+
+test('should change best available object status with hold token', async () => {
+  var user = await testUtils.createTestUser();
+  var client = testUtils.createClient(user.secretKey, testUtils.baseUrl);
+  var chartKey = testUtils.getChartKey();
+  await testUtils.createTestChart(chartKey, user.designerKey);
+  var event = await client.events.create(chartKey);
+  var holdToken = await client.holdTokens.create();
+  var bestAvailableObjs = await client.events.changeBestAvailableObjectStatus(event.key, 1, ObjectStatus.HELD, null, holdToken.holdToken);
+  var objStatus = await client.events.retrieveObjectStatus(event.key, bestAvailableObjs.objects[0]);
+  expect(objStatus.status).toBe(ObjectStatus.HELD);
+  expect(objStatus.holdToken).toBe(holdToken.holdToken);
+});
+
+test('should change best available object status with orderId', async () => {
+  var user = await testUtils.createTestUser();
+  var client = testUtils.createClient(user.secretKey, testUtils.baseUrl);
+  var chartKey = testUtils.getChartKey();
+  await testUtils.createTestChart(chartKey, user.designerKey);
+  var event = await client.events.create(chartKey);
+  var bestAvailableObjs = await client.events.changeBestAvailableObjectStatus(event.key, 1, 'lolzor', null, null, null, 'anOrder');
+  var objStatus = await client.events.retrieveObjectStatus(event.key, bestAvailableObjs.objects[0]);
+  expect(objStatus.orderId).toBe('anOrder');
+});
+
+test('should book best available object ', async () => {
+  var user = await testUtils.createTestUser();
+  var client = testUtils.createClient(user.secretKey, testUtils.baseUrl);
+  var chartKey = testUtils.getChartKey();
+  await testUtils.createTestChart(chartKey, user.designerKey);
+  var event = await client.events.create(chartKey);
+  var bestAvailableObjs = await client.events.bookBestAvailable(event.key, 3);
+
+  expect(bestAvailableObjs.nextToEachOther).toBe(true);
+  expect(bestAvailableObjs.objects).toEqual(["B-4", "B-5", "B-6"]);
+});
+
+test('should hold best available object ', async () => {
+  var user = await testUtils.createTestUser();
+  var client = testUtils.createClient(user.secretKey, testUtils.baseUrl);
+  var chartKey = testUtils.getChartKey();
+  await testUtils.createTestChart(chartKey, user.designerKey);
+  var event = await client.events.create(chartKey);
+  var holdToken = await client.holdTokens.create();
+  var bestAvailableObjs = await client.events.holdBestAvailable(event.key, 1, holdToken.holdToken);
+  var objStatus = await client.events.retrieveObjectStatus(event.key, bestAvailableObjs.objects[0])
+  expect(objStatus.status).toBe(ObjectStatus.HELD);
+  expect(objStatus.holdToken).toBe(holdToken.holdToken);
 });

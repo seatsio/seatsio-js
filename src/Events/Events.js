@@ -59,8 +59,17 @@ class Events{
     return this.changeObjectStatus(eventKeyOrKeys, objectOrObjects, ObjectStatus.HELD, holdToken, orderId);
   }
 
+  holdBestAvailable(eventKey, number, holdToken, categories = null, orderId = null)
+   {
+       return this.changeBestAvailableObjectStatus(eventKey, number, ObjectStatus.HELD, categories, holdToken, orderId);
+   }
+
   book(eventKeyOrKeys, objectOrObjects, holdToken = null, orderId = null){
     return this.changeObjectStatus(eventKeyOrKeys, objectOrObjects, ObjectStatus.BOOKED, holdToken, orderId);
+  }
+
+  bookBestAvailable(eventKey, number, categories = null, holdToken = null, orderId = null){
+    return this.changeBestAvailableObjectStatus(eventKey, number, ObjectStatus.BOOKED, categories, holdToken, orderId);
   }
 
   delete(eventKey){
