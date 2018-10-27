@@ -70,6 +70,10 @@ module.exports = {
       labelAndType.type = type;
       labelAndType.label = label;
       return labelAndType;
+    },
+
+    getRandomEmail(){
+      return uuidv1() + '@mailinator.com';
     }
 
 }

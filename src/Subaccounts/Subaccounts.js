@@ -8,6 +8,10 @@ class Subaccounts{
     return this.doCreate(null, name);
   }
 
+  createWithEmail(email, name = null){
+    return this.doCreate(email, name);
+  }
+
   doCreate(email = null, name = null){
     var requestParams = {};
 
