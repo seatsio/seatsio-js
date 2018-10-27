@@ -92,6 +92,20 @@ class Events{
     return this.client.post(`events/${eventKey}/actions/mark-as-for-sale`, requestParams);
   }
 
+  markAsNotForSale(eventKey, objects = null, categories = null){
+    var request = {};
+
+    if(objects){
+      request.objects = objects;
+    }
+
+    if(categories){
+      request.categories = categories;
+    }
+
+    return this.client.post(`events/${eventKey}/actions/mark-as-not-for-sale`, request);
+  }
+
   markEverythingAsForSale(eventKey){
     return this.client.post(`events/${eventKey}/actions/mark-everything-as-for-sale`);
   }
