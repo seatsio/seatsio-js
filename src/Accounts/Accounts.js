@@ -4,8 +4,8 @@ class Accounts{
   }
 
   retrieveMyAccount(){
-    return this.client.get('/accounts/me');
+    return this.client.get('/accounts/me').then( (res) => res.data);
   }
 }
 
-module.export = Accounts;
+module.exports = Accounts;
