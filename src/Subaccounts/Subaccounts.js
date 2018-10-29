@@ -34,6 +34,20 @@ class Subaccounts{
   copyChartToParent(id, chartKey){
     return this.client.post(`/subaccounts/${id}/charts/${chartKey}/actions/copy-to/parent`).then( (res) => res.data);
   }
+
+  activate(id)
+  {
+    return this.client.post(`/subaccounts/${id}/actions/activate`);
+  }
+
+  deactivate(id)
+  {
+    return this.client.post(`/subaccounts/${id}/actions/deactivate`);
+  }
+
+  retrieve(id){
+    return this.client.get(`/subaccounts/${id}`).then( (res) => res.data);
+  }
 }
 
 module.exports = Subaccounts;
