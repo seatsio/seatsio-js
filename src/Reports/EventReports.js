@@ -27,11 +27,31 @@ class EventReports{
     return this.client.get(this.reportUrl('bySection', eventKey, section)).then( (res) => res.data);
   }
 
+  summaryBySection(eventKey){
+    return this.client.get(this.summaryReportUrl('bySection', eventKey)).then( (res) => res.data);
+  }
+
+  summaryByCategoryLabel(eventKey){
+    return this.client.get(this.summaryReportUrl('byCategoryLabel', eventKey)).then( (res) => res.data);
+  }
+
+  summaryByCategoryKey(eventKey){
+    return this.client.get(this.summaryReportUrl('byCategoryKey', eventKey)).then( (res) => res.data);
+  }
+
+  summaryByStatus(eventKey){
+    return this.client.get(this.summaryReportUrl('byStatus', eventKey)).then( (res) => res.data);
+  }
+
   reportUrl(reportType, eventKey, filter){
     if(filter === null || filter === undefined){
       return `/reports/events/${eventKey}/${reportType}`;
     }
     return `/reports/events/${eventKey}/${reportType}/${filter}`;
+  }
+
+  summaryReportUrl(reportType, eventKey){
+    return `/reports/events/${eventKey}/${reportType}/summary`;
   }
 }
 
