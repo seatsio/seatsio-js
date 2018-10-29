@@ -62,6 +62,14 @@ class Subaccounts{
 
     return this.client.post(`/subaccounts/${id}`, request);
   }
+
+  regenerateSecretKey(id){
+    return this.client.post(`/subaccounts/${id}/secret-key/actions/regenerate`).then( (res) => res.data);
+  }
+
+  regenerateDesignerKey(id){
+    return this.client.post(`/subaccounts/${id}/designer-key/actions/regenerate`).then( (res) => res.data);
+  }
 }
 
 module.exports = Subaccounts;
