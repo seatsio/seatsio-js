@@ -5,6 +5,7 @@ const Events = require('./Events/Events.js');
 const Subaccounts = require('./Subaccounts/Subaccounts.js');
 const HoldTokens = require('./HoldTokens/HoldTokens.js');
 const ChartReports = require('./Reports/ChartReports.js');
+const EventReports = require('./Reports/EventReports.js');
 const errorResponseHandler = require('../src/errorHandler.js');
 
 
@@ -39,10 +40,8 @@ class SeatsioClient {
     this.holdTokens = new HoldTokens(this.client);
     this.accounts = new Accounts(this.client);
     this.chartReports = new ChartReports(this.client);
-
-    /*
     this.eventReports = new EventReports(this.client);
-    */
+    
   }
 }
 
