@@ -48,6 +48,20 @@ class Subaccounts{
   retrieve(id){
     return this.client.get(`/subaccounts/${id}`).then( (res) => res.data);
   }
+
+  update(id, name, email){
+    var request = {};
+
+    if(name){
+      request.name = name;
+    }
+
+    if(email){
+      request.email = email;
+    }
+
+    return this.client.post(`/subaccounts/${id}`, request);
+  }
 }
 
 module.exports = Subaccounts;
