@@ -17,8 +17,12 @@ class PageFetcher {
   }
 
   fetchBefore(beforeId, queryParams, pageSize){
+    if(queryParams === null){
+      var queryParams = {};
+    }
+    
     if(beforeId){
-      queryParams['end_before_id'] = beforeId;
+      queryParams.end_before_id = beforeId;
     }
 
     return this.fetch(queryParams, pageSize);
