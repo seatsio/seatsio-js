@@ -1,5 +1,6 @@
 class Page{
-  constructor(){
+  constructor(items){
+    this.items = items;
     this.nextPageStartsAfter = '';
     this.previousPageEndsBefore = '';
   }

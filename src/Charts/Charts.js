@@ -2,7 +2,7 @@ const PageFetcher = require('../PageFetcher.js');
 const Chart = require('./Chart.js');
 const ChartListener = require('./ChartListener.js');
 const FilterableChartLister = require('./FilterableChartLister.js');
-const ChartPage = require('./ChartPage.js')
+const Page = require('../Page.js')
 
 class Charts {
   constructor(client){
@@ -140,7 +140,7 @@ class Charts {
         return new Chart(chartData.name, chartData.id, chartData.key, chartData.status, chartData.tags, chartData.publishedVersionThumbnailUrl,
                           null, null, chartData.archived);
       });
-      return new ChartPage(chartItems);
+      return new Page(chartItems);
     }));
   }
 

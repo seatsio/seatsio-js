@@ -1,5 +1,4 @@
 const ChartPagedIterator = require('./ChartPagedIterator.js');
-const ChartPage = require('./ChartPage.js');
 
 class FilterableChartLister{
   constructor(pageFetcher){
