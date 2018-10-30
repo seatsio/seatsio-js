@@ -126,6 +126,10 @@ class Charts {
     return this.iterator().firstPage(chartListParams, pageSize);
   }
 
+  listPageAfter(afterId, chartListParams = null, pageSize = null){
+    return this.iterator().pageAfter(afterId, chartListParams, pageSize);
+  }
+
   iterator(){
     return new FilterableChartLister(new PageFetcher('/charts', this.client, function (results) {
       var chartItems = results.items.map((chartData) => {

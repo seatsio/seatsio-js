@@ -9,6 +9,10 @@ class FilterableChartLister{
   firstPage(queryParams, pageSize = null){
     return this.pageFetcher.fetchAfter(null, queryParams, pageSize);
   }
+
+  pageAfter(afterId, queryParams, pageSize = null){
+    return this.pageFetcher.fetchAfter(afterId, queryParams, pageSize);
+  }
 }
 
 module.exports = FilterableChartLister;
