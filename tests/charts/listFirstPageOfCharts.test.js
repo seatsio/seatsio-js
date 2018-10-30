@@ -32,7 +32,7 @@ test('should list first page of charts with filter', async () => {
   expect(chartKeys).toContain(chart4.key);
 });
 
-test('pageSize of list first page of charts with filter', async () => {
+test('pageSize of list first page of charts with page size', async () => {
   var user = await testUtils.createTestUser();
   var client = testUtils.createClient(user.secretKey, testUtils.baseUrl);
   var chart1 = await client.charts.create('foo');
