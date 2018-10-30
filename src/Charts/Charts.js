@@ -143,17 +143,6 @@ class Charts {
       return new Page(chartItems);
     }));
   }
-
-  /*
-  listParamsToArray(chartListParams){
-    if(chartListParams === null || typeof chartListParams === 'undefined'){
-      return [];
-    }
-    return [chartListParams]; //fix this later using toArray() JS equivalent
-  }
-
-  */
-
 }
 
 module.exports = Charts;
