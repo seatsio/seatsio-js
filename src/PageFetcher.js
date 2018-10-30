@@ -6,10 +6,13 @@ class PageFetcher {
   }
 
   fetchAfter(afterId, queryParams, pageSize){
-    if(afterId){
-      queryParams['start_after_id'] = afterId;
+    if(queryParams === null){
+      var queryParams = {};
     }
 
+    if(afterId){
+      queryParams.start_after_id = afterId;
+    }
     return this.fetch(queryParams, pageSize);
   }
 
@@ -23,9 +26,10 @@ class PageFetcher {
 
   async fetch(queryParams, pageSize){
     if(pageSize){
-      queryParams['limit'] = pageSize;
+      queryParams.limit = pageSize;
     }
-    var res = await this.client.get(this.url, queryParams).then( (res) => res.data);
+
+    var res = await this.client.get(this.url, {params: queryParams}).then( (res) => res.data);
     return this.pageCreator(res);
   }
 }

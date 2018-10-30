@@ -123,7 +123,7 @@ class Charts {
   }
 
   listFirstPage(chartListParams = null, pageSize = null){
-    return this.iterator().firstPage(this.listParamsToArray(chartListParams), pageSize);
+    return this.iterator().firstPage(chartListParams, pageSize);
   }
 
   iterator(){
@@ -136,12 +136,15 @@ class Charts {
     }));
   }
 
+  /*
   listParamsToArray(chartListParams){
     if(chartListParams === null || typeof chartListParams === 'undefined'){
       return [];
     }
     return [chartListParams]; //fix this later using toArray() JS equivalent
   }
+
+  */
 
 }
 
