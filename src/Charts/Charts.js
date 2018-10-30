@@ -1,6 +1,8 @@
 const PageFetcher = require('../PageFetcher.js');
 const Chart = require('./Chart.js');
-const ChartListener = require('./ChartListener');
+const ChartListener = require('./ChartListener.js');
+const FilterableChartLister = require('./FilterableChartLister.js');
+const ChartPage = require('./ChartPage.js')
 
 class Charts {
   constructor(client){
@@ -118,6 +120,27 @@ class Charts {
     }
 
     return this.client.post(`/charts/${key}`, requestParams).then( (res) => res.data);
+  }
+
+  listFirstPage(chartListParams = null, pageSize = null){
+    return this.iterator().firstPage(this.listParamsToArray(chartListParams), pageSize);
+  }
+
+  iterator(){
+    return new FilterableChartLister(new PageFetcher('/charts', this.client, function (results) {
+      var chartItems = results.items.map((chartData) => {
+        return new Chart(chartData.name, chartData.id, chartData.key, chartData.status, chartData.tags, chartData.publishedVersionThumbnailUrl,
+                          null, null, chartData.archived);
+      });
+      return new ChartPage(chartItems);
+    }));
+  }
+
+  listParamsToArray(chartListParams){
+    if(chartListParams === null || typeof chartListParams === 'undefined'){
+      return [];
+    }
+    return [chartListParams]; //fix this later using toArray() JS equivalent
   }
 
 }
