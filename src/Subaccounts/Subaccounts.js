@@ -7,6 +7,20 @@ class Subaccounts{
 
   constructor(client){
     this.client = client;
+    this.active = new Lister(new PageFetcher('/subaccounts/active', this.client, function (results) {
+      var subaccountItems = results.items.map((data) => {
+        return new Subaccount(data.id, data.secretKey, data.designerKey,
+                        data.publicKey, data.name, data.email, data.active);
+      });
+      return new Page(subaccountItems);
+    }));
+    this.inactive = new Lister(new PageFetcher('/subaccounts/inactive', this.client, function (results) {
+      var subaccountItems = results.items.map((data) => {
+        return new Subaccount(data.id, data.secretKey, data.designerKey,
+                        data.publicKey, data.name, data.email, data.active);
+      });
+      return new Page(subaccountItems);
+    }));
   }
 
   create(name = null){
