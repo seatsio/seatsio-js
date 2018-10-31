@@ -1,6 +1,6 @@
 const testUtils = require('../testUtils.js');
 
-test('should list status changes', async ()=> {
+test('should list status changes for objects', async ()=> {
   var user = await testUtils.createTestUser();
   var client = testUtils.createClient(user.secretKey, testUtils.baseUrl);
   var chartKey = testUtils.getChartKey();
