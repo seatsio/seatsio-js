@@ -1,4 +1,8 @@
 const ObjectStatus = require('./ObjectStatus.js');
+const EventLister = require('./EventLister.js');
+const PageFetcher = require('../PageFetcher.js');
+const Event = require('./Event.js');
+const Page = require('../Page.js');
 
 class Events{
   constructor(client){
@@ -184,6 +188,21 @@ class Events{
       });
     }
     return this.normalizeObjects([objectOrObjects]);
+  }
+
+  listAll(){
+    return this.iterator().all();
+  }
+
+  iterator(){
+    return new EventLister(new PageFetcher('/events', this.client, (results) => {
+      var eventItems = results.items.map((eventData) => {
+        return new Event(eventData.id, eventData.key, eventData.bookWholeTables,
+                            eventData.supportsBestAvailable, eventData.forSaleConfig,
+                              eventData.chartKey, eventData.createdOn, eventData.updatedOn);
+      });
+      return new Page(eventItems);
+    } ))
   }
 }
 
