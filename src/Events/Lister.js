@@ -1,4 +1,4 @@
-class EventLister{
+class Lister{
   constructor(pageFetcher){
     this.pageFetcher = pageFetcher;
   }
@@ -9,4 +9,4 @@ class EventLister{
 
 }
 
-module.exports = EventLister;
+module.exports = Lister;

@@ -1,10 +1,9 @@
-const StatusChangeLister = require('./StatusChangeLister.js');
 const StatusChange = require('./StatusChange.js');
-const EventLister = require('./EventLister.js');
 const Event = require('./Event.js');
 const PageFetcher = require('../PageFetcher.js');
 const Page = require('../Page.js');
 const ObjectStatus = require('./ObjectStatus.js');
+const Lister = require('./Lister.js')
 
 class Events{
   constructor(client){
@@ -198,7 +197,7 @@ class Events{
 
   statusChanges(eventKey, objectId = null){
        if(objectId === null) {
-           return new StatusChangeLister(new PageFetcher(`/events/${eventKey}/status-changes`, this.client, (results) => {
+           return new Lister(new PageFetcher(`/events/${eventKey}/status-changes`, this.client, (results) => {
              var statusItems = results.items.map((statusData) => {
                return new StatusChange(statusData.id, statusData.eventId, statusData.status,
                                                     statusData.quantity, statusData.objectLabel,
@@ -208,7 +207,7 @@ class Events{
            }));
        }
 
-       return new StatusChangeLister(new PageFetcher(`/events/${eventKey}/objects/${objectId}/status-changes`, this.client, (results) => {
+       return new Lister(new PageFetcher(`/events/${eventKey}/objects/${objectId}/status-changes`, this.client, (results) => {
          var statusItems = results.items.map((statusData) => {
            return new StatusChange(statusData.id, statusData.eventId, statusData.status,
                                                 statusData.quantity, statusData.objectLabel,
@@ -219,7 +218,7 @@ class Events{
    }
 
   iterator(){
-    return new EventLister(new PageFetcher('/events', this.client, (results) => {
+    return new Lister(new PageFetcher('/events', this.client, (results) => {
       var eventItems = results.items.map((eventData) => {
         return new Event(eventData.id, eventData.key, eventData.bookWholeTables,
                             eventData.supportsBestAvailable, eventData.forSaleConfig,
