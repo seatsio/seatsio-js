@@ -32,8 +32,6 @@ class PageFetcher {
     if(pageSize){
       queryParams.limit = pageSize;
     }
-    
-    //console.log(queryParams);
 
     var res = await this.client.get(this.url, {params: queryParams}).then( (res) => res.data);
     return this.pageCreator(res);

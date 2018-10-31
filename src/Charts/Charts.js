@@ -10,7 +10,7 @@ class Charts {
     this.archive = new ChartLister(new PageFetcher('/charts/archive', this.client, function (results) {
       var chartItems = results.items.map((chartData) => {
         return new Chart(chartData.name, chartData.id, chartData.key, chartData.status, chartData.tags,
-          chartData.publishedVersionThumbnailUrl, null, chartData.events, chartData.archived);
+          chartData.publishedVersionThumbnailUrl, chartData.draftVersionThumbnailUrl, chartData.events, chartData.archived);
       });
       return new Page(chartItems);
     }));
@@ -148,7 +148,7 @@ class Charts {
     return new FilterableChartLister(new PageFetcher('/charts', this.client, function (results) {
       var chartItems = results.items.map((chartData) => {
         return new Chart(chartData.name, chartData.id, chartData.key, chartData.status, chartData.tags,
-          chartData.publishedVersionThumbnailUrl, null, chartData.events, chartData.archived);
+          chartData.publishedVersionThumbnailUrl, chartData.publishedVersionThumbnailUrl, chartData.events, chartData.archived);
       });
       return new Page(chartItems);
     }));
