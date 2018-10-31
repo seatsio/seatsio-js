@@ -110,8 +110,11 @@ class Charts {
   }
 
   moveToArchive(key){
-    return this.client.post(`charts/${key}/actions/move-to-archive`)
-                      .then( (res) => res.data);
+    return this.client.post(`charts/${key}/actions/move-to-archive`);
+  }
+
+  moveOutOfArchive(key){
+    return this.client.post(`charts/${key}/actions/move-out-of-archive`);
   }
 
   update(key, name = null, categories = null){
