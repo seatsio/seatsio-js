@@ -1,5 +1,5 @@
 const testUtils = require('../testUtils.js');
-const ChartListParams = require('../../src/Charts/ChartListParams.js')
+const ChartListParams = require('../../src/Charts/ChartListParams.js');
 
 test('should list charts before a given chart id', async () => {
   var user = await testUtils.createTestUser();

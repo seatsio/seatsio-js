@@ -16,6 +16,11 @@ class FilterableChartLister{
   pageBefore(beforeId, queryParams, pageSize = null){
     return this.pageFetcher.fetchBefore(beforeId, queryParams, pageSize);
   }
+
+  all(queryParams){
+    return this.pageFetcher.fetch(queryParams, null);
+  }
 }
+
 
 module.exports = FilterableChartLister;

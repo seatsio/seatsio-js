@@ -20,7 +20,7 @@ class PageFetcher {
     if(queryParams === null){
       var queryParams = {};
     }
-    
+
     if(beforeId){
       queryParams.end_before_id = beforeId;
     }
@@ -32,6 +32,8 @@ class PageFetcher {
     if(pageSize){
       queryParams.limit = pageSize;
     }
+    
+    //console.log(queryParams);
 
     var res = await this.client.get(this.url, {params: queryParams}).then( (res) => res.data);
     return this.pageCreator(res);
