@@ -91,7 +91,6 @@ test('listAll charts with tag and filter parameters', async () => {
   expect(chartKeys).not.toContain(chart4.key);
 });
 
-/* This test fails
 test('listAll charts with expandEvents parameters', async () => {
   var user = await testUtils.createTestUser();
   var client = testUtils.createClient(user.secretKey, testUtils.baseUrl);
@@ -100,14 +99,8 @@ test('listAll charts with expandEvents parameters', async () => {
   var event2 = await client.events.create(chart.key);
   var params = new ChartListParams().withExpandEvents(true);
   var page = await client.charts.listAll(params);
-  //console.log(page);
-
-  var eventKeys = [];
-  for(let chart of page){
-    eventKeys.push(chart.events.key);
-  }
+  var eventKeys = [page.items[0].events[0].key, page.items[0].events[1].key ];
 
   expect(eventKeys).toContain(event1.key);
   expect(eventKeys).toContain(event2.key);
 });
-*/

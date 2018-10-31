@@ -141,8 +141,8 @@ class Charts {
   iterator(){
     return new FilterableChartLister(new PageFetcher('/charts', this.client, function (results) {
       var chartItems = results.items.map((chartData) => {
-        return new Chart(chartData.name, chartData.id, chartData.key, chartData.status, chartData.tags, chartData.publishedVersionThumbnailUrl,
-                          null, null, chartData.archived);
+        return new Chart(chartData.name, chartData.id, chartData.key, chartData.status, chartData.tags,
+          chartData.publishedVersionThumbnailUrl, null, chartData.events, chartData.archived);
       });
       return new Page(chartItems);
     }));
