@@ -1,8 +1,10 @@
-const ObjectStatus = require('./ObjectStatus.js');
+const StatusChangeLister = require('./StatusChangeLister.js');
+const StatusChange = require('./StatusChange.js');
 const EventLister = require('./EventLister.js');
-const PageFetcher = require('../PageFetcher.js');
 const Event = require('./Event.js');
+const PageFetcher = require('../PageFetcher.js');
 const Page = require('../Page.js');
+const ObjectStatus = require('./ObjectStatus.js');
 
 class Events{
   constructor(client){
@@ -193,6 +195,28 @@ class Events{
   listAll(){
     return this.iterator().all();
   }
+
+  statusChanges(eventKey, objectId = null){
+       if(objectId === null) {
+           return new StatusChangeLister(new PageFetcher(`/events/${eventKey}/status-changes`, this.client, (results) => {
+             var statusItems = results.items.map((statusData) => {
+               return new StatusChange(statusData.id, statusData.eventId, statusData.status,
+                                                    statusData.quantity, statusData.objectLabel,
+                                          statusData.date, statusData.orderId, statusData.extraData);
+             });
+             return new Page(statusItems);
+           }));
+       }
+
+       return new StatusChangeLister(new PageFetcher(`/events/${eventKey}/objects/${objectId}/status-changes`, this.client, (results) => {
+         var statusItems = results.items.map((statusData) => {
+           return new StatusChange(statusData.id, statusData.eventId, statusData.status,
+                                                statusData.quantity, statusData.objectLabel,
+                                      statusData.date, statusData.orderId, statusData.extraData);
+         });
+         return new Page(statusItems);
+       }));
+   }
 
   iterator(){
     return new EventLister(new PageFetcher('/events', this.client, (results) => {
