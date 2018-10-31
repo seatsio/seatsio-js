@@ -1,13 +1,19 @@
 const PageFetcher = require('../PageFetcher.js');
 const Chart = require('./Chart.js');
-const ChartListener = require('./ChartListener.js');
+const ChartLister = require('./ChartLister.js');
 const FilterableChartLister = require('./FilterableChartLister.js');
 const Page = require('../Page.js')
 
 class Charts {
   constructor(client){
     this.client = client;
-    //this.archive = new ChartListener();
+    this.archive = new ChartLister(new PageFetcher('/charts/archive', this.client, function (results) {
+      var chartItems = results.items.map((chartData) => {
+        return new Chart(chartData.name, chartData.id, chartData.key, chartData.status, chartData.tags,
+          chartData.publishedVersionThumbnailUrl, null, chartData.events, chartData.archived);
+      });
+      return new Page(chartItems);
+    }));
   }
 
   create(name = null, venueType = null, categories = null){
