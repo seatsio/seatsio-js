@@ -1,3 +1,8 @@
+const Subaccount = require('./Subaccount.js');
+const Lister = require('./Lister.js');
+const Page = require('../Page.js');
+const PageFetcher = require('../PageFetcher.js');
+
 class Subaccounts{
 
   constructor(client){
@@ -69,6 +74,20 @@ class Subaccounts{
 
   regenerateDesignerKey(id){
     return this.client.post(`/subaccounts/${id}/designer-key/actions/regenerate`).then( (res) => res.data);
+  }
+
+  listAll(){
+    return this.iterator().all();
+  }
+
+  iterator(){
+    return new Lister(new PageFetcher('/subaccounts', this.client, (results) => {
+      var subaccountItems = results.items.map((data) => {
+        return new Subaccount(data.id, data.secretKey, data.designerKey,
+                        data.publicKey, data.name, data.email, data.active);
+      });
+      return new Page(subaccountItems);
+    }));
   }
 }
 

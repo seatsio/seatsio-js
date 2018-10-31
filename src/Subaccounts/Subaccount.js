@@ -4,13 +4,11 @@ class Subaccount{
     this.secretKey = secretKey;
     this.designerKey = designerKey;
     this.publicKey = publicKey;
-    this.name = name;
+    if(name){
+      this.name = name;
+    }
     this.email = email;
     this.active = active;
-  }
-
-  static create(){
-    return Object.create(this.prototype);
   }
 }
 

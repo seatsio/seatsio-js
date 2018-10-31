@@ -225,7 +225,7 @@ class Events{
                               eventData.chartKey, eventData.createdOn, eventData.updatedOn);
       });
       return new Page(eventItems);
-    } ))
+    }))
   }
 }
 
