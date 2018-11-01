@@ -6,10 +6,10 @@ class StatusChange{
     this.quantity = quantity;
     this.objectLabel = objectLabel;
     this.date = date;
-    if(orderId){
+    if(orderId !== null){
       this.orderId = orderId;
     }
-    if(extraData){
+    if(extraData !== null){
       this.extraData = extraData;
     }
 

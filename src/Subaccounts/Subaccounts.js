@@ -71,11 +71,11 @@ class Subaccounts{
   update(id, name, email){
     var request = {};
 
-    if(name){
+    if(name !== null){
       request.name = name;
     }
 
-    if(email){
+    if(email !== null){
       request.email = email;
     }
 

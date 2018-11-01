@@ -27,13 +27,6 @@ class SeatsioClient {
       }
     });
 
-    /*
-    Uncomment this to use custom error reporting
-    this.client.interceptors.response.use(
-      response => response, errorResponseHandler
-    );
-    */
-
     this.charts = new Charts(this.client);
     this.events = new Events(this.client);
     this.subaccounts = new Subaccounts(this.client);
@@ -41,7 +34,7 @@ class SeatsioClient {
     this.accounts = new Accounts(this.client);
     this.chartReports = new ChartReports(this.client);
     this.eventReports = new EventReports(this.client);
-    
+
   }
 }
 

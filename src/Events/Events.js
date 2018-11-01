@@ -88,10 +88,10 @@ class Events{
 
   markAsForSale(eventKey, objects = null, categories = null){
     var requestParams = {};
-    if(objects){
+    if(objects !== null){
       requestParams.objects = objects;
     }
-    if(categories){
+    if(categories !== null){
       requestParams.categories = categories;
     }
     return this.client.post(`events/${eventKey}/actions/mark-as-for-sale`, requestParams);
@@ -100,11 +100,11 @@ class Events{
   markAsNotForSale(eventKey, objects = null, categories = null){
     var request = {};
 
-    if(objects){
+    if(objects !== null){
       request.objects = objects;
     }
 
-    if(categories){
+    if(categories !== null){
       request.categories = categories;
     }
 
@@ -118,16 +118,17 @@ class Events{
   update(eventKey, chartKey = null, newEventKey = null, bookWholeTablesOrTableBookingModes = null){
     var requestParams = {};
 
-    if(chartKey){
+    if(chartKey !== null){
       requestParams.chartKey = chartKey;
     }
 
-    if(newEventKey){
+    if(newEventKey !== null){
       requestParams.eventKey = newEventKey;
     }
+
     if(typeof bookWholeTablesOrTableBookingModes === 'boolean'){
       requestParams.bookWholeTables = bookWholeTablesOrTableBookingModes;
-    } else if(typeof bookWholeTablesOrTableBookingModes !== 'undefined' && bookWholeTablesOrTableBookingModes !== null){
+    } else if(bookWholeTablesOrTableBookingModes !== null){
       requestParams.tableBookingModes = bookWholeTablesOrTableBookingModes;
     }
 
@@ -151,21 +152,21 @@ class Events{
     var bestAvailable = {};
     bestAvailable.number= number;
 
-    if(categories){
+    if(categories !== null){
       bestAvailable.categories = categories;
     }
 
-    if(extraData){
+    if(extraData !== null){
       bestAvailable.extraData = extraData;
     }
 
     requestParams.bestAvailable = bestAvailable;
     requestParams.status = status;
-    if(holdToken){
+    if(holdToken !== null){
       requestParams.holdToken = holdToken;
     }
 
-    if(orderId){
+    if(orderId !== null){
       requestParams.orderId = orderId;
     }
 

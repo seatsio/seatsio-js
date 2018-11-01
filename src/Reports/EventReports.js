@@ -44,7 +44,7 @@ class EventReports{
   }
 
   reportUrl(reportType, eventKey, filter){
-    if(filter === null || filter === undefined){
+    if(filter === null || typeof filter === 'undefined'){
       return `/reports/events/${eventKey}/${reportType}`;
     }
     return `/reports/events/${eventKey}/${reportType}/${filter}`;

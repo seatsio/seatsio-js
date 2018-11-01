@@ -10,7 +10,7 @@ class ChartListParams{
   }
 
   withExpandEvents(expandEvents){
-    if(expandEvents){
+    if(expandEvents === true){
       this.expand = 'events';
     }
     return this;

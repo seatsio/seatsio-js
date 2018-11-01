@@ -8,10 +8,6 @@ class ChartReportItem{
     this.section = section;
     this.capacity = capacity;
   }
-
-  static create(){
-    return Object.create(this.prototype);
-  }
 }
 
 module.exports = ChartReportItem;

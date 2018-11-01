@@ -6,10 +6,6 @@ class Account {
     this.settings = settings;
     this.email = email;
   }
-
-  static create(){
-    return Object.create(this.prototype);
-  }
 }
 
 module.exports = Account;
