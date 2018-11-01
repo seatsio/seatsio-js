@@ -1,24 +1,26 @@
-class FilterableChartLister{
+class Lister{
   constructor(pageFetcher){
     this.pageFetcher = pageFetcher;
   }
 
-  firstPage(queryParams, pageSize = null){
+  firstPage(queryParams = null, pageSize = null){
     return this.pageFetcher.fetchAfter(null, queryParams, pageSize);
   }
 
-  pageAfter(afterId, queryParams, pageSize = null){
+  pageAfter(afterId, queryParams = null, pageSize = null){
     return this.pageFetcher.fetchAfter(afterId, queryParams, pageSize);
   }
 
-  pageBefore(beforeId, queryParams, pageSize = null){
+  pageBefore(beforeId, queryParams = null, pageSize = null){
     return this.pageFetcher.fetchBefore(beforeId, queryParams, pageSize);
   }
 
   all(queryParams){
     return this.pageFetcher.fetch(queryParams, null);
   }
+
+
 }
 
 
-module.exports = FilterableChartLister;
+module.exports = Lister;

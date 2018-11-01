@@ -13,7 +13,7 @@ test('should list charts in archive', async () => {
   await client.charts.moveToArchive(chart1.key);
   await client.charts.moveToArchive(chart2.key);
 
-  var chartsInArchivePage = await client.charts.archive.all();
+  var chartsInArchivePage = await client.charts.archive.all(null);
   var archivedChartKeys = [];
   for (chart of chartsInArchivePage){
     archivedChartKeys.push(chart.key);
