@@ -10,7 +10,7 @@ class PageFetcher {
       var queryParams = {};
     }
 
-    if(afterId){
+    if(afterId !== null){
       queryParams.start_after_id = afterId;
     }
     return this.fetch(queryParams, pageSize);

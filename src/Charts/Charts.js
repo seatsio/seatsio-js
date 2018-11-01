@@ -18,15 +18,15 @@ class Charts {
   create(name = null, venueType = null, categories = null){
     var requestParams = {};
 
-    if(name !== null && typeof name !== 'undefined'){
+    if(name !== null){
       requestParams.name = name;
     }
 
-    if(venueType !== null && typeof venueType !== 'undefined'){
+    if(venueType !== null){
       requestParams.venueType = venueType;
     }
 
-    if(categories !== null && typeof categories !== 'undefined'){
+    if(categories !== null){
       requestParams.categories = categories;
     }
 
