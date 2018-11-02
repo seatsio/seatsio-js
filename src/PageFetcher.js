@@ -29,6 +29,9 @@ class PageFetcher {
   }
 
   async fetch(queryParams, pageSize){
+    if(queryParams === null){
+      var queryParams = {};
+    }
     if(pageSize){
       queryParams.limit = pageSize;
     }

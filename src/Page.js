@@ -1,8 +1,8 @@
 class Page{
-  constructor(items){
+  constructor(items, afterId = null, beforeId = null){
     this.items = items;
-    this.nextPageStartsAfter = '';
-    this.previousPageEndsBefore = '';
+    this.nextPageStartsAfter = afterId;
+    this.previousPageEndsBefore = beforeId;
   }
 
   setNextPageStartsAfter(nextPageStartsAfter){

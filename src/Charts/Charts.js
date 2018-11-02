@@ -2,6 +2,7 @@ const PageFetcher = require('../PageFetcher.js');
 const Chart = require('./Chart.js');
 const Page = require('../Page.js');
 const Lister = require('./Lister.js');
+const IterablePages = require('./IterablePages.js');
 
 class Charts {
   constructor(client){
@@ -142,8 +143,16 @@ class Charts {
     return this.iterator().pageBefore(beforeId, chartListParams, pageSize);
   }
 
+  listAllV2(chartListParams = null, PS){
+    return this.iterator().allWPS(chartListParams, PS);
+  }
+
   listAll(chartListParams = null){
     return this.iterator().all(chartListParams);
+  }
+
+  getAll(){
+    return new IterablePages('/charts', this.client);
   }
 
   iterator(){
