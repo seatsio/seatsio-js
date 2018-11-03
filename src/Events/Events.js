@@ -3,7 +3,8 @@ const Event = require('./Event.js');
 const PageFetcher = require('../PageFetcher.js');
 const Page = require('../Page.js');
 const ObjectStatus = require('./ObjectStatus.js');
-const Lister = require('./Lister.js')
+const Lister = require('./Lister.js');
+const IterableEventPages = require('./IterableEventPages.js');
 
 class Events{
   constructor(client){
@@ -194,6 +195,10 @@ class Events{
 
   listAll(){
     return this.iterator().all();
+  }
+
+  getAll(){
+    return new IterableEventPages('/events', this.client);
   }
 
   statusChanges(eventKey, objectId = null){

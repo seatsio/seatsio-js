@@ -1,19 +1,20 @@
 const Page = require('../Page.js');
-const Chart = require('./Chart.js');
+const Event = require('./Event.js');
 
 class IterablePages{
   constructor(url, client){
-    this.pages = []; //array of pages (a page is an array of charts)
+    this.pages = [];
     this.client = client;
     this.url = url;
   }
 
   pageCreator(data, afterId, prevId){
-    var charts = data.items.map((chartData) => {
-      return new Chart(chartData.name, chartData.id, chartData.key, chartData.status, chartData.tags,
-        chartData.publishedVersionThumbnailUrl, chartData.publishedVersionThumbnailUrl, chartData.events, chartData.archived);
+    var events = data.items.map((eventData) => {
+      return new Event(eventData.id, eventData.key, eventData.bookWholeTables,
+                          eventData.supportsBestAvailable, eventData.forSaleConfig,
+                            eventData.chartKey, eventData.createdOn, eventData.updatedOn);
     });
-    var page = new Page(charts, afterId, prevId);
+    var page = new Page(events, afterId, prevId);
     this.pages.push(page);
     return page;
   }
@@ -44,7 +45,6 @@ class IterablePages{
 
   firstPage(){
     return this.fetch();
-    //pageCreator(chartCreator(fetchPrRes));
   }
 
   subsequentPage(n){

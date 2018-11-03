@@ -2,7 +2,7 @@ const PageFetcher = require('../PageFetcher.js');
 const Chart = require('./Chart.js');
 const Page = require('../Page.js');
 const Lister = require('./Lister.js');
-const IterablePages = require('./IterablePages.js');
+const IterableChartPages = require('./IterableChartPages.js');
 
 class Charts {
   constructor(client){
@@ -152,7 +152,7 @@ class Charts {
   }
 
   getAll(){
-    return new IterablePages('/charts', this.client);
+    return new IterableChartPages('/charts', this.client);
   }
 
   iterator(){
