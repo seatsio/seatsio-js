@@ -11,7 +11,7 @@ test('getAll with more than 20 events)', async ()=> {
     generatedEventKeys.push(event.key);
   }
 
-  var eventPages = await client.events.getAll();
+  var eventPages = client.events.getAll();
   var retrievedEventKeys = [];
   for await (let eventPage of eventPages){
     for(let event of eventPage){
@@ -34,7 +34,7 @@ test('getAll with more than 40 events)', async ()=> {
     generatedEventKeys.push(event.key);
   }
 
-  var eventPages = await client.events.getAll();
+  var eventPages = client.events.getAll();
   var retrievedEventKeys = [];
   for await (let eventPage of eventPages){
     for(let event of eventPage){
