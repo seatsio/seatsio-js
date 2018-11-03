@@ -2,6 +2,7 @@ const Subaccount = require('./Subaccount.js');
 const Lister = require('./Lister.js');
 const Page = require('../Page.js');
 const PageFetcher = require('../PageFetcher.js');
+const IterableSubaccountPages = require('./IterableSubaccountPages.js');
 
 class Subaccounts{
 
@@ -92,6 +93,10 @@ class Subaccounts{
 
   listAll(){
     return this.iterator().all();
+  }
+
+  getAll(){
+    return new IterableSubaccountPages('/subaccounts', this.client);
   }
 
   iterator(){
