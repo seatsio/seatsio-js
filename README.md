@@ -6,16 +6,16 @@ This is the official JavaScript client library for [Seats.io V2 REST API](https:
 # WIP
 Please note that this project is still in development.
 
-##Installing
+## Installing
 
 
 
-##Examples
+## Examples
 
-###Creating a chart and an event
+### Creating a chart and an event
 
-##Error Handling
-##Running the tests
-##Versioning
-##Built With
-##License
+## Error Handling
+## Running the tests
+## Versioning
+## Built With
+## License
