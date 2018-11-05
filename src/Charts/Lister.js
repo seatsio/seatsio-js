@@ -18,10 +18,6 @@ class Lister{
   all(queryParams){
     return this.pageFetcher.fetch(queryParams, null);
   }
-
-  allWPS(queryParams, pageSize){
-    return this.pageFetcher.fetch(queryParams, pageSize);
-  }
 }
 
 

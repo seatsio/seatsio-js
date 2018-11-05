@@ -2,10 +2,11 @@ const Page = require('../Page.js');
 const Chart = require('./Chart.js');
 
 class IterableChartPages{
-  constructor(url, client){
+  constructor(url, client, params = null){
     this.pages = []; //array of pages (a page is an array of charts)
     this.client = client;
     this.url = url;
+    this.params = params;
   }
 
   pageCreator(data, afterId, prevId){
@@ -18,8 +19,11 @@ class IterableChartPages{
     return page;
   }
 
-  fetch(){
-    return this.client.get(this.url)
+  fetch(fetchParams = null){
+    if(fetchParams === null){
+      var fetchParams = {};
+    }
+    return this.client.get(this.url, {params: fetchParams})
             .then( (res) => {
               if(res.data.next_page_starts_after){
                 this.next_page_starts_after = res.data.next_page_starts_after;
@@ -29,8 +33,12 @@ class IterableChartPages{
             });
   }
 
-  fetchAfter(afterId){
-    return this.client.get(this.url, {params: {'start_after_id': afterId}})
+  fetchAfter(afterId, fetchParams = null){
+    if(fetchParams === null){
+      var fetchParams = {};
+    }
+    fetchParams.start_after_id = afterId;
+    return this.client.get(this.url, {params: fetchParams})
                       .then( (res) => {
                         if(res.data.next_page_starts_after){
                           this.next_page_starts_after = res.data.next_page_starts_after;
@@ -44,7 +52,6 @@ class IterableChartPages{
 
   firstPage(){
     return this.fetch();
-    //pageCreator(chartCreator(fetchPrRes));
   }
 
   subsequentPage(n){
@@ -57,9 +64,9 @@ class IterableChartPages{
     return {
       next(){
       if(_this.pages.length == 0){
-        return _this.fetch();
+        return _this.fetch(_this.params);
       } else if(_this.fetchNextPage){
-        return _this.subsequentPage(_this.next_page_starts_after);
+        return _this.subsequentPage(_this.next_page_starts_after, _this.params);
       }
       else {
         return {undefined, done: true};

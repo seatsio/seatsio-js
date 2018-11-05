@@ -143,16 +143,12 @@ class Charts {
     return this.iterator().pageBefore(beforeId, chartListParams, pageSize);
   }
 
-  listAllV2(chartListParams = null, PS){
-    return this.iterator().allWPS(chartListParams, PS);
-  }
-
   listAll(chartListParams = null){
     return this.iterator().all(chartListParams);
   }
 
-  getAll(){
-    return new IterableChartPages('/charts', this.client);
+  getAll(params = null){
+    return new IterableChartPages('/charts', this.client, params);
   }
 
   iterator(){
