@@ -1,6 +1,6 @@
 const testUtils = require('../testUtils.js');
 
-test('report item properties', async ()=> {
+test('chart report properties', async ()=> {
   var user = await testUtils.createTestUser();;
   var client = testUtils.createClient(user.secretKey, testUtils.baseUrl);
   var chartKey = testUtils.getChartKey();
@@ -17,7 +17,7 @@ test('report item properties', async ()=> {
   expect(reportItem.entrance).toBeUndefined();
 });
 
-test('report item properties for GA', async ()=> {
+test('chart report properties for GA', async ()=> {
   var user = await testUtils.createTestUser();;
   var client = testUtils.createClient(user.secretKey, testUtils.baseUrl);
   var chartKey = testUtils.getChartKey();
