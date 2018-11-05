@@ -1,5 +1,4 @@
 const Subaccount = require('./Subaccount.js');
-const Lister = require('./Lister.js');
 const Page = require('../Page.js');
 const PageFetcher = require('../PageFetcher.js');
 const IterableSubaccountPages = require('./IterableSubaccountPages.js');
@@ -8,20 +7,8 @@ class Subaccounts{
 
   constructor(client){
     this.client = client;
-    this.active = new Lister(new PageFetcher('/subaccounts/active', this.client, function (results) {
-      var subaccountItems = results.items.map((data) => {
-        return new Subaccount(data.id, data.secretKey, data.designerKey,
-                        data.publicKey, data.name, data.email, data.active);
-      });
-      return new Page(subaccountItems);
-    }));
-    this.inactive = new Lister(new PageFetcher('/subaccounts/inactive', this.client, function (results) {
-      var subaccountItems = results.items.map((data) => {
-        return new Subaccount(data.id, data.secretKey, data.designerKey,
-                        data.publicKey, data.name, data.email, data.active);
-      });
-      return new Page(subaccountItems);
-    }));
+    this.active = new IterableSubaccountPages('/subaccounts/active', this.client);
+    this.inactive = new IterableSubaccountPages('/subaccounts/inactive', this.client);
   }
 
   create(name = null){
@@ -91,22 +78,8 @@ class Subaccounts{
     return this.client.post(`/subaccounts/${id}/designer-key/actions/regenerate`).then( (res) => res.data);
   }
 
-  listAll(){
-    return this.iterator().all();
-  }
-
   getAll(){
     return new IterableSubaccountPages('/subaccounts', this.client);
-  }
-
-  iterator(){
-    return new Lister(new PageFetcher('/subaccounts', this.client, (results) => {
-      var subaccountItems = results.items.map((data) => {
-        return new Subaccount(data.id, data.secretKey, data.designerKey,
-                        data.publicKey, data.name, data.email, data.active);
-      });
-      return new Page(subaccountItems);
-    }));
   }
 }
 

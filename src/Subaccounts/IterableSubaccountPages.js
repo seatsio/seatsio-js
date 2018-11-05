@@ -1,7 +1,7 @@
 const Page = require('../Page.js');
 const Subaccount = require('./Subaccount.js');
 
-class IterablePages{
+class IterableSubaccountPages{
   constructor(url, client){
     this.pages = [];
     this.client = client;
@@ -68,4 +68,4 @@ class IterablePages{
   }
 }
 
-module.exports = IterablePages;
+module.exports = IterableSubaccountPages;

@@ -8,11 +8,13 @@ test('should list all inactive subaccounts', async ()=> {
   var subaccount3 = await client.subaccounts.create();
   await client.subaccounts.deactivate(subaccount1.id);
   await client.subaccounts.deactivate(subaccount2.id);
-  var inactiveSubaccounts = await client.subaccounts.inactive.all();
+  var inactiveSubaccounts = client.subaccounts.inactive;
 
   var inactiveSubaccountIds = [];
-  for(let subaccount of inactiveSubaccounts){
-    inactiveSubaccountIds.push(subaccount.id);
+  for await(let subaccountPage of inactiveSubaccounts){
+    for(let subaccount of subaccountPage){
+      inactiveSubaccountIds.push(subaccount.id);
+    }
   }
 
   expect(inactiveSubaccountIds).toContain(subaccount1.id);
