@@ -26,7 +26,8 @@ class Events{
       requestParams.tableBookingModes = bookWholeTablesOrTableBookingModes;
     }
 
-    return this.client.post(`/events`, requestParams).then( (res) => res.data).catch( (err) => console.log(err));
+    return this.client.post(`/events`, requestParams)
+                      .then( (res) => res.data).catch( (err) => console.log(err));
   }
 
   retrieve(eventKey){
@@ -42,7 +43,6 @@ class Events{
   changeObjectStatus(eventKeyOrKeys, objectOrObjects, status, holdToken = null, orderId = null){
     var request = {};
 
-    //request.objects = Array.isArray(objectOrObjects) ? objectOrObjects : [objectOrObjects];
     request.objects = this.normalizeObjects(objectOrObjects);
 
     request.status = status;
@@ -84,7 +84,7 @@ class Events{
     }
 
   delete(eventKey){
-    return this.client.delete(`/events/${eventKey}`).then( (res) => res.data);
+    return this.client.delete(`/events/${eventKey}`);
   }
 
   markAsForSale(eventKey, objects = null, categories = null){
@@ -218,17 +218,6 @@ class Events{
          return new Page(statusItems);
        }));
    }
-
-  iterator(){
-    return new Lister(new PageFetcher('/events', this.client, (results) => {
-      var eventItems = results.items.map((eventData) => {
-        return new Event(eventData.id, eventData.key, eventData.bookWholeTables,
-                            eventData.supportsBestAvailable, eventData.forSaleConfig,
-                              eventData.chartKey, eventData.createdOn, eventData.updatedOn);
-      });
-      return new Page(eventItems);
-    }))
-  }
 }
 
 module.exports = Events;

@@ -4,9 +4,7 @@ class Subaccount{
     this.secretKey = secretKey;
     this.designerKey = designerKey;
     this.publicKey = publicKey;
-    if(name !== null){
-      this.name = name;
-    }
+    this.name = name;
     this.email = email;
     this.active = active;
   }

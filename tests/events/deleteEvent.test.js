@@ -7,5 +7,6 @@ test('should delete an event', async ()=> {
   var event = await client.events.create(chart.key);
   await client.events.delete(event.key);
   var retrieveFail = await client.events.retrieve(event.key).catch( (err) => err.response);
+
   expect(retrieveFail.data.status).toBe(404);
 });

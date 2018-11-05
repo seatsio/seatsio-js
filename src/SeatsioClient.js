@@ -6,14 +6,6 @@ const Subaccounts = require('./Subaccounts/Subaccounts.js');
 const HoldTokens = require('./HoldTokens/HoldTokens.js');
 const ChartReports = require('./Reports/ChartReports.js');
 const EventReports = require('./Reports/EventReports.js');
-const errorResponseHandler = require('../src/errorHandler.js');
-
-
-
-/*
-const EventReports = require('./Reports/EventReports.js');
-const Events = require('./Events/Events.js');
-*/
 
 class SeatsioClient {
 
@@ -34,7 +26,6 @@ class SeatsioClient {
     this.accounts = new Accounts(this.client);
     this.chartReports = new ChartReports(this.client);
     this.eventReports = new EventReports(this.client);
-
   }
 }
 
