@@ -2,7 +2,7 @@ const testUtils = require('../testUtils.js');
 const ChartListParams = require('../../src/Charts/ChartListParams.js');
 
 test('getAll Charts with more than 20 charts', async () => {
-  jest.setTimeout(15000);
+  jest.setTimeout(20000);
   var user = await testUtils.createTestUser();
   var client = testUtils.createClient(user.secretKey, testUtils.baseUrl);
   var generatedChartKeys = [];
@@ -24,7 +24,7 @@ test('getAll Charts with more than 20 charts', async () => {
 });
 
 test('getAll Charts with more than 40 charts', async () => {
-  jest.setTimeout(15000);
+  jest.setTimeout(20000);
   var user = await testUtils.createTestUser();
   var client = testUtils.createClient(user.secretKey, testUtils.baseUrl);
   var generatedChartKeys = [];
@@ -84,7 +84,7 @@ test('getAll Charts with filter', async() => {
 });
 
 test('getAll Charts with tag', async() => {
-  jest.setTimeout(15000);
+  jest.setTimeout(20000);
   var user = await testUtils.createTestUser();
   var client = testUtils.createClient(user.secretKey, testUtils.baseUrl);
   var fooChartKeys = [];

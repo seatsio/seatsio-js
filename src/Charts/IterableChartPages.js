@@ -3,7 +3,7 @@ const Chart = require('./Chart.js');
 
 class IterableChartPages{
   constructor(url, client, params = null){
-    this.pages = []; //array of pages (a page is an array of charts)
+    this.pages = [];
     this.client = client;
     this.url = url;
     this.params = params;

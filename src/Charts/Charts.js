@@ -7,13 +7,7 @@ const IterableChartPages = require('./IterableChartPages.js');
 class Charts {
   constructor(client){
     this.client = client;
-    this.archive = new Lister(new PageFetcher('/charts/archive', this.client, function (results) {
-      var chartItems = results.items.map((chartData) => {
-        return new Chart(chartData.name, chartData.id, chartData.key, chartData.status, chartData.tags,
-          chartData.publishedVersionThumbnailUrl, chartData.draftVersionThumbnailUrl, chartData.events, chartData.archived);
-      });
-      return new Page(chartItems);
-    }));
+    this.archive = new IterableChartPages('/charts/archive', this.client);
   }
 
   create(name = null, venueType = null, categories = null){
@@ -31,27 +25,22 @@ class Charts {
       requestParams.categories = categories;
     }
 
-    var promise = this.client.post('charts', requestParams)
+    return this.client.post('charts', requestParams)
                           .then( (res) => res.data );
-
-    //need to map result into the Chart class
-    return promise;
   }
 
   addTag(key, tag){
     var url = `charts/${key}/tags/${encodeURIComponent(tag)}`;
-    var promise = this.client.post(url).then( (res) => res.data );
-    return promise;
+    return this.client.post(url);
   }
 
   removeTag(key, tag){
     var url = `charts/${key}/tags/${encodeURIComponent(tag)}`;
-    return this.client.delete(url).then( (res)=> res.data );
+    return this.client.delete(url);
   }
 
   retrieve(key){
-    var promise = this.client.get(`charts/${key}`).then( (res) => res.data);
-    return promise;
+    return this.client.get(`charts/${key}`).then( (res) => res.data);
   }
 
   retrieveWithEvents(key){
@@ -101,12 +90,11 @@ class Charts {
   }
 
   discardDraftVersion(key){
-    return this.client.post(`/charts/${key}/version/draft/actions/discard`).then( (res) => res.data);
+    return this.client.post(`/charts/${key}/version/draft/actions/discard`);
   }
 
   publishDraftVersion(key){
-    return this.client.post( `charts/${key}/version/draft/actions/publish`)
-                      .then( (res) => res.data);
+    return this.client.post( `charts/${key}/version/draft/actions/publish`);
   }
 
   moveToArchive(key){
@@ -128,7 +116,7 @@ class Charts {
       requestParams.categories = categories;
     }
 
-    return this.client.post(`/charts/${key}`, requestParams).then( (res) => res.data);
+    return this.client.post(`/charts/${key}`, requestParams);
   }
 
   listFirstPage(chartListParams = null, pageSize = null){
