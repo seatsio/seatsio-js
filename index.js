@@ -1,1 +1,1 @@
-exports.SeatsioClient = require('./src/SeatsioClient.js');
+module.exports = require('./src/SeatsioClient.js');
