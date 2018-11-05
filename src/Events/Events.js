@@ -193,10 +193,6 @@ class Events{
     return this.normalizeObjects([objectOrObjects]);
   }
 
-  listAll(){
-    return this.iterator().all();
-  }
-
   getAll(){
     return new IterableEventPages('/events', this.client);
   }
