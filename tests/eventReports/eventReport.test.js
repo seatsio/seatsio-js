@@ -201,7 +201,7 @@ test('report with section', async () =>{
 });
 
 
-test('report with specific specific', async () =>{
+test('report with specific section', async () =>{
   var user = await testUtils.createTestUser();
   var client = testUtils.createClient(user.secretKey, testUtils.baseUrl);
   var chartKey = testUtils.getChartKey();
