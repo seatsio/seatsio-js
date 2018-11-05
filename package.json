@@ -1,14 +1,16 @@
 {
   "name": "seatsio-js",
-  "version": "0.0.1",
-  "description": "JavaScript Client library for the Seats.io V2 REST API",
+  "version": "1.0.0",
+  "main": "index.js",
+  "description": "Official JavaScript and Node.JS client library for the Seats.io V2 REST API",
   "scripts": {
     "test": "jest"
   },
   "repository": {
-    "type": "",
-    "url": ""
+    "type": "git",
+    "url": "https://github.com/seatsio/seatsio-js"
   },
+  "author": "Nami Falhan",
   "dependencies": {
     "axios": "0.16.2",
     "uuid": "^3.3.2"

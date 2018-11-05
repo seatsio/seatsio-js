@@ -1,7 +1,15 @@
 language: node_js
 node_js:
-  - "node"
-  - "7.6"
+- node
+- '7.6'
 before_script:
-  - npm install -g gulp-cli
+- npm install -g gulp-cli
 script: gulp bundle
+deploy:
+  provider: npm
+  email: namfaldev@gmail.com
+  api_key:
+    secure: jiCsfMxnR+aWEprJSBLWfRyUNidH+PKDcstu2PoZKhutn6TtMnYT/KlP/B5pYpsuxbzK1tRrcvdblUwlo/Q79QfDCjJ/tX8UV00+uqKoG2qHV7PsWoUH1GCml3M8uetsL9Y4l39rScKdKwWSNHzS0EZnA5IWgscJ/2MQjn7kqhgJrNPdFKPVURpkwz2+4qwzRshiLZwvzcMFDG500uK0h0omhdZ+2Y5tv3wNtxvLp59l4HDBfSKrPz8j4RCgCmBpf8JeM9OjBgv+tW2Bcsfokj4eu3SV33aM22d8zv+tP6iAEPHSnI0DYHoFrl+Fwtqikmcj2ExldjXWChL76/CNWORWKGukcBLIgz+ChclZRIt62Kr2L/waZDj4f7zcT/JlcgVPpAxy/+N/SGs88HnV3j/NR5nRmt3/cCHMuTsoYORhfL/bioFN7/YFFxvzUiQMTYuE0guIEL89W0wTU6T2zJPE++gV/nKI/qtarWBDXzWjTaVTT8htdx4ViiFvHJkmFMgJs+ZGhVCrCn6zMf194ndg/VgLhnz4R02ACdvJoE3LRAhwzNnK5tshqjrlqeINt5kr0LHGSofPCpasuCOrWxkjzWDaPqBzB++i7ty1CLOmIlEP7zXlsx/4M6LXij2v5l1hB+u9zb8CT2vXCzz+BoVD05rSLeqKJHdI0Fn2XTw=
+  on:
+    tags: true
+  
