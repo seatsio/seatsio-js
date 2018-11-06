@@ -6,6 +6,7 @@ const Subaccounts = require('./Subaccounts/Subaccounts.js');
 const HoldTokens = require('./HoldTokens/HoldTokens.js');
 const ChartReports = require('./Reports/ChartReports.js');
 const EventReports = require('./Reports/EventReports.js');
+const errorResponseHandler = require('./errorInterceptor.js');
 
 class SeatsioClient {
 
@@ -16,8 +17,13 @@ class SeatsioClient {
       auth: {
         username: secretKey,
         password: null,
-      }
+      },
+      errorHandle: false
     });
+
+    this.errInterceptor = this.client.interceptors.response.use(
+      response => response, errorResponseHandler
+    );
 
     this.charts = new Charts(this.client);
     this.events = new Events(this.client);

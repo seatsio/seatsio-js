@@ -20,6 +20,20 @@ test('should book an object', async () => {
  expect(bookRes.labels).toEqual(labels);
 });
 
+test('should book an object with quantity', async () => {
+ var user = await testUtils.createTestUser();
+ var client = testUtils.createClient(user.secretKey, testUtils.baseUrl);
+ var chartKey = testUtils.getChartKey();
+ await testUtils.createTestChart(chartKey, user.designerKey);
+ var chart = await client.charts.retrieve(chartKey);
+ var event = await client.events.create(chartKey);
+ var bookRes = await client.events.book(event.key, {"objectId": "GA1", "quantity" : 100});
+ var retrievedObjStatus = await client.events.retrieveObjectStatus(event.key, 'GA1');
+
+ expect(retrievedObjStatus.status).toEqual(ObjectStatus.BOOKED);
+ expect(retrievedObjStatus.quantity).toEqual(100);
+});
+
 test('should book an object with sections', async () => {
  var user = await testUtils.createTestUser();
  var client = testUtils.createClient(user.secretKey, testUtils.baseUrl);
