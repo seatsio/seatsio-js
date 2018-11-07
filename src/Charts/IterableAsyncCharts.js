@@ -1,4 +1,5 @@
 const Chart = require('./Chart.js');
+const Event = require('../Events/Event.js');
 
 class IterableAsyncCharts {
     constructor(url, client, params = {}) {
@@ -12,9 +13,24 @@ class IterableAsyncCharts {
 
     chartCreator(data) {
         data.items.forEach((chartData) => {
+            let events = chartData.events ? IterableAsyncCharts.eventCreator(chartData.events) : null;
             let chart = new Chart(chartData.name, chartData.id, chartData.key, chartData.status, chartData.tags,
-                chartData.publishedVersionThumbnailUrl, chartData.publishedVersionThumbnailUrl, chartData.events, chartData.archived);
+                chartData.publishedVersionThumbnailUrl, chartData.publishedVersionThumbnailUrl, events, chartData.archived);
             this.items.push(chart);
+        });
+    }
+
+    static eventCreator(eventsData){
+        return eventsData.map (event => {
+            let bookWholeTables = event.bookWholeTables || null;
+            let supportsBestAvailable = event.supportsBestAvailable || null;
+            let forSaleConfig = event.forSaleConfig || null;
+            let tableBookingModes = event.tableBookingModes || null;
+            let updatedOn = event.updatedOn || null;
+
+            return new Event(event.id, event.key, bookWholeTables,
+                supportsBestAvailable, forSaleConfig, tableBookingModes, event.chartKey,
+                event.createdOn, updatedOn)
         });
     }
 

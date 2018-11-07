@@ -1,14 +1,36 @@
 const PageFetcher = require('../PageFetcher.js');
 const Chart = require('./Chart.js');
+const Event =  require( '../Events/Event.js');
 const Page = require('../Page.js');
 const Lister = require('./Lister.js');
-const IterableChartPages = require('./IterableChartPages.js');
 const IterableAsyncCharts = require('./IterableAsyncCharts.js');
 
 class Charts {
     constructor(client) {
         this.client = client;
-        this.archive = new IterableChartPages('/charts/archive', this.client);
+        this.archive = new IterableAsyncCharts('/charts/archive', this.client);
+    }
+
+    static chartCreator(chartData){
+        let events = chartData.events ? Charts.eventCreator(chartData.events) : null;
+
+        let draftVersionThumbnailUrl = chartData.draftVersionThumbnailUrl || null;
+        return new Chart(chartData.name, chartData.id, chartData.key, chartData.status, chartData.tags,
+            chartData.publishedVersionThumbnailUrl, draftVersionThumbnailUrl, events, chartData.archived);
+    }
+
+    static eventCreator(eventsData){
+        return eventsData.map (event => {
+            let bookWholeTables = event.bookWholeTables || null;
+            let supportsBestAvailable = event.supportsBestAvailable || null;
+            let forSaleConfig = event.forSaleConfig || null;
+            let tableBookingModes = event.tableBookingModes || null;
+            let updatedOn = event.updatedOn || null;
+
+            return new Event(event.id, event.key, bookWholeTables,
+                supportsBestAvailable, forSaleConfig, tableBookingModes, event.chartKey,
+                event.createdOn, updatedOn)
+        });
     }
 
     create(name = null, venueType = null, categories = null) {
@@ -27,7 +49,7 @@ class Charts {
         }
 
         return this.client.post('charts', requestParameters)
-            .then((res) => res.data);
+            .then((res) => Charts.chartCreator(res.data));
     }
 
     addTag(key, tag) {
@@ -41,12 +63,13 @@ class Charts {
     }
 
     retrieve(key) {
-        return this.client.get(`charts/${key}`).then((res) => res.data);
+        return this.client.get(`charts/${key}`)
+            .then((res) => Charts.chartCreator(res.data));
     }
 
     retrieveWithEvents(key) {
         return this.client.get(`charts/${key}?expand=events`)
-            .then((res) => res.data);
+            .then((res) => Charts.chartCreator(res.data));
     }
 
     retrievePublishedVersion(key) {
@@ -77,17 +100,17 @@ class Charts {
 
     copy(key) {
         return this.client.post(`charts/${key}/version/published/actions/copy`)
-            .then((res) => res.data);
+            .then((res) => Charts.chartCreator(res.data));
     }
 
     copyDraftVersion(key) {
         return this.client.post(`charts/${key}/version/draft/actions/copy`)
-            .then((res) => res.data);
+            .then((res) => Charts.chartCreator(res.data));
     }
 
     copyToSubaccount(key, subaccountId) {
         return this.client.post(`charts/${key}/version/published/actions/copy-to/${subaccountId}`)
-            .then((res) => res.data);
+            .then((res) => Charts.chartCreator(res.data));
     }
 
     discardDraftVersion(key) {
@@ -130,10 +153,6 @@ class Charts {
 
     listPageBefore(beforeId, chartListParameters = null, pageSize = null) {
         return this.iterator().pageBefore(beforeId, chartListParameters, pageSize);
-    }
-
-    getAll(requestParameters = null) {
-        return new IterableChartPages('/charts', this.client, requestParameters);
     }
 
     listAll(requestParameters = {}) {

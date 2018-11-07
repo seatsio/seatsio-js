@@ -1,31 +1,49 @@
-const testUtils = require('../testUtils.js');
-
-test('should retrieve chart', async () => {
-    var chart = await client.charts.create();
+test.only('should retrieve chart', async () => {
+    let chart = await client.charts.create();
     await client.charts.addTag(chart.key, 'tag1');
-    var retrievedChart = await client.charts.retrieve(chart.key);
+
+    let retrievedChart = await client.charts.retrieve(chart.key);
+
     expect(retrievedChart.key).toBe(chart.key);
-    expect(retrievedChart.id).not.toBeNull();
+    expect(retrievedChart.id).toBe(chart.id);
     expect(retrievedChart.id).toBeDefined();
     expect(retrievedChart.name).toBe('Untitled chart');
     expect(retrievedChart.status).toBe('NOT_USED');
-    expect(retrievedChart.publishedVersionThumbnailUrl).not.toBeNull();
     expect(retrievedChart.publishedVersionThumbnailUrl).toBeDefined();
-    expect(retrievedChart.draftVersionThumbnailUrl).toBeUndefined();
+    expect(retrievedChart.draftVersionThumbnailUrl).toBeNull();
     expect(retrievedChart.tags).toEqual(['tag1']);
     expect(retrievedChart.archived).toBeFalsy();
-    expect(retrievedChart.events).toBeUndefined();
-    expect(retrievedChart.events).toBeFalsy();
+    expect(retrievedChart.events).toBeNull();
 });
 
-
 test('should retrieve chart with events', async () => {
-    var chart = await client.charts.create();
-    var event1 = await client.events.create(chart.key);
-    var event2 = await client.events.create(chart.key);
-    var retrievedChart = await client.charts.retrieveWithEvents(chart.key);
-    var retrievedChartEventIds = [retrievedChart.events[0].id, retrievedChart.events[1].id];
-    expect(retrievedChartEventIds).toContain(event1.id);
-    expect(retrievedChartEventIds).toContain(event2.id);
-    expect(retrievedChart.events.length).toBe(2);
+    let chart = await client.charts.create();
+    let event1 = await client.events.create(chart.key);
+    let event2 = await client.events.create(chart.key);
+
+    let retrievedChart = await client.charts.retrieveWithEvents(chart.key);
+    let retrievedEventIds = [retrievedChart.events[0].id, retrievedChart.events[1].id];
+
+    expect(retrievedEventIds.sort()).toEqual([event1.id, event2.id].sort());
+});
+
+test('should retrieve chart with updated event (bookWholeTables)', async () => {
+    let chart = await client.charts.create();
+    let event = await client.events.create(chart.key);
+
+    await client.events.update(event.key, null, null, true);
+    let retrievedChart = await client.charts.retrieveWithEvents(chart.key);
+
+    expect(retrievedChart.events[0].id).toEqual(event.id);
+});
+
+test('should retrieve chart with updated event (markAsForSale and tableBookingModes)', async () => {
+    let chart = await client.charts.create();
+    let event = await client.events.create(chart.key);
+
+    await client.events.markAsForSale(event.key, ['o1', 'o2'], ['cat1', 'cat2']);
+    await client.events.update(event.key, null, null, true);
+    let retrievedChart = await client.charts.retrieveWithEvents(chart.key);
+
+    expect(retrievedChart.events[0].id).toEqual(event.id);
 });

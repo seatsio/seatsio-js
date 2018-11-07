@@ -1,12 +1,10 @@
-const testUtils = require('../testUtils.js');
-
 test('should remove tag', async () => {
-    var chart = await client.charts.create();
+    let chart = await client.charts.create();
     await client.charts.addTag(chart.key, 'tag1');
     await client.charts.addTag(chart.key, 'tag2');
-    await client.charts.removeTag(chart.key, 'tag1');
-    var retrievedChart = await client.charts.retrieve(chart.key);
-    expect(retrievedChart.tags).toEqual(['tag2']);
-    expect(retrievedChart.tags).not.toContain(['tag1']);
 
+    await client.charts.removeTag(chart.key, 'tag1');
+    let retrievedChart = await client.charts.retrieve(chart.key);
+
+    expect(retrievedChart.tags).toEqual(['tag2']);
 });

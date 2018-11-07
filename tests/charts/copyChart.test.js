@@ -1,12 +1,10 @@
-const testUtils = require('../testUtils.js');
-
 test('should copy chart', async () => {
-    var chart = await client.charts.create('My Chart', 'BOOTHS');
+     let chart = await client.charts.create('My Chart', 'BOOTHS');
 
-    var copiedChart = await client.charts.copy(chart.key);
-    var retrievedCopiedChart = await client.charts.retrievePublishedVersion(copiedChart.key);
+     let copiedChart = await client.charts.copy(chart.key);
+     let retrievedCopiedChart = await client.charts.retrievePublishedVersion(copiedChart.key);
 
-    expect(copiedChart.name).toEqual('My Chart (copy)');
-    expect(copiedChart.key).not.toBe(chart.key);
-    expect(retrievedCopiedChart.venueType).toEqual('BOOTHS');
+     expect(copiedChart.name).toEqual('My Chart (copy)');
+     expect(copiedChart.key).not.toBe(chart.key);
+     expect(retrievedCopiedChart.venueType).toEqual('BOOTHS');
 });
