@@ -86,49 +86,16 @@ await client.events.changeObjectStatus(<AN EVENT KEY>, ["A-1", "A-2"], "unavaila
 ```
 
 ### Listing charts
-You can list all charts using `getAll()` method which returns an asynchronous iterator `IterableChartPages`. The iterator's `next()` method returns a promise that resolves to a page object. You can use `for await` loop to retrieve all charts or manually call the `next()` method.
-
-Simply put, `IterableChartPages` contains `Pages` (also iterable, but not an async one) which contains `charts`.
+You can list all charts using `listAll()` method which returns an asynchronous iterator `IterableAsyncCharts`. You can use `for await` loop to retrieve all charts or manually call the `next()` method.
 
 ```js
 const client = new SeatsioClient(<SECRET KEY>);
 var chart1 = await client.charts.create();
 var chart2 = await client.charts.create();
 var chart3 = await client.charts.create();
-var chartPages = client.charts.getAll();
-for await(let chartPage of chartPages){
-  for(let chart of chartPage){
+for await(let chart of client.charts.listAll()){
     console.log(`Chart key: ${chart.key}`)
-  }
 }
-```
-
-OR:
-
-```js
-const client = new SeatsioClient(<SECRET KEY>);
-var chart1 = await client.charts.create();
-var chart2 = await client.charts.create();
-var chart3 = await client.charts.create();
-var chartPagesIterator = client.charts.getAll()[Symbol.asyncIterator]();
-var page1 = await chartPagesIterator.next();
-console.log(page1.value.items[0]); //Prints the latest chart, chart3
-```
-
-Once the asynchronous iterator is consumed, you can also access its pages outside the loop:
-
-```js
-const client = new SeatsioClient(<SECRET KEY>);
-var chart1 = await client.charts.create();
-var chart2 = await client.charts.create();
-var chart3 = await client.charts.create();
-var chartPages = client.charts.getAll();
-for await(let chartPage of chartPages){
-  for(let chart of chartPage){
-    //Do something with the chart
-  }
-}
-console.log(chartPages.pages[0].items[0]); // returns the latest chart created, chart3 in this case
 ```
 
 ## Error Handling
