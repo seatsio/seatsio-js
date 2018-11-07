@@ -45,40 +45,40 @@ test('should create chart with venue type', async () => {
     expect(retrievedChart.categories.list).toEqual([]);
 });
 
-test('should create chart with categories as class', async() => {
-  var cat1 = {'key': 1, 'label': 'Category 1', 'color': '#aaaaaa'};
-  var cat2 = {'key': 3, 'label': 'Category 2', 'color': '#bbbbbb'};
-  var user = await testUtils.createTestUser();
-  var client = testUtils.createClient(user.secretKey, testUtils.baseUrl);
-  var chart = await client.charts.create(null, null, [cat1, cat2]);
-  var retrievedChart = await client.charts.retrievePublishedVersion(chart.key);
+test('should create chart with categories as class', async () => {
+    var cat1 = {'key': 1, 'label': 'Category 1', 'color': '#aaaaaa'};
+    var cat2 = {'key': 3, 'label': 'Category 2', 'color': '#bbbbbb'};
+    var user = await testUtils.createTestUser();
+    var client = testUtils.createClient(user.secretKey, testUtils.baseUrl);
+    var chart = await client.charts.create(null, null, [cat1, cat2]);
+    var retrievedChart = await client.charts.retrievePublishedVersion(chart.key);
 
-  expect(retrievedChart.name).toEqual('Untitled chart');
-  expect(retrievedChart.venueType).toEqual('MIXED');
-  expect(retrievedChart.categories.list).toEqual([cat1, cat2]);
+    expect(retrievedChart.name).toEqual('Untitled chart');
+    expect(retrievedChart.venueType).toEqual('MIXED');
+    expect(retrievedChart.categories.list).toEqual([cat1, cat2]);
 });
 
-test('should create chart with categories as instance of Category class', async() => {
-  var cat1 = new Category(1, 'Category 1', '#aaaaaa');
-  var cat2 = new Category(2, 'Category 2', '#bbbbbb');
-  var user = await testUtils.createTestUser();
-  var client = testUtils.createClient(user.secretKey, testUtils.baseUrl);
-  var chart = await client.charts.create(null, null, [cat1, cat2]);
+test('should create chart with categories as instance of Category class', async () => {
+    var cat1 = new Category(1, 'Category 1', '#aaaaaa');
+    var cat2 = new Category(2, 'Category 2', '#bbbbbb');
+    var user = await testUtils.createTestUser();
+    var client = testUtils.createClient(user.secretKey, testUtils.baseUrl);
+    var chart = await client.charts.create(null, null, [cat1, cat2]);
 
-  var expectedCategories = [
-    {
-      'key': 1,
-      'label': 'Category 1',
-      'color': '#aaaaaa'
-    },
-    {
-      'key': 2,
-      'label': 'Category 2',
-      'color': '#bbbbbb'
-    }];
+    var expectedCategories = [
+        {
+            'key': 1,
+            'label': 'Category 1',
+            'color': '#aaaaaa'
+        },
+        {
+            'key': 2,
+            'label': 'Category 2',
+            'color': '#bbbbbb'
+        }];
 
-  var retrievedChart = await client.charts.retrievePublishedVersion(chart.key);
-  expect(retrievedChart.name).toEqual('Untitled chart');
-  expect(retrievedChart.venueType).toEqual('MIXED');
-  expect(retrievedChart.categories.list).toEqual(expectedCategories);
+    var retrievedChart = await client.charts.retrievePublishedVersion(chart.key);
+    expect(retrievedChart.name).toEqual('Untitled chart');
+    expect(retrievedChart.venueType).toEqual('MIXED');
+    expect(retrievedChart.categories.list).toEqual(expectedCategories);
 });
