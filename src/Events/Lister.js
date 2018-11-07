@@ -6,7 +6,6 @@ class Lister {
     all() {
         return this.pageFetcher.fetch(null, null);
     }
-
 }
 
 module.exports = Lister;

@@ -1,9 +1,9 @@
 const StatusChange = require('./StatusChange.js');
 const PageFetcher = require('../PageFetcher.js');
 const Page = require('../Page.js');
-const ObjectStatus = require('./ObjectStatus.js');
 const Lister = require('./Lister.js');
 const IterableEventPages = require('./IterableEventPages.js');
+const ObjectStatus = require('./ObjectStatus.js');
 
 class Events {
     constructor(client) {
@@ -11,21 +11,21 @@ class Events {
     }
 
     create(chartKey, eventKey = null, bookWholeTablesOrTableBookingModes = null) {
-        var requestParams = {};
+        let requestParameters = {};
 
-        requestParams.chartKey = chartKey;
+        requestParameters.chartKey = chartKey;
 
         if (eventKey !== null) {
-            requestParams.eventKey = eventKey;
+            requestParameters.eventKey = eventKey;
         }
 
         if ((bookWholeTablesOrTableBookingModes === true) || (bookWholeTablesOrTableBookingModes === false)) {
-            requestParams.bookWholeTables = bookWholeTablesOrTableBookingModes;
+            requestParameters.bookWholeTables = bookWholeTablesOrTableBookingModes;
         } else if (bookWholeTablesOrTableBookingModes) {
-            requestParams.tableBookingModes = bookWholeTablesOrTableBookingModes;
+            requestParameters.tableBookingModes = bookWholeTablesOrTableBookingModes;
         }
 
-        return this.client.post(`/events`, requestParams)
+        return this.client.post(`/events`, requestParameters)
             .then((res) => res.data).catch((err) => console.log(err));
     }
 
@@ -40,23 +40,23 @@ class Events {
     }
 
     changeObjectStatus(eventKeyOrKeys, objectOrObjects, status, holdToken = null, orderId = null) {
-        var request = {};
+        let requestParameters= {};
 
-        request.objects = this.normalizeObjects(objectOrObjects);
+        requestParameters.objects = this.normalizeObjects(objectOrObjects);
 
-        request.status = status;
+        requestParameters.status = status;
 
         if (holdToken !== null) {
-            request.holdToken = holdToken;
+            requestParameters.holdToken = holdToken;
         }
 
         if (orderId !== null) {
-            request.orderId = orderId;
+            requestParameters.orderId = orderId;
         }
 
-        request.events = Array.isArray(eventKeyOrKeys) ? eventKeyOrKeys : [eventKeyOrKeys];
+        requestParameters.events = Array.isArray(eventKeyOrKeys) ? eventKeyOrKeys : [eventKeyOrKeys];
 
-        return this.client.post(`/seasons/actions/change-object-status?expand=labels`, request)
+        return this.client.post(`/seasons/actions/change-object-status?expand=labels`, requestParameters)
             .then((res) => res.data);
     }
 
@@ -85,28 +85,28 @@ class Events {
     }
 
     markAsForSale(eventKey, objects = null, categories = null) {
-        var requestParams = {};
+        let requestParameters = {};
         if (objects !== null) {
-            requestParams.objects = objects;
+            requestParameters.objects = objects;
         }
         if (categories !== null) {
-            requestParams.categories = categories;
+            requestParameters.categories = categories;
         }
-        return this.client.post(`events/${eventKey}/actions/mark-as-for-sale`, requestParams);
+        return this.client.post(`events/${eventKey}/actions/mark-as-for-sale`, requestParameters);
     }
 
     markAsNotForSale(eventKey, objects = null, categories = null) {
-        var request = {};
+        let requestParameters = {};
 
         if (objects !== null) {
-            request.objects = objects;
+            requestParameters.objects = objects;
         }
 
         if (categories !== null) {
-            request.categories = categories;
+            requestParameters.categories = categories;
         }
 
-        return this.client.post(`events/${eventKey}/actions/mark-as-not-for-sale`, request);
+        return this.client.post(`events/${eventKey}/actions/mark-as-not-for-sale`, requestParameters);
     }
 
     markEverythingAsForSale(eventKey) {
@@ -114,42 +114,48 @@ class Events {
     }
 
     update(eventKey, chartKey = null, newEventKey = null, bookWholeTablesOrTableBookingModes = null) {
-        var requestParams = {};
+        let requestParameters= {};
 
         if (chartKey !== null) {
-            requestParams.chartKey = chartKey;
+            requestParameters.chartKey = chartKey;
         }
 
         if (newEventKey !== null) {
-            requestParams.eventKey = newEventKey;
+            requestParameters.eventKey = newEventKey;
         }
 
         if (typeof bookWholeTablesOrTableBookingModes === 'boolean') {
-            requestParams.bookWholeTables = bookWholeTablesOrTableBookingModes;
+            requestParameters.bookWholeTables = bookWholeTablesOrTableBookingModes;
         } else if (bookWholeTablesOrTableBookingModes !== null) {
-            requestParams.tableBookingModes = bookWholeTablesOrTableBookingModes;
+            requestParameters.tableBookingModes = bookWholeTablesOrTableBookingModes;
         }
 
-        return this.client.post(`events/${eventKey}`, requestParams);
+        return this.client.post(`events/${eventKey}`, requestParameters);
     }
 
-    updateExtraDatas(eventKey, extraDatas) {
-        var request = {};
-        request.extraData = extraDatas;
-        return this.client.post(`/events/${eventKey}/actions/update-extra-data`, request);
+    updateExtraDatas(eventKey, extraData) {
+        let requestParameters= {};
+        requestParameters.extraData = extraData;
+        return this.client.post(`/events/${eventKey}/actions/update-extra-data`, requestParameters);
     }
 
     updateExtraData(eventKey, obj, extraData) {
-        var request = {};
-        request.extraData = extraData;
-        return this.client.post(`/events/${eventKey}/objects/${obj}/actions/update-extra-data`, request);
+        let requestParameters = {};
+        requestParameters.extraData = extraData;
+        return this.client.post(`/events/${eventKey}/objects/${obj}/actions/update-extra-data`, requestParameters);
     }
 
     changeBestAvailableObjectStatus(eventKey, number, status, categories = null, holdToken = null, extraData = null, orderId = null) {
-        var requestParams = {};
-        var bestAvailable = {};
+        let requestParameters = {};
+        let bestAvailable = {};
+        requestParameters.status = status;
         bestAvailable.number = number;
-
+        if (holdToken !== null) {
+            requestParameters.holdToken = holdToken;
+        }
+        if (orderId !== null) {
+            requestParameters.orderId = orderId;
+        }
         if (categories !== null) {
             bestAvailable.categories = categories;
         }
@@ -157,18 +163,9 @@ class Events {
         if (extraData !== null) {
             bestAvailable.extraData = extraData;
         }
+        requestParameters.bestAvailable = bestAvailable;
 
-        requestParams.bestAvailable = bestAvailable;
-        requestParams.status = status;
-        if (holdToken !== null) {
-            requestParams.holdToken = holdToken;
-        }
-
-        if (orderId !== null) {
-            requestParams.orderId = orderId;
-        }
-
-        return this.client.post(`/events/${eventKey}/actions/change-object-status`, requestParams)
+        return this.client.post(`/events/${eventKey}/actions/change-object-status`, requestParameters)
             .then((res) => res.data);
     }
 
@@ -197,7 +194,7 @@ class Events {
     statusChanges(eventKey, objectId = null) {
         if (objectId === null) {
             return new Lister(new PageFetcher(`/events/${eventKey}/status-changes`, this.client, (results) => {
-                var statusItems = results.items.map((statusData) => {
+                let statusItems = results.items.map((statusData) => {
                     return new StatusChange(statusData.id, statusData.eventId, statusData.status,
                         statusData.quantity, statusData.objectLabel,
                         statusData.date, statusData.orderId, statusData.extraData);
@@ -207,7 +204,7 @@ class Events {
         }
 
         return new Lister(new PageFetcher(`/events/${eventKey}/objects/${objectId}/status-changes`, this.client, (results) => {
-            var statusItems = results.items.map((statusData) => {
+            let statusItems = results.items.map((statusData) => {
                 return new StatusChange(statusData.id, statusData.eventId, statusData.status,
                     statusData.quantity, statusData.objectLabel,
                     statusData.date, statusData.orderId, statusData.extraData);

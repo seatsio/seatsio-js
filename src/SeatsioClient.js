@@ -1,4 +1,3 @@
-const Axios = require('axios');
 const Accounts = require('./Accounts/Accounts.js');
 const Charts = require('./Charts/Charts.js');
 const Events = require('./Events/Events.js');
@@ -7,6 +6,7 @@ const HoldTokens = require('./HoldTokens/HoldTokens.js');
 const ChartReports = require('./Reports/ChartReports.js');
 const EventReports = require('./Reports/EventReports.js');
 const errorResponseHandler = require('./errorInterceptor.js');
+const Axios = require('axios');
 
 class SeatsioClient {
     constructor(secretKey, baseUrl = 'https://api.seatsio.net/') {

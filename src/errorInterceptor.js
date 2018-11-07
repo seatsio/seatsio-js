@@ -1,5 +1,3 @@
-const axios = require('axios');
-
 function errorResponseHandler(error) {
         return Promise.reject(error.response.data);
 }

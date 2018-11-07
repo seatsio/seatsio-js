@@ -4,7 +4,7 @@ class HoldTokens {
     }
 
     create(expiresInMinutes = null) {
-        var request = {};
+        let request = {};
         if (expiresInMinutes !== null) {
             request.expiresInMinutes = expiresInMinutes;
         }
@@ -16,7 +16,7 @@ class HoldTokens {
     }
 
     expiresInMinutes(holdToken, minutes) {
-        var request = {};
+        let request = {};
         request.expiresInMinutes = minutes;
         return this.client.post(`/hold-tokens/${holdToken}`, request).then((res) => res.data);
     }

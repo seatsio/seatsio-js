@@ -9,12 +9,12 @@ class IterablePages {
     }
 
     pageCreator(data, afterId, prevId) {
-        var events = data.items.map((eventData) => {
+        let events = data.items.map((eventData) => {
             return new Event(eventData.id, eventData.key, eventData.bookWholeTables,
                 eventData.supportsBestAvailable, eventData.forSaleConfig,
                 eventData.chartKey, eventData.createdOn, eventData.updatedOn);
         });
-        var page = new Page(events, afterId, prevId);
+        let page = new Page(events, afterId, prevId);
         this.pages.push(page);
         return page;
     }
@@ -54,7 +54,7 @@ class IterablePages {
     }
 
     [Symbol.asyncIterator]() {
-        var _this = this;
+        let _this = this;
 
         return {
             next() {

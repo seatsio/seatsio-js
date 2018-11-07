@@ -12,21 +12,21 @@ class Charts {
     }
 
     create(name = null, venueType = null, categories = null) {
-        let requestParams = {};
+        let requestParameters = {};
 
         if (name !== null) {
-            requestParams.name = name;
+            requestParameters.name = name;
         }
 
         if (venueType !== null) {
-            requestParams.venueType = venueType;
+            requestParameters.venueType = venueType;
         }
 
         if (categories !== null) {
-            requestParams.categories = categories;
+            requestParameters.categories = categories;
         }
 
-        return this.client.post('charts', requestParams)
+        return this.client.post('charts', requestParameters)
             .then((res) => res.data);
     }
 
@@ -107,37 +107,37 @@ class Charts {
     }
 
     update(key, name = null, categories = null) {
-        let requestParams = {};
+        let requestParameters = {};
 
         if (name !== null) {
-            requestParams.name = name;
+            requestParameters.name = name;
         }
 
         if (categories !== null) {
-            requestParams.categories = categories;
+            requestParameters.categories = categories;
         }
 
-        return this.client.post(`/charts/${key}`, requestParams);
+        return this.client.post(`/charts/${key}`, requestParameters);
     }
 
     listFirstPage(chartListParams = null, pageSize = null) {
         return this.iterator().firstPage(chartListParams, pageSize);
     }
 
-    listPageAfter(afterId, chartListParams = null, pageSize = null) {
-        return this.iterator().pageAfter(afterId, chartListParams, pageSize);
+    listPageAfter(afterId, chartListParameters = null, pageSize = null) {
+        return this.iterator().pageAfter(afterId, chartListParameters, pageSize);
     }
 
-    listPageBefore(beforeId, chartListParams = null, pageSize = null) {
-        return this.iterator().pageBefore(beforeId, chartListParams, pageSize);
+    listPageBefore(beforeId, chartListParameters = null, pageSize = null) {
+        return this.iterator().pageBefore(beforeId, chartListParameters, pageSize);
     }
 
-    getAll(params = null) {
-        return new IterableChartPages('/charts', this.client, params);
+    getAll(requestParameters = null) {
+        return new IterableChartPages('/charts', this.client, requestParameters);
     }
 
-    listAll(params = {}) {
-        return new IterableAsyncCharts('/charts', this.client, params);
+    listAll(requestParameters = {}) {
+        return new IterableAsyncCharts('/charts', this.client, requestParameters);
     }
 
     iterator() {

@@ -17,28 +17,29 @@ class Subaccounts {
     }
 
     doCreate(email = null, name = null) {
-        var requestParams = {};
+        let requestParameters = {};
 
         if (name !== null) {
-            requestParams.name = name;
+            requestParameters.name = name;
         }
 
         if (email !== null) {
-            requestParams.email = email;
+            requestParameters.email = email;
         }
 
-        return this.client.post('/subaccounts', requestParams)
+
+        return this.client.post('/subaccounts', requestParameters)
             .then((res) => res.data);
     }
 
     copyChartToSubaccount(fromId, toId, chartKey) {
         return this.client.post(`/subaccounts/${fromId}/charts/${chartKey}/actions/copy-to/${toId}`)
-            .then((res) => res.data);
+                          .then((res) => res.data);
     }
 
     copyChartToParent(id, chartKey) {
         return this.client.post(`/subaccounts/${id}/charts/${chartKey}/actions/copy-to/parent`)
-            .then((res) => res.data);
+                          .then((res) => res.data);
     }
 
     activate(id) {
@@ -54,17 +55,17 @@ class Subaccounts {
     }
 
     update(id, name, email) {
-        var request = {};
+        let requestParameters = {};
 
         if (name !== null) {
-            request.name = name;
+            requestParameters.name = name;
         }
 
         if (email !== null) {
-            request.email = email;
+            requestParameters.email = email;
         }
 
-        return this.client.post(`/subaccounts/${id}`, request);
+        return this.client.post(`/subaccounts/${id}`, requestParameters);
     }
 
     regenerateSecretKey(id) {

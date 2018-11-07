@@ -9,11 +9,11 @@ class IterableSubaccountPages {
     }
 
     pageCreator(data, afterId, prevId) {
-        var subaccounts = data.items.map((subaccountData) => {
+        let subaccounts = data.items.map((subaccountData) => {
             return new Subaccount(subaccountData.id, subaccountData.secretKey, subaccountData.designerKey,
                 subaccountData.publicKey, subaccountData.name, subaccountData.email, subaccountData.active);
         });
-        var page = new Page(subaccounts, afterId, prevId);
+        let page = new Page(subaccounts, afterId, prevId);
         this.pages.push(page);
         return page;
     }
@@ -48,20 +48,16 @@ class IterableSubaccountPages {
             });
     }
 
-    firstPage() {
-        return this.fetch();
-    }
-
     subsequentPage(n) {
         return this.fetchAfter(n);
     }
 
     [Symbol.asyncIterator]() {
-        var _this = this;
+        let _this = this;
 
         return {
             next() {
-                if (_this.pages.length == 0) {
+                if (_this.pages.length === 0) {
                     return _this.fetch();
                 } else if (_this.fetchNextPage) {
                     return _this.subsequentPage(_this.next_page_starts_after);

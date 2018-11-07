@@ -5,36 +5,33 @@ class PageFetcher {
         this.pageCreator = pageCreator;
     }
 
-    fetchAfter(afterId, queryParams, pageSize) {
-        if (queryParams === null) {
-            var queryParams = {};
-        }
+    fetchAfter(afterId, queryParameters, pageSize) {
+        let parameters = queryParameters || {};
 
         if (afterId !== null) {
-            queryParams.start_after_id = afterId;
+            parameters.start_after_id = afterId;
         }
-        return this.fetch(queryParams, pageSize);
+        return this.fetch(parameters, pageSize);
     }
 
     fetchBefore(beforeId, queryParameters, pageSize) {
-        var queryParams = queryParameters || {};
+        let parameters = queryParameters || {};
 
         if (beforeId) {
-            queryParams.end_before_id = beforeId;
+            parameters.end_before_id = beforeId;
         }
 
-        return this.fetch(queryParams, pageSize);
+        return this.fetch(parameters, pageSize);
     }
 
-    async fetch(queryParams, pageSize) {
-        if (queryParams === null) {
-            var queryParams = {};
-        }
+    async fetch(queryParameters, pageSize) {
+        let parameters = queryParameters || {};
+
         if (pageSize) {
-            queryParams.limit = pageSize;
+            parameters.limit = pageSize;
         }
 
-        var res = await this.client.get(this.url, {params: queryParams}).then((res) => res.data);
+        let res = await this.client.get(this.url, {params: parameters}).then((res) => res.data);
         return this.pageCreator(res);
     }
 }

@@ -12,7 +12,7 @@ class IterableAsyncCharts {
 
     chartCreator(data) {
         data.items.forEach((chartData) => {
-            var chart = new Chart(chartData.name, chartData.id, chartData.key, chartData.status, chartData.tags,
+            let chart = new Chart(chartData.name, chartData.id, chartData.key, chartData.status, chartData.tags,
                 chartData.publishedVersionThumbnailUrl, chartData.publishedVersionThumbnailUrl, chartData.events, chartData.archived);
             this.items.push(chart);
         });
@@ -27,11 +27,7 @@ class IterableAsyncCharts {
                 } else {
                     this.nextPageMustBeFetched = false;
                 }
-                /*
-                if(res.data.previous_page_ends_before){
-                  this.previousPageEndsBefore = res.data.previous_page_ends_before;
-                }
-                */
+
                 this.chartCreator(res.data)
             });
     }

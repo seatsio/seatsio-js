@@ -5,23 +5,14 @@ class Page {
         this.previousPageEndsBefore = beforeId;
     }
 
-    setNextPageStartsAfter(nextPageStartsAfter) {
-        this.nextPageStartsAfter = nextPageStartsAfter;
-    }
-
-    setPreviousPageEndsBefore(previousPageEndsBefore) {
-        this.previousPageEndsBefore = previousPageEndsBefore;
-    }
-
     [Symbol.iterator]() {
         let index = 0;
-        var charts = this.items;
+        let charts = this.items;
         return {
             next() {
                 if (index < charts.length) {
-                    var chart = charts[index];
+                    let chart = charts[index];
                     index++;
-                    //console.log(chart);
                     return {value: chart, done: false}
                 }
                 else {
