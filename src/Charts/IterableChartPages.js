@@ -10,19 +10,16 @@ class IterableChartPages{
   }
 
   pageCreator(data, afterId, prevId){
-    var charts = data.items.map((chartData) => {
+    let charts = data.items.map((chartData) => {
       return new Chart(chartData.name, chartData.id, chartData.key, chartData.status, chartData.tags,
         chartData.publishedVersionThumbnailUrl, chartData.publishedVersionThumbnailUrl, chartData.events, chartData.archived);
     });
-    var page = new Page(charts, afterId, prevId);
+    let page = new Page(charts, afterId, prevId);
     this.pages.push(page);
     return page;
   }
 
-  fetch(fetchParams = null){
-    if(fetchParams === null){
-      var fetchParams = {};
-    }
+  fetch(fetchParams = {}){
     return this.client.get(this.url, {params: fetchParams})
             .then( (res) => {
               if(res.data.next_page_starts_after){
@@ -33,10 +30,7 @@ class IterableChartPages{
             });
   }
 
-  fetchAfter(afterId, fetchParams = null){
-    if(fetchParams === null){
-      var fetchParams = {};
-    }
+  fetchAfter(afterId, fetchParams = {}){
     fetchParams.start_after_id = afterId;
     return this.client.get(this.url, {params: fetchParams})
                       .then( (res) => {
@@ -50,20 +44,16 @@ class IterableChartPages{
                       });
   }
 
-  firstPage(){
-    return this.fetch();
-  }
-
   subsequentPage(n){
     return this.fetchAfter(n);
   }
 
   [Symbol.asyncIterator](){
-    var _this = this;
+    let _this = this;
 
     return {
       next(){
-      if(_this.pages.length == 0){
+      if(_this.pages.length === 0){
         return _this.fetch(_this.params);
       } else if(_this.fetchNextPage){
         return _this.subsequentPage(_this.next_page_starts_after, _this.params);

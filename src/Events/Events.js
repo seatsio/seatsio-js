@@ -1,5 +1,4 @@
 const StatusChange = require('./StatusChange.js');
-const Event = require('./Event.js');
 const PageFetcher = require('../PageFetcher.js');
 const Page = require('../Page.js');
 const ObjectStatus = require('./ObjectStatus.js');

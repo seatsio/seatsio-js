@@ -4,10 +4,10 @@ class ChartReports{
   }
 
   byLabel(chartKey){
-    return this.client.get(this.reportUrl('byLabel', chartKey)).then( (res) => res.data);
+    return this.client.get(ChartReports.reportUrl('byLabel', chartKey)).then( (res) => res.data);
   }
 
-  reportUrl(reportType, eventKey){
+  static reportUrl(reportType, eventKey){
     return `/reports/charts/${eventKey}/${reportType}`;
   }
 }

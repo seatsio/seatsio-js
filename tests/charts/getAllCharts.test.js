@@ -3,15 +3,15 @@ const ChartListParams = require('../../src/Charts/ChartListParams.js');
 
 test('getAll Charts with more than 20 charts', async () => {
   jest.setTimeout(20000);
-  var user = await testUtils.createTestUser();
-  var client = testUtils.createClient(user.secretKey, testUtils.baseUrl);
-  var generatedChartKeys = [];
-  for(var i = 0; i < 22; i++){
-    var chart = await client.charts.create();
+  let user = await testUtils.createTestUser();
+  let client = testUtils.createClient(user.secretKey, testUtils.baseUrl);
+  let generatedChartKeys = [];
+  for(let i = 0; i < 22; i++){
+    let chart = await client.charts.create();
     generatedChartKeys.push(chart.key);
   }
-  var chartPages = client.charts.getAll();
-  var retrievedKeys = [];
+  let chartPages = client.charts.getAll();
+  let retrievedKeys = [];
 
   for await (const page of chartPages){
     for(const chart of page){

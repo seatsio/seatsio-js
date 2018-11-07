@@ -43,10 +43,6 @@ class IterablePages{
                       });
   }
 
-  firstPage(){
-    return this.fetch();
-  }
-
   subsequentPage(n){
     return this.fetchAfter(n);
   }
@@ -56,7 +52,7 @@ class IterablePages{
 
     return {
       next(){
-      if(_this.pages.length == 0){
+      if(_this.pages.length === 0){
         return _this.fetch();
       } else if(_this.fetchNextPage){
         return _this.subsequentPage(_this.next_page_starts_after);

@@ -5,21 +5,6 @@ class Category{
     this.label = label;
     this.color = color;
   }
-
-  setKey(key){
-    this.key = key;
-    return this;
-  }
-
-  setLabel(label){
-    this.label = label;
-    return this;
-  }
-
-  setColor(color){
-    this.color = color;
-    return this;
-  }
 }
 
 module.exports = Category

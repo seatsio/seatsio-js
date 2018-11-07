@@ -3,6 +3,7 @@ const Chart = require('./Chart.js');
 const Page = require('../Page.js');
 const Lister = require('./Lister.js');
 const IterableChartPages = require('./IterableChartPages.js');
+const IterableAsyncCharts = require('./IterableAsyncCharts.js');
 
 class Charts {
   constructor(client){
@@ -11,7 +12,7 @@ class Charts {
   }
 
   create(name = null, venueType = null, categories = null){
-    var requestParams = {};
+    let requestParams = {};
 
     if(name !== null){
       requestParams.name = name;
@@ -30,12 +31,12 @@ class Charts {
   }
 
   addTag(key, tag){
-    var url = `charts/${key}/tags/${encodeURIComponent(tag)}`;
+    let url = `charts/${key}/tags/${encodeURIComponent(tag)}`;
     return this.client.post(url);
   }
 
   removeTag(key, tag){
-    var url = `charts/${key}/tags/${encodeURIComponent(tag)}`;
+    let url = `charts/${key}/tags/${encodeURIComponent(tag)}`;
     return this.client.delete(url);
   }
 
@@ -106,7 +107,7 @@ class Charts {
   }
 
   update(key, name = null, categories = null){
-    var requestParams = {};
+    let requestParams = {};
 
     if(name !== null){
       requestParams.name = name;
@@ -135,9 +136,15 @@ class Charts {
     return new IterableChartPages('/charts', this.client, params);
   }
 
+  listAll(params = {}){
+    return new IterableAsyncCharts('/charts', this.client, params);
+  }
+
+
+
   iterator(){
     return new Lister(new PageFetcher('/charts', this.client, function (results) {
-      var chartItems = results.items.map((chartData) => {
+      let chartItems = results.items.map((chartData) => {
         return new Chart(chartData.name, chartData.id, chartData.key, chartData.status, chartData.tags,
           chartData.publishedVersionThumbnailUrl, chartData.publishedVersionThumbnailUrl, chartData.events, chartData.archived);
       });
