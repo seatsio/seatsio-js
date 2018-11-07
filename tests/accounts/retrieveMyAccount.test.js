@@ -1,7 +1,5 @@
-const testUtils = require('../testUtils.js');
-
 test('should retrieve my account', async () => {
-    var myAccount = await client.accounts.retrieveMyAccount().catch((err) => console.log(err));
+    let myAccount = await client.accounts.retrieveMyAccount();
 
     expect(myAccount.secretKey).toBeTruthy();
     expect(myAccount.designerKey).toBeTruthy();
