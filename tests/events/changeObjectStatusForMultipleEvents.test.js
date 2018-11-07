@@ -2,8 +2,6 @@ const testUtils = require('../testUtils.js');
 const ObjectStatus = require('../../src/Events/ObjectStatus.js');
 
 test('should change object status for multiple events', async () => {
-    var user = await testUtils.createTestUser();
-    var client = testUtils.createClient(user.secretKey, testUtils.baseUrl);
     var chartKey = testUtils.getChartKey();
     await testUtils.createTestChart(chartKey, user.designerKey);
     var event1 = await client.events.create(chartKey);
@@ -17,8 +15,6 @@ test('should change object status for multiple events', async () => {
 });
 
 test('should release multiple events', async () => {
-    var user = await testUtils.createTestUser();
-    var client = testUtils.createClient(user.secretKey, testUtils.baseUrl);
     var chartKey = testUtils.getChartKey();
     await testUtils.createTestChart(chartKey, user.designerKey);
     var event1 = await client.events.create(chartKey);
@@ -32,8 +28,6 @@ test('should release multiple events', async () => {
 });
 
 test('should release multiple events', async () => {
-    var user = await testUtils.createTestUser();
-    var client = testUtils.createClient(user.secretKey, testUtils.baseUrl);
     var chartKey = testUtils.getChartKey();
     await testUtils.createTestChart(chartKey, user.designerKey);
     var event1 = await client.events.create(chartKey);
@@ -48,8 +42,6 @@ test('should release multiple events', async () => {
 });
 
 test('should hold multiple events', async () => {
-    var user = await testUtils.createTestUser();
-    var client = testUtils.createClient(user.secretKey, testUtils.baseUrl);
     var chartKey = testUtils.getChartKey();
     await testUtils.createTestChart(chartKey, user.designerKey);
     var event1 = await client.events.create(chartKey);

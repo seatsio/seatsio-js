@@ -3,8 +3,6 @@ const ObjectStatus = require('../../src/Events/ObjectStatus.js');
 const ObjectProperties = require('../../src/Events/ObjectProperties.js');
 
 test('should change object status', async () => {
-    var user = await testUtils.createTestUser();
-    var client = testUtils.createClient(user.secretKey, testUtils.baseUrl);
     var chartKey = testUtils.getChartKey();
     await testUtils.createTestChart(chartKey, user.designerKey);
     var event = await client.events.create(chartKey);
@@ -15,8 +13,6 @@ test('should change object status', async () => {
 
 
 test('should change object status for table seat', async () => {
-    var user = await testUtils.createTestUser();
-    var client = testUtils.createClient(user.secretKey, testUtils.baseUrl);
     var chartKey = testUtils.getChartKey();
     await testUtils.createTestChartWithTables(chartKey, user.designerKey);
     var event = await client.events.create(chartKey);
@@ -26,8 +22,6 @@ test('should change object status for table seat', async () => {
 });
 
 test('should change object status for table', async () => {
-    var user = await testUtils.createTestUser();
-    var client = testUtils.createClient(user.secretKey, testUtils.baseUrl);
     var chartKey = testUtils.getChartKey();
     await testUtils.createTestChartWithTables(chartKey, user.designerKey);
     var event = await client.events.create(chartKey, null, true);
@@ -37,8 +31,6 @@ test('should change object status for table', async () => {
 });
 
 test('should change object status with GA', async () => {
-    var user = await testUtils.createTestUser();
-    var client = testUtils.createClient(user.secretKey, testUtils.baseUrl);
     var chartKey = testUtils.getChartKey();
     await testUtils.createTestChart(chartKey, user.designerKey);
     var event = await client.events.create(chartKey);
@@ -48,8 +40,6 @@ test('should change object status with GA', async () => {
 });
 
 test('should change object status with objectId as string', async () => {
-    var user = await testUtils.createTestUser();
-    var client = testUtils.createClient(user.secretKey, testUtils.baseUrl);
     var chartKey = testUtils.getChartKey();
     await testUtils.createTestChart(chartKey, user.designerKey);
     var event = await client.events.create(chartKey);
@@ -59,8 +49,6 @@ test('should change object status with objectId as string', async () => {
 });
 
 test('should change object status with objectId inside class', async () => {
-    var user = await testUtils.createTestUser();
-    var client = testUtils.createClient(user.secretKey, testUtils.baseUrl);
     var chartKey = testUtils.getChartKey();
     await testUtils.createTestChart(chartKey, user.designerKey);
     var event = await client.events.create(chartKey);
@@ -70,8 +58,6 @@ test('should change object status with objectId inside class', async () => {
 });
 
 test('should change object status with hold token', async () => {
-    var user = await testUtils.createTestUser();
-    var client = testUtils.createClient(user.secretKey, testUtils.baseUrl);
     var chartKey = testUtils.getChartKey();
     await testUtils.createTestChart(chartKey, user.designerKey);
     var event = await client.events.create(chartKey);
@@ -83,8 +69,6 @@ test('should change object status with hold token', async () => {
 });
 
 test('should change object status with OrderId', async () => {
-    var user = await testUtils.createTestUser();
-    var client = testUtils.createClient(user.secretKey, testUtils.baseUrl);
     var chartKey = testUtils.getChartKey();
     await testUtils.createTestChart(chartKey, user.designerKey);
     var event = await client.events.create(chartKey);

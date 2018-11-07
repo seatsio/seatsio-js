@@ -3,8 +3,6 @@ const ChartListParams = require('../../src/Charts/ChartListParams.js');
 
 test('getAll Charts with more than 20 charts', async () => {
     jest.setTimeout(20000);
-    let user = await testUtils.createTestUser();
-    let client = testUtils.createClient(user.secretKey, testUtils.baseUrl);
     let generatedChartKeys = [];
     for (let i = 0; i < 22; i++) {
         let chart = await client.charts.create();
@@ -25,8 +23,6 @@ test('getAll Charts with more than 20 charts', async () => {
 
 test('getAll Charts with more than 40 charts', async () => {
     jest.setTimeout(20000);
-    var user = await testUtils.createTestUser();
-    var client = testUtils.createClient(user.secretKey, testUtils.baseUrl);
     var generatedChartKeys = [];
     for (var i = 0; i < 46; i++) {
         var chart = await client.charts.create();
@@ -46,9 +42,6 @@ test('getAll Charts with more than 40 charts', async () => {
 });
 
 test('getAll Charts when there are no charts', async () => {
-    var user = await testUtils.createTestUser();
-    var client = testUtils.createClient(user.secretKey, testUtils.baseUrl);
-
     var chartPages = client.charts.getAll();
     var keys = [];
     for await(const page of chartPages) {
@@ -60,8 +53,6 @@ test('getAll Charts when there are no charts', async () => {
 });
 
 test('getAll Charts with filter', async () => {
-    var user = await testUtils.createTestUser();
-    var client = testUtils.createClient(user.secretKey, testUtils.baseUrl);
     var fooChartKeys = [];
     for (var i = 0; i < 21; i++) {
         var chart = await client.charts.create('foo');
@@ -85,8 +76,6 @@ test('getAll Charts with filter', async () => {
 
 test('getAll Charts with tag', async () => {
     jest.setTimeout(20000);
-    var user = await testUtils.createTestUser();
-    var client = testUtils.createClient(user.secretKey, testUtils.baseUrl);
     var fooChartKeys = [];
     for (var i = 0; i < 21; i++) {
         var chart = await client.charts.create();
@@ -110,8 +99,6 @@ test('getAll Charts with tag', async () => {
 });
 
 test('getAll Charts with tag and filter parameters', async () => {
-    var user = await testUtils.createTestUser();
-    var client = testUtils.createClient(user.secretKey, testUtils.baseUrl);
     var chart1 = await client.charts.create('bar');
     var chart2 = await client.charts.create();
     var chart3 = await client.charts.create('bar');
@@ -135,8 +122,6 @@ test('getAll Charts with tag and filter parameters', async () => {
 });
 
 test('getAll Charts with expandEvents parameters', async () => {
-    var user = await testUtils.createTestUser();
-    var client = testUtils.createClient(user.secretKey, testUtils.baseUrl);
     var chart1 = await client.charts.create();
     var chart2 = await client.charts.create();
     var event1 = await client.events.create(chart1.key);

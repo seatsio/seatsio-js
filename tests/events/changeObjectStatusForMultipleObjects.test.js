@@ -1,10 +1,7 @@
 const testUtils = require('../testUtils.js');
-const ObjectStatus = require('../../src/Events/ObjectStatus.js');
-const ObjectProperties = require('../../src/Events/ObjectProperties.js')
+const ObjectProperties = require('../../src/Events/ObjectProperties.js');
 
 test('should change object status for multiple objects as an array of string', async () => {
-    var user = await testUtils.createTestUser();
-    var client = testUtils.createClient(user.secretKey, testUtils.baseUrl);
     var chartKey = testUtils.getChartKey();
     await testUtils.createTestChart(chartKey, user.designerKey);
     var event = await client.events.create(chartKey);
@@ -17,8 +14,6 @@ test('should change object status for multiple objects as an array of string', a
 });
 
 test('should change object status for multiple objects as an array of objects', async () => {
-    var user = await testUtils.createTestUser();
-    var client = testUtils.createClient(user.secretKey, testUtils.baseUrl);
     var chartKey = testUtils.getChartKey();
     await testUtils.createTestChart(chartKey, user.designerKey);
     var event = await client.events.create(chartKey);
@@ -32,8 +27,6 @@ test('should change object status for multiple objects as an array of objects', 
 });
 
 test('should change object status for multiple objects as an array of classes', async () => {
-    var user = await testUtils.createTestUser();
-    var client = testUtils.createClient(user.secretKey, testUtils.baseUrl);
     var chartKey = testUtils.getChartKey();
     await testUtils.createTestChart(chartKey, user.designerKey);
     var event = await client.events.create(chartKey);
@@ -47,8 +40,6 @@ test('should change object status for multiple objects as an array of classes', 
 });
 
 test('should change object status for multiple objects as an array of classes with general admission', async () => {
-    var user = await testUtils.createTestUser();
-    var client = testUtils.createClient(user.secretKey, testUtils.baseUrl);
     var chartKey = testUtils.getChartKey();
     await testUtils.createTestChart(chartKey, user.designerKey);
     var event = await client.events.create(chartKey);
@@ -63,8 +54,6 @@ test('should change object status for multiple objects as an array of classes wi
 });
 
 test('should change object status for multiple objects as an array of classes and strings', async () => {
-    var user = await testUtils.createTestUser();
-    var client = testUtils.createClient(user.secretKey, testUtils.baseUrl);
     var chartKey = testUtils.getChartKey();
     await testUtils.createTestChart(chartKey, user.designerKey);
     var event = await client.events.create(chartKey);
@@ -79,8 +68,6 @@ test('should change object status for multiple objects as an array of classes an
 });
 
 test('should change object status for multiple objects with ticket types', async () => {
-    var user = await testUtils.createTestUser();
-    var client = testUtils.createClient(user.secretKey, testUtils.baseUrl);
     var chartKey = testUtils.getChartKey();
     await testUtils.createTestChart(chartKey, user.designerKey);
     var event = await client.events.create(chartKey);
@@ -100,8 +87,6 @@ test('should change object status for multiple objects with ticket types', async
 });
 
 test('should change object status for multiple objects with quantity', async () => {
-    var user = await testUtils.createTestUser();
-    var client = testUtils.createClient(user.secretKey, testUtils.baseUrl);
     var chartKey = testUtils.getChartKey();
     await testUtils.createTestChart(chartKey, user.designerKey);
     var event = await client.events.create(chartKey);
@@ -119,8 +104,6 @@ test('should change object status for multiple objects with quantity', async () 
 });
 
 test('should change object status for multiple objects, GAs and Seats', async () => {
-    var user = await testUtils.createTestUser();
-    var client = testUtils.createClient(user.secretKey, testUtils.baseUrl);
     var chartKey = testUtils.getChartKey();
     await testUtils.createTestChart(chartKey, user.designerKey);
     var event = await client.events.create(chartKey);
@@ -138,8 +121,6 @@ test('should change object status for multiple objects, GAs and Seats', async ()
 });
 
 test('should change object status for multiple objects with extra data', async () => {
-    var user = await testUtils.createTestUser();
-    var client = testUtils.createClient(user.secretKey, testUtils.baseUrl);
     var chartKey = testUtils.getChartKey();
     await testUtils.createTestChart(chartKey, user.designerKey);
     var event = await client.events.create(chartKey);

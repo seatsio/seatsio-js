@@ -1,8 +1,6 @@
 const testUtils = require('../testUtils.js');
 
 test('should create subaccount', async () => {
-    var user = await testUtils.createTestUser();
-    var client = testUtils.createClient(user.secretKey, testUtils.baseUrl);
     var subaccount = await client.subaccounts.create('subaccountTest');
 
     expect(subaccount.secretKey).toBeDefined();
@@ -14,16 +12,12 @@ test('should create subaccount', async () => {
 });
 
 test('name is optional in subaccount create', async () => {
-    var user = await testUtils.createTestUser();
-    var client = testUtils.createClient(user.secretKey, testUtils.baseUrl);
     var subaccount = await client.subaccounts.create();
 
     expect(subaccount.name).toBeUndefined();
 });
 
 test('subaccount create with email parameter', async () => {
-    var user = await testUtils.createTestUser();
-    var client = testUtils.createClient(user.secretKey, testUtils.baseUrl);
     var randomEmail = testUtils.getRandomEmail();
     var subaccount = await client.subaccounts.createWithEmail(randomEmail, null);
 
@@ -36,8 +30,6 @@ test('subaccount create with email parameter', async () => {
 });
 
 test('subaccount create with name and email', async () => {
-    var user = await testUtils.createTestUser();
-    var client = testUtils.createClient(user.secretKey, testUtils.baseUrl);
     var randomEmail = testUtils.getRandomEmail();
     var subaccount = await client.subaccounts.createWithEmail(randomEmail, 'jeff');
 

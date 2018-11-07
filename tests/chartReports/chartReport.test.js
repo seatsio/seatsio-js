@@ -1,11 +1,9 @@
 const testUtils = require('../testUtils.js');
 
 test('chart report properties', async () => {
-    var user = await testUtils.createTestUser();
-    ;
-    var client = testUtils.createClient(user.secretKey, testUtils.baseUrl);
     var chartKey = testUtils.getChartKey();
     await testUtils.createTestChart(chartKey, user.designerKey);
+
     var report = await client.chartReports.byLabel(chartKey);
     var reportItem = report['A-1'][0];
 
@@ -19,11 +17,9 @@ test('chart report properties', async () => {
 });
 
 test('chart report properties for GA', async () => {
-    var user = await testUtils.createTestUser();
-    ;
-    var client = testUtils.createClient(user.secretKey, testUtils.baseUrl);
     var chartKey = testUtils.getChartKey();
     await testUtils.createTestChart(chartKey, user.designerKey);
+
     var report = await client.chartReports.byLabel(chartKey);
     var reportItem = report['GA1'][0];
 
@@ -33,10 +29,10 @@ test('chart report properties for GA', async () => {
 
 test('byLabel method for Reports module', async () => {
     var user = await testUtils.createTestUser();
-    ;
     var client = testUtils.createClient(user.secretKey, testUtils.baseUrl);
     var chartKey = testUtils.getChartKey();
     await testUtils.createTestChart(chartKey, user.designerKey);
+
     var report = await client.chartReports.byLabel(chartKey);
 
     expect(report['A-1'].length).toBe(1);

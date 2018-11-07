@@ -1,8 +1,6 @@
 const testUtils = require('../testUtils.js');
 
 test('should mark objects as not for sale', async () => {
-    var user = await testUtils.createTestUser();
-    var client = testUtils.createClient(user.secretKey, testUtils.baseUrl);
     var chart = await client.charts.create();
     var event = await client.events.create(chart.key);
     await client.events.markAsNotForSale(event.key, ['o1', 'o2'], ['cat1', 'cat2']);
@@ -14,8 +12,6 @@ test('should mark objects as not for sale', async () => {
 });
 
 test('that categories are optional for mark as not for sale', async () => {
-    var user = await testUtils.createTestUser();
-    var client = testUtils.createClient(user.secretKey, testUtils.baseUrl);
     var chart = await client.charts.create();
     var event = await client.events.create(chart.key);
     await client.events.markAsNotForSale(event.key, ['o1', 'o2']);
@@ -26,8 +22,6 @@ test('that categories are optional for mark as not for sale', async () => {
 });
 
 test('that objects are optional for mark as not for sale', async () => {
-    var user = await testUtils.createTestUser();
-    var client = testUtils.createClient(user.secretKey, testUtils.baseUrl);
     var chart = await client.charts.create();
     var event = await client.events.create(chart.key);
     await client.events.markAsNotForSale(event.key, null, ['cat1', 'cat2']);

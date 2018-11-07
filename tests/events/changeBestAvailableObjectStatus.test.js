@@ -2,8 +2,6 @@ const testUtils = require('../testUtils.js');
 const ObjectStatus = require('../../src/Events/ObjectStatus.js');
 
 test('should change best available object status', async () => {
-    var user = await testUtils.createTestUser();
-    var client = testUtils.createClient(user.secretKey, testUtils.baseUrl);
     var chartKey = testUtils.getChartKey();
     await testUtils.createTestChart(chartKey, user.designerKey);
     var event = await client.events.create(chartKey);
@@ -22,8 +20,6 @@ test('should change best available object status', async () => {
 });
 
 test('should change best available object status with categories', async () => {
-    var user = await testUtils.createTestUser();
-    var client = testUtils.createClient(user.secretKey, testUtils.baseUrl);
     var chartKey = testUtils.getChartKey();
     await testUtils.createTestChart(chartKey, user.designerKey);
     var event = await client.events.create(chartKey);
@@ -36,8 +32,6 @@ test('should change best available object status with categories', async () => {
 });
 
 test('should change best available object status with extra data', async () => {
-    var user = await testUtils.createTestUser();
-    var client = testUtils.createClient(user.secretKey, testUtils.baseUrl);
     var chartKey = testUtils.getChartKey();
     await testUtils.createTestChart(chartKey, user.designerKey);
     var event = await client.events.create(chartKey);
@@ -56,8 +50,6 @@ test('should change best available object status with extra data', async () => {
 });
 
 test('should change best available object status with hold token', async () => {
-    var user = await testUtils.createTestUser();
-    var client = testUtils.createClient(user.secretKey, testUtils.baseUrl);
     var chartKey = testUtils.getChartKey();
     await testUtils.createTestChart(chartKey, user.designerKey);
     var event = await client.events.create(chartKey);
@@ -69,8 +61,6 @@ test('should change best available object status with hold token', async () => {
 });
 
 test('should change best available object status with orderId', async () => {
-    var user = await testUtils.createTestUser();
-    var client = testUtils.createClient(user.secretKey, testUtils.baseUrl);
     var chartKey = testUtils.getChartKey();
     await testUtils.createTestChart(chartKey, user.designerKey);
     var event = await client.events.create(chartKey);
@@ -80,8 +70,6 @@ test('should change best available object status with orderId', async () => {
 });
 
 test('should book best available object ', async () => {
-    var user = await testUtils.createTestUser();
-    var client = testUtils.createClient(user.secretKey, testUtils.baseUrl);
     var chartKey = testUtils.getChartKey();
     await testUtils.createTestChart(chartKey, user.designerKey);
     var event = await client.events.create(chartKey);
@@ -92,8 +80,6 @@ test('should book best available object ', async () => {
 });
 
 test('should hold best available object ', async () => {
-    var user = await testUtils.createTestUser();
-    var client = testUtils.createClient(user.secretKey, testUtils.baseUrl);
     var chartKey = testUtils.getChartKey();
     await testUtils.createTestChart(chartKey, user.designerKey);
     var event = await client.events.create(chartKey);

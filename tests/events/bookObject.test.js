@@ -2,18 +2,17 @@ const testUtils = require('../testUtils.js');
 const ObjectStatus = require('../../src/Events/ObjectStatus.js');
 
 test('should book an object', async () => {
-    var user = await testUtils.createTestUser();
-    var client = testUtils.createClient(user.secretKey, testUtils.baseUrl);
     var chartKey = testUtils.getChartKey();
     await testUtils.createTestChart(chartKey, user.designerKey);
-    var event = await client.events.create(chartKey);
-    var bookRes = await client.events.book(event.key, ['A-1', 'A-2']);
-    var retrievedObjStatus1 = await client.events.retrieveObjectStatus(event.key, 'A-1');
-    var retrievedObjStatus2 = await client.events.retrieveObjectStatus(event.key, 'A-2');
     var labels = {
         'A-1': testUtils.someLabels('1', 'seat', 'A', 'row'),
         'A-2': testUtils.someLabels('2', 'seat', 'A', 'row')
     };
+
+    var event = await client.events.create(chartKey);
+    var bookRes = await client.events.book(event.key, ['A-1', 'A-2']);
+    var retrievedObjStatus1 = await client.events.retrieveObjectStatus(event.key, 'A-1');
+    var retrievedObjStatus2 = await client.events.retrieveObjectStatus(event.key, 'A-2');
 
     expect(retrievedObjStatus1.status).toEqual(ObjectStatus.BOOKED);
     expect(retrievedObjStatus2.status).toEqual(ObjectStatus.BOOKED);
@@ -21,8 +20,6 @@ test('should book an object', async () => {
 });
 
 test('should book an object with quantity', async () => {
-    var user = await testUtils.createTestUser();
-    var client = testUtils.createClient(user.secretKey, testUtils.baseUrl);
     var chartKey = testUtils.getChartKey();
     await testUtils.createTestChart(chartKey, user.designerKey);
     var chart = await client.charts.retrieve(chartKey);
@@ -35,8 +32,6 @@ test('should book an object with quantity', async () => {
 });
 
 test('should book an object with sections', async () => {
-    var user = await testUtils.createTestUser();
-    var client = testUtils.createClient(user.secretKey, testUtils.baseUrl);
     var chartKey = testUtils.getChartKey();
     await testUtils.createTestChartWithSections(chartKey, user.designerKey);
     var event = await client.events.create(chartKey);
@@ -54,8 +49,6 @@ test('should book an object with sections', async () => {
 });
 
 test('should hold and then book, check hold token exists', async () => {
-    var user = await testUtils.createTestUser();
-    var client = testUtils.createClient(user.secretKey, testUtils.baseUrl);
     var chartKey = testUtils.getChartKey();
     await testUtils.createTestChart(chartKey, user.designerKey);
     var event = await client.events.create(chartKey);
@@ -72,8 +65,6 @@ test('should hold and then book, check hold token exists', async () => {
 });
 
 test('should check booking with orderId', async () => {
-    var user = await testUtils.createTestUser();
-    var client = testUtils.createClient(user.secretKey, testUtils.baseUrl);
     var chartKey = testUtils.getChartKey();
     await testUtils.createTestChart(chartKey, user.designerKey);
     var event = await client.events.create(chartKey);

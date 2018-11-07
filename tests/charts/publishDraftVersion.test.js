@@ -1,8 +1,6 @@
 const testUtils = require('../testUtils.js');
 
 test('should publish a chart', async () => {
-    var user = await testUtils.createTestUser();
-    var client = testUtils.createClient(user.secretKey, testUtils.baseUrl);
     var chart = await client.charts.create('oldName');
     await client.events.create(chart.key);
     await client.charts.update(chart.key, 'newName');

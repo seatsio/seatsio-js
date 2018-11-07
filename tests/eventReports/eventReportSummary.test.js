@@ -3,8 +3,6 @@ const ObjectStatus = require('../../src/Events/ObjectStatus.js');
 const ObjectProperties = require('../../src/Events/ObjectProperties.js')
 
 test('summaryByStatus', async () => {
-    var user = await testUtils.createTestUser();
-    var client = testUtils.createClient(user.secretKey, testUtils.baseUrl);
     var chartKey = testUtils.getChartKey();
     await testUtils.createTestChart(chartKey, user.designerKey);
     var event = await client.events.create(chartKey);
@@ -24,8 +22,6 @@ test('summaryByStatus', async () => {
 });
 
 test('summaryByCategoryKey', async () => {
-    var user = await testUtils.createTestUser();
-    var client = testUtils.createClient(user.secretKey, testUtils.baseUrl);
     var chartKey = testUtils.getChartKey();
     await testUtils.createTestChart(chartKey, user.designerKey);
     var event = await client.events.create(chartKey);
@@ -42,8 +38,6 @@ test('summaryByCategoryKey', async () => {
 });
 
 test('summaryByCategoryLabel', async () => {
-    var user = await testUtils.createTestUser();
-    var client = testUtils.createClient(user.secretKey, testUtils.baseUrl);
     var chartKey = testUtils.getChartKey();
     await testUtils.createTestChart(chartKey, user.designerKey);
     var event = await client.events.create(chartKey);
@@ -60,8 +54,6 @@ test('summaryByCategoryLabel', async () => {
 });
 
 test('summaryBySection', async () => {
-    var user = await testUtils.createTestUser();
-    var client = testUtils.createClient(user.secretKey, testUtils.baseUrl);
     var chartKey = testUtils.getChartKey();
     await testUtils.createTestChart(chartKey, user.designerKey);
     var event = await client.events.create(chartKey);

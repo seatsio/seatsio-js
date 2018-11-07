@@ -1,8 +1,6 @@
 const testUtils = require('../testUtils.js');
 
 test('should update subaccount', async () => {
-    var user = await testUtils.createTestUser();
-    var client = testUtils.createClient(user.secretKey, testUtils.baseUrl);
     var subaccount = await client.subaccounts.create('joske');
     var email = testUtils.getRandomEmail();
     await client.subaccounts.update(subaccount.id, 'jefke', email);
@@ -14,8 +12,6 @@ test('should update subaccount', async () => {
 
 
 test('email is optional', async () => {
-    var user = await testUtils.createTestUser();
-    var client = testUtils.createClient(user.secretKey, testUtils.baseUrl);
     var email = testUtils.getRandomEmail();
     var subaccount = await client.subaccounts.createWithEmail(email, 'joske');
     await client.subaccounts.update(subaccount.id, 'jefke');
@@ -26,8 +22,6 @@ test('email is optional', async () => {
 });
 
 test('name is optional', async () => {
-    var user = await testUtils.createTestUser();
-    var client = testUtils.createClient(user.secretKey, testUtils.baseUrl);
     var email = testUtils.getRandomEmail();
     var subaccount = await client.subaccounts.create('joske');
     await client.subaccounts.update(subaccount.id, null, email);

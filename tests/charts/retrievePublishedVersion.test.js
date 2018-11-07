@@ -1,8 +1,6 @@
 const testUtils = require('../testUtils.js');
 
 test('should retrieve published version of a chart', async () => {
-    var user = await testUtils.createTestUser();
-    var client = testUtils.createClient(user.secretKey, testUtils.baseUrl);
     var chart = await client.charts.create();
     var retrievedChart = await client.charts.retrievePublishedVersion(chart.key);
 

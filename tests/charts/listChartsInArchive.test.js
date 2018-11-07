@@ -3,9 +3,6 @@ const ChartListParams = require('../../src/Charts/ChartListParams.js');
 
 
 test('should list charts in archive', async () => {
-    var user = await testUtils.createTestUser();
-    var client = testUtils.createClient(user.secretKey, testUtils.baseUrl);
-
     var chart1 = await client.charts.create();
     var chart2 = await client.charts.create();
     var chart3 = await client.charts.create();
@@ -28,8 +25,6 @@ test('should list charts in archive', async () => {
 
 test('get archived charts (above 100 limit)', async () => {
     jest.setTimeout(100000);
-    var user = await testUtils.createTestUser();
-    var client = testUtils.createClient(user.secretKey, testUtils.baseUrl);
     var archivedKeys = [];
     for (var i = 0; i < 120; i++) {
         var chart = await client.charts.create();

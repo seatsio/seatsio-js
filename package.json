@@ -7,6 +7,10 @@
   "scripts": {
     "test": "jest"
   },
+  "jest": {
+    "transform": {},
+    "setupTestFrameworkScriptFile": "<rootDir>/tests/setupTests.js"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/seatsio/seatsio-js"
@@ -29,8 +33,5 @@
     "gulplog": "latest",
     "jest": "^23.6.0",
     "jest-cli": "^23.6.0"
-  },
-  "jest": {
-    "transform": {}
   }
 }

@@ -6,8 +6,6 @@ test('should update hold token expiration date', async () => {
     var upperBound = new Date(d);
     lowerBound.setMinutes(lowerBound.getMinutes() + 30);
     upperBound.setMinutes(upperBound.getMinutes() + 31);
-    var user = await testUtils.createTestUser();
-    var client = testUtils.createClient(user.secretKey, testUtils.baseUrl);
     var holdToken = await client.holdTokens.create();
     var updatedHoldToken = await client.holdTokens.expiresInMinutes(holdToken.holdToken, 30);
     var retrievedExpiresAt = new Date(updatedHoldToken.expiresAt);

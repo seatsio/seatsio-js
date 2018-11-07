@@ -2,8 +2,6 @@ const testUtils = require('../testUtils.js');
 const ObjectStatus = require('../../src/Events/ObjectStatus.js');
 
 test('should release objects', async () => {
-    var user = await testUtils.createTestUser();
-    var client = testUtils.createClient(user.secretKey, testUtils.baseUrl);
     var chartKey = testUtils.getChartKey();
     await testUtils.createTestChart(chartKey, user.designerKey);
     var event = await client.events.create(chartKey);
@@ -21,8 +19,6 @@ test('should release objects', async () => {
 });
 
 test('should release objects with hold tokens', async () => {
-    var user = await testUtils.createTestUser();
-    var client = testUtils.createClient(user.secretKey, testUtils.baseUrl);
     var chartKey = testUtils.getChartKey();
     await testUtils.createTestChart(chartKey, user.designerKey);
     var event = await client.events.create(chartKey);
@@ -37,8 +33,6 @@ test('should release objects with hold tokens', async () => {
 });
 
 test('should release objects with order id', async () => {
-    var user = await testUtils.createTestUser();
-    var client = testUtils.createClient(user.secretKey, testUtils.baseUrl);
     var chartKey = testUtils.getChartKey();
     await testUtils.createTestChart(chartKey, user.designerKey);
     var event = await client.events.create(chartKey);

@@ -2,8 +2,6 @@ const testUtils = require('../testUtils.js');
 
 test('getAll with more than 20 events)', async () => {
     jest.setTimeout(20000);
-    var user = await testUtils.createTestUser();
-    var client = testUtils.createClient(user.secretKey, testUtils.baseUrl);
     var chart = await client.charts.create();
     var generatedEventKeys = [];
     for (var i = 0; i < 25; i++) {
@@ -25,8 +23,6 @@ test('getAll with more than 20 events)', async () => {
 
 test('getAll with more than 40 events)', async () => {
     jest.setTimeout(20000);
-    var user = await testUtils.createTestUser();
-    var client = testUtils.createClient(user.secretKey, testUtils.baseUrl);
     var chart = await client.charts.create();
     var generatedEventKeys = [];
     for (var i = 0; i < 45; i++) {

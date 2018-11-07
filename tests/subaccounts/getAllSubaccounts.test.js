@@ -2,8 +2,6 @@ const testUtils = require('../testUtils.js');
 
 test('getAll with more than 20 subaccounts', async () => {
     jest.setTimeout(30000);
-    var user = await testUtils.createTestUser();
-    var client = testUtils.createClient(user.secretKey, testUtils.baseUrl);
     var subaccountKeys = [];
     for (var i = 0; i < 55; i++) {
         var subaccount = await client.subaccounts.create(i.toString());

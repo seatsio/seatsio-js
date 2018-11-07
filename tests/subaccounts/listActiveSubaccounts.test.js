@@ -1,8 +1,6 @@
 const testUtils = require('../testUtils.js');
 
 test('should list all active subaccounts', async () => {
-    var user = await testUtils.createTestUser();
-    var client = testUtils.createClient(user.secretKey, testUtils.baseUrl);
     var subaccount1 = await client.subaccounts.create();
     var subaccount2 = await client.subaccounts.create();
     var subaccount3 = await client.subaccounts.create();

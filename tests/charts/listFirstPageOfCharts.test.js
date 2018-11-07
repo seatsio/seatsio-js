@@ -2,8 +2,6 @@ const testUtils = require('../testUtils.js');
 const ChartListParams = require('../../src/Charts/ChartListParams.js')
 
 test('should list first page of charts', async () => {
-    var user = await testUtils.createTestUser();
-    var client = testUtils.createClient(user.secretKey, testUtils.baseUrl);
     var chart1 = await client.charts.create();
     var chart2 = await client.charts.create();
     var chart3 = await client.charts.create();
@@ -16,8 +14,6 @@ test('should list first page of charts', async () => {
 
 
 test('should list first page of charts with filter', async () => {
-    var user = await testUtils.createTestUser();
-    var client = testUtils.createClient(user.secretKey, testUtils.baseUrl);
     var chart1 = await client.charts.create('foo');
     var chart2 = await client.charts.create('foo');
     var chart3 = await client.charts.create('bar');
@@ -33,8 +29,6 @@ test('should list first page of charts with filter', async () => {
 });
 
 test('pageSize of list first page of charts with page size', async () => {
-    var user = await testUtils.createTestUser();
-    var client = testUtils.createClient(user.secretKey, testUtils.baseUrl);
     var chart1 = await client.charts.create('foo');
     var chart2 = await client.charts.create('foo');
     var chart3 = await client.charts.create('bar');
