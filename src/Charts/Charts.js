@@ -25,11 +25,11 @@ class Charts {
             let supportsBestAvailable = event.supportsBestAvailable || null;
             let forSaleConfig = event.forSaleConfig || null;
             let tableBookingModes = event.tableBookingModes || null;
-            let updatedOn = event.updatedOn || null;
+            let updatedOn = event.updatedOn ? new Date(event.updatedOn) : null;
 
             return new Event(event.id, event.key, bookWholeTables,
                 supportsBestAvailable, forSaleConfig, tableBookingModes, event.chartKey,
-                event.createdOn, updatedOn)
+                new Date(event.createdOn), updatedOn)
         });
     }
 
