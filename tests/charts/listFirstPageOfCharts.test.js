@@ -26,8 +26,8 @@ test('should list first page of charts with filter', async () => {
 });
 
 test('pageSize of list first page of charts with page size', async () => {
-    let chart1 = await client.charts.create('foo');
-    let chart2 = await client.charts.create('foo');
+    await client.charts.create('foo');
+    await client.charts.create('foo');
     let chart3 = await client.charts.create('bar');
     let chart4 = await client.charts.create('foo');
 

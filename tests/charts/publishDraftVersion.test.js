@@ -4,8 +4,8 @@ test('should publish a chart', async () => {
     await client.charts.update(chart.key, 'newName');
 
     await client.charts.publishDraftVersion(chart.key);
-    let retrievedChart = await client.charts.retrieve(chart.key);
 
+    let retrievedChart = await client.charts.retrieve(chart.key);
     expect(retrievedChart.status).toBe('PUBLISHED');
     expect(retrievedChart.name).toBe('newName');
 });

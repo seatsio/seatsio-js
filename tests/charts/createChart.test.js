@@ -19,8 +19,8 @@ test('should create a chart with default parameters', async () => {
 
 test('should create chart with name', async () => {
     let chart = await client.charts.create('aChart');
-    let retrievedChart = await client.charts.retrievePublishedVersion(chart.key);
 
+    let retrievedChart = await client.charts.retrievePublishedVersion(chart.key);
     expect(retrievedChart.name).toEqual('aChart');
     expect(retrievedChart.venueType).toEqual('MIXED');
     expect(retrievedChart.categories.list).toEqual([]);
@@ -28,8 +28,8 @@ test('should create chart with name', async () => {
 
 test('should create chart with venue type', async () => {
     let chart = await client.charts.create(null, 'BOOTHS');
-    let retrievedChart = await client.charts.retrievePublishedVersion(chart.key);
 
+    let retrievedChart = await client.charts.retrievePublishedVersion(chart.key);
     expect(retrievedChart.name).toEqual('Untitled chart');
     expect(retrievedChart.venueType).toEqual('BOOTHS');
     expect(retrievedChart.categories.list).toEqual([]);
@@ -40,8 +40,8 @@ test('should create chart with categories as class', async () => {
     let cat2 = {'key': 3, 'label': 'Category 2', 'color': '#bbbbbb'};
 
     let chart = await client.charts.create(null, null, [cat1, cat2]);
-    let retrievedChart = await client.charts.retrievePublishedVersion(chart.key);
 
+    let retrievedChart = await client.charts.retrievePublishedVersion(chart.key);
     expect(retrievedChart.name).toEqual('Untitled chart');
     expect(retrievedChart.venueType).toEqual('MIXED');
     expect(retrievedChart.categories.list).toEqual([cat1, cat2]);
@@ -55,8 +55,8 @@ test('should create chart with categories as instance of Category class', async 
         {'key': 2, 'label': 'Category 2', 'color': '#bbbbbb'}];
 
     let chart = await client.charts.create(null, null, [cat1, cat2]);
-    let retrievedChart = await client.charts.retrievePublishedVersion(chart.key);
 
+    let retrievedChart = await client.charts.retrievePublishedVersion(chart.key);
     expect(retrievedChart.name).toEqual('Untitled chart');
     expect(retrievedChart.venueType).toEqual('MIXED');
     expect(retrievedChart.categories.list).toEqual(expectedCategories);

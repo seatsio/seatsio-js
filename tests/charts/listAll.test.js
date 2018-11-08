@@ -103,7 +103,7 @@ test('listAll Charts with expandEvents parameters', async () => {
     let params = new ChartListParams().withExpandEvents(true);
 
     for await (const chart of client.charts.listAll(params)) {
-        for (let event of chart.events){
+        for (let event of chart.events) {
             retrievedKeys.push(event.key);
         }
     }
