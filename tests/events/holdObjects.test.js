@@ -3,23 +3,22 @@ const ObjectStatus = require('../../src/Events/ObjectStatus.js');
 
 
 test('should hold objects', async () => {
-    var chartKey = testUtils.getChartKey();
+    let chartKey = testUtils.getChartKey();
     await testUtils.createTestChart(chartKey, user.designerKey);
-    var event = await client.events.create(chartKey);
-    var holdToken = await client.holdTokens.create();
-    var holdResult = await client.events.hold(event.key, ["A-1", "A-2"], holdToken.holdToken).catch((err) => console.log(err));
+    let event = await client.events.create(chartKey);
+    let holdToken = await client.holdTokens.create();
+    let holdResult = await client.events.hold(event.key, ["A-1", "A-2"], holdToken.holdToken).catch((err) => console.log(err));
 
-    var status1 = await client.events.retrieveObjectStatus(event.key, 'A-1');
+    let status1 = await client.events.retrieveObjectStatus(event.key, 'A-1');
     expect(status1.status).toBe(ObjectStatus.HELD);
     expect(status1.holdToken).toBe(holdToken.holdToken);
 
-    var status2 = await client.events.retrieveObjectStatus(event.key, 'A-2');
+    let status2 = await client.events.retrieveObjectStatus(event.key, 'A-2');
     expect(status2.status).toBe(ObjectStatus.HELD);
     expect(status2.holdToken).toBe(holdToken.holdToken);
 
-    //test this with LabelsBuilder once ready
     expect(holdResult.labels).toEqual({
-        "A-1": {'own': {'label': '1', 'type': 'seat'}, 'parent': {'label': "A", 'type': "row"}},
-        "A-2": {'own': {'label': '2', 'type': 'seat'}, 'parent': {'label': "A", 'type': "row"}}
+        "A-1": testUtils.someLabels("1", "seat", "A", "row"),
+        "A-2": testUtils.someLabels("2", "seat", "A", "row")
     });
 });

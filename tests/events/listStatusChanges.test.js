@@ -34,7 +34,6 @@ test('properties of status change', async () => {
 
     expect(statusChange.value.id).toBeDefined();
     expect(statusChange.value.date).toBeDefined();
-    expect(statusChange.value.date instanceof Date).toBe(true);
     expect(statusChange.value.orderId).toBe('order1');
     expect(statusChange.value.objectLabel).toBe('A-1');
     expect(statusChange.value.status).toBe(ObjectStatus.BOOKED);
