@@ -1,9 +1,11 @@
 const Chart = require('./Chart.js');
 const Event = require('../Events/Event.js');
+const Page = require('../Page.js');
 
 class IterableAsyncCharts {
     constructor(url, client, params = {}) {
-        this.items = [];
+        this.items = []; /*  array of charts */
+        this.pages = []; /*  array of Pages of charts*/
         this.index = 0;
         this.nextPageMustBeFetched = true;
         this.client = client;
@@ -12,12 +14,16 @@ class IterableAsyncCharts {
     }
 
     chartCreator(data) {
+        let charts = [];
         data.items.forEach((chartData) => {
             let events = chartData.events ? this.eventCreator(chartData.events) : null;
             let chart = new Chart(chartData.name, chartData.id, chartData.key, chartData.status, chartData.tags,
                 chartData.publishedVersionThumbnailUrl, chartData.publishedVersionThumbnailUrl, events, chartData.archived);
             this.items.push(chart);
+            charts.push(chart);
         });
+
+        this.pages.push(new Page(charts, data.next_page_starts_after, data.previous_page_ends_before));
     }
 
     eventCreator(eventsData){

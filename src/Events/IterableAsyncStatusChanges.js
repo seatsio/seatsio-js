@@ -1,10 +1,10 @@
-const Event = require('./Event.js');
+const StatusChange = require('./StatusChange.js');
 const Page = require('../Page.js');
 
-class IterableAsyncEvents {
+class IterableAsyncStatusChanges{
     constructor(url, client, params = {}) {
-        this.items = []; /*  array of Events */
-        this.pages = []; /*  array of Pages of Events*/
+        this.items = []; /*  array of Status Changes */
+        this.pages = []; /*  array of Pages of Status Changes */
         this.index = 0;
         this.nextPageMustBeFetched = true;
         this.client = client;
@@ -12,18 +12,17 @@ class IterableAsyncEvents {
         this.params = params;
     }
 
-    eventCreator(data){
-        let events = [];
-        data.items.forEach(eventData => {
-            let updatedOn = eventData.updatedOn ? new Date(eventData.updatedOn) : null;
+    statusChangeCreator(data){
+        let statusChanges = [];
+        data.items.forEach((statusData) => {
+            let status = new StatusChange(statusData.id, statusData.eventId, statusData.status,
+                statusData.quantity, statusData.objectLabel,
+                new Date(statusData.date), statusData.orderId, statusData.extraData);
 
-            let event = new Event(eventData.id, eventData.key, eventData.bookWholeTables,
-                eventData.supportsBestAvailable, eventData.forSaleConfig, eventData.tableBookingModes, eventData.chartKey,
-                new Date(eventData.createdOn), updatedOn);
-            this.items.push(event);
-            events.push(event);
+            this.items.push(status);
+            statusChanges.push(status);
         });
-        this.pages.push(new Page(events, data.next_page_starts_after, data.previous_page_ends_before));
+        this.pages.push(new Page(statusChanges, data.next_page_starts_after, data.previous_page_ends_before));
     }
 
     fetch(fetchParams = {}) {
@@ -36,7 +35,7 @@ class IterableAsyncEvents {
                     this.nextPageMustBeFetched = false;
                 }
 
-                this.eventCreator(res.data);
+                this.statusChangeCreator(res.data);
             });
     }
 
@@ -62,4 +61,4 @@ class IterableAsyncEvents {
     }
 }
 
-module.exports = IterableAsyncEvents;
+module.exports = IterableAsyncStatusChanges;

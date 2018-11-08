@@ -8,11 +8,12 @@ test('should list status changes for objects', async () => {
     await client.events.changeObjectStatus(event.key, 'A-1', 's2');
     await client.events.changeObjectStatus(event.key, 'A-2', 's4');
     await client.events.changeObjectStatus(event.key, 'A-1', 's3');
-
-    var statusChangesPage = await client.events.statusChanges(event.key, 'A-1').all();
     var statuses = [];
-    for (let item of statusChangesPage) {
-        statuses.push(item.status);
+
+    var statusChanges = client.events.statusChanges(event.key, 'A-1');
+
+    for await (let statusChange of statusChanges) {
+        statuses.push(statusChange.status);
     }
 
     expect(statuses).toContain('s1');
