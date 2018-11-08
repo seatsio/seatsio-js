@@ -2,7 +2,6 @@ const StatusChange = require('./StatusChange.js');
 const PageFetcher = require('../PageFetcher.js');
 const Page = require('../Page.js');
 const Lister = require('./Lister.js');
-const IterableEventPages = require('./IterableEventPages.js');
 const Event = require('./Event.js');
 const IterableAsyncEvents = require('./IterableAsyncEvents.js');
 const ObjectStatus = require('./ObjectStatus.js');
@@ -27,7 +26,7 @@ class Events {
         requestParameters.chartKey = chartKey;
 
         if (eventKey !== null) {
-            requestParameters.eventKey = eventKey;
+            requestParameters.eventKey = encodeURIComponent(eventKey);
         }
 
         if ((bookWholeTablesOrTableBookingModes === true) || (bookWholeTablesOrTableBookingModes === false)) {
@@ -41,12 +40,12 @@ class Events {
     }
 
     retrieve(eventKey) {
-        return this.client.get(`/events/${eventKey}`)
+        return this.client.get(`/events/${encodeURIComponent(eventKey)}`)
             .then((res) => Events.eventCreator(res.data));
     }
 
     retrieveObjectStatus(eventKey, obj) {
-        return this.client.get(`events/${eventKey}/objects/${obj}`)
+        return this.client.get(`events/${encodeURIComponent(eventKey)}/objects/${encodeURIComponent(obj)}`)
             .then((res) => res.data);
     }
 
@@ -55,7 +54,7 @@ class Events {
     }
 
     holdBestAvailable(eventKey, number, holdToken, categories = null, orderId = null) {
-        return this.changeBestAvailableObjectStatus(eventKey, number, ObjectStatus.HELD, categories, holdToken, orderId);
+        return this.changeBestAvailableObjectStatus(encodeURIComponent(eventKey), number, ObjectStatus.HELD, categories, holdToken, orderId);
     }
 
     book(eventKeyOrKeys, objectOrObjects, holdToken = null, orderId = null) {
@@ -63,7 +62,7 @@ class Events {
     }
 
     bookBestAvailable(eventKey, number, categories = null, holdToken = null, orderId = null) {
-        return this.changeBestAvailableObjectStatus(eventKey, number, ObjectStatus.BOOKED, categories, holdToken, orderId);
+        return this.changeBestAvailableObjectStatus(encodeURIComponent(eventKey), number, ObjectStatus.BOOKED, categories, holdToken, orderId);
     }
 
     release(eventKeyOrKeys, objectOrObjects, holdToken = null, orderId = null) {
@@ -71,7 +70,7 @@ class Events {
     }
 
     delete(eventKey) {
-        return this.client.delete(`/events/${eventKey}`);
+        return this.client.delete(`/events/${encodeURIComponent(eventKey)}`);
     }
 
     markAsForSale(eventKey, objects = null, categories = null) {
@@ -82,7 +81,7 @@ class Events {
         if (categories !== null) {
             requestParameters.categories = categories;
         }
-        return this.client.post(`events/${eventKey}/actions/mark-as-for-sale`, requestParameters);
+        return this.client.post(`events/${encodeURIComponent(eventKey)}/actions/mark-as-for-sale`, requestParameters);
     }
 
     markAsNotForSale(eventKey, objects = null, categories = null) {
@@ -96,11 +95,11 @@ class Events {
             requestParameters.categories = categories;
         }
 
-        return this.client.post(`events/${eventKey}/actions/mark-as-not-for-sale`, requestParameters);
+        return this.client.post(`events/${encodeURIComponent(eventKey)}/actions/mark-as-not-for-sale`, requestParameters);
     }
 
     markEverythingAsForSale(eventKey) {
-        return this.client.post(`events/${eventKey}/actions/mark-everything-as-for-sale`);
+        return this.client.post(`events/${encodeURIComponent(eventKey)}/actions/mark-everything-as-for-sale`);
     }
 
     update(eventKey, chartKey = null, newEventKey = null, bookWholeTablesOrTableBookingModes = null) {
@@ -111,7 +110,7 @@ class Events {
         }
 
         if (newEventKey !== null) {
-            requestParameters.eventKey = newEventKey;
+            requestParameters.eventKey = encodeURIComponent(newEventKey);
         }
 
         if (typeof bookWholeTablesOrTableBookingModes === 'boolean') {
@@ -120,28 +119,25 @@ class Events {
             requestParameters.tableBookingModes = bookWholeTablesOrTableBookingModes;
         }
 
-        return this.client.post(`events/${eventKey}`, requestParameters);
+        return this.client.post(`events/${encodeURIComponent(eventKey)}`, requestParameters);
     }
 
     updateExtraDatas(eventKey, extraData) {
         let requestParameters= {};
         requestParameters.extraData = extraData;
-        return this.client.post(`/events/${eventKey}/actions/update-extra-data`, requestParameters);
+        return this.client.post(`/events/${encodeURIComponent(eventKey)}/actions/update-extra-data`, requestParameters);
     }
 
     updateExtraData(eventKey, obj, extraData) {
         let requestParameters = {};
         requestParameters.extraData = extraData;
-        return this.client.post(`/events/${eventKey}/objects/${obj}/actions/update-extra-data`, requestParameters);
-    }
-
-    getAll() {
-        return new IterableEventPages('/events', this.client);
+        return this.client.post(`/events/${encodeURIComponent(eventKey)}/objects/${encodeURIComponent(obj)}/actions/update-extra-data`, requestParameters);
     }
 
     listAll(){
         return new IterableAsyncEvents('/events', this.client);
     }
+
     changeObjectStatus(eventKeyOrKeys, objectOrObjects, status, holdToken = null, orderId = null) {
         let requestParameters= {};
 
@@ -183,13 +179,13 @@ class Events {
         }
         requestParameters.bestAvailable = bestAvailable;
 
-        return this.client.post(`/events/${eventKey}/actions/change-object-status`, requestParameters)
+        return this.client.post(`/events/${encodeURIComponent(eventKey)}/actions/change-object-status`, requestParameters)
             .then((res) => res.data);
     }
 
     statusChanges(eventKey, objectId = null) {
         if (objectId === null) {
-            return new Lister(new PageFetcher(`/events/${eventKey}/status-changes`, this.client, (results) => {
+            return new Lister(new PageFetcher(`/events/${encodeURIComponent(eventKey)}/status-changes`, this.client, (results) => {
                 let statusItems = results.items.map((statusData) => {
                     return new StatusChange(statusData.id, statusData.eventId, statusData.status,
                         statusData.quantity, statusData.objectLabel,
@@ -199,7 +195,7 @@ class Events {
             }));
         }
 
-        return new Lister(new PageFetcher(`/events/${eventKey}/objects/${objectId}/status-changes`, this.client, (results) => {
+        return new Lister(new PageFetcher(`/events/${encodeURIComponent(eventKey)}/objects/${encodeURIComponent(objectId)}/status-changes`, this.client, (results) => {
             let statusItems = results.items.map((statusData) => {
                 return new StatusChange(statusData.id, statusData.eventId, statusData.status,
                     statusData.quantity, statusData.objectLabel,
