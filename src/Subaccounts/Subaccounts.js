@@ -1,11 +1,13 @@
-const IterableSubaccountPages = require('./IterableSubaccountPages.js');
+const IterableAsyncSubaccounts = require('./IterableAsyncSubaccounts.js');
 
 class Subaccounts {
 
     constructor(client) {
         this.client = client;
-        this.active = new IterableSubaccountPages('/subaccounts/active', this.client);
-        this.inactive = new IterableSubaccountPages('/subaccounts/inactive', this.client);
+        //this.active = new IterableSubaccountPages('/subaccounts/active', this.client);
+        //this.inactive = new IterableSubaccountPages('/subaccounts/inactive', this.client);
+        this.active = new IterableAsyncSubaccounts('/subaccounts/active', this.client);
+        this.inactive = new IterableAsyncSubaccounts('/subaccounts/inactive', this.client);
     }
 
     create(name = null) {
@@ -76,8 +78,8 @@ class Subaccounts {
         return this.client.post(`/subaccounts/${id}/designer-key/actions/regenerate`).then((res) => res.data);
     }
 
-    getAll() {
-        return new IterableSubaccountPages('/subaccounts', this.client);
+    listAll(){
+        return new IterableAsyncSubaccounts('/subaccounts', this.client);
     }
 }
 

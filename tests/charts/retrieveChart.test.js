@@ -1,4 +1,4 @@
-test.only('should retrieve chart', async () => {
+test('should retrieve chart', async () => {
     let chart = await client.charts.create();
     await client.charts.addTag(chart.key, 'tag1');
 
