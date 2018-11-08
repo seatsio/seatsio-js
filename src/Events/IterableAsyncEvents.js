@@ -1,7 +1,6 @@
-const Chart = require('./Chart.js');
 const Event = require('../Events/Event.js');
 
-class IterableAsyncCharts {
+class IterableAsyncEvents {
     constructor(url, client, params = {}) {
         this.items = [];
         this.index = 0;
@@ -11,22 +10,14 @@ class IterableAsyncCharts {
         this.params = params;
     }
 
-    chartCreator(data) {
-        data.items.forEach((chartData) => {
-            let events = chartData.events ? this.eventCreator(chartData.events) : null;
-            let chart = new Chart(chartData.name, chartData.id, chartData.key, chartData.status, chartData.tags,
-                chartData.publishedVersionThumbnailUrl, chartData.publishedVersionThumbnailUrl, events, chartData.archived);
-            this.items.push(chart);
-        });
-    }
-
-    eventCreator(eventsData){
-        return eventsData.map (eventData => {
+    eventCreator(data){
+        data.items.forEach(eventData => {
             let updatedOn = eventData.updatedOn ? new Date(eventData.updatedOn) : null;
 
-            return new Event(eventData.id, eventData.key, eventData.bookWholeTables,
+            let event = new Event(eventData.id, eventData.key, eventData.bookWholeTables,
                 eventData.supportsBestAvailable, eventData.forSaleConfig, eventData.tableBookingModes, eventData.chartKey,
                 new Date(eventData.createdOn), updatedOn);
+            this.items.push(event);
         });
     }
 
@@ -40,7 +31,7 @@ class IterableAsyncCharts {
                     this.nextPageMustBeFetched = false;
                 }
 
-                this.chartCreator(res.data);
+                this.eventCreator(res.data);
             });
     }
 
@@ -66,4 +57,4 @@ class IterableAsyncCharts {
     }
 }
 
-module.exports = IterableAsyncCharts;
+module.exports = IterableAsyncEvents;

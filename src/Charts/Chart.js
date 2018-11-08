@@ -1,6 +1,6 @@
 class Chart {
     constructor(name, id, key, status, tags, publishedVersionThumbnailUrl, draftVersionThumbnailUrl = null, events = null, archived) {
-        this.name = name;
+        this.name = name; /*  */
         this.id = id;
         this.key = key;
         this.status = status;

@@ -3,12 +3,23 @@ const PageFetcher = require('../PageFetcher.js');
 const Page = require('../Page.js');
 const Lister = require('./Lister.js');
 const IterableEventPages = require('./IterableEventPages.js');
+const Event = require('./Event.js');
+const IterableAsyncEvents = require('./IterableAsyncEvents.js');
 const ObjectStatus = require('./ObjectStatus.js');
 
 class Events {
     constructor(client) {
         this.client = client;
     }
+
+    static eventCreator(eventData) {
+        let updatedOn = eventData.updatedOn ? new Date(eventData.updatedOn) : null;
+
+        return new Event(eventData.id, eventData.key, eventData.bookWholeTables,
+            eventData.supportsBestAvailable, eventData.forSaleConfig, eventData.tableBookingModes, eventData.chartKey,
+            new Date(eventData.createdOn), updatedOn);
+    }
+
 
     create(chartKey, eventKey = null, bookWholeTablesOrTableBookingModes = null) {
         let requestParameters = {};
@@ -26,37 +37,16 @@ class Events {
         }
 
         return this.client.post(`/events`, requestParameters)
-            .then((res) => res.data).catch((err) => console.log(err));
+            .then((res) => Events.eventCreator(res.data));
     }
 
     retrieve(eventKey) {
         return this.client.get(`/events/${eventKey}`)
-            .then((res) => res.data);
+            .then((res) => Events.eventCreator(res.data));
     }
 
     retrieveObjectStatus(eventKey, obj) {
         return this.client.get(`events/${eventKey}/objects/${obj}`)
-            .then((res) => res.data);
-    }
-
-    changeObjectStatus(eventKeyOrKeys, objectOrObjects, status, holdToken = null, orderId = null) {
-        let requestParameters= {};
-
-        requestParameters.objects = this.normalizeObjects(objectOrObjects);
-
-        requestParameters.status = status;
-
-        if (holdToken !== null) {
-            requestParameters.holdToken = holdToken;
-        }
-
-        if (orderId !== null) {
-            requestParameters.orderId = orderId;
-        }
-
-        requestParameters.events = Array.isArray(eventKeyOrKeys) ? eventKeyOrKeys : [eventKeyOrKeys];
-
-        return this.client.post(`/seasons/actions/change-object-status?expand=labels`, requestParameters)
             .then((res) => res.data);
     }
 
@@ -145,6 +135,34 @@ class Events {
         return this.client.post(`/events/${eventKey}/objects/${obj}/actions/update-extra-data`, requestParameters);
     }
 
+    getAll() {
+        return new IterableEventPages('/events', this.client);
+    }
+
+    listAll(){
+        return new IterableAsyncEvents('/events', this.client);
+    }
+    changeObjectStatus(eventKeyOrKeys, objectOrObjects, status, holdToken = null, orderId = null) {
+        let requestParameters= {};
+
+        requestParameters.objects = this.normalizeObjects(objectOrObjects);
+
+        requestParameters.status = status;
+
+        if (holdToken !== null) {
+            requestParameters.holdToken = holdToken;
+        }
+
+        if (orderId !== null) {
+            requestParameters.orderId = orderId;
+        }
+
+        requestParameters.events = Array.isArray(eventKeyOrKeys) ? eventKeyOrKeys : [eventKeyOrKeys];
+
+        return this.client.post(`/seasons/actions/change-object-status?expand=labels`, requestParameters)
+            .then((res) => res.data);
+    }
+
     changeBestAvailableObjectStatus(eventKey, number, status, categories = null, holdToken = null, extraData = null, orderId = null) {
         let requestParameters = {};
         let bestAvailable = {};
@@ -169,28 +187,6 @@ class Events {
             .then((res) => res.data);
     }
 
-    normalizeObjects(objectOrObjects) {
-        if (Array.isArray(objectOrObjects)) {
-            if (objectOrObjects.length === 0) {
-                return [];
-            }
-            return objectOrObjects.map((obj) => {
-                if (typeof obj === "object") {
-                    return obj;
-                }
-                if (typeof obj === "string") {
-                    return {"objectId": obj};
-                }
-                return obj;
-            });
-        }
-        return this.normalizeObjects([objectOrObjects]);
-    }
-
-    getAll() {
-        return new IterableEventPages('/events', this.client);
-    }
-
     statusChanges(eventKey, objectId = null) {
         if (objectId === null) {
             return new Lister(new PageFetcher(`/events/${eventKey}/status-changes`, this.client, (results) => {
@@ -211,6 +207,24 @@ class Events {
             });
             return new Page(statusItems);
         }));
+    }
+
+    normalizeObjects(objectOrObjects) {
+        if (Array.isArray(objectOrObjects)) {
+            if (objectOrObjects.length === 0) {
+                return [];
+            }
+            return objectOrObjects.map((obj) => {
+                if (typeof obj === "object") {
+                    return obj;
+                }
+                if (typeof obj === "string") {
+                    return {"objectId": obj};
+                }
+                return obj;
+            });
+        }
+        return this.normalizeObjects([objectOrObjects]);
     }
 }
 

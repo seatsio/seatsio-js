@@ -21,13 +21,12 @@ class Charts {
 
     static eventCreator(eventsData){
         return eventsData.map (event => {
-            let bookWholeTables = event.bookWholeTables || null;
             let supportsBestAvailable = event.supportsBestAvailable || null;
             let forSaleConfig = event.forSaleConfig || null;
             let tableBookingModes = event.tableBookingModes || null;
             let updatedOn = event.updatedOn ? new Date(event.updatedOn) : null;
 
-            return new Event(event.id, event.key, bookWholeTables,
+            return new Event(event.id, event.key, event.bookWholeTables,
                 supportsBestAvailable, forSaleConfig, tableBookingModes, event.chartKey,
                 new Date(event.createdOn), updatedOn)
         });
