@@ -1,4 +1,6 @@
 const Account = require('./Account.js');
+const AccountSettings = require('./AccountSettings.js');
+const ChartValidationSettings = require('./ChartValidationSettings.js');
 
 class Accounts {
     constructor(client) {
@@ -10,7 +12,9 @@ class Accounts {
     }
 
     static accountCreator(accountData){
-        return new Account(accountData.secretKey, accountData.designerKey, accountData.publicKey, accountData.settings, accountData.email);
+        let chartValidation = accountData.settings.chartValidation;
+        let settings = new AccountSettings(accountData.settings.draftChartDrawingsEnabled, new ChartValidationSettings(chartValidation.VALIDATE_DUPLICATE_LABELS, chartValidation.VALIDATE_OBJECTS_WITHOUT_CATEGORIES, chartValidation.VALIDATE_UNLABELED_OBJECTS,));
+        return new Account(accountData.secretKey, accountData.designerKey, accountData.publicKey, settings, accountData.email);
     }
 }
 
