@@ -1,6 +1,6 @@
-const testUtils = require('../testUtils.js');
-
 test('should create hold tokens', async () => {
-    var holdToken = await client.holdTokens.create();
-    expect(holdToken.holdToken).toBeDefined();
+    let holdToken = await client.holdTokens.create();
+
+    expect(holdToken.expiresAt instanceof Date).toBe(true);
+    expect(holdToken.holdToken).toBeTruthy();
 });
