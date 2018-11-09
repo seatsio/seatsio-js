@@ -47,6 +47,7 @@ test('should change object status with objectId as string', async () => {
     let chartKey = testUtils.getChartKey();
     await testUtils.createTestChart(chartKey, user.designerKey);
     let event = await client.events.create(chartKey);
+
     await client.events.changeObjectStatus(event.key, 'A-1', 'lolzor');
 
     let objStatus = await client.events.retrieveObjectStatus(event.key, "A-1");
@@ -57,6 +58,7 @@ test('should change object status with objectId inside class', async () => {
     let chartKey = testUtils.getChartKey();
     await testUtils.createTestChart(chartKey, user.designerKey);
     let event = await client.events.create(chartKey);
+
     await client.events.changeObjectStatus(event.key, new ObjectProperties('A-1'), 'lolzor');
 
     let objStatus = await client.events.retrieveObjectStatus(event.key, "A-1");
@@ -68,6 +70,7 @@ test('should change object status with hold token', async () => {
     await testUtils.createTestChart(chartKey, user.designerKey);
     let event = await client.events.create(chartKey);
     let holdToken = await client.holdTokens.create();
+
     await client.events.changeObjectStatus(event.key, 'A-1', ObjectStatus.HELD, holdToken.holdToken);
 
     let objStatus = await client.events.retrieveObjectStatus(event.key, "A-1");
@@ -79,7 +82,7 @@ test('should change object status with OrderId', async () => {
     let chartKey = testUtils.getChartKey();
     await testUtils.createTestChart(chartKey, user.designerKey);
     let event = await client.events.create(chartKey);
-    let holdToken = await client.holdTokens.create();
+
     await client.events.changeObjectStatus(event.key, 'A-1', 'lolzor', null, "order1");
 
     let objStatus = await client.events.retrieveObjectStatus(event.key, "A-1");

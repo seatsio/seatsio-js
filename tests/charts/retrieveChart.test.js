@@ -6,10 +6,10 @@ test('should retrieve chart', async () => {
 
     expect(retrievedChart.key).toBe(chart.key);
     expect(retrievedChart.id).toBe(chart.id);
-    expect(retrievedChart.id).toBeDefined();
+    expect(retrievedChart.id).toBeTruthy();
     expect(retrievedChart.name).toBe('Untitled chart');
     expect(retrievedChart.status).toBe('NOT_USED');
-    expect(retrievedChart.publishedVersionThumbnailUrl).toBeDefined();
+    expect(retrievedChart.publishedVersionThumbnailUrl).toBeTruthy();
     expect(retrievedChart.draftVersionThumbnailUrl).toBeNull();
     expect(retrievedChart.tags).toEqual(['tag1']);
     expect(retrievedChart.archived).toBeFalsy();

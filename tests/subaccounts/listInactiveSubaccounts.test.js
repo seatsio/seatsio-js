@@ -1,5 +1,3 @@
-const testUtils = require('../testUtils.js');
-
 test('should list all inactive subaccounts', async () => {
     let subaccount1 = await client.subaccounts.create();
     let subaccount2 = await client.subaccounts.create();
@@ -9,7 +7,7 @@ test('should list all inactive subaccounts', async () => {
     let inactiveSubaccountIds = [];
 
     for await(let subaccount of client.subaccounts.inactive) {
-            inactiveSubaccountIds.push(subaccount.id);
+        inactiveSubaccountIds.push(subaccount.id);
     }
 
     expect(inactiveSubaccountIds.sort()).toEqual([subaccount1.id, subaccount2.id].sort());

@@ -9,7 +9,6 @@ test("should update event's chart key", async () => {
 
     let retrievedEvent = await client.events.retrieve(event.key);
     expect(retrievedEvent.chartKey).toBe(chart2.key);
-    expect(retrievedEvent.updatedOn).toBeDefined();
     expect(retrievedEvent.updatedOn).toBeTruthy();
 });
 

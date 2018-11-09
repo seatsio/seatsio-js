@@ -30,7 +30,6 @@ test('should release objects with hold tokens', async () => {
 
     let objStatus = await client.events.retrieveObjectStatus(event.key, 'A-1');
     expect(objStatus.status).toBe(ObjectStatus.FREE);
-    expect(objStatus.holdToken).toBeUndefined();
     expect(objStatus.holdToken).toBeFalsy();
 });
 

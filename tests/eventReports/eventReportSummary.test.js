@@ -3,11 +3,12 @@ const ObjectStatus = require('../../src/Events/ObjectStatus.js');
 const ObjectProperties = require('../../src/Events/ObjectProperties.js')
 
 test('summaryByStatus', async () => {
-    var chartKey = testUtils.getChartKey();
+    let chartKey = testUtils.getChartKey();
     await testUtils.createTestChart(chartKey, user.designerKey);
-    var event = await client.events.create(chartKey);
+    let event = await client.events.create(chartKey);
     await client.events.book(event.key, (new ObjectProperties('A-1')).setTicketType('ticketType1'), null, 'order1');
-    var report = await client.eventReports.summaryByStatus(event.key);
+
+    let report = await client.eventReports.summaryByStatus(event.key);
 
     expect(report[ObjectStatus.BOOKED]['count']).toBe(1);
     expect(report[ObjectStatus.BOOKED]['bySection']['NO_SECTION']).toBe(1);
@@ -22,11 +23,12 @@ test('summaryByStatus', async () => {
 });
 
 test('summaryByCategoryKey', async () => {
-    var chartKey = testUtils.getChartKey();
+    let chartKey = testUtils.getChartKey();
     await testUtils.createTestChart(chartKey, user.designerKey);
-    var event = await client.events.create(chartKey);
+    let event = await client.events.create(chartKey);
     await client.events.book(event.key, (new ObjectProperties('A-1')).setTicketType('ticketType1'), null, 'order1');
-    var report = await client.eventReports.summaryByCategoryKey(event.key);
+
+    let report = await client.eventReports.summaryByCategoryKey(event.key);
 
     expect(report['9']['count']).toBe(17);
     expect(report['9']['bySection']['NO_SECTION']).toBe(17);
@@ -38,11 +40,12 @@ test('summaryByCategoryKey', async () => {
 });
 
 test('summaryByCategoryLabel', async () => {
-    var chartKey = testUtils.getChartKey();
+    let chartKey = testUtils.getChartKey();
     await testUtils.createTestChart(chartKey, user.designerKey);
-    var event = await client.events.create(chartKey);
+    let event = await client.events.create(chartKey);
     await client.events.book(event.key, (new ObjectProperties('A-1')).setTicketType('ticketType1'), null, 'order1');
-    var report = await client.eventReports.summaryByCategoryLabel(event.key);
+
+    let report = await client.eventReports.summaryByCategoryLabel(event.key);
 
     expect(report['Cat1']['count']).toBe(17);
     expect(report['Cat1']['bySection']['NO_SECTION']).toBe(17);
@@ -54,11 +57,12 @@ test('summaryByCategoryLabel', async () => {
 });
 
 test('summaryBySection', async () => {
-    var chartKey = testUtils.getChartKey();
+    let chartKey = testUtils.getChartKey();
     await testUtils.createTestChart(chartKey, user.designerKey);
-    var event = await client.events.create(chartKey);
+    let event = await client.events.create(chartKey);
     await client.events.book(event.key, (new ObjectProperties('A-1')).setTicketType('ticketType1'), null, 'order1');
-    var report = await client.eventReports.summaryBySection(event.key);
+
+    let report = await client.eventReports.summaryBySection(event.key);
 
     expect(report['NO_SECTION']['count']).toBe(34);
     expect(report['NO_SECTION']['byStatus'][ObjectStatus.BOOKED]).toBe(1);

@@ -4,7 +4,7 @@ test('should update extra datas of an event', async () => {
     let chartKey = testUtils.getChartKey();
     await testUtils.createTestChart(chartKey, user.designerKey);
     let event = await client.events.create(chartKey);
-    let extraData1 = { "foo1": "bar1" }, extraData2 = { "foo2": "bar2" };
+    let extraData1 = {"foo1": "bar1"}, extraData2 = {"foo2": "bar2"};
 
     await client.events.updateExtraDatas(event.key, {'A-1': extraData1, 'A-2': extraData2});
 

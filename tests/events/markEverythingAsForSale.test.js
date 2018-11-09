@@ -6,6 +6,5 @@ test('should mark everything as for sale', async () => {
     await client.events.markEverythingAsForSale(event.key);
 
     let retrievedEvent = await client.events.retrieve(event.key);
-    expect(retrievedEvent.forSaleConfig).toBeUndefined();
     expect(retrievedEvent.forSaleConfig).toBeFalsy();
 });

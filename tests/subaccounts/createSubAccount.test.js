@@ -3,10 +3,10 @@ const testUtils = require('../testUtils.js');
 test('should create subaccount', async () => {
     let subaccount = await client.subaccounts.create('subaccountTest');
 
-    expect(subaccount.secretKey).toBeDefined();
-    expect(subaccount.designerKey).toBeDefined();
-    expect(subaccount.publicKey).toBeDefined();
-    expect(subaccount.email).toBeDefined();
+    expect(subaccount.secretKey).toBeTruthy();
+    expect(subaccount.designerKey).toBeTruthy();
+    expect(subaccount.publicKey).toBeTruthy();
+    expect(subaccount.email).toBeTruthy();
     expect(subaccount.name).toBe('subaccountTest');
     expect(subaccount.active).toBe(true);
 });
@@ -14,7 +14,7 @@ test('should create subaccount', async () => {
 test('name is optional in subaccount create', async () => {
     let subaccount = await client.subaccounts.create();
 
-    expect(subaccount.name).toBeUndefined();
+    expect(subaccount.name).toBeFalsy();
 });
 
 test('subaccount create with email parameter', async () => {
@@ -22,11 +22,11 @@ test('subaccount create with email parameter', async () => {
 
     let subaccount = await client.subaccounts.createWithEmail(randomEmail, null);
 
-    expect(subaccount.secretKey).toBeDefined();
-    expect(subaccount.designerKey).toBeDefined();
-    expect(subaccount.publicKey).toBeDefined();
-    expect(subaccount.email).toBeDefined();
-    expect(subaccount.name).toBeUndefined();
+    expect(subaccount.secretKey).toBeTruthy();
+    expect(subaccount.designerKey).toBeTruthy();
+    expect(subaccount.publicKey).toBeTruthy();
+    expect(subaccount.email).toBeTruthy();
+    expect(subaccount.name).toBeFalsy();
     expect(subaccount.email).toBe(randomEmail);
 });
 

@@ -24,7 +24,7 @@ test('listAll with more than 40 events)', async () => {
     }
 
     for await (let event of client.events.listAll()) {
-            retrievedEventKeys.push(event.key);
+        retrievedEventKeys.push(event.key);
     }
 
     expect(retrievedEventKeys.sort()).toEqual(generatedEventKeys.sort());

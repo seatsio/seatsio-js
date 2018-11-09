@@ -3,14 +3,15 @@ const ObjectStatus = require('../../src/Events/ObjectStatus.js');
 const ObjectProperties = require('../../src/Events/ObjectProperties.js')
 
 test('report properties', async () => {
-    var chartKey = testUtils.getChartKey();
+    let chartKey = testUtils.getChartKey();
     await testUtils.createTestChart(chartKey, user.designerKey);
-    var event = await client.events.create(chartKey);
-    var extraData = {'foo': 'bar'};
+    let event = await client.events.create(chartKey);
+    let extraData = {'foo': 'bar'};
     await client.events.book(event.key, (new ObjectProperties('A-1')).setTicketType('ticketType1').setExtraData(extraData), null, 'order1');
-    var report = await client.eventReports.byLabel(event.key);
-    var reportItem = report['A-1'][0];
 
+    let report = await client.eventReports.byLabel(event.key);
+
+    let reportItem = report['A-1'][0];
     expect(reportItem.status).toBe(ObjectStatus.BOOKED);
     expect(reportItem.label).toBe('A-1');
     expect(reportItem.labels).toEqual(testUtils.someLabels('1', 'seat', 'A', 'row'));
@@ -20,44 +21,47 @@ test('report properties', async () => {
     expect(reportItem.orderId).toBe('order1');
     expect(reportItem.objectType).toBe('seat');
     expect(reportItem.forSale).toBe(true);
-    expect(reportItem.section).toBeUndefined();
-    expect(reportItem.entrance).toBeUndefined();
+    expect(reportItem.section).toBeFalsy();
+    expect(reportItem.entrance).toBeFalsy();
     expect(reportItem.extraData).toEqual(extraData);
 });
 
 test('report has hold token', async () => {
-    var chartKey = testUtils.getChartKey();
+    let chartKey = testUtils.getChartKey();
     await testUtils.createTestChart(chartKey, user.designerKey);
-    var event = await client.events.create(chartKey);
-    var holdToken = await client.holdTokens.create();
+    let event = await client.events.create(chartKey);
+    let holdToken = await client.holdTokens.create();
     await client.events.hold(event.key, 'A-1', holdToken.holdToken);
-    var report = await client.eventReports.byLabel(event.key);
-    var reportItem = report['A-1'][0];
 
+    let report = await client.eventReports.byLabel(event.key);
+
+    let reportItem = report['A-1'][0];
     expect(reportItem.holdToken).toBe(holdToken.holdToken);
 });
 
 test('report properties for GA', async () => {
-    var chartKey = testUtils.getChartKey();
+    let chartKey = testUtils.getChartKey();
     await testUtils.createTestChart(chartKey, user.designerKey);
-    var event = await client.events.create(chartKey);
+    let event = await client.events.create(chartKey);
     await client.events.book(event.key, (new ObjectProperties('GA1')).setQuantity(5));
-    var report = await client.eventReports.byLabel(event.key);
-    var reportItem = report['GA1'][0];
 
+    let report = await client.eventReports.byLabel(event.key);
+
+    let reportItem = report['GA1'][0];
     expect(reportItem.capacity).toBe(100);
     expect(reportItem.numBooked).toBe(5);
     expect(reportItem.objectType).toBe('generalAdmission');
 });
 
 test('report with object status', async () => {
-    var chartKey = testUtils.getChartKey();
+    let chartKey = testUtils.getChartKey();
     await testUtils.createTestChart(chartKey, user.designerKey);
-    var event = await client.events.create(chartKey);
+    let event = await client.events.create(chartKey);
     await client.events.changeObjectStatus(event.key, 'A-1', 'lolzor');
     await client.events.changeObjectStatus(event.key, 'A-2', 'lolzor');
     await client.events.changeObjectStatus(event.key, 'A-3', ObjectStatus.BOOKED);
-    var report = await client.eventReports.byStatus(event.key);
+
+    let report = await client.eventReports.byStatus(event.key);
 
     expect(report['lolzor'].length).toBe(2);
     expect(report[ObjectStatus.BOOKED].length).toBe(1);
@@ -65,82 +69,90 @@ test('report with object status', async () => {
 });
 
 test('report with specific object status', async () => {
-    var chartKey = testUtils.getChartKey();
+    let chartKey = testUtils.getChartKey();
     await testUtils.createTestChart(chartKey, user.designerKey);
-    var event = await client.events.create(chartKey);
+    let event = await client.events.create(chartKey);
     await client.events.changeObjectStatus(event.key, 'A-1', 'lolzor');
     await client.events.changeObjectStatus(event.key, 'A-2', 'lolzor');
     await client.events.changeObjectStatus(event.key, 'A-3', ObjectStatus.BOOKED);
-    var report = await client.eventReports.byStatus(event.key, 'lolzor');
+
+    let report = await client.eventReports.byStatus(event.key, 'lolzor');
 
     expect(report['lolzor'].length).toBe(2);
 });
 
 test('report with category label', async () => {
-    var chartKey = testUtils.getChartKey();
+    let chartKey = testUtils.getChartKey();
     await testUtils.createTestChart(chartKey, user.designerKey);
-    var event = await client.events.create(chartKey);
-    var report = await client.eventReports.byCategoryLabel(event.key);
+    let event = await client.events.create(chartKey);
+
+    let report = await client.eventReports.byCategoryLabel(event.key);
 
     expect(report['Cat1'].length).toBe(17);
     expect(report['Cat2'].length).toBe(17);
 });
 
 test('report with specific category label', async () => {
-    var chartKey = testUtils.getChartKey();
+    let chartKey = testUtils.getChartKey();
     await testUtils.createTestChart(chartKey, user.designerKey);
-    var event = await client.events.create(chartKey);
-    var report = await client.eventReports.byCategoryLabel(event.key, 'Cat1');
+    let event = await client.events.create(chartKey);
+
+    let report = await client.eventReports.byCategoryLabel(event.key, 'Cat1');
 
     expect(report['Cat1'].length).toBe(17);
 });
 
 test('report with category key', async () => {
-    var chartKey = testUtils.getChartKey();
+    let chartKey = testUtils.getChartKey();
     await testUtils.createTestChart(chartKey, user.designerKey);
-    var event = await client.events.create(chartKey);
-    var report = await client.eventReports.byCategoryKey(event.key);
+    let event = await client.events.create(chartKey);
+
+    let report = await client.eventReports.byCategoryKey(event.key);
 
     expect(report[9].length).toBe(17);
     expect(report[10].length).toBe(17);
 });
 
 test('report with specific category key', async () => {
-    var chartKey = testUtils.getChartKey();
+    let chartKey = testUtils.getChartKey();
     await testUtils.createTestChart(chartKey, user.designerKey);
-    var event = await client.events.create(chartKey);
-    var report = await client.eventReports.byCategoryKey(event.key, 9);
+    let event = await client.events.create(chartKey);
+
+    let report = await client.eventReports.byCategoryKey(event.key, 9);
 
     expect(report[9].length).toBe(17);
 });
 
 test('report with label', async () => {
-    var chartKey = testUtils.getChartKey();
+    let chartKey = testUtils.getChartKey();
     await testUtils.createTestChart(chartKey, user.designerKey);
-    var event = await client.events.create(chartKey);
-    var report = await client.eventReports.byLabel(event.key);
+    let event = await client.events.create(chartKey);
+
+    let report = await client.eventReports.byLabel(event.key);
 
     expect(report['A-1'].length).toBe(1);
     expect(report['A-2'].length).toBe(1);
 });
 
 test('report with specific label', async () => {
-    var chartKey = testUtils.getChartKey();
+    let chartKey = testUtils.getChartKey();
     await testUtils.createTestChart(chartKey, user.designerKey);
-    var event = await client.events.create(chartKey);
-    var report = await client.eventReports.byLabel(event.key, 'A-1');
+    let event = await client.events.create(chartKey);
+
+    let report = await client.eventReports.byLabel(event.key, 'A-1');
 
     expect(report['A-1'].length).toBe(1);
 });
 
 test('report with orderId', async () => {
-    var chartKey = testUtils.getChartKey();
+    let chartKey = testUtils.getChartKey();
     await testUtils.createTestChart(chartKey, user.designerKey);
-    var event = await client.events.create(chartKey);
+    let event = await client.events.create(chartKey);
     await client.events.book(event.key, 'A-1', null, 'order1');
     await client.events.book(event.key, 'A-2', null, 'order1');
     await client.events.book(event.key, 'A-3', null, 'order2');
-    var report = await client.eventReports.byOrderId(event.key);
+
+    let report = await client.eventReports.byOrderId(event.key);
 
     expect(report['order1'].length).toBe(2);
     expect(report['order2'].length).toBe(1);
@@ -149,38 +161,41 @@ test('report with orderId', async () => {
 
 
 test('report with specific orderId', async () => {
-    var chartKey = testUtils.getChartKey();
+    let chartKey = testUtils.getChartKey();
     await testUtils.createTestChart(chartKey, user.designerKey);
-    var event = await client.events.create(chartKey);
+    let event = await client.events.create(chartKey);
     await client.events.book(event.key, 'A-1', null, 'order1');
     await client.events.book(event.key, 'A-2', null, 'order1');
     await client.events.book(event.key, 'A-3', null, 'order2');
-    var report = await client.eventReports.byOrderId(event.key, 'order1');
+
+    let report = await client.eventReports.byOrderId(event.key, 'order1');
 
     expect(report['order1'].length).toBe(2);
 });
 
 test('report with section', async () => {
-    var chartKey = testUtils.getChartKey();
+    let chartKey = testUtils.getChartKey();
     await testUtils.createTestChart(chartKey, user.designerKey);
-    var event = await client.events.create(chartKey);
+    let event = await client.events.create(chartKey);
     await client.events.book(event.key, 'A-1', null, 'order1');
     await client.events.book(event.key, 'A-2', null, 'order1');
     await client.events.book(event.key, 'A-3', null, 'order2');
-    var report = await client.eventReports.bySection(event.key);
+
+    let report = await client.eventReports.bySection(event.key);
 
     expect(report['NO_SECTION'].length).toBe(34);
 });
 
 
 test('report with specific section', async () => {
-    var chartKey = testUtils.getChartKey();
+    let chartKey = testUtils.getChartKey();
     await testUtils.createTestChart(chartKey, user.designerKey);
-    var event = await client.events.create(chartKey);
+    let event = await client.events.create(chartKey);
     await client.events.book(event.key, 'A-1', null, 'order1');
     await client.events.book(event.key, 'A-2', null, 'order1');
     await client.events.book(event.key, 'A-3', null, 'order2');
-    var report = await client.eventReports.bySection(event.key, 'NO_SECTION');
+
+    let report = await client.eventReports.bySection(event.key, 'NO_SECTION');
 
     expect(report['NO_SECTION'].length).toBe(34);
 });

@@ -13,6 +13,6 @@ test('should retrieve event', async () => {
     expect(retrievedEvent.bookWholeTables).toBe(false);
     expect(retrievedEvent.supportsBestAvailable).toBe(true);
     expect(retrievedEvent.createdOn).toEqual(event.createdOn);
-    expect(retrievedEvent.forSaleConfig).toBeUndefined();
+    expect(retrievedEvent.forSaleConfig).toBeFalsy();
     expect(retrievedEvent.updatedOn).toBeNull();
 });

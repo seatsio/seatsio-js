@@ -1,7 +1,6 @@
 const testUtils = require('../testUtils.js');
 const ObjectStatus = require('../../src/Events/ObjectStatus.js');
 
-
 test('should hold objects', async () => {
     let chartKey = testUtils.getChartKey();
     await testUtils.createTestChart(chartKey, user.designerKey);

@@ -15,10 +15,7 @@ test('should list status changes', async () => {
         labels.push(statusChange.objectLabel);
     }
 
-    expect(labels).toContain('A-1');
-    expect(labels).toContain('A-2');
-    expect(labels).toContain('A-1');
-
+    expect(labels.sort()).toEqual(['A-1', 'A-2', 'A-3']);
 });
 
 test('properties of status change', async () => {
@@ -32,8 +29,8 @@ test('properties of status change', async () => {
     let statusChangesIterator = statusChanges[Symbol.asyncIterator]();
     let statusChange = await statusChangesIterator.next();
 
-    expect(statusChange.value.id).toBeDefined();
-    expect(statusChange.value.date).toBeDefined();
+    expect(statusChange.value.id).toBeTruthy();
+    expect(statusChange.value.date).toBeTruthy();
     expect(statusChange.value.orderId).toBe('order1');
     expect(statusChange.value.objectLabel).toBe('A-1');
     expect(statusChange.value.status).toBe(ObjectStatus.BOOKED);
