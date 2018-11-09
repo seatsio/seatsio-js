@@ -1,11 +1,9 @@
-const testUtils = require('../testUtils.js');
-
 test('should regenerate designer key', async () => {
-    var subaccount = await client.subaccounts.create();
-    var newDesignerKey = await client.subaccounts.regenerateDesignerKey(subaccount.id);
-    var retrievedSubaccount = await client.subaccounts.retrieve(subaccount.id);
+    let subaccount = await client.subaccounts.create();
 
-    expect(newDesignerKey.designerKey).toBeDefined();
-    expect(subaccount.designerKey).not.toBe(newDesignerKey.designerKey);
+    let newDesignerKey = await client.subaccounts.regenerateDesignerKey(subaccount.id);
+
+    let retrievedSubaccount = await client.subaccounts.retrieve(subaccount.id);
+    expect(newDesignerKey.designerKey).toBeTruthy();
     expect(retrievedSubaccount.designerKey).toBe(newDesignerKey.designerKey);
 });

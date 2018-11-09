@@ -1,11 +1,12 @@
 const testUtils = require('../testUtils.js');
 
 test('should copy chart to parent', async () => {
-    var subaccount = await client.subaccounts.create();
-    var chart = await testUtils.createClient(subaccount.secretKey, testUtils.baseUrl).charts.create('aChart');
-    var copiedChart = await client.subaccounts.copyChartToParent(subaccount.id, chart.key);
-    var retrievedChart = await client.charts.retrieve(copiedChart.key);
+    let subaccount = await client.subaccounts.create();
+    let chart = await testUtils.createClient(subaccount.secretKey, testUtils.baseUrl).charts.create('aChart');
 
+    let copiedChart = await client.subaccounts.copyChartToParent(subaccount.id, chart.key);
+
+    let retrievedChart = await client.charts.retrieve(copiedChart.key);
     expect(copiedChart.name).toBe('aChart');
     expect(retrievedChart.name).toBe('aChart');
 });

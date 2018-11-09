@@ -1,17 +1,13 @@
-const testUtils = require('../testUtils.js');
-
 test('should list all active subaccounts', async () => {
-    var subaccount1 = await client.subaccounts.create();
-    var subaccount2 = await client.subaccounts.create();
-    var subaccount3 = await client.subaccounts.create();
+    let subaccount1 = await client.subaccounts.create();
+    let subaccount2 = await client.subaccounts.create();
+    let subaccount3 = await client.subaccounts.create();
     await client.subaccounts.deactivate(subaccount3.id);
-    var activeSubaccountIds = [];
+    let activeSubaccountIds = [];
 
     for await(let subaccount of client.subaccounts.active) {
         activeSubaccountIds.push(subaccount.id);
     }
-    expect(activeSubaccountIds).toContain(subaccount1.id);
-    expect(activeSubaccountIds).toContain(subaccount2.id);
-    expect(activeSubaccountIds).not.toContain(subaccount3.id);
 
+    expect(activeSubaccountIds.sort()).toEqual([subaccount2.id, subaccount1.id].sort());
 });

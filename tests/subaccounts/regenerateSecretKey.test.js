@@ -1,11 +1,10 @@
-const testUtils = require('../testUtils.js');
-
 test('should regenerate secret key', async () => {
-    var subaccount = await client.subaccounts.create();
-    var newSecretKey = await client.subaccounts.regenerateSecretKey(subaccount.id);
-    var retrievedSubaccount = await client.subaccounts.retrieve(subaccount.id);
+    let subaccount = await client.subaccounts.create();
 
-    expect(newSecretKey.secretKey).toBeDefined();
+    let newSecretKey = await client.subaccounts.regenerateSecretKey(subaccount.id);
+
+    let retrievedSubaccount = await client.subaccounts.retrieve(subaccount.id);
+    expect(newSecretKey.secretKey).toBeTruthy();
     expect(subaccount.secretKey).not.toBe(newSecretKey.secretKey);
     expect(retrievedSubaccount.secretKey).toBe(newSecretKey.secretKey);
 });
