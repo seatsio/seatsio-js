@@ -1,4 +1,4 @@
-const IterableAsyncSubaccounts = require('./IterableAsyncSubaccounts.js');
+const AsyncIterator = require('../AsyncIterator.js');
 
 class Subaccounts {
 
@@ -6,8 +6,8 @@ class Subaccounts {
         this.client = client;
         //this.active = new IterableSubaccountPages('/subaccounts/active', this.client);
         //this.inactive = new IterableSubaccountPages('/subaccounts/inactive', this.client);
-        this.active = new IterableAsyncSubaccounts('/subaccounts/active', this.client);
-        this.inactive = new IterableAsyncSubaccounts('/subaccounts/inactive', this.client);
+        this.active = new AsyncIterator('/subaccounts/active', this.client, 'subaccounts');
+        this.inactive = new AsyncIterator('/subaccounts/inactive', this.client, 'subaccounts');
     }
 
     create(name = null) {
@@ -79,7 +79,7 @@ class Subaccounts {
     }
 
     listAll(){
-        return new IterableAsyncSubaccounts('/subaccounts', this.client);
+        return new AsyncIterator('/subaccounts', this.client, 'subaccounts');
     }
 }
 

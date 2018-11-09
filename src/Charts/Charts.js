@@ -3,12 +3,12 @@ const Chart = require('./Chart.js');
 const Event =  require( '../Events/Event.js');
 const Page = require('../Page.js');
 const Lister = require('./Lister.js');
-const IterableAsyncCharts = require('./IterableAsyncCharts.js');
+const AsyncIterator = require('../AsyncIterator.js');
 
 class Charts {
     constructor(client) {
         this.client = client;
-        this.archive = new IterableAsyncCharts('/charts/archive', this.client);
+        this.archive = new AsyncIterator('/charts/archive', this.client, 'charts');
     }
 
     static chartCreator(chartData){
@@ -155,7 +155,7 @@ class Charts {
     }
 
     listAll(requestParameters = {}) {
-        return new IterableAsyncCharts('/charts', this.client, requestParameters);
+        return new AsyncIterator('/charts', this.client, 'charts', requestParameters);
     }
 
     eventCreator(eventsData){

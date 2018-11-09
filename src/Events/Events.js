@@ -1,11 +1,7 @@
-const StatusChange = require('./StatusChange.js');
-const PageFetcher = require('../PageFetcher.js');
-const Page = require('../Page.js');
-const Lister = require('./Lister.js');
 const Event = require('./Event.js');
-const IterableAsyncEvents = require('./IterableAsyncEvents.js');
-const IterableAsyncStatusChanges = require('./IterableAsyncStatusChanges.js');
+const AsyncIterator = require('../AsyncIterator.js');
 const ObjectStatus = require('./ObjectStatus.js');
+
 
 class Events {
     constructor(client) {
@@ -135,8 +131,8 @@ class Events {
         return this.client.post(`/events/${encodeURIComponent(eventKey)}/objects/${encodeURIComponent(obj)}/actions/update-extra-data`, requestParameters);
     }
 
-    listAll(){
-        return new IterableAsyncEvents('/events', this.client);
+    listAll(requestParameters = {}) {
+        return new AsyncIterator('/events', this.client, 'events', requestParameters);
     }
 
     changeObjectStatus(eventKeyOrKeys, objectOrObjects, status, holdToken = null, orderId = null) {
@@ -186,10 +182,9 @@ class Events {
 
     statusChanges(eventKey, objectId = null) {
         if (objectId === null) {
-            return new IterableAsyncStatusChanges(`/events/${encodeURIComponent(eventKey)}/status-changes`, this.client);
+            return new AsyncIterator(`/events/${encodeURIComponent(eventKey)}/status-changes`, this.client, 'statusChanges');
         }
-        return new IterableAsyncStatusChanges(`/events/${encodeURIComponent(eventKey)}/objects/${encodeURIComponent(objectId)}/status-changes`,
-                this.client);
+        return new AsyncIterator(`/events/${encodeURIComponent(eventKey)}/objects/${encodeURIComponent(objectId)}/status-changes`, this.client, 'statusChanges');
     }
 
     normalizeObjects(objectOrObjects) {
