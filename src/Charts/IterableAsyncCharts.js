@@ -4,8 +4,8 @@ const Page = require('../Page.js');
 
 class IterableAsyncCharts {
     constructor(url, client, params = {}) {
-        this.items = []; /*  array of charts */
-        this.pages = []; /*  array of Pages of charts*/
+        this.items = []; /*  [Chart] */
+        this.pages = []; /* [Page] */
         this.index = 0;
         this.nextPageMustBeFetched = true;
         this.client = client;

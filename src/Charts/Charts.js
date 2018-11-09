@@ -158,11 +158,22 @@ class Charts {
         return new IterableAsyncCharts('/charts', this.client, requestParameters);
     }
 
+    eventCreator(eventsData){
+        return eventsData.map (eventData => {
+            let updatedOn = eventData.updatedOn ? new Date(eventData.updatedOn) : null;
+
+            return new Event(eventData.id, eventData.key, eventData.bookWholeTables,
+                eventData.supportsBestAvailable, eventData.forSaleConfig, eventData.tableBookingModes, eventData.chartKey,
+                new Date(eventData.createdOn), updatedOn);
+        });
+    }
+
     iterator() {
-        return new Lister(new PageFetcher('/charts', this.client, function (results) {
+        return new Lister(new PageFetcher('/charts', this.client, results => {
             let chartItems = results.items.map((chartData) => {
+                let events = chartData.events ? this.eventCreator(chartData.events) : null;
                 return new Chart(chartData.name, chartData.id, chartData.key, chartData.status, chartData.tags,
-                    chartData.publishedVersionThumbnailUrl, chartData.publishedVersionThumbnailUrl, chartData.events, chartData.archived);
+                    chartData.publishedVersionThumbnailUrl, chartData.publishedVersionThumbnailUrl, events, chartData.archived);
             });
             return new Page(chartItems);
         }));
