@@ -1,13 +1,21 @@
 class StatusChange {
     constructor(id, eventId, status, quantity, objectLabel, date, orderId = null, extraData = null) {
-        this.id = id; /* int */
-        this.eventId = eventId; /* int */
-        this.status = status; /* string */
-        this.quantity = quantity; /* int */
-        this.objectLabel = objectLabel; /* string */
-        this.date = date; /* Date obj*/
-        this.orderId = orderId; /* string */
-        this.extraData = extraData; /* obj */
+        /* int */
+        this.id = id;
+        /* int */
+        this.eventId = eventId;
+        /* string */
+        this.status = status;
+        /* int */
+        this.quantity = quantity;
+        /* string */
+        this.objectLabel = objectLabel;
+        /* Date */
+        this.date = date;
+        /* string */
+        this.orderId = orderId;
+        /* object|[objects] */
+        this.extraData = extraData;
     }
 }
 module.exports = StatusChange;

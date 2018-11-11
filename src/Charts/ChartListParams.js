@@ -23,13 +23,13 @@ class ChartListParams {
 
     toArray(){
         let result = {};
-        if(this.filter !== null && this.filter != undefined){
+        if(typeof this.filter !== 'undefined' && this.filter !== null){
             result.filter = this.filter;
         }
-        if(this.tag !== null && this.tag != undefined){
+        if(typeof this.tag !== 'undefined' && this.tag !== null ){
             result.tag = this.tag;
         }
-        if(this.expand !== null && this.expand != undefined){
+        if(typeof this.expand !== 'undefined' && this.expand !== null ){
             result.expand = 'events';
         }
 

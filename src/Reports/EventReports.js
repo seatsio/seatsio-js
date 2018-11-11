@@ -1,36 +1,51 @@
+const EventReportItem = require('./EventReportItem.js');
+
 class EventReports {
     constructor(client) {
         this.client = client;
     }
 
+    report(reportsData){
+        let reportObjects = {};
+        for(const key of Object.keys(reportsData)){
+            reportObjects[key] = reportsData[key].map (data => {
+                    return new EventReportItem(data.label, data.labels, data.status, data.categoryLabel, data.categoryKey, data.ticketType,
+                        data.entrance, data.objectType, data.section, data.orderId, data.forSale, data.holdToken,
+                        data.capacity, data.numBooked, data.extraData);
+                }
+            );
+        }
+        return reportObjects;
+    }
+
     byLabel(eventKey, label = null) {
         return this.client.get(this.reportUrl('byLabel', eventKey, label))
-            .then((res) => res.data);
+            .then((res) => this.report(res.data));
     }
 
     byStatus(eventKey, status = null) {
         return this.client.get(this.reportUrl('byStatus', eventKey, status))
-            .then((res) => res.data);
+            .then((res) => this.report(res.data));
     }
 
     byCategoryLabel(eventKey, categoryLabel = null) {
         return this.client.get(this.reportUrl('byCategoryLabel', eventKey, categoryLabel))
-            .then((res) => res.data);
+            .then((res) => this.report(res.data));
     }
 
     byCategoryKey(eventKey, categoryKey = null) {
         return this.client.get(this.reportUrl('byCategoryKey', eventKey, categoryKey))
-            .then((res) => res.data);
+            .then((res) => this.report(res.data));
     }
 
     byOrderId(eventKey, orderId = null) {
         return this.client.get(this.reportUrl('byOrderId', eventKey, orderId))
-            .then((res) => res.data);
+            .then((res) => this.report(res.data));
     }
 
     bySection(eventKey, section = null) {
         return this.client.get(this.reportUrl('bySection', eventKey, section))
-            .then((res) => res.data);
+            .then((res) => this.report(res.data));
     }
 
     summaryBySection(eventKey) {
