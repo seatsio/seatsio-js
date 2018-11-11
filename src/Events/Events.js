@@ -1,6 +1,7 @@
 const Event = require('./Event.js');
 const AsyncIterator = require('../AsyncIterator.js');
 const ObjectStatus = require('./ObjectStatus.js');
+const ChangeObjectStatusResult = require('./ChangeObjectStatusResult.js');
 
 class Events {
     constructor(client) {
@@ -147,7 +148,7 @@ class Events {
         requestParameters.events = Array.isArray(eventKeyOrKeys) ? eventKeyOrKeys : [eventKeyOrKeys];
 
         return this.client.post(`/seasons/actions/change-object-status?expand=labels`, requestParameters)
-            .then((res) => res.data);
+            .then((res) => new ChangeObjectStatusResult(res.data.labels));
     }
 
     holdBestAvailable(eventKey, number, holdToken, categories = null, orderId = null) {
