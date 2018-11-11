@@ -1,22 +1,25 @@
 class Labels {
-    constructor() {
-        this.own = '';
-        this.parent = '';
-        this.section = '';
-        this.entrance = '';
+    constructor(own, parent = null) {
+        /* LabelAndType */
+        this.own = own;
+        /* LabelAndType */
+        parent ? this.parent = parent : {};
     }
 }
 
 class LabelAndType {
-    constructor() {
-        this.type = '';
-        this.label = '';
+    constructor(label, type) {
+        /* string */
+        this.type = type;
+        /* string */
+        this.label = label;
     }
 }
 
 class Entrance {
-    constructor() {
-        this.label = '';
+    constructor(label) {
+        /* string */
+        this.label = label;
     }
 }
 

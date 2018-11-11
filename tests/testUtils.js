@@ -2,7 +2,7 @@ const SeatsioClient = require('../src/SeatsioClient.js');
 const axios = require('axios');
 const fs = require('fs');
 const uuidv1 = require('uuid/v1');
-//const LabelClasses = require('../src/Common/Labels.js');
+const LabelClasses = require('../src/Common/Labels.js');
 
 module.exports = {
     'baseUrl': 'https://api-staging.seatsio.net/',
@@ -50,10 +50,11 @@ module.exports = {
     },
 
     someLabels(ownLabel, ownType, parentLabel = null, parentType = null, section = null, entrance = null) {
-        var labels = {};
-        labels.own = this.aLabelAndType(ownLabel, ownType);
+        let labels;
         if (parentLabel) {
-            labels.parent = this.aLabelAndType(parentLabel, parentType);
+            labels = new LabelClasses.Labels(new LabelClasses.LabelAndType(ownLabel, ownType), new LabelClasses.LabelAndType(parentLabel, parentType));
+        } else {
+            labels = new LabelClasses.Labels(new LabelClasses.LabelAndType(ownLabel, ownType));
         }
         if (section) {
             labels.section = section;
@@ -63,13 +64,6 @@ module.exports = {
             labels.entrance.label = entrance;
         }
         return labels;
-    },
-
-    aLabelAndType(label, type) {
-        var labelAndType = {};
-        labelAndType.type = type;
-        labelAndType.label = label;
-        return labelAndType;
     },
 
     getRandomEmail() {

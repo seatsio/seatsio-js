@@ -2,6 +2,8 @@ const Event = require('./Event.js');
 const AsyncIterator = require('../AsyncIterator.js');
 const ObjectStatus = require('./ObjectStatus.js');
 const ChangeObjectStatusResult = require('./ChangeObjectStatusResult.js');
+const BestAvailableObjects = require('./BestAvailableObjects.js');
+const LabelClasses = require('../Common/Labels.js');
 
 class Events {
     constructor(client) {
@@ -182,7 +184,15 @@ class Events {
         requestParameters.bestAvailable = bestAvailable;
 
         return this.client.post(`/events/${encodeURIComponent(eventKey)}/actions/change-object-status`, requestParameters)
-            .then((res) => res.data);
+            .then((res) => Events.createBestAvailableObjects(res.data));
+    }
+
+    static createBestAvailableObjects(data){
+        let labels = {};
+        for(const key of Object.keys(data.labels)){
+                labels[key] = new LabelClasses.Labels(new LabelClasses.LabelAndType(data.labels[key].own.label, data.labels[key].own.type), new LabelClasses.LabelAndType(data.labels[key].parent.label, data.labels[key].parent.type));
+            }
+        return new BestAvailableObjects(data.objects, labels, data.nextToEachOther);
     }
 
     static createObjectStatus(data){
