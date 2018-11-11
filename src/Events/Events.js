@@ -4,7 +4,6 @@ const ObjectStatus = require('./ObjectStatus.js');
 const ChangeObjectStatusResult = require('./ChangeObjectStatusResult.js');
 const BestAvailableObjects = require('./BestAvailableObjects.js');
 const utilities = require('../utilities.js');
-const LabelClasses = require('../Common/Labels.js');
 
 class Events {
     constructor(client) {

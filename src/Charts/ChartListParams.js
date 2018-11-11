@@ -2,8 +2,11 @@ class ChartListParams {
     constructor(filter = null, tag = null, expandEvents = null){
         this.filter = filter;
         this.tag = tag;
-        this.expandEvents= expandEvents;
+        if (expandEvents === true) {
+            this.expand = 'events';
+        }
     }
+
     withFilter(filter) {
         this.filter = filter;
         return this;
