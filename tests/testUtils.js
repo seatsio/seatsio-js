@@ -69,5 +69,4 @@ module.exports = {
     getRandomEmail() {
         return uuidv1() + '@mailinator.com';
     }
-
-}
+};

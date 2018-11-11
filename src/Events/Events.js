@@ -3,6 +3,7 @@ const AsyncIterator = require('../AsyncIterator.js');
 const ObjectStatus = require('./ObjectStatus.js');
 const ChangeObjectStatusResult = require('./ChangeObjectStatusResult.js');
 const BestAvailableObjects = require('./BestAvailableObjects.js');
+const utilities = require('../utilities.js');
 const LabelClasses = require('../Common/Labels.js');
 
 class Events {
@@ -19,39 +20,12 @@ class Events {
     }
 
     static changeObjectStatusResultCreator(data) {
-        let labels = {};
-        for (const key of Object.keys(data.labels)) {
-            if (data.labels[key].parent) {
-                labels[key] = new LabelClasses.Labels(new LabelClasses.LabelAndType(data.labels[key].own.label, data.labels[key].own.type), new LabelClasses.LabelAndType(data.labels[key].parent.label, data.labels[key].parent.type));
-            } else {
-                labels[key] = new LabelClasses.Labels(new LabelClasses.LabelAndType(data.labels[key].own.label, data.labels[key].own.type));
-            }
-            if(data.labels[key].section){
-                labels[key].section = data.labels[key].section;
-            }
-            if(data.labels[key].entrance){
-                labels[key].entrance = data.labels[key].entrance;
-            }
-
-        }
+        let labels = utilities.labelsCreator(data);
         return new ChangeObjectStatusResult(labels);
     }
 
     static createBestAvailableObjects(data) {
-        let labels = {};
-        for (const key of Object.keys(data.labels)) {
-            if (data.labels[key].parent) {
-                labels[key] = new LabelClasses.Labels(new LabelClasses.LabelAndType(data.labels[key].own.label, data.labels[key].own.type), new LabelClasses.LabelAndType(data.labels[key].parent.label, data.labels[key].parent.type));
-            } else {
-                labels[key] = new LabelClasses.Labels(new LabelClasses.LabelAndType(data.labels[key].own.label, data.labels[key].own.type));
-            }
-            if(data.labels[key].section){
-                labels[key].section = data.labels[key].section;
-            }
-            if(data.labels[key].entrance){
-                labels[key].entrance = data.labels[key].entrance;
-            }
-        }
+        let labels = utilities.labelsCreator(data);
         return new BestAvailableObjects(data.objects, labels, data.nextToEachOther);
     }
 
