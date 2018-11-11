@@ -17,6 +17,7 @@ test('should change object status for multiple events', async () => {
 
 test('should book multiple events', async () => {
     let chartKey = testUtils.getChartKey();
+    let objectStatus = new ObjectStatus();
     await testUtils.createTestChart(chartKey, user.designerKey);
     let event1 = await client.events.create(chartKey);
     let event2 = await client.events.create(chartKey);
@@ -25,12 +26,13 @@ test('should book multiple events', async () => {
 
     let objStatus1 = await client.events.retrieveObjectStatus(event1.key, 'A-1');
     let objStatus2 = await client.events.retrieveObjectStatus(event2.key, 'A-1');
-    expect(objStatus1.status).toBe(ObjectStatus.BOOKED);
-    expect(objStatus2.status).toBe(ObjectStatus.BOOKED);
+    expect(objStatus1.status).toBe(objectStatus.BOOKED);
+    expect(objStatus2.status).toBe(objectStatus.BOOKED);
 });
 
 test('should release multiple events', async () => {
     let chartKey = testUtils.getChartKey();
+    let objectStatus = new ObjectStatus();
     await testUtils.createTestChart(chartKey, user.designerKey);
     let event1 = await client.events.create(chartKey);
     let event2 = await client.events.create(chartKey);
@@ -40,12 +42,13 @@ test('should release multiple events', async () => {
 
     let objStatus1 = await client.events.retrieveObjectStatus(event1.key, 'A-1');
     let objStatus2 = await client.events.retrieveObjectStatus(event2.key, 'A-1');
-    expect(objStatus1.status).toBe(ObjectStatus.FREE);
-    expect(objStatus2.status).toBe(ObjectStatus.FREE);
+    expect(objStatus1.status).toBe(objectStatus.FREE);
+    expect(objStatus2.status).toBe(objectStatus.FREE);
 });
 
 test('should hold multiple events', async () => {
     let chartKey = testUtils.getChartKey();
+    let objectStatus = new ObjectStatus();
     await testUtils.createTestChart(chartKey, user.designerKey);
     let event1 = await client.events.create(chartKey);
     let event2 = await client.events.create(chartKey);
@@ -55,6 +58,6 @@ test('should hold multiple events', async () => {
 
     let objStatus1 = await client.events.retrieveObjectStatus(event1.key, 'A-1');
     let objStatus2 = await client.events.retrieveObjectStatus(event2.key, 'A-1');
-    expect(objStatus1.status).toBe(ObjectStatus.HELD);
-    expect(objStatus2.status).toBe(ObjectStatus.HELD);
+    expect(objStatus1.status).toBe(objectStatus.HELD);
+    expect(objStatus2.status).toBe(objectStatus.HELD);
 });

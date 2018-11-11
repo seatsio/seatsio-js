@@ -2,7 +2,6 @@ const Event = require('./Event.js');
 const AsyncIterator = require('../AsyncIterator.js');
 const ObjectStatus = require('./ObjectStatus.js');
 
-
 class Events {
     constructor(client) {
         this.client = client;
@@ -43,27 +42,22 @@ class Events {
 
     retrieveObjectStatus(eventKey, obj) {
         return this.client.get(`events/${encodeURIComponent(eventKey)}/objects/${encodeURIComponent(obj)}`)
-            .then((res) => res.data);
+            .then((res) => Events.createObjectStatus(res.data));
     }
 
     hold(eventKeyOrKeys, objectOrObjects, holdToken, orderId = null) {
-        return this.changeObjectStatus(eventKeyOrKeys, objectOrObjects, ObjectStatus.HELD, holdToken, orderId);
-    }
-
-    holdBestAvailable(eventKey, number, holdToken, categories = null, orderId = null) {
-        return this.changeBestAvailableObjectStatus(encodeURIComponent(eventKey), number, ObjectStatus.HELD, categories, holdToken, orderId);
+        let objectStatus = new ObjectStatus();
+        return this.changeObjectStatus(eventKeyOrKeys, objectOrObjects, objectStatus.HELD, holdToken, orderId);
     }
 
     book(eventKeyOrKeys, objectOrObjects, holdToken = null, orderId = null) {
-        return this.changeObjectStatus(eventKeyOrKeys, objectOrObjects, ObjectStatus.BOOKED, holdToken, orderId);
-    }
-
-    bookBestAvailable(eventKey, number, categories = null, holdToken = null, orderId = null) {
-        return this.changeBestAvailableObjectStatus(encodeURIComponent(eventKey), number, ObjectStatus.BOOKED, categories, holdToken, orderId);
+        let objectStatus = new ObjectStatus();
+        return this.changeObjectStatus(eventKeyOrKeys, objectOrObjects, objectStatus.BOOKED, holdToken, orderId);
     }
 
     release(eventKeyOrKeys, objectOrObjects, holdToken = null, orderId = null) {
-        return this.changeObjectStatus(eventKeyOrKeys, objectOrObjects, ObjectStatus.FREE, holdToken, orderId);
+        let objectStatus = new ObjectStatus();
+        return this.changeObjectStatus(eventKeyOrKeys, objectOrObjects, objectStatus.FREE, holdToken, orderId);
     }
 
     delete(eventKey) {
@@ -156,6 +150,16 @@ class Events {
             .then((res) => res.data);
     }
 
+    holdBestAvailable(eventKey, number, holdToken, categories = null, orderId = null) {
+        let objectStatus = new ObjectStatus();
+        return this.changeBestAvailableObjectStatus(encodeURIComponent(eventKey), number, objectStatus.HELD, categories, holdToken, orderId);
+    }
+
+    bookBestAvailable(eventKey, number, categories = null, holdToken = null, orderId = null) {
+        let objectStatus = new ObjectStatus();
+        return this.changeBestAvailableObjectStatus(encodeURIComponent(eventKey), number, objectStatus.BOOKED, categories, holdToken, orderId);
+    }
+
     changeBestAvailableObjectStatus(eventKey, number, status, categories = null, holdToken = null, extraData = null, orderId = null) {
         let requestParameters = {};
         let bestAvailable = {};
@@ -178,6 +182,10 @@ class Events {
 
         return this.client.post(`/events/${encodeURIComponent(eventKey)}/actions/change-object-status`, requestParameters)
             .then((res) => res.data);
+    }
+
+    static createObjectStatus(data){
+        return new ObjectStatus(data.status, data.ticketType, data.holdToken, data.orderId, data.extraData, data.quantity);
     }
 
     statusChanges(eventKey, objectId = null) {

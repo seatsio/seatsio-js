@@ -4,6 +4,7 @@ const ObjectProperties = require('../../src/Events/ObjectProperties.js')
 
 test('report properties', async () => {
     let chartKey = testUtils.getChartKey();
+    let objectStatus = new ObjectStatus();
     await testUtils.createTestChart(chartKey, user.designerKey);
     let event = await client.events.create(chartKey);
     let extraData = {'foo': 'bar'};
@@ -12,7 +13,7 @@ test('report properties', async () => {
     let report = await client.eventReports.byLabel(event.key);
 
     let reportItem = report['A-1'][0];
-    expect(reportItem.status).toBe(ObjectStatus.BOOKED);
+    expect(reportItem.status).toBe(objectStatus.BOOKED);
     expect(reportItem.label).toBe('A-1');
     expect(reportItem.labels).toEqual(testUtils.someLabels('1', 'seat', 'A', 'row'));
     expect(reportItem.categoryLabel).toBe('Cat1');
@@ -55,26 +56,28 @@ test('report properties for GA', async () => {
 
 test('report with object status', async () => {
     let chartKey = testUtils.getChartKey();
+    let objectStatus = new ObjectStatus();
     await testUtils.createTestChart(chartKey, user.designerKey);
     let event = await client.events.create(chartKey);
     await client.events.changeObjectStatus(event.key, 'A-1', 'lolzor');
     await client.events.changeObjectStatus(event.key, 'A-2', 'lolzor');
-    await client.events.changeObjectStatus(event.key, 'A-3', ObjectStatus.BOOKED);
+    await client.events.changeObjectStatus(event.key, 'A-3', objectStatus.BOOKED);
 
     let report = await client.eventReports.byStatus(event.key);
 
     expect(report['lolzor'].length).toBe(2);
-    expect(report[ObjectStatus.BOOKED].length).toBe(1);
-    expect(report[ObjectStatus.FREE].length).toBe(31);
+    expect(report[objectStatus.BOOKED].length).toBe(1);
+    expect(report[objectStatus.FREE].length).toBe(31);
 });
 
 test('report with specific object status', async () => {
     let chartKey = testUtils.getChartKey();
+    let objectStatus = new ObjectStatus();
     await testUtils.createTestChart(chartKey, user.designerKey);
     let event = await client.events.create(chartKey);
     await client.events.changeObjectStatus(event.key, 'A-1', 'lolzor');
     await client.events.changeObjectStatus(event.key, 'A-2', 'lolzor');
-    await client.events.changeObjectStatus(event.key, 'A-3', ObjectStatus.BOOKED);
+    await client.events.changeObjectStatus(event.key, 'A-3', objectStatus.BOOKED);
 
     let report = await client.eventReports.byStatus(event.key, 'lolzor');
 

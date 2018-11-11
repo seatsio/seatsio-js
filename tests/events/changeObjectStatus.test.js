@@ -67,14 +67,15 @@ test('should change object status with objectId inside class', async () => {
 
 test('should change object status with hold token', async () => {
     let chartKey = testUtils.getChartKey();
+    let objectStatus = new ObjectStatus();
     await testUtils.createTestChart(chartKey, user.designerKey);
     let event = await client.events.create(chartKey);
     let holdToken = await client.holdTokens.create();
 
-    await client.events.changeObjectStatus(event.key, 'A-1', ObjectStatus.HELD, holdToken.holdToken);
+    await client.events.changeObjectStatus(event.key, 'A-1', objectStatus.HELD, holdToken.holdToken);
 
     let objStatus = await client.events.retrieveObjectStatus(event.key, "A-1");
-    expect(objStatus.status).toBe(ObjectStatus.HELD);
+    expect(objStatus.status).toBe(objectStatus.HELD);
     expect(objStatus.holdToken).toBe(holdToken.holdToken);
 });
 

@@ -20,6 +20,7 @@ test('should list status changes', async () => {
 
 test('properties of status change', async () => {
     let chartKey = testUtils.getChartKey();
+    let objectStatus = new ObjectStatus();
     await testUtils.createTestChart(chartKey, user.designerKey);
     let event = await client.events.create(chartKey);
     let obj = new ObjectProperties('A-1').setExtraData({'foo': 'bar'});
@@ -33,7 +34,7 @@ test('properties of status change', async () => {
     expect(statusChange.value.date).toBeTruthy();
     expect(statusChange.value.orderId).toBe('order1');
     expect(statusChange.value.objectLabel).toBe('A-1');
-    expect(statusChange.value.status).toBe(ObjectStatus.BOOKED);
+    expect(statusChange.value.status).toBe(objectStatus.BOOKED);
     expect(statusChange.value.eventId).toBe(event.id);
     expect(statusChange.value.extraData).toEqual({'foo': 'bar'});
 });
