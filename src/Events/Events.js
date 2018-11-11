@@ -18,6 +18,46 @@ class Events {
             new Date(eventData.createdOn), updatedOn);
     }
 
+    static changeObjectStatusResultCreator(data) {
+        let labels = {};
+        for (const key of Object.keys(data.labels)) {
+            if (data.labels[key].parent) {
+                labels[key] = new LabelClasses.Labels(new LabelClasses.LabelAndType(data.labels[key].own.label, data.labels[key].own.type), new LabelClasses.LabelAndType(data.labels[key].parent.label, data.labels[key].parent.type));
+            } else {
+                labels[key] = new LabelClasses.Labels(new LabelClasses.LabelAndType(data.labels[key].own.label, data.labels[key].own.type));
+            }
+            if(data.labels[key].section){
+                labels[key].section = data.labels[key].section;
+            }
+            if(data.labels[key].entrance){
+                labels[key].entrance = data.labels[key].entrance;
+            }
+
+        }
+        return new ChangeObjectStatusResult(labels);
+    }
+
+    static createBestAvailableObjects(data) {
+        let labels = {};
+        for (const key of Object.keys(data.labels)) {
+            if (data.labels[key].parent) {
+                labels[key] = new LabelClasses.Labels(new LabelClasses.LabelAndType(data.labels[key].own.label, data.labels[key].own.type), new LabelClasses.LabelAndType(data.labels[key].parent.label, data.labels[key].parent.type));
+            } else {
+                labels[key] = new LabelClasses.Labels(new LabelClasses.LabelAndType(data.labels[key].own.label, data.labels[key].own.type));
+            }
+            if(data.labels[key].section){
+                labels[key].section = data.labels[key].section;
+            }
+            if(data.labels[key].entrance){
+                labels[key].entrance = data.labels[key].entrance;
+            }
+        }
+        return new BestAvailableObjects(data.objects, labels, data.nextToEachOther);
+    }
+
+    static createObjectStatus(data) {
+        return new ObjectStatus(data.status, data.ticketType, data.holdToken, data.orderId, data.extraData, data.quantity);
+    }
 
     create(chartKey, eventKey = null, bookWholeTablesOrTableBookingModes = null) {
         let requestParameters = {};
@@ -97,7 +137,7 @@ class Events {
     }
 
     update(eventKey, chartKey = null, newEventKey = null, bookWholeTablesOrTableBookingModes = null) {
-        let requestParameters= {};
+        let requestParameters = {};
 
         if (chartKey !== null) {
             requestParameters.chartKey = chartKey;
@@ -117,7 +157,7 @@ class Events {
     }
 
     updateExtraDatas(eventKey, extraData) {
-        let requestParameters= {};
+        let requestParameters = {};
         requestParameters.extraData = extraData;
         return this.client.post(`/events/${encodeURIComponent(eventKey)}/actions/update-extra-data`, requestParameters);
     }
@@ -133,7 +173,7 @@ class Events {
     }
 
     changeObjectStatus(eventKeyOrKeys, objectOrObjects, status, holdToken = null, orderId = null) {
-        let requestParameters= {};
+        let requestParameters = {};
 
         requestParameters.objects = this.normalizeObjects(objectOrObjects);
 
@@ -150,7 +190,7 @@ class Events {
         requestParameters.events = Array.isArray(eventKeyOrKeys) ? eventKeyOrKeys : [eventKeyOrKeys];
 
         return this.client.post(`/seasons/actions/change-object-status?expand=labels`, requestParameters)
-            .then((res) => new ChangeObjectStatusResult(res.data.labels));
+            .then((res) => Events.changeObjectStatusResultCreator(res.data));
     }
 
     holdBestAvailable(eventKey, number, holdToken, categories = null, orderId = null) {
@@ -185,18 +225,6 @@ class Events {
 
         return this.client.post(`/events/${encodeURIComponent(eventKey)}/actions/change-object-status`, requestParameters)
             .then((res) => Events.createBestAvailableObjects(res.data));
-    }
-
-    static createBestAvailableObjects(data){
-        let labels = {};
-        for(const key of Object.keys(data.labels)){
-                labels[key] = new LabelClasses.Labels(new LabelClasses.LabelAndType(data.labels[key].own.label, data.labels[key].own.type), new LabelClasses.LabelAndType(data.labels[key].parent.label, data.labels[key].parent.type));
-            }
-        return new BestAvailableObjects(data.objects, labels, data.nextToEachOther);
-    }
-
-    static createObjectStatus(data){
-        return new ObjectStatus(data.status, data.ticketType, data.holdToken, data.orderId, data.extraData, data.quantity);
     }
 
     statusChanges(eventKey, objectId = null) {

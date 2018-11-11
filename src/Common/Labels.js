@@ -10,9 +10,9 @@ class Labels {
 class LabelAndType {
     constructor(label, type) {
         /* string */
-        this.type = type;
-        /* string */
         this.label = label;
+        /* string */
+        this.type = type;
     }
 }
 
