@@ -6,10 +6,17 @@ before_script:
 - npm install -g gulp-cli
 script: gulp bundle
 deploy:
-  provider: npm
-  email: namfaldev@gmail.com
-  api_key:
-    secure: jiCsfMxnR+aWEprJSBLWfRyUNidH+PKDcstu2PoZKhutn6TtMnYT/KlP/B5pYpsuxbzK1tRrcvdblUwlo/Q79QfDCjJ/tX8UV00+uqKoG2qHV7PsWoUH1GCml3M8uetsL9Y4l39rScKdKwWSNHzS0EZnA5IWgscJ/2MQjn7kqhgJrNPdFKPVURpkwz2+4qwzRshiLZwvzcMFDG500uK0h0omhdZ+2Y5tv3wNtxvLp59l4HDBfSKrPz8j4RCgCmBpf8JeM9OjBgv+tW2Bcsfokj4eu3SV33aM22d8zv+tP6iAEPHSnI0DYHoFrl+Fwtqikmcj2ExldjXWChL76/CNWORWKGukcBLIgz+ChclZRIt62Kr2L/waZDj4f7zcT/JlcgVPpAxy/+N/SGs88HnV3j/NR5nRmt3/cCHMuTsoYORhfL/bioFN7/YFFxvzUiQMTYuE0guIEL89W0wTU6T2zJPE++gV/nKI/qtarWBDXzWjTaVTT8htdx4ViiFvHJkmFMgJs+ZGhVCrCn6zMf194ndg/VgLhnz4R02ACdvJoE3LRAhwzNnK5tshqjrlqeINt5kr0LHGSofPCpasuCOrWxkjzWDaPqBzB++i7ty1CLOmIlEP7zXlsx/4M6LXij2v5l1hB+u9zb8CT2vXCzz+BoVD05rSLeqKJHdI0Fn2XTw=
-  on:
-    tags: true
-  
+  - provider: npm
+    email: namfaldev@gmail.com
+    api_key:
+        secure: jiCsfMxnR+aWEprJSBLWfRyUNidH+PKDcstu2PoZKhutn6TtMnYT/KlP/B5pYpsuxbzK1tRrcvdblUwlo/Q79QfDCjJ/tX8UV00+uqKoG2qHV7PsWoUH1GCml3M8uetsL9Y4l39rScKdKwWSNHzS0EZnA5IWgscJ/2MQjn7kqhgJrNPdFKPVURpkwz2+4qwzRshiLZwvzcMFDG500uK0h0omhdZ+2Y5tv3wNtxvLp59l4HDBfSKrPz8j4RCgCmBpf8JeM9OjBgv+tW2Bcsfokj4eu3SV33aM22d8zv+tP6iAEPHSnI0DYHoFrl+Fwtqikmcj2ExldjXWChL76/CNWORWKGukcBLIgz+ChclZRIt62Kr2L/waZDj4f7zcT/JlcgVPpAxy/+N/SGs88HnV3j/NR5nRmt3/cCHMuTsoYORhfL/bioFN7/YFFxvzUiQMTYuE0guIEL89W0wTU6T2zJPE++gV/nKI/qtarWBDXzWjTaVTT8htdx4ViiFvHJkmFMgJs+ZGhVCrCn6zMf194ndg/VgLhnz4R02ACdvJoE3LRAhwzNnK5tshqjrlqeINt5kr0LHGSofPCpasuCOrWxkjzWDaPqBzB++i7ty1CLOmIlEP7zXlsx/4M6LXij2v5l1hB+u9zb8CT2vXCzz+BoVD05rSLeqKJHdI0Fn2XTw=
+    on:
+        tags: true
+  - provider: releases
+    api_key:
+        secure: secure: "SPWZynAXE52xkVIRpKbqq28PGcGGM3xMxM3v9r6uhIL89Bwg4bUFDkhfrCUW+Qsk4NNVmpiuO5OXrwDCgZ4rzhqnzyflYbeeQ7WbVh10UizYxDrEMRDEB+v70tE7TydR7QdRyv5uQuvOGuYSnCUfvEN76aqx0FnzpjHDXvt07+ghjm6JE0nMZqigSi4Ge9hISXytH401QD97i+Y67M28v5f/mzjaxTFmNe86y5AoLqin0LMnVqAbGcTKpM9rJW1TSakmEfdpVX7L2KtcxxvytMduOpcnWnaRtQOrTcxz3WpRf1vAXpRM+QXegwR/inhDAreWmtlsMHX3w6QtTm+Vx1yEOjcFTGBKc1lBIReoLyybNuRBTo4rGKGI0u9GwPIADmXYXvTQAIt/+Ypz3c38YBdG69p4Q0oKh9NIhfFgmCrYX4UCYZenVtmbe4UjJfM9+yt0/EeHROGo3oOJD5ePr69bUJlHv6XesUjNjOzzaTsoyb7N2sEIe5kGJVUMRo+d7265yUKblsPVs28gtj1K+lyIzTY2It13nm5BUKb0bfF0a6Gxrj+ox5jOHpA3iQMvBUkEbWuNnebbwrya29y2+E4hejK1ukpZ4zO860p1oYB9JW7c6NXg+rpAUT5CFJHzMDCxBJoqny74joJeyCfqFK+aMIwf0pc0l8czAz8w5Z4="
+    file: build/SeatsioClient.js
+    skip_cleanup: true
+    on:
+      tags: true
+
