@@ -18,4 +18,5 @@ class StatusChange {
         this.extraData = extraData;
     }
 }
+
 module.exports = StatusChange;

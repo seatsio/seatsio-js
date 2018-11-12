@@ -1,5 +1,5 @@
-class ChartValidationSettings{
-    constructor(validateDuplicateLabels, validateObjectsWithoutCategories, validateUnlabelledObjects){
+class ChartValidationSettings {
+    constructor(validateDuplicateLabels, validateObjectsWithoutCategories, validateUnlabelledObjects) {
         /* string */
         this.VALIDATE_DUPLICATE_LABELS = validateDuplicateLabels;
         /* string */

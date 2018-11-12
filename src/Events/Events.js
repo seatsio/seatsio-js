@@ -81,7 +81,7 @@ class Events {
     }
 
     /* @return Lister */
-    iterator(){
+    iterator() {
         return new Lister(new PageFetcher('/events', this.client, results => {
             let events = utilities.createMultipleEvents(results.items);
             return new Page(events);

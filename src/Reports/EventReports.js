@@ -5,6 +5,19 @@ class EventReports {
         this.client = client;
     }
 
+    /* @return string */
+    static reportUrl(reportType, eventKey, filter) {
+        if (filter === null || typeof filter === 'undefined') {
+            return `/reports/events/${eventKey}/${reportType}`;
+        }
+        return `/reports/events/${eventKey}/${reportType}/${filter}`;
+    }
+
+    /* @return string */
+    static summaryReportUrl(reportType, eventKey) {
+        return `/reports/events/${eventKey}/${reportType}/summary`;
+    }
+
     /* @return EventReportItem */
     byStatus(eventKey, status = null) {
         return this.client.get(EventReports.reportUrl('byStatus', eventKey, status))
@@ -63,19 +76,6 @@ class EventReports {
     summaryBySection(eventKey) {
         return this.client.get(EventReports.summaryReportUrl('bySection', eventKey))
             .then((res) => res.data);
-    }
-
-    /* @return string */
-    static reportUrl(reportType, eventKey, filter) {
-        if (filter === null || typeof filter === 'undefined') {
-            return `/reports/events/${eventKey}/${reportType}`;
-        }
-        return `/reports/events/${eventKey}/${reportType}/${filter}`;
-    }
-
-    /* @return string */
-    static summaryReportUrl(reportType, eventKey) {
-        return `/reports/events/${eventKey}/${reportType}/summary`;
     }
 }
 

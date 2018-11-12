@@ -37,7 +37,7 @@ class AsyncIterator {
         this.pages.push(new Page(charts, data.next_page_starts_after, data.previous_page_ends_before));
     }
 
-    events(data){
+    events(data) {
         let events = [];
         data.items.forEach(eventData => {
             let event = utilities.createEvent(eventData);
@@ -47,7 +47,7 @@ class AsyncIterator {
         this.pages.push(new Page(events, data.next_page_starts_after, data.previous_page_ends_before));
     }
 
-    statusChanges(data){
+    statusChanges(data) {
         let statusChanges = [];
         data.items.forEach((statusData) => {
             let status = utilities.createStatusChange(statusData);
@@ -77,7 +77,7 @@ class AsyncIterator {
                     this.nextPageMustBeFetched = false;
                 }
 
-                switch(this.objType){
+                switch (this.objType) {
                     case 'charts':
                         this.charts(res.data);
                         break;

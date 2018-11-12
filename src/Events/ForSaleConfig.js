@@ -1,5 +1,5 @@
-class ForSaleConfig{
-    constructor(forSale, objects, categories){
+class ForSaleConfig {
+    constructor(forSale, objects, categories) {
         /* boolean */
         this.forSale = forSale;
         /* [string] */

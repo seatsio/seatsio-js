@@ -1,21 +1,21 @@
 class Category {
-    constructor(key, label, color){
+    constructor(key, label, color) {
         this.key = key;
         this.label = label;
         this.color = color;
     }
 
-    setKey(key){
+    setKey(key) {
         this.key = key;
         return this;
     }
 
-    setLabel(label){
-        this.label = label ;
+    setLabel(label) {
+        this.label = label;
         return this;
     }
 
-    setColor(color){
+    setColor(color) {
         this.color = color;
         return this;
     }

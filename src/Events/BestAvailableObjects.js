@@ -1,5 +1,5 @@
 class BestAvailableObjects {
-    constructor(objects, labels, nextToEachOther){
+    constructor(objects, labels, nextToEachOther) {
         /* [string] */
         this.objects = objects;
         /* [Common/Label] */

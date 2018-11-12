@@ -1,5 +1,5 @@
 class ChangeObjectStatusResult {
-    constructor(labels){
+    constructor(labels) {
         /* [Common/Label] */
         this.labels = labels;
     }

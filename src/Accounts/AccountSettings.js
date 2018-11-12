@@ -1,5 +1,5 @@
-class AccountSettings{
-    constructor(draftChartDrawingsEnabled, chartValidation){
+class AccountSettings {
+    constructor(draftChartDrawingsEnabled, chartValidation) {
         /* boolean  */
         this.draftChartDrawingsEnabled = draftChartDrawingsEnabled;
         /* ChartValidationSettings  */

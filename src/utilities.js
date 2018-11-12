@@ -4,6 +4,7 @@ const ChartValidationSettings = require('./Accounts/ChartValidationSettings.js')
 const Event = require('./Events/Event.js');
 const ObjectStatus = require('./Events/ObjectStatus.js');
 const BestAvailableObjects = require('./Events/BestAvailableObjects.js');
+const ForSaleConfig = require('./Events/ForSaleConfig.js');
 const ChangeObjectStatusResult = require('./Events/ChangeObjectStatusResult.js');
 const Chart = require('./Charts/Chart.js');
 const HoldToken = require('./HoldTokens/HoldToken.js');
