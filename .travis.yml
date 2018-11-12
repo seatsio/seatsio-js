@@ -11,11 +11,15 @@ deploy:
     api_key:
         secure: "Lv8XLuFKAyRj5L4QDIPqAAz815DX4gcLb26bYiVeyF9hxjuC/DnN32z0Ygl27jwbEGWV+OjIJIwCV7z9C3wXyQjhSjNMWagSNT176YGKqpdQTGhMAreCW+ZzTgfkpSHqtlnbNK8sbHqdO7IbnqYdikqSzZU5laNQhnY5rA+nG6ibF5BeMxbfXEY2j8Ekf0QS3gl7eGxRMRTnmlt9ADCJ7kLuG/WfxYRVZ5uJDky6MKIRYBbU6yYzSGDF3o14+5afZYcseqGSg0SA0t3wEFNNGnWB6D44Nh5V81OxMgP2N+PmOeU6898MJ+Tq7ai2brP+hnLdw54HsJXuxmMjtYQ7nU+z3r/Pj6KOwAQquLRSe9EszbTwkMwRvHPQ3JJNXEuETQz2xs0XC/jfCcz/ZylbBbx4lWHxzRdvF1EiS/kJwN5g9uuCyXg7k3u2GKNi1O2IWsPMKFZLsJka98n+F0qqfA/v6XXvC3kSrQWg63WEtcIOPTUteVFKvU/1UNAOdTvC8Y63rf6d1raJTqmGhDObo+qKewCg2mu+5F0JyeJF+Jsg7avBGB6oafSFTNMIUNaGiFUgtwi2lVdpyWd9QJ5i5s5HvRhDYZL5UEIGsIBrtnOiix6KpE7Uy4S8SjWgIRtY7h6HMPmQMf8Xa+TIfPZiE/3OuweA+nIt/dqMniyZPxY="
     on:
+        branch: master
         tags: true
+        node: 'latest'
   - provider: releases
     api_key:
         secure: "SPWZynAXE52xkVIRpKbqq28PGcGGM3xMxM3v9r6uhIL89Bwg4bUFDkhfrCUW+Qsk4NNVmpiuO5OXrwDCgZ4rzhqnzyflYbeeQ7WbVh10UizYxDrEMRDEB+v70tE7TydR7QdRyv5uQuvOGuYSnCUfvEN76aqx0FnzpjHDXvt07+ghjm6JE0nMZqigSi4Ge9hISXytH401QD97i+Y67M28v5f/mzjaxTFmNe86y5AoLqin0LMnVqAbGcTKpM9rJW1TSakmEfdpVX7L2KtcxxvytMduOpcnWnaRtQOrTcxz3WpRf1vAXpRM+QXegwR/inhDAreWmtlsMHX3w6QtTm+Vx1yEOjcFTGBKc1lBIReoLyybNuRBTo4rGKGI0u9GwPIADmXYXvTQAIt/+Ypz3c38YBdG69p4Q0oKh9NIhfFgmCrYX4UCYZenVtmbe4UjJfM9+yt0/EeHROGo3oOJD5ePr69bUJlHv6XesUjNjOzzaTsoyb7N2sEIe5kGJVUMRo+d7265yUKblsPVs28gtj1K+lyIzTY2It13nm5BUKb0bfF0a6Gxrj+ox5jOHpA3iQMvBUkEbWuNnebbwrya29y2+E4hejK1ukpZ4zO860p1oYB9JW7c6NXg+rpAUT5CFJHzMDCxBJoqny74joJeyCfqFK+aMIwf0pc0l8czAz8w5Z4="
     file: build/SeatsioClient.js
     skip_cleanup: true
     on:
-      tags: true
+        branch:master
+        tags: true
+        node: 'latest'
