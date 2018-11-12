@@ -10,6 +10,7 @@ const HoldToken = require('./HoldTokens/HoldToken.js');
 const EventReportItem = require('./Reports/EventReportItem.js');
 const ChartReportItem = require('./Reports/ChartReportItem.js');
 const Subaccount = require('./Subaccounts/Subaccount.js');
+const StatusChange = require('./Events/StatusChange.js');
 const LabelClasses = require('./Common/Labels.js');
 
 module.exports = {
@@ -136,6 +137,11 @@ module.exports = {
     /* @return Subaccount */
     createSubaccount(data) {
         return new Subaccount(data.id, data.secretKey, data.designerKey, data.publicKey, data.name, data.email, data.active);
+    },
+
+    /* @return StatusChange */
+    createStatusChange(data) {
+        return new StatusChange(data.id, data.eventId, data.status, data.quantity, data.objectLabel, new Date(data.date), data.orderId, data.extraData);
     }
 
 };

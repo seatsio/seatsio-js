@@ -3,6 +3,7 @@ const Event = require('./Events/Event.js');
 const StatusChange = require('./Events/StatusChange.js');
 const Subaccount = require('./Subaccounts/Subaccount.js');
 const Page = require('./Page.js');
+const utilities = require('./utilities.js');
 
 
 class AsyncIterator {
@@ -25,22 +26,10 @@ class AsyncIterator {
         this.params = params;
     }
 
-    eventObj(eventsData) {
-        return eventsData.map(eventData => {
-            let updatedOn = eventData.updatedOn ? new Date(eventData.updatedOn) : null;
-
-            return new Event(eventData.id, eventData.key, eventData.bookWholeTables,
-                eventData.supportsBestAvailable, eventData.forSaleConfig, eventData.tableBookingModes, eventData.chartKey,
-                new Date(eventData.createdOn), updatedOn);
-        });
-    }
-
     charts(data) {
         let charts = [];
         data.items.forEach((chartData) => {
-            let events = chartData.events ? this.eventObj(chartData.events) : null;
-            let chart = new Chart(chartData.name, chartData.id, chartData.key, chartData.status, chartData.tags,
-                chartData.publishedVersionThumbnailUrl, chartData.publishedVersionThumbnailUrl, events, chartData.archived);
+            let chart = utilities.createChart(chartData);
             this.items.push(chart);
             charts.push(chart);
         });
@@ -51,11 +40,7 @@ class AsyncIterator {
     events(data){
         let events = [];
         data.items.forEach(eventData => {
-            let updatedOn = eventData.updatedOn ? new Date(eventData.updatedOn) : null;
-
-            let event = new Event(eventData.id, eventData.key, eventData.bookWholeTables,
-                eventData.supportsBestAvailable, eventData.forSaleConfig, eventData.tableBookingModes, eventData.chartKey,
-                new Date(eventData.createdOn), updatedOn);
+            let event = utilities.createEvent(eventData);
             this.items.push(event);
             events.push(event);
         });
@@ -65,10 +50,7 @@ class AsyncIterator {
     statusChanges(data){
         let statusChanges = [];
         data.items.forEach((statusData) => {
-            let status = new StatusChange(statusData.id, statusData.eventId, statusData.status,
-                statusData.quantity, statusData.objectLabel,
-                new Date(statusData.date), statusData.orderId, statusData.extraData);
-
+            let status = utilities.createStatusChange(statusData);
             this.items.push(status);
             statusChanges.push(status);
         });
@@ -78,8 +60,7 @@ class AsyncIterator {
     subaccounts(data) {
         let subaccounts = [];
         data.items.forEach((subaccountData) => {
-            let subaccount = new Subaccount(subaccountData.id, subaccountData.secretKey, subaccountData.designerKey,
-                subaccountData.publicKey, subaccountData.name, subaccountData.email, subaccountData.active);
+            let subaccount = utilities.createSubaccount(subaccountData);
             this.items.push(subaccount);
             subaccounts.push(subaccount);
         });
