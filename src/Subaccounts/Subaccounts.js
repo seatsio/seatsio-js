@@ -1,4 +1,7 @@
 const AsyncIterator = require('../AsyncIterator.js');
+const PageFetcher = require('../PageFetcher.js');
+const Page = require('../Page.js');
+const Lister = require('../Lister.js');
 const utilities = require('../utilities.js');
 
 class Subaccounts {
@@ -98,16 +101,23 @@ class Subaccounts {
         return new AsyncIterator('/subaccounts', this.client, 'subaccounts');
     }
 
-    listFirstPage(){
-
+    listFirstPage(pageSize = null){
+        return this.iterator().firstPage(pageSize);
     }
 
-    listPageAfter(){
-
+    listPageAfter(afterId, pageSize = null){
+        return this.iterator().pageAfter(afterId, null, pageSize);
     }
 
-    listPageBefore(){
+    listPageBefore(beforeId, pageSize = null){
+        return this.iterator().pageBefore(beforeId, null, pageSize);
+    }
 
+    iterator() {
+        return new Lister(new PageFetcher('/subaccounts', this.client, results => {
+            let subaccounts = results.items.map((subaccountsData) => utilities.createSubaccount(subaccountsData));
+            return new Page(subaccounts);
+        }));
     }
 
 }
