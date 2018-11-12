@@ -1,23 +1,31 @@
 const AsyncIterator = require('../AsyncIterator.js');
+const utilities = require('../utilities.js');
 
 class Subaccounts {
 
     constructor(client) {
         this.client = client;
-        //this.active = new IterableSubaccountPages('/subaccounts/active', this.client);
-        //this.inactive = new IterableSubaccountPages('/subaccounts/inactive', this.client);
         this.active = new AsyncIterator('/subaccounts/active', this.client, 'subaccounts');
         this.inactive = new AsyncIterator('/subaccounts/inactive', this.client, 'subaccounts');
     }
 
+    /**
+     * @return Subaccount
+     */
     create(name = null) {
         return this.doCreate(null, name);
     }
 
+    /**
+     * @return Subaccount
+     */
     createWithEmail(email, name = null) {
         return this.doCreate(email, name);
     }
 
+    /**
+     * @then Subaccount
+     */
     doCreate(email = null, name = null) {
         let requestParameters = {};
 
@@ -31,17 +39,22 @@ class Subaccounts {
 
 
         return this.client.post('/subaccounts', requestParameters)
-            .then((res) => res.data);
+                          .then((res) => utilities.createSubaccount(res.data));
     }
-
+    /**
+     * @return Chart
+     */
     copyChartToSubaccount(fromId, toId, chartKey) {
         return this.client.post(`/subaccounts/${fromId}/charts/${chartKey}/actions/copy-to/${toId}`)
-                          .then((res) => res.data);
+                          .then((res) => utilities.createChart(res.data));
     }
 
+    /**
+     * @return Chart
+     */
     copyChartToParent(id, chartKey) {
         return this.client.post(`/subaccounts/${id}/charts/${chartKey}/actions/copy-to/parent`)
-                          .then((res) => res.data);
+                          .then((res) => utilities.createChart(res.data));
     }
 
     activate(id) {
@@ -52,8 +65,11 @@ class Subaccounts {
         return this.client.post(`/subaccounts/${id}/actions/deactivate`);
     }
 
+    /**
+     * @return Subaccount
+     */
     retrieve(id) {
-        return this.client.get(`/subaccounts/${id}`).then((res) => res.data);
+        return this.client.get(`/subaccounts/${id}`).then((res) => utilities.createSubaccount(res.data));
     }
 
     update(id, name, email) {
@@ -81,6 +97,19 @@ class Subaccounts {
     listAll(){
         return new AsyncIterator('/subaccounts', this.client, 'subaccounts');
     }
+
+    listFirstPage(){
+
+    }
+
+    listPageAfter(){
+
+    }
+
+    listPageBefore(){
+
+    }
+
 }
 
 module.exports = Subaccounts;

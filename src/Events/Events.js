@@ -1,35 +1,10 @@
-const Event = require('./Event.js');
 const AsyncIterator = require('../AsyncIterator.js');
 const ObjectStatus = require('./ObjectStatus.js');
-const ChangeObjectStatusResult = require('./ChangeObjectStatusResult.js');
-const BestAvailableObjects = require('./BestAvailableObjects.js');
 const utilities = require('../utilities.js');
 
 class Events {
     constructor(client) {
         this.client = client;
-    }
-
-    static eventCreator(eventData) {
-        let updatedOn = eventData.updatedOn ? new Date(eventData.updatedOn) : null;
-
-        return new Event(eventData.id, eventData.key, eventData.bookWholeTables,
-            eventData.supportsBestAvailable, eventData.forSaleConfig, eventData.tableBookingModes, eventData.chartKey,
-            new Date(eventData.createdOn), updatedOn);
-    }
-
-    static changeObjectStatusResultCreator(data) {
-        let labels = utilities.labelsCreator(data);
-        return new ChangeObjectStatusResult(labels);
-    }
-
-    static createBestAvailableObjects(data) {
-        let labels = utilities.labelsCreator(data);
-        return new BestAvailableObjects(data.objects, labels, data.nextToEachOther);
-    }
-
-    static createObjectStatus(data) {
-        return new ObjectStatus(data.status, data.ticketType, data.holdToken, data.orderId, data.extraData, data.quantity);
     }
 
     create(chartKey, eventKey = null, bookWholeTablesOrTableBookingModes = null) {
@@ -48,17 +23,17 @@ class Events {
         }
 
         return this.client.post(`/events`, requestParameters)
-            .then((res) => Events.eventCreator(res.data));
+            .then((res) => utilities.createEvent(res.data));
     }
 
     retrieve(eventKey) {
         return this.client.get(`/events/${encodeURIComponent(eventKey)}`)
-            .then((res) => Events.eventCreator(res.data));
+            .then((res) => utilities.createEvent(res.data));
     }
 
     retrieveObjectStatus(eventKey, obj) {
         return this.client.get(`events/${encodeURIComponent(eventKey)}/objects/${encodeURIComponent(obj)}`)
-            .then((res) => Events.createObjectStatus(res.data));
+            .then((res) => utilities.createObjectStatus(res.data));
     }
 
     hold(eventKeyOrKeys, objectOrObjects, holdToken, orderId = null) {
@@ -163,7 +138,7 @@ class Events {
         requestParameters.events = Array.isArray(eventKeyOrKeys) ? eventKeyOrKeys : [eventKeyOrKeys];
 
         return this.client.post(`/seasons/actions/change-object-status?expand=labels`, requestParameters)
-            .then((res) => Events.changeObjectStatusResultCreator(res.data));
+            .then((res) => utilities.createChangeObjectStatusResult(res.data));
     }
 
     holdBestAvailable(eventKey, number, holdToken, categories = null, orderId = null) {
@@ -197,7 +172,7 @@ class Events {
         requestParameters.bestAvailable = bestAvailable;
 
         return this.client.post(`/events/${encodeURIComponent(eventKey)}/actions/change-object-status`, requestParameters)
-            .then((res) => Events.createBestAvailableObjects(res.data));
+            .then((res) => utilities.createBestAvailableObjects(res.data));
     }
 
     statusChanges(eventKey, objectId = null) {

@@ -1,35 +1,14 @@
 const PageFetcher = require('../PageFetcher.js');
 const Chart = require('./Chart.js');
-const Event =  require( '../Events/Event.js');
 const Page = require('../Page.js');
 const Lister = require('./Lister.js');
 const AsyncIterator = require('../AsyncIterator.js');
+const utilities =  require( '../utilities.js');
 
 class Charts {
     constructor(client) {
         this.client = client;
         this.archive = new AsyncIterator('/charts/archive', this.client, 'charts');
-    }
-
-    static chartCreator(chartData){
-        let events = chartData.events ? Charts.eventCreator(chartData.events) : null;
-
-        let draftVersionThumbnailUrl = chartData.draftVersionThumbnailUrl || null;
-        return new Chart(chartData.name, chartData.id, chartData.key, chartData.status, chartData.tags,
-            chartData.publishedVersionThumbnailUrl, draftVersionThumbnailUrl, events, chartData.archived);
-    }
-
-    static eventCreator(eventsData){
-        return eventsData.map (event => {
-            let supportsBestAvailable = event.supportsBestAvailable || null;
-            let forSaleConfig = event.forSaleConfig || null;
-            let tableBookingModes = event.tableBookingModes || null;
-            let updatedOn = event.updatedOn ? new Date(event.updatedOn) : null;
-
-            return new Event(event.id, event.key, event.bookWholeTables,
-                supportsBestAvailable, forSaleConfig, tableBookingModes, event.chartKey,
-                new Date(event.createdOn), updatedOn)
-        });
     }
 
     create(name = null, venueType = null, categories = null) {
@@ -48,7 +27,7 @@ class Charts {
         }
 
         return this.client.post('charts', requestParameters)
-            .then((res) => Charts.chartCreator(res.data));
+            .then((res) => utilities.createChart(res.data));
     }
 
     addTag(key, tag) {
@@ -63,12 +42,12 @@ class Charts {
 
     retrieve(key) {
         return this.client.get(`charts/${key}`)
-            .then((res) => Charts.chartCreator(res.data));
+            .then((res) => utilities.createChart(res.data));
     }
 
     retrieveWithEvents(key) {
         return this.client.get(`charts/${key}?expand=events`)
-            .then((res) => Charts.chartCreator(res.data));
+            .then((res) => utilities.createChart(res.data));
     }
 
     retrievePublishedVersion(key) {
@@ -99,17 +78,17 @@ class Charts {
 
     copy(key) {
         return this.client.post(`charts/${key}/version/published/actions/copy`)
-            .then((res) => Charts.chartCreator(res.data));
+            .then((res) => utilities.createChart(res.data));
     }
 
     copyDraftVersion(key) {
         return this.client.post(`charts/${key}/version/draft/actions/copy`)
-            .then((res) => Charts.chartCreator(res.data));
+            .then((res) => utilities.createChart(res.data));
     }
 
     copyToSubaccount(key, subaccountId) {
         return this.client.post(`charts/${key}/version/published/actions/copy-to/${subaccountId}`)
-            .then((res) => Charts.chartCreator(res.data));
+            .then((res) => utilities.createChart(res.data));
     }
 
     discardDraftVersion(key) {
@@ -158,20 +137,10 @@ class Charts {
         return new AsyncIterator('/charts', this.client, 'charts', requestParameters);
     }
 
-    eventCreator(eventsData){
-        return eventsData.map (eventData => {
-            let updatedOn = eventData.updatedOn ? new Date(eventData.updatedOn) : null;
-
-            return new Event(eventData.id, eventData.key, eventData.bookWholeTables,
-                eventData.supportsBestAvailable, eventData.forSaleConfig, eventData.tableBookingModes, eventData.chartKey,
-                new Date(eventData.createdOn), updatedOn);
-        });
-    }
-
     iterator() {
         return new Lister(new PageFetcher('/charts', this.client, results => {
             let chartItems = results.items.map((chartData) => {
-                let events = chartData.events ? this.eventCreator(chartData.events) : null;
+                let events = chartData.events ? utilities.createMultipleEvents(chartData.events) : null;
                 return new Chart(chartData.name, chartData.id, chartData.key, chartData.status, chartData.tags,
                     chartData.publishedVersionThumbnailUrl, chartData.publishedVersionThumbnailUrl, events, chartData.archived);
             });

@@ -13,10 +13,15 @@ class AsyncIterator {
         this.pages = [];
         /* string */
         this.objType = objType;
+        /* int */
         this.index = 0;
+        /* boolean */
         this.nextPageMustBeFetched = true;
+        /* SeatsioClient */
         this.client = client;
+        /* string */
         this.url = url;
+        /* {parameters} */
         this.params = params;
     }
 
