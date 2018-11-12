@@ -1,4 +1,7 @@
 const AsyncIterator = require('../AsyncIterator.js');
+const Page = require('../Page.js');
+const Lister = require('../Lister.js');
+const PageFetcher = require('../PageFetcher.js');
 const ObjectStatus = require('./ObjectStatus.js');
 const utilities = require('../utilities.js');
 
@@ -7,6 +10,7 @@ class Events {
         this.client = client;
     }
 
+    /* @return Event */
     create(chartKey, eventKey = null, bookWholeTablesOrTableBookingModes = null) {
         let requestParameters = {};
 
@@ -26,9 +30,54 @@ class Events {
             .then((res) => utilities.createEvent(res.data));
     }
 
+    /* @return Event */
     retrieve(eventKey) {
         return this.client.get(`/events/${encodeURIComponent(eventKey)}`)
             .then((res) => utilities.createEvent(res.data));
+    }
+
+    update(eventKey, chartKey = null, newEventKey = null, bookWholeTablesOrTableBookingModes = null) {
+        let requestParameters = {};
+
+        if (chartKey !== null) {
+            requestParameters.chartKey = chartKey;
+        }
+
+        if (newEventKey !== null) {
+            requestParameters.eventKey = encodeURIComponent(newEventKey);
+        }
+
+        if (typeof bookWholeTablesOrTableBookingModes === 'boolean') {
+            requestParameters.bookWholeTables = bookWholeTablesOrTableBookingModes;
+        } else if (bookWholeTablesOrTableBookingModes !== null) {
+            requestParameters.tableBookingModes = bookWholeTablesOrTableBookingModes;
+        }
+
+        return this.client.post(`events/${encodeURIComponent(eventKey)}`, requestParameters);
+    }
+
+    delete(eventKey) {
+        return this.client.delete(`/events/${encodeURIComponent(eventKey)}`);
+    }
+
+    /* @return AsyncIterator */
+    listAll(requestParameters = {}) {
+        return new AsyncIterator('/events', this.client, 'events', requestParameters);
+    }
+
+    /* @return Page */
+    listFirstPage(pageSize = null) {
+        return this.iterator().firstPage(pageSize);
+    }
+
+    /* @return Page */
+    listPageAfter(afterId, pageSize = null) {
+        return this.iterator().pageAfter(afterId, null, pageSize);
+    }
+
+    /* @return Page */
+    listPageBefore(beforeId, pageSize = null) {
+        return this.iterator().pageBefore(beforeId, null, pageSize);
     }
 
     retrieveObjectStatus(eventKey, obj) {
@@ -51,9 +100,7 @@ class Events {
         return this.changeObjectStatus(eventKeyOrKeys, objectOrObjects, objectStatus.FREE, holdToken, orderId);
     }
 
-    delete(eventKey) {
-        return this.client.delete(`/events/${encodeURIComponent(eventKey)}`);
-    }
+
 
     markAsForSale(eventKey, objects = null, categories = null) {
         let requestParameters = {};
@@ -84,25 +131,7 @@ class Events {
         return this.client.post(`events/${encodeURIComponent(eventKey)}/actions/mark-everything-as-for-sale`);
     }
 
-    update(eventKey, chartKey = null, newEventKey = null, bookWholeTablesOrTableBookingModes = null) {
-        let requestParameters = {};
 
-        if (chartKey !== null) {
-            requestParameters.chartKey = chartKey;
-        }
-
-        if (newEventKey !== null) {
-            requestParameters.eventKey = encodeURIComponent(newEventKey);
-        }
-
-        if (typeof bookWholeTablesOrTableBookingModes === 'boolean') {
-            requestParameters.bookWholeTables = bookWholeTablesOrTableBookingModes;
-        } else if (bookWholeTablesOrTableBookingModes !== null) {
-            requestParameters.tableBookingModes = bookWholeTablesOrTableBookingModes;
-        }
-
-        return this.client.post(`events/${encodeURIComponent(eventKey)}`, requestParameters);
-    }
 
     updateExtraDatas(eventKey, extraData) {
         let requestParameters = {};
@@ -116,9 +145,7 @@ class Events {
         return this.client.post(`/events/${encodeURIComponent(eventKey)}/objects/${encodeURIComponent(obj)}/actions/update-extra-data`, requestParameters);
     }
 
-    listAll(requestParameters = {}) {
-        return new AsyncIterator('/events', this.client, 'events', requestParameters);
-    }
+
 
     changeObjectStatus(eventKeyOrKeys, objectOrObjects, status, holdToken = null, orderId = null) {
         let requestParameters = {};
@@ -198,6 +225,13 @@ class Events {
             });
         }
         return this.normalizeObjects([objectOrObjects]);
+    }
+
+    iterator(){
+        return new Lister(new PageFetcher('/events', this.client, results => {
+            let events = utilities.createMultipleEvents(results.items);
+            return new Page(events);
+        }));
     }
 }
 
