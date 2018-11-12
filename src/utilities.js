@@ -13,6 +13,7 @@ const Subaccount = require('./Subaccounts/Subaccount.js');
 const LabelClasses = require('./Common/Labels.js');
 
 module.exports = {
+    /* @return Common/Label|{} */
     labelsCreator(data) {
         let labels = {};
         for (const key of Object.keys(data.labels)) {
@@ -32,20 +33,42 @@ module.exports = {
         return labels;
     },
 
+    /* @return Common/Label */
+    labelCreator(data) {
+        let labels = {};
+        if (data.labels.parent) {
+            labels = new LabelClasses.Labels(new LabelClasses.LabelAndType(data.labels.own.label, data.labels.own.type), new LabelClasses.LabelAndType(data.labels.parent.label, data.labels.parent.type));
+        } else {
+            labels = new LabelClasses.Labels(new LabelClasses.LabelAndType(data.labels.own.label, data.labels.own.type));
+        }
+        if (data.labels.section) {
+            labels.section = data.labels.section;
+        }
+        if (data.labels.entrance) {
+            labels.entrance = data.labels.entrance;
+        }
+
+        return labels;
+    },
+
+    /* @return ObjectStatus */
     createObjectStatus(data) {
         return new ObjectStatus(data.status, data.ticketType, data.holdToken, data.orderId, data.extraData, data.quantity)
     },
 
+    /* @return BestAvailableObjects */
     createBestAvailableObjects(data) {
         let labels = this.labelsCreator(data);
         return new BestAvailableObjects(data.objects, labels, data.nextToEachOther);
     },
 
+    /* @return ChangeObjectStatusResult */
     createChangeObjectStatusResult(data) {
         let labels = this.labelsCreator(data);
         return new ChangeObjectStatusResult(labels);
     },
 
+    /* @return Event */
     createEvent(data) {
         let updatedOn = data.updatedOn ? new Date(data.updatedOn) : null;
 
@@ -54,10 +77,12 @@ module.exports = {
             new Date(data.createdOn), updatedOn);
     },
 
+    /* @return [Event] */
     createMultipleEvents(eventsData) {
         return eventsData.map(eventData => this.createEvent(eventData));
     },
 
+    /* @return Chart */
     createChart(data) {
         let events = data.events ? this.createMultipleEvents(data.events) : null;
 
@@ -66,21 +91,25 @@ module.exports = {
             data.publishedVersionThumbnailUrl, draftVersionThumbnailUrl, events, data.archived);
     },
 
+    /* @return Account */
     createAccount(data) {
         let chartValidation = data.settings.chartValidation;
         let settings = new AccountSettings(data.settings.draftChartDrawingsEnabled, new ChartValidationSettings(chartValidation.VALIDATE_DUPLICATE_LABELS, chartValidation.VALIDATE_OBJECTS_WITHOUT_CATEGORIES, chartValidation.VALIDATE_UNLABELED_OBJECTS));
         return new Account(data.secretKey, data.designerKey, data.publicKey, settings, data.email);
     },
 
+    /* @return HoldToken */
     createHoldToken(data) {
         return new HoldToken(data.holdToken, new Date(data.expiresAt), data.expiresInSeconds);
     },
 
-    createEventReport(reportsData){
+    /* @return EventReportItem|{} */
+    createEventReport(reportsData) {
         let reportObjects = {};
-        for(const key of Object.keys(reportsData)){
-            reportObjects[key] = reportsData[key].map (data => {
-                    return new EventReportItem(data.label, data.labels, data.status, data.categoryLabel, data.categoryKey, data.ticketType,
+        for (const key of Object.keys(reportsData)) {
+            reportObjects[key] = reportsData[key].map(data => {
+                    let labels = this.labelCreator(data);
+                    return new EventReportItem(data.label, labels, data.status, data.categoryLabel, data.categoryKey, data.ticketType,
                         data.entrance, data.objectType, data.section, data.orderId, data.forSale, data.holdToken,
                         data.capacity, data.numBooked, data.extraData);
                 }
@@ -89,11 +118,13 @@ module.exports = {
         return reportObjects;
     },
 
-    createChartReport(reportsData){
+    /* @return ChartReportItem|{} */
+    createChartReport(reportsData) {
         let reportObjects = {};
-        for(const key of Object.keys(reportsData)){
-            reportObjects[key] = reportsData[key].map (data => {
-                    return new ChartReportItem(data.label, data.labels, data.categoryLabel, data.categoryKey, data.entrance,
+        for (const key of Object.keys(reportsData)) {
+            reportObjects[key] = reportsData[key].map(data => {
+                    let labels = this.labelCreator(data);
+                    return new ChartReportItem(data.label, labels, data.categoryLabel, data.categoryKey, data.entrance,
                         data.objectType, data.section,
                         data.capacity);
                 }
@@ -102,7 +133,8 @@ module.exports = {
         return reportObjects;
     },
 
-    createSubaccount(data){
+    /* @return Subaccount */
+    createSubaccount(data) {
         return new Subaccount(data.id, data.secretKey, data.designerKey, data.publicKey, data.name, data.email, data.active);
     }
 
