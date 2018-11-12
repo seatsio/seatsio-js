@@ -80,27 +80,21 @@ class Events {
         return this.iterator().pageBefore(beforeId, null, pageSize);
     }
 
-    retrieveObjectStatus(eventKey, obj) {
-        return this.client.get(`events/${encodeURIComponent(eventKey)}/objects/${encodeURIComponent(obj)}`)
-            .then((res) => utilities.createObjectStatus(res.data));
+    /* @return Lister */
+    iterator(){
+        return new Lister(new PageFetcher('/events', this.client, results => {
+            let events = utilities.createMultipleEvents(results.items);
+            return new Page(events);
+        }));
     }
 
-    hold(eventKeyOrKeys, objectOrObjects, holdToken, orderId = null) {
-        let objectStatus = new ObjectStatus();
-        return this.changeObjectStatus(eventKeyOrKeys, objectOrObjects, objectStatus.HELD, holdToken, orderId);
+    /* @return AsyncIterator */
+    statusChanges(eventKey, objectId = null) {
+        if (objectId === null) {
+            return new AsyncIterator(`/events/${encodeURIComponent(eventKey)}/status-changes`, this.client, 'statusChanges');
+        }
+        return new AsyncIterator(`/events/${encodeURIComponent(eventKey)}/objects/${encodeURIComponent(objectId)}/status-changes`, this.client, 'statusChanges');
     }
-
-    book(eventKeyOrKeys, objectOrObjects, holdToken = null, orderId = null) {
-        let objectStatus = new ObjectStatus();
-        return this.changeObjectStatus(eventKeyOrKeys, objectOrObjects, objectStatus.BOOKED, holdToken, orderId);
-    }
-
-    release(eventKeyOrKeys, objectOrObjects, holdToken = null, orderId = null) {
-        let objectStatus = new ObjectStatus();
-        return this.changeObjectStatus(eventKeyOrKeys, objectOrObjects, objectStatus.FREE, holdToken, orderId);
-    }
-
-
 
     markAsForSale(eventKey, objects = null, categories = null) {
         let requestParameters = {};
@@ -131,7 +125,11 @@ class Events {
         return this.client.post(`events/${encodeURIComponent(eventKey)}/actions/mark-everything-as-for-sale`);
     }
 
-
+    updateExtraData(eventKey, obj, extraData) {
+        let requestParameters = {};
+        requestParameters.extraData = extraData;
+        return this.client.post(`/events/${encodeURIComponent(eventKey)}/objects/${encodeURIComponent(obj)}/actions/update-extra-data`, requestParameters);
+    }
 
     updateExtraDatas(eventKey, extraData) {
         let requestParameters = {};
@@ -139,14 +137,13 @@ class Events {
         return this.client.post(`/events/${encodeURIComponent(eventKey)}/actions/update-extra-data`, requestParameters);
     }
 
-    updateExtraData(eventKey, obj, extraData) {
-        let requestParameters = {};
-        requestParameters.extraData = extraData;
-        return this.client.post(`/events/${encodeURIComponent(eventKey)}/objects/${encodeURIComponent(obj)}/actions/update-extra-data`, requestParameters);
+    /* @return ObjectStatus */
+    retrieveObjectStatus(eventKey, obj) {
+        return this.client.get(`events/${encodeURIComponent(eventKey)}/objects/${encodeURIComponent(obj)}`)
+            .then((res) => utilities.createObjectStatus(res.data));
     }
 
-
-
+    /* @return ChangeObjectStatusResult */
     changeObjectStatus(eventKeyOrKeys, objectOrObjects, status, holdToken = null, orderId = null) {
         let requestParameters = {};
 
@@ -168,16 +165,37 @@ class Events {
             .then((res) => utilities.createChangeObjectStatusResult(res.data));
     }
 
-    holdBestAvailable(eventKey, number, holdToken, categories = null, orderId = null) {
+    /* @return ChangeObjectStatusResult */
+    book(eventKeyOrKeys, objectOrObjects, holdToken = null, orderId = null) {
         let objectStatus = new ObjectStatus();
-        return this.changeBestAvailableObjectStatus(encodeURIComponent(eventKey), number, objectStatus.HELD, categories, holdToken, orderId);
+        return this.changeObjectStatus(eventKeyOrKeys, objectOrObjects, objectStatus.BOOKED, holdToken, orderId);
     }
 
+    /* @return BestAvailableObjects */
     bookBestAvailable(eventKey, number, categories = null, holdToken = null, orderId = null) {
         let objectStatus = new ObjectStatus();
         return this.changeBestAvailableObjectStatus(encodeURIComponent(eventKey), number, objectStatus.BOOKED, categories, holdToken, orderId);
     }
 
+    /* @return ChangeObjectStatusResult */
+    release(eventKeyOrKeys, objectOrObjects, holdToken = null, orderId = null) {
+        let objectStatus = new ObjectStatus();
+        return this.changeObjectStatus(eventKeyOrKeys, objectOrObjects, objectStatus.FREE, holdToken, orderId);
+    }
+
+    /* @return ChangeObjectStatusResult */
+    hold(eventKeyOrKeys, objectOrObjects, holdToken, orderId = null) {
+        let objectStatus = new ObjectStatus();
+        return this.changeObjectStatus(eventKeyOrKeys, objectOrObjects, objectStatus.HELD, holdToken, orderId);
+    }
+
+    /* @return BestAvailableObjects */
+    holdBestAvailable(eventKey, number, holdToken, categories = null, orderId = null) {
+        let objectStatus = new ObjectStatus();
+        return this.changeBestAvailableObjectStatus(encodeURIComponent(eventKey), number, objectStatus.HELD, categories, holdToken, orderId);
+    }
+
+    /* @return BestAvailableObjects */
     changeBestAvailableObjectStatus(eventKey, number, status, categories = null, holdToken = null, extraData = null, orderId = null) {
         let requestParameters = {};
         let bestAvailable = {};
@@ -202,13 +220,6 @@ class Events {
             .then((res) => utilities.createBestAvailableObjects(res.data));
     }
 
-    statusChanges(eventKey, objectId = null) {
-        if (objectId === null) {
-            return new AsyncIterator(`/events/${encodeURIComponent(eventKey)}/status-changes`, this.client, 'statusChanges');
-        }
-        return new AsyncIterator(`/events/${encodeURIComponent(eventKey)}/objects/${encodeURIComponent(objectId)}/status-changes`, this.client, 'statusChanges');
-    }
-
     normalizeObjects(objectOrObjects) {
         if (Array.isArray(objectOrObjects)) {
             if (objectOrObjects.length === 0) {
@@ -225,13 +236,6 @@ class Events {
             });
         }
         return this.normalizeObjects([objectOrObjects]);
-    }
-
-    iterator(){
-        return new Lister(new PageFetcher('/events', this.client, results => {
-            let events = utilities.createMultipleEvents(results.items);
-            return new Page(events);
-        }));
     }
 }
 
