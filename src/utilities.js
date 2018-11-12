@@ -66,12 +66,12 @@ module.exports = {
             data.publishedVersionThumbnailUrl, draftVersionThumbnailUrl, events, data.archived);
     },
 
-
     createAccount(data) {
         let chartValidation = data.settings.chartValidation;
         let settings = new AccountSettings(data.settings.draftChartDrawingsEnabled, new ChartValidationSettings(chartValidation.VALIDATE_DUPLICATE_LABELS, chartValidation.VALIDATE_OBJECTS_WITHOUT_CATEGORIES, chartValidation.VALIDATE_UNLABELED_OBJECTS));
         return new Account(data.secretKey, data.designerKey, data.publicKey, settings, data.email);
     },
+
     createHoldToken(data) {
         return new HoldToken(data.holdToken, new Date(data.expiresAt), data.expiresInSeconds);
     },

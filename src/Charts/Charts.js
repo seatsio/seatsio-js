@@ -139,11 +139,7 @@ class Charts {
 
     iterator() {
         return new Lister(new PageFetcher('/charts', this.client, results => {
-            let chartItems = results.items.map((chartData) => {
-                let events = chartData.events ? utilities.createMultipleEvents(chartData.events) : null;
-                return new Chart(chartData.name, chartData.id, chartData.key, chartData.status, chartData.tags,
-                    chartData.publishedVersionThumbnailUrl, chartData.publishedVersionThumbnailUrl, events, chartData.archived);
-            });
+            let chartItems = results.items.map((chartData) => utilities.createChart(chartData));
             return new Page(chartItems);
         }));
     }
