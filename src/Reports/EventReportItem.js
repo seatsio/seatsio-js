@@ -1,7 +1,7 @@
 class EventReportItem {
-    constructor(label, labels, status, categoryLabel,categoryKey, ticketType,
+    constructor(label, labels, status, categoryLabel, categoryKey, ticketType,
                 entrance, objectType, section, orderId, forSale, holdToken,
-                capacity,numBooked, extraData) {
+                capacity, numBooked, extraData) {
         /* string */
         this.label = label;
         /* Common/Label */
