@@ -1,7 +1,7 @@
 const PageFetcher = require('../PageFetcher.js');
 const Chart = require('./Chart.js');
 const Page = require('../Page.js');
-const Lister = require('./Lister.js');
+const Lister = require('../Lister.js');
 const AsyncIterator = require('../AsyncIterator.js');
 const utilities =  require( '../utilities.js');
 
