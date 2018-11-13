@@ -20,7 +20,3 @@ test('check error handling when there is no error.response.data', async () => {
     let newClient = testUtils.createClient('invalid_key');
     await expect(newClient.accounts.retrieveMyAccount()).rejects.toEqual('get https://api.seatsio.net/accounts/me resulted in 401  Unauthorized  error')
 });
-
-test('should fail', () => {
-    expect(1).toBe(2);
-});
