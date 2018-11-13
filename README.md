@@ -28,7 +28,7 @@ Please note that any version below v2 is not production ready.
 
 ## Examples
 
-Due to the asynchronous nature of the API calls, this library uses `async/await` and `for await` loops which is part of the ES 8. `for await` loops gained native support from Node 10 onwards.
+Due to the asynchronous nature of the API calls, this library uses `async/await` and `for await` loops which are part of the ES 8. `for await` loops gained native support from Node 10 onwards.
 
 ### Creating a chart and an event
 Once you create a new `SeatsioClient` using your _secret key_, you can create _charts_ and then _events_. You can find your _secret key_ in the Settings section of your account: https://app.seats.io/settings. It is important that you keep your _secret key_ private and not expose it in-browser calls unless it is password protected.
