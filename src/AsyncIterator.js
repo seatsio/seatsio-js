@@ -101,7 +101,7 @@ class AsyncIterator {
             async next() {
                 if (_this.nextPageMustBeFetched && _this.items.length === 0) {
                     await _this.fetch(_this.params);
-                } else if (_this.nextPageMustBeFetched && _this.nextPageStartsAfter) {
+                } else if (_this.nextPageMustBeFetched && !_this.items[_this.index]) {
                     _this.params.start_after_id = _this.nextPageStartsAfter;
                     await _this.fetch(_this.params);
                 }
