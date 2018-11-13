@@ -14,7 +14,6 @@ test('should list charts in archive', async () => {
 });
 
 test('get archived charts (above 100 limit)', async () => {
-    jest.setTimeout(100000);
     let chartKeys = [], archivedChartKeys = [];
     for (let i = 0; i < 120; i++) {
         let chart = await client.charts.create();

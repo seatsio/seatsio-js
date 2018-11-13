@@ -1,5 +1,4 @@
 test('should list events in first page', async () => {
-    jest.setTimeout(40000);
     let eventKeys = [];
     let chart = await client.charts.create();
     for (let i = 0; i < 20; i++) {

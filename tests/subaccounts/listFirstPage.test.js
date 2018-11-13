@@ -1,5 +1,4 @@
 test('should list subaccounts in first page', async () => {
-    jest.setTimeout(40000);
     let subaccountKeys = [];
     for (let i = 0; i < 50; i++) {
         let subaccount = await client.subaccounts.create();

@@ -1,5 +1,4 @@
 test('listAll events when there are more than 20 events)', async () => {
-    jest.setTimeout(20000);
     let chart = await client.charts.create();
     let generatedEventKeys = [], retrievedEventKeys = [];
     for (let i = 0; i < 25; i++) {
@@ -15,7 +14,6 @@ test('listAll events when there are more than 20 events)', async () => {
 });
 
 test('listAll with more than 40 events)', async () => {
-    jest.setTimeout(20000);
     let chart = await client.charts.create();
     let generatedEventKeys = [], retrievedEventKeys = [];
     for (let i = 0; i < 45; i++) {

@@ -1,5 +1,4 @@
 test('should list subaccounts after given subaccount id', async () => {
-    jest.setTimeout(20000);
     let subaccount1 = await client.subaccounts.create();
     let subaccount2 = await client.subaccounts.create();
     let subaccount3 = await client.subaccounts.create();
@@ -11,7 +10,6 @@ test('should list subaccounts after given subaccount id', async () => {
 });
 
 test('should list subaccounts after given subaccount id with page size', async () => {
-    jest.setTimeout(20000);
     await client.subaccounts.create();
     let subaccount2 = await client.subaccounts.create();
     let subaccount3 = await client.subaccounts.create();
