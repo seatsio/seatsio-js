@@ -4,7 +4,9 @@ node_js:
 - '7.6'
 before_script:
 - npm install -g gulp-cli
-script: gulp bundle
+script:
+  - gulp bundle
+  - npm test
 deploy:
   - provider: npm
     email: namfaldev@gmail.com
