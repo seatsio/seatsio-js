@@ -8,9 +8,9 @@ module.exports = {
     'baseUrl': 'https://api-staging.seatsio.net/',
 
     createTestUser: function () {
-        var baseUrl = 'https://api-staging.seatsio.net/';
+        let baseUrl = 'https://api-staging.seatsio.net/';
 
-        var testUserPr = axios({
+        let testUserPr = axios({
             method: 'POST',
             url: baseUrl + 'system/public/users/actions/create-test-user'
         }).then(response => {
@@ -43,9 +43,9 @@ module.exports = {
     },
 
     createTestChartFromFile: function (filePath, chartKey, designerKey) {
-        var requestBody = fs.readFileSync(__dirname + filePath, 'utf-8');
-        var client = axios.create();
-        var url = `https://api-staging.seatsio.net/system/public/${designerKey}/charts/${chartKey}`;
+        let requestBody = fs.readFileSync(__dirname + filePath, 'utf-8');
+        let client = axios.create();
+        let url = `https://api-staging.seatsio.net/system/public/${designerKey}/charts/${chartKey}`;
         return client.post(url, requestBody).catch((err) => console.log(err));
     },
 
