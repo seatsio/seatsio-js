@@ -1,5 +1,5 @@
-# seatsio-js
-This is the official JavaScript client library (for both Node and browser) for [Seats.io V2 REST API](https://docs.seats.io/docs/api-overview).
+# seatsio-js, the official Seats.io JS client library
+This is the official JavaScript client library (for both Node and browser) for the [Seats.io V2 REST API](https://docs.seats.io/docs/api-overview).
 
 [![Build Status](https://travis-ci.org/seatsio/seatsio-js.svg?branch=master)](https://travis-ci.org/seatsio/seatsio-js)
 
@@ -18,6 +18,8 @@ For browser, you can directly include it from GitHub:
 <script src="https://github.com/seatsio/seatsio-js/releases/download/<RELEASE_TAG>/SeatsioClient.js"></script>
 ```
 
+This library uses `async/await` and `for await` loops which are part of the ES 8. `for await` loops gained native support from Node 10 onwards. As a result, the minimum required version for Node is 10. 
+
 ## Versioning
 
 seatsio-js only uses major version numbers: v2, v3, v4 etc. Each release - backwards compatible or not - receives a new major version number.
@@ -28,13 +30,11 @@ Please note that any version below v2 is not production ready.
 
 ## Examples
 
-Due to the asynchronous nature of the API calls, this library uses `async/await` and `for await` loops which are part of the ES 8. `for await` loops gained native support from Node 10 onwards.
-
 ### Creating a chart and an event
 Once you create a new `SeatsioClient` using your _secret key_, you can create _charts_ and then _events_. You can find your _secret key_ in the Settings section of your account: https://app.seats.io/settings. It is important that you keep your _secret key_ private and not expose it in-browser calls unless it is password protected.
 
 ```js
-const client = new SeatsioClient(<SECRET_KEY>);
+const client = new SeatsioClient(<SECRET KEY>);
 let chart = await client.charts.create();
 let event = await client.events.create(chart.key);
 console.log(`Created a chart with key ${chart.key} and an event with key: ${event.key}`);
@@ -43,18 +43,19 @@ console.log(`Created a chart with key ${chart.key} and an event with key: ${even
 ### Booking objects
 
 Booking an object changes its status to `booked`. Booked seats are not selectable on a rendered chart.
+
 [https://docs.seats.io/docs/api-book-objects](https://docs.seats.io/docs/api-book-objects).
 
 ```js
-const client = new SeatsioClient(<SECRET_KEY>);
-await client.events.book(<AN_EVENT KEY>, ['A-1', 'A-2']);
+const client = new SeatsioClient(<SECRET KEY>);
+await client.events.book(<AN EVENT KEY>, ['A-1', 'A-2']);
 ```
 
 ### Booking objects that are on `HOLD`
 
 ```js
-const client = new SeatsioClient(<SECRET_KEY>);
-await client.events.book(<AN EVENT KEY>, ["A-1", "A-2"], <A_HOLD_TOKEN>);
+const client = new SeatsioClient(<SECRET KEY>);
+await client.events.book(<AN EVENT KEY>, ["A-1", "A-2"], <A HOLD TOKEN>);
 ```
 
 ### Booking general admission (GA) areas
@@ -62,15 +63,15 @@ await client.events.book(<AN EVENT KEY>, ["A-1", "A-2"], <A_HOLD_TOKEN>);
 Either
 
 ```js
-const client = new SeatsioClient(<SECRET_KEY>);
+const client = new SeatsioClient(<SECRET KEY>);
 await client.events.book(<AN EVENT KEY>, ["GA1", "GA1", "GA1"]);
 ```
 
 Or:
 
 ```js
-const client = new SeatsioClient(<SECRET_KEY>);
-await client.events.book(<AN_EVENT_KEY>, {"objectId": "GA1", "quantity" : 3});
+const client = new SeatsioClient(<SECRET KEY>);
+await client.events.book(<AN EVENT KEY>, {"objectId": "GA1", "quantity" : 3});
 ```
 
 ### Releasing objects
@@ -80,7 +81,7 @@ Releasing objects changes its status to `free`. Free seats are selectable on a r
 [https://docs.seats.io/docs/api-release-objects](https://docs.seats.io/docs/api-release-objects).
 
 ```js
-const client = new SeatsioClient(<SECRET_KEY>);
+const client = new SeatsioClient(<SECRET KEY>);
 await client.events.release(<AN EVENT KEY>, ["A-1", "A-2"]);
 ```
 
@@ -91,15 +92,33 @@ Changes the object status to a custom status of your choice. If you need more st
 [https://docs.seats.io/docs/api-custom-object-status](https://docs.seats.io/docs/api-custom-object-status)
 
 ```js
-const client = new SeatsioClient(<SECRET_KEY>);
+const client = new SeatsioClient(<SECRET KEY>);
 await client.events.changeObjectStatus(<AN EVENT KEY>, ["A-1", "A-2"], "unavailable");
+```
+
+### Event reports
+
+Want to know which seats of an event are booked, and which ones are free? That’s where reporting comes in handy.
+
+The report types you can choose from are:
+- byStatus
+- byCategoryLabel
+- byCategoryKey
+- byLabel
+- byOrderId
+
+[https://docs.seats.io/docs/api-event-reports](https://docs.seats.io/docs/api-event-reports)
+
+```js
+const client = new SeatsioClient(<SECRET KEY>);
+await client.eventReports.byStatus(<AN EVENT KEY>, <OPTIONAL FILTER>);
 ```
 
 ### Listing charts
 You can list all charts using `listAll()` method which returns an asynchronous iterator `AsyncIterator`. You can use `for await` loop to retrieve all charts.
 
 ```js
-const client = new SeatsioClient(<SECRET_KEY>);
+const client = new SeatsioClient(<SECRET KEY>);
 let chart1 = await client.charts.create();
 let chart2 = await client.charts.create();
 let chart3 = await client.charts.create();
@@ -110,7 +129,7 @@ for await(let chart of client.charts.listAll()){
 
 You can also call the `next()` method to manually iterate over charts.
 ```js
-const client = new SeatsioClient(<SECRET_KEY>);
+const client = new SeatsioClient(<SECRET KEY>);
 let chart1 = await client.charts.create();
 let chart2 = await client.charts.create();
 let chart3 = await client.charts.create();
@@ -121,7 +140,7 @@ let secondChart = await chartsIterator.next(); //returns the next chart in the f
 ```
 
 ## Error Handling
-When an API call results in an error, the promise returned from the `axios` call is rejected with the response received from the server. This response contains a message string describing what went wrong, and also two other properties:
+When an API call results in an error, a rejected promise is returned with the response received from the server. This response contains a message string describing what went wrong, and also two other properties:
 
 - `messages`: an array of error messages that the server returned. In most cases, this array will contain only one element.
 - `requestId`: the identifier of the request you made. Please mention this to us when you have questions, as it will make debugging easier.
