@@ -1,4 +1,4 @@
-const ChartListParams = require('../../src/Charts/ChartListParams.js')
+const ChartListParams = require('../../src/Charts/ChartListParams.js');
 
 test('should list first page of charts', async () => {
     let chart1 = await client.charts.create();
@@ -23,6 +23,18 @@ test('should list first page of charts with filter', async () => {
     let chartKeys = page.items.map((chart) => chart.key);
 
     expect(chartKeys.sort()).toEqual([chart1.key, chart2.key, chart4.key].sort());
+});
+
+test('should list first page of charts with tag', async () => {
+    let chart1 = await client.charts.create('foo');
+    let chart2 = await client.charts.create('foo');
+    let chart3 = await client.charts.create('bar');
+    await client.charts.addTag(chart3.key, 'foo');
+    let params = new ChartListParams().withTag('foo');
+
+    let page = await client.charts.listFirstPage(params);
+
+    expect(page.items[0].key).toEqual(chart3.key);
 });
 
 test('pageSize of list first page of charts with page size', async () => {
