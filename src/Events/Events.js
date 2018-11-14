@@ -84,7 +84,9 @@ class Events {
     iterator() {
         return new Lister(new PageFetcher('/events', this.client, results => {
             let events = utilities.createMultipleEvents(results.items);
-            return new Page(events);
+            let after_id = results.next_page_starts_after ? results.next_page_starts_after : null;
+            let before_id = results.previous_page_ends_before ? results.previous_page_ends_before : null;
+            return new Page(events, after_id, before_id);
         }));
     }
 

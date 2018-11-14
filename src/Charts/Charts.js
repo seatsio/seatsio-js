@@ -154,7 +154,9 @@ class Charts {
     iterator() {
         return new Lister(new PageFetcher('/charts', this.client, results => {
             let chartItems = results.items.map((chartData) => utilities.createChart(chartData));
-            return new Page(chartItems);
+            let after_id = results.next_page_starts_after ? results.next_page_starts_after : null;
+            let before_id = results.previous_page_ends_before ? results.previous_page_ends_before : null;
+            return new Page(chartItems, after_id, before_id);
         }));
     }
 }

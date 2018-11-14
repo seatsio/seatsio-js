@@ -112,7 +112,9 @@ class Subaccounts {
     iterator() {
         return new Lister(new PageFetcher('/subaccounts', this.client, results => {
             let subaccounts = results.items.map((subaccountsData) => utilities.createSubaccount(subaccountsData));
-            return new Page(subaccounts);
+            let after_id = results.next_page_starts_after ? results.next_page_starts_after : null;
+            let before_id = results.previous_page_ends_before ? results.previous_page_ends_before : null;
+            return new Page(subaccounts, after_id, before_id);
         }));
     }
 
