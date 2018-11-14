@@ -7,7 +7,7 @@ test('should change object status', async () => {
     await testUtils.createTestChart(chartKey, user.designerKey);
     let event = await client.events.create(chartKey);
 
-    let result = await client.events.changeObjectStatus(event.key, 'A-1', 'lolzor')
+    let result = await client.events.changeObjectStatus(event.key, 'A-1', 'lolzor');
 
     expect(result.labels).toEqual({'A-1': testUtils.someLabels('1', 'seat', 'A', 'row')});
 });
@@ -41,6 +41,19 @@ test('should change object status with GA', async () => {
     let result = await client.events.changeObjectStatus(event.key, '34', 'lolzor');
 
     expect(result.labels).toEqual({'34': testUtils.someLabels('34', 'generalAdmission')});
+});
+
+test('should change object status with GA and quantity', async () => {
+    let chartKey = testUtils.getChartKey();
+    await testUtils.createTestChart(chartKey, user.designerKey);
+    let event = await client.events.create(chartKey);
+
+    let result = await client.events.changeObjectStatus(event.key, {"objectId" : "GA1", "quantity" : 100}, 'myCustomStatus');
+
+    let retrievedStatus = await client.events.retrieveObjectStatus(event.key, 'GA1');
+    expect(result.labels).toEqual({'GA1': testUtils.someLabels('GA1', 'generalAdmission')});
+    expect(retrievedStatus.quantity).toBe(100);
+    expect(retrievedStatus.status).toBe('myCustomStatus');
 });
 
 test('should change object status with objectId as string', async () => {
