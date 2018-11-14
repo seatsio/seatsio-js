@@ -1,13 +1,11 @@
 language: node_js
 node_js:
 - node
-- '8'
-- '7.6'
 before_script:
 - npm install -g gulp-cli
 script:
   - gulp bundle
-  - npm test
+  - jest --maxWorkers=3
 deploy:
   - provider: npm
     email: namfaldev@gmail.com
