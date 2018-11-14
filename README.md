@@ -12,6 +12,10 @@ For Node, you can install using npm:
 ```sh
 npm install seatsio
 ```
+Then you can use it with require: 
+```js
+const SeatsioClient = require('seatsio');
+```
 For browser, you can directly include it from GitHub:
 
 ```html
@@ -34,7 +38,7 @@ Please note that any version below v2 is not production ready.
 Once you create a new `SeatsioClient` using your _secret key_, you can create _charts_ and then _events_. You can find your _secret key_ in the Settings section of your account: https://app.seats.io/settings. It is important that you keep your _secret key_ private and not expose it in-browser calls unless it is password protected.
 
 ```js
-const client = new SeatsioClient(<SECRET KEY>);
+let client = new SeatsioClient(<SECRET KEY>);
 let chart = await client.charts.create();
 let event = await client.events.create(chart.key);
 console.log(`Created a chart with key ${chart.key} and an event with key: ${event.key}`);
@@ -47,14 +51,14 @@ Booking an object changes its status to `booked`. Booked seats are not selectabl
 [https://docs.seats.io/docs/api-book-objects](https://docs.seats.io/docs/api-book-objects).
 
 ```js
-const client = new SeatsioClient(<SECRET KEY>);
+let client = new SeatsioClient(<SECRET KEY>);
 await client.events.book(<AN EVENT KEY>, ['A-1', 'A-2']);
 ```
 
 ### Booking objects that are on `HOLD`
 
 ```js
-const client = new SeatsioClient(<SECRET KEY>);
+let client = new SeatsioClient(<SECRET KEY>);
 await client.events.book(<AN EVENT KEY>, ["A-1", "A-2"], <A HOLD TOKEN>);
 ```
 
@@ -63,14 +67,14 @@ await client.events.book(<AN EVENT KEY>, ["A-1", "A-2"], <A HOLD TOKEN>);
 Either
 
 ```js
-const client = new SeatsioClient(<SECRET KEY>);
+let client = new SeatsioClient(<SECRET KEY>);
 await client.events.book(<AN EVENT KEY>, ["GA1", "GA1", "GA1"]);
 ```
 
 Or:
 
 ```js
-const client = new SeatsioClient(<SECRET KEY>);
+let client = new SeatsioClient(<SECRET KEY>);
 await client.events.book(<AN EVENT KEY>, {"objectId": "GA1", "quantity" : 3});
 ```
 
@@ -81,7 +85,7 @@ Releasing objects changes its status to `free`. Free seats are selectable on a r
 [https://docs.seats.io/docs/api-release-objects](https://docs.seats.io/docs/api-release-objects).
 
 ```js
-const client = new SeatsioClient(<SECRET KEY>);
+let client = new SeatsioClient(<SECRET KEY>);
 await client.events.release(<AN EVENT KEY>, ["A-1", "A-2"]);
 ```
 
@@ -92,7 +96,7 @@ Changes the object status to a custom status of your choice. If you need more st
 [https://docs.seats.io/docs/api-custom-object-status](https://docs.seats.io/docs/api-custom-object-status)
 
 ```js
-const client = new SeatsioClient(<SECRET KEY>);
+let client = new SeatsioClient(<SECRET KEY>);
 await client.events.changeObjectStatus(<AN EVENT KEY>, ["A-1", "A-2"], "unavailable");
 ```
 
@@ -110,7 +114,7 @@ The report types you can choose from are:
 [https://docs.seats.io/docs/api-event-reports](https://docs.seats.io/docs/api-event-reports)
 
 ```js
-const client = new SeatsioClient(<SECRET KEY>);
+let client = new SeatsioClient(<SECRET KEY>);
 await client.eventReports.byStatus(<AN EVENT KEY>, <OPTIONAL FILTER>);
 ```
 
@@ -118,7 +122,7 @@ await client.eventReports.byStatus(<AN EVENT KEY>, <OPTIONAL FILTER>);
 You can list all charts using `listAll()` method which returns an asynchronous iterator `AsyncIterator`. You can use `for await` loop to retrieve all charts.
 
 ```js
-const client = new SeatsioClient(<SECRET KEY>);
+let client = new SeatsioClient(<SECRET KEY>);
 let chart1 = await client.charts.create();
 let chart2 = await client.charts.create();
 let chart3 = await client.charts.create();
@@ -129,7 +133,7 @@ for await(let chart of client.charts.listAll()){
 
 You can also call the `next()` method to manually iterate over charts.
 ```js
-const client = new SeatsioClient(<SECRET KEY>);
+let client = new SeatsioClient(<SECRET KEY>);
 let chart1 = await client.charts.create();
 let chart2 = await client.charts.create();
 let chart3 = await client.charts.create();
