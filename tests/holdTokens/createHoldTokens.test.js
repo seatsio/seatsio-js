@@ -4,3 +4,11 @@ test('should create hold tokens', async () => {
     expect(holdToken.expiresAt instanceof Date).toBe(true);
     expect(holdToken.holdToken).toBeTruthy();
 });
+
+test('should create hold token that expires in 1 minute', async () => {
+    let holdToken = await client.holdTokens.create(1);
+
+    expect(holdToken.expiresAt instanceof Date).toBe(true);
+    expect(holdToken.holdToken).toBeTruthy();
+    expect(holdToken.expiresInSeconds).toBeLessThanOrEqual(60);
+});
