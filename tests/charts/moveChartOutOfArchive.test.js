@@ -4,7 +4,7 @@ test('should move chart out of archive', async () => {
     let retrievedChartKeys = [];
 
     await client.charts.moveOutOfArchive(chart.key);
-    
+
     for await(let chart of client.charts.archive) {
         retrievedChartKeys.push(chart.key)
     }
