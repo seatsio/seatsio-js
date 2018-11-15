@@ -15,8 +15,6 @@ module.exports = {
             url: baseUrl + 'system/public/users/actions/create-test-user'
         }).then(response => {
             return response.data;
-        }).catch(error => {
-            console.log(error);
         });
 
         return testUserPr;
@@ -46,7 +44,7 @@ module.exports = {
         let requestBody = fs.readFileSync(__dirname + filePath, 'utf-8');
         let client = axios.create();
         let url = `https://api-staging.seatsio.net/system/public/${designerKey}/charts/${chartKey}`;
-        return client.post(url, requestBody).catch((err) => console.log(err));
+        return client.post(url, requestBody);
     },
 
     someLabels(ownLabel, ownType, parentLabel = null, parentType = null, section = null, entrance = null) {
