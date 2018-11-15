@@ -48,3 +48,19 @@ test('pageSize of list first page of charts with page size', async () => {
 
     expect(chartKeys.sort()).toEqual([chart3.key, chart4.key].sort());
 });
+
+
+test('should list first page of charts with expanded events', async () => {
+    let generatedKeys = [];
+    for(let i = 0; i < 5; i++){
+        let chart = await client.charts.create(i.toString());
+        let event = await client.events.create(chart.key);
+        generatedKeys.push(event.key);
+    }
+    let params = new ChartListParams().withExpandEvents(true);
+
+    let page = await client.charts.listFirstPage(params);
+    let eventKeys = page.items.map( chart => chart.events[0].key);
+
+    expect(eventKeys.sort()).toEqual(generatedKeys.sort());
+});
