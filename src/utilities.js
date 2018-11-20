@@ -106,7 +106,7 @@ module.exports = {
     },
 
     /* @return EventReportItem|{} */
-    createEventReport(reportsData) {
+    createEventReport(reportsData, filter = null) {
         let reportObjects = {};
         for (const key of Object.keys(reportsData)) {
             reportObjects[key] = reportsData[key].map(data => {
@@ -117,7 +117,11 @@ module.exports = {
                 }
             );
         }
-        return reportObjects;
+        if(filter === null || reportObjects[filter]){
+            return reportObjects;
+        }
+
+        return null;
     },
 
     /* @return ChartReportItem|{} */

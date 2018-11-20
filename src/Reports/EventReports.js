@@ -18,10 +18,10 @@ class EventReports {
         return `/reports/events/${eventKey}/${reportType}/summary`;
     }
 
-    /* @return EventReportItem */
+    /* @return {EventReportItem} or null */
     byStatus(eventKey, status = null) {
         return this.client.get(EventReports.reportUrl('byStatus', eventKey, status))
-            .then((res) => utilities.createEventReport(res.data));
+            .then((res) => utilities.createEventReport(res.data, status));
     }
 
     /* @return JSON|{} */

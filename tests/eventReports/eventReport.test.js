@@ -202,3 +202,12 @@ test('report with specific section', async () => {
 
     expect(report['NO_SECTION'].length).toBe(34);
 });
+
+test('specific non existing status', async () => {
+    let chartKey = testUtils.getChartKey();
+    await testUtils.createTestChart(chartKey, user.designerKey);
+    let event = await client.events.create(chartKey);
+
+    let report = await client.eventReports.byStatus(event.key, 'lolzor');
+    expect(report).toBeNull();
+});
