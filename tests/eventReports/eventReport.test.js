@@ -209,5 +209,56 @@ test('specific non existing status', async () => {
     let event = await client.events.create(chartKey);
 
     let report = await client.eventReports.byStatus(event.key, 'lolzor');
+
+    expect(report).toBeNull();
+});
+
+test('specific non existing section', async () => {
+    let chartKey = testUtils.getChartKey();
+    await testUtils.createTestChart(chartKey, user.designerKey);
+    let event = await client.events.create(chartKey);
+
+    let report = await client.eventReports.bySection(event.key, 'lolzor');
+
+    expect(report).toBeNull();
+});
+
+test('specific non existing orderId', async () => {
+    let chartKey = testUtils.getChartKey();
+    await testUtils.createTestChart(chartKey, user.designerKey);
+    let event = await client.events.create(chartKey);
+
+    let report = await client.eventReports.byOrderId(event.key, 'lolzor');
+
+    expect(report).toBeNull();
+});
+
+test('specific non existing label', async () => {
+    let chartKey = testUtils.getChartKey();
+    await testUtils.createTestChart(chartKey, user.designerKey);
+    let event = await client.events.create(chartKey);
+
+    let report = await client.eventReports.byLabel(event.key, 'lolzor');
+
+    expect(report).toBeNull();
+});
+
+test('specific non existing categoryKey', async () => {
+    let chartKey = testUtils.getChartKey();
+    await testUtils.createTestChart(chartKey, user.designerKey);
+    let event = await client.events.create(chartKey);
+
+    let report = await client.eventReports.byCategoryKey(event.key, 'lolzor');
+
+    expect(report).toBeNull();
+});
+
+test('specific non existing categoryLabel', async () => {
+    let chartKey = testUtils.getChartKey();
+    await testUtils.createTestChart(chartKey, user.designerKey);
+    let event = await client.events.create(chartKey);
+
+    let report = await client.eventReports.byCategoryLabel(event.key, 'lolzor');
+
     expect(report).toBeNull();
 });

@@ -49,11 +49,11 @@ class EventReports {
     /**
      * @param {string} eventKey
      * @param {?string} categoryLabel
-     * @returns {Object.<string, EventReportItem[]>}
+     * @returns {(Object.<string, EventReportItem[]> | null)}
      */
     byCategoryLabel(eventKey, categoryLabel = null) {
         return this.client.get(EventReports.reportUrl('byCategoryLabel', eventKey, categoryLabel))
-            .then((res) => utilities.createEventReport(res.data));
+            .then((res) => utilities.createEventReport(res.data, categoryLabel));
     }
 
     /**
@@ -68,11 +68,11 @@ class EventReports {
     /**
      * @param {string} eventKey
      * @param {?string} categoryKey
-     * @returns {Object.<string, EventReportItem[]>}
+     * @returns {(Object.<string, EventReportItem[]> | null)}
      */
     byCategoryKey(eventKey, categoryKey = null) {
         return this.client.get(EventReports.reportUrl('byCategoryKey', eventKey, categoryKey))
-            .then((res) => utilities.createEventReport(res.data));
+            .then((res) => utilities.createEventReport(res.data, categoryKey));
     }
 
     /**
@@ -87,31 +87,31 @@ class EventReports {
     /**
      * @param {string} eventKey
      * @param {?string} label
-     * @returns {Object.<string, EventReportItem[]>}
+     * @returns {(Object.<string, EventReportItem[]> | null)}
      */
     byLabel(eventKey, label = null) {
         return this.client.get(EventReports.reportUrl('byLabel', eventKey, label))
-            .then((res) => utilities.createEventReport(res.data));
+            .then((res) => utilities.createEventReport(res.data, label));
     }
 
     /**
      * @param {string} eventKey
      * @param {?string} orderId
-     * @returns {Object.<string, EventReportItem[]>}
+     * @returns {(Object.<string, EventReportItem[]> | null)}
      */
     byOrderId(eventKey, orderId = null) {
         return this.client.get(EventReports.reportUrl('byOrderId', eventKey, orderId))
-            .then((res) => utilities.createEventReport(res.data));
+            .then((res) => utilities.createEventReport(res.data, orderId));
     }
 
     /**
      * @param {string} eventKey
      * @param {?string} section
-     * @returns {Object.<string, EventReportItem[]>}
+     * @returns {(Object.<string, EventReportItem[]> | null)}
      */
     bySection(eventKey, section = null) {
         return this.client.get(EventReports.reportUrl('bySection', eventKey, section))
-            .then((res) => utilities.createEventReport(res.data));
+            .then((res) => utilities.createEventReport(res.data, section));
     }
 
     /**
