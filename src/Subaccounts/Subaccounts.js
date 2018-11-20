@@ -12,22 +12,36 @@ class Subaccounts {
         this.inactive = new AsyncIterator('/subaccounts/inactive', this.client, 'subaccounts');
     }
 
-    /* @return Subaccount */
+    /**
+     * @param {string} id
+     * @returns {Promise} Promise object that will resolve to a Subaccount object
+     */
     retrieve(id) {
         return this.client.get(`/subaccounts/${id}`).then((res) => utilities.createSubaccount(res.data));
     }
 
-    /* @return Subaccount */
+    /**
+     * @param {?string} name
+     * @returns {Promise} Promise object that will resolve to a Subaccount object
+     */
     create(name = null) {
         return this.doCreate(null, name);
     }
 
-    /* @return Subaccount */
+    /**
+     * @param {string} email
+     * @param {?string} name
+     * @returns {Promise} Promise object that will resolve to a Subaccount object
+     */
     createWithEmail(email, name = null) {
         return this.doCreate(email, name);
     }
 
-    /* @then Subaccount */
+    /**
+     * @param {?string} email
+     * @param {?string} name
+     * @returns {Promise} Promise object that will resolve to a Subaccount object
+     */
     doCreate(email = null, name = null) {
         let requestParameters = {};
 
@@ -66,49 +80,74 @@ class Subaccounts {
         return this.client.post(`/subaccounts/${id}/actions/deactivate`);
     }
 
-    /* @return String */
+    /**
+     * @param {string} id
+     * @returns {Promise} Promise object that will resolve to a string
+     */
     regenerateSecretKey(id) {
         return this.client.post(`/subaccounts/${id}/secret-key/actions/regenerate`).then((res) => res.data);
     }
 
-    /* @return String */
+    /**
+     * @param {string} id
+     * @returns {Promise} Promise object that will resolve to a string
+     */
     regenerateDesignerKey(id) {
         return this.client.post(`/subaccounts/${id}/designer-key/actions/regenerate`).then((res) => res.data);
     }
 
-    /* @return Chart */
+    /**
+     * @param {string} id
+     * @param {string} chartKey
+     * @returns {Promise} Promise object that will resolve to a Chart object
+     */
     copyChartToParent(id, chartKey) {
         return this.client.post(`/subaccounts/${id}/charts/${chartKey}/actions/copy-to/parent`)
             .then((res) => utilities.createChart(res.data));
     }
 
-    /* @return Chart */
+    /**
+     * @param {string} fromId
+     * @param {string} toId
+     * @param {string} chartKey
+     * @returns {Promise} Promise object that will resolve to a Chart object
+     */
     copyChartToSubaccount(fromId, toId, chartKey) {
         return this.client.post(`/subaccounts/${fromId}/charts/${chartKey}/actions/copy-to/${toId}`)
             .then((res) => utilities.createChart(res.data));
     }
 
-    /* @return AsyncIterator */
+    /**
+     * @returns {AsyncIterator}
+     */
     listAll() {
         return new AsyncIterator('/subaccounts', this.client, 'subaccounts');
     }
 
-    /* @return Page */
+    /**
+     * @returns {Page}
+     */
     listFirstPage(pageSize = null) {
         return this.iterator().firstPage(pageSize);
     }
 
-    /* @return Page */
+    /**
+     * @returns {Page}
+     */
     listPageAfter(afterId, pageSize = null) {
         return this.iterator().pageAfter(afterId, null, pageSize);
     }
 
-    /* @return Page */
+    /**
+     * @returns {Page}
+     */
     listPageBefore(beforeId, pageSize = null) {
         return this.iterator().pageBefore(beforeId, null, pageSize);
     }
 
-    /* @return Lister */
+    /**
+     * @returns {Lister}
+     */
     iterator() {
         return new Lister(new PageFetcher('/subaccounts', this.client, results => {
             let subaccounts = results.items.map((subaccountsData) => utilities.createSubaccount(subaccountsData));
