@@ -1,10 +1,12 @@
 class AccountSettings {
+    /**
+     * @param {boolean} draftChartDrawingsEnabled
+     * @param {boolean} holdOnSelectForGAs
+     * @param {ChartValidationSettings} chartValidation
+     */
     constructor(draftChartDrawingsEnabled, holdOnSelectForGAs, chartValidation) {
-        /* boolean  */
         this.draftChartDrawingsEnabled = draftChartDrawingsEnabled;
-        /* boolean  */
         this.holdOnSelectForGAs = holdOnSelectForGAs;
-        /* ChartValidationSettings  */
         this.chartValidation = chartValidation;
     }
 }

@@ -1,14 +1,16 @@
 class Account {
+    /**
+     * @param {string} secretKey
+     * @param {string} designerKey
+     * @param {string} publicKey
+     * @param {AccountSettings} settings
+     * @param {string} email
+     */
     constructor(secretKey, designerKey, publicKey, settings, email) {
-        /*  string */
         this.secretKey = secretKey;
-        /*  string */
         this.designerKey = designerKey;
-        /*  string */
         this.publicKey = publicKey;
-        /*  Account Settings */
         this.settings = settings;
-        /*  string */
         this.email = email;
     }
 }

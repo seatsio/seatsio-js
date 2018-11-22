@@ -1,6 +1,5 @@
 class EventReportItem {
     /**
-     *
      * @param {string} label
      * @param {Common/Labels} labels
      * @param {string}status

@@ -1,10 +1,12 @@
 class HoldToken {
+    /**
+     * @param {string} holdToken
+     * @param {Date} expiresAt
+     * @param {number} expiresInSeconds
+     */
     constructor(holdToken, expiresAt, expiresInSeconds) {
-        /* string */
         this.holdToken = holdToken;
-        /* Date */
         this.expiresAt = expiresAt;
-        /* int */
         this.expiresInSeconds = expiresInSeconds;
     }
 }

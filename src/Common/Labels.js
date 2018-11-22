@@ -1,24 +1,30 @@
 class Labels {
+    /**
+     * @param {LabelAndType} own
+     * @param {?LabelAndType} parent
+     */
     constructor(own, parent = null) {
-        /* LabelAndType */
         this.own = own;
-        /* LabelAndType */
         parent ? this.parent = parent : {};
     }
 }
 
 class LabelAndType {
+    /**
+     * @param {string} label
+     * @param {string} type
+     */
     constructor(label, type) {
-        /* string */
         this.label = label;
-        /* string */
         this.type = type;
     }
 }
 
 class Entrance {
+    /**
+     * @param {string} label
+     */
     constructor(label) {
-        /* string */
         this.label = label;
     }
 }

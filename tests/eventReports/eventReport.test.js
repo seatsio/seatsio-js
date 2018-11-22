@@ -210,7 +210,7 @@ test('specific non existing status', async () => {
 
     let report = await client.eventReports.byStatus(event.key, 'lolzor');
 
-    expect(report).toBeNull();
+    expect(report).toEqual({});
 });
 
 test('specific non existing section', async () => {
@@ -220,7 +220,7 @@ test('specific non existing section', async () => {
 
     let report = await client.eventReports.bySection(event.key, 'lolzor');
 
-    expect(report).toBeNull();
+    expect(report).toEqual({});
 });
 
 test('specific non existing orderId', async () => {
@@ -230,7 +230,7 @@ test('specific non existing orderId', async () => {
 
     let report = await client.eventReports.byOrderId(event.key, 'lolzor');
 
-    expect(report).toBeNull();
+    expect(report).toEqual({});
 });
 
 test('specific non existing label', async () => {
@@ -240,7 +240,7 @@ test('specific non existing label', async () => {
 
     let report = await client.eventReports.byLabel(event.key, 'lolzor');
 
-    expect(report).toBeNull();
+    expect(report).toEqual({});
 });
 
 test('specific non existing categoryKey', async () => {
@@ -250,7 +250,7 @@ test('specific non existing categoryKey', async () => {
 
     let report = await client.eventReports.byCategoryKey(event.key, 'lolzor');
 
-    expect(report).toBeNull();
+    expect(report).toEqual({});
 });
 
 test('specific non existing categoryLabel', async () => {
@@ -260,5 +260,5 @@ test('specific non existing categoryLabel', async () => {
 
     let report = await client.eventReports.byCategoryLabel(event.key, 'lolzor');
 
-    expect(report).toBeNull();
+    expect(report).toEqual({});
 });
