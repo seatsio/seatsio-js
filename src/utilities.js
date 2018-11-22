@@ -117,11 +117,8 @@ module.exports = {
                 }
             );
         }
-        if(filter === null || reportObjects[filter]){
-            return reportObjects;
-        }
 
-        return null;
+        return reportObjects;
     },
 
     /* @return ChartReportItem|{} */
