@@ -6,6 +6,7 @@ test('should retrieve my account', async () => {
     expect(myAccount.publicKey).toBeTruthy();
     expect(myAccount.email).toBeTruthy();
     expect(myAccount.settings.draftChartDrawingsEnabled).toBe(true);
+    expect(myAccount.settings.holdOnSelectForGAs).toBe(true);
     expect(myAccount.settings.chartValidation.VALIDATE_DUPLICATE_LABELS).toBe("ERROR");
     expect(myAccount.settings.chartValidation.VALIDATE_OBJECTS_WITHOUT_CATEGORIES).toBe("ERROR");
     expect(myAccount.settings.chartValidation.VALIDATE_UNLABELED_OBJECTS).toBe("ERROR");

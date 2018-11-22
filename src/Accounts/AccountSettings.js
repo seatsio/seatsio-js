@@ -1,7 +1,9 @@
 class AccountSettings {
-    constructor(draftChartDrawingsEnabled, chartValidation) {
+    constructor(draftChartDrawingsEnabled, holdOnSelectForGAs, chartValidation) {
         /* boolean  */
         this.draftChartDrawingsEnabled = draftChartDrawingsEnabled;
+        /* boolean  */
+        this.holdOnSelectForGAs = holdOnSelectForGAs;
         /* ChartValidationSettings  */
         this.chartValidation = chartValidation;
     }
