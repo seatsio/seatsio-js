@@ -1,8 +1,10 @@
 class AccountSettings {
+    /**
+     * @param {boolean} draftChartDrawingsEnabled
+     * @param {ChartValidationSettings} chartValidation
+     */
     constructor(draftChartDrawingsEnabled, chartValidation) {
-        /* boolean  */
         this.draftChartDrawingsEnabled = draftChartDrawingsEnabled;
-        /* ChartValidationSettings  */
         this.chartValidation = chartValidation;
     }
 }
