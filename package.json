@@ -9,6 +9,7 @@
   },
   "jest": {
     "transform": {},
+    "testEnvironment": "node",
     "setupTestFrameworkScriptFile": "<rootDir>/tests/setupTests.js"
   },
   "repository": {
