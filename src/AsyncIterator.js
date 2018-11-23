@@ -1,29 +1,22 @@
-const Chart = require('./Charts/Chart.js');
-const Event = require('./Events/Event.js');
-const StatusChange = require('./Events/StatusChange.js');
-const Subaccount = require('./Subaccounts/Subaccount.js');
 const Page = require('./Page.js');
 const utilities = require('./utilities.js');
 
-
 class AsyncIterator {
+    /**
+     * @param {string} url
+     * @param {SeatsioClient} client
+     * @param {string} objType
+     * @param {object} params
+     */
     constructor(url, client, objType, params = {}) {
-        /*  [Chart] */
-        this.items = [];
-        /* [Page] */
-        this.pages = [];
-        /* string */
-        this.objType = objType;
-        /* int */
-        this.index = 0;
-        /* boolean */
-        this.nextPageMustBeFetched = true;
-        /* SeatsioClient */
-        this.client = client;
-        /* string */
         this.url = url;
-        /* {parameters} */
+        this.client = client;
+        this.objType = objType;
         this.params = params;
+        this.items = [];
+        this.pages = [];
+        this.index = 0;
+        this.nextPageMustBeFetched = true;
     }
 
     charts(data) {

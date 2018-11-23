@@ -1,10 +1,12 @@
 class ForSaleConfig {
+    /**
+     * @param {boolean} forSale
+     * @param {string[]} objects
+     * @param {string[]} categories
+     */
     constructor(forSale, objects, categories) {
-        /* boolean */
         this.forSale = forSale;
-        /* [string] */
         this.objects = objects;
-        /* [string] */
         this.categories = categories;
     }
 }

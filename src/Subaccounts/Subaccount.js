@@ -1,6 +1,5 @@
 class Subaccount {
     /**
-     *
      * @param {number} id
      * @param {string} secretKey
      * @param {string} designerKey

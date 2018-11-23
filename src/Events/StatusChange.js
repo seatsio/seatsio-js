@@ -1,20 +1,22 @@
 class StatusChange {
+    /**
+     * @param {number} id
+     * @param {number} eventId
+     * @param {string} status
+     * @param {number} quantity
+     * @param {string} objectLabel
+     * @param {Date} date
+     * @param {string} orderId
+     * @param {object} extraData
+     */
     constructor(id, eventId, status, quantity, objectLabel, date, orderId = null, extraData = null) {
-        /* int */
         this.id = id;
-        /* int */
         this.eventId = eventId;
-        /* string */
         this.status = status;
-        /* int */
         this.quantity = quantity;
-        /* string */
         this.objectLabel = objectLabel;
-        /* Date */
         this.date = date;
-        /* string */
         this.orderId = orderId;
-        /* object|[objects] */
         this.extraData = extraData;
     }
 }

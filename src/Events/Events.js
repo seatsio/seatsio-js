@@ -6,11 +6,20 @@ const ObjectStatus = require('./ObjectStatus.js');
 const utilities = require('../utilities.js');
 
 class Events {
+    /**
+     * @param {SeatsioClient} client
+     */
     constructor(client) {
         this.client = client;
     }
 
     /* @return Event */
+    /**
+     * @param {string} chartKey
+     * @param {?string} eventKey
+     * @param {?object} bookWholeTablesOrTableBookingModes
+     * @returns {Promise} Promise that resolves to Event object
+     */
     create(chartKey, eventKey = null, bookWholeTablesOrTableBookingModes = null) {
         let requestParameters = {};
 
@@ -30,12 +39,22 @@ class Events {
             .then((res) => utilities.createEvent(res.data));
     }
 
-    /* @return Event */
+    /**
+     * @param {string} eventKey
+     * @returns {Promise} Promise that resolves to Event object
+     */
     retrieve(eventKey) {
         return this.client.get(`/events/${encodeURIComponent(eventKey)}`)
             .then((res) => utilities.createEvent(res.data));
     }
 
+    /**
+     * @param {string} eventKey
+     * @param {?string} chartKey
+     * @param {?string} newEventKey
+     * @param {?object} bookWholeTablesOrTableBookingModes
+     * @returns {Promise}
+     */
     update(eventKey, chartKey = null, newEventKey = null, bookWholeTablesOrTableBookingModes = null) {
         let requestParameters = {};
 
@@ -56,31 +75,51 @@ class Events {
         return this.client.post(`events/${encodeURIComponent(eventKey)}`, requestParameters);
     }
 
+    /**
+     * @param {string} eventKey
+     * @returns {Promise}
+     */
     delete(eventKey) {
         return this.client.delete(`/events/${encodeURIComponent(eventKey)}`);
     }
 
-    /* @return AsyncIterator */
+    /**
+     * @param {?object} requestParameters
+     * @returns {AsyncIterator}
+     */
     listAll(requestParameters = {}) {
         return new AsyncIterator('/events', this.client, 'events', requestParameters);
     }
 
-    /* @return Page */
+    /**
+     * @param {?number} pageSize
+     * @returns {Page}
+     */
     listFirstPage(pageSize = null) {
         return this.iterator().firstPage(pageSize);
     }
 
-    /* @return Page */
+    /**
+     * @param {?string} afterId
+     * @param {?number} pageSize
+     * @returns {Page}
+     */
     listPageAfter(afterId, pageSize = null) {
         return this.iterator().pageAfter(afterId, null, pageSize);
     }
 
-    /* @return Page */
+    /**
+     * @param {?string} beforeId
+     * @param {?number} pageSize
+     * @returns {Page}
+     */
     listPageBefore(beforeId, pageSize = null) {
         return this.iterator().pageBefore(beforeId, null, pageSize);
     }
 
-    /* @return Lister */
+    /**
+     * @returns {Lister}
+     */
     iterator() {
         return new Lister(new PageFetcher('/events', this.client, results => {
             let events = utilities.createMultipleEvents(results.items);
@@ -90,7 +129,11 @@ class Events {
         }));
     }
 
-    /* @return AsyncIterator */
+    /**
+     * @param {string} eventKey
+     * @param {?string} objectId
+     * @returns {AsyncIterator}
+     */
     statusChanges(eventKey, objectId = null) {
         if (objectId === null) {
             return new AsyncIterator(`/events/${encodeURIComponent(eventKey)}/status-changes`, this.client, 'statusChanges');
@@ -98,6 +141,12 @@ class Events {
         return new AsyncIterator(`/events/${encodeURIComponent(eventKey)}/objects/${encodeURIComponent(objectId)}/status-changes`, this.client, 'statusChanges');
     }
 
+    /**
+     * @param {string} eventKey
+     * @param {?object} objects
+     * @param {?string[]} categories
+     * @returns {Promise}
+     */
     markAsForSale(eventKey, objects = null, categories = null) {
         let requestParameters = {};
         if (objects !== null) {
@@ -109,6 +158,12 @@ class Events {
         return this.client.post(`events/${encodeURIComponent(eventKey)}/actions/mark-as-for-sale`, requestParameters);
     }
 
+    /**
+     * @param {string} eventKey
+     * @param {?object} objects
+     * @param {?string[]} categories
+     * @returns {Promise}
+     */
     markAsNotForSale(eventKey, objects = null, categories = null) {
         let requestParameters = {};
 
@@ -123,29 +178,55 @@ class Events {
         return this.client.post(`events/${encodeURIComponent(eventKey)}/actions/mark-as-not-for-sale`, requestParameters);
     }
 
+    /**
+     * @param {string} eventKey
+     * @returns {Promise}
+     */
     markEverythingAsForSale(eventKey) {
         return this.client.post(`events/${encodeURIComponent(eventKey)}/actions/mark-everything-as-for-sale`);
     }
 
+    /**
+     * @param {string} eventKey
+     * @param {string} obj
+     * @param {object} extraData
+     * @returns {Promise}
+     */
     updateExtraData(eventKey, obj, extraData) {
         let requestParameters = {};
         requestParameters.extraData = extraData;
         return this.client.post(`/events/${encodeURIComponent(eventKey)}/objects/${encodeURIComponent(obj)}/actions/update-extra-data`, requestParameters);
     }
 
+    /**
+     * @param {string} eventKey
+     * @param {object} extraData
+     * @returns {Promise}
+     */
     updateExtraDatas(eventKey, extraData) {
         let requestParameters = {};
         requestParameters.extraData = extraData;
         return this.client.post(`/events/${encodeURIComponent(eventKey)}/actions/update-extra-data`, requestParameters);
     }
 
-    /* @return ObjectStatus */
+    /**
+     * @param {string} eventKey
+     * @param {string} obj
+     * @returns {Promise} Promise that resolves to ObjectStatus object
+     */
     retrieveObjectStatus(eventKey, obj) {
         return this.client.get(`events/${encodeURIComponent(eventKey)}/objects/${encodeURIComponent(obj)}`)
             .then((res) => utilities.createObjectStatus(res.data));
     }
 
-    /* @return ChangeObjectStatusResult */
+    /**
+     * @param {(string|string[])} eventKeyOrKeys
+     * @param {object|object[]} objectOrObjects
+     * @param {string} status
+     * @param {string} holdToken
+     * @param {string} orderId
+     * @returns {Promise} Promise that resolves to ChangeObjectStatusResult object
+     */
     changeObjectStatus(eventKeyOrKeys, objectOrObjects, status, holdToken = null, orderId = null) {
         let requestParameters = {};
 
@@ -167,37 +248,78 @@ class Events {
             .then((res) => utilities.createChangeObjectStatusResult(res.data));
     }
 
-    /* @return ChangeObjectStatusResult */
+    /**
+     * @param {(string|string[])} eventKeyOrKeys
+     * @param {object|object[]} objectOrObjects
+     * @param {?string} holdToken
+     * @param {?string} orderId
+     * @returns {Promise} Promise that resolves to ChangeObjectStatusResult object
+     */
     book(eventKeyOrKeys, objectOrObjects, holdToken = null, orderId = null) {
         let objectStatus = new ObjectStatus();
         return this.changeObjectStatus(eventKeyOrKeys, objectOrObjects, objectStatus.BOOKED, holdToken, orderId);
     }
 
-    /* @return BestAvailableObjects */
+    /**
+     * @param {string} eventKey
+     * @param {number} number
+     * @param {?string[]} categories
+     * @param {?string} holdToken
+     * @param {?string} orderId
+     * @returns {Promise} Promise that resolves to BestAvailableObjects object
+     */
     bookBestAvailable(eventKey, number, categories = null, holdToken = null, orderId = null) {
         let objectStatus = new ObjectStatus();
         return this.changeBestAvailableObjectStatus(encodeURIComponent(eventKey), number, objectStatus.BOOKED, categories, holdToken, orderId);
     }
 
-    /* @return ChangeObjectStatusResult */
+    /**
+     * @param {(string|string[])} eventKeyOrKeys
+     * @param {(object|object[])} objectOrObjects
+     * @param {?string} holdToken
+     * @param {?string} orderId
+     * @returns {Promise} Promise that resolves to ChangeObjectStatusResult object
+     */
     release(eventKeyOrKeys, objectOrObjects, holdToken = null, orderId = null) {
         let objectStatus = new ObjectStatus();
         return this.changeObjectStatus(eventKeyOrKeys, objectOrObjects, objectStatus.FREE, holdToken, orderId);
     }
 
-    /* @return ChangeObjectStatusResult */
+    /**
+     * @param {(string|string[])} eventKeyOrKeys
+     * @param {(object|object[])} objectOrObjects
+     * @param {string} holdToken
+     * @param {?string} orderId
+     * @returns {Promise} Promise that resolves to ChangeObjectStatusResult object
+     */
     hold(eventKeyOrKeys, objectOrObjects, holdToken, orderId = null) {
         let objectStatus = new ObjectStatus();
         return this.changeObjectStatus(eventKeyOrKeys, objectOrObjects, objectStatus.HELD, holdToken, orderId);
     }
 
-    /* @return BestAvailableObjects */
+    /**
+     * @param {string} eventKey
+     * @param {number} number
+     * @param {string} holdToken
+     * @param {?string[]} categories
+     * @param {?string} orderId
+     * @returns {Promise} Promise that resolves to BestAvailableObjects object
+     */
     holdBestAvailable(eventKey, number, holdToken, categories = null, orderId = null) {
         let objectStatus = new ObjectStatus();
         return this.changeBestAvailableObjectStatus(encodeURIComponent(eventKey), number, objectStatus.HELD, categories, holdToken, orderId);
     }
 
-    /* @return BestAvailableObjects */
+    /**
+     * @param {string} eventKey
+     * @param {number} number
+     * @param {string} status
+     * @param {string[]} categories
+     * @param {string} holdToken
+     * @param {object} extraData
+     * @param {string} orderId
+     * @returns {Promise} Promise that resolves to BestAvailableObjects object
+     */
     changeBestAvailableObjectStatus(eventKey, number, status, categories = null, holdToken = null, extraData = null, orderId = null) {
         let requestParameters = {};
         let bestAvailable = {};

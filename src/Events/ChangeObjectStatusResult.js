@@ -1,6 +1,8 @@
 class ChangeObjectStatusResult {
+    /**
+     * @param {Object.<string, {Labels}>} labels
+     */
     constructor(labels) {
-        /* [Common/Label] */
         this.labels = labels;
     }
 }

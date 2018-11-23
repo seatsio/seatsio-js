@@ -1,23 +1,32 @@
 class ObjectProperties {
+    /**
+     * @param {string} objectId
+     */
     constructor(objectId) {
         /* string */
         this.objectId = objectId;
     }
 
+    /**
+     * @param {string} ticketType
+     */
     setTicketType(ticketType) {
-        /* string */
         this.ticketType = ticketType;
         return this;
     }
 
+    /**
+     * @param {number} quantity
+     */
     setQuantity(quantity) {
-        /* int */
         this.quantity = quantity;
         return this;
     }
 
+    /**
+     * @param {object} extraData
+     */
     setExtraData(extraData) {
-        /* object|array */
         this.extraData = extraData;
         return this;
     }

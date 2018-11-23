@@ -1,22 +1,24 @@
 class Chart {
+    /**
+     * @param {string} name
+     * @param {number} id
+     * @param {string} key
+     * @param {string} status
+     * @param {String[]} tags
+     * @param {string} publishedVersionThumbnailUrl
+     * @param {string} draftVersionThumbnailUrl
+     * @param {Event[]} events
+     * @param {boolean} archived
+     */
     constructor(name, id, key, status, tags, publishedVersionThumbnailUrl, draftVersionThumbnailUrl = null, events = null, archived) {
-        /* string */
         this.name = name;
-        /* int */
         this.id = id;
-        /* string */
         this.key = key;
-        /* string */
         this.status = status;
-        /* [string] */
         this.tags = tags;
-        /* string */
         this.publishedVersionThumbnailUrl = publishedVersionThumbnailUrl;
-        /* string */
         this.draftVersionThumbnailUrl = draftVersionThumbnailUrl;
-        /* [Event] */
         this.events = events;
-        /* boolean */
         this.archived = archived;
     }
 }

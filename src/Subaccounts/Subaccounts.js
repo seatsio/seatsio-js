@@ -6,6 +6,9 @@ const utilities = require('../utilities.js');
 
 class Subaccounts {
 
+    /**
+     * @param {SeatsioClient} client
+     */
     constructor(client) {
         this.client = client;
         this.active = new AsyncIterator('/subaccounts/active', this.client, 'subaccounts');
@@ -58,6 +61,12 @@ class Subaccounts {
             .then((res) => utilities.createSubaccount(res.data));
     }
 
+    /**
+     * @param {string} id
+     * @param {?string} name
+     * @param {?string} email
+     * @returns {Promise}
+     */
     update(id, name = null, email = null) {
         let requestParameters = {};
 
