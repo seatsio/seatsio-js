@@ -6,7 +6,7 @@ before_script:
 - npm install -g gulp-cli
 script:
   - gulp bundle
-  - jest --maxWorkers=6
+  - jest --maxWorkers=1
 deploy:
   - provider: npm
     email: namfaldev@gmail.com
