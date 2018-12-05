@@ -158,7 +158,7 @@ class Subaccounts {
      * @returns {AsyncIterator}
      */
     search(searchString) {
-        return new AsyncIterator(`/subaccounts/search/${searchString}`, this.client, 'subaccounts');
+        return new AsyncIterator(`/subaccounts/search/${encodeURIComponent(searchString)}`, this.client, 'subaccounts');
     }
 
     /**
