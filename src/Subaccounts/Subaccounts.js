@@ -155,6 +155,13 @@ class Subaccounts {
     }
 
     /**
+     * @returns {AsyncIterator}
+     */
+    search(searchString) {
+        return new AsyncIterator(`/subaccounts/search/${searchString}`, this.client, 'subaccounts');
+    }
+
+    /**
      * @returns {Lister}
      */
     iterator() {
