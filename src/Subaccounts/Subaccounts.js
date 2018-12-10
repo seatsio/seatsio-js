@@ -129,8 +129,8 @@ class Subaccounts {
     /**
      * @returns {AsyncIterator}
      */
-    listAll() {
-        return new AsyncIterator('/subaccounts', this.client, 'subaccounts');
+    listAll(requestParameters = {}) {
+        return new AsyncIterator('/subaccounts', this.client, 'subaccounts', requestParameters);
     }
 
     /**
@@ -152,13 +152,6 @@ class Subaccounts {
      */
     listPageBefore(beforeId, pageSize = null) {
         return this.iterator().pageBefore(beforeId, null, pageSize);
-    }
-
-    /**
-     * @returns {AsyncIterator}
-     */
-    search(searchString) {
-        return new AsyncIterator(`/subaccounts/search/${encodeURIComponent(searchString)}`, this.client, 'subaccounts');
     }
 
     /**
