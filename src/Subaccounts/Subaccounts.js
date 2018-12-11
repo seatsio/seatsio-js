@@ -129,8 +129,8 @@ class Subaccounts {
     /**
      * @returns {AsyncIterator}
      */
-    listAll() {
-        return new AsyncIterator('/subaccounts', this.client, 'subaccounts');
+    listAll(requestParameters = {}) {
+        return new AsyncIterator('/subaccounts', this.client, 'subaccounts', requestParameters);
     }
 
     /**
