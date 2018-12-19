@@ -20,26 +20,6 @@ class SubaccountListParams {
         this.filter = filter;
         return this;
     }
-
-    /**
-     * @param {string} tag
-     * @returns {SubaccountListParams}
-     */
-    withTag(tag) {
-        this.tag = tag;
-        return this;
-    }
-
-    /**
-     * @param {boolean} expandEvents
-     * @returns {SubaccountListParams}
-     */
-    withExpandEvents(expandEvents) {
-        if (expandEvents === true) {
-            this.expand = 'events';
-        }
-        return this;
-    }
 }
 
 module.exports = SubaccountListParams;
