@@ -1,13 +1,13 @@
 test('listAll subaccounts when there are more than 20 subaccounts', async () => {
-    let subaccountKeys = [], retrievedSubaccountKeys = [];
+    let subaccountIds = [], retrievedSubaccountIds = [];
     for (let i = 0; i < 55; i++) {
         let subaccount = await client.subaccounts.create();
-        subaccountKeys.push(subaccount.key);
+        subaccountIds.push(subaccount.id);
     }
 
     for await(let subaccount of client.subaccounts.listAll()) {
-        retrievedSubaccountKeys.push(subaccount.key);
+        retrievedSubaccountIds.push(subaccount.id);
     }
 
-    expect(retrievedSubaccountKeys.sort()).toEqual(subaccountKeys.sort());
+    expect(retrievedSubaccountIds.sort()).toEqual(subaccountIds.sort());
 });

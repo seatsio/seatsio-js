@@ -5,8 +5,8 @@ test('should list subaccounts before given subaccount id', async () => {
 
     let page = await client.subaccounts.listPageBefore(subaccount1.id);
 
-    let subaccountKeys = [page.items[0].secretKey, page.items[1].secretKey];
-    expect(subaccountKeys.sort()).toEqual([subaccount3.secretKey, subaccount2.secretKey].sort());
+    let subaccountKeys = [page.items[0].id, page.items[1].id];
+    expect(subaccountKeys.sort()).toEqual([subaccount3.id, subaccount2.id].sort());
 });
 
 test('should list subaccounts before given subaccount id with page size', async () => {
@@ -16,6 +16,6 @@ test('should list subaccounts before given subaccount id with page size', async 
 
     let page = await client.subaccounts.listPageBefore(subaccount1.id, 1);
 
-    expect(page.items[0].secretKey).toEqual(subaccount2.secretKey);
+    expect(page.items[0].id).toEqual(subaccount2.id);
     expect(page.items.length).toBe(1);
 });

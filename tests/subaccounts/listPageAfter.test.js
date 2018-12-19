@@ -16,6 +16,6 @@ test('should list subaccounts after given subaccount id with page size', async (
 
     let page = await client.subaccounts.listPageAfter(subaccount3.id, 1);
 
-    expect(page.items[0].secretKey).toEqual(subaccount2.secretKey);
+    expect(page.items[0].id).toEqual(subaccount2.id);
     expect(page.items.length).toBe(1);
 });
