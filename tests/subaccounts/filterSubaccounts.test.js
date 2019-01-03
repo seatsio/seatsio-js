@@ -49,7 +49,7 @@ test('should should retrieve first page of subaccounts with filter', async () =>
     await client.subaccounts.create();
 
     let params = new SubaccountListParams().withFilter('account');
-    let page = await client.subaccounts.listFirstPage(params);
+    let page = await client.subaccounts.listFirstPage(null, params);
     let retrievedSubaccountKeys = page.items.map( subaccount => subaccount.secretKey);
 
     expect(retrievedSubaccountKeys.sort).toEqual([subaccount1.secretKey, subaccount2.secretKey, subaccount3.secretKey].sort);

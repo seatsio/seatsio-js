@@ -136,7 +136,7 @@ class Subaccounts {
     /**
      * @returns {Page}
      */
-    listFirstPage(queryParams = null, pageSize = null) {
+    listFirstPage(pageSize = null, queryParams = null) {
         return this.iterator().firstPage(queryParams, pageSize);
     }
 
