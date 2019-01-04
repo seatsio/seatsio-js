@@ -96,7 +96,7 @@ class Events {
      * @returns {Page}
      */
     listFirstPage(pageSize = null) {
-        return this.iterator().firstPage(pageSize);
+        return this.iterator().firstPage(null, pageSize);
     }
 
     /**

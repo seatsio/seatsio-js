@@ -136,21 +136,21 @@ class Subaccounts {
     /**
      * @returns {Page}
      */
-    listFirstPage(pageSize = null, queryParams = null) {
+    listFirstPage(queryParams = null, pageSize = null) {
         return this.iterator().firstPage(queryParams, pageSize);
     }
 
     /**
      * @returns {Page}
      */
-    listPageAfter(afterId, pageSize = null, queryParams = null) {
+    listPageAfter(afterId, queryParams = null, pageSize = null) {
         return this.iterator().pageAfter(afterId, queryParams, pageSize);
     }
 
     /**
      * @returns {Page}
      */
-    listPageBefore(beforeId, pageSize = null, queryParams = null) {
+    listPageBefore(beforeId, queryParams = null, pageSize = null) {
         return this.iterator().pageBefore(beforeId, queryParams, pageSize);
     }
 
