@@ -7,7 +7,7 @@ class HoldTokens {
 
     /**
      * @param {?number} expiresInMinutes
-     * @returns {Promise} Promise object that will resolve to HoldToken object
+     * @returns {Promise<HoldToken>} Promise object that will resolve to HoldToken object
      */
     create(expiresInMinutes = null) {
         let request = {};
@@ -20,7 +20,7 @@ class HoldTokens {
     /**
      * @param {string} holdToken
      * @param {number} minutes
-     * @returns {Promise} Promise object that will resolve to HoldToken object
+     * @returns {Promise<HoldToken>} Promise object that will resolve to HoldToken object
      */
     expiresInMinutes(holdToken, minutes) {
         let request = {};
@@ -30,7 +30,7 @@ class HoldTokens {
 
     /**
      * @param {string} holdToken
-     * @returns {Promise} Promise object that will resolve to HoldToken object
+     * @returns {Promise<HoldToken>} Promise object that will resolve to HoldToken object
      */
     retrieve(holdToken) {
         return this.client.get(`/hold-tokens/${holdToken}`).then((res) => utilities.createHoldToken(res.data));

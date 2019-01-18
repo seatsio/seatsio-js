@@ -18,7 +18,7 @@ class Charts {
      * @param {?string} name
      * @param {?string} venueType
      * @param {?Object[]} categories
-     * @returns {Promise} Promise that resolves to Chart object
+     * @returns {Promise<Chart>} Promise that resolves to Chart object
      */
     create(name = null, venueType = null, categories = null) {
         let requestParameters = {};
@@ -61,7 +61,7 @@ class Charts {
 
     /**
      * @param {string} key
-     * @returns {Promise} Promise that resolves to a Chart object
+     * @returns {Promise<Chart>} Promise that resolves to a Chart object
      */
     retrieve(key) {
         return this.client.get(`charts/${key}`)
@@ -70,7 +70,7 @@ class Charts {
 
     /**
      * @param {string} key
-     * @returns {Promise} Promise that resolves to a Chart object
+     * @returns {Promise<Chart>} Promise that resolves to a Chart object
      */
     retrieveWithEvents(key) {
         return this.client.get(`charts/${key}?expand=events`)
@@ -129,7 +129,7 @@ class Charts {
 
     /**
      * @param {string} key
-     * @returns {Promise} Promise that resolves to a Chart object
+     * @returns {Promise<Chart>} Promise that resolves to a Chart object
      */
     copy(key) {
         return this.client.post(`charts/${key}/version/published/actions/copy`)
@@ -138,7 +138,7 @@ class Charts {
 
     /**
      * @param {string} key
-     * @returns {Promise} Promise that resolves to a Chart object
+     * @returns {Promise<Chart>} Promise that resolves to a Chart object
      */
     copyDraftVersion(key) {
         return this.client.post(`charts/${key}/version/draft/actions/copy`)
@@ -147,7 +147,7 @@ class Charts {
 
     /**
      * @param {string} key
-     * @returns {Promise} Promise that resolves to a Chart object
+     * @returns {Promise<Chart>} Promise that resolves to a Chart object
      */
     copyToSubaccount(key, subaccountId) {
         return this.client.post(`charts/${key}/version/published/actions/copy-to/${subaccountId}`)

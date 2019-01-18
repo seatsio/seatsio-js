@@ -17,7 +17,7 @@ class Subaccounts {
 
     /**
      * @param {string} id
-     * @returns {Promise} Promise object that will resolve to a Subaccount object
+     * @returns {Promise<Subaccount>} Promise object that will resolve to a Subaccount object
      */
     retrieve(id) {
         return this.client.get(`/subaccounts/${id}`).then((res) => utilities.createSubaccount(res.data));
@@ -25,7 +25,7 @@ class Subaccounts {
 
     /**
      * @param {?string} name
-     * @returns {Promise} Promise object that will resolve to a Subaccount object
+     * @returns {Promise<Subaccount>} Promise object that will resolve to a Subaccount object
      */
     create(name = null) {
         return this.doCreate(null, name);
@@ -34,7 +34,7 @@ class Subaccounts {
     /**
      * @param {string} email
      * @param {?string} name
-     * @returns {Promise} Promise object that will resolve to a Subaccount object
+     * @returns {Promise<Subaccount>} Promise object that will resolve to a Subaccount object
      */
     createWithEmail(email, name = null) {
         return this.doCreate(email, name);
@@ -43,7 +43,7 @@ class Subaccounts {
     /**
      * @param {?string} email
      * @param {?string} name
-     * @returns {Promise} Promise object that will resolve to a Subaccount object
+     * @returns {Promise<Subaccount>} Promise object that will resolve to a Subaccount object
      */
     doCreate(email = null, name = null) {
         let requestParameters = {};
@@ -91,7 +91,7 @@ class Subaccounts {
 
     /**
      * @param {string} id
-     * @returns {Promise} Promise object that will resolve to a string
+     * @returns {Promise<String>} Promise object that will resolve to a string
      */
     regenerateSecretKey(id) {
         return this.client.post(`/subaccounts/${id}/secret-key/actions/regenerate`).then((res) => res.data);
@@ -99,7 +99,7 @@ class Subaccounts {
 
     /**
      * @param {string} id
-     * @returns {Promise} Promise object that will resolve to a string
+     * @returns {Promise<String>} Promise object that will resolve to a string
      */
     regenerateDesignerKey(id) {
         return this.client.post(`/subaccounts/${id}/designer-key/actions/regenerate`).then((res) => res.data);
@@ -108,7 +108,7 @@ class Subaccounts {
     /**
      * @param {string} id
      * @param {string} chartKey
-     * @returns {Promise} Promise object that will resolve to a Chart object
+     * @returns {Promise<Chart>} Promise object that will resolve to a Chart object
      */
     copyChartToParent(id, chartKey) {
         return this.client.post(`/subaccounts/${id}/charts/${chartKey}/actions/copy-to/parent`)
@@ -119,7 +119,7 @@ class Subaccounts {
      * @param {string} fromId
      * @param {string} toId
      * @param {string} chartKey
-     * @returns {Promise} Promise object that will resolve to a Chart object
+     * @returns {Promise<Chart>} Promise object that will resolve to a Chart object
      */
     copyChartToSubaccount(fromId, toId, chartKey) {
         return this.client.post(`/subaccounts/${fromId}/charts/${chartKey}/actions/copy-to/${toId}`)

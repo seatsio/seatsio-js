@@ -6,7 +6,7 @@ class Accounts {
     }
 
     /**
-     * @returns {Promise} Promise that resolves to Account object
+     * @returns {Promise<Account>} Promise that resolves to Account object
      */
     retrieveMyAccount() {
         return this.client.get('/accounts/me').then((res) => utilities.createAccount(res.data));

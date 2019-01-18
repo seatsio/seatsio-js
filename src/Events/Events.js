@@ -18,7 +18,7 @@ class Events {
      * @param {string} chartKey
      * @param {?string} eventKey
      * @param {?object} bookWholeTablesOrTableBookingModes
-     * @returns {Promise} Promise that resolves to Event object
+     * @returns {Promise<Event>} Promise that resolves to Event object
      */
     create(chartKey, eventKey = null, bookWholeTablesOrTableBookingModes = null) {
         let requestParameters = {};
@@ -41,7 +41,7 @@ class Events {
 
     /**
      * @param {string} eventKey
-     * @returns {Promise} Promise that resolves to Event object
+     * @returns {Promise<Event>} Promise that resolves to Event object
      */
     retrieve(eventKey) {
         return this.client.get(`/events/${encodeURIComponent(eventKey)}`)
@@ -212,7 +212,7 @@ class Events {
     /**
      * @param {string} eventKey
      * @param {string} obj
-     * @returns {Promise} Promise that resolves to ObjectStatus object
+     * @returns {Promise<ObjectStatus>} Promise that resolves to ObjectStatus object
      */
     retrieveObjectStatus(eventKey, obj) {
         return this.client.get(`events/${encodeURIComponent(eventKey)}/objects/${encodeURIComponent(obj)}`)
@@ -225,7 +225,7 @@ class Events {
      * @param {string} status
      * @param {string} holdToken
      * @param {string} orderId
-     * @returns {Promise} Promise that resolves to ChangeObjectStatusResult object
+     * @returns {Promise<ChangeObjectStatusResult>} Promise that resolves to ChangeObjectStatusResult object
      */
     changeObjectStatus(eventKeyOrKeys, objectOrObjects, status, holdToken = null, orderId = null) {
         let requestParameters = {};
@@ -253,7 +253,7 @@ class Events {
      * @param {object|object[]} objectOrObjects
      * @param {?string} holdToken
      * @param {?string} orderId
-     * @returns {Promise} Promise that resolves to ChangeObjectStatusResult object
+     * @returns {Promise<ChangeObjectStatusResult>} Promise that resolves to ChangeObjectStatusResult object
      */
     book(eventKeyOrKeys, objectOrObjects, holdToken = null, orderId = null) {
         let objectStatus = new ObjectStatus();
@@ -266,7 +266,7 @@ class Events {
      * @param {?string[]} categories
      * @param {?string} holdToken
      * @param {?string} orderId
-     * @returns {Promise} Promise that resolves to BestAvailableObjects object
+     * @returns {Promise<BestAvailableObjects>} Promise that resolves to BestAvailableObjects object
      */
     bookBestAvailable(eventKey, number, categories = null, holdToken = null, orderId = null) {
         let objectStatus = new ObjectStatus();
@@ -278,7 +278,7 @@ class Events {
      * @param {(object|object[])} objectOrObjects
      * @param {?string} holdToken
      * @param {?string} orderId
-     * @returns {Promise} Promise that resolves to ChangeObjectStatusResult object
+     * @returns {Promise<ChangeObjectStatusResult>} Promise that resolves to ChangeObjectStatusResult object
      */
     release(eventKeyOrKeys, objectOrObjects, holdToken = null, orderId = null) {
         let objectStatus = new ObjectStatus();
@@ -290,7 +290,7 @@ class Events {
      * @param {(object|object[])} objectOrObjects
      * @param {string} holdToken
      * @param {?string} orderId
-     * @returns {Promise} Promise that resolves to ChangeObjectStatusResult object
+     * @returns {Promise<ChangeObjectStatusResult>} Promise that resolves to ChangeObjectStatusResult object
      */
     hold(eventKeyOrKeys, objectOrObjects, holdToken, orderId = null) {
         let objectStatus = new ObjectStatus();
@@ -303,7 +303,7 @@ class Events {
      * @param {string} holdToken
      * @param {?string[]} categories
      * @param {?string} orderId
-     * @returns {Promise} Promise that resolves to BestAvailableObjects object
+     * @returns {Promise<BestAvailableObjects>} Promise that resolves to BestAvailableObjects object
      */
     holdBestAvailable(eventKey, number, holdToken, categories = null, orderId = null) {
         let objectStatus = new ObjectStatus();
@@ -318,7 +318,7 @@ class Events {
      * @param {string} holdToken
      * @param {object} extraData
      * @param {string} orderId
-     * @returns {Promise} Promise that resolves to BestAvailableObjects object
+     * @returns {Promise<BestAvailableObjects>} Promise that resolves to BestAvailableObjects object
      */
     changeBestAvailableObjectStatus(eventKey, number, status, categories = null, holdToken = null, extraData = null, orderId = null) {
         let requestParameters = {};
