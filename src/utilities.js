@@ -90,11 +90,12 @@ module.exports = {
      * @returns {Event}
      */
     createEvent(data) {
+        let createdOn = data.createdOn ? new Date(data.createdOn) : null;
         let updatedOn = data.updatedOn ? new Date(data.updatedOn) : null;
 
         return new Event(data.id, data.key, data.bookWholeTables,
             data.supportsBestAvailable, data.forSaleConfig, data.tableBookingModes, data.chartKey,
-            new Date(data.createdOn), updatedOn);
+            createdOn, updatedOn);
     },
 
     /**

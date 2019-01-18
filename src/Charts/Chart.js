@@ -1,4 +1,5 @@
 class Chart {
+
     /**
      * @param {string} name
      * @param {number} id
