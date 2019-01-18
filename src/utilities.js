@@ -124,7 +124,8 @@ module.exports = {
      */
     createAccount(data) {
         let chartValidation = data.settings.chartValidation;
-        let settings = new AccountSettings(data.settings.draftChartDrawingsEnabled, data.settings.holdOnSelectForGAs, new ChartValidationSettings(chartValidation.VALIDATE_DUPLICATE_LABELS, chartValidation.VALIDATE_OBJECTS_WITHOUT_CATEGORIES, chartValidation.VALIDATE_UNLABELED_OBJECTS));
+        let chartValidationSettings = new ChartValidationSettings(chartValidation.VALIDATE_DUPLICATE_LABELS, chartValidation.VALIDATE_OBJECTS_WITHOUT_CATEGORIES, chartValidation.VALIDATE_UNLABELED_OBJECTS);
+        let settings = new AccountSettings(data.settings.draftChartDrawingsEnabled, data.settings.holdOnSelectForGAs, data.settings.holdPeriodInMinutes, chartValidationSettings);
         return new Account(data.secretKey, data.designerKey, data.publicKey, settings, data.email);
     },
 

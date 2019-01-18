@@ -1,4 +1,5 @@
 class Account {
+
     /**
      * @param {string} secretKey
      * @param {string} designerKey

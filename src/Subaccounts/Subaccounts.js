@@ -91,7 +91,7 @@ class Subaccounts {
 
     /**
      * @param {string} id
-     * @returns {Promise<String>} Promise object that will resolve to a string
+     * @returns {Promise<string>} Promise object that will resolve to a string
      */
     regenerateSecretKey(id) {
         return this.client.post(`/subaccounts/${id}/secret-key/actions/regenerate`).then((res) => res.data);
@@ -99,7 +99,7 @@ class Subaccounts {
 
     /**
      * @param {string} id
-     * @returns {Promise<String>} Promise object that will resolve to a string
+     * @returns {Promise<string>} Promise object that will resolve to a string
      */
     regenerateDesignerKey(id) {
         return this.client.post(`/subaccounts/${id}/designer-key/actions/regenerate`).then((res) => res.data);
