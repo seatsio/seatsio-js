@@ -9,6 +9,7 @@ const errorResponseHandler = require('./errorInterceptor.js');
 const Axios = require('axios');
 
 class SeatsioClient {
+
     constructor(secretKey, baseUrl = 'https://api.seatsio.net/') {
 
         this.client = Axios.create({

@@ -2,7 +2,7 @@ const testUtils = require('../testUtils.js');
 
 test('should copy to subaccount', async () => {
     let subaccount = await client.subaccounts.create();
-    let subaccountClient = testUtils.createClient(subaccount.secretKey, testUtils.baseUrl);
+    let subaccountClient = testUtils.createClient(subaccount.secretKey);
     let chart = await client.charts.create('My chart');
 
     let copiedChart = await client.charts.copyToSubaccount(chart.key, subaccount.id);
