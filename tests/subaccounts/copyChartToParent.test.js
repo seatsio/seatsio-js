@@ -2,7 +2,7 @@ const testUtils = require('../testUtils.js');
 
 test('should copy chart to parent', async () => {
     let subaccount = await client.subaccounts.create();
-    let chart = await testUtils.createClient(subaccount.secretKey, testUtils.baseUrl).charts.create('aChart');
+    let chart = await testUtils.createClient(subaccount.secretKey).charts.create('aChart');
 
     let copiedChart = await client.subaccounts.copyChartToParent(subaccount.id, chart.key);
 

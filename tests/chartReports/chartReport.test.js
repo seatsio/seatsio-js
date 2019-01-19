@@ -29,7 +29,7 @@ test('chart report properties for GA', async () => {
 
 test('byLabel method for Reports module', async () => {
     let user = await testUtils.createTestUser();
-    let client = testUtils.createClient(user.secretKey, testUtils.baseUrl);
+    let client = testUtils.createClient(user.secretKey);
     let chartKey = testUtils.getChartKey();
     await testUtils.createTestChart(chartKey, user.designerKey);
 

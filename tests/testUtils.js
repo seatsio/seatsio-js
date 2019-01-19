@@ -4,12 +4,10 @@ const fs = require('fs');
 const uuidv1 = require('uuid/v1');
 const LabelClasses = require('../src/Common/Labels.js');
 
+const baseUrl = 'https://api-staging.seatsio.net/';
+
 module.exports = {
-    'baseUrl': 'https://api-staging.seatsio.net/',
-
     createTestUser: function () {
-        let baseUrl = 'https://api-staging.seatsio.net/';
-
         let testUserPr = axios({
             method: 'POST',
             url: baseUrl + 'system/public/users/actions/create-test-user'
@@ -24,8 +22,8 @@ module.exports = {
         return uuidv1();
     },
 
-    createClient: function (key, baseUrl) {
-        return new SeatsioClient(key, baseUrl);
+    createClient: function (secretKey) {
+        return new SeatsioClient(secretKey, baseUrl);
     },
 
     createTestChart: async function (chartKey, designerKey) {
