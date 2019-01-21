@@ -223,8 +223,8 @@ class Events {
      * @param {(string|string[])} eventKeyOrKeys
      * @param {object|object[]} objectOrObjects
      * @param {string} status
-     * @param {string} holdToken
-     * @param {string} orderId
+     * @param {?string} holdToken
+     * @param {?string} orderId
      * @returns {Promise<ChangeObjectStatusResult>} Promise that resolves to ChangeObjectStatusResult object
      */
     changeObjectStatus(eventKeyOrKeys, objectOrObjects, status, holdToken = null, orderId = null) {
@@ -244,7 +244,7 @@ class Events {
 
         requestParameters.events = Array.isArray(eventKeyOrKeys) ? eventKeyOrKeys : [eventKeyOrKeys];
 
-        return this.client.post(`/seasons/actions/change-object-status?expand=labels`, requestParameters)
+        return this.client.post(`/seasons/actions/change-object-status?expand=objects`, requestParameters)
             .then((res) => utilities.createChangeObjectStatusResult(res.data));
     }
 
@@ -315,9 +315,9 @@ class Events {
      * @param {number} number
      * @param {string} status
      * @param {string[]} categories
-     * @param {string} holdToken
-     * @param {object} extraData
-     * @param {string} orderId
+     * @param {?string} holdToken
+     * @param {?object} extraData
+     * @param {?string} orderId
      * @returns {Promise<BestAvailableObjects>} Promise that resolves to BestAvailableObjects object
      */
     changeBestAvailableObjectStatus(eventKey, number, status, categories = null, holdToken = null, extraData = null, orderId = null) {

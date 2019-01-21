@@ -45,7 +45,7 @@ module.exports = {
         return client.post(url, requestBody);
     },
 
-    someLabels(ownLabel, ownType, parentLabel = null, parentType = null, section = null, entrance = null) {
+    someLabels(ownLabel, ownType, parentLabel = null, parentType = null, section = null) {
         let labels;
         if (parentLabel) {
             labels = new LabelClasses.Labels(new LabelClasses.LabelAndType(ownLabel, ownType), new LabelClasses.LabelAndType(parentLabel, parentType));
@@ -54,10 +54,6 @@ module.exports = {
         }
         if (section) {
             labels.section = section;
-        }
-        if (entrance) {
-            labels.entrance = {}
-            labels.entrance.label = entrance;
         }
         return labels;
     },

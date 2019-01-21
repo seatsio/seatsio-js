@@ -15,6 +15,7 @@ const StatusChange = require('./Events/StatusChange.js');
 const LabelClasses = require('./Common/Labels.js');
 
 module.exports = {
+
     /**
      * @param {Object} data
      * @returns {Object.<string, Labels>}
@@ -29,9 +30,6 @@ module.exports = {
             }
             if (data.labels[key].section) {
                 labels[key].section = data.labels[key].section;
-            }
-            if (data.labels[key].entrance) {
-                labels[key].entrance = data.labels[key].entrance;
             }
 
         }
@@ -52,9 +50,6 @@ module.exports = {
         if (data.labels.section) {
             labels.section = data.labels.section;
         }
-        if (data.labels.entrance) {
-            labels.entrance = data.labels.entrance;
-        }
 
         return labels;
     },
@@ -72,8 +67,7 @@ module.exports = {
      * @returns {BestAvailableObjects}
      */
     createBestAvailableObjects(data) {
-        let labels = this.labelsCreator(data);
-        return new BestAvailableObjects(data.objects, labels, data.nextToEachOther);
+        return new BestAvailableObjects(data.objects, this.createChangeObjectStatusDetails(data.objectDetails), data.nextToEachOther);
     },
 
     /**
@@ -81,8 +75,15 @@ module.exports = {
      * @returns {ChangeObjectStatusResult}
      */
     createChangeObjectStatusResult(data) {
-        let labels = this.labelsCreator(data);
-        return new ChangeObjectStatusResult(labels);
+        return new ChangeObjectStatusResult(this.createChangeObjectStatusDetails(data.objects));
+    },
+
+    createChangeObjectStatusDetails(data) {
+        let objectDetails = {};
+        for(let key in data) {
+            objectDetails[key] = this.createEventReportItem(data[key]);
+        }
+        return objectDetails;
     },
 
     /**
@@ -141,19 +142,22 @@ module.exports = {
      * @param {object} reportsData
      * @returns {Object.<string, EventReportItem>}
      */
-    createEventReport(reportsData, filter = null) {
+    createEventReport(reportsData) {
         let reportObjects = {};
         for (const key of Object.keys(reportsData)) {
-            reportObjects[key] = reportsData[key].map(data => {
-                    let labels = this.labelCreator(data);
-                    return new EventReportItem(data.label, labels, data.status, data.categoryLabel, data.categoryKey, data.ticketType,
-                        data.entrance, data.objectType, data.section, data.orderId, data.forSale, data.holdToken,
-                        data.capacity, data.numBooked, data.extraData);
-                }
-            );
+            reportObjects[key] = reportsData[key].map(data => this.createEventReportItem(data));
         }
-
         return reportObjects;
+    },
+
+    /**
+     *
+     */
+    createEventReportItem(data) {
+        let labels = this.labelCreator(data);
+        return new EventReportItem(data.label, labels, data.status, data.categoryLabel, data.categoryKey, data.ticketType,
+            data.entrance, data.objectType, data.section, data.orderId, data.forSale, data.holdToken,
+            data.capacity, data.numBooked, data.extraData);
     },
 
     /**
