@@ -1,7 +1,7 @@
 class EventReportItem {
     /**
      * @param {string} label
-     * @param {Common/Labels} labels
+     * @param {Labels} labels
      * @param {string}status
      * @param {string} categoryLabel
      * @param {string} categoryKey

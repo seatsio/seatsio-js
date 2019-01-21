@@ -9,9 +9,18 @@ test('should change object status', async () => {
 
     let result = await client.events.changeObjectStatus(event.key, 'A-1', 'lolzor');
 
-    expect(result.labels).toEqual({'A-1': testUtils.someLabels('1', 'seat', 'A', 'row')});
+    expect(result.objects).toEqual({
+        "A-1": {
+            "categoryKey": "9",
+            "categoryLabel": "Cat1",
+            "forSale": true,
+            "label": "A-1",
+            "labels": {"own": {"label": "1", "type": "seat"}, "parent": {"label": "A", "type": "row"}},
+            "objectType": "seat",
+            "status": "lolzor"
+        }
+    });
 });
-
 
 test('should change object status for table seat', async () => {
     let chartKey = testUtils.getChartKey();
@@ -20,7 +29,7 @@ test('should change object status for table seat', async () => {
 
     let result = await client.events.changeObjectStatus(event.key, 'T1-1', 'lolzor');
 
-    expect(result.labels).toEqual({'T1-1': testUtils.someLabels('1', 'seat', 'T1', 'table')});
+    expect(Object.keys(result.objects)).toEqual(['T1-1']);
 });
 
 test('should change object status for table', async () => {
@@ -30,7 +39,7 @@ test('should change object status for table', async () => {
 
     let result = await client.events.changeObjectStatus(event.key, 'T1', 'lolzor');
 
-    expect(result.labels).toEqual({'T1': testUtils.someLabels('T1', 'table')});
+    expect(Object.keys(result.objects)).toEqual(['T1']);
 });
 
 test('should change object status with GA', async () => {
@@ -40,7 +49,7 @@ test('should change object status with GA', async () => {
 
     let result = await client.events.changeObjectStatus(event.key, '34', 'lolzor');
 
-    expect(result.labels).toEqual({'34': testUtils.someLabels('34', 'generalAdmission')});
+    expect(Object.keys(result.objects)).toEqual(['34']);
 });
 
 test('should change object status with GA and quantity', async () => {
@@ -48,10 +57,13 @@ test('should change object status with GA and quantity', async () => {
     await testUtils.createTestChart(chartKey, user.designerKey);
     let event = await client.events.create(chartKey);
 
-    let result = await client.events.changeObjectStatus(event.key, {"objectId" : "GA1", "quantity" : 100}, 'myCustomStatus');
+    let result = await client.events.changeObjectStatus(event.key, {
+        "objectId": "GA1",
+        "quantity": 100
+    }, 'myCustomStatus');
 
     let retrievedStatus = await client.events.retrieveObjectStatus(event.key, 'GA1');
-    expect(result.labels).toEqual({'GA1': testUtils.someLabels('GA1', 'generalAdmission')});
+    expect(Object.keys(result.objects)).toEqual(['GA1']);
     expect(retrievedStatus.quantity).toBe(100);
     expect(retrievedStatus.status).toBe('myCustomStatus');
 });

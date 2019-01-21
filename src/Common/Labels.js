@@ -20,17 +20,7 @@ class LabelAndType {
     }
 }
 
-class Entrance {
-    /**
-     * @param {string} label
-     */
-    constructor(label) {
-        this.label = label;
-    }
-}
-
 module.exports = {
     Labels: Labels,
-    LabelAndType: LabelAndType,
-    Entrance: Entrance
+    LabelAndType: LabelAndType
 };
