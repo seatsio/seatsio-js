@@ -6,10 +6,11 @@ class StatusChange {
      * @param {number} quantity
      * @param {string} objectLabel
      * @param {Date} date
-     * @param {string} orderId
-     * @param {object} extraData
+     * @param {?string} orderId
+     * @param {?object} extraData
+     * @param {?string} holdToken
      */
-    constructor(id, eventId, status, quantity, objectLabel, date, orderId = null, extraData = null) {
+    constructor(id, eventId, status, quantity, objectLabel, date, orderId = null, extraData = null, holdToken = null) {
         this.id = id;
         this.eventId = eventId;
         this.status = status;
@@ -18,6 +19,7 @@ class StatusChange {
         this.date = date;
         this.orderId = orderId;
         this.extraData = extraData;
+        this.holdToken = holdToken;
     }
 }
 
