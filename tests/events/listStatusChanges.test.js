@@ -46,13 +46,11 @@ test('that status change contains holdToken', async () => {
     let holdToken = await client.holdTokens.create();
     await client.events.hold(event.key, 'A-1', holdToken.holdToken);
 
-    let statusChanges = [];
+    let statusChanges = client.events.statusChanges(event.key);
+    let statusChangesIterator = statusChanges[Symbol.asyncIterator]();
+    let statusChange = await statusChangesIterator.next();
 
-    for await (let statusChange of client.events.statusChanges(event.key)) {
-        statusChanges.push(statusChange);
-    }
-
-    expect(statusChanges[0].holdToken).toEqual(holdToken.holdToken);
+    expect(statusChange.value.holdToken).toEqual(holdToken.holdToken);
 });
 
 test('that holdToken is null if booking without holdToken', async () => {
