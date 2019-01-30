@@ -38,3 +38,30 @@ test('properties of status change', async () => {
     expect(statusChange.value.eventId).toBe(event.id);
     expect(statusChange.value.extraData).toEqual({'foo': 'bar'});
 });
+
+test('that status change contains holdToken', async () => {
+    let chartKey = testUtils.getChartKey();
+    await testUtils.createTestChart(chartKey, user.designerKey);
+    let event = await client.events.create(chartKey);
+    let holdToken = await client.holdTokens.create();
+    await client.events.hold(event.key, 'A-1', holdToken.holdToken);
+
+    let statusChanges = client.events.statusChanges(event.key);
+    let statusChangesIterator = statusChanges[Symbol.asyncIterator]();
+    let statusChange = await statusChangesIterator.next();
+
+    expect(statusChange.value.holdToken).toEqual(holdToken.holdToken);
+});
+
+test('that holdToken is null if booking without holdToken', async () => {
+    let chartKey = testUtils.getChartKey();
+    await testUtils.createTestChart(chartKey, user.designerKey);
+    let event = await client.events.create(chartKey);
+    await client.events.book(event.key, 'A-2');
+
+    let statusChanges = client.events.statusChanges(event.key);
+    let statusChangesIterator = statusChanges[Symbol.asyncIterator]();
+    let statusChange = await statusChangesIterator.next();
+
+    expect(statusChange.value.holdToken).toEqual(null);
+});
