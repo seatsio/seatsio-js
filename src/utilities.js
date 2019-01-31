@@ -108,6 +108,14 @@ module.exports = {
     },
 
     /**
+     * @param {objects[]} statusChangesData
+     * @returns {StatusChange[]}
+     */
+    createMultipleStatusChanges(statusChangesData) {
+        return statusChangesData.map(statusChangesData => this.createStatusChange(statusChangesData));
+    },
+
+    /**
      * @param {object} data
      * @returns {Chart}
      */
