@@ -88,10 +88,11 @@ test('should list first page with given page size', async () => {
     await testUtils.createTestChart(chartKey, user.designerKey);
     let event = await client.events.create(chartKey);
     await client.events.book(event.key, 'A-1');
+    await client.events.book(event.key, 'A-2');
 
     let statusChangeFirstPage =  await client.events.listStatusChangesFirstPage(event.key, 1);
 
-    expect(statusChangeFirstPage.items[0].objectLabel).toBe('A-1');
+    expect(statusChangeFirstPage.items[0].objectLabel).toBe('A-2');
     expect(statusChangeFirstPage.items.length).toBe(1);
     expect(statusChangeFirstPage.nextPageStartsAfter).toBe(statusChangeFirstPage.items[0].id + '');
 });
@@ -129,9 +130,6 @@ test('should list page after given id with page size', async () => {
     expect(pageAfter.items.length).toBe(1);
 });
 
-
-///
-
 test('should list before after given id', async () => {
     let chartKey = testUtils.getChartKey();
     await testUtils.createTestChart(chartKey, user.designerKey);
@@ -142,8 +140,7 @@ test('should list before after given id', async () => {
 
     let statusChangeFirstPage =  await client.events.listStatusChangesFirstPage(event.key);
     let pageBefore = await client.events.listStatusChangesPageBefore(event.key, statusChangeFirstPage.items[2].id);
-
-    console.log(pageBefore);
+    
     expect([pageBefore.items[0].objectLabel, pageBefore.items[1].objectLabel]).toEqual(['A-3', 'A-2']);
     expect(pageBefore.nextPageStartsAfter).toBe(pageBefore.items[1].id + '');
     expect(pageBefore.items.length).toBe(2);
