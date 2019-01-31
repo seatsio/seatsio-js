@@ -143,6 +143,47 @@ class Events {
 
     /**
      * @param {string} eventKey
+     * @param {?number} pageSize
+     * @returns {Page}
+     */
+    listStatusChangesFirstPage(eventKey, pageSize = null) {
+        return this.statusChangeIterator(eventKey).firstPage(null, pageSize);
+    }
+
+    /**
+     * @param {string} eventKey
+     * @param {?string} afterId
+     * @param {?number} pageSize
+     * @returns {Page}
+     */
+    listStatusChangesPageAfter(eventKey, afterId, pageSize = null) {
+        return this.statusChangeIterator(eventKey).pageAfter(afterId, null, pageSize);
+    }
+
+    /**
+     * @param {string} eventKey
+     * @param {?string} beforeId
+     * @param {?number} pageSize
+     * @returns {Page}
+     */
+    listStatusChangesPageBefore(eventKey, beforeId, pageSize = null) {
+        return this.statusChangeIterator(eventKey).pageBefore(beforeId, null, pageSize);
+    }
+
+    /**
+     * @returns {Lister}
+     */
+    statusChangeIterator(eventKey) {
+        return new Lister(new PageFetcher(`/events/${encodeURIComponent(eventKey)}/status-changes`, this.client, results => {
+            let statusChanges= utilities.createMultipleStatusChanges(results.items);
+            let after_id = results.next_page_starts_after ? results.next_page_starts_after : null;
+            let before_id = results.previous_page_ends_before ? results.previous_page_ends_before : null;
+            return new Page(statusChanges, after_id, before_id);
+        }));
+    }
+
+    /**
+     * @param {string} eventKey
      * @param {?object} objects
      * @param {?string[]} categories
      * @returns {Promise}
