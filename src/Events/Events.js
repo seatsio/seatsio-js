@@ -132,13 +132,14 @@ class Events {
     /**
      * @param {string} eventKey
      * @param {?string} objectId
+     * @param {?object} params
      * @returns {AsyncIterator}
      */
-    statusChanges(eventKey, objectId = null) {
+    statusChanges(eventKey, objectId = null, params = {}) {
         if (objectId === null) {
-            return new AsyncIterator(`/events/${encodeURIComponent(eventKey)}/status-changes`, this.client, 'statusChanges');
+            return new AsyncIterator(`/events/${encodeURIComponent(eventKey)}/status-changes`, this.client, 'statusChanges', params);
         }
-        return new AsyncIterator(`/events/${encodeURIComponent(eventKey)}/objects/${encodeURIComponent(objectId)}/status-changes`, this.client, 'statusChanges');
+        return new AsyncIterator(`/events/${encodeURIComponent(eventKey)}/objects/${encodeURIComponent(objectId)}/status-changes`, this.client, 'statusChanges', params);
     }
 
     /**
@@ -153,22 +154,24 @@ class Events {
 
     /**
      * @param {string} eventKey
+     * @param {StatusChangesParams} statusChangesParams
      * @param {?string} afterId
      * @param {?number} pageSize
      * @returns {Page}
      */
-    listStatusChangesPageAfter(eventKey, afterId, pageSize = null) {
-        return this.statusChangeIterator(eventKey).pageAfter(afterId, null, pageSize);
+    listStatusChangesPageAfter(eventKey, afterId, statusChangesParams = null, pageSize = null) {
+        return this.statusChangeIterator(eventKey).pageAfter(afterId, statusChangesParams, pageSize);
     }
 
     /**
      * @param {string} eventKey
      * @param {?string} beforeId
+     * @param {StatusChangesParams} statusChangesParams
      * @param {?number} pageSize
      * @returns {Page}
      */
-    listStatusChangesPageBefore(eventKey, beforeId, pageSize = null) {
-        return this.statusChangeIterator(eventKey).pageBefore(beforeId, null, pageSize);
+    listStatusChangesPageBefore(eventKey, beforeId, statusChangesParams = null,  pageSize = null) {
+        return this.statusChangeIterator(eventKey).pageBefore(beforeId, statusChangesParams, pageSize);
     }
 
     /**
