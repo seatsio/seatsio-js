@@ -4,6 +4,7 @@ node_js:
 - node
 before_script:
 - npm install -g gulp-cli
+- export TZ=Europe/Brussels
 script:
   - gulp bundle
   - jest --maxWorkers=1
