@@ -143,11 +143,12 @@ class Events {
 
     /**
      * @param {string} eventKey
+     * @param {StatusChangesParams} statusChangesParams
      * @param {?number} pageSize
      * @returns {Page}
      */
-    listStatusChangesFirstPage(eventKey, pageSize = null) {
-        return this.statusChangeIterator(eventKey).firstPage(null, pageSize);
+    listStatusChangesFirstPage(eventKey, statusChangesParams = null, pageSize = null) {
+        return this.statusChangeIterator(eventKey).firstPage(statusChangesParams, pageSize);
     }
 
     /**
