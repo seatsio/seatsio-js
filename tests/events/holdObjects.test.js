@@ -17,8 +17,5 @@ test('should hold objects', async () => {
     expect(status2.status).toBe(objectStatus.HELD);
     expect(status2.holdToken).toBe(holdToken.holdToken);
 
-    expect(holdResult.labels).toEqual({
-        "A-1": testUtils.someLabels("1", "seat", "A", "row"),
-        "A-2": testUtils.someLabels("2", "seat", "A", "row")
-    });
+    expect(Object.keys(holdResult.objects)).toEqual(['A-1', 'A-2']);
 });

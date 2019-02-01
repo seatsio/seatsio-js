@@ -1,9 +1,10 @@
 class ChangeObjectStatusResult {
+
     /**
-     * @param {Object.<string, {Labels}>} labels
+     * @param {Object.<string, {EventReportItem}>} objects
      */
-    constructor(labels) {
-        this.labels = labels;
+    constructor(objects) {
+        this.objects = objects;
     }
 }
 

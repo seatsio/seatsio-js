@@ -14,10 +14,7 @@ test('should release objects', async () => {
     let status2 = await client.events.retrieveObjectStatus(event.key, 'A-2');
     expect(status1.status).toBe(objectStatus.FREE);
     expect(status2.status).toBe(objectStatus.FREE);
-    expect(releaseRes.labels).toEqual({
-        'A-1': testUtils.someLabels('1', 'seat', 'A', 'row'),
-        'A-2': testUtils.someLabels('2', 'seat', 'A', 'row')
-    });
+    expect(Object.keys(releaseRes.objects)).toEqual(['A-1', 'A-2']);
 });
 
 test('should release objects with hold tokens', async () => {
