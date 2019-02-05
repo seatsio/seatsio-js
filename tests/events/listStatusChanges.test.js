@@ -3,7 +3,7 @@ const ObjectProperties = require('../../src/Events/ObjectProperties.js');
 const ObjectStatus = require('../../src/Events/ObjectStatus.js');
 const StatusChangeParam = require('../../src/Events/StatusChangesParams.js');
 
-test('should list status changes', async () => {
+test('should list all status changes', async () => {
     let chartKey = testUtils.getChartKey();
     await testUtils.createTestChart(chartKey, user.designerKey);
     let event = await client.events.create(chartKey);
@@ -19,7 +19,7 @@ test('should list status changes', async () => {
     expect(labels.sort()).toEqual(['A-1', 'A-2', 'A-3']);
 });
 
-test('should list status changes sorted by label', async () => {
+test('should list all status changes sorted by label', async () => {
     let chartKey = testUtils.getChartKey();
     await testUtils.createTestChart(chartKey, user.designerKey);
     let event = await client.events.create(chartKey);
@@ -36,7 +36,7 @@ test('should list status changes sorted by label', async () => {
     expect(labels).toEqual(['A-1', 'A-2', 'A-3']);
 });
 
-test('should list status changes sorted by status', async () => {
+test('should list all status changes sorted by status', async () => {
     let chartKey = testUtils.getChartKey();
     await testUtils.createTestChart(chartKey, user.designerKey);
     let event = await client.events.create(chartKey);
@@ -56,7 +56,7 @@ test('should list status changes sorted by status', async () => {
     expect(labels).toEqual(['A-2', 'B-1', 'A-1', 'A-3', 'A-1']);
 });
 
-test('should list status changes sorted by date ascending', async () => {
+test('should list all status changes sorted by date ascending', async () => {
     let chartKey = testUtils.getChartKey();
     await testUtils.createTestChart(chartKey, user.designerKey);
     let event = await client.events.create(chartKey);
@@ -73,7 +73,7 @@ test('should list status changes sorted by date ascending', async () => {
     expect(labels).toEqual(['A-1', 'A-3', 'A-2']);
 });
 
-test('should list status changes with filter', async () => {
+test('should list all status changes with filter', async () => {
     let chartKey = testUtils.getChartKey();
     await testUtils.createTestChart(chartKey, user.designerKey);
     let event = await client.events.create(chartKey);
@@ -164,12 +164,16 @@ test('should list status changes in the first page', async () => {
     await client.events.book(event.key, 'A-3');
 
     let firstPage =  await client.events.listStatusChangesFirstPage(event.key);
+    let labels = [
+        firstPage.items[0].objectLabel,
+        firstPage.items[1].objectLabel,
+        firstPage.items[2].objectLabel
+    ];
 
-    expect(firstPage.items[0].objectLabel).toBe('A-3');
-    expect(firstPage.items[1].objectLabel).toBe('A-2');
-    expect(firstPage.items[2].objectLabel).toBe('A-1');
+    expect(labels).toEqual(['A-3', 'A-2', 'A-1']);
     expect(firstPage.items.length).toBe(3);
     expect(firstPage.nextPageStartsAfter).toBe(null);
+    expect(firstPage.previousPageEndsBefore).toBe(null);
 });
 
 test('should list status changes in the first page with page size', async () => {
@@ -250,6 +254,9 @@ test('should list status changes in the first page sorted by status', async () =
     expect(firstPage.items[1].status).toBe('booked');
     expect(firstPage.items[2].status).toBe('free');
     expect(firstPage.items[3].status).toBe('reservedByToken');
+    expect(firstPage.items.length).toBe(4);
+    expect(firstPage.nextPageStartsAfter).toBe(null);
+    expect(firstPage.previousPageEndsBefore).toBe(null);
 });
 
 test('should list status changes in the first page sorted by status with page size', async () => {
@@ -273,6 +280,8 @@ test('should list status changes in the first page sorted by status with page si
     expect(firstPage.items[0].status).toBe('booked');
     expect(firstPage.items[1].status).toBe('booked');
     expect(firstPage.items.length).toBe(2);
+    expect(firstPage.nextPageStartsAfter).toBe(firstPage.items[1].id + '');
+    expect(firstPage.previousPageEndsBefore).toBe(null);
 });
 
 test('should list status changes in the first page sorted by date ascending', async () => {
@@ -296,6 +305,8 @@ test('should list status changes in the first page sorted by date ascending', as
 
     expect(labels).toEqual(['A-1', 'A-2', 'A-2', 'A-3']);
     expect(firstPage.items.length).toBe(4);
+    expect(firstPage.nextPageStartsAfter).toBe(null);
+    expect(firstPage.previousPageEndsBefore).toBe(null);
 });
 
 test('should list status changes in the first page sorted by date ascending with page size', async () => {
@@ -317,6 +328,8 @@ test('should list status changes in the first page sorted by date ascending with
 
     expect(labels).toEqual(['A-1', 'A-2']);
     expect(firstPage.items.length).toBe(2);
+    expect(firstPage.nextPageStartsAfter).toBe(firstPage.items[1].id + '');
+    expect(firstPage.previousPageEndsBefore).toBe(null);
 });
 
 test('should list status changes in the first page with filter', async () => {
@@ -340,6 +353,8 @@ test('should list status changes in the first page with filter', async () => {
 
     expect(labels).toEqual(['B-2', 'A-2', 'A-2']);
     expect(firstPage.items.length).toBe(3);
+    expect(firstPage.nextPageStartsAfter).toBe(null);
+    expect(firstPage.previousPageEndsBefore).toBe(null);
 });
 
 test('should list status changes in the first page with filter and page size', async () => {
@@ -358,6 +373,8 @@ test('should list status changes in the first page with filter and page size', a
 
     expect(labels).toEqual(['A-3']);
     expect(firstPage.items.length).toBe(1);
+    expect(firstPage.nextPageStartsAfter).toBe(firstPage.items[0].id + '');
+    expect(firstPage.previousPageEndsBefore).toBe(null);
 });
 
 test('should not list status changes in the first page with unmatched filter', async () => {
@@ -373,20 +390,6 @@ test('should not list status changes in the first page with unmatched filter', a
     expect(firstPage.items).toEqual([]);
 });
 
-test('should list status changes in the first page with page size', async () => {
-    let chartKey = testUtils.getChartKey();
-    await testUtils.createTestChart(chartKey, user.designerKey);
-    let event = await client.events.create(chartKey);
-    await client.events.book(event.key, 'A-1');
-    await client.events.book(event.key, 'A-2');
-
-    let firstPage =  await client.events.listStatusChangesFirstPage(event.key, null,1);
-
-    expect(firstPage.items[0].objectLabel).toBe('A-2');
-    expect(firstPage.items.length).toBe(1);
-    expect(firstPage.nextPageStartsAfter).toBe(firstPage.items[0].id + '');
-});
-
 test('should list status changes after given id ', async () => {
     let chartKey = testUtils.getChartKey();
     await testUtils.createTestChart(chartKey, user.designerKey);
@@ -397,10 +400,15 @@ test('should list status changes after given id ', async () => {
 
     let firstPage =  await client.events.listStatusChangesFirstPage(event.key);
     let pageAfter = await client.events.listStatusChangesPageAfter(event.key, firstPage.items[0].id);
+    let labels = [
+        pageAfter.items[0].objectLabel,
+        pageAfter.items[1].objectLabel
+    ];
 
-    expect([pageAfter.items[0].objectLabel, pageAfter.items[1].objectLabel]).toEqual(['A-2', 'A-1']);
-    expect(pageAfter.previousPageEndsBefore).toBe(pageAfter.items[0].id + '');
+    expect(labels).toEqual(['A-2', 'A-1']);
     expect(pageAfter.items.length).toBe(2);
+    expect(pageAfter.previousPageEndsBefore).toBe(pageAfter.items[0].id + '');
+    expect(firstPage.nextPageStartsAfter).toBe(null);
 });
 
 test('should list status changes after given id with page size', async () => {
@@ -437,6 +445,7 @@ test('should list status changes after given id sorted by label', async () => {
     ];
 
     expect(labels).toEqual(['A-2', 'A-3']);
+    expect(pageAfter.items.length).toBe(2);
     expect(pageAfter.nextPageStartsAfter).toBe(null);
     expect(pageAfter.previousPageEndsBefore).toBe(pageAfter.items[0].id + '');
 });
@@ -457,6 +466,9 @@ test('should list status changes after given id sorted by label with page size',
     ];
 
     expect(labels).toEqual(['A-2']);
+    expect(pageAfter.items.length).toBe(1);
+    expect(pageAfter.nextPageStartsAfter).toBe(pageAfter.items[0].id + '');
+    expect(pageAfter.previousPageEndsBefore).toBe(pageAfter.items[0].id + '');
 });
 
 test('should list status changes after given id sorted by status', async () => {
@@ -482,6 +494,8 @@ test('should list status changes after given id sorted by status', async () => {
 
     expect(labels).toEqual(['A-2', 'B-1', 'A-2']);
     expect(pageAfter.items.length).toBe(3);
+    expect(pageAfter.nextPageStartsAfter).toBe(null);
+    expect(pageAfter.previousPageEndsBefore).toBe(pageAfter.items[0].id + '');
 });
 
 test('should list status changes after given id sorted by status with page size', async () => {
@@ -506,6 +520,9 @@ test('should list status changes after given id sorted by status with page size'
 
     expect(labels).toEqual(['A-2', 'B-1']);
     expect(pageAfter.items.length).toBe(2);
+    expect(pageAfter.nextPageStartsAfter).toBe(pageAfter.items[1].id + '');
+    expect(pageAfter.previousPageEndsBefore).toBe(pageAfter.items[0].id + '');
+
 });
 
 test('should list status changes after given id sorted by date ascending', async () => {
@@ -527,6 +544,8 @@ test('should list status changes after given id sorted by date ascending', async
 
     expect(labels).toEqual(['A-3', 'A-4']);
     expect(pageAfter.items.length).toBe(2);
+    expect(pageAfter.nextPageStartsAfter).toBe(null);
+    expect(pageAfter.previousPageEndsBefore).toBe(pageAfter.items[0].id + '');
 });
 
 test('should list status changes after given id sorted by date ascending with page size', async () => {
@@ -547,6 +566,8 @@ test('should list status changes after given id sorted by date ascending with pa
 
     expect(labels).toEqual(['A-3']);
     expect(pageAfter.items.length).toBe(1);
+    expect(pageAfter.nextPageStartsAfter).toBe(pageAfter.items[0].id + '');
+    expect(pageAfter.previousPageEndsBefore).toBe(pageAfter.items[0].id + '');
 });
 
 test('should list status changes after given id with filter', async () => {
@@ -569,6 +590,8 @@ test('should list status changes after given id with filter', async () => {
 
     expect(labels).toEqual(['B-1', 'A-1']);
     expect(pageAfter.items.length).toBe(2);
+    expect(pageAfter.nextPageStartsAfter).toBe(null);
+    expect(pageAfter.previousPageEndsBefore).toBe(pageAfter.items[0].id + '');
 });
 
 test('should list status changes after given id with filter and page size', async () => {
@@ -587,6 +610,8 @@ test('should list status changes after given id with filter and page size', asyn
 
     expect(pageAfter.items[0].objectLabel).toEqual('B-1');
     expect(pageAfter.items.length).toBe(1);
+    expect(pageAfter.nextPageStartsAfter).toBe(pageAfter.items[0].id + '');
+    expect(pageAfter.previousPageEndsBefore).toBe(pageAfter.items[0].id + '');
 });
 
 test('should not list status changes after given id with unmatched filter', async () => {
@@ -616,8 +641,9 @@ test('should list status changes before given id', async () => {
     let pageBefore = await client.events.listStatusChangesPageBefore(event.key, firstPage.items[2].id);
     
     expect([pageBefore.items[0].objectLabel, pageBefore.items[1].objectLabel]).toEqual(['A-3', 'A-2']);
-    expect(pageBefore.nextPageStartsAfter).toBe(pageBefore.items[1].id + '');
     expect(pageBefore.items.length).toBe(2);
+    expect(pageBefore.nextPageStartsAfter).toBe(pageBefore.items[1].id + '');
+    expect(pageBefore.previousPageEndsBefore).toBe(null);
 });
 
 test('should list status changes before given id with page size', async () => {
@@ -633,6 +659,8 @@ test('should list status changes before given id with page size', async () => {
 
     expect(pageBefore.items[0].objectLabel).toEqual('A-2');
     expect(pageBefore.items.length).toBe(1);
+    expect(pageBefore.nextPageStartsAfter).toBe(pageBefore.items[0].id + '');
+    expect(pageBefore.previousPageEndsBefore).toBe(pageBefore.items[0].id + '');
 });
 
 test('should list status changes before given id sorted by label', async () => {
@@ -652,8 +680,9 @@ test('should list status changes before given id sorted by label', async () => {
     ];
 
     expect(labels).toEqual(['A-1', 'A-2']);
-    expect(pageBefore.nextPageStartsAfter).toBe(pageBefore.items[1].id + '');
     expect(pageBefore.items.length).toBe(2);
+    expect(pageBefore.nextPageStartsAfter).toBe(pageBefore.items[1].id + '');
+    expect(pageBefore.previousPageEndsBefore).toBe(null);
 });
 
 test('should list status changes before given id sorted by label with page size', async () => {
@@ -672,8 +701,9 @@ test('should list status changes before given id sorted by label with page size'
     ];
 
     expect(labels).toEqual( ['A-2']);
-    expect(pageBefore.nextPageStartsAfter).toBe(pageBefore.items[0].id + '');
     expect(pageBefore.items.length).toBe(1);
+    expect(pageBefore.nextPageStartsAfter).toBe(pageBefore.items[0].id + '');
+    expect(pageBefore.previousPageEndsBefore).toBe(pageBefore.items[0].id + '');
 });
 
 test('should list status changes before given id sorted by status', async () => {
@@ -696,8 +726,9 @@ test('should list status changes before given id sorted by status', async () => 
     ];
 
     expect(labels).toEqual(['A-1', 'A-2' , 'A-3']);
-    expect(pageBefore.nextPageStartsAfter).toEqual(pageBefore.items[2].id + '');
     expect(pageBefore.items.length).toBe(3);
+    expect(pageBefore.nextPageStartsAfter).toEqual(pageBefore.items[2].id + '');
+    expect(pageBefore.previousPageEndsBefore).toBe(null);
 });
 
 test('should list status changes before given id sorted by status with page size', async () => {
@@ -719,8 +750,9 @@ test('should list status changes before given id sorted by status with page size
     ];
 
     expect(labels).toEqual(['A-2', 'A-3']);
-    expect(pageBefore.nextPageStartsAfter).toEqual(pageBefore.items[1].id + '');
     expect(pageBefore.items.length).toBe(2);
+    expect(pageBefore.nextPageStartsAfter).toEqual(pageBefore.items[1].id + '');
+    expect(pageBefore.previousPageEndsBefore).toBe(pageBefore.items[0].id + '');
 });
 
 test('should list status changes before given id sorted by date ascending', async () => {
@@ -735,7 +767,7 @@ test('should list status changes before given id sorted by date ascending', asyn
     let params = new StatusChangeParam().sortByDateAsc();
 
     let firstPage =  await client.events.listStatusChangesFirstPage(event.key);
-    let pageBefore = await client.events.listStatusChangesPageBefore(event.key, firstPage.items[1].id, params, 3);
+    let pageBefore = await client.events.listStatusChangesPageBefore(event.key, firstPage.items[1].id, params);
     let labels = [
         pageBefore.items[0].objectLabel,
         pageBefore.items[1].objectLabel,
@@ -743,8 +775,10 @@ test('should list status changes before given id sorted by date ascending', asyn
     ];
 
     expect(labels).toEqual(['A-1', 'A-2', 'A-3']);
-    expect(pageBefore.nextPageStartsAfter).toEqual(pageBefore.items[2].id + '');
     expect(pageBefore.items.length).toBe(3);
+    expect(pageBefore.nextPageStartsAfter).toEqual(pageBefore.items[2].id + '');
+    expect(pageBefore.previousPageEndsBefore).toBe(null);
+
 });
 
 test('should list status changes before given id sorted by date ascending with page size', async () => {
@@ -766,8 +800,9 @@ test('should list status changes before given id sorted by date ascending with p
     ];
 
     expect(labels).toEqual(['A-2', 'A-3']);
-    expect(pageBefore.nextPageStartsAfter).toEqual(pageBefore.items[1].id + '');
     expect(pageBefore.items.length).toBe(2);
+    expect(pageBefore.nextPageStartsAfter).toEqual(pageBefore.items[1].id + '');
+    expect(pageBefore.previousPageEndsBefore).toBe(pageBefore.items[0].id + '');
 });
 
 test('should list status changes before given id with filter', async () => {
@@ -777,7 +812,7 @@ test('should list status changes before given id with filter', async () => {
     await client.events.book(event.key, 'A-2');
     await client.events.book(event.key, 'B-2');
     await client.events.book(event.key, 'C-2');
-    let params = new StatusChangeParam().withFilter('2');
+    let params = new StatusChangeParam().withFilter('-2');
 
     let firstPage =  await client.events.listStatusChangesFirstPage(event.key);
     let pageBefore = await client.events.listStatusChangesPageBefore(event.key, firstPage.items[2].id, params);
@@ -788,6 +823,8 @@ test('should list status changes before given id with filter', async () => {
 
     expect(labels).toEqual(['C-2', 'B-2']);
     expect(pageBefore.items.length).toBe(2);
+    expect(pageBefore.nextPageStartsAfter).toBe(pageBefore.items[1].id + '');
+    expect(pageBefore.previousPageEndsBefore).toBe(null);
 });
 
 test('should list status changes before given id with filter and page size', async () => {
@@ -807,6 +844,8 @@ test('should list status changes before given id with filter and page size', asy
 
     expect(labels).toEqual(['B-2']);
     expect(pageBefore.items.length).toBe(1);
+    expect(pageBefore.nextPageStartsAfter).toBe(pageBefore.items[0].id + '');
+    expect(pageBefore.previousPageEndsBefore).toBe(pageBefore.items[0].id + '');
 });
 
 test('should not list status changes before given id with unmatched filter', async () => {
