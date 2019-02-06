@@ -1,9 +1,9 @@
 class BestAvailableObjects {
   /**
-     * @param {string[]} objects
-     * @param {Object.<string, EventReportItem>} objectDetails
-     * @param {boolean} nextToEachOther
-     */
+   * @param {string[]} objects
+   * @param {Object.<string, EventReportItem>} objectDetails
+   * @param {boolean} nextToEachOther
+   */
   constructor (objects, objectDetails, nextToEachOther) {
     this.objects = objects
     this.objectDetails = objectDetails

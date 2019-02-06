@@ -1,15 +1,15 @@
 class SubaccountListParams {
   /**
-     * @param {?string} filter
-     */
+   * @param {?string} filter
+   */
   constructor (filter = null) {
     this.filter = filter
   }
 
   /**
-     * @param {string} filter
-     * @returns {SubaccountListParams}
-     */
+   * @param {string} filter
+   * @returns {SubaccountListParams}
+   */
   withFilter (filter) {
     this.filter = filter
     return this

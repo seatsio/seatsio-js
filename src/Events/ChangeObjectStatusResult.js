@@ -1,7 +1,7 @@
 class ChangeObjectStatusResult {
   /**
-     * @param {Object.<string, {EventReportItem}>} objects
-     */
+   * @param {Object.<string, {EventReportItem}>} objects
+   */
   constructor (objects) {
     this.objects = objects
   }

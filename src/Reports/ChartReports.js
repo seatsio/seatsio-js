@@ -6,18 +6,18 @@ class ChartReports {
   }
 
   /**
-     * @param {string} reportType
-     * @param {string} eventKey
-     * @returns {string}
-     */
+   * @param {string} reportType
+   * @param {string} eventKey
+   * @returns {string}
+   */
   static reportUrl (reportType, eventKey) {
     return `/reports/charts/${eventKey}/${reportType}`
   }
 
   /**
-     * @param {string} chartKey
-     * @returns {Object.<string, ChartReportItem[]>}
-     */
+   * @param {string} chartKey
+   * @returns {Object.<string, ChartReportItem[]>}
+   */
   byLabel (chartKey) {
     return this.client.get(ChartReports.reportUrl('byLabel', chartKey))
       .then((res) => utilities.createChartReport(res.data))

@@ -1,11 +1,11 @@
 class ChartValidationSettings {
   /**
-     * @param {string} validateDuplicateLabels
-     * @param {string} validateObjectsWithoutCategories
-     * @param {string} validateUnlabelledObjects
-     * @param {string} validateFocalPoint
-     * @param {string} validateObjectTypesPerCategory
-     */
+   * @param {string} validateDuplicateLabels
+   * @param {string} validateObjectsWithoutCategories
+   * @param {string} validateUnlabelledObjects
+   * @param {string} validateFocalPoint
+   * @param {string} validateObjectTypesPerCategory
+   */
   constructor (validateDuplicateLabels, validateObjectsWithoutCategories, validateUnlabelledObjects, validateFocalPoint, validateObjectTypesPerCategory) {
     this.VALIDATE_DUPLICATE_LABELS = validateDuplicateLabels
     this.VALIDATE_OBJECTS_WITHOUT_CATEGORIES = validateObjectsWithoutCategories

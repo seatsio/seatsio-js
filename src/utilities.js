@@ -17,9 +17,9 @@ const LabelClasses = require('./Common/Labels.js')
 module.exports = {
 
   /**
-     * @param {Object} data
-     * @returns {Object.<string, Labels>}
-     */
+   * @param {Object} data
+   * @returns {Object.<string, Labels>}
+   */
   labelsCreator (data) {
     let labels = {}
     for (const key of Object.keys(data.labels)) {
@@ -36,9 +36,9 @@ module.exports = {
   },
 
   /**
-     * @param data
-     * @returns {Labels}
-     */
+   * @param data
+   * @returns {Labels}
+   */
   labelCreator (data) {
     let labels = {}
     if (data.labels.parent) {
@@ -54,25 +54,25 @@ module.exports = {
   },
 
   /**
-     * @param {object} data
-     * @returns {ObjectStatus}
-     */
+   * @param {object} data
+   * @returns {ObjectStatus}
+   */
   createObjectStatus (data) {
     return new ObjectStatus(data.status, data.ticketType, data.holdToken, data.orderId, data.extraData, data.quantity)
   },
 
   /**
-     * @param {object} data
-     * @returns {BestAvailableObjects}
-     */
+   * @param {object} data
+   * @returns {BestAvailableObjects}
+   */
   createBestAvailableObjects (data) {
     return new BestAvailableObjects(data.objects, this.createChangeObjectStatusDetails(data.objectDetails), data.nextToEachOther)
   },
 
   /**
-     * @param {object} data
-     * @returns {ChangeObjectStatusResult}
-     */
+   * @param {object} data
+   * @returns {ChangeObjectStatusResult}
+   */
   createChangeObjectStatusResult (data) {
     return new ChangeObjectStatusResult(this.createChangeObjectStatusDetails(data.objects))
   },
@@ -86,9 +86,9 @@ module.exports = {
   },
 
   /**
-     * @param {object} data
-     * @returns {Event}
-     */
+   * @param {object} data
+   * @returns {Event}
+   */
   createEvent (data) {
     let createdOn = data.createdOn ? new Date(data.createdOn) : null
     let updatedOn = data.updatedOn ? new Date(data.updatedOn) : null
@@ -99,25 +99,25 @@ module.exports = {
   },
 
   /**
-     * @param {objects[]} eventsData
-     * @returns {Event[]}
-     */
+   * @param {objects[]} eventsData
+   * @returns {Event[]}
+   */
   createMultipleEvents (eventsData) {
     return eventsData.map(eventData => this.createEvent(eventData))
   },
 
   /**
-     * @param {objects[]} statusChangesData
-     * @returns {StatusChange[]}
-     */
+   * @param {objects[]} statusChangesData
+   * @returns {StatusChange[]}
+   */
   createMultipleStatusChanges (statusChangesData) {
     return statusChangesData.map(statusChangesData => this.createStatusChange(statusChangesData))
   },
 
   /**
-     * @param {object} data
-     * @returns {Chart}
-     */
+   * @param {object} data
+   * @returns {Chart}
+   */
   createChart (data) {
     let events = data.events ? this.createMultipleEvents(data.events) : null
 
@@ -127,9 +127,9 @@ module.exports = {
   },
 
   /**
-     * @param {object} data
-     * @returns {Account}
-     */
+   * @param {object} data
+   * @returns {Account}
+   */
   createAccount (data) {
     let chartValidation = data.settings.chartValidation
     let chartValidationSettings = new ChartValidationSettings(chartValidation.VALIDATE_DUPLICATE_LABELS, chartValidation.VALIDATE_OBJECTS_WITHOUT_CATEGORIES, chartValidation.VALIDATE_UNLABELED_OBJECTS, chartValidation.VALIDATE_FOCAL_POINT, chartValidation.VALIDATE_OBJECT_TYPES_PER_CATEGORY)
@@ -138,17 +138,17 @@ module.exports = {
   },
 
   /**
-     * @param {object} data
-     * @returns {HoldToken}
-     */
+   * @param {object} data
+   * @returns {HoldToken}
+   */
   createHoldToken (data) {
     return new HoldToken(data.holdToken, new Date(data.expiresAt), data.expiresInSeconds)
   },
 
   /**
-     * @param {object} reportsData
-     * @returns {Object.<string, EventReportItem>}
-     */
+   * @param {object} reportsData
+   * @returns {Object.<string, EventReportItem>}
+   */
   createEventReport (reportsData) {
     let reportObjects = {}
     for (const key of Object.keys(reportsData)) {
@@ -158,8 +158,8 @@ module.exports = {
   },
 
   /**
-     *
-     */
+   *
+   */
   createEventReportItem (data) {
     let labels = this.labelCreator(data)
     return new EventReportItem(data.label, labels, data.status, data.categoryLabel, data.categoryKey, data.ticketType,
@@ -168,9 +168,9 @@ module.exports = {
   },
 
   /**
-     * @param {object} reportsData
-     * @returns {Object.<string, ChartReportItem>}
-     */
+   * @param {object} reportsData
+   * @returns {Object.<string, ChartReportItem>}
+   */
   createChartReport (reportsData) {
     let reportObjects = {}
     for (const key of Object.keys(reportsData)) {
@@ -186,17 +186,17 @@ module.exports = {
   },
 
   /**
-     * @param {object} data
-     * @returns {Subaccount}
-     */
+   * @param {object} data
+   * @returns {Subaccount}
+   */
   createSubaccount (data) {
     return new Subaccount(data.id, data.secretKey, data.designerKey, data.publicKey, data.name, data.email, data.active)
   },
 
   /**
-     * @param {object} data
-     * @returns {StatusChange}
-     */
+   * @param {object} data
+   * @returns {StatusChange}
+   */
   createStatusChange (data) {
     if (data.holdToken) {
       return new StatusChange(data.id, data.eventId, data.status, data.quantity, data.objectLabel, new Date(data.date), data.orderId, data.extraData, data.holdToken)

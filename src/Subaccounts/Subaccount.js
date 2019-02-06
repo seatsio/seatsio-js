@@ -1,13 +1,13 @@
 class Subaccount {
   /**
-     * @param {number} id
-     * @param {string} secretKey
-     * @param {string} designerKey
-     * @param {string} publicKey
-     * @param {string} name
-     * @param {string} email
-     * @param {boolean} active
-     */
+   * @param {number} id
+   * @param {string} secretKey
+   * @param {string} designerKey
+   * @param {string} publicKey
+   * @param {string} name
+   * @param {string} email
+   * @param {boolean} active
+   */
   constructor (id, secretKey, designerKey, publicKey, name, email, active) {
     this.id = id
     this.secretKey = secretKey

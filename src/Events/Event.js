@@ -1,15 +1,15 @@
 class Event {
   /**
-     * @param {number} id
-     * @param {string} key
-     * @param {boolean} bookWholeTables
-     * @param {boolean} supportsBestAvailable
-     * @param {ForSaleConfig} forSaleConfig
-     * @param {Object} tableBookingModes
-     * @param {string} chartKey
-     * @param {Date} createdOn
-     * @param {Date} updatedOn
-     */
+   * @param {number} id
+   * @param {string} key
+   * @param {boolean} bookWholeTables
+   * @param {boolean} supportsBestAvailable
+   * @param {ForSaleConfig} forSaleConfig
+   * @param {Object} tableBookingModes
+   * @param {string} chartKey
+   * @param {Date} createdOn
+   * @param {Date} updatedOn
+   */
   constructor (id, key, bookWholeTables, supportsBestAvailable, forSaleConfig, tableBookingModes, chartKey, createdOn, updatedOn) {
     this.id = id
     this.key = key

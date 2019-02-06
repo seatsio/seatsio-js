@@ -1,12 +1,12 @@
 class ObjectStatus {
   /**
-     * @param {?string} status
-     * @param {?string} ticketType
-     * @param {?string} holdToken
-     * @param {?string} orderId
-     * @param {?object} extraData
-     * @param {?number} quantity
-     */
+   * @param {?string} status
+   * @param {?string} ticketType
+   * @param {?string} holdToken
+   * @param {?string} orderId
+   * @param {?object} extraData
+   * @param {?number} quantity
+   */
   constructor (status = null, ticketType = null, holdToken = null, orderId = null, extraData = null, quantity = null) {
     if (arguments.length === 0) {
       this.FREE = 'free'
