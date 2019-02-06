@@ -1,5 +1,5 @@
 class StatusChange {
-    /**
+  /**
      * @param {number} id
      * @param {number} eventId
      * @param {string} status
@@ -10,17 +10,17 @@ class StatusChange {
      * @param {?object} extraData
      * @param {?string} holdToken
      */
-    constructor(id, eventId, status, quantity, objectLabel, date, orderId = null, extraData = null, holdToken = null) {
-        this.id = id;
-        this.eventId = eventId;
-        this.status = status;
-        this.quantity = quantity;
-        this.objectLabel = objectLabel;
-        this.date = date;
-        this.orderId = orderId;
-        this.extraData = extraData;
-        this.holdToken = holdToken;
-    }
+  constructor (id, eventId, status, quantity, objectLabel, date, orderId = null, extraData = null, holdToken = null) {
+    this.id = id
+    this.eventId = eventId
+    this.status = status
+    this.quantity = quantity
+    this.objectLabel = objectLabel
+    this.date = date
+    this.orderId = orderId
+    this.extraData = extraData
+    this.holdToken = holdToken
+  }
 }
 
-module.exports = StatusChange;
+module.exports = StatusChange

@@ -1,5 +1,5 @@
 class ChartReportItem {
-    /**
+  /**
      *
      * @param {string} label
      * @param {Common/Label} labels
@@ -10,17 +10,16 @@ class ChartReportItem {
      * @param {string} section
      * @param {number} capacity
      */
-    constructor(label, labels, categoryLabel, categoryKey, entrance, objectType, section, capacity) {
-        this.label = label;
-        this.labels = labels;
-        this.categoryLabel = categoryLabel;
-        this.categoryKey = categoryKey;
-        this.entrance = entrance;
-        this.objectType = objectType;
-        this.section = section;
-        this.capacity = capacity;
-    }
+  constructor (label, labels, categoryLabel, categoryKey, entrance, objectType, section, capacity) {
+    this.label = label
+    this.labels = labels
+    this.categoryLabel = categoryLabel
+    this.categoryKey = categoryKey
+    this.entrance = entrance
+    this.objectType = objectType
+    this.section = section
+    this.capacity = capacity
+  }
 }
 
-module.exports = ChartReportItem;
-
+module.exports = ChartReportItem
