@@ -10,6 +10,7 @@ class StatusChangesParams {
      * @returns {StatusChangesParams}
      */
     sortByObjectLabel (){
+        this.filter = '';
         this.sort = 'objectLabel';
         return this;
     }
@@ -18,6 +19,7 @@ class StatusChangesParams {
      * @returns {StatusChangesParams}
      */
     sortByStatus (){
+        this.filter = '';
         this.sort = 'status';
         return this;
     }
@@ -26,6 +28,7 @@ class StatusChangesParams {
      * @returns {StatusChangesParams}
      */
     sortByDateAsc (){
+        this.filter = '';
         this.sort = 'date:asc';
         return this;
     }
@@ -35,6 +38,7 @@ class StatusChangesParams {
      * @returns {StatusChangesParams}
      */
     withFilter(filter) {
+        this.sort = '';
         this.filter = filter;
         return this;
     }

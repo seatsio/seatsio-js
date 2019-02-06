@@ -862,3 +862,102 @@ test('should not list status changes before given id with unmatched filter', asy
 
     expect(pageBefore.items).toEqual([]);
 });
+
+test('list status changes when based on latest parameter passed, sortByObjectLabel', async () => {
+    let chartKey = testUtils.getChartKey();
+    await testUtils.createTestChart(chartKey, user.designerKey);
+    let event = await client.events.create(chartKey);
+    await client.events.book(event.key, 'A-1');
+    await client.events.book(event.key, 'A-2');
+    await client.events.book(event.key, 'A-3');
+
+    let params = new StatusChangeParam().withFilter('1').sortByObjectLabel();
+    let firstPage =  await client.events.listStatusChangesFirstPage(event.key, params);
+    let labels = [
+        firstPage.items[0].objectLabel,
+        firstPage.items[1].objectLabel,
+        firstPage.items[2].objectLabel
+    ];
+
+    expect(labels).toEqual(['A-1', 'A-2', 'A-3']);
+    expect(firstPage.items.length).toEqual(3);
+});
+
+test('list status changes when based on latest parameter passed, sortByDateAsc', async () => {
+    let chartKey = testUtils.getChartKey();
+    await testUtils.createTestChart(chartKey, user.designerKey);
+    let event = await client.events.create(chartKey);
+    await client.events.book(event.key, 'A-1');
+    await client.events.book(event.key, 'A-2');
+    await client.events.book(event.key, 'A-3');
+
+    let params = new StatusChangeParam().withFilter('1').sortByDateAsc();
+    let firstPage =  await client.events.listStatusChangesFirstPage(event.key, params);
+
+    let labels = [
+        firstPage.items[0].objectLabel,
+        firstPage.items[1].objectLabel,
+        firstPage.items[2].objectLabel
+    ];
+    expect(labels).toEqual(['A-1', 'A-2', 'A-3']);
+    expect(firstPage.items.length).toEqual(3);
+});
+
+test('list status changes when based on latest parameter passed, sortByStatus', async () => {
+    let chartKey = testUtils.getChartKey();
+    await testUtils.createTestChart(chartKey, user.designerKey);
+    let event = await client.events.create(chartKey);
+    let holdToken = await client.holdTokens.create();
+    await client.events.book(event.key, 'A-1');
+    await client.events.hold(event.key, 'A-2', holdToken.holdToken);
+    await client.events.hold(event.key, 'B-1', holdToken.holdToken);
+    await client.events.release(event.key, 'A-2', holdToken.holdToken);
+
+    let params = new StatusChangeParam().withFilter('1').sortByStatus();
+    let firstPage =  await client.events.listStatusChangesFirstPage(event.key, params);
+
+    let labels = [
+        firstPage.items[0].objectLabel,
+        firstPage.items[1].objectLabel,
+        firstPage.items[2].objectLabel,
+        firstPage.items[3].objectLabel
+    ];
+    expect(labels).toEqual(['A-1', 'A-2', 'B-1', 'A-2']);
+    expect(firstPage.items.length).toEqual(4);
+
+});
+
+test('list status changes when based on latest parameter passed, filter', async () => {
+    let chartKey = testUtils.getChartKey();
+    await testUtils.createTestChart(chartKey, user.designerKey);
+    let event = await client.events.create(chartKey);
+    await client.events.book(event.key, 'A-1');
+    await client.events.book(event.key, 'B-2');
+    await client.events.book(event.key, 'C-2');
+
+    let params = new StatusChangeParam().sortByDateAsc().withFilter('1');
+    let firstPage =  await client.events.listStatusChangesFirstPage(event.key, params);
+
+    expect(firstPage.items[0].objectLabel).toBe('A-1');
+    expect(firstPage.items.length).toBe(1);
+});
+
+test('list status changes when based on latest parameter passed, chained', async () => {
+    let chartKey = testUtils.getChartKey();
+    await testUtils.createTestChart(chartKey, user.designerKey);
+    let event = await client.events.create(chartKey);
+    await client.events.book(event.key, 'A-1');
+    await client.events.book(event.key, 'A-3');
+    await client.events.book(event.key, 'A-2');
+
+    let params = new StatusChangeParam().sortByDateAsc().withFilter('1').sortByObjectLabel();
+    let firstPage =  await client.events.listStatusChangesFirstPage(event.key, params);
+
+    let labels = [
+        firstPage.items[0].objectLabel,
+        firstPage.items[1].objectLabel,
+        firstPage.items[2].objectLabel
+    ];
+    expect(labels).toEqual(['A-1', 'A-2', 'A-3']);
+    expect(firstPage.items.length).toBe(3);
+});
