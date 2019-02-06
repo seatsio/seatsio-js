@@ -14,12 +14,12 @@ class ObjectStatus {
       this.HELD = 'reservedByToken'
     }
 
-    typeof status !== 'undefined' && status !== null ? this.status = status : {}
-    typeof ticketType !== 'undefined' && ticketType !== null ? this.ticketType = ticketType : {}
-    typeof holdToken !== 'undefined' && holdToken !== null ? this.holdToken = holdToken : {}
-    typeof orderId !== 'undefined' && orderId !== null ? this.orderId = orderId : {}
-    typeof extraData !== 'undefined' && extraData !== null ? this.extraData = extraData : {}
-    typeof quantity !== 'undefined' && quantity !== null ? this.quantity = quantity : {}
+    this.status = typeof status !== 'undefined' && status !== null ? status : {}
+    this.ticketType = typeof ticketType !== 'undefined' && ticketType !== null ? ticketType : {}
+    this.holdToken = typeof holdToken !== 'undefined' && holdToken !== null ? holdToken : {}
+    this.orderId = typeof orderId !== 'undefined' && orderId !== null ? orderId : {}
+    this.extraData = typeof extraData !== 'undefined' && extraData !== null ? extraData : {}
+    this.quantity = typeof quantity !== 'undefined' && quantity !== null ? quantity : {}
   }
 }
 

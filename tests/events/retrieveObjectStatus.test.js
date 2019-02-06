@@ -10,6 +10,6 @@ test('should retrieve object status', async () => {
   let retrievedObj = await client.events.retrieveObjectStatus(event.key, 'A-1')
 
   expect(retrievedObj.status).toEqual(ObjStatus.FREE)
-  expect(retrievedObj.ticketType).toBeFalsy()
-  expect(retrievedObj.extraData).toBeFalsy()
+  expect(retrievedObj.ticketType).toEqual({})
+  expect(retrievedObj.extraData).toEqual({})
 })

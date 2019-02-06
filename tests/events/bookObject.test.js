@@ -58,7 +58,7 @@ test('should hold and then book, check hold token exists', async () => {
 
   let objStatus = await client.events.retrieveObjectStatus(event.key, 'A-1')
   expect(objStatus.status).toBe(objectStatus.BOOKED)
-  expect(objStatus.holdToken).toBeFalsy()
+  expect(objStatus.holdToken).toEqual({})
 })
 
 test('should check booking with orderId', async () => {

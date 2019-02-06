@@ -92,9 +92,10 @@ module.exports = {
   createEvent (data) {
     let createdOn = data.createdOn ? new Date(data.createdOn) : null
     let updatedOn = data.updatedOn ? new Date(data.updatedOn) : null
+    let forsaleConfig = data.forSaleConfig ? new ForSaleConfig(data.forSaleConfig.forSale, data.forSaleConfig.objects, data.forSaleConfig.categories) : null
 
     return new Event(data.id, data.key, data.bookWholeTables,
-      data.supportsBestAvailable, data.forSaleConfig, data.tableBookingModes, data.chartKey,
+      data.supportsBestAvailable, forsaleConfig, data.tableBookingModes, data.chartKey,
       createdOn, updatedOn)
   },
 

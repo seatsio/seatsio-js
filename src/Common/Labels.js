@@ -5,7 +5,7 @@ class Labels {
    */
   constructor (own, parent = null) {
     this.own = own
-    parent ? this.parent = parent : {}
+    this.parent = parent || {}
   }
 }
 

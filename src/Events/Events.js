@@ -123,9 +123,9 @@ class Events {
   iterator () {
     return new Lister(new PageFetcher('/events', this.client, results => {
       let events = utilities.createMultipleEvents(results.items)
-      let after_id = results.next_page_starts_after ? results.next_page_starts_after : null
-      let before_id = results.previous_page_ends_before ? results.previous_page_ends_before : null
-      return new Page(events, after_id, before_id)
+      let afterId = results.next_page_starts_after ? results.next_page_starts_after : null
+      let beforeId = results.previous_page_ends_before ? results.previous_page_ends_before : null
+      return new Page(events, afterId, beforeId)
     }))
   }
 
@@ -176,9 +176,9 @@ class Events {
   statusChangeIterator (eventKey) {
     return new Lister(new PageFetcher(`/events/${encodeURIComponent(eventKey)}/status-changes`, this.client, results => {
       let statusChanges = utilities.createMultipleStatusChanges(results.items)
-      let after_id = results.next_page_starts_after ? results.next_page_starts_after : null
-      let before_id = results.previous_page_ends_before ? results.previous_page_ends_before : null
-      return new Page(statusChanges, after_id, before_id)
+      let afterId = results.next_page_starts_after ? results.next_page_starts_after : null
+      let beforeId = results.previous_page_ends_before ? results.previous_page_ends_before : null
+      return new Page(statusChanges, afterId, beforeId)
     }))
   }
 
