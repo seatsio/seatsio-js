@@ -23,7 +23,7 @@ test('properties of status change', async () => {
   let objectStatus = new ObjectStatus()
   await testUtils.createTestChart(chartKey, user.designerKey)
   let event = await client.events.create(chartKey)
-  let obj = new ObjectProperties('A-1').setExtraData({'foo': 'bar'})
+  let obj = new ObjectProperties('A-1').setExtraData({ 'foo': 'bar' })
   await client.events.book(event.key, obj, null, 'order1')
 
   let statusChanges = client.events.statusChanges(event.key)
@@ -36,7 +36,7 @@ test('properties of status change', async () => {
   expect(statusChange.value.objectLabel).toBe('A-1')
   expect(statusChange.value.status).toBe(objectStatus.BOOKED)
   expect(statusChange.value.eventId).toBe(event.id)
-  expect(statusChange.value.extraData).toEqual({'foo': 'bar'})
+  expect(statusChange.value.extraData).toEqual({ 'foo': 'bar' })
 })
 
 test('that status change contains holdToken', async () => {

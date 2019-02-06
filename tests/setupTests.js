@@ -5,4 +5,3 @@ beforeEach(async () => {
   global.user = await testUtils.createTestUser()
   global.client = testUtils.createClient(user.secretKey)
 })
-

@@ -13,5 +13,4 @@ test('should update hold token expiration date', async () => {
   expect(updatedHoldToken.expiresAt.getTime() <= upperBound.getTime()).toBe(true)
   expect(updatedHoldToken.expiresInSeconds).toBeGreaterThanOrEqual(29 * 60)
   expect(updatedHoldToken.expiresInSeconds).toBeLessThanOrEqual(30 * 60)
-
 })

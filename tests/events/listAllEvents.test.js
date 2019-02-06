@@ -1,6 +1,6 @@
 test('listAll events when there are more than 20 events)', async () => {
   let chart = await client.charts.create()
-  let generatedEventKeys = [], retrievedEventKeys = []
+  let generatedEventKeys = []; let retrievedEventKeys = []
   for (let i = 0; i < 25; i++) {
     let event = await client.events.create(chart.key)
     generatedEventKeys.push(event.key)
@@ -15,7 +15,7 @@ test('listAll events when there are more than 20 events)', async () => {
 
 test('listAll with more than 40 events)', async () => {
   let chart = await client.charts.create()
-  let generatedEventKeys = [], retrievedEventKeys = []
+  let generatedEventKeys = []; let retrievedEventKeys = []
   for (let i = 0; i < 45; i++) {
     let event = await client.events.create(chart.key)
     generatedEventKeys.push(event.key)

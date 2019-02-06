@@ -8,14 +8,12 @@ const baseUrl = 'https://api-staging.seatsio.net/'
 
 module.exports = {
   createTestUser: function () {
-    let testUserPr = axios({
+    return axios({
       method: 'POST',
       url: baseUrl + 'system/public/users/actions/create-test-user'
     }).then(response => {
       return response.data
     })
-
-    return testUserPr
   },
 
   getChartKey: function () {
@@ -45,7 +43,7 @@ module.exports = {
     return client.post(url, requestBody)
   },
 
-  someLabels(ownLabel, ownType, parentLabel = null, parentType = null, section = null) {
+  someLabels (ownLabel, ownType, parentLabel = null, parentType = null, section = null) {
     let labels
     if (parentLabel) {
       labels = new LabelClasses.Labels(new LabelClasses.LabelAndType(ownLabel, ownType), new LabelClasses.LabelAndType(parentLabel, parentType))
@@ -58,7 +56,7 @@ module.exports = {
     return labels
   },
 
-  getRandomEmail() {
+  getRandomEmail () {
     return uuidv1() + '@mailinator.com'
   }
 }

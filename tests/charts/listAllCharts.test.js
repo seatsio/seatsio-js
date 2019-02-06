@@ -1,7 +1,7 @@
 const ChartListParams = require('../../src/Charts/ChartListParams.js')
 
 test('listAll when there are more than 20 charts', async () => {
-  let generatedChartKeys = [], retrievedKeys = []
+  let generatedChartKeys = []; let retrievedKeys = []
   for (let i = 0; i < 25; i++) {
     let chart = await client.charts.create(i.toString())
     generatedChartKeys.push(chart.key)
@@ -15,7 +15,7 @@ test('listAll when there are more than 20 charts', async () => {
 })
 
 test('listAll when there are more than 40 charts', async () => {
-  let generatedChartKeys = [], retrievedKeys = []
+  let generatedChartKeys = []; let retrievedKeys = []
   for (let i = 0; i < 45; i++) {
     let chart = await client.charts.create(i.toString())
     generatedChartKeys.push(chart.key)
@@ -39,7 +39,7 @@ test('listAll when there are no charts', async () => {
 })
 
 test('listAll Charts with filter', async () => {
-  let fooChartKeys = [], retrievedKeys = []
+  let fooChartKeys = []; let retrievedKeys = []
   await client.charts.create('bar')
   for (let i = 0; i < 21; i++) {
     let chart = await client.charts.create('foo')
@@ -55,7 +55,7 @@ test('listAll Charts with filter', async () => {
 })
 
 test('listAll Charts with tag', async () => {
-  let fooChartKeys = [], retrievedChartKeys = []
+  let fooChartKeys = []; let retrievedChartKeys = []
   await client.charts.create('bar')
   let params = new ChartListParams().withTag('foo')
   for (let i = 0; i < 21; i++) {

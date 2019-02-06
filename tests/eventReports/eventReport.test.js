@@ -7,7 +7,7 @@ test('report properties', async () => {
   let objectStatus = new ObjectStatus()
   await testUtils.createTestChart(chartKey, user.designerKey)
   let event = await client.events.create(chartKey)
-  let extraData = {'foo': 'bar'}
+  let extraData = { 'foo': 'bar' }
   await client.events.book(event.key, (new ObjectProperties('A-1')).setTicketType('ticketType1').setExtraData(extraData), null, 'order1')
 
   let report = await client.eventReports.byLabel(event.key)
@@ -162,7 +162,6 @@ test('report with orderId', async () => {
   expect(report['NO_ORDER_ID'].length).toBe(31)
 })
 
-
 test('report with specific orderId', async () => {
   let chartKey = testUtils.getChartKey()
   await testUtils.createTestChart(chartKey, user.designerKey)
@@ -188,7 +187,6 @@ test('report with section', async () => {
 
   expect(report['NO_SECTION'].length).toBe(34)
 })
-
 
 test('report with specific section', async () => {
   let chartKey = testUtils.getChartKey()

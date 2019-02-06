@@ -1,3 +1,11 @@
 {
-    "extends": "standard"
+    "extends": "standard",
+    "env": {
+      "jest": true,
+      "amd": true
+    },
+    "globals": {
+        "client": "readable",
+        "user": "readable"
+    }
 }

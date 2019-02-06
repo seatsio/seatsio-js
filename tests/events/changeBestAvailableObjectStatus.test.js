@@ -7,7 +7,7 @@ test('should change best available object status', async () => {
   let event = await client.events.create(chartKey)
   let labels = {
     'B-4': testUtils.someLabels('4', 'seat', 'B', 'row'),
-    'B-5': testUtils.someLabels('5', 'seat', 'B', 'row'),
+    'B-5': testUtils.someLabels('5', 'seat', 'B', 'row')
   }
 
   let bestAvailableObjs = await client.events.changeBestAvailableObjectStatus(event.key, 2, 'lolzor')
@@ -15,25 +15,25 @@ test('should change best available object status', async () => {
   expect(bestAvailableObjs.nextToEachOther).toBe(true)
   expect(bestAvailableObjs.objects.sort()).toEqual(['B-4', 'B-5'])
   expect(bestAvailableObjs.objectDetails).toEqual({
-        "B-4": {
-          "categoryKey": "9",
-          "categoryLabel": "Cat1",
-          "forSale": true,
-          "label": "B-4",
-          "labels": {"own": {"label": "4", "type": "seat"}, "parent": {"label": "B", "type": "row"}},
-          "objectType": "seat",
-          "status": "lolzor",
-        },
-        "B-5": {
-          "categoryKey": "9",
-          "categoryLabel": "Cat1",
-          "forSale": true,
-          "label": "B-5",
-          "labels": {"own": {"label": "5", "type": "seat"}, "parent": {"label": "B", "type": "row"}},
-          "objectType": "seat",
-          "status": "lolzor",
-        },
-      }
+    'B-4': {
+      'categoryKey': '9',
+      'categoryLabel': 'Cat1',
+      'forSale': true,
+      'label': 'B-4',
+      'labels': { 'own': { 'label': '4', 'type': 'seat' }, 'parent': { 'label': 'B', 'type': 'row' } },
+      'objectType': 'seat',
+      'status': 'lolzor'
+    },
+    'B-5': {
+      'categoryKey': '9',
+      'categoryLabel': 'Cat1',
+      'forSale': true,
+      'label': 'B-5',
+      'labels': { 'own': { 'label': '5', 'type': 'seat' }, 'parent': { 'label': 'B', 'type': 'row' } },
+      'objectType': 'seat',
+      'status': 'lolzor'
+    }
+  }
   )
 })
 
@@ -41,7 +41,7 @@ test('should change best available object status with categories', async () => {
   let chartKey = testUtils.getChartKey()
   await testUtils.createTestChart(chartKey, user.designerKey)
   let event = await client.events.create(chartKey)
-  let bestAvailableObjs = await client.events.changeBestAvailableObjectStatus(event.key, 3, 'lolzor', ["cat2"])
+  let bestAvailableObjs = await client.events.changeBestAvailableObjectStatus(event.key, 3, 'lolzor', ['cat2'])
 
   expect(bestAvailableObjs.objects.sort()).toEqual(['C-4', 'C-5', 'C-6'])
 })
@@ -50,7 +50,7 @@ test('should change best available object status with extra data', async () => {
   let chartKey = testUtils.getChartKey()
   await testUtils.createTestChart(chartKey, user.designerKey)
   let event = await client.events.create(chartKey)
-  let extraData = [{"foo": "bar"}, {"foo": "baz"}]
+  let extraData = [{ 'foo': 'bar' }, { 'foo': 'baz' }]
 
   let bestAvailableObjs = await client.events.changeBestAvailableObjectStatus(event.key, 2, 'lolzor', null, null, extraData)
 
@@ -94,7 +94,7 @@ test('should book best available object ', async () => {
   let bestAvailableObjs = await client.events.bookBestAvailable(event.key, 3)
 
   expect(bestAvailableObjs.nextToEachOther).toBe(true)
-  expect(bestAvailableObjs.objects).toEqual(["B-4", "B-5", "B-6"])
+  expect(bestAvailableObjs.objects).toEqual(['B-4', 'B-5', 'B-6'])
 })
 
 test('should hold best available object ', async () => {

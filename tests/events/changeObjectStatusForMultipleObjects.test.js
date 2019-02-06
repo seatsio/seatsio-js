@@ -32,7 +32,7 @@ test('should change object status for multiple objects as an array of classes', 
   let chartKey = testUtils.getChartKey()
   await testUtils.createTestChart(chartKey, user.designerKey)
   let event = await client.events.create(chartKey)
-  let objects = [{'objectId': 'A-1'}, {'objectId': 'A-2'}]
+  let objects = [{ 'objectId': 'A-1' }, { 'objectId': 'A-2' }]
   await client.events.changeObjectStatus(event.key, objects, 'lolzor')
 
   let objStatus1 = await client.events.retrieveObjectStatus(event.key, 'A-1')
@@ -45,7 +45,7 @@ test('should change object status for multiple objects as an array of classes wi
   let chartKey = testUtils.getChartKey()
   await testUtils.createTestChart(chartKey, user.designerKey)
   let event = await client.events.create(chartKey)
-  let objects = [{objectId: 'A-1'}, {objectId: 'GA1', quantity: 5}]
+  let objects = [{ objectId: 'A-1' }, { objectId: 'GA1', quantity: 5 }]
 
   await client.events.changeObjectStatus(event.key, objects, 'lolzor')
 
@@ -59,7 +59,7 @@ test('should change object status for multiple objects as an array of classes an
   let chartKey = testUtils.getChartKey()
   await testUtils.createTestChart(chartKey, user.designerKey)
   let event = await client.events.create(chartKey)
-  let objects = ['A-1', {objectId: 'GA1', quantity: 5}]
+  let objects = ['A-1', { objectId: 'GA1', quantity: 5 }]
 
   await client.events.changeObjectStatus(event.key, objects, 'lolzor')
 
@@ -127,14 +127,14 @@ test('should change object status for multiple objects with extra data', async (
   await testUtils.createTestChart(chartKey, user.designerKey)
   let event = await client.events.create(chartKey)
   let objects = [
-    (new ObjectProperties('A-1')).setExtraData({"foo": "bar"}),
-    (new ObjectProperties('A-2')).setExtraData({"foo": "baz"})
+    (new ObjectProperties('A-1')).setExtraData({ 'foo': 'bar' }),
+    (new ObjectProperties('A-2')).setExtraData({ 'foo': 'baz' })
   ]
 
   await client.events.changeObjectStatus(event.key, objects, 'lolzor')
 
   let status1 = await client.events.retrieveObjectStatus(event.key, 'A-1')
   let status2 = await client.events.retrieveObjectStatus(event.key, 'A-2')
-  expect(status1.extraData).toEqual({"foo": "bar"})
-  expect(status2.extraData).toEqual({"foo": "baz"})
+  expect(status1.extraData).toEqual({ 'foo': 'bar' })
+  expect(status2.extraData).toEqual({ 'foo': 'baz' })
 })

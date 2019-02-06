@@ -11,7 +11,6 @@ test('should list charts before a given chart id', async () => {
   expect(chartKeys.sort()).toEqual([chart2.key, chart3.key].sort())
 })
 
-
 test('should list charts before a given chart id with filter', async () => {
   let chart1 = await client.charts.create('foo')
   let chart2 = await client.charts.create('foo')

@@ -6,9 +6,9 @@ test('should release objects', async () => {
   let objectStatus = new ObjectStatus()
   await testUtils.createTestChart(chartKey, user.designerKey)
   let event = await client.events.create(chartKey)
-  await client.events.book(event.key, ["A-1", "A-2"])
+  await client.events.book(event.key, ['A-1', 'A-2'])
 
-  let releaseRes = await client.events.release(event.key, ["A-1", "A-2"])
+  let releaseRes = await client.events.release(event.key, ['A-1', 'A-2'])
 
   let status1 = await client.events.retrieveObjectStatus(event.key, 'A-1')
   let status2 = await client.events.retrieveObjectStatus(event.key, 'A-2')

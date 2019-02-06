@@ -7,7 +7,7 @@ test('should hold objects', async () => {
   await testUtils.createTestChart(chartKey, user.designerKey)
   let event = await client.events.create(chartKey)
   let holdToken = await client.holdTokens.create()
-  let holdResult = await client.events.hold(event.key, ["A-1", "A-2"], holdToken.holdToken)
+  let holdResult = await client.events.hold(event.key, ['A-1', 'A-2'], holdToken.holdToken)
 
   let status1 = await client.events.retrieveObjectStatus(event.key, 'A-1')
   expect(status1.status).toBe(objectStatus.HELD)

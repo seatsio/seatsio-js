@@ -22,7 +22,7 @@ test('should book an object with quantity', async () => {
   await testUtils.createTestChart(chartKey, user.designerKey)
   let event = await client.events.create(chartKey)
 
-  await client.events.book(event.key, {"objectId": "GA1", "quantity": 100})
+  await client.events.book(event.key, { 'objectId': 'GA1', 'quantity': 100 })
 
   let retrievedObjStatus = await client.events.retrieveObjectStatus(event.key, 'GA1')
   expect(retrievedObjStatus.status).toEqual(objectStatus.BOOKED)

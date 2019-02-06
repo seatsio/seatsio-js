@@ -36,8 +36,8 @@ test('should create chart with venue type', async () => {
 })
 
 test('should create chart with categories as class', async () => {
-  let cat1 = {'key': 1, 'label': 'Category 1', 'color': '#aaaaaa'}
-  let cat2 = {'key': 3, 'label': 'Category 2', 'color': '#bbbbbb'}
+  let cat1 = { 'key': 1, 'label': 'Category 1', 'color': '#aaaaaa' }
+  let cat2 = { 'key': 3, 'label': 'Category 2', 'color': '#bbbbbb' }
 
   let chart = await client.charts.create(null, null, [cat1, cat2])
 
@@ -51,8 +51,8 @@ test('should create chart with categories as instance of Category class', async 
   let cat1 = new Category(1, 'Category 1', '#aaaaaa')
   let cat2 = new Category(2, 'Category 2', '#bbbbbb')
   let expectedCategories = [
-    {'key': 1, 'label': 'Category 1', 'color': '#aaaaaa'},
-    {'key': 2, 'label': 'Category 2', 'color': '#bbbbbb'}]
+    { 'key': 1, 'label': 'Category 1', 'color': '#aaaaaa' },
+    { 'key': 2, 'label': 'Category 2', 'color': '#bbbbbb' }]
 
   let chart = await client.charts.create(null, null, [cat1, cat2])
 

@@ -23,7 +23,6 @@ test('should update event key', async () => {
   expect(retrievedEvent.key).toBe('newKey')
 })
 
-
 test('should update bookWholeTables parameter of an event', async () => {
   let chart = await client.charts.create()
   let event = await client.events.create(chart.key)
@@ -41,11 +40,11 @@ test('should update tableBookingModes parameter of an event', async () => {
   await testUtils.createTestChartWithTables(chartKey, user.designerKey)
   let event = await client.events.create(chartKey)
 
-  await client.events.update(event.key, null, null, {"T1": "BY_TABLE", "T2": "BY_SEAT"})
+  await client.events.update(event.key, null, null, { 'T1': 'BY_TABLE', 'T2': 'BY_SEAT' })
 
   let retrievedEvent = await client.events.retrieve(event.key)
   expect(retrievedEvent.chartKey).toBe(chartKey)
   expect(retrievedEvent.key).toBe(event.key)
   expect(retrievedEvent.bookWholeTables).toBe(false)
-  expect(retrievedEvent.tableBookingModes).toEqual({"T1": "BY_TABLE", "T2": "BY_SEAT"})
+  expect(retrievedEvent.tableBookingModes).toEqual({ 'T1': 'BY_TABLE', 'T2': 'BY_SEAT' })
 })

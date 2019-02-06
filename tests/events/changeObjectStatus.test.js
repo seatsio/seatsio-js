@@ -10,14 +10,14 @@ test('should change object status', async () => {
   let result = await client.events.changeObjectStatus(event.key, 'A-1', 'lolzor')
 
   expect(result.objects).toEqual({
-    "A-1": {
-      "categoryKey": "9",
-      "categoryLabel": "Cat1",
-      "forSale": true,
-      "label": "A-1",
-      "labels": {"own": {"label": "1", "type": "seat"}, "parent": {"label": "A", "type": "row"}},
-      "objectType": "seat",
-      "status": "lolzor"
+    'A-1': {
+      'categoryKey': '9',
+      'categoryLabel': 'Cat1',
+      'forSale': true,
+      'label': 'A-1',
+      'labels': { 'own': { 'label': '1', 'type': 'seat' }, 'parent': { 'label': 'A', 'type': 'row' } },
+      'objectType': 'seat',
+      'status': 'lolzor'
     }
   })
 })
@@ -58,8 +58,8 @@ test('should change object status with GA and quantity', async () => {
   let event = await client.events.create(chartKey)
 
   let result = await client.events.changeObjectStatus(event.key, {
-    "objectId": "GA1",
-    "quantity": 100
+    'objectId': 'GA1',
+    'quantity': 100
   }, 'myCustomStatus')
 
   let retrievedStatus = await client.events.retrieveObjectStatus(event.key, 'GA1')
@@ -75,7 +75,7 @@ test('should change object status with objectId as string', async () => {
 
   await client.events.changeObjectStatus(event.key, 'A-1', 'lolzor')
 
-  let objStatus = await client.events.retrieveObjectStatus(event.key, "A-1")
+  let objStatus = await client.events.retrieveObjectStatus(event.key, 'A-1')
   expect(objStatus.status).toBe('lolzor')
 })
 
@@ -86,7 +86,7 @@ test('should change object status with objectId inside class', async () => {
 
   await client.events.changeObjectStatus(event.key, new ObjectProperties('A-1'), 'lolzor')
 
-  let objStatus = await client.events.retrieveObjectStatus(event.key, "A-1")
+  let objStatus = await client.events.retrieveObjectStatus(event.key, 'A-1')
   expect(objStatus.status).toBe('lolzor')
 })
 
@@ -99,7 +99,7 @@ test('should change object status with hold token', async () => {
 
   await client.events.changeObjectStatus(event.key, 'A-1', objectStatus.HELD, holdToken.holdToken)
 
-  let objStatus = await client.events.retrieveObjectStatus(event.key, "A-1")
+  let objStatus = await client.events.retrieveObjectStatus(event.key, 'A-1')
   expect(objStatus.status).toBe(objectStatus.HELD)
   expect(objStatus.holdToken).toBe(holdToken.holdToken)
 })
@@ -109,8 +109,8 @@ test('should change object status with OrderId', async () => {
   await testUtils.createTestChart(chartKey, user.designerKey)
   let event = await client.events.create(chartKey)
 
-  await client.events.changeObjectStatus(event.key, 'A-1', 'lolzor', null, "order1")
+  await client.events.changeObjectStatus(event.key, 'A-1', 'lolzor', null, 'order1')
 
-  let objStatus = await client.events.retrieveObjectStatus(event.key, "A-1")
+  let objStatus = await client.events.retrieveObjectStatus(event.key, 'A-1')
   expect(objStatus.orderId).toBe('order1')
 })

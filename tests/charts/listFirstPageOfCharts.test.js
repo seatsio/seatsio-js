@@ -11,7 +11,6 @@ test('should list first page of charts', async () => {
   expect(chartKeys.sort()).toEqual([chart1.key, chart2.key, chart3.key].sort())
 })
 
-
 test('should list first page of charts with filter', async () => {
   let chart1 = await client.charts.create('foo')
   let chart2 = await client.charts.create('foo')
@@ -48,7 +47,6 @@ test('pageSize of list first page of charts with page size', async () => {
 
   expect(chartKeys.sort()).toEqual([chart3.key, chart4.key].sort())
 })
-
 
 test('should list first page of charts with expanded events', async () => {
   let generatedKeys = []

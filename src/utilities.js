@@ -15,26 +15,6 @@ const StatusChange = require('./Events/StatusChange.js')
 const LabelClasses = require('./Common/Labels.js')
 
 module.exports = {
-
-  /**
-   * @param {Object} data
-   * @returns {Object.<string, Labels>}
-   */
-  labelsCreator (data) {
-    let labels = {}
-    for (const key of Object.keys(data.labels)) {
-      if (data.labels[key].parent) {
-        labels[key] = new LabelClasses.Labels(new LabelClasses.LabelAndType(data.labels[key].own.label, data.labels[key].own.type), new LabelClasses.LabelAndType(data.labels[key].parent.label, data.labels[key].parent.type))
-      } else {
-        labels[key] = new LabelClasses.Labels(new LabelClasses.LabelAndType(data.labels[key].own.label, data.labels[key].own.type))
-      }
-      if (data.labels[key].section) {
-        labels[key].section = data.labels[key].section
-      }
-    }
-    return labels
-  },
-
   /**
    * @param data
    * @returns {Labels}

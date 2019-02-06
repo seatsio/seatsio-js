@@ -11,7 +11,6 @@ test('should update subaccount', async () => {
   expect(retrievedSubaccount.email).toBe(email)
 })
 
-
 test('email is optional', async () => {
   let email = testUtils.getRandomEmail()
   let subaccount = await client.subaccounts.createWithEmail(email, 'joske')
