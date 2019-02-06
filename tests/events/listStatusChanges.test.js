@@ -18,6 +18,24 @@ test('should list status changes', async () => {
     expect(labels.sort()).toEqual(['A-1', 'A-2', 'A-3']);
 });
 
+test('check time of status changes', async () => {
+    let chartKey = testUtils.getChartKey();
+    await testUtils.createTestChart(chartKey, user.designerKey);
+    let event = await client.events.create(chartKey);
+    await client.events.book(event.key, 'A-1');
+    await client.events.book(event.key, 'A-2');
+    let dates = [], now = new Date();
+
+    for await (let statusChange of client.events.statusChanges(event.key)) {
+        dates.push(statusChange.date);
+    }
+
+    expect(dates[0].getTime()).toBeLessThanOrEqual(now.getTime());
+    expect(dates[1].getTime()).toBeLessThanOrEqual(now.getTime());
+    expect(dates[0].getTime()).toBeGreaterThanOrEqual((now.getTime() - 1000));
+    expect(dates[1].getTime()).toBeGreaterThanOrEqual((now.getTime() - 1000));
+});
+
 test('properties of status change', async () => {
     let chartKey = testUtils.getChartKey();
     let objectStatus = new ObjectStatus();
