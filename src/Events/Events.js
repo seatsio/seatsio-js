@@ -132,10 +132,10 @@ class Events {
     /**
      * @param {string} eventKey
      * @param {?string} objectId
-     * @param {?object} params
+     * @param {?StatusChangesParams} params
      * @returns {AsyncIterator}
      */
-    statusChanges(eventKey, objectId = null, params = {}) {
+    statusChanges(eventKey, objectId = null, params = null) {
         if (objectId === null) {
             return new AsyncIterator(`/events/${encodeURIComponent(eventKey)}/status-changes`, this.client, 'statusChanges', params);
         }
