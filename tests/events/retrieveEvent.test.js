@@ -15,7 +15,7 @@ test('should retrieve event', async () => {
     expect(retrievedEvent.supportsBestAvailable).toBe(true);
     expect(retrievedEvent.createdOn).toEqual(event.createdOn);
     expect(retrievedEvent.createdOn.getTime()).toBeLessThanOrEqual(now.getTime());
-    expect(retrievedEvent.createdOn.getTime()).toBeGreaterThanOrEqual((now.getTime() - 100));
+    expect(retrievedEvent.createdOn.getTime()).toBeGreaterThanOrEqual((now.getTime() - 1000));
     expect(retrievedEvent.forSaleConfig).toBeFalsy();
     expect(retrievedEvent.updatedOn).toBeNull();
 });
