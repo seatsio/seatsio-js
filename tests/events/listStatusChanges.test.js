@@ -863,11 +863,13 @@ test('should not list status changes before given id with unmatched filter', asy
     expect(pageBefore.items).toEqual([]);
 });
 
-test('list status changes when based on latest parameter passed, sortByObjectLabel', async () => {
+test('list status changes filtered and sorted by label', async () => {
     let chartKey = testUtils.getChartKey();
     await testUtils.createTestChart(chartKey, user.designerKey);
     let event = await client.events.create(chartKey);
+    await client.events.book(event.key, 'C-1');
     await client.events.book(event.key, 'A-1');
+    await client.events.book(event.key, 'B-1');
     await client.events.book(event.key, 'A-2');
     await client.events.book(event.key, 'A-3');
 
@@ -879,39 +881,39 @@ test('list status changes when based on latest parameter passed, sortByObjectLab
         firstPage.items[1].objectLabel,
         firstPage.items[2].objectLabel
     ];
-    expect(labels).toEqual(['A-1', 'A-2', 'A-3']);
+    expect(labels).toEqual(['A-1', 'B-1', 'C-1']);
     expect(firstPage.items.length).toEqual(3);
 });
 
-test('list status changes when based on latest parameter passed, sortByDateAsc', async () => {
+test('list status changes filtered and sorted by date ascending', async () => {
     let chartKey = testUtils.getChartKey();
     await testUtils.createTestChart(chartKey, user.designerKey);
     let event = await client.events.create(chartKey);
-    await client.events.book(event.key, 'A-1');
+    await client.events.book(event.key, 'B-1');
     await client.events.book(event.key, 'A-2');
     await client.events.book(event.key, 'A-3');
+    await client.events.book(event.key, 'C-1');
 
     let params = new StatusChangeParam().withFilter('1').sortByDateAsc();
     let firstPage =  await client.events.listStatusChangesFirstPage(event.key, params);
 
     let labels = [
         firstPage.items[0].objectLabel,
-        firstPage.items[1].objectLabel,
-        firstPage.items[2].objectLabel
+        firstPage.items[1].objectLabel
     ];
-    expect(labels).toEqual(['A-1', 'A-2', 'A-3']);
-    expect(firstPage.items.length).toEqual(3);
+    expect(labels).toEqual(['B-1', 'C-1']);
+    expect(firstPage.items.length).toEqual(2);
 });
 
-test('list status changes when based on latest parameter passed, sortByStatus', async () => {
+test('list status changes filtered and sorted by status', async () => {
     let chartKey = testUtils.getChartKey();
     await testUtils.createTestChart(chartKey, user.designerKey);
     let event = await client.events.create(chartKey);
     let holdToken = await client.holdTokens.create();
     await client.events.book(event.key, 'A-1');
-    await client.events.hold(event.key, 'A-2', holdToken.holdToken);
+    await client.events.hold(event.key, 'C-1', holdToken.holdToken);
     await client.events.hold(event.key, 'B-1', holdToken.holdToken);
-    await client.events.release(event.key, 'A-2', holdToken.holdToken);
+    await client.events.release(event.key, 'C-1', holdToken.holdToken);
 
     let params = new StatusChangeParam().withFilter('1').sortByStatus();
     let firstPage =  await client.events.listStatusChangesFirstPage(event.key, params);
@@ -922,30 +924,16 @@ test('list status changes when based on latest parameter passed, sortByStatus', 
         firstPage.items[2].objectLabel,
         firstPage.items[3].objectLabel
     ];
-    expect(labels).toEqual(['A-1', 'A-2', 'B-1', 'A-2']);
+    expect(labels).toEqual(['A-1', 'C-1', 'B-1', 'C-1']);
     expect(firstPage.items.length).toEqual(4);
 
 });
 
-test('list status changes when based on latest parameter passed, filter', async () => {
+test('list status changes based on latest parameter passed (and filter), chained', async () => {
     let chartKey = testUtils.getChartKey();
     await testUtils.createTestChart(chartKey, user.designerKey);
     let event = await client.events.create(chartKey);
-    await client.events.book(event.key, 'A-1');
-    await client.events.book(event.key, 'B-2');
-    await client.events.book(event.key, 'C-2');
-
-    let params = new StatusChangeParam().sortByDateAsc().withFilter('1');
-    let firstPage =  await client.events.listStatusChangesFirstPage(event.key, params);
-
-    expect(firstPage.items[0].objectLabel).toBe('A-1');
-    expect(firstPage.items.length).toBe(1);
-});
-
-test('list status changes when based on latest parameter passed, chained', async () => {
-    let chartKey = testUtils.getChartKey();
-    await testUtils.createTestChart(chartKey, user.designerKey);
-    let event = await client.events.create(chartKey);
+    await client.events.book(event.key, 'B-1');
     await client.events.book(event.key, 'A-1');
     await client.events.book(event.key, 'A-3');
     await client.events.book(event.key, 'A-2');
@@ -955,9 +943,50 @@ test('list status changes when based on latest parameter passed, chained', async
 
     let labels = [
         firstPage.items[0].objectLabel,
-        firstPage.items[1].objectLabel,
-        firstPage.items[2].objectLabel
+        firstPage.items[1].objectLabel
     ];
-    expect(labels).toEqual(['A-1', 'A-2', 'A-3']);
-    expect(firstPage.items.length).toBe(3);
+    expect(labels).toEqual(['A-1', 'B-1']);
+    expect(firstPage.items.length).toBe(2);
+});
+
+test("that parameter order doesn't matter for filtering and latest sortBy is taken into account", async () => {
+    let chartKey = testUtils.getChartKey();
+    await testUtils.createTestChart(chartKey, user.designerKey);
+    let event = await client.events.create(chartKey);
+    await client.events.book(event.key, 'B-1');
+    await client.events.book(event.key, 'A-1');
+    await client.events.book(event.key, 'A-3');
+    await client.events.book(event.key, 'A-2');
+
+    let params = new StatusChangeParam().sortByDateAsc().sortByObjectLabel().withFilter('1');
+    let firstPage =  await client.events.listStatusChangesFirstPage(event.key, params);
+
+    let labels = [
+        firstPage.items[0].objectLabel,
+        firstPage.items[1].objectLabel
+    ];
+    expect(labels).toEqual(['A-1', 'B-1']);
+    expect(firstPage.items.length).toBe(2);
+});
+
+test("that combined sorting parameter still work, sorts based on the latest", async () => {
+    let chartKey = testUtils.getChartKey();
+    await testUtils.createTestChart(chartKey, user.designerKey);
+    let event = await client.events.create(chartKey);
+    await client.events.book(event.key, 'B-1');
+    await client.events.book(event.key, 'A-1');
+    await client.events.book(event.key, 'A-3');
+    await client.events.book(event.key, 'A-2');
+
+    let params = new StatusChangeParam().sortByDateAsc().sortByObjectLabel();
+    let firstPage =  await client.events.listStatusChangesFirstPage(event.key, params);
+
+    let labels = [
+        firstPage.items[0].objectLabel,
+        firstPage.items[1].objectLabel,
+        firstPage.items[2].objectLabel,
+        firstPage.items[3].objectLabel
+    ];
+    expect(labels).toEqual(['A-1', 'A-2', 'A-3', 'B-1']);
+    expect(firstPage.items.length).toBe(4);
 });
