@@ -132,14 +132,14 @@ class Events {
     /**
      * @param {string} eventKey
      * @param {?string} objectId
-     * @param {?StatusChangesParams} params
+     * @param {?StatusChangesParams} statusChangesParams
      * @returns {AsyncIterator}
      */
-    statusChanges(eventKey, objectId = null, params = null) {
+    statusChanges(eventKey, objectId = null, statusChangesParams = null) {
         if (objectId === null) {
-            return new AsyncIterator(`/events/${encodeURIComponent(eventKey)}/status-changes`, this.client, 'statusChanges', params);
+            return new AsyncIterator(`/events/${encodeURIComponent(eventKey)}/status-changes`, this.client, 'statusChanges', utilities.combineStatusChangesParams(statusChangesParams));
         }
-        return new AsyncIterator(`/events/${encodeURIComponent(eventKey)}/objects/${encodeURIComponent(objectId)}/status-changes`, this.client, 'statusChanges', params);
+        return new AsyncIterator(`/events/${encodeURIComponent(eventKey)}/objects/${encodeURIComponent(objectId)}/status-changes`, this.client, 'statusChanges', utilities.combineStatusChangesParams(statusChangesParams));
     }
 
     /**
@@ -149,7 +149,7 @@ class Events {
      * @returns {Page}
      */
     listStatusChangesFirstPage(eventKey, statusChangesParams = null, pageSize = null) {
-        return this.statusChangeIterator(eventKey).firstPage(statusChangesParams, pageSize);
+        return this.statusChangeIterator(eventKey).firstPage(utilities.combineStatusChangesParams(statusChangesParams), pageSize);
     }
 
     /**
@@ -160,7 +160,7 @@ class Events {
      * @returns {Page}
      */
     listStatusChangesPageAfter(eventKey, afterId, statusChangesParams = null, pageSize = null) {
-        return this.statusChangeIterator(eventKey).pageAfter(afterId, statusChangesParams, pageSize);
+        return this.statusChangeIterator(eventKey).pageAfter(afterId, utilities.combineStatusChangesParams(statusChangesParams), pageSize);
     }
 
     /**
@@ -171,7 +171,7 @@ class Events {
      * @returns {Page}
      */
     listStatusChangesPageBefore(eventKey, beforeId, statusChangesParams = null,  pageSize = null) {
-        return this.statusChangeIterator(eventKey).pageBefore(beforeId, statusChangesParams, pageSize);
+        return this.statusChangeIterator(eventKey).pageBefore(beforeId, utilities.combineStatusChangesParams(statusChangesParams), pageSize);
     }
 
     /**

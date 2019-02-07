@@ -25,8 +25,24 @@ class StatusChangesParams {
     /**
      * @returns {StatusChangesParams}
      */
-    sortByDateAsc (){
-        this.sort = 'date:asc';
+    sortByDate (){
+        this.sort = 'date';
+        return this;
+    }
+
+    /**
+     * @returns {StatusChangesParams}
+     */
+    sortAscending(){
+        this.sortDirection = 'asc';
+        return this;
+    }
+
+    /**
+     * @returns {StatusChangesParams}
+     */
+    sortDescending(){
+        this.sortDirection = 'desc';
         return this;
     }
 
@@ -34,7 +50,7 @@ class StatusChangesParams {
      * @param {string} filter
      * @returns {StatusChangesParams}
      */
-    withFilter(filter) {
+    withFilter (filter) {
         this.filter = filter;
         return this;
     }
