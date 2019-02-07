@@ -184,6 +184,27 @@ module.exports = {
     }
 
     return new StatusChange(data.id, data.eventId, data.status, data.quantity, data.objectLabel, new Date(data.date), data.orderId, data.extraData)
+  },
+
+  /**
+   * @param {StatusChangesParams} params
+   * @returns {object}
+   */
+  combineStatusChangesParams (params) {
+    if (!params) return null
+    let sort = null
+    if (params.sort && params.sortDirection) {
+      sort = params.sort + ':' + params.sortDirection
+    } else if (!params.sort && params.sortDirection) {
+      sort = 'date:' + params.sortDirection
+    } else if (params.sort && !params.sortDirection) {
+      sort = params.sort + ':asc'
+    }
+
+    return {
+      sort,
+      filter: params.filter
+    }
   }
 
 }
