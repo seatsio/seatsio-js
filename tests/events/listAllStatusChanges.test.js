@@ -140,6 +140,7 @@ test('properties of status changes', async () => {
     await testUtils.createTestChart(chartKey, user.designerKey);
     let event = await client.events.create(chartKey);
     let obj = new ObjectProperties('A-1').setExtraData({'foo': 'bar'});
+    let now = new Date().getTime();
     await client.events.book(event.key, obj, null, 'order1');
 
     let statusChanges = client.events.statusChanges(event.key);
@@ -148,6 +149,8 @@ test('properties of status changes', async () => {
 
     expect(statusChange.value.id).toBeTruthy();
     expect(statusChange.value.date).toBeTruthy();
+    expect(statusChange.value.date.getTime()).toBeGreaterThanOrEqual(now);
+    expect(statusChange.value.date.getTime()).toBeLessThanOrEqual(now + 1000);
     expect(statusChange.value.orderId).toBe('order1');
     expect(statusChange.value.objectLabel).toBe('A-1');
     expect(statusChange.value.status).toBe(objectStatus.BOOKED);
