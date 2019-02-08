@@ -8,6 +8,7 @@ test("should update event's chart key", async () => {
   await client.events.update(event.key, chart2.key)
 
   let retrievedEvent = await client.events.retrieve(event.key)
+  let now = new Date()
   expect(retrievedEvent.chartKey).toBe(chart2.key)
   expect(retrievedEvent.updatedOn).toBeTruthy()
   expect(retrievedEvent.updatedOn.getTime()).toBeLessThanOrEqual(now.getTime())
