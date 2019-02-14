@@ -13,7 +13,7 @@ test('should retrieve chart', async () => {
   expect(retrievedChart.draftVersionThumbnailUrl).toBeNull()
   expect(retrievedChart.tags).toEqual(['tag1'])
   expect(retrievedChart.archived).toBeFalsy()
-  expect(retrievedChart.events).toBeNull()
+  expect(retrievedChart.events).toEqual([])
 })
 
 test('should retrieve chart with events', async () => {
