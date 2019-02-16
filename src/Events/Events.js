@@ -144,7 +144,7 @@ class Events {
 
   /**
    * @param {string} eventKey
-   * @param {StatusChangesParams} statusChangesParams
+   * @param {?StatusChangesParams} statusChangesParams
    * @param {?number} pageSize
    * @returns {Page}
    */
@@ -154,8 +154,8 @@ class Events {
 
   /**
    * @param {string} eventKey
-   * @param {StatusChangesParams} statusChangesParams
-   * @param {?string} afterId
+   * @param {string} afterId
+   * @param {?StatusChangesParams} statusChangesParams
    * @param {?number} pageSize
    * @returns {Page}
    */
@@ -165,8 +165,8 @@ class Events {
 
   /**
    * @param {string} eventKey
-   * @param {?string} beforeId
-   * @param {StatusChangesParams} statusChangesParams
+   * @param {string} beforeId
+   * @param {?StatusChangesParams} statusChangesParams
    * @param {?number} pageSize
    * @returns {Page}
    */
