@@ -11,7 +11,7 @@
   "jest": {
     "transform": {},
     "testEnvironment": "node",
-    "setupTestFrameworkScriptFile": "<rootDir>/tests/setupTests.js"
+    "setupFilesAfterEnv": ["<rootDir>/tests/setupTests.js"]
   },
   "repository": {
     "type": "git",
