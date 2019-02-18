@@ -1,4 +1,4 @@
-const SeatsioClient = require('../src/SeatsioClient.js')
+const { SeatsioClient } = require('../index.js')
 const axios = require('axios')
 const fs = require('fs')
 const uuidv1 = require('uuid/v1')

@@ -11,7 +11,7 @@ npm install seatsio
 ```
 Then you can use it with require: 
 ```js
-const SeatsioClient = require('seatsio');
+const { SeatsioClient } = require('seatsio');
 ```
 For browser, you can directly include it from GitHub:
 
