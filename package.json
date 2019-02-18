@@ -1,6 +1,6 @@
 {
   "name": "seatsio",
-  "version": "13.0.0",
+  "version": "14.0.0",
   "main": "index.js",
   "description": "Official JavaScript and Node.JS client library for the Seats.io V2 REST API",
   "license": "MIT",
@@ -40,7 +40,7 @@
     "gulp-uglify-es": "latest",
     "gulp-util": "latest",
     "gulplog": "latest",
-    "jest": "latest",
-    "jest-cli": "latest"
+    "jest": "^24.1.0",
+    "jest-cli": "^24.1.0"
   }
 }
