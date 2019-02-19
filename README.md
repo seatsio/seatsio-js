@@ -96,6 +96,42 @@ Changes the object status to a custom status of your choice. If you need more st
 let client = new SeatsioClient(<SECRET KEY>);
 await client.events.changeObjectStatus(<AN EVENT KEY>, ["A-1", "A-2"], "unavailable");
 ```
+### Listing status changes
+
+You can use `statusChanges` in a `for await` loop to iterate over all status changes.
+
+```js
+for await (let statusChange of client.events.statusChanges(<AN EVENT KEY>)) {
+    //Do something with the status change
+}
+```
+
+You can alternatively use paginated methods to retrieve status changes:
+
+```js
+await client.events.listStatusChangesFirstPage(<AN EVENT KEY>, <OPTIONAL parameters>, <OPTIONAL pageSize>)
+await client.events.listStatusChangesPageAfter(<AN EVENT KEY>, <A STATUS CHANGE ID>, <OPTIONAL parameters>, <OPTIONAL pageSize>)
+await client.events.listStatusChangesPageBefore(<AN EVENT KEY>, <A STATUS CHANGE ID>, <OPTIONAL parameters>, <OPTIONAL pageSize>)
+```
+
+For `listStatusChangesPageAfter` and `listStatusChangesPageBefore` methods, you must provide a status change ID to list status changes that came after/before the given ID.
+
+You can also pass an optional parameter to filter, sort or order status changes. To make this simpler, we created a helper class called `StatusChangesParams`.  
+
+```js
+const {StatusChangesParams} = require('seatsio')
+let parameter = new StatusChangesParams().withFilter('testFilter')
+let parameter = new StatusChangesParams().sortByObjectLabel()
+let parameter = new StatusChangesParams().sortByDate()
+let parameter = new StatusChangesParams().sortByStatus()
+let parameter = new StatusChangesParams().sortDescending()
+let parameter = new StatusChangesParams().sortAscending()
+```
+A combination of filter, sorting order and sorting option is also possible. 
+
+```js
+let parameter = new StatusChangesParams().withFilter('testFilter').sortByStatus().sortAscending()
+```
 
 ### Event reports
 
