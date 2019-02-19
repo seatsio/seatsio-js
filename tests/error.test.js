@@ -1,5 +1,3 @@
-const testUtils = require('./testUtils.js')
-
 test('check error handling', async () => {
   expect.assertions(1)
   let errorSnapshot = {

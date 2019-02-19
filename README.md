@@ -98,7 +98,7 @@ await client.events.changeObjectStatus(<AN EVENT KEY>, ["A-1", "A-2"], "unavaila
 ```
 ### Listing status changes
 
-You can use `statusChanges` in a `for await` loop to iterate over all status changes.
+`statusChanges` method returns an async iterator. You can use `statusChanges` in a `for await` loop to iterate over all status changes.
 
 ```js
 for await (let statusChange of client.events.statusChanges(<AN EVENT KEY>)) {
@@ -106,7 +106,7 @@ for await (let statusChange of client.events.statusChanges(<AN EVENT KEY>)) {
 }
 ```
 
-You can alternatively use paginated methods to retrieve status changes:
+You can alternatively use the paginated methods to retrieve status changes:
 
 ```js
 await client.events.listStatusChangesFirstPage(<AN EVENT KEY>, <OPTIONAL parameters>, <OPTIONAL pageSize>)
@@ -114,9 +114,9 @@ await client.events.listStatusChangesPageAfter(<AN EVENT KEY>, <A STATUS CHANGE 
 await client.events.listStatusChangesPageBefore(<AN EVENT KEY>, <A STATUS CHANGE ID>, <OPTIONAL parameters>, <OPTIONAL pageSize>)
 ```
 
-For `listStatusChangesPageAfter` and `listStatusChangesPageBefore` methods, you must provide a status change ID to list status changes that came after/before the given ID.
+To list status changes that comes after or before a given status change, you can use `listStatusChangesPageAfter` and `listStatusChangesPageBefore` methods.  
 
-You can also pass an optional parameter to filter, sort or order status changes. To make this simpler, we created a helper class called `StatusChangesParams`.  
+You can also pass an optional parameter to _filter_, _sort_ or _order_ status changes. For this parameter, you can you use the helper class called `StatusChangesParams`.  
 
 ```js
 const {StatusChangesParams} = require('seatsio')
