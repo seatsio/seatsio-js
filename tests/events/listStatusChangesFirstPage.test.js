@@ -1,5 +1,5 @@
 const testUtils = require('../testUtils.js')
-const StatusChangeParam = require('../../src/Events/StatusChangesParams.js')
+const StatusChangesParams = require('../../src/Events/StatusChangesParams.js')
 
 test('should list status changes in the first page', async () => {
   let chartKey = testUtils.getChartKey()
@@ -44,7 +44,7 @@ test('should list status changes in the first page sorted by descending', async 
   await client.events.book(event.key, 'A-2')
   await client.events.book(event.key, 'A-3')
 
-  let params = new StatusChangeParam().sortDescending()
+  let params = new StatusChangesParams().sortDescending()
   let firstPage = await client.events.listStatusChangesFirstPage(event.key, params)
 
   let labels = [
@@ -66,7 +66,7 @@ test('should list status changes in the first page sorted by ascending', async (
   await client.events.book(event.key, 'A-2')
   await client.events.book(event.key, 'A-3')
 
-  let params = new StatusChangeParam().sortAscending()
+  let params = new StatusChangesParams().sortAscending()
   let firstPage = await client.events.listStatusChangesFirstPage(event.key, params)
 
   let labels = [
@@ -88,7 +88,7 @@ test('should list status changes in the first page sorted by label', async () =>
   await client.events.book(event.key, 'A-2')
   await client.events.book(event.key, 'A-3')
 
-  let params = new StatusChangeParam().sortByObjectLabel()
+  let params = new StatusChangesParams().sortByObjectLabel()
   let firstPage = await client.events.listStatusChangesFirstPage(event.key, params)
 
   let labels = [
@@ -110,7 +110,7 @@ test('should list status changes in the first page sorted by label descending', 
   await client.events.book(event.key, 'A-2')
   await client.events.book(event.key, 'A-3')
 
-  let params = new StatusChangeParam().sortByObjectLabel().sortDescending()
+  let params = new StatusChangesParams().sortByObjectLabel().sortDescending()
   let firstPage = await client.events.listStatusChangesFirstPage(event.key, params)
 
   let labels = [
@@ -132,7 +132,7 @@ test('should list status changes in the first page sorted by label with page siz
   await client.events.book(event.key, 'A-2')
   await client.events.book(event.key, 'A-3')
 
-  let params = new StatusChangeParam().sortByObjectLabel()
+  let params = new StatusChangesParams().sortByObjectLabel()
   let firstPage = await client.events.listStatusChangesFirstPage(event.key, params, 1)
 
   expect(firstPage.items[0].objectLabel).toEqual('A-1')
@@ -150,7 +150,7 @@ test('should list status changes in the first page sorted by status', async () =
   await client.events.hold(event.key, 'A-2', holdToken.holdToken)
   await client.events.release(event.key, 'A-2', holdToken.holdToken)
   await client.events.book(event.key, 'A-3')
-  let params = new StatusChangeParam().sortByStatus()
+  let params = new StatusChangesParams().sortByStatus()
 
   let firstPage = await client.events.listStatusChangesFirstPage(event.key, params)
 
@@ -179,7 +179,7 @@ test('should list status changes in the first page sorted by status descending',
   await client.events.hold(event.key, 'A-2', holdToken.holdToken)
   await client.events.release(event.key, 'A-2', holdToken.holdToken)
   await client.events.book(event.key, 'A-3')
-  let params = new StatusChangeParam().sortByStatus().sortDescending()
+  let params = new StatusChangesParams().sortByStatus().sortDescending()
 
   let firstPage = await client.events.listStatusChangesFirstPage(event.key, params)
 
@@ -209,7 +209,7 @@ test('should list status changes in the first page sorted by status with page si
   await client.events.release(event.key, 'A-2', holdToken.holdToken)
   await client.events.book(event.key, 'A-3')
 
-  let params = new StatusChangeParam().sortByStatus()
+  let params = new StatusChangesParams().sortByStatus()
   let firstPage = await client.events.listStatusChangesFirstPage(event.key, params, 2)
 
   let labels = [
@@ -234,7 +234,7 @@ test('should list status changes in the first page sorted by date ascending', as
   await client.events.release(event.key, 'A-2', holdToken.holdToken)
   await client.events.book(event.key, 'A-3')
 
-  let params = new StatusChangeParam().sortAscending()
+  let params = new StatusChangesParams().sortAscending()
   let firstPage = await client.events.listStatusChangesFirstPage(event.key, params)
 
   let labels = [
@@ -259,7 +259,7 @@ test('should list status changes in the first page sorted by date ascending with
   await client.events.release(event.key, 'A-2', holdToken.holdToken)
   await client.events.book(event.key, 'A-3')
 
-  let params = new StatusChangeParam().sortAscending()
+  let params = new StatusChangesParams().sortAscending()
   let firstPage = await client.events.listStatusChangesFirstPage(event.key, params, 2)
 
   let labels = [
@@ -283,7 +283,7 @@ test('should list status changes in the first page with filter', async () => {
   await client.events.book(event.key, 'A-3')
   await client.events.book(event.key, 'B-2')
 
-  let params = new StatusChangeParam().withFilter('2')
+  let params = new StatusChangesParams().withFilter('2')
   let firstPage = await client.events.listStatusChangesFirstPage(event.key, params)
 
   let labels = [
@@ -305,7 +305,7 @@ test('should list status changes in the first page with filter and page size', a
   await client.events.book(event.key, 'A-2')
   await client.events.book(event.key, 'A-3')
 
-  let params = new StatusChangeParam().withFilter('A')
+  let params = new StatusChangesParams().withFilter('A')
   let firstPage = await client.events.listStatusChangesFirstPage(event.key, params, 1)
 
   let labels = [
@@ -324,7 +324,7 @@ test('should not list status changes in the first page with unmatched filter', a
   await client.events.book(event.key, 'A-1')
   await client.events.book(event.key, 'A-2')
 
-  let params = new StatusChangeParam().withFilter('B')
+  let params = new StatusChangesParams().withFilter('B')
   let firstPage = await client.events.listStatusChangesFirstPage(event.key, params)
 
   expect(firstPage.items).toEqual([])
@@ -340,7 +340,7 @@ test('list status changes filtered and sorted by label', async () => {
   await client.events.book(event.key, 'A-2')
   await client.events.book(event.key, 'A-3')
 
-  let params = new StatusChangeParam().withFilter('1').sortByObjectLabel()
+  let params = new StatusChangesParams().withFilter('1').sortByObjectLabel()
   let firstPage = await client.events.listStatusChangesFirstPage(event.key, params)
 
   let labels = [
@@ -361,7 +361,7 @@ test('list status changes filtered and sorted by date ascending', async () => {
   await client.events.book(event.key, 'A-3')
   await client.events.book(event.key, 'C-1')
 
-  let params = new StatusChangeParam().withFilter('1').sortAscending()
+  let params = new StatusChangesParams().withFilter('1').sortAscending()
   let firstPage = await client.events.listStatusChangesFirstPage(event.key, params)
 
   let labels = [
@@ -382,7 +382,7 @@ test('list status changes filtered and sorted by status', async () => {
   await client.events.hold(event.key, 'B-1', holdToken.holdToken)
   await client.events.release(event.key, 'C-1', holdToken.holdToken)
 
-  let params = new StatusChangeParam().withFilter('1').sortByStatus()
+  let params = new StatusChangesParams().withFilter('1').sortByStatus()
   let firstPage = await client.events.listStatusChangesFirstPage(event.key, params)
 
   let labels = [
@@ -404,7 +404,7 @@ test('list status changes based on latest parameter passed (and filter), chained
   await client.events.book(event.key, 'A-3')
   await client.events.book(event.key, 'A-2')
 
-  let params = new StatusChangeParam().sortAscending().withFilter('1').sortByObjectLabel()
+  let params = new StatusChangesParams().sortAscending().withFilter('1').sortByObjectLabel()
   let firstPage = await client.events.listStatusChangesFirstPage(event.key, params)
 
   let labels = [
@@ -424,7 +424,7 @@ test("that parameter order doesn't matter for filtering and latest sortBy is tak
   await client.events.book(event.key, 'A-3')
   await client.events.book(event.key, 'A-2')
 
-  let params = new StatusChangeParam().sortAscending().sortByObjectLabel().withFilter('1')
+  let params = new StatusChangesParams().sortAscending().sortByObjectLabel().withFilter('1')
   let firstPage = await client.events.listStatusChangesFirstPage(event.key, params)
 
   let labels = [
@@ -444,7 +444,7 @@ test('that combined sorting parameter still work, sorts based on the latest', as
   await client.events.book(event.key, 'A-3')
   await client.events.book(event.key, 'A-2')
 
-  let params = new StatusChangeParam().sortByDate().sortDescending().sortByObjectLabel().sortAscending()
+  let params = new StatusChangesParams().sortByDate().sortDescending().sortByObjectLabel().sortAscending()
   let firstPage = await client.events.listStatusChangesFirstPage(event.key, params)
 
   let labels = [

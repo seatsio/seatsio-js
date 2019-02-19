@@ -2,7 +2,7 @@ const testUtils = require('../testUtils.js')
 const utils = require('../../src/utilities.js')
 const ObjectProperties = require('../../src/Events/ObjectProperties.js')
 const ObjectStatus = require('../../src/Events/ObjectStatus.js')
-const StatusChangeParam = require('../../src/Events/StatusChangesParams.js')
+const StatusChangesParams = require('../../src/Events/StatusChangesParams.js')
 
 test('should list all status changes', async () => {
   let chartKey = testUtils.getChartKey()
@@ -21,13 +21,13 @@ test('should list all status changes', async () => {
 })
 
 test('status changes parameter', async () => {
-  let justFilter = utils.combineStatusChangesParams(new StatusChangeParam('foo'))
-  let sortAscendingOnly = utils.combineStatusChangesParams(new StatusChangeParam().sortAscending())
-  let sortByStatusOnly = utils.combineStatusChangesParams(new StatusChangeParam().sortByStatus())
-  let sortAscendingWithFilter = utils.combineStatusChangesParams(new StatusChangeParam('foo').sortAscending().withFilter('bar'))
-  let sortDescendingWithFilter = utils.combineStatusChangesParams(new StatusChangeParam().sortAscending().withFilter('bar').sortDescending())
-  let sortByLabelDescendingWithFilter = utils.combineStatusChangesParams(new StatusChangeParam().sortAscending().withFilter('bar').sortByObjectLabel().sortDescending())
-  let sortByStatusAscendingWithFilterChained = utils.combineStatusChangesParams(new StatusChangeParam().sortDescending().withFilter('bar').sortByObjectLabel().sortAscending().sortByStatus())
+  let justFilter = utils.combineStatusChangesParams(new StatusChangesParams('foo'))
+  let sortAscendingOnly = utils.combineStatusChangesParams(new StatusChangesParams().sortAscending())
+  let sortByStatusOnly = utils.combineStatusChangesParams(new StatusChangesParams().sortByStatus())
+  let sortAscendingWithFilter = utils.combineStatusChangesParams(new StatusChangesParams('foo').sortAscending().withFilter('bar'))
+  let sortDescendingWithFilter = utils.combineStatusChangesParams(new StatusChangesParams().sortAscending().withFilter('bar').sortDescending())
+  let sortByLabelDescendingWithFilter = utils.combineStatusChangesParams(new StatusChangesParams().sortAscending().withFilter('bar').sortByObjectLabel().sortDescending())
+  let sortByStatusAscendingWithFilterChained = utils.combineStatusChangesParams(new StatusChangesParams().sortDescending().withFilter('bar').sortByObjectLabel().sortAscending().sortByStatus())
 
   expect(justFilter.filter).toBe('foo')
   expect(justFilter.sort).toBeNull()
@@ -54,7 +54,7 @@ test('should list all status changes sorted by label', async () => {
   await client.events.book(event.key, 'A-3')
   let labels = []
 
-  let params = new StatusChangeParam().sortByObjectLabel()
+  let params = new StatusChangesParams().sortByObjectLabel()
   for await (let statusChange of client.events.statusChanges(event.key, null, params)) {
     labels.push(statusChange.objectLabel)
   }
@@ -74,7 +74,7 @@ test('should list all status changes sorted by status', async () => {
   await client.events.hold(event.key, 'A-3', holdToken.holdToken)
   let labels = []
 
-  let params = new StatusChangeParam().sortByStatus()
+  let params = new StatusChangesParams().sortByStatus()
   for await (let statusChange of client.events.statusChanges(event.key, null, params)) {
     labels.push(statusChange.objectLabel)
   }
@@ -91,7 +91,7 @@ test('should list all status changes sorted by date ascending', async () => {
   await client.events.book(event.key, 'A-2')
   let labels = []
 
-  let params = new StatusChangeParam().sortByDate().sortAscending()
+  let params = new StatusChangesParams().sortByDate().sortAscending()
   for await (let statusChange of client.events.statusChanges(event.key, null, params)) {
     labels.push(statusChange.objectLabel)
   }
@@ -108,7 +108,7 @@ test('should list all status changes with filter', async () => {
   await client.events.book(event.key, 'B-2')
   let labels = []
 
-  let params = new StatusChangeParam().withFilter('2')
+  let params = new StatusChangesParams().withFilter('2')
   for await (let statusChange of client.events.statusChanges(event.key, null, params)) {
     labels.push(statusChange.objectLabel)
   }
@@ -125,7 +125,7 @@ test('should not list status changes with unmatched filter', async () => {
   await client.events.book(event.key, 'B-2')
   let labels = []
 
-  let params = new StatusChangeParam().withFilter('3')
+  let params = new StatusChangesParams().withFilter('3')
   for await (let statusChange of client.events.statusChanges(event.key, null, params)) {
     labels.push(statusChange.objectLabel)
   }
@@ -230,7 +230,7 @@ test('should list status changes after given id sorted by label', async () => {
   await client.events.book(event.key, 'A-3')
   let firstPage = await client.events.listStatusChangesFirstPage(event.key)
 
-  let params = new StatusChangeParam().sortByObjectLabel()
+  let params = new StatusChangesParams().sortByObjectLabel()
   let pageAfter = await client.events.listStatusChangesPageAfter(event.key, firstPage.items[2].id, params)
 
   let labels = [
@@ -252,7 +252,7 @@ test('should list status changes after given id sorted by label with page size',
   await client.events.book(event.key, 'A-3')
   let firstPage = await client.events.listStatusChangesFirstPage(event.key)
 
-  let params = new StatusChangeParam().sortByObjectLabel()
+  let params = new StatusChangesParams().sortByObjectLabel()
   let pageAfter = await client.events.listStatusChangesPageAfter(event.key, firstPage.items[2].id, params, 1)
 
   let labels = [
@@ -277,7 +277,7 @@ test('should list status changes after given id sorted by status', async () => {
   await client.events.book(event.key, 'A-3')
   let firstPage = await client.events.listStatusChangesFirstPage(event.key)
 
-  let params = new StatusChangeParam().sortByStatus()
+  let params = new StatusChangesParams().sortByStatus()
   let pageAfter = await client.events.listStatusChangesPageAfter(event.key, firstPage.items[1].id, params)
 
   let labels = [
@@ -304,7 +304,7 @@ test('should list status changes after given id sorted by status with page size'
   await client.events.book(event.key, 'A-3')
   let firstPage = await client.events.listStatusChangesFirstPage(event.key)
 
-  let params = new StatusChangeParam().sortByStatus()
+  let params = new StatusChangesParams().sortByStatus()
   let pageAfter = await client.events.listStatusChangesPageAfter(event.key, firstPage.items[1].id, params, 2)
 
   let labels = [
@@ -327,7 +327,7 @@ test('should list status changes after given id sorted by date ascending', async
   await client.events.book(event.key, 'A-4')
   let firstPage = await client.events.listStatusChangesFirstPage(event.key)
 
-  let params = new StatusChangeParam().sortAscending()
+  let params = new StatusChangesParams().sortAscending()
   let pageAfter = await client.events.listStatusChangesPageAfter(event.key, firstPage.items[2].id, params)
 
   let labels = [
@@ -350,7 +350,7 @@ test('should list status changes after given id sorted by date ascending with pa
   await client.events.book(event.key, 'A-4')
   let firstPage = await client.events.listStatusChangesFirstPage(event.key)
 
-  let params = new StatusChangeParam().sortAscending()
+  let params = new StatusChangesParams().sortAscending()
   let pageAfter = await client.events.listStatusChangesPageAfter(event.key, firstPage.items[2].id, params, 1)
 
   let labels = [
@@ -373,7 +373,7 @@ test('should list status changes after given id with filter', async () => {
   await client.events.book(event.key, 'A-3')
   let firstPage = await client.events.listStatusChangesFirstPage(event.key)
 
-  let params = new StatusChangeParam().withFilter('1')
+  let params = new StatusChangesParams().withFilter('1')
   let pageAfter = await client.events.listStatusChangesPageAfter(event.key, firstPage.items[0].id, params)
 
   let labels = [
@@ -397,7 +397,7 @@ test('should list status changes after given id with filter and page size', asyn
   await client.events.book(event.key, 'A-3')
   let firstPage = await client.events.listStatusChangesFirstPage(event.key)
 
-  let params = new StatusChangeParam().withFilter('1')
+  let params = new StatusChangesParams().withFilter('1')
   let pageAfter = await client.events.listStatusChangesPageAfter(event.key, firstPage.items[0].id, params, 1)
 
   expect(pageAfter.items[0].objectLabel).toEqual('B-1')
@@ -415,7 +415,7 @@ test('should not list status changes after given id with unmatched filter', asyn
   await client.events.book(event.key, 'C-2')
   let firstPage = await client.events.listStatusChangesFirstPage(event.key)
 
-  let params = new StatusChangeParam().withFilter('1')
+  let params = new StatusChangesParams().withFilter('1')
   let pageBefore = await client.events.listStatusChangesPageAfter(event.key, firstPage.items[0].id, params)
 
   expect(pageBefore.items).toEqual([])
@@ -464,7 +464,7 @@ test('should list status changes before given id sorted by label', async () => {
   await client.events.book(event.key, 'A-3')
   let firstPage = await client.events.listStatusChangesFirstPage(event.key)
 
-  let params = new StatusChangeParam().sortByObjectLabel()
+  let params = new StatusChangesParams().sortByObjectLabel()
   let pageBefore = await client.events.listStatusChangesPageBefore(event.key, firstPage.items[0].id, params)
 
   let labels = [
@@ -486,7 +486,7 @@ test('should list status changes before given id sorted by label with page size'
   await client.events.book(event.key, 'A-3')
   let firstPage = await client.events.listStatusChangesFirstPage(event.key)
 
-  let params = new StatusChangeParam().sortByObjectLabel()
+  let params = new StatusChangesParams().sortByObjectLabel()
   let pageBefore = await client.events.listStatusChangesPageBefore(event.key, firstPage.items[0].id, params, 1)
 
   let labels = [
@@ -509,7 +509,7 @@ test('should list status changes before given id sorted by status', async () => 
   await client.events.hold(event.key, 'A-3', holdToken.holdToken)
   let firstPage = await client.events.listStatusChangesFirstPage(event.key)
 
-  let params = new StatusChangeParam().sortByStatus()
+  let params = new StatusChangesParams().sortByStatus()
   let pageBefore = await client.events.listStatusChangesPageBefore(event.key, firstPage.items[3].id, params)
 
   let labels = [
@@ -534,7 +534,7 @@ test('should list status changes before given id sorted by status with page size
   await client.events.hold(event.key, 'A-3', holdToken.holdToken)
   let firstPage = await client.events.listStatusChangesFirstPage(event.key)
 
-  let params = new StatusChangeParam().sortByStatus()
+  let params = new StatusChangesParams().sortByStatus()
   let pageBefore = await client.events.listStatusChangesPageBefore(event.key, firstPage.items[3].id, params, 2)
 
   let labels = [
@@ -558,7 +558,7 @@ test('should list status changes before given id sorted by date ascending', asyn
   await client.events.book(event.key, 'A-5')
   let firstPage = await client.events.listStatusChangesFirstPage(event.key)
 
-  let params = new StatusChangeParam().sortAscending()
+  let params = new StatusChangesParams().sortAscending()
   let pageBefore = await client.events.listStatusChangesPageBefore(event.key, firstPage.items[1].id, params)
 
   let labels = [
@@ -583,7 +583,7 @@ test('should list status changes before given id sorted by date ascending with p
   await client.events.book(event.key, 'A-5')
   let firstPage = await client.events.listStatusChangesFirstPage(event.key)
 
-  let params = new StatusChangeParam().sortAscending()
+  let params = new StatusChangesParams().sortAscending()
   let pageBefore = await client.events.listStatusChangesPageBefore(event.key, firstPage.items[1].id, params, 2)
 
   let labels = [
@@ -605,7 +605,7 @@ test('should list status changes before given id with filter', async () => {
   await client.events.book(event.key, 'C-2')
   let firstPage = await client.events.listStatusChangesFirstPage(event.key)
 
-  let params = new StatusChangeParam().withFilter('-2')
+  let params = new StatusChangesParams().withFilter('-2')
   let pageBefore = await client.events.listStatusChangesPageBefore(event.key, firstPage.items[2].id, params)
 
   let labels = [
@@ -627,7 +627,7 @@ test('should list status changes before given id with filter and page size', asy
   await client.events.book(event.key, 'C-2')
   let firstPage = await client.events.listStatusChangesFirstPage(event.key)
 
-  let params = new StatusChangeParam().withFilter('2')
+  let params = new StatusChangesParams().withFilter('2')
   let pageBefore = await client.events.listStatusChangesPageBefore(event.key, firstPage.items[2].id, params, 1)
 
   let labels = [
@@ -648,7 +648,7 @@ test('should not list status changes before given id with unmatched filter', asy
   await client.events.book(event.key, 'C-2')
   let firstPage = await client.events.listStatusChangesFirstPage(event.key)
 
-  let params = new StatusChangeParam().withFilter('1')
+  let params = new StatusChangesParams().withFilter('1')
   let pageBefore = await client.events.listStatusChangesPageBefore(event.key, firstPage.items[2].id, params)
 
   expect(pageBefore.items).toEqual([])
