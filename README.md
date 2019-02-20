@@ -11,7 +11,7 @@ npm install seatsio
 ```
 Then you can use it with require: 
 ```js
-const { SeatsioClient } = require('seatsio');
+const { SeatsioClient } = require('seatsio')
 ```
 For browser, you can directly include it from GitHub:
 
@@ -35,10 +35,10 @@ Please note that any version below v2 is not production ready.
 Once you create a new `SeatsioClient` using your _secret key_, you can create _charts_ and then _events_. You can find your _secret key_ in the Settings section of your account: https://app.seats.io/settings. It is important that you keep your _secret key_ private and not expose it in-browser calls unless it is password protected.
 
 ```js
-let client = new SeatsioClient(<SECRET KEY>);
-let chart = await client.charts.create();
-let event = await client.events.create(chart.key);
-console.log(`Created a chart with key ${chart.key} and an event with key: ${event.key}`);
+let client = new SeatsioClient(<SECRET KEY>)
+let chart = await client.charts.create()
+let event = await client.events.create(chart.key)
+console.log(`Created a chart with key ${chart.key} and an event with key: ${event.key}`)
 ```
 
 ### Booking objects
@@ -48,15 +48,15 @@ Booking an object changes its status to `booked`. Booked seats are not selectabl
 [https://docs.seats.io/docs/api-book-objects](https://docs.seats.io/docs/api-book-objects).
 
 ```js
-let client = new SeatsioClient(<SECRET KEY>);
-await client.events.book(<AN EVENT KEY>, ['A-1', 'A-2']);
+let client = new SeatsioClient(<SECRET KEY>)
+await client.events.book(<AN EVENT KEY>, ['A-1', 'A-2'])
 ```
 
 ### Booking objects that are on `HOLD`
 
 ```js
-let client = new SeatsioClient(<SECRET KEY>);
-await client.events.book(<AN EVENT KEY>, ["A-1", "A-2"], <A HOLD TOKEN>);
+let client = new SeatsioClient(<SECRET KEY>)
+await client.events.book(<AN EVENT KEY>, ["A-1", "A-2"], <A HOLD TOKEN>)
 ```
 
 ### Booking general admission (GA) areas
@@ -64,15 +64,15 @@ await client.events.book(<AN EVENT KEY>, ["A-1", "A-2"], <A HOLD TOKEN>);
 Either
 
 ```js
-let client = new SeatsioClient(<SECRET KEY>);
-await client.events.book(<AN EVENT KEY>, ["GA1", "GA1", "GA1"]);
+let client = new SeatsioClient(<SECRET KEY>)
+await client.events.book(<AN EVENT KEY>, ["GA1", "GA1", "GA1"])
 ```
 
 Or:
 
 ```js
-let client = new SeatsioClient(<SECRET KEY>);
-await client.events.book(<AN EVENT KEY>, {"objectId": "GA1", "quantity" : 3});
+let client = new SeatsioClient(<SECRET KEY>)
+await client.events.book(<AN EVENT KEY>, {"objectId": "GA1", "quantity" : 3})
 ```
 
 ### Releasing objects
@@ -82,8 +82,8 @@ Releasing objects changes its status to `free`. Free seats are selectable on a r
 [https://docs.seats.io/docs/api-release-objects](https://docs.seats.io/docs/api-release-objects).
 
 ```js
-let client = new SeatsioClient(<SECRET KEY>);
-await client.events.release(<AN EVENT KEY>, ["A-1", "A-2"]);
+let client = new SeatsioClient(<SECRET KEY>)
+await client.events.release(<AN EVENT KEY>, ["A-1", "A-2"])
 ```
 
 ### Changing object status
@@ -93,8 +93,44 @@ Changes the object status to a custom status of your choice. If you need more st
 [https://docs.seats.io/docs/api-custom-object-status](https://docs.seats.io/docs/api-custom-object-status)
 
 ```js
-let client = new SeatsioClient(<SECRET KEY>);
-await client.events.changeObjectStatus(<AN EVENT KEY>, ["A-1", "A-2"], "unavailable");
+let client = new SeatsioClient(<SECRET KEY>)
+await client.events.changeObjectStatus(<AN EVENT KEY>, ["A-1", "A-2"], "unavailable")
+```
+### Listing status changes
+
+`statusChanges` method returns an async iterator. You can use `statusChanges` in a `for await` loop to iterate over all status changes.
+
+```js
+for await (let statusChange of client.events.statusChanges(<AN EVENT KEY>)) {
+    //Do something with the status change
+}
+```
+
+You can alternatively use the paginated methods to retrieve status changes:
+
+```js
+await client.events.listStatusChangesFirstPage(<AN EVENT KEY>, <OPTIONAL parameters>, <OPTIONAL pageSize>)
+await client.events.listStatusChangesPageAfter(<AN EVENT KEY>, <A STATUS CHANGE ID>, <OPTIONAL parameters>, <OPTIONAL pageSize>)
+await client.events.listStatusChangesPageBefore(<AN EVENT KEY>, <A STATUS CHANGE ID>, <OPTIONAL parameters>, <OPTIONAL pageSize>)
+```
+
+To list status changes that comes after or before a given status change, you can use `listStatusChangesPageAfter` and `listStatusChangesPageBefore` methods.  
+
+You can also pass an optional parameter to _filter_, _sort_ or _order_ status changes. For this parameter, you can you use the helper class called `StatusChangesParams`.  
+
+```js
+const {StatusChangesParams} = require('seatsio')
+let parameter = new StatusChangesParams().withFilter('testFilter')
+let parameter = new StatusChangesParams().sortByObjectLabel()
+let parameter = new StatusChangesParams().sortByDate()
+let parameter = new StatusChangesParams().sortByStatus()
+let parameter = new StatusChangesParams().sortDescending()
+let parameter = new StatusChangesParams().sortAscending()
+```
+A combination of filter, sorting order and sorting option is also possible. 
+
+```js
+let parameter = new StatusChangesParams().withFilter('testFilter').sortByStatus().sortAscending()
 ```
 
 ### Event reports
@@ -111,18 +147,18 @@ The report types you can choose from are:
 [https://docs.seats.io/docs/api-event-reports](https://docs.seats.io/docs/api-event-reports)
 
 ```js
-let client = new SeatsioClient(<SECRET KEY>);
-await client.eventReports.byStatus(<AN EVENT KEY>, <OPTIONAL FILTER>);
+let client = new SeatsioClient(<SECRET KEY>)
+await client.eventReports.byStatus(<AN EVENT KEY>, <OPTIONAL FILTER>)
 ```
 
 ### Listing charts
 You can list all charts using `listAll()` method which returns an asynchronous iterator `AsyncIterator`. You can use `for await` loop to retrieve all charts.
 
 ```js
-let client = new SeatsioClient(<SECRET KEY>);
-let chart1 = await client.charts.create();
-let chart2 = await client.charts.create();
-let chart3 = await client.charts.create();
+let client = new SeatsioClient(<SECRET KEY>)
+let chart1 = await client.charts.create()
+let chart2 = await client.charts.create()
+let chart3 = await client.charts.create()
 for await(let chart of client.charts.listAll()){
     console.log(`Chart key: ${chart.key}`)
 }
@@ -130,14 +166,14 @@ for await(let chart of client.charts.listAll()){
 
 You can also call the `next()` method to manually iterate over charts.
 ```js
-let client = new SeatsioClient(<SECRET KEY>);
-let chart1 = await client.charts.create();
-let chart2 = await client.charts.create();
-let chart3 = await client.charts.create();
-let charts = client.charts.listAll();
-let chartsIterator = charts[Symbol.asyncIterator]();
-let firstChart = await chartsIterator.next(); //retrieves the first page of charts, returns the latest in queue
-let secondChart = await chartsIterator.next(); //returns the next chart in the first page
+let client = new SeatsioClient(<SECRET KEY>)
+let chart1 = await client.charts.create()
+let chart2 = await client.charts.create()
+let chart3 = await client.charts.create()
+let charts = client.charts.listAll()
+let chartsIterator = charts[Symbol.asyncIterator]()
+let firstChart = await chartsIterator.next() //retrieves the first page of charts, returns the latest in queue
+let secondChart = await chartsIterator.next() //returns the next chart in the first page
 ```
 
 ## Error Handling
