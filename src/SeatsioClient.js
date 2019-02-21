@@ -44,10 +44,6 @@ class SeatsioClient {
         response => {
           this._trackResponseTime(response)
           return response
-        },
-        error => {
-          this._trackResponseTime(error)
-          return Promise.reject(error)
         }
     )
   }
