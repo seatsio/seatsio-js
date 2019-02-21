@@ -9,7 +9,7 @@ const errorResponseHandler = require('./errorInterceptor.js')
 const Axios = require('axios')
 
 class SeatsioClient {
-  constructor(secretKey, baseUrl = 'https://api.seatsio.net/') {
+  constructor (secretKey, baseUrl = 'https://api.seatsio.net/') {
     this.client = Axios.create({
       baseURL: baseUrl,
       auth: {
@@ -19,12 +19,11 @@ class SeatsioClient {
       errorHandle: false
     })
 
-    this._setupResponseTimeTracker();
+    this._setupResponseTimeTracker()
 
     this.errInterceptor = this.client.interceptors.response.use(
-        response => response, errorResponseHandler
+      response => response, errorResponseHandler
     )
-
 
     this.charts = new Charts(this.client)
     this.events = new Events(this.client)
@@ -35,32 +34,32 @@ class SeatsioClient {
     this.eventReports = new EventReports(this.client)
   }
 
-  _setupResponseTimeTracker() {
+  _setupResponseTimeTracker () {
     this.client.interceptors.request.use(config => {
-      config.metadata = {start: new Date()}
+      config.metadata = { start: new Date() }
       return config
     })
 
     this.client.interceptors.response.use(
-        response => {
-          this._trackResponseTime(response)
-          return response
-        },
-        response => {
-          this._trackResponseTime(response)
-          return Promise.reject(response)
-        }
+      response => {
+        this._trackResponseTime(response)
+        return response
+      },
+      response => {
+        this._trackResponseTime(response)
+        return Promise.reject(response)
+      }
     )
   }
 
-  _trackResponseTime(response) {
+  _trackResponseTime (response) {
     if (this.responseTimeTracker) {
       let responseTime = new Date().getTime() - response.config.metadata.start.getTime()
       this.responseTimeTracker(responseTime)
     }
   }
 
-  setResponseTimeTracker(responseTimeTracker) {
+  setResponseTimeTracker (responseTimeTracker) {
     this.responseTimeTracker = responseTimeTracker
   }
 }
