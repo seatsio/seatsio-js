@@ -19,11 +19,12 @@ class SeatsioClient {
       errorHandle: false
     })
 
+    this._setupResponseTimeTracker();
+
     this.errInterceptor = this.client.interceptors.response.use(
         response => response, errorResponseHandler
     )
 
-    this._setupResponseTimeTracker();
 
     this.charts = new Charts(this.client)
     this.events = new Events(this.client)
@@ -44,6 +45,10 @@ class SeatsioClient {
         response => {
           this._trackResponseTime(response)
           return response
+        },
+        response => {
+          this._trackResponseTime(response)
+          return Promise.reject(response)
         }
     )
   }
