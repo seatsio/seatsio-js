@@ -7,7 +7,7 @@ before_script:
 - export TZ=Europe/Brussels
 script:
   - gulp bundle
-  - jest --maxWorkers=1
+  - jest --maxWorkers=4
 deploy:
   - provider: npm
     email: namfaldev@gmail.com
