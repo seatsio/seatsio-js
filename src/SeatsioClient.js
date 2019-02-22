@@ -19,6 +19,8 @@ class SeatsioClient {
       errorHandle: false
     })
 
+    this._setupResponseTimeTracker()
+
     this.errInterceptor = this.client.interceptors.response.use(
       response => response, errorResponseHandler
     )
@@ -30,6 +32,35 @@ class SeatsioClient {
     this.accounts = new Accounts(this.client)
     this.chartReports = new ChartReports(this.client)
     this.eventReports = new EventReports(this.client)
+  }
+
+  _setupResponseTimeTracker () {
+    this.client.interceptors.request.use(config => {
+      config.metadata = { start: new Date() }
+      return config
+    })
+
+    this.client.interceptors.response.use(
+      response => {
+        this._trackResponseTime(response)
+        return response
+      },
+      response => {
+        this._trackResponseTime(response)
+        return Promise.reject(response)
+      }
+    )
+  }
+
+  _trackResponseTime (response) {
+    if (this.responseTimeTracker) {
+      let responseTime = new Date().getTime() - response.config.metadata.start.getTime()
+      this.responseTimeTracker(responseTime)
+    }
+  }
+
+  setResponseTimeTracker (responseTimeTracker) {
+    this.responseTimeTracker = responseTimeTracker
   }
 }
 
