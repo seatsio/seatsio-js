@@ -1,4 +1,5 @@
 const SubaccountListParams = require('../../src/Subaccounts/SubaccountListParams.js')
+const testUtils = require('../testUtils.js')
 
 test('should filter subaccounts ', async () => {
   let retrievedSubaccountKeys = []
@@ -16,14 +17,12 @@ test('should filter subaccounts ', async () => {
 })
 
 test('should filter subaccounts with special characters', async () => {
-  let subaccountKeys = []; let retrievedSubaccountKeys = []
-
-  for (let i = 0; i < 55; i++) {
-    let subaccount = await client.subaccounts.create('test-/@/' + i)
-    subaccountKeys.push(subaccount.secretKey)
-  }
+  let i = 0;
+  let subaccountPromises = testUtils.createArray(55, () => client.subaccounts.create('test-/@/' + i++));
+  await Promise.all(subaccountPromises)
 
   let params = new SubaccountListParams().withFilter('test-/@/4')
+  let retrievedSubaccountKeys = []
   for await (let subaccount of client.subaccounts.listAll(params)) {
     retrievedSubaccountKeys.push(subaccount.secretKey)
   }

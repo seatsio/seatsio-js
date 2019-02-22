@@ -1,27 +1,26 @@
+const testUtils = require('../testUtils.js')
+
 test('should list subaccounts in first page', async () => {
-  let subaccountIds = []
-  for (let i = 0; i < 50; i++) {
-    let subaccount = await client.subaccounts.create()
-    subaccountIds.push(subaccount.id)
-  }
+  let subaccountPromises = testUtils.createArray(50, () => client.subaccounts.create());
+  let subaccounts = await Promise.all(subaccountPromises)
 
   let page = await client.subaccounts.listFirstPage()
 
   let retrievedSubaccountIds = page.items.map((subaccount) => subaccount.id)
-  expect(subaccountIds.sort()).toEqual(retrievedSubaccountIds.sort())
+  expect(retrievedSubaccountIds.sort()).toEqual(subaccounts.map(s => s.id).sort())
 })
 
 test('should list subaccounts in first page with page size', async () => {
-  let subaccountIds = []
-  for (let i = 0; i < 50; i++) {
-    let subaccount = await client.subaccounts.create()
-    subaccountIds.push(subaccount.id)
-  }
+  let subaccountPromises = testUtils.createArray(47, () => client.subaccounts.create());
+  await Promise.all(subaccountPromises)
+  let subaccount48 = await client.subaccounts.create()
+  let subaccount49 = await client.subaccounts.create()
+  let subaccount50 = await client.subaccounts.create()
 
   let page = await client.subaccounts.listFirstPage(null, 3)
 
   let retrievedSubaccountIds = page.items.map((subaccount) => subaccount.id)
-  expect([subaccountIds[49], subaccountIds[48], subaccountIds[47]].sort()).toEqual(retrievedSubaccountIds.sort())
-  expect(page.nextPageStartsAfter).toEqual(subaccountIds[47] + '')
+  expect(retrievedSubaccountIds).toEqual([subaccount50.id, subaccount49.id, subaccount48.id])
+  expect(page.nextPageStartsAfter).toEqual(subaccount48.id + '')
   expect(page.previousPageEndsBefore).toBeNull()
 })

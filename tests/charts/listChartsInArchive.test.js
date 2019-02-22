@@ -1,3 +1,5 @@
+const testUtils = require('../testUtils.js')
+
 test('should list charts in archive', async () => {
   let chart1 = await client.charts.create()
   let chart2 = await client.charts.create()
@@ -14,17 +16,17 @@ test('should list charts in archive', async () => {
 })
 
 test('get archived charts (above 100 limit)', async () => {
-  jest.setTimeout(500000)
-  let chartKeys = []; let archivedChartKeys = []
-  for (let i = 0; i < 120; i++) {
+  let chartPromises = testUtils.createArray(120, async () => {
     let chart = await client.charts.create()
     await client.charts.moveToArchive(chart.key)
-    chartKeys.push(chart.key)
-  }
+    return chart
+  });
+  let charts = await Promise.all(chartPromises)
 
+  let archivedChartKeys = []
   for await (let chart of client.charts.archive) {
     archivedChartKeys.push(chart.key)
   }
 
-  expect(archivedChartKeys.sort()).toEqual(chartKeys.sort())
+  expect(archivedChartKeys.sort()).toEqual(charts.map(c => c.key).sort())
 })
