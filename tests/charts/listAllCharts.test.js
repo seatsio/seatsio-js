@@ -1,31 +1,28 @@
 const ChartListParams = require('../../src/Charts/ChartListParams.js')
+const testUtils = require('../testUtils.js')
 
 test('listAll when there are more than 20 charts', async () => {
-  let generatedChartKeys = []; let retrievedKeys = []
-  for (let i = 0; i < 25; i++) {
-    let chart = await client.charts.create(i.toString())
-    generatedChartKeys.push(chart.key)
-  }
+  let chartPromises = testUtils.createArray(25, () => client.charts.create())
+  let charts = await Promise.all(chartPromises)
 
+  let retrievedKeys = []
   for await (const chart of client.charts.listAll()) {
     retrievedKeys.push(chart.key)
   }
 
-  expect(retrievedKeys.sort()).toEqual(generatedChartKeys.sort())
+  expect(retrievedKeys.sort()).toEqual(charts.map(c => c.key).sort())
 })
 
 test('listAll when there are more than 40 charts', async () => {
-  let generatedChartKeys = []; let retrievedKeys = []
-  for (let i = 0; i < 45; i++) {
-    let chart = await client.charts.create(i.toString())
-    generatedChartKeys.push(chart.key)
-  }
+  let chartPromises = testUtils.createArray(45, () => client.charts.create())
+  let charts = await Promise.all(chartPromises)
 
+  let retrievedKeys = []
   for await (const chart of client.charts.listAll()) {
     retrievedKeys.push(chart.key)
   }
 
-  expect(retrievedKeys.sort()).toEqual(generatedChartKeys.sort())
+  expect(retrievedKeys.sort()).toEqual(charts.map(c => c.key).sort())
 })
 
 test('listAll when there are no charts', async () => {
@@ -39,36 +36,36 @@ test('listAll when there are no charts', async () => {
 })
 
 test('listAll Charts with filter', async () => {
-  let fooChartKeys = []; let retrievedKeys = []
+  let fooChartPromises = testUtils.createArray(21, () => client.charts.create('foo'))
+  let fooCharts = await Promise.all(fooChartPromises)
   await client.charts.create('bar')
-  for (let i = 0; i < 21; i++) {
-    let chart = await client.charts.create('foo')
-    fooChartKeys.push(chart.key)
-  }
   let params = new ChartListParams().withFilter('foo')
 
+  let retrievedKeys = []
   for await (const chart of client.charts.listAll(params)) {
     retrievedKeys.push(chart.key)
   }
 
-  expect(retrievedKeys.sort()).toEqual(fooChartKeys.sort())
+  expect(retrievedKeys.sort()).toEqual(fooCharts.map(c => c.key).sort())
 })
 
 test('listAll Charts with tag', async () => {
-  let fooChartKeys = []; let retrievedChartKeys = []
-  await client.charts.create('bar')
-  let params = new ChartListParams().withTag('foo')
-  for (let i = 0; i < 21; i++) {
+  let fooChartPromises = testUtils.createArray(21, async () => {
     let chart = await client.charts.create()
     await client.charts.addTag(chart.key, 'foo')
-    fooChartKeys.push(chart.key)
-  }
+    return chart
+  })
+  let fooCharts = await Promise.all(fooChartPromises)
 
+  await client.charts.create('bar')
+  let params = new ChartListParams().withTag('foo')
+
+  let retrievedChartKeys = []
   for await (const chart of client.charts.listAll(params)) {
     retrievedChartKeys.push(chart.key)
   }
 
-  expect(retrievedChartKeys.sort()).toEqual(fooChartKeys.sort())
+  expect(retrievedChartKeys.sort()).toEqual(fooCharts.map(c => c.key).sort())
 })
 
 test('listAll Charts with tag and filter parameters', async () => {
