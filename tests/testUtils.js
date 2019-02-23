@@ -68,5 +68,21 @@ module.exports = {
     }
 
     return array
+  },
+
+  deferred() {
+    let resolve
+    let reject
+
+    const promise = new Promise((res, rej) => {
+      resolve = res
+      reject = rej
+    })
+
+    return {
+      promise,
+      reject,
+      resolve
+    }
   }
 }

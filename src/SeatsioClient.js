@@ -19,7 +19,7 @@ class SeatsioClient {
       errorHandle: false
     })
 
-    this._setupResponseTimeTracker()
+    this._setupRequestListener()
 
     this.errInterceptor = this.client.interceptors.response.use(
       response => response, errorResponseHandler
@@ -34,33 +34,33 @@ class SeatsioClient {
     this.eventReports = new EventReports(this.client)
   }
 
-  _setupResponseTimeTracker () {
+  _setupRequestListener () {
     this.client.interceptors.request.use(config => {
-      config.metadata = { start: new Date() }
+      if (this.requestListener) {
+        config.listener = this.requestListener()
+        config.listener.onRequestStarted()
+      }
       return config
     })
 
     this.client.interceptors.response.use(
       response => {
-        this._trackResponseTime(response)
+        if (response.config.listener) {
+          response.config.listener.onRequestEnded()
+        }
         return response
       },
       response => {
-        this._trackResponseTime(response)
+        if (response.config.listener) {
+          response.config.listener.onRequestEnded()
+        }
         return Promise.reject(response)
       }
     )
   }
 
-  _trackResponseTime (response) {
-    if (this.responseTimeTracker) {
-      let responseTime = new Date().getTime() - response.config.metadata.start.getTime()
-      this.responseTimeTracker(responseTime)
-    }
-  }
-
-  setResponseTimeTracker (responseTimeTracker) {
-    this.responseTimeTracker = responseTimeTracker
+  setRequestListener (requestListener) {
+    this.requestListener = requestListener
   }
 }
 
