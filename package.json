@@ -11,7 +11,9 @@
   "jest": {
     "transform": {},
     "testEnvironment": "node",
-    "setupFilesAfterEnv": ["<rootDir>/tests/setupTests.js"]
+    "setupFilesAfterEnv": [
+      "<rootDir>/tests/setupTests.js"
+    ]
   },
   "repository": {
     "type": "git",
@@ -40,7 +42,7 @@
     "gulp-uglify-es": "latest",
     "gulp-util": "latest",
     "gulplog": "latest",
-    "jest": "^24.1.0",
-    "jest-cli": "^24.1.0"
+    "jest": "^24.3.0",
+    "jest-cli": "^24.3.0"
   }
 }
