@@ -218,6 +218,15 @@ class Charts {
   }
 
   /**
+   * @param {?ChartListParams} chartListParams
+   * @param {?number} pageSize
+   * @returns {Page}
+   */
+  listArchiveFirstPage (chartListParams = null, pageSize = null) {
+    return this.archivedChartsIterator().firstPage(null, pageSize)
+  }
+
+  /**
    * @param {string} afterId
    * @param {?ChartListParams} chartListParameters
    * @param {?number} pageSize
@@ -246,6 +255,15 @@ class Charts {
       let afterId = results.next_page_starts_after ? results.next_page_starts_after : null
       let beforeId = results.previous_page_ends_before ? results.previous_page_ends_before : null
       return new Page(chartItems, afterId, beforeId)
+    }))
+  }
+
+  archivedChartsIterator () {
+    return new Lister(new PageFetcher('/charts/archive', this.client, results => {
+      let archivedCharts = results.items.map((chartData) => utilities.createChart(chartData))
+      let afterId = results.next_page_starts_after ? results.next_page_starts_after : null
+      let beforeId = results.previous_page_ends_before ? results.previous_page_ends_before : null
+      return new Page(archivedCharts, afterId, beforeId)
     }))
   }
 }
