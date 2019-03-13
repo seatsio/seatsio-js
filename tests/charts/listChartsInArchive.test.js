@@ -67,11 +67,11 @@ test('get page after given archived charts id', async () => {
   let chart3 = await client.charts.create()
   await client.charts.moveToArchive(chart3.key)
 
-  let firstPage = await client.charts.listArchivePageAfter(chart3.id)
+  let page = await client.charts.listArchivePageAfter(chart3.id)
 
-  expect(firstPage.items.length).toBe(2)
-  expect(firstPage.previousPageEndsBefore).toEqual(chart2.id + '')
-  expect(firstPage.items.map(c => c.key).sort()).toEqual([chart1.key, chart2.key].sort())
+  expect(page.items.length).toBe(2)
+  expect(page.previousPageEndsBefore).toEqual(chart2.id + '')
+  expect(page.items.map(c => c.key).sort()).toEqual([chart1.key, chart2.key].sort())
 })
 
 test('get page after given archived charts id with page size', async () => {
@@ -82,11 +82,11 @@ test('get page after given archived charts id with page size', async () => {
   let chart3 = await client.charts.create()
   await client.charts.moveToArchive(chart3.key)
 
-  let firstPage = await client.charts.listArchivePageAfter(chart3.id, null, 1)
+  let page = await client.charts.listArchivePageAfter(chart3.id, null, 1)
 
-  expect(firstPage.items.length).toBe(1)
-  expect(firstPage.previousPageEndsBefore).toEqual(chart2.id + '')
-  expect(firstPage.items[0].key).toBe(chart2.key)
+  expect(page.items.length).toBe(1)
+  expect(page.previousPageEndsBefore).toEqual(chart2.id + '')
+  expect(page.items[0].key).toBe(chart2.key)
 })
 
 test('get page before given archived charts id', async () => {
@@ -97,11 +97,11 @@ test('get page before given archived charts id', async () => {
   let chart3 = await client.charts.create()
   await client.charts.moveToArchive(chart3.key)
 
-  let firstPage = await client.charts.listArchivePageBefore(chart1.id)
+  let page = await client.charts.listArchivePageBefore(chart1.id)
 
-  expect(firstPage.items.length).toBe(2)
-  expect(firstPage.nextPageStartsAfter).toEqual(chart2.id + '')
-  expect(firstPage.items.map(c => c.key).sort()).toEqual([chart2.key, chart3.key].sort())
+  expect(page.items.length).toBe(2)
+  expect(page.nextPageStartsAfter).toEqual(chart2.id + '')
+  expect(page.items.map(c => c.key).sort()).toEqual([chart2.key, chart3.key].sort())
 })
 
 test('get page after given archived charts id with page size', async () => {
@@ -112,9 +112,9 @@ test('get page after given archived charts id with page size', async () => {
   let chart3 = await client.charts.create()
   await client.charts.moveToArchive(chart3.key)
 
-  let firstPage = await client.charts.listArchivePageBefore(chart1.id, null, 1)
+  let page = await client.charts.listArchivePageBefore(chart1.id, null, 1)
 
-  expect(firstPage.items.length).toBe(1)
-  expect(firstPage.previousPageEndsBefore).toEqual(chart2.id + '')
-  expect(firstPage.items[0].key).toBe(chart2.key)
+  expect(page.items.length).toBe(1)
+  expect(page.previousPageEndsBefore).toEqual(chart2.id + '')
+  expect(page.items[0].key).toBe(chart2.key)
 })
