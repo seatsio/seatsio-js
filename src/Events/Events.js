@@ -1,7 +1,6 @@
 const AsyncIterator = require('../AsyncIterator.js')
 const Page = require('../Page.js')
 const Lister = require('../Lister.js')
-const PageFetcher = require('../PageFetcher.js')
 const ObjectStatus = require('./ObjectStatus.js')
 const utilities = require('../utilities.js')
 
@@ -88,7 +87,7 @@ class Events {
    * @returns {AsyncIterator}
    */
   listAll (requestParameters = {}) {
-    return new AsyncIterator('/events', this.client, 'events', requestParameters)
+    return this.iterator().all(requestParameters)
   }
 
   /**
@@ -121,12 +120,12 @@ class Events {
    * @returns {Lister}
    */
   iterator () {
-    return new Lister(new PageFetcher('/events', this.client, results => {
-      let events = utilities.createMultipleEvents(results.items)
-      let afterId = results.next_page_starts_after ? results.next_page_starts_after : null
-      let beforeId = results.previous_page_ends_before ? results.previous_page_ends_before : null
+    return new Lister('/events', this.client, 'events', (data) => {
+      let events = utilities.createMultipleEvents(data.items)
+      let afterId = data.next_page_starts_after ? data.next_page_starts_after : null
+      let beforeId = data.previous_page_ends_before ? data.previous_page_ends_before : null
       return new Page(events, afterId, beforeId)
-    }))
+    })
   }
 
   /**
@@ -178,12 +177,12 @@ class Events {
    * @returns {Lister}
    */
   statusChangeIterator (eventKey) {
-    return new Lister(new PageFetcher(`/events/${encodeURIComponent(eventKey)}/status-changes`, this.client, results => {
-      let statusChanges = utilities.createMultipleStatusChanges(results.items)
-      let afterId = results.next_page_starts_after ? results.next_page_starts_after : null
-      let beforeId = results.previous_page_ends_before ? results.previous_page_ends_before : null
+    return new Lister(`/events/${encodeURIComponent(eventKey)}/status-changes`, this.client, 'statusChanges', (data) => {
+      let statusChanges = utilities.createMultipleStatusChanges(data.items)
+      let afterId = data.next_page_starts_after ? data.next_page_starts_after : null
+      let beforeId = data.previous_page_ends_before ? data.previous_page_ends_before : null
       return new Page(statusChanges, afterId, beforeId)
-    }))
+    })
   }
 
   /**

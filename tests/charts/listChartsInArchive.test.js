@@ -8,7 +8,7 @@ test('should list all charts in archive', async () => {
   await client.charts.moveToArchive(chart1.key)
   await client.charts.moveToArchive(chart2.key)
 
-  for await (let chart of client.charts.archive) {
+  for await (let chart of client.charts.archive.all()) {
     archivedChartKeys.push(chart.key)
   }
 
@@ -24,7 +24,7 @@ test('get archived charts (above 100 limit)', async () => {
   let charts = await Promise.all(chartPromises)
 
   let archivedChartKeys = []
-  for await (let chart of client.charts.archive) {
+  for await (let chart of client.charts.archive.all()) {
     archivedChartKeys.push(chart.key)
   }
 

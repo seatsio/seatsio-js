@@ -1,7 +1,5 @@
-const PageFetcher = require('../PageFetcher.js')
 const Page = require('../Page.js')
 const Lister = require('../Lister.js')
-const AsyncIterator = require('../AsyncIterator.js')
 const utilities = require('../utilities.js')
 
 class Charts {
@@ -10,7 +8,12 @@ class Charts {
    */
   constructor (client) {
     this.client = client
-    this.archive = new AsyncIterator('/charts/archive', this.client, 'charts')
+    this.archive = new Lister('/charts/archive', this.client, 'charts', (data) => {
+      let charts = data.items.map((chartData) => utilities.createChart(chartData))
+      let afterId = data.next_page_starts_after ? data.next_page_starts_after : null
+      let beforeId = data.previous_page_ends_before ? data.previous_page_ends_before : null
+      return new Page(charts, afterId, beforeId)
+    })
   }
 
   /* @return  Chart */
@@ -205,7 +208,7 @@ class Charts {
    * @returns {AsyncIterator}
    */
   listAll (requestParameters = {}) {
-    return new AsyncIterator('/charts', this.client, 'charts', requestParameters)
+    return this.iterator().all(requestParameters)
   }
 
   /**
@@ -222,7 +225,7 @@ class Charts {
    * @returns {Page}
    */
   listArchiveFirstPage (pageSize = null) {
-    return this.archivedChartsIterator().firstPage(null, pageSize)
+    return this.archive.firstPage(null, pageSize)
   }
 
   /**
@@ -231,7 +234,7 @@ class Charts {
    * @returns {Page}
    */
   listArchivePageAfter (afterId, pageSize = null) {
-    return this.archivedChartsIterator().pageAfter(afterId, null, pageSize)
+    return this.archive.pageAfter(afterId, null, pageSize)
   }
 
   /**
@@ -240,7 +243,7 @@ class Charts {
    * @returns {Page}
    */
   listArchivePageBefore (beforeId, pageSize = null) {
-    return this.archivedChartsIterator().pageBefore(beforeId, null, pageSize)
+    return this.archive.pageBefore(beforeId, null, pageSize)
   }
 
   /**
@@ -267,21 +270,12 @@ class Charts {
    * @returns {Lister}
    */
   iterator () {
-    return new Lister(new PageFetcher('/charts', this.client, results => {
-      let chartItems = results.items.map((chartData) => utilities.createChart(chartData))
-      let afterId = results.next_page_starts_after ? results.next_page_starts_after : null
-      let beforeId = results.previous_page_ends_before ? results.previous_page_ends_before : null
-      return new Page(chartItems, afterId, beforeId)
-    }))
-  }
-
-  archivedChartsIterator () {
-    return new Lister(new PageFetcher('/charts/archive', this.client, results => {
-      let archivedCharts = results.items.map((chartData) => utilities.createChart(chartData))
-      let afterId = results.next_page_starts_after ? results.next_page_starts_after : null
-      let beforeId = results.previous_page_ends_before ? results.previous_page_ends_before : null
-      return new Page(archivedCharts, afterId, beforeId)
-    }))
+    return new Lister('/charts', this.client, 'charts', (data) => {
+      let charts = data.items.map((chartData) => utilities.createChart(chartData))
+      let afterId = data.next_page_starts_after ? data.next_page_starts_after : null
+      let beforeId = data.previous_page_ends_before ? data.previous_page_ends_before : null
+      return new Page(charts, afterId, beforeId)
+    })
   }
 }
 

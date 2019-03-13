@@ -12,6 +12,7 @@ const EventReportItem = require('./Reports/EventReportItem.js')
 const ChartReportItem = require('./Reports/ChartReportItem.js')
 const Subaccount = require('./Subaccounts/Subaccount.js')
 const StatusChange = require('./Events/StatusChange.js')
+const Page = require('./Page.js')
 const LabelClasses = require('./Common/Labels.js')
 
 module.exports = {

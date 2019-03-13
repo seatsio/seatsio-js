@@ -128,7 +128,7 @@ class Subaccounts {
    * @returns {AsyncIterator}
    */
   listAll (requestParameters = {}) {
-    return new AsyncIterator('/subaccounts', this.client, 'subaccounts', requestParameters)
+    return this.iterator().all(requestParameters)
   }
 
   /**
@@ -156,12 +156,12 @@ class Subaccounts {
    * @returns {Lister}
    */
   iterator () {
-    return new Lister(new PageFetcher('/subaccounts', this.client, results => {
-      let subaccounts = results.items.map((subaccountsData) => utilities.createSubaccount(subaccountsData))
-      let afterId = results.next_page_starts_after ? results.next_page_starts_after : null
-      let beforeId = results.previous_page_ends_before ? results.previous_page_ends_before : null
+    return new Lister('/subaccounts', this.client, 'subaccounts', (data) => {
+      let subaccounts = data.items.map((subaccountsData) => utilities.createSubaccount(subaccountsData))
+      let afterId = data.next_page_starts_after ? data.next_page_starts_after : null
+      let beforeId = data.previous_page_ends_before ? data.previous_page_ends_before : null
       return new Page(subaccounts, afterId, beforeId)
-    }))
+    })
   }
 }
 
