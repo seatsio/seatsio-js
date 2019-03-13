@@ -219,32 +219,6 @@ class Charts {
   }
 
   /**
-   * @param {?number} pageSize
-   * @returns {Page}
-   */
-  listArchiveFirstPage (pageSize = null) {
-    return this.archive.firstPage(null, pageSize)
-  }
-
-  /**
-   * @param {string} afterId
-   * @param {?number} pageSize
-   * @returns {Page}
-   */
-  listArchivePageAfter (afterId, pageSize = null) {
-    return this.archive.pageAfter(afterId, null, pageSize)
-  }
-
-  /**
-   * @param {string} beforeId
-   * @param {?number} pageSize
-   * @returns {Page}
-   */
-  listArchivePageBefore (beforeId, pageSize = null) {
-    return this.archive.pageBefore(beforeId, null, pageSize)
-  }
-
-  /**
    * @param {string} afterId
    * @param {?ChartListParams} chartListParameters
    * @param {?number} pageSize
