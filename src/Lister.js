@@ -1,6 +1,16 @@
+const AsyncIterator = require('./AsyncIterator.js')
+const PageFetcher = require('./PageFetcher.js')
+
 class Lister {
-  constructor (pageFetcher) {
-    this.pageFetcher = pageFetcher
+  constructor (url, client, type, pageCreatorFunction) {
+    this.pageFetcher = new PageFetcher(url, client, pageCreatorFunction)
+    this.url = url
+    this.client = client
+    this.type = type
+  }
+
+  all (parameters) {
+    return new AsyncIterator(this.url, this.client, this.type, parameters)
   }
 
   firstPage (queryParams = null, pageSize = null) {

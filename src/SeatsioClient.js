@@ -5,6 +5,7 @@ const Subaccounts = require('./Subaccounts/Subaccounts.js')
 const HoldTokens = require('./HoldTokens/HoldTokens.js')
 const ChartReports = require('./Reports/ChartReports.js')
 const EventReports = require('./Reports/EventReports.js')
+const UsageReports = require('./Reports/UsageReports.js')
 const errorResponseHandler = require('./errorInterceptor.js')
 const Axios = require('axios')
 
@@ -32,6 +33,7 @@ class SeatsioClient {
     this.accounts = new Accounts(this.client)
     this.chartReports = new ChartReports(this.client)
     this.eventReports = new EventReports(this.client)
+    this.usageReports = new UsageReports(this.client)
   }
 
   _setupRequestListener () {
