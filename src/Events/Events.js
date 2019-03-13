@@ -122,9 +122,7 @@ class Events {
   iterator () {
     return new Lister('/events', this.client, 'events', (data) => {
       let events = utilities.createMultipleEvents(data.items)
-      let afterId = data.next_page_starts_after ? data.next_page_starts_after : null
-      let beforeId = data.previous_page_ends_before ? data.previous_page_ends_before : null
-      return new Page(events, afterId, beforeId)
+      return new Page(events, data.next_page_starts_after, data.previous_page_ends_before)
     })
   }
 
@@ -180,17 +178,13 @@ class Events {
     if (objectId !== null) {
       return new Lister(`/events/${encodeURIComponent(eventKey)}/objects/${encodeURIComponent(objectId)}/status-changes`, this.client, 'statusChanges', (data) => {
         let statusChanges = utilities.createMultipleStatusChanges(data.items)
-        let afterId = data.next_page_starts_after ? data.next_page_starts_after : null
-        let beforeId = data.previous_page_ends_before ? data.previous_page_ends_before : null
-        return new Page(statusChanges, afterId, beforeId)
+        return new Page(statusChanges, data.next_page_starts_after, data.previous_page_ends_before)
       })
     }
 
     return new Lister(`/events/${encodeURIComponent(eventKey)}/status-changes`, this.client, 'statusChanges', (data) => {
       let statusChanges = utilities.createMultipleStatusChanges(data.items)
-      let afterId = data.next_page_starts_after ? data.next_page_starts_after : null
-      let beforeId = data.previous_page_ends_before ? data.previous_page_ends_before : null
-      return new Page(statusChanges, afterId, beforeId)
+      return new Page(statusChanges, data.next_page_starts_after, data.previous_page_ends_before)
     })
   }
 

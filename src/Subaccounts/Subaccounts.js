@@ -158,9 +158,7 @@ class Subaccounts {
   iterator () {
     return new Lister('/subaccounts', this.client, 'subaccounts', (data) => {
       let subaccounts = data.items.map((subaccountsData) => utilities.createSubaccount(subaccountsData))
-      let afterId = data.next_page_starts_after ? data.next_page_starts_after : null
-      let beforeId = data.previous_page_ends_before ? data.previous_page_ends_before : null
-      return new Page(subaccounts, afterId, beforeId)
+      return new Page(subaccounts, data.next_page_starts_after, data.previous_page_ends_before)
     })
   }
 }

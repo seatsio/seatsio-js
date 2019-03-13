@@ -10,9 +10,7 @@ class Charts {
     this.client = client
     this.archive = new Lister('/charts/archive', this.client, 'charts', (data) => {
       let charts = data.items.map((chartData) => utilities.createChart(chartData))
-      let afterId = data.next_page_starts_after ? data.next_page_starts_after : null
-      let beforeId = data.previous_page_ends_before ? data.previous_page_ends_before : null
-      return new Page(charts, afterId, beforeId)
+      return new Page(charts, data.next_page_starts_after, data.previous_page_ends_before)
     })
   }
 
@@ -272,9 +270,7 @@ class Charts {
   iterator () {
     return new Lister('/charts', this.client, 'charts', (data) => {
       let charts = data.items.map((chartData) => utilities.createChart(chartData))
-      let afterId = data.next_page_starts_after ? data.next_page_starts_after : null
-      let beforeId = data.previous_page_ends_before ? data.previous_page_ends_before : null
-      return new Page(charts, afterId, beforeId)
+      return new Page(charts, data.next_page_starts_after, data.previous_page_ends_before)
     })
   }
 }
