@@ -237,6 +237,16 @@ class Charts {
   }
 
   /**
+   * @param {string} beforeId
+   * @param {?ChartListParams?} chartListParameters
+   * @param {?number} pageSize
+   * @returns {Page}
+   */
+  listArchivePageBefore (beforeId, chartListParameters = null, pageSize = null) {
+    return this.archivedChartsIterator().pageBefore(beforeId, null, pageSize)
+  }
+
+  /**
    * @param {string} afterId
    * @param {?ChartListParams} chartListParameters
    * @param {?number} pageSize
