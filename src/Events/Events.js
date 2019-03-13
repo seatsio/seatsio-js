@@ -1,4 +1,3 @@
-const AsyncIterator = require('../AsyncIterator.js')
 const Page = require('../Page.js')
 const Lister = require('../Lister.js')
 const ObjectStatus = require('./ObjectStatus.js')
