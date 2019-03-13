@@ -25,8 +25,8 @@ test('should list first page of charts with filter', async () => {
 })
 
 test('should list first page of charts with tag', async () => {
-  let chart1 = await client.charts.create('foo')
-  let chart2 = await client.charts.create('foo')
+  await client.charts.create('foo')
+  await client.charts.create('foo')
   let chart3 = await client.charts.create('bar')
   await client.charts.addTag(chart3.key, 'foo')
   let params = new ChartListParams().withTag('foo')

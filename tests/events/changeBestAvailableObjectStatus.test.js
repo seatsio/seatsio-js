@@ -5,10 +5,6 @@ test('should change best available object status', async () => {
   let chartKey = testUtils.getChartKey()
   await testUtils.createTestChart(chartKey, user.designerKey)
   let event = await client.events.create(chartKey)
-  let labels = {
-    'B-4': testUtils.someLabels('4', 'seat', 'B', 'row'),
-    'B-5': testUtils.someLabels('5', 'seat', 'B', 'row')
-  }
 
   let bestAvailableObjs = await client.events.changeBestAvailableObjectStatus(event.key, 2, 'lolzor')
 

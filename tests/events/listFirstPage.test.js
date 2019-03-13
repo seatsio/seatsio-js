@@ -2,7 +2,7 @@ const testUtils = require('../testUtils.js')
 
 test('should list events in first page', async () => {
   let chart = await client.charts.create()
-  let eventPromises = testUtils.createArray(20, () => client.events.create(chart.key));
+  let eventPromises = testUtils.createArray(20, () => client.events.create(chart.key))
   let events = await Promise.all(eventPromises)
 
   let page = await client.events.listFirstPage()
@@ -13,8 +13,8 @@ test('should list events in first page', async () => {
 
 test('should list events in first page with page size', async () => {
   let chart = await client.charts.create()
-  let eventPromises = testUtils.createArray(17, () => client.events.create(chart.key));
-  let events = await Promise.all(eventPromises)
+  let eventPromises = testUtils.createArray(17, () => client.events.create(chart.key))
+  await Promise.all(eventPromises)
   let event18 = await client.events.create(chart.key)
   let event19 = await client.events.create(chart.key)
   let event20 = await client.events.create(chart.key)

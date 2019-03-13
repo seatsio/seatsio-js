@@ -12,7 +12,7 @@ test("should update event's chart key", async () => {
   expect(retrievedEvent.chartKey).toBe(chart2.key)
   expect(retrievedEvent.updatedOn).toBeTruthy()
   expect(retrievedEvent.updatedOn.getTime()).toBeLessThanOrEqual(now.getTime())
-  expect(retrievedEvent.updatedOn.getTime()).toBeGreaterThanOrEqual((now.getTime() - 1000))
+  expect(retrievedEvent.updatedOn.getTime()).toBeGreaterThanOrEqual((now.getTime() - 60000))
 })
 
 test('should update event key', async () => {

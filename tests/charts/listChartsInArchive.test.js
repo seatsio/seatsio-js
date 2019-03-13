@@ -82,7 +82,7 @@ test('get page after given archived charts id with page size', async () => {
   let chart3 = await client.charts.create()
   await client.charts.moveToArchive(chart3.key)
 
-  let page = await client.charts.archive.pageAfter(chart3.id, null,1)
+  let page = await client.charts.archive.pageAfter(chart3.id, null, 1)
 
   expect(page.items.length).toBe(1)
   expect(page.previousPageEndsBefore).toEqual(chart2.id + '')
