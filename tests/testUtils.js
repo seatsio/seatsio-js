@@ -1,8 +1,9 @@
-const {SeatsioClient} = require('../index.js')
+const { SeatsioClient } = require('../index.js')
 const axios = require('axios')
 const fs = require('fs')
 const uuidv1 = require('uuid/v1')
 const LabelClasses = require('../src/Common/Labels.js')
+const path = require('path')
 
 const baseUrl = 'https://api-staging.seatsio.net/'
 
@@ -37,13 +38,13 @@ module.exports = {
   },
 
   createTestChartFromFile: function (filePath, chartKey, designerKey) {
-    let requestBody = fs.readFileSync(__dirname + filePath, 'utf-8')
+    let requestBody = fs.readFileSync(path.join(__dirname, filePath), 'utf-8')
     let client = axios.create()
     let url = `https://api-staging.seatsio.net/system/public/${designerKey}/charts/${chartKey}`
     return client.post(url, requestBody)
   },
 
-  someLabels(ownLabel, ownType, parentLabel = null, parentType = null, section = null) {
+  someLabels (ownLabel, ownType, parentLabel = null, parentType = null, section = null) {
     let labels
     if (parentLabel) {
       labels = new LabelClasses.Labels(new LabelClasses.LabelAndType(ownLabel, ownType), new LabelClasses.LabelAndType(parentLabel, parentType))
@@ -56,11 +57,11 @@ module.exports = {
     return labels
   },
 
-  getRandomEmail() {
+  getRandomEmail () {
     return uuidv1() + '@mailinator.com'
   },
 
-  createArray(length, fn) {
+  createArray (length, fn) {
     let array = []
 
     for (let i = 0; i < length; ++i) {
@@ -70,7 +71,7 @@ module.exports = {
     return array
   },
 
-  deferred() {
+  deferred () {
     let resolve
     let reject
 

@@ -52,7 +52,7 @@ test('should list status changes in the first page sorted by descending', async 
     firstPage.items[1].objectLabel,
     firstPage.items[2].objectLabel
   ]
-  expect(labels).toEqual(['A-3', 'A-2', 'A-1' ])
+  expect(labels).toEqual(['A-3', 'A-2', 'A-1'])
   expect(firstPage.items.length).toBe(3)
   expect(firstPage.nextPageStartsAfter).toBe(null)
   expect(firstPage.previousPageEndsBefore).toBe(null)

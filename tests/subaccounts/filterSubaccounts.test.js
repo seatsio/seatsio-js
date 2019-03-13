@@ -17,8 +17,8 @@ test('should filter subaccounts ', async () => {
 })
 
 test('should filter subaccounts with special characters', async () => {
-  let i = 0;
-  let subaccountPromises = testUtils.createArray(55, () => client.subaccounts.create('test-/@/' + i++));
+  let i = 0
+  let subaccountPromises = testUtils.createArray(55, () => client.subaccounts.create('test-/@/' + i++))
   await Promise.all(subaccountPromises)
 
   let params = new SubaccountListParams().withFilter('test-/@/4')
