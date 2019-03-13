@@ -13,9 +13,9 @@ class EventReports {
    */
   static reportUrl (reportType, eventKey, filter) {
     if (filter === null || typeof filter === 'undefined') {
-      return `/reports/events/${eventKey}/${reportType}`
+      return `/reports/events/${encodeURIComponent(eventKey)}/${reportType}`
     }
-    return `/reports/events/${eventKey}/${reportType}/${filter}`
+    return `/reports/events/${encodeURIComponent(eventKey)}/${reportType}/${encodeURIComponent(filter)}`
   }
 
   /**
@@ -24,7 +24,7 @@ class EventReports {
    * @returns {string}
    */
   static summaryReportUrl (reportType, eventKey) {
-    return `/reports/events/${eventKey}/${reportType}/summary`
+    return `/reports/events/${encodeURIComponent(eventKey)}/${reportType}/summary`
   }
 
   /**

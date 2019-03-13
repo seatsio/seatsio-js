@@ -11,7 +11,7 @@ class ChartReports {
    * @returns {string}
    */
   static reportUrl (reportType, eventKey) {
-    return `/reports/charts/${eventKey}/${reportType}`
+    return `/reports/charts/${encodeURIComponent(eventKey)}/${reportType}`
   }
 
   /**
