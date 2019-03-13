@@ -4,7 +4,7 @@ test('should create hold tokens', async () => {
 
   expect(holdToken.expiresAt instanceof Date).toBe(true)
   expect(holdToken.expiresAt.getTime()).toBeLessThanOrEqual((now + (60000 * 15)) + 60000)
-  expect(holdToken.expiresAt.getTime()).toBeGreaterThanOrEqual(now)
+  expect(holdToken.expiresAt.getTime()).toBeGreaterThanOrEqual(now - 60000)
   expect(holdToken.holdToken).toBeTruthy()
 })
 
