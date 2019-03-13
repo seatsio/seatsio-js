@@ -218,31 +218,28 @@ class Charts {
   }
 
   /**
-   * @param {?ChartListParams} chartListParams
    * @param {?number} pageSize
    * @returns {Page}
    */
-  listArchiveFirstPage (chartListParams = null, pageSize = null) {
+  listArchiveFirstPage (pageSize = null) {
     return this.archivedChartsIterator().firstPage(null, pageSize)
   }
 
   /**
    * @param {string} afterId
-   * @param {?ChartListParams?} chartListParameters
    * @param {?number} pageSize
    * @returns {Page}
    */
-  listArchivePageAfter (afterId, chartListParameters = null, pageSize = null) {
+  listArchivePageAfter (afterId, pageSize = null) {
     return this.archivedChartsIterator().pageAfter(afterId, null, pageSize)
   }
 
   /**
    * @param {string} beforeId
-   * @param {?ChartListParams?} chartListParameters
    * @param {?number} pageSize
    * @returns {Page}
    */
-  listArchivePageBefore (beforeId, chartListParameters = null, pageSize = null) {
+  listArchivePageBefore (beforeId, pageSize = null) {
     return this.archivedChartsIterator().pageBefore(beforeId, null, pageSize)
   }
 
