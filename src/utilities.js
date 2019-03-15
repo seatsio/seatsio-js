@@ -115,7 +115,7 @@ module.exports = {
     let chartValidation = data.settings.chartValidation
     let chartValidationSettings = new ChartValidationSettings(chartValidation.VALIDATE_DUPLICATE_LABELS, chartValidation.VALIDATE_OBJECTS_WITHOUT_CATEGORIES, chartValidation.VALIDATE_UNLABELED_OBJECTS, chartValidation.VALIDATE_FOCAL_POINT, chartValidation.VALIDATE_OBJECT_TYPES_PER_CATEGORY)
     let settings = new AccountSettings(data.settings.draftChartDrawingsEnabled, data.settings.holdOnSelectForGAs, data.settings.holdPeriodInMinutes, chartValidationSettings)
-    return new Account(data.secretKey, data.designerKey, data.publicKey, settings, data.email, data.role)
+    return new Account(data.secretKey, data.designerKey, data.publicKey, settings, data.email, data.role, data.definitionOfUse)
   },
 
   /**
