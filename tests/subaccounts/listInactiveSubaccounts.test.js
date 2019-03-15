@@ -6,7 +6,7 @@ test('should list all inactive subaccounts', async () => {
   await client.subaccounts.deactivate(subaccount2.id)
   let inactiveSubaccountIds = []
 
-  for await (let subaccount of client.subaccounts.inactive) {
+  for await (let subaccount of client.subaccounts.inactive.all()) {
     inactiveSubaccountIds.push(subaccount.id)
   }
 
