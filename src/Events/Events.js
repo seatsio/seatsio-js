@@ -2,6 +2,8 @@ const Page = require('../Page.js')
 const Lister = require('../Lister.js')
 const ObjectStatus = require('./ObjectStatus.js')
 const StatusChange = require('./StatusChange.js')
+const BestAvailableObjects = require('./BestAvailableObjects.js')
+const ChangeObjectStatusResult = require('./ChangeObjectStatusResult.js')
 const Event = require('./Event.js')
 const utilities = require('../utilities/utilities.js')
 const helperFunctions = require('../utilities/helperFunctions.js')
@@ -291,7 +293,7 @@ class Events {
     requestParameters.events = Array.isArray(eventKeyOrKeys) ? eventKeyOrKeys : [eventKeyOrKeys]
 
     return this.client.post(`/seasons/actions/change-object-status?expand=objects`, requestParameters)
-      .then((res) => utilities.createChangeObjectStatusResult(res.data))
+      .then((res) => new ChangeObjectStatusResult(res.data.objects))
   }
 
   /**
@@ -387,7 +389,7 @@ class Events {
     requestParameters.bestAvailable = bestAvailable
 
     return this.client.post(`/events/${encodeURIComponent(eventKey)}/actions/change-object-status`, requestParameters)
-      .then((res) => utilities.createBestAvailableObjects(res.data))
+      .then((res) => new BestAvailableObjects(res.data))
   }
 
   normalizeObjects (objectOrObjects) {
