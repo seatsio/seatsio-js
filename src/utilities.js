@@ -63,22 +63,6 @@ module.exports = {
   },
 
   /**
-   * @param {object} data
-   * @returns {Event}
-   */
-  createEvent (data) {
-    return new Event(data)
-  },
-
-  /**
-   * @param {objects[]} eventsData
-   * @returns {Event[]}
-   */
-  createMultipleEvents (eventsData) {
-    return eventsData.map(eventData => this.createEvent(eventData))
-  },
-
-  /**
    * @param {object} reportsData
    * @returns {Object.<string, EventReportItem>}
    */

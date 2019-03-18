@@ -1,6 +1,7 @@
 const Page = require('./Page.js')
 const StatusChange = require('./Events/StatusChange.js')
 const Chart = require('./Charts/Chart.js')
+const Event = require('./Events/Event.js')
 const utilities = require('./utilities.js')
 
 class AsyncIterator {
@@ -35,7 +36,7 @@ class AsyncIterator {
   events (data) {
     let events = []
     data.items.forEach(eventData => {
-      let event = utilities.createEvent(eventData)
+      let event = new Event(eventData)
       this.items.push(event)
       events.push(event)
     })

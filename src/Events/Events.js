@@ -2,6 +2,7 @@ const Page = require('../Page.js')
 const Lister = require('../Lister.js')
 const ObjectStatus = require('./ObjectStatus.js')
 const StatusChange = require('./StatusChange.js')
+const Event = require('./Event.js')
 const utilities = require('../utilities.js')
 
 class Events {
@@ -35,7 +36,7 @@ class Events {
     }
 
     return this.client.post(`/events`, requestParameters)
-      .then((res) => utilities.createEvent(res.data))
+      .then((res) => new Event(res.data))
   }
 
   /**
@@ -44,7 +45,7 @@ class Events {
    */
   retrieve (eventKey) {
     return this.client.get(`/events/${encodeURIComponent(eventKey)}`)
-      .then((res) => utilities.createEvent(res.data))
+      .then((res) => new Event(res.data))
   }
 
   /**
@@ -121,7 +122,8 @@ class Events {
    */
   iterator () {
     return new Lister('/events', this.client, 'events', (data) => {
-      let events = utilities.createMultipleEvents(data.items)
+      // let events = utilities.createMultipleEvents(data.items)
+      let events = data.items.map(eventData => new Event(eventData))
       return new Page(events, data.next_page_starts_after, data.previous_page_ends_before)
     })
   }
