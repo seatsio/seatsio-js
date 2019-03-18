@@ -127,9 +127,7 @@ module.exports = {
    */
   createEventReportItem (data) {
     let labels = this.labelCreator(data)
-    return new EventReportItem(data.label, labels, data.status, data.categoryLabel, data.categoryKey, data.ticketType,
-      data.entrance, data.objectType, data.section, data.orderId, data.forSale, data.holdToken,
-      data.capacity, data.numBooked, data.extraData)
+    return new EventReportItem(data, labels)
   },
 
   /**
