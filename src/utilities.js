@@ -162,10 +162,10 @@ module.exports = {
    */
   createStatusChange (data) {
     if (data.holdToken) {
-      return new StatusChange(data.id, data.eventId, data.status, data.quantity, data.objectLabel, new Date(data.date), data.orderId, data.extraData, data.holdToken)
+      return new StatusChange(data)
     }
 
-    return new StatusChange(data.id, data.eventId, data.status, data.quantity, data.objectLabel, new Date(data.date), data.orderId, data.extraData)
+    return new StatusChange(data)
   },
 
   /**
