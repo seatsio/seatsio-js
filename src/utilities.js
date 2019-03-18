@@ -88,14 +88,6 @@ module.exports = {
 
   /**
    * @param {object} data
-   * @returns {Chart}
-   */
-  createChart (data) {
-    return new Chart(data)
-  },
-
-  /**
-   * @param {object} data
    * @returns {HoldToken}
    */
   createHoldToken (data) {
