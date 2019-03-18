@@ -161,10 +161,6 @@ module.exports = {
    * @returns {StatusChange}
    */
   createStatusChange (data) {
-    if (data.holdToken) {
-      return new StatusChange(data)
-    }
-
     return new StatusChange(data)
   },
 
