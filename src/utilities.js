@@ -83,7 +83,7 @@ module.exports = {
    * @returns {StatusChange[]}
    */
   createMultipleStatusChanges (statusChangesData) {
-    return statusChangesData.map(statusChangesData => this.createStatusChange(statusChangesData))
+    return statusChangesData.map(statusChangesData => new StatusChange(statusChangesData))
   },
 
   /**
@@ -154,14 +154,6 @@ module.exports = {
    */
   createSubaccount (data) {
     return new Subaccount(data)
-  },
-
-  /**
-   * @param {object} data
-   * @returns {StatusChange}
-   */
-  createStatusChange (data) {
-    return new StatusChange(data)
   },
 
   /**

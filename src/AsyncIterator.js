@@ -1,4 +1,5 @@
 const Page = require('./Page.js')
+const StatusChange = require('./Events/StatusChange.js')
 const utilities = require('./utilities.js')
 
 class AsyncIterator {
@@ -43,7 +44,7 @@ class AsyncIterator {
   statusChanges (data) {
     let statusChanges = []
     data.items.forEach((statusData) => {
-      let status = utilities.createStatusChange(statusData)
+      let status = new StatusChange(statusData)
       this.items.push(status)
       statusChanges.push(status)
     })
