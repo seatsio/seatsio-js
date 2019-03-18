@@ -1,24 +1,17 @@
 class ChartReportItem {
   /**
-   *
-   * @param {string} label
+   * @param {object} chartReport
    * @param {Common/Label} labels
-   * @param {string} categoryLabel
-   * @param {string} categoryKey
-   * @param {string} entrance
-   * @param {string} objectType
-   * @param {string} section
-   * @param {number} capacity
    */
-  constructor (label, labels, categoryLabel, categoryKey, entrance, objectType, section, capacity) {
-    this.label = label
+  constructor (chartReport, labels) {
+    this.label = chartReport.label
     this.labels = labels
-    this.categoryLabel = categoryLabel
-    this.categoryKey = categoryKey
-    this.entrance = entrance
-    this.objectType = objectType
-    this.section = section
-    this.capacity = capacity
+    this.categoryLabel = chartReport.categoryLabel
+    this.categoryKey = chartReport.categoryKey
+    this.entrance = chartReport.entrance
+    this.objectType = chartReport.objectType
+    this.section = chartReport.section
+    this.capacity = chartReport.capacity
   }
 }
 

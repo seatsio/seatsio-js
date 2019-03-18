@@ -77,9 +77,7 @@ module.exports = {
     for (const key of Object.keys(reportsData)) {
       reportObjects[key] = reportsData[key].map(data => {
         let labels = this.labelCreator(data)
-        return new ChartReportItem(data.label, labels, data.categoryLabel, data.categoryKey, data.entrance,
-          data.objectType, data.section,
-          data.capacity)
+        return new ChartReportItem(data, labels)
       }
       )
     }
