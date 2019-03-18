@@ -122,7 +122,6 @@ class Events {
    */
   iterator () {
     return new Lister('/events', this.client, 'events', (data) => {
-      // let events = utilities.createMultipleEvents(data.items)
       let events = data.items.map(eventData => new Event(eventData))
       return new Page(events, data.next_page_starts_after, data.previous_page_ends_before)
     })
@@ -135,9 +134,6 @@ class Events {
    * @returns {AsyncIterator}
    */
   statusChanges (eventKey, objectId = null, statusChangesParams = null) {
-    if (objectId === null) {
-      return this.statusChangesIterator(eventKey).all(utilities.combineStatusChangesParams(statusChangesParams))
-    }
     return this.statusChangesIterator(eventKey, objectId).all(utilities.combineStatusChangesParams(statusChangesParams))
   }
 
@@ -177,14 +173,14 @@ class Events {
    * @returns {Lister}
    */
   statusChangesIterator (eventKey, objectId = null) {
+    let url = ''
     if (objectId !== null) {
-      return new Lister(`/events/${encodeURIComponent(eventKey)}/objects/${encodeURIComponent(objectId)}/status-changes`, this.client, 'statusChanges', (data) => {
-        let statusChanges = data.items.map(statusChangesData => new StatusChange(statusChangesData))
-        return new Page(statusChanges, data.next_page_starts_after, data.previous_page_ends_before)
-      })
+      url = `/events/${encodeURIComponent(eventKey)}/objects/${encodeURIComponent(objectId)}/status-changes`
+    } else {
+      url = `/events/${encodeURIComponent(eventKey)}/status-changes`
     }
 
-    return new Lister(`/events/${encodeURIComponent(eventKey)}/status-changes`, this.client, 'statusChanges', (data) => {
+    return new Lister(url, this.client, 'statusChanges', (data) => {
       let statusChanges = data.items.map(statusChangesData => new StatusChange(statusChangesData))
       return new Page(statusChanges, data.next_page_starts_after, data.previous_page_ends_before)
     })
