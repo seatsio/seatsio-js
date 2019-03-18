@@ -155,7 +155,7 @@ module.exports = {
    * @returns {Subaccount}
    */
   createSubaccount (data) {
-    return new Subaccount(data.id, data.secretKey, data.designerKey, data.publicKey, data.name, data.email, data.active)
+    return new Subaccount(data)
   },
 
   /**
