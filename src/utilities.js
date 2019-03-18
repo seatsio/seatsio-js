@@ -1,10 +1,7 @@
 const Account = require('./Accounts/Account.js')
-const AccountSettings = require('./Accounts/AccountSettings.js')
-const ChartValidationSettings = require('./Accounts/ChartValidationSettings.js')
 const Event = require('./Events/Event.js')
 const ObjectStatus = require('./Events/ObjectStatus.js')
 const BestAvailableObjects = require('./Events/BestAvailableObjects.js')
-const ForSaleConfig = require('./Events/ForSaleConfig.js')
 const ChangeObjectStatusResult = require('./Events/ChangeObjectStatusResult.js')
 const Chart = require('./Charts/Chart.js')
 const HoldToken = require('./HoldTokens/HoldToken.js')
@@ -70,10 +67,6 @@ module.exports = {
    * @returns {Event}
    */
   createEvent (data) {
-    let createdOn = data.createdOn ? new Date(data.createdOn) : null
-    let updatedOn = data.updatedOn ? new Date(data.updatedOn) : null
-    let forsaleConfig = data.forSaleConfig ? new ForSaleConfig(data.forSaleConfig.forSale, data.forSaleConfig.objects, data.forSaleConfig.categories) : null
-
     return new Event(data)
   },
 
@@ -110,10 +103,7 @@ module.exports = {
    * @returns {Account}
    */
   createAccount (data) {
-    let chartValidation = data.settings.chartValidation
-    let chartValidationSettings = new ChartValidationSettings(chartValidation.VALIDATE_DUPLICATE_LABELS, chartValidation.VALIDATE_OBJECTS_WITHOUT_CATEGORIES, chartValidation.VALIDATE_UNLABELED_OBJECTS, chartValidation.VALIDATE_FOCAL_POINT, chartValidation.VALIDATE_OBJECT_TYPES_PER_CATEGORY)
-    let settings = new AccountSettings(data.settings.draftChartDrawingsEnabled, data.settings.holdOnSelectForGAs, data.settings.holdPeriodInMinutes, chartValidationSettings)
-    return new Account(data.secretKey, data.designerKey, data.publicKey, settings, data.email, data.role)
+    return new Account(data)
   },
 
   /**
