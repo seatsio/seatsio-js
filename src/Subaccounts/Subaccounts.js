@@ -1,7 +1,7 @@
 const AsyncIterator = require('../AsyncIterator.js')
 const Page = require('../Page.js')
 const Lister = require('../Lister.js')
-const utilities = require('../utilities.js')
+const utilities = require('../utilities/utilities.js')
 const Subaccount = require('./Subaccount.js')
 const Chart = require('../Charts/Chart.js')
 

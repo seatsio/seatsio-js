@@ -1,11 +1,12 @@
+const helperFunctions = require('../utilities/helperFunctions.js')
+
 class ChartReportItem {
   /**
    * @param {object} chartReport
-   * @param {Common/Label} labels
    */
-  constructor (chartReport, labels) {
+  constructor (chartReport) {
     this.label = chartReport.label
-    this.labels = labels
+    this.labels = helperFunctions.labelCreator(chartReport)
     this.categoryLabel = chartReport.categoryLabel
     this.categoryKey = chartReport.categoryKey
     this.entrance = chartReport.entrance

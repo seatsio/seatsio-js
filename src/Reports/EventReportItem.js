@@ -1,10 +1,12 @@
+const helperFunctions = require('../utilities/helperFunctions.js')
+
 class EventReportItem {
   /**
    * @param {object} report
    */
-  constructor (report, labels) {
+  constructor (report) {
     this.label = report.label
-    this.labels = labels
+    this.labels = helperFunctions.labelCreator(report)
     this.status = report.status
     this.categoryLabel = report.categoryLabel
     this.categoryKey = report.categoryKey

@@ -1,5 +1,5 @@
 const testUtils = require('../testUtils.js')
-const utils = require('../../src/utilities.js')
+const helperFunctions = require('../../src/utilities/helperFunctions.js')
 const ObjectProperties = require('../../src/Events/ObjectProperties.js')
 const ObjectStatus = require('../../src/Events/ObjectStatus.js')
 const StatusChangesParams = require('../../src/Events/StatusChangesParams.js')
@@ -21,13 +21,13 @@ test('should list all status changes', async () => {
 })
 
 test('status changes parameter', async () => {
-  let justFilter = utils.combineStatusChangesParams(new StatusChangesParams('foo'))
-  let sortAscendingOnly = utils.combineStatusChangesParams(new StatusChangesParams().sortAscending())
-  let sortByStatusOnly = utils.combineStatusChangesParams(new StatusChangesParams().sortByStatus())
-  let sortAscendingWithFilter = utils.combineStatusChangesParams(new StatusChangesParams('foo').sortAscending().withFilter('bar'))
-  let sortDescendingWithFilter = utils.combineStatusChangesParams(new StatusChangesParams().sortAscending().withFilter('bar').sortDescending())
-  let sortByLabelDescendingWithFilter = utils.combineStatusChangesParams(new StatusChangesParams().sortAscending().withFilter('bar').sortByObjectLabel().sortDescending())
-  let sortByStatusAscendingWithFilterChained = utils.combineStatusChangesParams(new StatusChangesParams().sortDescending().withFilter('bar').sortByObjectLabel().sortAscending().sortByStatus())
+  let justFilter = helperFunctions.combineStatusChangesParams(new StatusChangesParams('foo'))
+  let sortAscendingOnly = helperFunctions.combineStatusChangesParams(new StatusChangesParams().sortAscending())
+  let sortByStatusOnly = helperFunctions.combineStatusChangesParams(new StatusChangesParams().sortByStatus())
+  let sortAscendingWithFilter = helperFunctions.combineStatusChangesParams(new StatusChangesParams('foo').sortAscending().withFilter('bar'))
+  let sortDescendingWithFilter = helperFunctions.combineStatusChangesParams(new StatusChangesParams().sortAscending().withFilter('bar').sortDescending())
+  let sortByLabelDescendingWithFilter = helperFunctions.combineStatusChangesParams(new StatusChangesParams().sortAscending().withFilter('bar').sortByObjectLabel().sortDescending())
+  let sortByStatusAscendingWithFilterChained = helperFunctions.combineStatusChangesParams(new StatusChangesParams().sortDescending().withFilter('bar').sortByObjectLabel().sortAscending().sortByStatus())
 
   expect(justFilter.filter).toBe('foo')
   expect(justFilter.sort).toBeNull()

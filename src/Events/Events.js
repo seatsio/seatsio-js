@@ -3,7 +3,8 @@ const Lister = require('../Lister.js')
 const ObjectStatus = require('./ObjectStatus.js')
 const StatusChange = require('./StatusChange.js')
 const Event = require('./Event.js')
-const utilities = require('../utilities.js')
+const utilities = require('../utilities/utilities.js')
+const helperFunctions = require('../utilities/helperFunctions.js')
 
 class Events {
   /**
@@ -134,7 +135,7 @@ class Events {
    * @returns {AsyncIterator}
    */
   statusChanges (eventKey, objectId = null, statusChangesParams = null) {
-    return this.statusChangesIterator(eventKey, objectId).all(utilities.combineStatusChangesParams(statusChangesParams))
+    return this.statusChangesIterator(eventKey, objectId).all(helperFunctions.combineStatusChangesParams(statusChangesParams))
   }
 
   /**
@@ -144,7 +145,7 @@ class Events {
    * @returns {Page}
    */
   listStatusChangesFirstPage (eventKey, statusChangesParams = null, pageSize = null) {
-    return this.statusChangesIterator(eventKey).firstPage(utilities.combineStatusChangesParams(statusChangesParams), pageSize)
+    return this.statusChangesIterator(eventKey).firstPage(helperFunctions.combineStatusChangesParams(statusChangesParams), pageSize)
   }
 
   /**
@@ -155,7 +156,7 @@ class Events {
    * @returns {Page}
    */
   listStatusChangesPageAfter (eventKey, afterId, statusChangesParams = null, pageSize = null) {
-    return this.statusChangesIterator(eventKey).pageAfter(afterId, utilities.combineStatusChangesParams(statusChangesParams), pageSize)
+    return this.statusChangesIterator(eventKey).pageAfter(afterId, helperFunctions.combineStatusChangesParams(statusChangesParams), pageSize)
   }
 
   /**
@@ -166,7 +167,7 @@ class Events {
    * @returns {Page}
    */
   listStatusChangesPageBefore (eventKey, beforeId, statusChangesParams = null, pageSize = null) {
-    return this.statusChangesIterator(eventKey).pageBefore(beforeId, utilities.combineStatusChangesParams(statusChangesParams), pageSize)
+    return this.statusChangesIterator(eventKey).pageBefore(beforeId, helperFunctions.combineStatusChangesParams(statusChangesParams), pageSize)
   }
 
   /**
