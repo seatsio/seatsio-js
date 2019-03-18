@@ -1,25 +1,19 @@
+const Event = require('../Events/Event.js')
+
 class Chart {
   /**
-   * @param {string} name
-   * @param {number} id
-   * @param {string} key
-   * @param {string} status
-   * @param {String[]} tags
-   * @param {string} publishedVersionThumbnailUrl
-   * @param {string} draftVersionThumbnailUrl
-   * @param {Event[]} events
-   * @param {boolean} archived
+   * @param {object} chart
    */
-  constructor (name, id, key, status, tags, publishedVersionThumbnailUrl, draftVersionThumbnailUrl = null, events = null, archived) {
-    this.name = name
-    this.id = id
-    this.key = key
-    this.status = status
-    this.tags = tags
-    this.publishedVersionThumbnailUrl = publishedVersionThumbnailUrl
-    this.draftVersionThumbnailUrl = draftVersionThumbnailUrl
-    this.events = events
-    this.archived = archived
+  constructor (chart) {
+    this.name = chart.name
+    this.id = chart.id
+    this.key = chart.key
+    this.status = chart.status
+    this.tags = chart.tags
+    this.publishedVersionThumbnailUrl = chart.publishedVersionThumbnailUrl
+    this.draftVersionThumbnailUrl = chart.draftVersionThumbnailUrl || null
+    this.events = chart.events ? chart.events.map(event => new Event(event)) : []
+    this.archived = chart.archived
   }
 }
 

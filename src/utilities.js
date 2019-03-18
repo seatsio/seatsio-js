@@ -91,11 +91,7 @@ module.exports = {
    * @returns {Chart}
    */
   createChart (data) {
-    let events = data.events ? this.createMultipleEvents(data.events) : []
-
-    let draftVersionThumbnailUrl = data.draftVersionThumbnailUrl || null
-    return new Chart(data.name, data.id, data.key, data.status, data.tags,
-      data.publishedVersionThumbnailUrl, draftVersionThumbnailUrl, events, data.archived)
+    return new Chart(data)
   },
 
   /**
