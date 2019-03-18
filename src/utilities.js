@@ -1,4 +1,3 @@
-const ObjectStatus = require('./Events/ObjectStatus.js')
 const BestAvailableObjects = require('./Events/BestAvailableObjects.js')
 const ChangeObjectStatusResult = require('./Events/ChangeObjectStatusResult.js')
 const EventReportItem = require('./Reports/EventReportItem.js')
