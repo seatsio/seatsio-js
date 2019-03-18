@@ -1,13 +1,11 @@
 class HoldToken {
   /**
-   * @param {string} holdToken
-   * @param {Date} expiresAt
-   * @param {number} expiresInSeconds
+   * @param {object} holdToken
    */
-  constructor (holdToken, expiresAt, expiresInSeconds) {
-    this.holdToken = holdToken
-    this.expiresAt = expiresAt
-    this.expiresInSeconds = expiresInSeconds
+  constructor (holdToken) {
+    this.holdToken = holdToken.holdToken
+    this.expiresAt = new Date(holdToken.expiresAt)
+    this.expiresInSeconds = holdToken.expiresInSeconds
   }
 }
 

@@ -107,7 +107,7 @@ module.exports = {
    * @returns {HoldToken}
    */
   createHoldToken (data) {
-    return new HoldToken(data.holdToken, new Date(data.expiresAt), data.expiresInSeconds)
+    return new HoldToken(data)
   },
 
   /**
