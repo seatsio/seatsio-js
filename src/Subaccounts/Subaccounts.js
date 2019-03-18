@@ -2,6 +2,7 @@ const AsyncIterator = require('../AsyncIterator.js')
 const Page = require('../Page.js')
 const Lister = require('../Lister.js')
 const utilities = require('../utilities.js')
+const Chart = require('../Charts/Chart.js')
 
 class Subaccounts {
   /**
@@ -109,7 +110,7 @@ class Subaccounts {
    */
   copyChartToParent (id, chartKey) {
     return this.client.post(`/subaccounts/${id}/charts/${chartKey}/actions/copy-to/parent`)
-      .then((res) => utilities.createChart(res.data))
+      .then((res) => new Chart(res.data))
   }
 
   /**
@@ -120,7 +121,7 @@ class Subaccounts {
    */
   copyChartToSubaccount (fromId, toId, chartKey) {
     return this.client.post(`/subaccounts/${fromId}/charts/${chartKey}/actions/copy-to/${toId}`)
-      .then((res) => utilities.createChart(res.data))
+      .then((res) => new Chart(res.data))
   }
 
   /**

@@ -1,5 +1,6 @@
 const Page = require('./Page.js')
 const StatusChange = require('./Events/StatusChange.js')
+const Chart = require('./Charts/Chart.js')
 const utilities = require('./utilities.js')
 
 class AsyncIterator {
@@ -23,7 +24,7 @@ class AsyncIterator {
   charts (data) {
     let charts = []
     data.items.forEach((chartData) => {
-      let chart = utilities.createChart(chartData)
+      let chart = new Chart(chartData)
       this.items.push(chart)
       charts.push(chart)
     })

@@ -1,6 +1,7 @@
 const Page = require('../Page.js')
 const Lister = require('../Lister.js')
 const utilities = require('../utilities.js')
+const Chart = require('./Chart.js')
 
 class Charts {
   /**
@@ -9,7 +10,7 @@ class Charts {
   constructor (client) {
     this.client = client
     this.archive = new Lister('/charts/archive', this.client, 'charts', (data) => {
-      let charts = data.items.map((chartData) => utilities.createChart(chartData))
+      let charts = data.items.map((chartData) => new Chart(chartData))
       return new Page(charts, data.next_page_starts_after, data.previous_page_ends_before)
     })
   }
@@ -37,7 +38,7 @@ class Charts {
     }
 
     return this.client.post('charts', requestParameters)
-      .then((res) => utilities.createChart(res.data))
+      .then((res) => new Chart(res.data))
   }
 
   /**
@@ -66,7 +67,7 @@ class Charts {
    */
   retrieve (key) {
     return this.client.get(`charts/${key}`)
-      .then((res) => utilities.createChart(res.data))
+      .then((res) => new Chart(res.data))
   }
 
   /**
@@ -75,7 +76,7 @@ class Charts {
    */
   retrieveWithEvents (key) {
     return this.client.get(`charts/${key}?expand=events`)
-      .then((res) => utilities.createChart(res.data))
+      .then((res) => new Chart(res.data))
   }
 
   /**
@@ -134,7 +135,7 @@ class Charts {
    */
   copy (key) {
     return this.client.post(`charts/${key}/version/published/actions/copy`)
-      .then((res) => utilities.createChart(res.data))
+      .then((res) => new Chart(res.data))
   }
 
   /**
@@ -143,7 +144,7 @@ class Charts {
    */
   copyDraftVersion (key) {
     return this.client.post(`charts/${key}/version/draft/actions/copy`)
-      .then((res) => utilities.createChart(res.data))
+      .then((res) => new Chart(res.data))
   }
 
   /**
@@ -152,7 +153,7 @@ class Charts {
    */
   copyToSubaccount (key, subaccountId) {
     return this.client.post(`charts/${key}/version/published/actions/copy-to/${subaccountId}`)
-      .then((res) => utilities.createChart(res.data))
+      .then((res) => new Chart(res.data))
   }
 
   /**
@@ -243,7 +244,7 @@ class Charts {
    */
   iterator () {
     return new Lister('/charts', this.client, 'charts', (data) => {
-      let charts = data.items.map((chartData) => utilities.createChart(chartData))
+      let charts = data.items.map((chartData) => new Chart(chartData))
       return new Page(charts, data.next_page_starts_after, data.previous_page_ends_before)
     })
   }

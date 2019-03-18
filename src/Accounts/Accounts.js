@@ -1,4 +1,4 @@
-const utilities = require('../utilities.js')
+const Account = require('./Account.js')
 
 const baseUrl = '/accounts/me'
 
@@ -11,7 +11,7 @@ class Accounts {
    * @returns {Promise<Account>} Promise that resolves to Account object
    */
   retrieveMyAccount () {
-    return this.client.get(baseUrl).then((res) => utilities.createAccount(res.data))
+    return this.client.get(baseUrl).then((res) => new Account(res.data))
   }
 
   /**

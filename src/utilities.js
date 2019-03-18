@@ -96,14 +96,6 @@ module.exports = {
 
   /**
    * @param {object} data
-   * @returns {Account}
-   */
-  createAccount (data) {
-    return new Account(data)
-  },
-
-  /**
-   * @param {object} data
    * @returns {HoldToken}
    */
   createHoldToken (data) {
