@@ -25,7 +25,7 @@ module.exports = {
   createChangeObjectStatusDetails (data) {
     let objectDetails = {}
     for (let key in data) {
-      objectDetails[key] = this.createEventReportItem(data[key])
+      objectDetails[key] = new EventReportItem(data[key])
     }
     return objectDetails
   },
@@ -37,17 +37,9 @@ module.exports = {
   createEventReport (reportsData) {
     let reportObjects = {}
     for (const key of Object.keys(reportsData)) {
-      reportObjects[key] = reportsData[key].map(data => this.createEventReportItem(data))
+      reportObjects[key] = reportsData[key].map(data => new EventReportItem(data))
     }
     return reportObjects
-  },
-
-  /**
-   *
-   */
-  createEventReportItem (data) {
-    // let labels = helperFunctions.labelCreator(data)
-    return new EventReportItem(data)
   },
 
   /**
@@ -58,7 +50,6 @@ module.exports = {
     let reportObjects = {}
     for (const key of Object.keys(reportsData)) {
       reportObjects[key] = reportsData[key].map(data => {
-        // let labels = helperFunctions.labelCreator(data)
         return new ChartReportItem(data)
       }
       )
