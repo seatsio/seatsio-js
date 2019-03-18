@@ -101,14 +101,6 @@ module.exports = {
   },
 
   /**
-   * @param {object} data
-   * @returns {Subaccount}
-   */
-  createSubaccount (data) {
-    return new Subaccount(data)
-  },
-
-  /**
    * @param {StatusChangesParams} params
    * @returns {object}
    */

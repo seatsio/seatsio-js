@@ -2,7 +2,7 @@ const Page = require('./Page.js')
 const StatusChange = require('./Events/StatusChange.js')
 const Chart = require('./Charts/Chart.js')
 const Event = require('./Events/Event.js')
-const utilities = require('./utilities.js')
+const Subaccount = require('./Subaccounts/Subaccount.js')
 
 class AsyncIterator {
   /**
@@ -56,7 +56,7 @@ class AsyncIterator {
   subaccounts (data) {
     let subaccounts = []
     data.items.forEach((subaccountData) => {
-      let subaccount = utilities.createSubaccount(subaccountData)
+      let subaccount = new Subaccount(subaccountData)
       this.items.push(subaccount)
       subaccounts.push(subaccount)
     })
