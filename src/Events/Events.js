@@ -261,7 +261,7 @@ class Events {
    */
   retrieveObjectStatus (eventKey, obj) {
     return this.client.get(`events/${encodeURIComponent(eventKey)}/objects/${encodeURIComponent(obj)}`)
-      .then((res) => utilities.createObjectStatus(res.data))
+      .then((res) => new ObjectStatus(res.data))
   }
 
   /**

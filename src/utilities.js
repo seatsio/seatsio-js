@@ -1,14 +1,8 @@
-const Account = require('./Accounts/Account.js')
-const Event = require('./Events/Event.js')
 const ObjectStatus = require('./Events/ObjectStatus.js')
 const BestAvailableObjects = require('./Events/BestAvailableObjects.js')
 const ChangeObjectStatusResult = require('./Events/ChangeObjectStatusResult.js')
-const Chart = require('./Charts/Chart.js')
-const HoldToken = require('./HoldTokens/HoldToken.js')
 const EventReportItem = require('./Reports/EventReportItem.js')
 const ChartReportItem = require('./Reports/ChartReportItem.js')
-const Subaccount = require('./Subaccounts/Subaccount.js')
-const StatusChange = require('./Events/StatusChange.js')
 const LabelClasses = require('./Common/Labels.js')
 
 module.exports = {
@@ -28,14 +22,6 @@ module.exports = {
     }
 
     return labels
-  },
-
-  /**
-   * @param {object} data
-   * @returns {ObjectStatus}
-   */
-  createObjectStatus (data) {
-    return new ObjectStatus(data.status, data.ticketType, data.holdToken, data.orderId, data.extraData, data.quantity)
   },
 
   /**
