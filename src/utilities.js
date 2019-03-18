@@ -79,22 +79,6 @@ module.exports = {
   },
 
   /**
-   * @param {objects[]} statusChangesData
-   * @returns {StatusChange[]}
-   */
-  createMultipleStatusChanges (statusChangesData) {
-    return statusChangesData.map(statusChangesData => new StatusChange(statusChangesData))
-  },
-
-  /**
-   * @param {object} data
-   * @returns {HoldToken}
-   */
-  createHoldToken (data) {
-    return new HoldToken(data)
-  },
-
-  /**
    * @param {object} reportsData
    * @returns {Object.<string, EventReportItem>}
    */

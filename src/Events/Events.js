@@ -1,6 +1,7 @@
 const Page = require('../Page.js')
 const Lister = require('../Lister.js')
 const ObjectStatus = require('./ObjectStatus.js')
+const StatusChange = require('./StatusChange.js')
 const utilities = require('../utilities.js')
 
 class Events {
@@ -176,13 +177,13 @@ class Events {
   statusChangesIterator (eventKey, objectId = null) {
     if (objectId !== null) {
       return new Lister(`/events/${encodeURIComponent(eventKey)}/objects/${encodeURIComponent(objectId)}/status-changes`, this.client, 'statusChanges', (data) => {
-        let statusChanges = utilities.createMultipleStatusChanges(data.items)
+        let statusChanges = data.items.map(statusChangesData => new StatusChange(statusChangesData))
         return new Page(statusChanges, data.next_page_starts_after, data.previous_page_ends_before)
       })
     }
 
     return new Lister(`/events/${encodeURIComponent(eventKey)}/status-changes`, this.client, 'statusChanges', (data) => {
-      let statusChanges = utilities.createMultipleStatusChanges(data.items)
+      let statusChanges = data.items.map(statusChangesData => new StatusChange(statusChangesData))
       return new Page(statusChanges, data.next_page_starts_after, data.previous_page_ends_before)
     })
   }
