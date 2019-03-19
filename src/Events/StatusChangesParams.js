@@ -44,7 +44,6 @@ class StatusChangesParams {
    */
   sortDescending () {
     this.sort = this.sort ? this.sort.replace(':asc', ':desc') : 'date:desc'
-    // console.log(this)
     return this
   }
 
