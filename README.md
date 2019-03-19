@@ -167,7 +167,7 @@ for await(let chart of client.charts.listAll()){
 
 E.g. to show charts in a paginated list on a dashboard.
 
-Each page contains an `items` array, and `nextPageStartsAfter` and `previousPageEndsBefore` properties. Those properties are the chart IDs after which the next page starts or the previous page ends.
+Each page contains an `items` array of charts, and `nextPageStartsAfter` and `previousPageEndsBefore` properties. Those properties are the chart IDs after which the next page starts or the previous page ends.
 
 ```js
 // ... user initially opens the screen ...
