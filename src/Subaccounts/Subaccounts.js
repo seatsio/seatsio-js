@@ -11,8 +11,14 @@ class Subaccounts {
    */
   constructor (client) {
     this.client = client
-    this.active = new AsyncIterator('/subaccounts/active', this.client, 'subaccounts')
-    this.inactive = new AsyncIterator('/subaccounts/inactive', this.client, 'subaccounts')
+    this.active = new Lister('/subaccounts/active', this.client, 'subaccounts', (data) => {
+      let subaccounts = data.items.map((subaccountsData) => utilities.createSubaccount(subaccountsData))
+      return new Page(subaccounts, data.next_page_starts_after, data.previous_page_ends_before)
+    })
+    this.inactive = new Lister('/subaccounts/inactive', this.client, 'subaccounts', (data) => {
+      let subaccounts = data.items.map((subaccountsData) => utilities.createSubaccount(subaccountsData))
+      return new Page(subaccounts, data.next_page_starts_after, data.previous_page_ends_before)
+    })
   }
 
   /**
