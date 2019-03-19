@@ -1,7 +1,12 @@
 const Page = require('../Page.js')
 const Lister = require('../Lister.js')
 const ObjectStatus = require('./ObjectStatus.js')
-const utilities = require('../utilities.js')
+const StatusChange = require('./StatusChange.js')
+const BestAvailableObjects = require('./BestAvailableObjects.js')
+const ChangeObjectStatusResult = require('./ChangeObjectStatusResult.js')
+const Event = require('./Event.js')
+const utilities = require('../utilities/utilities.js')
+const helperFunctions = require('../utilities/helperFunctions.js')
 
 class Events {
   /**
@@ -34,7 +39,7 @@ class Events {
     }
 
     return this.client.post(`/events`, requestParameters)
-      .then((res) => utilities.createEvent(res.data))
+      .then((res) => new Event(res.data))
   }
 
   /**
@@ -43,7 +48,7 @@ class Events {
    */
   retrieve (eventKey) {
     return this.client.get(`/events/${encodeURIComponent(eventKey)}`)
-      .then((res) => utilities.createEvent(res.data))
+      .then((res) => new Event(res.data))
   }
 
   /**
@@ -120,7 +125,7 @@ class Events {
    */
   iterator () {
     return new Lister('/events', this.client, 'events', (data) => {
-      let events = utilities.createMultipleEvents(data.items)
+      let events = data.items.map(eventData => new Event(eventData))
       return new Page(events, data.next_page_starts_after, data.previous_page_ends_before)
     })
   }
@@ -132,10 +137,7 @@ class Events {
    * @returns {AsyncIterator}
    */
   statusChanges (eventKey, objectId = null, statusChangesParams = null) {
-    if (objectId === null) {
-      return this.statusChangesIterator(eventKey).all(utilities.combineStatusChangesParams(statusChangesParams))
-    }
-    return this.statusChangesIterator(eventKey, objectId).all(utilities.combineStatusChangesParams(statusChangesParams))
+    return this.statusChangesIterator(eventKey, objectId).all(helperFunctions.combineStatusChangesParams(statusChangesParams))
   }
 
   /**
@@ -145,7 +147,7 @@ class Events {
    * @returns {Page}
    */
   listStatusChangesFirstPage (eventKey, statusChangesParams = null, pageSize = null) {
-    return this.statusChangesIterator(eventKey).firstPage(utilities.combineStatusChangesParams(statusChangesParams), pageSize)
+    return this.statusChangesIterator(eventKey).firstPage(helperFunctions.combineStatusChangesParams(statusChangesParams), pageSize)
   }
 
   /**
@@ -156,7 +158,7 @@ class Events {
    * @returns {Page}
    */
   listStatusChangesPageAfter (eventKey, afterId, statusChangesParams = null, pageSize = null) {
-    return this.statusChangesIterator(eventKey).pageAfter(afterId, utilities.combineStatusChangesParams(statusChangesParams), pageSize)
+    return this.statusChangesIterator(eventKey).pageAfter(afterId, helperFunctions.combineStatusChangesParams(statusChangesParams), pageSize)
   }
 
   /**
@@ -167,22 +169,22 @@ class Events {
    * @returns {Page}
    */
   listStatusChangesPageBefore (eventKey, beforeId, statusChangesParams = null, pageSize = null) {
-    return this.statusChangesIterator(eventKey).pageBefore(beforeId, utilities.combineStatusChangesParams(statusChangesParams), pageSize)
+    return this.statusChangesIterator(eventKey).pageBefore(beforeId, helperFunctions.combineStatusChangesParams(statusChangesParams), pageSize)
   }
 
   /**
    * @returns {Lister}
    */
   statusChangesIterator (eventKey, objectId = null) {
+    let url = ''
     if (objectId !== null) {
-      return new Lister(`/events/${encodeURIComponent(eventKey)}/objects/${encodeURIComponent(objectId)}/status-changes`, this.client, 'statusChanges', (data) => {
-        let statusChanges = utilities.createMultipleStatusChanges(data.items)
-        return new Page(statusChanges, data.next_page_starts_after, data.previous_page_ends_before)
-      })
+      url = `/events/${encodeURIComponent(eventKey)}/objects/${encodeURIComponent(objectId)}/status-changes`
+    } else {
+      url = `/events/${encodeURIComponent(eventKey)}/status-changes`
     }
 
-    return new Lister(`/events/${encodeURIComponent(eventKey)}/status-changes`, this.client, 'statusChanges', (data) => {
-      let statusChanges = utilities.createMultipleStatusChanges(data.items)
+    return new Lister(url, this.client, 'statusChanges', (data) => {
+      let statusChanges = data.items.map(statusChangesData => new StatusChange(statusChangesData))
       return new Page(statusChanges, data.next_page_starts_after, data.previous_page_ends_before)
     })
   }
@@ -262,7 +264,7 @@ class Events {
    */
   retrieveObjectStatus (eventKey, obj) {
     return this.client.get(`events/${encodeURIComponent(eventKey)}/objects/${encodeURIComponent(obj)}`)
-      .then((res) => utilities.createObjectStatus(res.data))
+      .then((res) => new ObjectStatus(res.data))
   }
 
   /**
@@ -291,7 +293,7 @@ class Events {
     requestParameters.events = Array.isArray(eventKeyOrKeys) ? eventKeyOrKeys : [eventKeyOrKeys]
 
     return this.client.post(`/seasons/actions/change-object-status?expand=objects`, requestParameters)
-      .then((res) => utilities.createChangeObjectStatusResult(res.data))
+      .then((res) => new ChangeObjectStatusResult(res.data.objects))
   }
 
   /**
@@ -387,7 +389,7 @@ class Events {
     requestParameters.bestAvailable = bestAvailable
 
     return this.client.post(`/events/${encodeURIComponent(eventKey)}/actions/change-object-status`, requestParameters)
-      .then((res) => utilities.createBestAvailableObjects(res.data))
+      .then((res) => new BestAvailableObjects(res.data))
   }
 
   normalizeObjects (objectOrObjects) {

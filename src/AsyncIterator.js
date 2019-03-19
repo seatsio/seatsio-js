@@ -1,5 +1,8 @@
 const Page = require('./Page.js')
-const utilities = require('./utilities.js')
+const StatusChange = require('./Events/StatusChange.js')
+const Chart = require('./Charts/Chart.js')
+const Event = require('./Events/Event.js')
+const Subaccount = require('./Subaccounts/Subaccount.js')
 
 class AsyncIterator {
   /**
@@ -22,7 +25,7 @@ class AsyncIterator {
   charts (data) {
     let charts = []
     data.items.forEach((chartData) => {
-      let chart = utilities.createChart(chartData)
+      let chart = new Chart(chartData)
       this.items.push(chart)
       charts.push(chart)
     })
@@ -33,7 +36,7 @@ class AsyncIterator {
   events (data) {
     let events = []
     data.items.forEach(eventData => {
-      let event = utilities.createEvent(eventData)
+      let event = new Event(eventData)
       this.items.push(event)
       events.push(event)
     })
@@ -43,7 +46,7 @@ class AsyncIterator {
   statusChanges (data) {
     let statusChanges = []
     data.items.forEach((statusData) => {
-      let status = utilities.createStatusChange(statusData)
+      let status = new StatusChange(statusData)
       this.items.push(status)
       statusChanges.push(status)
     })
@@ -53,7 +56,7 @@ class AsyncIterator {
   subaccounts (data) {
     let subaccounts = []
     data.items.forEach((subaccountData) => {
-      let subaccount = utilities.createSubaccount(subaccountData)
+      let subaccount = new Subaccount(subaccountData)
       this.items.push(subaccount)
       subaccounts.push(subaccount)
     })

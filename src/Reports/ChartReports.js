@@ -1,4 +1,4 @@
-const utilities = require('../utilities.js')
+const utilities = require('../utilities/utilities.js')
 
 class ChartReports {
   constructor (client) {

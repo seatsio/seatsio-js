@@ -9,17 +9,18 @@ class StatusChange {
    * @param {?string} orderId
    * @param {?object} extraData
    * @param {?string} holdToken
+   * @param {object} statusChange
    */
-  constructor (id, eventId, status, quantity, objectLabel, date, orderId = null, extraData = null, holdToken = null) {
-    this.id = id
-    this.eventId = eventId
-    this.status = status
-    this.quantity = quantity
-    this.objectLabel = objectLabel
-    this.date = date
-    this.orderId = orderId
-    this.extraData = extraData
-    this.holdToken = holdToken
+  constructor (statusChange) {
+    this.id = statusChange.id
+    this.eventId = statusChange.eventId
+    this.status = statusChange.status
+    this.quantity = statusChange.quantity
+    this.objectLabel = statusChange.objectLabel
+    this.date = new Date(statusChange.date)
+    this.orderId = statusChange.orderId ? statusChange.orderId : null
+    this.extraData = statusChange.extraData ? statusChange.extraData : null
+    this.holdToken = statusChange.holdToken ? statusChange.holdToken : null
   }
 }
 

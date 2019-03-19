@@ -1,15 +1,14 @@
+const ChartValidationSettings = require('./ChartValidationSettings.js')
+
 class AccountSettings {
   /**
-   * @param {boolean} draftChartDrawingsEnabled
-   * @param {boolean} holdOnSelectForGAs
-   * @param {number} holdPeriodInMinutes
-   * @param {ChartValidationSettings} chartValidation
+   * @param {object} settings
    */
-  constructor (draftChartDrawingsEnabled, holdOnSelectForGAs, holdPeriodInMinutes, chartValidation) {
-    this.draftChartDrawingsEnabled = draftChartDrawingsEnabled
-    this.holdOnSelectForGAs = holdOnSelectForGAs
-    this.holdPeriodInMinutes = holdPeriodInMinutes
-    this.chartValidation = chartValidation
+  constructor (settings) {
+    this.draftChartDrawingsEnabled = settings.draftChartDrawingsEnabled
+    this.holdOnSelectForGAs = settings.holdOnSelectForGAs
+    this.holdPeriodInMinutes = settings.holdPeriodInMinutes
+    this.chartValidation = new ChartValidationSettings(settings.chartValidation)
   }
 }
 

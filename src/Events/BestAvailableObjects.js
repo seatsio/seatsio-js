@@ -1,13 +1,13 @@
+const utilities = require('../utilities/utilities.js')
+
 class BestAvailableObjects {
   /**
-   * @param {string[]} objects
-   * @param {Object.<string, EventReportItem>} objectDetails
-   * @param {boolean} nextToEachOther
+   * @param {object} data
    */
-  constructor (objects, objectDetails, nextToEachOther) {
-    this.objects = objects
-    this.objectDetails = objectDetails
-    this.nextToEachOther = nextToEachOther
+  constructor (data) {
+    this.objects = data.objects
+    this.objectDetails = utilities.createChangeObjectStatusDetails(data.objectDetails)
+    this.nextToEachOther = data.nextToEachOther
   }
 }
 

@@ -1,4 +1,5 @@
-const utilities = require('../utilities.js')
+const utilities = require('../utilities/utilities.js')
+const HoldToken = require('./HoldToken.js')
 
 class HoldTokens {
   constructor (client) {
@@ -14,7 +15,7 @@ class HoldTokens {
     if (expiresInMinutes !== null) {
       request.expiresInMinutes = expiresInMinutes
     }
-    return this.client.post('/hold-tokens', request).then((res) => utilities.createHoldToken(res.data))
+    return this.client.post('/hold-tokens', request).then((res) => new HoldToken(res.data))
   }
 
   /**
@@ -25,7 +26,7 @@ class HoldTokens {
   expiresInMinutes (holdToken, minutes) {
     let request = {}
     request.expiresInMinutes = minutes
-    return this.client.post(`/hold-tokens/${holdToken}`, request).then((res) => utilities.createHoldToken(res.data))
+    return this.client.post(`/hold-tokens/${holdToken}`, request).then((res) => new HoldToken(res.data))
   }
 
   /**
@@ -33,7 +34,7 @@ class HoldTokens {
    * @returns {Promise<HoldToken>} Promise object that will resolve to HoldToken object
    */
   retrieve (holdToken) {
-    return this.client.get(`/hold-tokens/${holdToken}`).then((res) => utilities.createHoldToken(res.data))
+    return this.client.get(`/hold-tokens/${holdToken}`).then((res) => new HoldToken(res.data))
   }
 }
 

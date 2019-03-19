@@ -1,25 +1,19 @@
+const ForSaleConfig = require('./ForSaleConfig.js')
+
 class Event {
   /**
-   * @param {number} id
-   * @param {string} key
-   * @param {boolean} bookWholeTables
-   * @param {boolean} supportsBestAvailable
-   * @param {ForSaleConfig} forSaleConfig
-   * @param {Object} tableBookingModes
-   * @param {string} chartKey
-   * @param {Date} createdOn
-   * @param {Date} updatedOn
+   * @param {object} event
    */
-  constructor (id, key, bookWholeTables, supportsBestAvailable, forSaleConfig, tableBookingModes, chartKey, createdOn, updatedOn) {
-    this.id = id
-    this.key = key
-    this.bookWholeTables = bookWholeTables
-    this.supportsBestAvailable = supportsBestAvailable
-    this.forSaleConfig = forSaleConfig
-    this.tableBookingModes = tableBookingModes
-    this.chartKey = chartKey
-    this.createdOn = createdOn
-    this.updatedOn = updatedOn
+  constructor (event) {
+    this.id = event.id
+    this.key = event.key
+    this.bookWholeTables = event.bookWholeTables
+    this.supportsBestAvailable = event.supportsBestAvailable
+    this.forSaleConfig = event.forSaleConfig ? new ForSaleConfig(event.forSaleConfig.forSale, event.forSaleConfig.objects, event.forSaleConfig.categories) : null
+    this.tableBookingModes = event.tableBookingModes
+    this.chartKey = event.chartKey
+    this.createdOn = event.createdOn ? new Date(event.createdOn) : null
+    this.updatedOn = event.updatedOn ? new Date(event.updatedOn) : null
   }
 }
 

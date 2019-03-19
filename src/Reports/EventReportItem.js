@@ -1,39 +1,25 @@
+const helperFunctions = require('../utilities/helperFunctions.js')
+
 class EventReportItem {
   /**
-   * @param {string} label
-   * @param {Labels} labels
-   * @param {string}status
-   * @param {string} categoryLabel
-   * @param {string} categoryKey
-   * @param {string} ticketType
-   * @param {string} entrance
-   * @param {string} objectType
-   * @param {string} section
-   * @param {string} orderId
-   * @param {boolean} forSale
-   * @param {string} holdToken
-   * @param {number} capacity
-   * @param {number} numBooked
-   * @param {object} extraData
+   * @param {object} report
    */
-  constructor (label, labels, status, categoryLabel, categoryKey, ticketType,
-    entrance, objectType, section, orderId, forSale, holdToken,
-    capacity, numBooked, extraData) {
-    this.label = label
-    this.labels = labels
-    this.status = status
-    this.categoryLabel = categoryLabel
-    this.categoryKey = categoryKey
-    this.ticketType = ticketType
-    this.entrance = entrance
-    this.objectType = objectType
-    this.section = section
-    this.orderId = orderId
-    this.forSale = forSale
-    this.holdToken = holdToken
-    this.capacity = capacity
-    this.numBooked = numBooked
-    this.extraData = extraData
+  constructor (report) {
+    this.label = report.label
+    this.labels = helperFunctions.labelCreator(report)
+    this.status = report.status
+    this.categoryLabel = report.categoryLabel
+    this.categoryKey = report.categoryKey
+    this.ticketType = report.ticketType
+    this.entrance = report.entrance
+    this.objectType = report.objectType
+    this.section = report.section
+    this.orderId = report.orderId
+    this.forSale = report.forSale
+    this.holdToken = report.holdToken
+    this.capacity = report.capacity
+    this.numBooked = report.numBooked
+    this.extraData = report.extraData
   }
 }
 

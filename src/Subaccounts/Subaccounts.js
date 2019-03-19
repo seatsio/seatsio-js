@@ -1,7 +1,9 @@
 const AsyncIterator = require('../AsyncIterator.js')
 const Page = require('../Page.js')
 const Lister = require('../Lister.js')
-const utilities = require('../utilities.js')
+const utilities = require('../utilities/utilities.js')
+const Subaccount = require('./Subaccount.js')
+const Chart = require('../Charts/Chart.js')
 
 class Subaccounts {
   /**
@@ -18,7 +20,7 @@ class Subaccounts {
    * @returns {Promise<Subaccount>} Promise object that will resolve to a Subaccount object
    */
   retrieve (id) {
-    return this.client.get(`/subaccounts/${id}`).then((res) => utilities.createSubaccount(res.data))
+    return this.client.get(`/subaccounts/${id}`).then((res) => new Subaccount(res.data))
   }
 
   /**
@@ -55,7 +57,7 @@ class Subaccounts {
     }
 
     return this.client.post('/subaccounts', requestParameters)
-      .then((res) => utilities.createSubaccount(res.data))
+      .then((res) => new Subaccount(res.data))
   }
 
   /**
@@ -109,7 +111,7 @@ class Subaccounts {
    */
   copyChartToParent (id, chartKey) {
     return this.client.post(`/subaccounts/${id}/charts/${chartKey}/actions/copy-to/parent`)
-      .then((res) => utilities.createChart(res.data))
+      .then((res) => new Chart(res.data))
   }
 
   /**
@@ -120,7 +122,7 @@ class Subaccounts {
    */
   copyChartToSubaccount (fromId, toId, chartKey) {
     return this.client.post(`/subaccounts/${fromId}/charts/${chartKey}/actions/copy-to/${toId}`)
-      .then((res) => utilities.createChart(res.data))
+      .then((res) => new Chart(res.data))
   }
 
   /**
@@ -156,7 +158,7 @@ class Subaccounts {
    */
   iterator () {
     return new Lister('/subaccounts', this.client, 'subaccounts', (data) => {
-      let subaccounts = data.items.map((subaccountsData) => utilities.createSubaccount(subaccountsData))
+      let subaccounts = data.items.map((subaccountsData) => new Subaccount(subaccountsData))
       return new Page(subaccounts, data.next_page_starts_after, data.previous_page_ends_before)
     })
   }
