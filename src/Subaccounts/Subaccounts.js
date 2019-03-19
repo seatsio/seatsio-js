@@ -1,7 +1,5 @@
-const AsyncIterator = require('../AsyncIterator.js')
 const Page = require('../Page.js')
 const Lister = require('../Lister.js')
-const utilities = require('../utilities/utilities.js')
 const Subaccount = require('./Subaccount.js')
 const Chart = require('../Charts/Chart.js')
 
@@ -12,11 +10,11 @@ class Subaccounts {
   constructor (client) {
     this.client = client
     this.active = new Lister('/subaccounts/active', this.client, 'subaccounts', (data) => {
-      let subaccounts = data.items.map((subaccountsData) => utilities.createSubaccount(subaccountsData))
+      let subaccounts = data.items.map((subaccountsData) => new Subaccount(subaccountsData))
       return new Page(subaccounts, data.next_page_starts_after, data.previous_page_ends_before)
     })
     this.inactive = new Lister('/subaccounts/inactive', this.client, 'subaccounts', (data) => {
-      let subaccounts = data.items.map((subaccountsData) => utilities.createSubaccount(subaccountsData))
+      let subaccounts = data.items.map((subaccountsData) => new Subaccount(subaccountsData))
       return new Page(subaccounts, data.next_page_starts_after, data.previous_page_ends_before)
     })
   }
