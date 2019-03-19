@@ -167,7 +167,7 @@ for await(let chart of client.charts.listAll()){
 
 E.g. to show charts in a paginated list on a dashboard.
 
-Each page contains an `items` array.
+Each page contains an `items` array, and `nextPageStartsAfter` and `previousPageEndsBefore` properties. Those properties are the chart IDs after which the next page starts or the previous page ends.
 
 ```js
 // ... user initially opens the screen ...
@@ -188,31 +188,6 @@ nextPage.items.forEach(chart => console.log(`Chart key: ${chart.key}`));
 
 let previousPage = client.charts.listPageBefore(nextPage.previousPageEndsBefore);
 previousPage.items.forEach(chart => console.log(`Chart key: ${chart.key}`));
-```
-
-### Listing charts
-You can list all charts using `listAll()` method which returns an asynchronous iterator `AsyncIterator`. You can use `for await` loop to retrieve all charts.
-
-```js
-let client = new SeatsioClient(<SECRET KEY>)
-let chart1 = await client.charts.create()
-let chart2 = await client.charts.create()
-let chart3 = await client.charts.create()
-for await(let chart of client.charts.listAll()){
-    console.log(`Chart key: ${chart.key}`)
-}
-```
-
-You can also call the `next()` method to manually iterate over charts.
-```js
-let client = new SeatsioClient(<SECRET KEY>)
-let chart1 = await client.charts.create()
-let chart2 = await client.charts.create()
-let chart3 = await client.charts.create()
-let charts = client.charts.listAll()
-let chartsIterator = charts[Symbol.asyncIterator]()
-let firstChart = await chartsIterator.next() //retrieves the first page of charts, returns the latest in queue
-let secondChart = await chartsIterator.next() //returns the next chart in the first page
 ```
 
 ## Error Handling
