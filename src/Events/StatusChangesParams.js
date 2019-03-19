@@ -4,13 +4,14 @@ class StatusChangesParams {
    */
   constructor (filter = null) {
     this.filter = filter
+    this.sort = null
   }
 
   /**
    * @returns {StatusChangesParams}
    */
   sortByObjectLabel () {
-    this.sort = 'objectLabel'
+    this.sort = this.sort ? this.sort.replace(/[a-zA-Z]*:/, 'objectLabel:') : 'objectLabel:asc'
     return this
   }
 
@@ -18,7 +19,7 @@ class StatusChangesParams {
    * @returns {StatusChangesParams}
    */
   sortByStatus () {
-    this.sort = 'status'
+    this.sort = this.sort ? this.sort.replace(/[a-zA-Z]*:/, 'status:') : 'status:asc'
     return this
   }
 
@@ -26,7 +27,7 @@ class StatusChangesParams {
    * @returns {StatusChangesParams}
    */
   sortByDate () {
-    this.sort = 'date'
+    this.sort = this.sort ? this.sort.replace(/[a-zA-Z]*:/, 'date:') : 'date:asc'
     return this
   }
 
@@ -34,7 +35,7 @@ class StatusChangesParams {
    * @returns {StatusChangesParams}
    */
   sortAscending () {
-    this.sortDirection = 'asc'
+    this.sort = this.sort ? this.sort.replace(':desc', ':asc') : 'date:asc'
     return this
   }
 
@@ -42,7 +43,8 @@ class StatusChangesParams {
    * @returns {StatusChangesParams}
    */
   sortDescending () {
-    this.sortDirection = 'desc'
+    this.sort = this.sort ? this.sort.replace(':asc', ':desc') : 'date:desc'
+    // console.log(this)
     return this
   }
 
