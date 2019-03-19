@@ -151,6 +151,45 @@ let client = new SeatsioClient(<SECRET KEY>)
 await client.eventReports.byStatus(<AN EVENT KEY>, <OPTIONAL FILTER>)
 ```
 
+### Listing all charts
+
+You can list all charts using `listAll()` method which returns an asynchronous iterator `AsyncIterator`. You can use `for await` loop to retrieve all charts.
+
+```js
+let client = new SeatsioClient(<SECRET KEY>)
+
+for await(let chart of client.charts.listAll()){
+    console.log(`Chart key: ${chart.key}`)
+}
+```
+
+### Listing charts page by page
+
+E.g. to show charts in a paginated list on a dashboard.
+
+Each page contains an `items` array.
+
+```js
+// ... user initially opens the screen ...
+
+let firstPage = client.charts.listFirstPage();
+firstPage.items.forEach(chart => console.log(`Chart key: ${chart.key}`));
+```
+
+```js
+// ... user clicks on 'next page' button ...
+
+let nextPage = client.charts.listPageAfter(firstPage.nextPageStartsAfter);
+nextPage.items.forEach(chart => console.log(`Chart key: ${chart.key}`));
+```
+
+```js
+// ... user clicks on 'previous page' button ...
+
+let previousPage = client.charts.listPageBefore(nextPage.previousPageEndsBefore);
+previousPage.items.forEach(chart => console.log(`Chart key: ${chart.key}`));
+```
+
 ### Listing charts
 You can list all charts using `listAll()` method which returns an asynchronous iterator `AsyncIterator`. You can use `for await` loop to retrieve all charts.
 
