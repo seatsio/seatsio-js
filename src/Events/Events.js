@@ -132,11 +132,9 @@ class Events {
 
   /**
    * @param {string} eventKey
-   * @param {?string} objectId
-   * @param {?StatusChangesParams} statusChangesParams
    * @returns {Lister}
    */
-  statusChanges (eventKey, objectId = null, statusChangesParams = null) {
+  statusChanges (eventKey) {
     return new Lister(`/events/${encodeURIComponent(eventKey)}/status-changes`, this.client, 'statusChanges', (data) => {
       let statusChanges = data.items.map(statusChangesData => new StatusChange(statusChangesData))
       return new Page(statusChanges, data.next_page_starts_after, data.previous_page_ends_before)
