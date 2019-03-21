@@ -98,23 +98,21 @@ await client.events.changeObjectStatus(<AN EVENT KEY>, ["A-1", "A-2"], "unavaila
 ```
 ### Listing status changes
 
-`statusChanges` method returns an async iterator. You can use `statusChanges` in a `for await` loop to iterate over all status changes.
+`statusChanges` method returns a `Lister`. You can use `statusChanges().all()`, which returns an AsyncIterator, in a `for await` loop to iterate over all status changes.
 
 ```js
-for await (let statusChange of client.events.statusChanges(<AN EVENT KEY>)) {
+for await (let statusChange of client.events.statusChanges(<AN EVENT KEY>).all()) {
     //Do something with the status change
 }
 ```
 
-You can alternatively use the paginated methods to retrieve status changes:
+You can alternatively use the paginated methods to retrieve status changes. To list status changes that comes after or before a given status change, you can use `statusChanges().pageAfter()` and `statusChanges().pageBefore()` methods.
 
 ```js
-await client.events.listStatusChangesFirstPage(<AN EVENT KEY>, <OPTIONAL parameters>, <OPTIONAL pageSize>)
-await client.events.listStatusChangesPageAfter(<AN EVENT KEY>, <A STATUS CHANGE ID>, <OPTIONAL parameters>, <OPTIONAL pageSize>)
-await client.events.listStatusChangesPageBefore(<AN EVENT KEY>, <A STATUS CHANGE ID>, <OPTIONAL parameters>, <OPTIONAL pageSize>)
-```
-
-To list status changes that comes after or before a given status change, you can use `listStatusChangesPageAfter` and `listStatusChangesPageBefore` methods.  
+await client.events.statusChanges(<AN EVENT KEY>).firstPage(<OPTIONAL parameters>, <OPTIONAL pageSize>)
+await client.events.statusChanges(<AN EVENT KEY>).pageAfter(<A STATUS CHANGE ID>, <OPTIONAL parameters>, <OPTIONAL pageSize>) 
+await client.events.statusChanges(<AN EVENT KEY>).pageBefore(<A STATUS CHANGE ID>, <OPTIONAL parameters>, <OPTIONAL pageSize>) 
+```  
 
 You can also pass an optional parameter to _filter_, _sort_ or _order_ status changes. For this parameter, you can you use the helper class called `StatusChangesParams`.  
 
