@@ -5,7 +5,7 @@ const StatusChange = require('./StatusChange.js')
 const BestAvailableObjects = require('./BestAvailableObjects.js')
 const ChangeObjectStatusResult = require('./ChangeObjectStatusResult.js')
 const Event = require('./Event.js')
-const utilities = require('../utilities/utilities.js')
+const utilities = require('../utilities/reportUtility.js')
 const helperFunctions = require('../utilities/helperFunctions.js')
 
 class Events {
