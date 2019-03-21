@@ -14,6 +14,10 @@ class SubaccountListParams {
     this.filter = filter
     return this
   }
+
+  serialize () {
+    return { filter: this.filter }
+  }
 }
 
 module.exports = SubaccountListParams

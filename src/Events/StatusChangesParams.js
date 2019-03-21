@@ -4,14 +4,15 @@ class StatusChangesParams {
    */
   constructor (filter = null) {
     this.filter = filter
-    this.sort = null
+    this.sortField = null
+    this.sortDirection = null
   }
 
   /**
    * @returns {StatusChangesParams}
    */
   sortByObjectLabel () {
-    this.sort = this.sort ? this.sort.replace(/[a-zA-Z]*:/, 'objectLabel:') : 'objectLabel:asc'
+    this.sortField = 'objectLabel'
     return this
   }
 
@@ -19,7 +20,7 @@ class StatusChangesParams {
    * @returns {StatusChangesParams}
    */
   sortByStatus () {
-    this.sort = this.sort ? this.sort.replace(/[a-zA-Z]*:/, 'status:') : 'status:asc'
+    this.sortField = 'status'
     return this
   }
 
@@ -27,7 +28,7 @@ class StatusChangesParams {
    * @returns {StatusChangesParams}
    */
   sortByDate () {
-    this.sort = this.sort ? this.sort.replace(/[a-zA-Z]*:/, 'date:') : 'date:asc'
+    this.sortField = 'date'
     return this
   }
 
@@ -35,7 +36,7 @@ class StatusChangesParams {
    * @returns {StatusChangesParams}
    */
   sortAscending () {
-    this.sort = this.sort ? this.sort.replace(':desc', ':asc') : 'date:asc'
+    this.sortDirection = 'asc'
     return this
   }
 
@@ -43,7 +44,7 @@ class StatusChangesParams {
    * @returns {StatusChangesParams}
    */
   sortDescending () {
-    this.sort = this.sort ? this.sort.replace(':asc', ':desc') : 'date:desc'
+    this.sortDirection = 'desc'
     return this
   }
 
@@ -54,6 +55,22 @@ class StatusChangesParams {
   withFilter (filter) {
     this.filter = filter
     return this
+  }
+
+  serialize () {
+    let sort = null
+    if (this.sortField && this.sortDirection) {
+      sort = this.sortField + ':' + this.sortDirection
+    } else if (!this.sortField && this.sortDirection) {
+      sort = 'date:' + this.sortDirection
+    } else if (this.sortField && !this.sortDirection) {
+      sort = this.sortField + ':asc'
+    }
+
+    return {
+      filter: this.filter,
+      sort: sort
+    }
   }
 }
 

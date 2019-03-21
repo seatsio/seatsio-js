@@ -9,20 +9,24 @@ class Lister {
     this.type = type
   }
 
-  all (parameters) {
-    return new AsyncIterator(this.url, this.client, this.type, parameters)
+  all (parameters = {}) {
+    let params = parameters.serialize ? parameters.serialize() : parameters
+    return new AsyncIterator(this.url, this.client, this.type, params)
   }
 
   firstPage (queryParams = null, pageSize = null) {
-    return this.pageFetcher.fetchAfter(null, queryParams, pageSize)
+    let params = queryParams ? queryParams.serialize() : null
+    return this.pageFetcher.fetchAfter(null, params, pageSize)
   }
 
   pageAfter (afterId, queryParams = null, pageSize = null) {
-    return this.pageFetcher.fetchAfter(afterId, queryParams, pageSize)
+    let params = queryParams ? queryParams.serialize() : null
+    return this.pageFetcher.fetchAfter(afterId, params, pageSize)
   }
 
   pageBefore (beforeId, queryParams = null, pageSize = null) {
-    return this.pageFetcher.fetchBefore(beforeId, queryParams, pageSize)
+    let params = queryParams ? queryParams.serialize() : null
+    return this.pageFetcher.fetchBefore(beforeId, params, pageSize)
   }
 }
 
