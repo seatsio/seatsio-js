@@ -10,8 +10,7 @@ test('should list status changes for objects', async () => {
   await client.events.changeObjectStatus(event.key, 'A-1', 's3')
   let statuses = []
 
-  let statusChanges = client.events.statusChanges(event.key, 'A-1')
-  for await (let statusChange of statusChanges) {
+  for await (let statusChange of client.events.statusChangesForObject(event.key, 'A-1').all()) {
     statuses.push(statusChange.status)
   }
 

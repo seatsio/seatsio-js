@@ -4,13 +4,15 @@ class StatusChangesParams {
    */
   constructor (filter = null) {
     this.filter = filter
+    this.sortField = null
+    this.sortDirection = null
   }
 
   /**
    * @returns {StatusChangesParams}
    */
   sortByObjectLabel () {
-    this.sort = 'objectLabel'
+    this.sortField = 'objectLabel'
     return this
   }
 
@@ -18,7 +20,7 @@ class StatusChangesParams {
    * @returns {StatusChangesParams}
    */
   sortByStatus () {
-    this.sort = 'status'
+    this.sortField = 'status'
     return this
   }
 
@@ -26,7 +28,7 @@ class StatusChangesParams {
    * @returns {StatusChangesParams}
    */
   sortByDate () {
-    this.sort = 'date'
+    this.sortField = 'date'
     return this
   }
 
@@ -53,6 +55,22 @@ class StatusChangesParams {
   withFilter (filter) {
     this.filter = filter
     return this
+  }
+
+  serialize () {
+    let sort = null
+    if (this.sortField && this.sortDirection) {
+      sort = this.sortField + ':' + this.sortDirection
+    } else if (!this.sortField && this.sortDirection) {
+      sort = 'date:' + this.sortDirection
+    } else if (this.sortField && !this.sortDirection) {
+      sort = this.sortField + ':asc'
+    }
+
+    return {
+      filter: this.filter,
+      sort: sort
+    }
   }
 }
 
