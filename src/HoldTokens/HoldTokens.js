@@ -1,4 +1,4 @@
-const utilities = require('../utilities/utilities.js')
+const utilities = require('../utilities/reportUtility.js')
 const HoldToken = require('./HoldToken.js')
 
 class HoldTokens {

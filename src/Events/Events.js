@@ -5,7 +5,7 @@ const StatusChange = require('./StatusChange.js')
 const BestAvailableObjects = require('./BestAvailableObjects.js')
 const ChangeObjectStatusResult = require('./ChangeObjectStatusResult.js')
 const Event = require('./Event.js')
-const utilities = require('../utilities/utilities.js')
+const utilities = require('../utilities/reportUtility.js')
 const helperFunctions = require('../utilities/helperFunctions.js')
 
 class Events {
@@ -132,58 +132,20 @@ class Events {
 
   /**
    * @param {string} eventKey
-   * @param {?string} objectId
-   * @param {?StatusChangesParams} statusChangesParams
-   * @returns {AsyncIterator}
+   * @returns {Lister}
    */
-  statusChanges (eventKey, objectId = null, statusChangesParams = null) {
-    return this.statusChangesIterator(eventKey, objectId).all(helperFunctions.combineStatusChangesParams(statusChangesParams))
-  }
-
-  /**
-   * @param {string} eventKey
-   * @param {?StatusChangesParams} statusChangesParams
-   * @param {?number} pageSize
-   * @returns {Page}
-   */
-  listStatusChangesFirstPage (eventKey, statusChangesParams = null, pageSize = null) {
-    return this.statusChangesIterator(eventKey).firstPage(helperFunctions.combineStatusChangesParams(statusChangesParams), pageSize)
-  }
-
-  /**
-   * @param {string} eventKey
-   * @param {string} afterId
-   * @param {?StatusChangesParams} statusChangesParams
-   * @param {?number} pageSize
-   * @returns {Page}
-   */
-  listStatusChangesPageAfter (eventKey, afterId, statusChangesParams = null, pageSize = null) {
-    return this.statusChangesIterator(eventKey).pageAfter(afterId, helperFunctions.combineStatusChangesParams(statusChangesParams), pageSize)
-  }
-
-  /**
-   * @param {string} eventKey
-   * @param {string} beforeId
-   * @param {?StatusChangesParams} statusChangesParams
-   * @param {?number} pageSize
-   * @returns {Page}
-   */
-  listStatusChangesPageBefore (eventKey, beforeId, statusChangesParams = null, pageSize = null) {
-    return this.statusChangesIterator(eventKey).pageBefore(beforeId, helperFunctions.combineStatusChangesParams(statusChangesParams), pageSize)
+  statusChanges (eventKey) {
+    return new Lister(`/events/${encodeURIComponent(eventKey)}/status-changes`, this.client, 'statusChanges', (data) => {
+      let statusChanges = data.items.map(statusChangesData => new StatusChange(statusChangesData))
+      return new Page(statusChanges, data.next_page_starts_after, data.previous_page_ends_before)
+    })
   }
 
   /**
    * @returns {Lister}
    */
-  statusChangesIterator (eventKey, objectId = null) {
-    let url = ''
-    if (objectId !== null) {
-      url = `/events/${encodeURIComponent(eventKey)}/objects/${encodeURIComponent(objectId)}/status-changes`
-    } else {
-      url = `/events/${encodeURIComponent(eventKey)}/status-changes`
-    }
-
-    return new Lister(url, this.client, 'statusChanges', (data) => {
+  statusChangesForObject (eventKey, objectId = null) {
+    return new Lister(`/events/${encodeURIComponent(eventKey)}/objects/${encodeURIComponent(objectId)}/status-changes`, this.client, 'statusChanges', (data) => {
       let statusChanges = data.items.map(statusChangesData => new StatusChange(statusChangesData))
       return new Page(statusChanges, data.next_page_starts_after, data.previous_page_ends_before)
     })

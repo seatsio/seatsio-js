@@ -40,6 +40,14 @@ class ChartListParams {
     }
     return this
   }
+
+  serialize () {
+    return {
+      tag: this.tag,
+      expand: this.expand,
+      filter: this.filter
+    }
+  }
 }
 
 module.exports = ChartListParams

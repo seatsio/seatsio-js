@@ -1,6 +1,6 @@
 const Page = require('../Page.js')
 const Lister = require('../Lister.js')
-const utilities = require('../utilities/utilities.js')
+const utilities = require('../utilities/reportUtility.js')
 const Chart = require('./Chart.js')
 
 class Charts {

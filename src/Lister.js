@@ -9,20 +9,45 @@ class Lister {
     this.type = type
   }
 
-  all (parameters) {
-    return new AsyncIterator(this.url, this.client, this.type, parameters)
+  /**
+   * @param {object} parameters
+   * @returns {AsyncIterator}
+   */
+  all (parameters = {}) {
+    let params = parameters.serialize ? parameters.serialize() : parameters
+    return new AsyncIterator(this.url, this.client, this.type, params)
   }
 
+  /**
+   * @param {?object} queryParams
+   * @param {?number} pageSize
+   * @returns {Page}
+   */
   firstPage (queryParams = null, pageSize = null) {
-    return this.pageFetcher.fetchAfter(null, queryParams, pageSize)
+    let params = queryParams ? queryParams.serialize() : null
+    return this.pageFetcher.fetchAfter(null, params, pageSize)
   }
 
+  /**
+   * @param {string} afterId
+   * @param {?object} queryParams
+   * @param {?number} pageSize
+   * @returns {Page}
+   */
   pageAfter (afterId, queryParams = null, pageSize = null) {
-    return this.pageFetcher.fetchAfter(afterId, queryParams, pageSize)
+    let params = queryParams ? queryParams.serialize() : null
+    return this.pageFetcher.fetchAfter(afterId, params, pageSize)
   }
 
+  /**
+   * @param {string} beforeId
+   * @param {?object} queryParams
+   * @param {?number} pageSize
+   * @returns {Page}
+   */
   pageBefore (beforeId, queryParams = null, pageSize = null) {
-    return this.pageFetcher.fetchBefore(beforeId, queryParams, pageSize)
+    let params = queryParams ? queryParams.serialize() : null
+    return this.pageFetcher.fetchBefore(beforeId, params, pageSize)
   }
 }
 
