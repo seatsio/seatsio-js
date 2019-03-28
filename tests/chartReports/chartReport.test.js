@@ -38,3 +38,27 @@ test('byLabel method for Reports module', async () => {
   expect(report['A-1'].length).toBe(1)
   expect(report['A-2'].length).toBe(1)
 })
+
+test('get reports byCategoryKey', async () => {
+  let user = await testUtils.createTestUser()
+  let client = testUtils.createClient(user.secretKey)
+  let chartKey = testUtils.getChartKey()
+  await testUtils.createTestChart(chartKey, user.designerKey)
+
+  let report = await client.chartReports.byCategoryKey(chartKey)
+
+  expect(report['9'].length).toBe(17)
+  expect(report['10'].length).toBe(17)
+})
+
+test('get reports byCategoryLabel', async () => {
+  let user = await testUtils.createTestUser()
+  let client = testUtils.createClient(user.secretKey)
+  let chartKey = testUtils.getChartKey()
+  await testUtils.createTestChart(chartKey, user.designerKey)
+
+  let report = await client.chartReports.byCategoryLabel(chartKey)
+
+  expect(report['Cat1'].length).toBe(17)
+  expect(report['Cat2'].length).toBe(17)
+})
