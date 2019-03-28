@@ -1,4 +1,3 @@
-const SubaccountListParams = require('../../src/Subaccounts/SubaccountListParams.js')
 const testUtils = require('../testUtils.js')
 
 test('should filter subaccounts ', async () => {
@@ -8,8 +7,7 @@ test('should filter subaccounts ', async () => {
   await client.subaccounts.create('account2')
   await client.subaccounts.create('account3')
 
-  let params = new SubaccountListParams().withFilter('account1')
-  for await (let subaccount of client.subaccounts.listAll(params)) {
+  for await (let subaccount of client.subaccounts.listAll('account1')) {
     retrievedSubaccountKeys.push(subaccount.secretKey)
   }
 
@@ -21,9 +19,8 @@ test('should filter subaccounts with special characters', async () => {
   let subaccountPromises = testUtils.createArray(55, () => client.subaccounts.create('test-/@/' + i++))
   await Promise.all(subaccountPromises)
 
-  let params = new SubaccountListParams().withFilter('test-/@/4')
   let retrievedSubaccountKeys = []
-  for await (let subaccount of client.subaccounts.listAll(params)) {
+  for await (let subaccount of client.subaccounts.listAll('test-/@/4')) {
     retrievedSubaccountKeys.push(subaccount.secretKey)
   }
 
@@ -33,8 +30,7 @@ test('should filter subaccounts with special characters', async () => {
 test('should filter with no results ', async () => {
   let retrievedSubaccountKeys = []
 
-  let params = new SubaccountListParams().withFilter('account1')
-  for await (let subaccount of client.subaccounts.listAll(params)) {
+  for await (let subaccount of client.subaccounts.listAll('account1')) {
     retrievedSubaccountKeys.push(subaccount.secretKey)
   }
 
@@ -47,8 +43,7 @@ test('should retrieve first page of subaccounts with filter', async () => {
   let subaccount3 = await client.subaccounts.create('account3')
   await client.subaccounts.create()
 
-  let params = new SubaccountListParams().withFilter('account')
-  let page = await client.subaccounts.listFirstPage(params)
+  let page = await client.subaccounts.listFirstPage('account')
   let retrievedSubaccountKeys = page.items.map(subaccount => subaccount.secretKey)
 
   expect(retrievedSubaccountKeys.sort).toEqual([subaccount1.secretKey, subaccount2.secretKey, subaccount3.secretKey].sort)
@@ -64,8 +59,7 @@ test('should retrieve page after given subaccount id with filter', async () => {
   await client.subaccounts.create('test-/@/7')
   await client.subaccounts.create('test-/@/8')
 
-  let params = new SubaccountListParams().withFilter('test-/@/1')
-  let page = await client.subaccounts.listPageAfter(subaccount3.id, params)
+  let page = await client.subaccounts.listPageAfter(subaccount3.id, 'test-/@/1')
   let retrievedSubaccountKeys = page.items.map(subaccount => subaccount.secretKey)
 
   expect(retrievedSubaccountKeys.sort).toEqual([subaccount1.secretKey, subaccount2.secretKey].sort)
@@ -83,8 +77,7 @@ test('should should retrieve page before given subaccount id with filter', async
   await client.subaccounts.create('test-/@/7')
   await client.subaccounts.create('test-/@/8')
 
-  let params = new SubaccountListParams().withFilter('test-/@/1')
-  let page = await client.subaccounts.listPageBefore(subaccount1.id, params)
+  let page = await client.subaccounts.listPageBefore(subaccount1.id, 'test-/@/1')
   let retrievedSubaccountKeys = page.items.map(subaccount => subaccount.secretKey)
 
   expect(retrievedSubaccountKeys.sort).toEqual([subaccount2.secretKey, subaccount3.secretKey].sort)

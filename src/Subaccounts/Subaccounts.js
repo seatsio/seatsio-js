@@ -132,29 +132,33 @@ class Subaccounts {
   /**
    * @returns {AsyncIterator}
    */
-  listAll (requestParameters = {}) {
+  listAll (filter = null) {
+    let requestParameters = filter !== null ? { filter: filter } : {}
     return this.iterator().all(requestParameters)
   }
 
   /**
    * @returns {Page}
    */
-  listFirstPage (queryParams = null, pageSize = null) {
-    return this.iterator().firstPage(queryParams, pageSize)
+  listFirstPage (filter = null, pageSize = null) {
+    let requestParameters = filter !== null ? { filter: filter } : null
+    return this.iterator().firstPage(requestParameters, pageSize)
   }
 
   /**
    * @returns {Page}
    */
-  listPageAfter (afterId, queryParams = null, pageSize = null) {
-    return this.iterator().pageAfter(afterId, queryParams, pageSize)
+  listPageAfter (afterId, filter = null, pageSize = null) {
+    let requestParameters = filter !== null ? { filter: filter } : null
+    return this.iterator().pageAfter(afterId, requestParameters, pageSize)
   }
 
   /**
    * @returns {Page}
    */
-  listPageBefore (beforeId, queryParams = null, pageSize = null) {
-    return this.iterator().pageBefore(beforeId, queryParams, pageSize)
+  listPageBefore (beforeId, filter = null, pageSize = null) {
+    let requestParameters = filter !== null ? { filter: filter } : null
+    return this.iterator().pageBefore(beforeId, requestParameters, pageSize)
   }
 
   /**
