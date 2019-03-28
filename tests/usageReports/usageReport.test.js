@@ -14,7 +14,7 @@ test('usage report for event in month', async () => {
   let chart = await client.charts.create()
   let event = await client.events.create(chart.key)
 
-  let report = await client.usageReports.eventInMonth(event.key, '2019-03')
+  let report = await client.usageReports.eventInMonth(event.id, '2019-03')
 
   expect(report).not.toBeFalsy()
 })
@@ -23,7 +23,7 @@ test('usage report for object in event in month', async () => {
   let chart = await client.charts.create()
   let event = await client.events.create(chart.key)
 
-  let report = await client.usageReports.objectInEventInMonth('A-1', event.key, '2019-03')
+  let report = await client.usageReports.objectInEventInMonth('A-1', event.id, '2019-03')
 
   expect(report).not.toBeFalsy()
 })
