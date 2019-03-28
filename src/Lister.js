@@ -24,7 +24,7 @@ class Lister {
    * @returns {Page}
    */
   firstPage (queryParams = null, pageSize = null) {
-    let params = queryParams ? queryParams.serialize() : null
+    let params = queryParams && queryParams.serialize ? queryParams.serialize() : queryParams
     return this.pageFetcher.fetchAfter(null, params, pageSize)
   }
 
@@ -35,7 +35,7 @@ class Lister {
    * @returns {Page}
    */
   pageAfter (afterId, queryParams = null, pageSize = null) {
-    let params = queryParams ? queryParams.serialize() : null
+    let params = queryParams && queryParams.serialize ? queryParams.serialize() : queryParams
     return this.pageFetcher.fetchAfter(afterId, params, pageSize)
   }
 
@@ -46,7 +46,7 @@ class Lister {
    * @returns {Page}
    */
   pageBefore (beforeId, queryParams = null, pageSize = null) {
-    let params = queryParams ? queryParams.serialize() : null
+    let params = queryParams && queryParams.serialize ? queryParams.serialize() : queryParams
     return this.pageFetcher.fetchBefore(beforeId, params, pageSize)
   }
 }
