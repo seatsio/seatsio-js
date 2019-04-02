@@ -11,6 +11,7 @@ class Account {
     this.settings = new AccountSettings(account.settings)
     this.email = account.email
     this.role = account.role
+    this.isSubaccount = account.isSubaccount
   }
 }
 
