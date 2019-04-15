@@ -63,6 +63,24 @@ class Charts {
 
   /**
    * @param {string} key
+   * @returns {object}
+   */
+  validatePublishedVersion (key) {
+    return this.client.post(`/charts/${key}/version/published/actions/validate`)
+      .then(res => res.data)
+  }
+
+  /**
+   * @param {string} key
+   * @returns {object}
+   */
+  validateDraftVersion (key) {
+    return this.client.post(`/charts/${key}/version/draft/actions/validate`)
+      .then(res => res.data)
+  }
+
+  /**
+   * @param {string} key
    * @returns {Promise<Chart>} Promise that resolves to a Chart object
    */
   retrieve (key) {
