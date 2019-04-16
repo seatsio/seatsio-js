@@ -6,10 +6,9 @@ test('should validate published version of a chart', async () => {
 
   let validationRes = await client.charts.validatePublishedVersion(chartKey)
 
-  let validatorKeys = validationRes.errors.map(error => error.validatorKey)
   expect(validationRes.errors.length).toBe(3)
   expect(validationRes.warnings.length).toBe(0)
-  expect(validatorKeys).toContain('VALIDATE_DUPLICATE_LABELS')
-  expect(validatorKeys).toContain('VALIDATE_OBJECTS_WITHOUT_CATEGORIES')
-  expect(validatorKeys).toContain('VALIDATE_UNLABELED_OBJECTS')
+  expect(validationRes.errors).toContain('VALIDATE_DUPLICATE_LABELS')
+  expect(validationRes.errors).toContain('VALIDATE_OBJECTS_WITHOUT_CATEGORIES')
+  expect(validationRes.errors).toContain('VALIDATE_UNLABELED_OBJECTS')
 })
