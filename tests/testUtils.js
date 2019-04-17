@@ -29,6 +29,10 @@ module.exports = {
     await this.createTestChartFromFile('/sampleChart.json', chartKey, designerKey)
   },
 
+  createErroneousTestChart: async function (chartKey, designerKey) {
+    await this.createTestChartFromFile('/sampleChartWithErrors.json', chartKey, designerKey)
+  },
+
   createTestChartWithTables: async function (chartKey, designerKey) {
     await this.createTestChartFromFile('/sampleChartWithTables.json', chartKey, designerKey)
   },
