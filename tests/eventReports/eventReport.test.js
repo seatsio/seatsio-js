@@ -45,12 +45,16 @@ test('report properties for GA', async () => {
   await testUtils.createTestChart(chartKey, user.designerKey)
   let event = await client.events.create(chartKey)
   await client.events.book(event.key, (new ObjectProperties('GA1')).setQuantity(5))
+  let holdToken = await client.holdTokens.create()
+  await client.events.hold(event.key, (new ObjectProperties('GA1')).setQuantity(3), holdToken.holdToken)
 
   let report = await client.eventReports.byLabel(event.key)
 
   let reportItem = report['GA1'][0]
   expect(reportItem.capacity).toBe(100)
   expect(reportItem.numBooked).toBe(5)
+  expect(reportItem.numFree).toBe(92)
+  expect(reportItem.numHeld).toBe(3)
   expect(reportItem.objectType).toBe('generalAdmission')
 })
 
