@@ -15,7 +15,7 @@ class Chart {
     this.draftVersionThumbnailUrl = chart.draftVersionThumbnailUrl || null
     this.events = chart.events ? chart.events.map(event => new Event(event)) : []
     this.archived = chart.archived
-    this.validation = chart.validation && new ChartValidation(chart.validation)
+    if (chart.validation) this.validation = new ChartValidation(chart.validation)
   }
 }
 
