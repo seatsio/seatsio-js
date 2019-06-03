@@ -1,7 +1,7 @@
 # seatsio-js, the official Seats.io JS client library
 This is the official JavaScript client library for the [Seats.io V2 REST API](https://docs.seats.io/docs/api-overview).
 
-> #Read This First!
+> **Read This First!**
 > 
 > This library is intended for **serverside (Node)** use only. 
 >
