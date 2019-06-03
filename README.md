@@ -1,7 +1,16 @@
 # seatsio-js, the official Seats.io JS client library
-This is the official JavaScript client library (for both Node and browser) for the [Seats.io V2 REST API](https://docs.seats.io/docs/api-overview).
+This is the official JavaScript client library for the [Seats.io V2 REST API](https://docs.seats.io/docs/api-overview).
 
 [![Build Status](https://travis-ci.org/seatsio/seatsio-js.svg?branch=master)](https://travis-ci.org/seatsio/seatsio-js)
+
+> **Read This First!**
+> 
+> This library is intended for **serverside (Node)** use only. 
+>
+> `seatsio-js` requires your seats.io secret key. This key carries many privileges, including creating events, booking and releasing seats, and more. If you use this lib in a browser, you are exposing your secret key to your user.   
+> So, while `seatsio-js` technically works in clientside code too, it's almost never a good idea to do so. 
+
+> **Only use this in browser code if you know what you're doing**. You have been warned :) 
 
 ## Installing
 For Node, you can install using npm:
