@@ -8,7 +8,7 @@ This is the official JavaScript client library for the [Seats.io V2 REST API](ht
 > `seatsio-js` requires your seats.io secret key. This key carries many privileges, including creating events, booking and releasing seats, and more. If you use this lib in a browser, you are exposing your secret key to your user.   
 > So, while `seatsio-js` technically works in clientside code too, it's almost never a good idea to do so. 
 >
-> **Only use this in browser code if you know what you're doing**. You have been warned :) 
+> **Only use this in browser code if you know what you're doing (e.g. if you're building a password-protected backoffice application for admins)**. You have been warned :) 
 
 [![Build Status](https://travis-ci.org/seatsio/seatsio-js.svg?branch=master)](https://travis-ci.org/seatsio/seatsio-js)
 
