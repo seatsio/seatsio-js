@@ -3,10 +3,12 @@ class ChartListParams {
    * @param {?string} filter
    * @param {?string} tag
    * @param {?boolean} expandEvents
+   * @param {?boolean} withValidation
    */
-  constructor (filter = null, tag = null, expandEvents = null) {
+  constructor (filter = null, tag = null, expandEvents = null, withValidation = false) {
     this.filter = filter
     this.tag = tag
+    this.validation = withValidation
     if (expandEvents === true) {
       this.expand = 'events'
     }
@@ -41,11 +43,22 @@ class ChartListParams {
     return this
   }
 
+  /**
+   * 
+   * @param {boolean} validation 
+   * @returns {ChartListParams}
+   */
+  withValidation (validation) {
+    this.validation = validation
+    return this
+  }
+
   serialize () {
     return {
       tag: this.tag,
       expand: this.expand,
-      filter: this.filter
+      filter: this.filter,
+      validation: this.validation
     }
   }
 }

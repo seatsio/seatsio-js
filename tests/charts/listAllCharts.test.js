@@ -105,3 +105,21 @@ test('listAll Charts with expandEvents parameters', async () => {
 
   expect(retrievedKeys.sort()).toEqual(generatedEventKeys.sort())
 })
+
+test('list all charts with validation', async () => {
+  let chartPromises = testUtils.createArray(45, () => client.charts.create())
+  let params = new ChartListParams(...Array(3), true)
+
+  for await (const chart of client.charts.listAll(params)) {
+    expect(chart).toHaveProperty('validation')
+  }
+})
+
+test('list all charts without validation', async () => {
+  let chartPromises = testUtils.createArray(45, () => client.charts.create())
+  let params = new ChartListParams()
+
+  for await (const chart of client.charts.listAll(params)) {
+    expect(chart).not.toHaveProperty('validation')
+  }
+})
