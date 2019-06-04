@@ -43,6 +43,16 @@ class ChartListParams {
     return this
   }
 
+  /**
+   * 
+   * @param {boolean} validation 
+   * @returns {ChartListParams}
+   */
+  withValidation (validation) {
+    this.validation = validation
+    return this
+  }
+
   serialize () {
     return {
       tag: this.tag,
