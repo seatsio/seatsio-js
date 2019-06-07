@@ -3,22 +3,22 @@ class UsageReports {
     this.client = client
   }
 
-  allMonths () {
+  summaryForAllMonths () {
     return this.client.get('/reports/usage')
       .then((res) => res.data)
   }
 
-  month (month) {
+  detailsForMonth (month) {
     return this.client.get(`/reports/usage/month/${month}`)
       .then((res) => res.data)
   }
 
-  eventInMonth (eventKey, month) {
+  detailsForEventInMonth (eventKey, month) {
     return this.client.get(`/reports/usage/month/${month}/event/${encodeURIComponent(eventKey)}`)
       .then((res) => res.data)
   }
 
-  objectInEventInMonth (objectLabel, eventKey, month) {
+  detailsForObjectInEventInMonth (objectLabel, eventKey, month) {
     return this.client.get(`/reports/usage/month/${month}/event/${encodeURIComponent(eventKey)}/object/${encodeURIComponent(objectLabel)}`)
       .then((res) => res.data)
   }
