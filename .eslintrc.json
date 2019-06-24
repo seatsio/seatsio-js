@@ -7,5 +7,8 @@
     "globals": {
         "client": "readable",
         "user": "readable"
+    },
+    "rules": {
+      "indent": [ "error", 4]
     }
 }

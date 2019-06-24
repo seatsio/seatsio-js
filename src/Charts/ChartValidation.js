@@ -1,7 +1,7 @@
 class ChartValidation {
     constructor (validation) {
-        this.errors = validation.errors;
-        this.warnings = validation.warnings;
+        this.errors = validation.errors
+        this.warnings = validation.warnings
     }
 }
 
