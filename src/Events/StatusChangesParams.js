@@ -1,7 +1,7 @@
 class StatusChangesParams {
     /**
-   * @param {?string} filter
-   */
+     * @param {?string} filter
+     */
     constructor (filter = null) {
         this.filter = filter
         this.sortField = null
@@ -9,49 +9,49 @@ class StatusChangesParams {
     }
 
     /**
-   * @returns {StatusChangesParams}
-   */
+     * @returns {StatusChangesParams}
+     */
     sortByObjectLabel () {
         this.sortField = 'objectLabel'
         return this
     }
 
     /**
-   * @returns {StatusChangesParams}
-   */
+     * @returns {StatusChangesParams}
+     */
     sortByStatus () {
         this.sortField = 'status'
         return this
     }
 
     /**
-   * @returns {StatusChangesParams}
-   */
+     * @returns {StatusChangesParams}
+     */
     sortByDate () {
         this.sortField = 'date'
         return this
     }
 
     /**
-   * @returns {StatusChangesParams}
-   */
+     * @returns {StatusChangesParams}
+     */
     sortAscending () {
         this.sortDirection = 'asc'
         return this
     }
 
     /**
-   * @returns {StatusChangesParams}
-   */
+     * @returns {StatusChangesParams}
+     */
     sortDescending () {
         this.sortDirection = 'desc'
         return this
     }
 
     /**
-   * @param {string} filter
-   * @returns {StatusChangesParams}
-   */
+     * @param {string} filter
+     * @returns {StatusChangesParams}
+     */
     withFilter (filter) {
         this.filter = filter
         return this

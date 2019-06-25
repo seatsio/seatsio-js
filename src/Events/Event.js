@@ -2,8 +2,8 @@ const ForSaleConfig = require('./ForSaleConfig.js')
 
 class Event {
     /**
-   * @param {object} event
-   */
+     * @param {object} event
+     */
     constructor (event) {
         this.id = event.id
         this.key = event.key

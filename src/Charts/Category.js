@@ -1,9 +1,9 @@
 class Category {
     /**
-   * @param {string} key
-   * @param {string} label
-   * @param {string} color
-   */
+     * @param {string} key
+     * @param {string} label
+     * @param {string} color
+     */
     constructor (key, label, color) {
         this.key = key
         this.label = label
@@ -11,27 +11,27 @@ class Category {
     }
 
     /**
-   * @param {string} key
-   * @returns {Category}
-   */
+     * @param {string} key
+     * @returns {Category}
+     */
     setKey (key) {
         this.key = key
         return this
     }
 
     /**
-   * @param {string} label
-   * @returns {Category}
-   */
+     * @param {string} label
+     * @returns {Category}
+     */
     setLabel (label) {
         this.label = label
         return this
     }
 
     /**
-   * @param {string} color
-   * @returns {Category}
-   */
+     * @param {string} color
+     * @returns {Category}
+     */
     setColor (color) {
         this.color = color
         return this

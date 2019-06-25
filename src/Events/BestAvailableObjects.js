@@ -2,8 +2,8 @@ const utilities = require('../utilities/reportUtility.js')
 
 class BestAvailableObjects {
     /**
-   * @param {object} data
-   */
+     * @param {object} data
+     */
     constructor (data) {
         this.objects = data.objects
         this.objectDetails = utilities.createChangeObjectStatusDetails(data.objectDetails)

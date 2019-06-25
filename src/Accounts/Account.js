@@ -2,8 +2,8 @@ const AccountSettings = require('./AccountSettings.js')
 
 class Account {
     /**
-   * @param {object} account
-   */
+     * @param {object} account
+     */
     constructor (account) {
         this.secretKey = account.secretKey
         this.designerKey = account.designerKey

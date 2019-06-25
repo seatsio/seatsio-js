@@ -1,8 +1,8 @@
 class Labels {
     /**
-   * @param {LabelAndType} own
-   * @param {?LabelAndType} parent
-   */
+     * @param {LabelAndType} own
+     * @param {?LabelAndType} parent
+     */
     constructor (own, parent = null) {
         this.own = own
         this.parent = parent || {}
@@ -11,9 +11,9 @@ class Labels {
 
 class LabelAndType {
     /**
-   * @param {string} label
-   * @param {string} type
-   */
+     * @param {string} label
+     * @param {string} type
+     */
     constructor (label, type) {
         this.label = label
         this.type = type

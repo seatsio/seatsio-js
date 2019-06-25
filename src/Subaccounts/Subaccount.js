@@ -1,7 +1,7 @@
 class Subaccount {
     /**
-   * @param {object} subaccount
-   */
+     * @param {object} subaccount
+     */
     constructor (subaccount) {
         this.id = subaccount.id
         this.secretKey = subaccount.secretKey

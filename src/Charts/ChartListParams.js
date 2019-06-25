@@ -1,10 +1,10 @@
 class ChartListParams {
     /**
-   * @param {?string} filter
-   * @param {?string} tag
-   * @param {?boolean} expandEvents
-   * @param {?boolean} withValidation
-   */
+     * @param {?string} filter
+     * @param {?string} tag
+     * @param {?boolean} expandEvents
+     * @param {?boolean} withValidation
+     */
     constructor (filter = null, tag = null, expandEvents = null, withValidation = false) {
         this.filter = filter
         this.tag = tag
@@ -15,27 +15,27 @@ class ChartListParams {
     }
 
     /**
-   * @param {string} filter
-   * @returns {ChartListParams}
-   */
+     * @param {string} filter
+     * @returns {ChartListParams}
+     */
     withFilter (filter) {
         this.filter = filter
         return this
     }
 
     /**
-   * @param {string} tag
-   * @returns {ChartListParams}
-   */
+     * @param {string} tag
+     * @returns {ChartListParams}
+     */
     withTag (tag) {
         this.tag = tag
         return this
     }
 
     /**
-   * @param {boolean} expandEvents
-   * @returns {ChartListParams}
-   */
+     * @param {boolean} expandEvents
+     * @returns {ChartListParams}
+     */
     withExpandEvents (expandEvents) {
         if (expandEvents === true) {
             this.expand = 'events'
@@ -44,10 +44,10 @@ class ChartListParams {
     }
 
     /**
-   *
-   * @param {boolean} validation
-   * @returns {ChartListParams}
-   */
+     *
+     * @param {boolean} validation
+     * @returns {ChartListParams}
+     */
     withValidation (validation) {
         this.validation = validation
         return this

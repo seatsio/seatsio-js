@@ -1,7 +1,7 @@
 class HoldToken {
     /**
-   * @param {object} holdToken
-   */
+     * @param {object} holdToken
+     */
     constructor (holdToken) {
         this.holdToken = holdToken.holdToken
         this.expiresAt = new Date(holdToken.expiresAt)

@@ -6,11 +6,11 @@ const Subaccount = require('./Subaccounts/Subaccount.js')
 
 class AsyncIterator {
     /**
-   * @param {string} url
-   * @param {SeatsioClient} client
-   * @param {string} objType
-   * @param {object} params
-   */
+     * @param {string} url
+     * @param {SeatsioClient} client
+     * @param {string} objType
+     * @param {object} params
+     */
     constructor (url, client, objType, params = {}) {
         this.url = url
         this.client = client

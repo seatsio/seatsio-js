@@ -1,7 +1,7 @@
 class StatusChange {
     /**
-   * @param {object} statusChange
-   */
+     * @param {object} statusChange
+     */
     constructor (statusChange) {
         this.id = statusChange.id
         this.eventId = statusChange.eventId

@@ -58,7 +58,7 @@ test('should hold and then book, check hold token exists', async () => {
 
     let objStatus = await client.events.retrieveObjectStatus(event.key, 'A-1')
     expect(objStatus.status).toBe(objectStatus.BOOKED)
-    expect(objStatus.holdToken).toEqual({})
+    expect(objStatus.holdToken).toBeFalsy()
 })
 
 test('should check booking with orderId', async () => {
@@ -70,4 +70,16 @@ test('should check booking with orderId', async () => {
 
     let objStatus = await client.events.retrieveObjectStatus(event.key, 'A-1')
     expect(objStatus.orderId).toBe('order1')
+})
+
+test('should keep extra data', async () => {
+    let chartKey = testUtils.getChartKey()
+    await testUtils.createTestChart(chartKey, user.designerKey)
+    let event = await client.events.create(chartKey)
+    await client.events.updateExtraData(event.key, 'A-1', { foo: 'bar' })
+
+    await client.events.book(event.key, ['A-1'], null, null, true)
+
+    let status = await client.events.retrieveObjectStatus(event.key, 'A-1')
+    expect(status.extraData).toEqual({ foo: 'bar' })
 })

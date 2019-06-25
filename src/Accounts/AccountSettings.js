@@ -2,8 +2,8 @@ const ChartValidationSettings = require('./ChartValidationSettings.js')
 
 class AccountSettings {
     /**
-   * @param {object} settings
-   */
+     * @param {object} settings
+     */
     constructor (settings) {
         this.draftChartDrawingsEnabled = settings.draftChartDrawingsEnabled
         this.holdOnSelectForGAs = settings.holdOnSelectForGAs

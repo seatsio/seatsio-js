@@ -3,8 +3,8 @@ const ChartValidation = require('./ChartValidation')
 
 class Chart {
     /**
-   * @param {object} chart
-   */
+     * @param {object} chart
+     */
     constructor (chart) {
         this.name = chart.name
         this.id = chart.id

@@ -2,8 +2,8 @@ const helperFunctions = require('../utilities/helperFunctions.js')
 
 class EventReportItem {
     /**
-   * @param {object} report
-   */
+     * @param {object} report
+     */
     constructor (report) {
         this.label = report.label
         this.labels = helperFunctions.labelCreator(report)

@@ -2,9 +2,9 @@ const LabelClasses = require('../Common/Labels.js')
 
 module.exports = {
     /**
-   * @param data
-   * @returns {Labels}
-   */
+     * @param data
+     * @returns {Labels}
+     */
     labelCreator (data) {
         let labels = {}
         if (data.labels.parent) {

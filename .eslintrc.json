@@ -9,6 +9,7 @@
         "user": "readable"
     },
     "rules": {
-      "indent": [ "error", 4]
+      "indent": [ "error", 4],
+      "multiline-comment-style": ["error", "starred-block"]
     }
 }

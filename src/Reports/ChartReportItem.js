@@ -2,8 +2,8 @@ const helperFunctions = require('../utilities/helperFunctions.js')
 
 class ChartReportItem {
     /**
-   * @param {object} chartReport
-   */
+     * @param {object} chartReport
+     */
     constructor (chartReport) {
         this.label = chartReport.label
         this.labels = helperFunctions.labelCreator(chartReport)

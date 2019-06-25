@@ -12,9 +12,9 @@ module.exports = {
     },
 
     /**
-   * @param {object} reportsData
-   * @returns {Object.<string, EventReportItem>}
-   */
+     * @param {object} reportsData
+     * @returns {Object.<string, EventReportItem>}
+     */
     createEventReport (reportsData) {
         let reportObjects = {}
         for (const key of Object.keys(reportsData)) {
@@ -24,9 +24,9 @@ module.exports = {
     },
 
     /**
-   * @param {object} reportsData
-   * @returns {Object.<string, ChartReportItem>}
-   */
+     * @param {object} reportsData
+     * @returns {Object.<string, ChartReportItem>}
+     */
     createChartReport (reportsData) {
         let reportObjects = {}
         for (const key of Object.keys(reportsData)) {

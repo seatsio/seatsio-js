@@ -1,7 +1,7 @@
 class ChartValidationSettings {
     /**
-   * @param {object} chartValidations
-   */
+     * @param {object} chartValidations
+     */
     constructor (chartValidations) {
         this.VALIDATE_DUPLICATE_LABELS = chartValidations.VALIDATE_DUPLICATE_LABELS
         this.VALIDATE_OBJECTS_WITHOUT_CATEGORIES = chartValidations.VALIDATE_OBJECTS_WITHOUT_CATEGORIES
