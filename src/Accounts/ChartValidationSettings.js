@@ -8,6 +8,7 @@ class ChartValidationSettings {
         this.VALIDATE_UNLABELED_OBJECTS = chartValidations.VALIDATE_UNLABELED_OBJECTS
         this.VALIDATE_FOCAL_POINT = chartValidations.VALIDATE_FOCAL_POINT
         this.VALIDATE_OBJECT_TYPES_PER_CATEGORY = chartValidations.VALIDATE_OBJECT_TYPES_PER_CATEGORY
+        this.VALIDATE_EMPTY_FLOOR = chartValidations.VALIDATE_EMPTY_FLOOR
     }
 }
 
