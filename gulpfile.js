@@ -1,5 +1,5 @@
 var gulp = require('gulp');
-var gutil = require('gulp-util');
+var log = require('fancy-log');
 var gconnect = require('gulp-connect');
 var jest = require('gulp-jest').default;
 var browserify = require('browserify');
@@ -7,10 +7,6 @@ var log = require('gulplog');
 var tap = require('gulp-tap');
 var buffer = require('gulp-buffer');
 var uglify = require('gulp-uglify-es').default;
-
-gulp.task('log', function(){
-  gutil.log("== Gulp Log ==");
-});
 
 gulp.task('jest', function() {
   return gulp.src('tests')
