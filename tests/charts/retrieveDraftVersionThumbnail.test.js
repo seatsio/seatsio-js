@@ -5,5 +5,5 @@ test('should retrieve thumbnail for the draft version of chart', async () => {
 
     let thumbnail = await client.charts.retrieveDraftVersionThumbnail(chart.key)
 
-    expect(thumbnail).toContain('<!DOCTYPE svg')
+    expect(thumbnail).not.toBeFalsy()
 })

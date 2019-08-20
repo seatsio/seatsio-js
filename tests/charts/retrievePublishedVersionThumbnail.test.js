@@ -3,5 +3,5 @@ test('should retrieve thumbnail for the published version of chart', async () =>
 
     let thumbnail = await client.charts.retrievePublishedVersionThumbnail(chart.key)
 
-    expect(thumbnail).toContain('<!DOCTYPE svg')
+    expect(thumbnail).not.toBeFalsy()
 })

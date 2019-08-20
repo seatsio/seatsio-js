@@ -179,7 +179,7 @@ class Charts {
      * @returns {Promise} Promise that resolves to an SVG doc
      */
     retrievePublishedVersionThumbnail (key) {
-        return this.client.get(`/charts/${key}/version/published/thumbnail`)
+        return this.client.get(`/charts/${key}/version/published/thumbnail`, { responseType: 'arraybuffer' })
             .then((res) => res.data)
     }
 
@@ -188,7 +188,7 @@ class Charts {
      * @returns {Promise} Promise that resolves to an SVG doc
      */
     retrieveDraftVersionThumbnail (key) {
-        return this.client.get(`/charts/${key}/version/draft/thumbnail`)
+        return this.client.get(`/charts/${key}/version/draft/thumbnail`, { responseType: 'arraybuffer' })
             .then((res) => res.data)
     }
 

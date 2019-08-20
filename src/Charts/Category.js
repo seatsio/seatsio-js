@@ -1,6 +1,6 @@
 class Category {
     /**
-     * @param {string} key
+     * @param {string|number} key
      * @param {string} label
      * @param {string} color
      */
@@ -11,7 +11,7 @@ class Category {
     }
 
     /**
-     * @param {string} key
+     * @param {string|number} key
      * @returns {Category}
      */
     setKey (key) {
