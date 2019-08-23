@@ -4,10 +4,11 @@ class Category {
      * @param {string} label
      * @param {string} color
      */
-    constructor (key, label, color) {
+    constructor (key, label, color, accessible = false) {
         this.key = key
         this.label = label
         this.color = color
+        this.accessible = accessible
     }
 
     /**
@@ -34,6 +35,15 @@ class Category {
      */
     setColor (color) {
         this.color = color
+        return this
+    }
+
+    /**
+     * @param {boolean} accessible
+     * @returns {Category}
+     */
+    setAccessible (accessible) {
+        this.accessible = accessible
         return this
     }
 }
