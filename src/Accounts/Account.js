@@ -13,6 +13,8 @@ class Account {
         this.role = account.role
         this.isSubaccount = account.isSubaccount
         this.useWebappV2 = account.useWebappV2
+        this.betaFeatures = account.betaFeatures
+        this.paidSubscription = account.paidSubscription
     }
 }
 
