@@ -17,4 +17,5 @@ test('should retrieve my account', async () => {
     expect(myAccount.settings.chartValidation.VALIDATE_UNLABELED_OBJECTS).toBe('ERROR')
     expect(myAccount.settings.chartValidation.VALIDATE_FOCAL_POINT).toBe('OFF')
     expect(myAccount.settings.chartValidation.VALIDATE_OBJECT_TYPES_PER_CATEGORY).toBe('OFF')
+    expect(myAccount.settings.chartValidation.VALIDATE_EMPTY_FLOOR).toBe('ERROR')
 })
