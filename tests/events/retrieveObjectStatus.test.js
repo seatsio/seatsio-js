@@ -12,4 +12,5 @@ test('should retrieve object status', async () => {
     expect(retrievedObj.status).toEqual(ObjStatus.FREE)
     expect(retrievedObj.ticketType).toBeFalsy()
     expect(retrievedObj.extraData).toBeFalsy()
+    expect(retrievedObj.forSale).toBe(true)
 })

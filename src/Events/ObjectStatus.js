@@ -16,6 +16,7 @@ class ObjectStatus {
             this.orderId = objStatus.orderId
             this.extraData = objStatus.extraData
             this.quantity = objStatus.quantity
+            this.forSale = objStatus.forSale
         }
     }
 }
