@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "allowJs": true,
+    "incremental": true,
+    "module": "es2015",
+    "sourceMap": true,
+    "target": "es2015"
+  },
+  "exclude": [
+    "node_modules"
+  ]
+}

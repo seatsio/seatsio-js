@@ -1,7 +1,8 @@
 {
+  "$schema": "http://json.schemastore.org/package",
   "name": "seatsio",
   "version": "35.0.0",
-  "main": "index.js",
+  "main": "./index.js",
   "description": "Official JavaScript and Node.JS client library for the Seats.io V2 REST API",
   "license": "MIT",
   "scripts": {
@@ -43,6 +44,7 @@
     "gulp-uglify-es": "latest",
     "gulplog": "latest",
     "jest": "^24.3.0",
-    "jest-cli": "^24.3.0"
+    "jest-cli": "^24.3.0",
+    "typescript": "^3.5.3"
   }
 }
