@@ -1,30 +1,12 @@
 {
-  "name": "seatsio",
-  "version": "35.0.0",
-  "main": "index.js",
-  "description": "Official JavaScript and Node.JS client library for the Seats.io V2 REST API",
-  "license": "MIT",
-  "scripts": {
-    "lint": "eslint ./src --fix",
-    "test": "jest"
-  },
-  "jest": {
-    "transform": {},
-    "testEnvironment": "node",
-    "setupFilesAfterEnv": [
-      "<rootDir>/tests/setupTests.js"
-    ]
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/seatsio/seatsio-js"
-  },
+  "$schema": "http://json.schemastore.org/package",
   "author": "Nami Falhan <namfaldev@gmail.com> (https://www.seats.io)",
   "dependencies": {
     "acorn": "^6.0.4",
     "axios": "^0.19.0",
     "uuid": "^3.3.2"
   },
+  "description": "Official JavaScript and Node.JS client library for the Seats.io V2 REST API",
   "devDependencies": {
     "browserify": "latest",
     "eslint": "^5.13.0",
@@ -44,5 +26,24 @@
     "gulplog": "latest",
     "jest": "^24.3.0",
     "jest-cli": "^24.3.0"
-  }
+  },
+  "jest": {
+    "setupFilesAfterEnv": [
+      "<rootDir>/tests/setupTests.js"
+    ],
+    "testEnvironment": "node",
+    "transform": {}
+  },
+  "license": "MIT",
+  "main": "index.js",
+  "name": "seatsio",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/seatsio/seatsio-js"
+  },
+  "scripts": {
+    "lint": "eslint ./src --fix",
+    "test": "jest"
+  },
+  "version": "35.0.0"
 }
