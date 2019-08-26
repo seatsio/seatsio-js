@@ -8,8 +8,10 @@
   "description": "Official JavaScript and Node.JS client library for the Seats.io V2 REST API",
   "license": "MIT",
   "scripts": {
-    "build": "npm run tsc && gulp bundle",
+    "build": "npm run tsc && npm run gulp:bundle",
+    "gulp:bundle": "gulp bundle",
     "lint": "eslint ./src --fix",
+    "pretest": "npm run build",
     "test": "jest",
     "tsc": "tsc --project ./tsconfig.json"
   },
