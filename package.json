@@ -33,6 +33,7 @@
     "uuid": "^3.3.2"
   },
   "devDependencies": {
+    "@types/node": "^12.7.2",
     "browserify": "latest",
     "eslint": "^5.13.0",
     "eslint-config-standard": "^12.0.0",
