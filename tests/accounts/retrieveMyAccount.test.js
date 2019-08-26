@@ -6,7 +6,6 @@ test('should retrieve my account', async () => {
     expect(myAccount.publicKey).toBeTruthy()
     expect(myAccount.email).toBeTruthy()
     expect(myAccount.isSubaccount).toBe(false)
-    expect(myAccount.useWebappV2).toBe(true)
     expect(myAccount.betaFeatures).toBe(false)
     expect(myAccount.paidSubscription).toBe(false)
     expect(myAccount.settings.holdPeriodInMinutes).toBe(15)
