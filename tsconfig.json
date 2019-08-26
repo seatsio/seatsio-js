@@ -1,12 +1,12 @@
 {
+  "$schema": "http://json.schemastore.org/tsconfig",
   "compilerOptions": {
-    "allowJs": true,
-    "incremental": true,
+    "declaration": true,
     "module": "es2015",
-    "sourceMap": true,
+    "moduleResolution": "node",
     "target": "es2015"
   },
-  "exclude": [
-    "node_modules"
+  "include": [
+    "./src/index.ts"
   ]
 }

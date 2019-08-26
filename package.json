@@ -2,12 +2,16 @@
   "$schema": "http://json.schemastore.org/package",
   "name": "seatsio",
   "version": "35.0.0",
-  "main": "./index.js",
+  "main": "./src/index.js",
+  "module": "./src/index.js",
+  "types": "./src/index.d.ts",
   "description": "Official JavaScript and Node.JS client library for the Seats.io V2 REST API",
   "license": "MIT",
   "scripts": {
+    "build": "npm run tsc && gulp bundle",
     "lint": "eslint ./src --fix",
-    "test": "jest"
+    "test": "jest",
+    "tsc": "tsc --project ./tsconfig.json"
   },
   "jest": {
     "transform": {},
