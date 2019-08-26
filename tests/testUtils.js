@@ -1,8 +1,8 @@
-const { SeatsioClient } = require('../src/index.js')
+const { SeatsioClient } = require('../src/index')
 const axios = require('axios')
 const fs = require('fs')
 const uuidv1 = require('uuid/v1')
-const LabelClasses = require('../src/Common/Labels.js')
+const LabelClasses = require('../src/Common/Labels')
 const path = require('path')
 
 const baseUrl = 'https://api-staging.seatsio.net/'

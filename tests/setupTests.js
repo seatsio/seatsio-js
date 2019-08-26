@@ -1,4 +1,4 @@
-const testUtils = require('./testUtils.js')
+const testUtils = require('./testUtils')
 
 beforeEach(async () => {
     jest.setTimeout(30000)
