@@ -9,6 +9,7 @@ class Account {
         this.designerKey = account.designerKey
         this.publicKey = account.publicKey
         this.settings = new AccountSettings(account.settings)
+        this.company = account.company
         this.email = account.email
         this.role = account.role
         this.isSubaccount = account.isSubaccount
