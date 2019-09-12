@@ -7,7 +7,7 @@ test('should retrieve my account', async () => {
     expect(myAccount.email).toBeTruthy()
     expect(myAccount.isSubaccount).toBe(false)
     expect(myAccount.betaFeatures).toBe(false)
-    expect(myAccount.paidSubscription).toBe(false)
+    expect(myAccount.company).toBeTruthy()
     expect(myAccount.settings.holdPeriodInMinutes).toBe(15)
     expect(myAccount.settings.draftChartDrawingsEnabled).toBe(true)
     expect(myAccount.settings.holdOnSelectForGAs).toBe(true)
