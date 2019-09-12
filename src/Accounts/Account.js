@@ -14,7 +14,6 @@ class Account {
         this.role = account.role
         this.isSubaccount = account.isSubaccount
         this.betaFeatures = account.betaFeatures
-        this.paidSubscription = account.paidSubscription
     }
 }
 
