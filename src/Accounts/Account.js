@@ -13,7 +13,6 @@ class Account {
         this.email = account.email
         this.role = account.role
         this.isSubaccount = account.isSubaccount
-        this.paidSubscription = account.paidSubscription
     }
 }
 
