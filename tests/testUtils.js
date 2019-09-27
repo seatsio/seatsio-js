@@ -5,7 +5,7 @@ const uuidv1 = require('uuid/v1')
 const LabelClasses = require('../src/Common/Labels.js')
 const path = require('path')
 
-const baseUrl = 'https://api-staging.seatsio.net/'
+const baseUrl = 'http://localhost:9001/'
 
 module.exports = {
     createTestUser: function () {
@@ -21,8 +21,8 @@ module.exports = {
         return uuidv1()
     },
 
-    createClient: function (secretKey) {
-        return new SeatsioClient(secretKey, baseUrl)
+    createClient: function (secretKey, accountId = null) {
+        return new SeatsioClient(secretKey, accountId, baseUrl)
     },
 
     createTestChart: async function (chartKey, designerKey) {
@@ -44,7 +44,7 @@ module.exports = {
     createTestChartFromFile: function (filePath, chartKey, designerKey) {
         let requestBody = fs.readFileSync(path.join(__dirname, filePath), 'utf-8')
         let client = axios.create()
-        let url = `https://api-staging.seatsio.net/system/public/${designerKey}/charts/${chartKey}`
+        let url = `${baseUrl}system/public/${designerKey}/charts/${chartKey}`
         return client.post(url, requestBody)
     },
 

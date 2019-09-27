@@ -10,16 +10,8 @@ const errorResponseHandler = require('./errorInterceptor.js')
 const Axios = require('axios')
 
 class SeatsioClient {
-    constructor (secretKey, baseUrl = 'https://api.seatsio.net/') {
-        this.client = Axios.create({
-            baseURL: baseUrl,
-            auth: {
-                username: secretKey,
-                password: null
-            },
-            errorHandle: false
-        })
-
+    constructor (secretKey, accountId = null, baseUrl = 'https://api.seatsio.net/') {
+        this.client = Axios.create(this._axiosConfig(baseUrl, secretKey, accountId))
         this._setupRequestListener()
 
         this.errInterceptor = this.client.interceptors.response.use(
@@ -34,6 +26,23 @@ class SeatsioClient {
         this.chartReports = new ChartReports(this.client)
         this.eventReports = new EventReports(this.client)
         this.usageReports = new UsageReports(this.client)
+    }
+
+    _axiosConfig (baseUrl, secretKey, accountId) {
+        let config = {
+            baseURL: baseUrl,
+            auth: {
+                username: secretKey,
+                password: null
+            },
+            errorHandle: false
+        }
+
+        if (accountId) {
+            config.headers = { 'X-Account-ID': accountId }
+        }
+
+        return config
     }
 
     _setupRequestListener () {
