@@ -10,7 +10,7 @@ class Subaccount {
         this.name = subaccount.name
         this.email = subaccount.email
         this.active = subaccount.active
-        this.accountId = subaccount.accountId
+        this.workspaceKey = subaccount.workspaceKey
     }
 }
 

@@ -10,8 +10,8 @@ const errorResponseHandler = require('./errorInterceptor.js')
 const Axios = require('axios')
 
 class SeatsioClient {
-    constructor (secretKey, accountId = null, baseUrl = 'https://api.seatsio.net/') {
-        this.client = Axios.create(this._axiosConfig(baseUrl, secretKey, accountId))
+    constructor (secretKey, workspaceKey = null, baseUrl = 'https://api.seatsio.net/') {
+        this.client = Axios.create(this._axiosConfig(baseUrl, secretKey, workspaceKey))
         this._setupRequestListener()
 
         this.errInterceptor = this.client.interceptors.response.use(
@@ -28,7 +28,7 @@ class SeatsioClient {
         this.usageReports = new UsageReports(this.client)
     }
 
-    _axiosConfig (baseUrl, secretKey, accountId) {
+    _axiosConfig (baseUrl, secretKey, workspaceKey) {
         let config = {
             baseURL: baseUrl,
             auth: {
@@ -38,8 +38,8 @@ class SeatsioClient {
             errorHandle: false
         }
 
-        if (accountId) {
-            config.headers = { 'X-Account-ID': accountId }
+        if (workspaceKey) {
+            config.headers = { 'X-Workspace-Key': workspaceKey }
         }
 
         return config

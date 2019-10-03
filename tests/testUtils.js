@@ -21,8 +21,8 @@ module.exports = {
         return uuidv1()
     },
 
-    createClient: function (secretKey, accountId = null) {
-        return new SeatsioClient(secretKey, accountId, baseUrl)
+    createClient: function (secretKey, workspaceKey = null) {
+        return new SeatsioClient(secretKey, workspaceKey, baseUrl)
     },
 
     createTestChart: async function (chartKey, designerKey) {
