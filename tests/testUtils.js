@@ -21,8 +21,8 @@ module.exports = {
         return uuidv1()
     },
 
-    createClient: function (secretKey) {
-        return new SeatsioClient(secretKey, baseUrl)
+    createClient: function (secretKey, workspaceKey = null) {
+        return new SeatsioClient(secretKey, workspaceKey, baseUrl)
     },
 
     createTestChart: async function (chartKey, designerKey) {
@@ -44,7 +44,7 @@ module.exports = {
     createTestChartFromFile: function (filePath, chartKey, designerKey) {
         let requestBody = fs.readFileSync(path.join(__dirname, filePath), 'utf-8')
         let client = axios.create()
-        let url = `https://api-staging.seatsio.net/system/public/${designerKey}/charts/${chartKey}`
+        let url = `${baseUrl}system/public/${designerKey}/charts/${chartKey}`
         return client.post(url, requestBody)
     },
 
