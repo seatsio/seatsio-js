@@ -283,9 +283,9 @@ class Events {
      * @param {?boolean} keepExtraData
      * @returns {Promise<BestAvailableObjects>} Promise that resolves to BestAvailableObjects object
      */
-    bookBestAvailable (eventKey, number, categories = null, holdToken = null, orderId = null, keepExtraData = null) {
+    bookBestAvailable (eventKey, number, categories = null, holdToken = null, orderId = null, keepExtraData = null, extraData = null) {
         let objectStatus = new ObjectStatus()
-        return this.changeBestAvailableObjectStatus(encodeURIComponent(eventKey), number, objectStatus.BOOKED, categories, holdToken, orderId, keepExtraData)
+        return this.changeBestAvailableObjectStatus(encodeURIComponent(eventKey), number, objectStatus.BOOKED, categories, holdToken, extraData, orderId, keepExtraData)
     }
 
     /**
@@ -323,9 +323,9 @@ class Events {
      * @param {?boolean} keepExtraData
      * @returns {Promise<BestAvailableObjects>} Promise that resolves to BestAvailableObjects object
      */
-    holdBestAvailable (eventKey, number, holdToken, categories = null, orderId = null, keepExtraData = null) {
+    holdBestAvailable (eventKey, number, holdToken, categories = null, orderId = null, keepExtraData = null, extraData = null) {
         let objectStatus = new ObjectStatus()
-        return this.changeBestAvailableObjectStatus(encodeURIComponent(eventKey), number, objectStatus.HELD, categories, holdToken, orderId, keepExtraData)
+        return this.changeBestAvailableObjectStatus(encodeURIComponent(eventKey), number, objectStatus.HELD, categories, holdToken, extraData, orderId, keepExtraData)
     }
 
     /**
