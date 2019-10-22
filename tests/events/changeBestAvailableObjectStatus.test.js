@@ -82,7 +82,19 @@ test('should change best available object status with orderId', async () => {
     expect(objStatus.orderId).toBe('anOrder')
 })
 
-test('should book best available object ', async () => {
+test('should book best available object with extra data', async () => {
+    let chartKey = testUtils.getChartKey()
+    await testUtils.createTestChart(chartKey, user.designerKey)
+    let event = await client.events.create(chartKey)
+    let extraData = [{ 'foo': 'bar' }, { 'foo': 'baz' }, { 'foo': 'bar2' }]
+
+    let bestAvailableObjs = await client.events.bookBestAvailable(event.key, 3, null, null, null, null, extraData)
+
+    expect(bestAvailableObjs.nextToEachOther).toBe(true)
+    expect(bestAvailableObjs.objects).toEqual(['B-4', 'B-5', 'B-6'])
+})
+
+test('should book best available object', async () => {
     let chartKey = testUtils.getChartKey()
     await testUtils.createTestChart(chartKey, user.designerKey)
     let event = await client.events.create(chartKey)
@@ -101,6 +113,21 @@ test('should hold best available object ', async () => {
     let holdToken = await client.holdTokens.create()
 
     let bestAvailableObjs = await client.events.holdBestAvailable(event.key, 1, holdToken.holdToken)
+
+    let objStatus = await client.events.retrieveObjectStatus(event.key, bestAvailableObjs.objects[0])
+    expect(objStatus.status).toBe(objectStatus.HELD)
+    expect(objStatus.holdToken).toBe(holdToken.holdToken)
+})
+
+test('should hold best available object with extra data ', async () => {
+    let chartKey = testUtils.getChartKey()
+    let objectStatus = new ObjectStatus()
+    await testUtils.createTestChart(chartKey, user.designerKey)
+    let event = await client.events.create(chartKey)
+    let holdToken = await client.holdTokens.create()
+    let extraData = [{ 'foo': 'bar' }]
+
+    let bestAvailableObjs = await client.events.holdBestAvailable(event.key, 1, holdToken.holdToken, null, null, null, extraData)
 
     let objStatus = await client.events.retrieveObjectStatus(event.key, bestAvailableObjs.objects[0])
     expect(objStatus.status).toBe(objectStatus.HELD)
