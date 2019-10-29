@@ -21,19 +21,19 @@
   },
   "author": "Nami Falhan <namfaldev@gmail.com> (https://www.seats.io)",
   "dependencies": {
-    "acorn": "^6.0.4",
-    "axios": "^0.19.0",
-    "uuid": "^3.3.2"
+    "acorn": "7.1.0",
+    "axios": "0.19.0",
+    "uuid": "3.3.3"
   },
   "devDependencies": {
     "browserify": "latest",
-    "eslint": "^5.13.0",
-    "eslint-config-standard": "^12.0.0",
-    "eslint-plugin-import": "^2.16.0",
-    "eslint-plugin-node": "^8.0.1",
-    "eslint-plugin-promise": "^4.0.1",
-    "eslint-plugin-standard": "^4.0.0",
-    "fancy-log": "^1.3.3",
+    "eslint": "6.6.0",
+    "eslint-config-standard": "14.1.0",
+    "eslint-plugin-import": "2.18.2",
+    "eslint-plugin-node": "10.0.0",
+    "eslint-plugin-promise": "4.2.1",
+    "eslint-plugin-standard": "4.0.1",
+    "fancy-log": "1.3.3",
     "gulp": "latest",
     "gulp-buffer": "latest",
     "gulp-connect": "latest",
@@ -42,7 +42,7 @@
     "gulp-uglify": "latest",
     "gulp-uglify-es": "latest",
     "gulplog": "latest",
-    "jest": "^24.3.0",
-    "jest-cli": "^24.3.0"
+    "jest": "24.9.0",
+    "jest-cli": "24.9.0"
   }
 }
