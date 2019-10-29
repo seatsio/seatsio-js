@@ -3,7 +3,7 @@ const StatusChangesParams = require('../../src/Events/StatusChangesParams.js')
 
 test('should list status changes after given id ', async () => {
     let chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.designerKey)
+    await testUtils.createTestChart(chartKey, user.secretKey)
     let event = await client.events.create(chartKey)
     await client.events.book(event.key, 'A-1')
     await client.events.book(event.key, 'A-2')
@@ -24,7 +24,7 @@ test('should list status changes after given id ', async () => {
 
 test('should list status changes after given id with page size', async () => {
     let chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.designerKey)
+    await testUtils.createTestChart(chartKey, user.secretKey)
     let event = await client.events.create(chartKey)
     await client.events.book(event.key, 'A-1')
     await client.events.book(event.key, 'A-2')
@@ -41,7 +41,7 @@ test('should list status changes after given id with page size', async () => {
 
 test('should list status changes after given id sorted by label', async () => {
     let chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.designerKey)
+    await testUtils.createTestChart(chartKey, user.secretKey)
     let event = await client.events.create(chartKey)
     await client.events.book(event.key, 'A-1')
     await client.events.book(event.key, 'A-2')
@@ -63,7 +63,7 @@ test('should list status changes after given id sorted by label', async () => {
 
 test('should list status changes after given id sorted by label with page size', async () => {
     let chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.designerKey)
+    await testUtils.createTestChart(chartKey, user.secretKey)
     let event = await client.events.create(chartKey)
     await client.events.book(event.key, 'A-1')
     await client.events.book(event.key, 'A-2')
@@ -84,7 +84,7 @@ test('should list status changes after given id sorted by label with page size',
 
 test('should list status changes after given id sorted by status', async () => {
     let chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.designerKey)
+    await testUtils.createTestChart(chartKey, user.secretKey)
     let event = await client.events.create(chartKey)
     let holdToken = await client.holdTokens.create()
     await client.events.book(event.key, 'A-1')
@@ -111,7 +111,7 @@ test('should list status changes after given id sorted by status', async () => {
 
 test('should list status changes after given id sorted by status with page size', async () => {
     let chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.designerKey)
+    await testUtils.createTestChart(chartKey, user.secretKey)
     let event = await client.events.create(chartKey)
     let holdToken = await client.holdTokens.create()
     await client.events.book(event.key, 'A-1')
@@ -137,7 +137,7 @@ test('should list status changes after given id sorted by status with page size'
 
 test('should list status changes after given id sorted by date ascending', async () => {
     let chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.designerKey)
+    await testUtils.createTestChart(chartKey, user.secretKey)
     let event = await client.events.create(chartKey)
     await client.events.book(event.key, 'A-1')
     await client.events.book(event.key, 'A-2')
@@ -160,7 +160,7 @@ test('should list status changes after given id sorted by date ascending', async
 
 test('should list status changes after given id sorted by date ascending with page size', async () => {
     let chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.designerKey)
+    await testUtils.createTestChart(chartKey, user.secretKey)
     let event = await client.events.create(chartKey)
     await client.events.book(event.key, 'A-1')
     await client.events.book(event.key, 'A-2')
@@ -182,7 +182,7 @@ test('should list status changes after given id sorted by date ascending with pa
 
 test('should list status changes after given id with filter', async () => {
     let chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.designerKey)
+    await testUtils.createTestChart(chartKey, user.secretKey)
     let event = await client.events.create(chartKey)
     let holdToken = await client.holdTokens.create()
     await client.events.book(event.key, 'A-1')
@@ -206,7 +206,7 @@ test('should list status changes after given id with filter', async () => {
 
 test('should list status changes after given id with filter and page size', async () => {
     let chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.designerKey)
+    await testUtils.createTestChart(chartKey, user.secretKey)
     let event = await client.events.create(chartKey)
     let holdToken = await client.holdTokens.create()
     await client.events.book(event.key, 'A-1')
@@ -226,7 +226,7 @@ test('should list status changes after given id with filter and page size', asyn
 
 test('should not list status changes after given id with unmatched filter', async () => {
     let chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.designerKey)
+    await testUtils.createTestChart(chartKey, user.secretKey)
     let event = await client.events.create(chartKey)
     await client.events.book(event.key, 'A-2')
     await client.events.book(event.key, 'B-2')

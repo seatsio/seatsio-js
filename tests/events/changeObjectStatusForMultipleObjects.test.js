@@ -3,7 +3,7 @@ const ObjectProperties = require('../../src/Events/ObjectProperties.js')
 
 test('should change object status for multiple objects as an array of string', async () => {
     let chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.designerKey)
+    await testUtils.createTestChart(chartKey, user.secretKey)
     let event = await client.events.create(chartKey)
 
     await client.events.changeObjectStatus(event.key, ['A-1', 'A-2'], 'lolzor')
@@ -16,7 +16,7 @@ test('should change object status for multiple objects as an array of string', a
 
 test('should change object status for multiple objects as an array of objects', async () => {
     let chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.designerKey)
+    await testUtils.createTestChart(chartKey, user.secretKey)
     let event = await client.events.create(chartKey)
     let objects = [new ObjectProperties('A-1'), new ObjectProperties('A-2')]
 
@@ -30,7 +30,7 @@ test('should change object status for multiple objects as an array of objects', 
 
 test('should change object status for multiple objects as an array of classes', async () => {
     let chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.designerKey)
+    await testUtils.createTestChart(chartKey, user.secretKey)
     let event = await client.events.create(chartKey)
     let objects = [{ 'objectId': 'A-1' }, { 'objectId': 'A-2' }]
     await client.events.changeObjectStatus(event.key, objects, 'lolzor')
@@ -43,7 +43,7 @@ test('should change object status for multiple objects as an array of classes', 
 
 test('should change object status for multiple objects as an array of classes with general admission', async () => {
     let chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.designerKey)
+    await testUtils.createTestChart(chartKey, user.secretKey)
     let event = await client.events.create(chartKey)
     let objects = [{ objectId: 'A-1' }, { objectId: 'GA1', quantity: 5 }]
 
@@ -57,7 +57,7 @@ test('should change object status for multiple objects as an array of classes wi
 
 test('should change object status for multiple objects as an array of classes and strings', async () => {
     let chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.designerKey)
+    await testUtils.createTestChart(chartKey, user.secretKey)
     let event = await client.events.create(chartKey)
     let objects = ['A-1', { objectId: 'GA1', quantity: 5 }]
 
@@ -71,7 +71,7 @@ test('should change object status for multiple objects as an array of classes an
 
 test('should change object status for multiple objects with ticket types', async () => {
     let chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.designerKey)
+    await testUtils.createTestChart(chartKey, user.secretKey)
     let event = await client.events.create(chartKey)
     let objects = [
         (new ObjectProperties('A-1')).setTicketType('T1'),
@@ -90,7 +90,7 @@ test('should change object status for multiple objects with ticket types', async
 
 test('should change object status for multiple objects with quantity', async () => {
     let chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.designerKey)
+    await testUtils.createTestChart(chartKey, user.secretKey)
     let event = await client.events.create(chartKey)
     let objects = [
         (new ObjectProperties('GA1')).setQuantity(5),
@@ -107,7 +107,7 @@ test('should change object status for multiple objects with quantity', async () 
 
 test('should change object status for multiple objects, GAs and Seats', async () => {
     let chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.designerKey)
+    await testUtils.createTestChart(chartKey, user.secretKey)
     let event = await client.events.create(chartKey)
     let objects = [
         (new ObjectProperties('GA1')).setQuantity(5),
@@ -124,7 +124,7 @@ test('should change object status for multiple objects, GAs and Seats', async ()
 
 test('should change object status for multiple objects with extra data', async () => {
     let chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.designerKey)
+    await testUtils.createTestChart(chartKey, user.secretKey)
     let event = await client.events.create(chartKey)
     let objects = [
         (new ObjectProperties('A-1')).setExtraData({ 'foo': 'bar' }),

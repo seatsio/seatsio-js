@@ -6,7 +6,7 @@ const StatusChangesParams = require('../../src/Events/StatusChangesParams.js')
 
 test('should list all status changes', async () => {
     let chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.designerKey)
+    await testUtils.createTestChart(chartKey, user.secretKey)
     let event = await client.events.create(chartKey)
     await client.events.book(event.key, 'A-1')
     await client.events.book(event.key, 'A-2')
@@ -52,7 +52,7 @@ test('status changes parameter', async () => {
 
 test('should list all status changes sorted by label', async () => {
     let chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.designerKey)
+    await testUtils.createTestChart(chartKey, user.secretKey)
     let event = await client.events.create(chartKey)
     await client.events.book(event.key, 'A-1')
     await client.events.book(event.key, 'A-2')
@@ -69,7 +69,7 @@ test('should list all status changes sorted by label', async () => {
 
 test('should list all status changes sorted by status', async () => {
     let chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.designerKey)
+    await testUtils.createTestChart(chartKey, user.secretKey)
     let event = await client.events.create(chartKey)
     let holdToken = await client.holdTokens.create()
     await client.events.book(event.key, 'B-1')
@@ -89,7 +89,7 @@ test('should list all status changes sorted by status', async () => {
 
 test('should list all status changes sorted by date ascending', async () => {
     let chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.designerKey)
+    await testUtils.createTestChart(chartKey, user.secretKey)
     let event = await client.events.create(chartKey)
     await client.events.book(event.key, 'A-1')
     await client.events.book(event.key, 'A-3')
@@ -106,7 +106,7 @@ test('should list all status changes sorted by date ascending', async () => {
 
 test('should list all status changes with filter', async () => {
     let chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.designerKey)
+    await testUtils.createTestChart(chartKey, user.secretKey)
     let event = await client.events.create(chartKey)
     await client.events.book(event.key, 'A-1')
     await client.events.book(event.key, 'A-2')
@@ -123,7 +123,7 @@ test('should list all status changes with filter', async () => {
 
 test('should not list status changes with unmatched filter', async () => {
     let chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.designerKey)
+    await testUtils.createTestChart(chartKey, user.secretKey)
     let event = await client.events.create(chartKey)
     await client.events.book(event.key, 'A-1')
     await client.events.book(event.key, 'A-2')
@@ -141,7 +141,7 @@ test('should not list status changes with unmatched filter', async () => {
 test('properties of status changes', async () => {
     let chartKey = testUtils.getChartKey()
     let objectStatus = new ObjectStatus()
-    await testUtils.createTestChart(chartKey, user.designerKey)
+    await testUtils.createTestChart(chartKey, user.secretKey)
     let event = await client.events.create(chartKey)
     let obj = new ObjectProperties('A-1').setExtraData({ 'foo': 'bar' })
     let now = new Date().getTime()
@@ -164,7 +164,7 @@ test('properties of status changes', async () => {
 
 test('should list status changes with hold token', async () => {
     let chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.designerKey)
+    await testUtils.createTestChart(chartKey, user.secretKey)
     let event = await client.events.create(chartKey)
     let holdToken = await client.holdTokens.create()
     await client.events.hold(event.key, 'A-1', holdToken.holdToken)
@@ -178,7 +178,7 @@ test('should list status changes with hold token', async () => {
 
 test('should list status changes with null hold token if no hold token was used', async () => {
     let chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.designerKey)
+    await testUtils.createTestChart(chartKey, user.secretKey)
     let event = await client.events.create(chartKey)
     await client.events.book(event.key, 'A-2')
 

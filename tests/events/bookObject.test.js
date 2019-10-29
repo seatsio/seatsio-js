@@ -4,7 +4,7 @@ const ObjectStatus = require('../../src/Events/ObjectStatus.js')
 test('should book an object', async () => {
     let chartKey = testUtils.getChartKey()
     let objectStatus = new ObjectStatus()
-    await testUtils.createTestChart(chartKey, user.designerKey)
+    await testUtils.createTestChart(chartKey, user.secretKey)
     let event = await client.events.create(chartKey)
 
     let bookRes = await client.events.book(event.key, ['A-1', 'A-2'])
@@ -19,7 +19,7 @@ test('should book an object', async () => {
 test('should book an object with quantity', async () => {
     let chartKey = testUtils.getChartKey()
     let objectStatus = new ObjectStatus()
-    await testUtils.createTestChart(chartKey, user.designerKey)
+    await testUtils.createTestChart(chartKey, user.secretKey)
     let event = await client.events.create(chartKey)
 
     await client.events.book(event.key, { 'objectId': 'GA1', 'quantity': 100 })
@@ -49,7 +49,7 @@ test('should book an object with sections', async () => {
 test('should hold and then book, check hold token exists', async () => {
     let chartKey = testUtils.getChartKey()
     let objectStatus = new ObjectStatus()
-    await testUtils.createTestChart(chartKey, user.designerKey)
+    await testUtils.createTestChart(chartKey, user.secretKey)
     let event = await client.events.create(chartKey)
     let holdToken = await client.holdTokens.create()
     await client.events.hold(event.key, 'A-1', holdToken.holdToken)
@@ -63,7 +63,7 @@ test('should hold and then book, check hold token exists', async () => {
 
 test('should check booking with orderId', async () => {
     let chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.designerKey)
+    await testUtils.createTestChart(chartKey, user.secretKey)
     let event = await client.events.create(chartKey)
 
     await client.events.book(event.key, 'A-1', null, 'order1')
@@ -74,7 +74,7 @@ test('should check booking with orderId', async () => {
 
 test('should keep extra data', async () => {
     let chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.designerKey)
+    await testUtils.createTestChart(chartKey, user.secretKey)
     let event = await client.events.create(chartKey)
     await client.events.updateExtraData(event.key, 'A-1', { foo: 'bar' })
 

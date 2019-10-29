@@ -5,7 +5,7 @@ const ObjectProperties = require('../../src/Events/ObjectProperties.js')
 test('report properties', async () => {
     let chartKey = testUtils.getChartKey()
     let objectStatus = new ObjectStatus()
-    await testUtils.createTestChart(chartKey, user.designerKey)
+    await testUtils.createTestChart(chartKey, user.secretKey)
     let event = await client.events.create(chartKey)
     let extraData = { 'foo': 'bar' }
     await client.events.book(event.key, (new ObjectProperties('A-1')).setTicketType('ticketType1').setExtraData(extraData), null, 'order1')
@@ -29,7 +29,7 @@ test('report properties', async () => {
 
 test('report has hold token', async () => {
     let chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.designerKey)
+    await testUtils.createTestChart(chartKey, user.secretKey)
     let event = await client.events.create(chartKey)
     let holdToken = await client.holdTokens.create()
     await client.events.hold(event.key, 'A-1', holdToken.holdToken)
@@ -42,7 +42,7 @@ test('report has hold token', async () => {
 
 test('report properties for GA', async () => {
     let chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.designerKey)
+    await testUtils.createTestChart(chartKey, user.secretKey)
     let event = await client.events.create(chartKey)
     await client.events.book(event.key, (new ObjectProperties('GA1')).setQuantity(5))
     let holdToken = await client.holdTokens.create()
@@ -61,7 +61,7 @@ test('report properties for GA', async () => {
 test('report with object status', async () => {
     let chartKey = testUtils.getChartKey()
     let objectStatus = new ObjectStatus()
-    await testUtils.createTestChart(chartKey, user.designerKey)
+    await testUtils.createTestChart(chartKey, user.secretKey)
     let event = await client.events.create(chartKey)
     await client.events.changeObjectStatus(event.key, 'A-1', 'lolzor')
     await client.events.changeObjectStatus(event.key, 'A-2', 'lolzor')
@@ -77,7 +77,7 @@ test('report with object status', async () => {
 test('report with specific object status', async () => {
     let chartKey = testUtils.getChartKey()
     let objectStatus = new ObjectStatus()
-    await testUtils.createTestChart(chartKey, user.designerKey)
+    await testUtils.createTestChart(chartKey, user.secretKey)
     let event = await client.events.create(chartKey)
     await client.events.changeObjectStatus(event.key, 'A-1', 'lolzor')
     await client.events.changeObjectStatus(event.key, 'A-2', 'lolzor')
@@ -90,7 +90,7 @@ test('report with specific object status', async () => {
 
 test('report with category label', async () => {
     let chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.designerKey)
+    await testUtils.createTestChart(chartKey, user.secretKey)
     let event = await client.events.create(chartKey)
 
     let report = await client.eventReports.byCategoryLabel(event.key)
@@ -101,7 +101,7 @@ test('report with category label', async () => {
 
 test('report with specific category label', async () => {
     let chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.designerKey)
+    await testUtils.createTestChart(chartKey, user.secretKey)
     let event = await client.events.create(chartKey)
 
     let report = await client.eventReports.byCategoryLabel(event.key, 'Cat1')
@@ -111,7 +111,7 @@ test('report with specific category label', async () => {
 
 test('report with category key', async () => {
     let chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.designerKey)
+    await testUtils.createTestChart(chartKey, user.secretKey)
     let event = await client.events.create(chartKey)
 
     let report = await client.eventReports.byCategoryKey(event.key)
@@ -122,7 +122,7 @@ test('report with category key', async () => {
 
 test('report with specific category key', async () => {
     let chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.designerKey)
+    await testUtils.createTestChart(chartKey, user.secretKey)
     let event = await client.events.create(chartKey)
 
     let report = await client.eventReports.byCategoryKey(event.key, 9)
@@ -132,7 +132,7 @@ test('report with specific category key', async () => {
 
 test('report with label', async () => {
     let chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.designerKey)
+    await testUtils.createTestChart(chartKey, user.secretKey)
     let event = await client.events.create(chartKey)
 
     let report = await client.eventReports.byLabel(event.key)
@@ -143,7 +143,7 @@ test('report with label', async () => {
 
 test('report with specific label', async () => {
     let chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.designerKey)
+    await testUtils.createTestChart(chartKey, user.secretKey)
     let event = await client.events.create(chartKey)
 
     let report = await client.eventReports.byLabel(event.key, 'A-1')
@@ -153,7 +153,7 @@ test('report with specific label', async () => {
 
 test('report with orderId', async () => {
     let chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.designerKey)
+    await testUtils.createTestChart(chartKey, user.secretKey)
     let event = await client.events.create(chartKey)
     await client.events.book(event.key, 'A-1', null, 'order1')
     await client.events.book(event.key, 'A-2', null, 'order1')
@@ -168,7 +168,7 @@ test('report with orderId', async () => {
 
 test('report with specific orderId', async () => {
     let chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.designerKey)
+    await testUtils.createTestChart(chartKey, user.secretKey)
     let event = await client.events.create(chartKey)
     await client.events.book(event.key, 'A-1', null, 'order1')
     await client.events.book(event.key, 'A-2', null, 'order1')
@@ -181,7 +181,7 @@ test('report with specific orderId', async () => {
 
 test('report with section', async () => {
     let chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.designerKey)
+    await testUtils.createTestChart(chartKey, user.secretKey)
     let event = await client.events.create(chartKey)
     await client.events.book(event.key, 'A-1', null, 'order1')
     await client.events.book(event.key, 'A-2', null, 'order1')
@@ -194,7 +194,7 @@ test('report with section', async () => {
 
 test('report with specific section', async () => {
     let chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.designerKey)
+    await testUtils.createTestChart(chartKey, user.secretKey)
     let event = await client.events.create(chartKey)
     await client.events.book(event.key, 'A-1', null, 'order1')
     await client.events.book(event.key, 'A-2', null, 'order1')
@@ -207,7 +207,7 @@ test('report with specific section', async () => {
 
 test('specific non existing status', async () => {
     let chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.designerKey)
+    await testUtils.createTestChart(chartKey, user.secretKey)
     let event = await client.events.create(chartKey)
 
     let report = await client.eventReports.byStatus(event.key, 'lolzor')
@@ -217,7 +217,7 @@ test('specific non existing status', async () => {
 
 test('specific non existing section', async () => {
     let chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.designerKey)
+    await testUtils.createTestChart(chartKey, user.secretKey)
     let event = await client.events.create(chartKey)
 
     let report = await client.eventReports.bySection(event.key, 'lolzor')
@@ -227,7 +227,7 @@ test('specific non existing section', async () => {
 
 test('specific non existing orderId', async () => {
     let chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.designerKey)
+    await testUtils.createTestChart(chartKey, user.secretKey)
     let event = await client.events.create(chartKey)
 
     let report = await client.eventReports.byOrderId(event.key, 'lolzor')
@@ -237,7 +237,7 @@ test('specific non existing orderId', async () => {
 
 test('specific non existing label', async () => {
     let chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.designerKey)
+    await testUtils.createTestChart(chartKey, user.secretKey)
     let event = await client.events.create(chartKey)
 
     let report = await client.eventReports.byLabel(event.key, 'lolzor')
@@ -247,7 +247,7 @@ test('specific non existing label', async () => {
 
 test('specific non existing categoryKey', async () => {
     let chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.designerKey)
+    await testUtils.createTestChart(chartKey, user.secretKey)
     let event = await client.events.create(chartKey)
 
     let report = await client.eventReports.byCategoryKey(event.key, 'lolzor')
@@ -257,7 +257,7 @@ test('specific non existing categoryKey', async () => {
 
 test('specific non existing categoryLabel', async () => {
     let chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.designerKey)
+    await testUtils.createTestChart(chartKey, user.secretKey)
     let event = await client.events.create(chartKey)
 
     let report = await client.eventReports.byCategoryLabel(event.key, 'lolzor')

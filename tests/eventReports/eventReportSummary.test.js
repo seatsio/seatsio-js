@@ -5,7 +5,7 @@ const ObjectProperties = require('../../src/Events/ObjectProperties.js')
 test('summaryByStatus', async () => {
     let chartKey = testUtils.getChartKey()
     let objectStatus = new ObjectStatus()
-    await testUtils.createTestChart(chartKey, user.designerKey)
+    await testUtils.createTestChart(chartKey, user.secretKey)
     let event = await client.events.create(chartKey)
     await client.events.book(event.key, (new ObjectProperties('A-1')).setTicketType('ticketType1'), null, 'order1')
 
@@ -26,7 +26,7 @@ test('summaryByStatus', async () => {
 test('summaryByCategoryKey', async () => {
     let chartKey = testUtils.getChartKey()
     let objectStatus = new ObjectStatus()
-    await testUtils.createTestChart(chartKey, user.designerKey)
+    await testUtils.createTestChart(chartKey, user.secretKey)
     let event = await client.events.create(chartKey)
     await client.events.book(event.key, (new ObjectProperties('A-1')).setTicketType('ticketType1'), null, 'order1')
 
@@ -44,7 +44,7 @@ test('summaryByCategoryKey', async () => {
 test('summaryByCategoryLabel', async () => {
     let chartKey = testUtils.getChartKey()
     let objectStatus = new ObjectStatus()
-    await testUtils.createTestChart(chartKey, user.designerKey)
+    await testUtils.createTestChart(chartKey, user.secretKey)
     let event = await client.events.create(chartKey)
     await client.events.book(event.key, (new ObjectProperties('A-1')).setTicketType('ticketType1'), null, 'order1')
 
@@ -62,7 +62,7 @@ test('summaryByCategoryLabel', async () => {
 test('summaryBySection', async () => {
     let chartKey = testUtils.getChartKey()
     let objectStatus = new ObjectStatus()
-    await testUtils.createTestChart(chartKey, user.designerKey)
+    await testUtils.createTestChart(chartKey, user.secretKey)
     let event = await client.events.create(chartKey)
     await client.events.book(event.key, (new ObjectProperties('A-1')).setTicketType('ticketType1'), null, 'order1')
 

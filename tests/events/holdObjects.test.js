@@ -4,7 +4,7 @@ const ObjectStatus = require('../../src/Events/ObjectStatus.js')
 test('should hold objects', async () => {
     let chartKey = testUtils.getChartKey()
     let objectStatus = new ObjectStatus()
-    await testUtils.createTestChart(chartKey, user.designerKey)
+    await testUtils.createTestChart(chartKey, user.secretKey)
     let event = await client.events.create(chartKey)
     let holdToken = await client.holdTokens.create()
     let holdResult = await client.events.hold(event.key, ['A-1', 'A-2'], holdToken.holdToken)
@@ -22,7 +22,7 @@ test('should hold objects', async () => {
 
 test('should keep extra data', async () => {
     let chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.designerKey)
+    await testUtils.createTestChart(chartKey, user.secretKey)
     let event = await client.events.create(chartKey)
     let holdToken = await client.holdTokens.create()
     await client.events.updateExtraData(event.key, 'A-1', { foo: 'bar' })

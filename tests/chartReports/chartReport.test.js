@@ -2,7 +2,7 @@ const testUtils = require('../testUtils.js')
 
 test('chart report properties', async () => {
     let chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.designerKey)
+    await testUtils.createTestChart(chartKey, user.secretKey)
 
     let report = await client.chartReports.byLabel(chartKey)
 
@@ -18,7 +18,7 @@ test('chart report properties', async () => {
 
 test('chart report properties for GA', async () => {
     let chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.designerKey)
+    await testUtils.createTestChart(chartKey, user.secretKey)
 
     let report = await client.chartReports.byLabel(chartKey)
 
@@ -31,7 +31,7 @@ test('byLabel method for Reports module', async () => {
     let user = await testUtils.createTestUser()
     let client = testUtils.createClient(user.secretKey)
     let chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.designerKey)
+    await testUtils.createTestChart(chartKey, user.secretKey)
 
     let report = await client.chartReports.byLabel(chartKey)
 
@@ -43,7 +43,7 @@ test('get reports byCategoryKey', async () => {
     let user = await testUtils.createTestUser()
     let client = testUtils.createClient(user.secretKey)
     let chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.designerKey)
+    await testUtils.createTestChart(chartKey, user.secretKey)
 
     let report = await client.chartReports.byCategoryKey(chartKey)
 
@@ -55,7 +55,7 @@ test('get reports byCategoryLabel', async () => {
     let user = await testUtils.createTestUser()
     let client = testUtils.createClient(user.secretKey)
     let chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.designerKey)
+    await testUtils.createTestChart(chartKey, user.secretKey)
 
     let report = await client.chartReports.byCategoryLabel(chartKey)
 
