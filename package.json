@@ -42,7 +42,7 @@
     "gulp-uglify": "latest",
     "gulp-uglify-es": "latest",
     "gulplog": "latest",
-    "jest": "24.3.0",
-    "jest-cli": "24.3.0"
+    "jest": "24.9.0",
+    "jest-cli": "24.9.0"
   }
 }
