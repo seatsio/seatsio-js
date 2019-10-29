@@ -7,7 +7,7 @@ test('should validate published version of a chart', async () => {
     await client.accounts.updateSetting('VALIDATE_FOCAL_POINT', 'WARNING')
     await client.accounts.updateSetting('VALIDATE_OBJECT_TYPES_PER_CATEGORY', 'WARNING')
     let chartKey = testUtils.getChartKey()
-    await testUtils.createErroneousTestChart(chartKey, user.designerKey)
+    await testUtils.createErroneousTestChart(chartKey, user.secretKey)
     await client.events.create(chartKey)
 
     let validationRes = await client.charts.validatePublishedVersion(chartKey)
@@ -25,7 +25,7 @@ test('should validate published version of a chart with different validation set
     await client.accounts.updateSetting('VALIDATE_FOCAL_POINT', 'WARNING')
     await client.accounts.updateSetting('VALIDATE_OBJECT_TYPES_PER_CATEGORY', 'OFF')
     let chartKey = testUtils.getChartKey()
-    await testUtils.createErroneousTestChart(chartKey, user.designerKey)
+    await testUtils.createErroneousTestChart(chartKey, user.secretKey)
 
     let validationRes = await client.charts.validatePublishedVersion(chartKey)
 
@@ -44,7 +44,7 @@ test('should validate draft version of a chart', async () => {
     await client.accounts.updateSetting('VALIDATE_FOCAL_POINT', 'WARNING')
     await client.accounts.updateSetting('VALIDATE_OBJECT_TYPES_PER_CATEGORY', 'WARNING')
     let chartKey = testUtils.getChartKey()
-    await testUtils.createErroneousTestChart(chartKey, user.designerKey)
+    await testUtils.createErroneousTestChart(chartKey, user.secretKey)
     await client.events.create(chartKey)
     await client.charts.update(chartKey, 'New name')
 

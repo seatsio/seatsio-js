@@ -40,7 +40,7 @@ test('should update bookWholeTables parameter of an event', async () => {
 
 test('should update tableBookingModes parameter of an event', async () => {
     let chartKey = testUtils.getChartKey()
-    await testUtils.createTestChartWithTables(chartKey, user.designerKey)
+    await testUtils.createTestChartWithTables(chartKey, user.secretKey)
     let event = await client.events.create(chartKey)
 
     await client.events.update(event.key, null, null, { 'T1': 'BY_TABLE', 'T2': 'BY_SEAT' })

@@ -35,7 +35,7 @@ test('should pass in BookWholeTables as a create() param', async () => {
 
 test('should pass in tableBookingModes as a create() param', async () => {
     let chartKey = testUtils.getChartKey()
-    await testUtils.createTestChartWithTables(chartKey, user.designerKey)
+    await testUtils.createTestChartWithTables(chartKey, user.secretKey)
     let tableBookingModes = { 'T1': 'BY_TABLE', 'T2': 'BY_SEAT' }
 
     let event = await client.events.create(chartKey, null, tableBookingModes)
