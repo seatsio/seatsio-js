@@ -32,7 +32,7 @@ test('should book an object with quantity', async () => {
 test('should book an object with sections', async () => {
     let chartKey = testUtils.getChartKey()
     let objectStatus = new ObjectStatus()
-    await testUtils.createTestChartWithSections(chartKey, user.designerKey)
+    await testUtils.createTestChartWithSections(chartKey, user.secretKey)
     let event = await client.events.create(chartKey)
 
     let bookRes = await client.events.book(event.key, ['Section A-A-1', 'Section A-A-2'])

@@ -24,7 +24,7 @@ test('should change object status', async () => {
 
 test('should change object status for table seat', async () => {
     let chartKey = testUtils.getChartKey()
-    await testUtils.createTestChartWithTables(chartKey, user.designerKey)
+    await testUtils.createTestChartWithTables(chartKey, user.secretKey)
     let event = await client.events.create(chartKey)
 
     let result = await client.events.changeObjectStatus(event.key, 'T1-1', 'lolzor')
@@ -34,7 +34,7 @@ test('should change object status for table seat', async () => {
 
 test('should change object status for table', async () => {
     let chartKey = testUtils.getChartKey()
-    await testUtils.createTestChartWithTables(chartKey, user.designerKey)
+    await testUtils.createTestChartWithTables(chartKey, user.secretKey)
     let event = await client.events.create(chartKey, null, true)
 
     let result = await client.events.changeObjectStatus(event.key, 'T1', 'lolzor')
