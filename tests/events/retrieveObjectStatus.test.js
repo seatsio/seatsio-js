@@ -4,7 +4,7 @@ const ObjectStatus = require('../../src/Events/ObjectStatus.js')
 test('should retrieve object status', async () => {
     let chartKey = testUtils.getChartKey()
     let ObjStatus = new ObjectStatus()
-    await testUtils.createTestChart(chartKey, user.designerKey)
+    await testUtils.createTestChart(chartKey, user.secretKey)
     let event = await client.events.create(chartKey)
 
     let retrievedObj = await client.events.retrieveObjectStatus(event.key, 'A-1')

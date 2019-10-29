@@ -4,7 +4,7 @@ const ObjectProperties = require('../../src/Events/ObjectProperties.js')
 
 test('should change object status', async () => {
     let chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.designerKey)
+    await testUtils.createTestChart(chartKey, user.secretKey)
     let event = await client.events.create(chartKey)
 
     let result = await client.events.changeObjectStatus(event.key, 'A-1', 'lolzor')
@@ -44,7 +44,7 @@ test('should change object status for table', async () => {
 
 test('should change object status with GA', async () => {
     let chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.designerKey)
+    await testUtils.createTestChart(chartKey, user.secretKey)
     let event = await client.events.create(chartKey)
 
     let result = await client.events.changeObjectStatus(event.key, '34', 'lolzor')
@@ -54,7 +54,7 @@ test('should change object status with GA', async () => {
 
 test('should change object status with GA and quantity', async () => {
     let chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.designerKey)
+    await testUtils.createTestChart(chartKey, user.secretKey)
     let event = await client.events.create(chartKey)
 
     let result = await client.events.changeObjectStatus(event.key, {
@@ -70,7 +70,7 @@ test('should change object status with GA and quantity', async () => {
 
 test('should change object status with objectId as string', async () => {
     let chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.designerKey)
+    await testUtils.createTestChart(chartKey, user.secretKey)
     let event = await client.events.create(chartKey)
 
     await client.events.changeObjectStatus(event.key, 'A-1', 'lolzor')
@@ -81,7 +81,7 @@ test('should change object status with objectId as string', async () => {
 
 test('should change object status with objectId inside class', async () => {
     let chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.designerKey)
+    await testUtils.createTestChart(chartKey, user.secretKey)
     let event = await client.events.create(chartKey)
 
     await client.events.changeObjectStatus(event.key, new ObjectProperties('A-1'), 'lolzor')
@@ -93,7 +93,7 @@ test('should change object status with objectId inside class', async () => {
 test('should change object status with hold token', async () => {
     let chartKey = testUtils.getChartKey()
     let objectStatus = new ObjectStatus()
-    await testUtils.createTestChart(chartKey, user.designerKey)
+    await testUtils.createTestChart(chartKey, user.secretKey)
     let event = await client.events.create(chartKey)
     let holdToken = await client.holdTokens.create()
 
@@ -106,7 +106,7 @@ test('should change object status with hold token', async () => {
 
 test('should change object status with OrderId', async () => {
     let chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.designerKey)
+    await testUtils.createTestChart(chartKey, user.secretKey)
     let event = await client.events.create(chartKey)
 
     await client.events.changeObjectStatus(event.key, 'A-1', 'lolzor', null, 'order1')
@@ -117,7 +117,7 @@ test('should change object status with OrderId', async () => {
 
 test('should respect keepExtraData=true', async () => {
     let chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.designerKey)
+    await testUtils.createTestChart(chartKey, user.secretKey)
     let event = await client.events.create(chartKey)
     await client.events.updateExtraData(event.key, 'A-1', { foo: 'bar' })
 
@@ -129,7 +129,7 @@ test('should respect keepExtraData=true', async () => {
 
 test('should respect keepExtraData=false', async () => {
     let chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.designerKey)
+    await testUtils.createTestChart(chartKey, user.secretKey)
     let event = await client.events.create(chartKey)
     await client.events.updateExtraData(event.key, 'A-1', { foo: 'bar' })
 
@@ -141,7 +141,7 @@ test('should respect keepExtraData=false', async () => {
 
 test('should respect no keepExtraData', async () => {
     let chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.designerKey)
+    await testUtils.createTestChart(chartKey, user.secretKey)
     let event = await client.events.create(chartKey)
     await client.events.updateExtraData(event.key, 'A-1', { foo: 'bar' })
 

@@ -2,7 +2,7 @@ const testUtils = require('../testUtils.js')
 
 test('should list status changes for objects', async () => {
     let chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.designerKey)
+    await testUtils.createTestChart(chartKey, user.secretKey)
     let event = await client.events.create(chartKey)
     await client.events.changeObjectStatus(event.key, 'A-1', 's1')
     await client.events.changeObjectStatus(event.key, 'A-1', 's2')

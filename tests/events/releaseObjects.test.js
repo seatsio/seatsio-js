@@ -5,7 +5,7 @@ const ObjectProperties = require('../../src/Events/ObjectProperties.js')
 test('should release objects', async () => {
     let chartKey = testUtils.getChartKey()
     let objectStatus = new ObjectStatus()
-    await testUtils.createTestChart(chartKey, user.designerKey)
+    await testUtils.createTestChart(chartKey, user.secretKey)
     let event = await client.events.create(chartKey)
     await client.events.book(event.key, ['A-1', 'A-2'])
 
@@ -21,7 +21,7 @@ test('should release objects', async () => {
 test('should release objects with hold tokens', async () => {
     let chartKey = testUtils.getChartKey()
     let objectStatus = new ObjectStatus()
-    await testUtils.createTestChart(chartKey, user.designerKey)
+    await testUtils.createTestChart(chartKey, user.secretKey)
     let event = await client.events.create(chartKey)
     let holdToken = await client.holdTokens.create()
     await client.events.hold(event.key, 'A-1', holdToken.holdToken)
@@ -36,7 +36,7 @@ test('should release objects with hold tokens', async () => {
 test('should release objects with order id', async () => {
     let chartKey = testUtils.getChartKey()
     let objectStatus = new ObjectStatus()
-    await testUtils.createTestChart(chartKey, user.designerKey)
+    await testUtils.createTestChart(chartKey, user.secretKey)
     let event = await client.events.create(chartKey)
     await client.events.book(event.key, 'A-1')
 
@@ -49,7 +49,7 @@ test('should release objects with order id', async () => {
 
 test('should keep extra data', async () => {
     let chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.designerKey)
+    await testUtils.createTestChart(chartKey, user.secretKey)
     let event = await client.events.create(chartKey)
     await client.events.book(event.key, [new ObjectProperties('A-1').setExtraData({ 'foo': 'bar' })])
 

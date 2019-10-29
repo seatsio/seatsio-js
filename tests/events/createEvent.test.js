@@ -2,7 +2,7 @@ const testUtils = require('../testUtils.js')
 
 test('should check that only chart key is required', async () => {
     let chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.designerKey)
+    await testUtils.createTestChart(chartKey, user.secretKey)
 
     let event = await client.events.create(chartKey)
 

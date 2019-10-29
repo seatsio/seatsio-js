@@ -3,7 +3,7 @@ const StatusChangesParams = require('../../src/Events/StatusChangesParams.js')
 
 test('should list status changes in the first page', async () => {
     let chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.designerKey)
+    await testUtils.createTestChart(chartKey, user.secretKey)
     let event = await client.events.create(chartKey)
     await client.events.book(event.key, 'A-1')
     await client.events.book(event.key, 'A-2')
@@ -24,7 +24,7 @@ test('should list status changes in the first page', async () => {
 
 test('should list status changes in the first page with page size', async () => {
     let chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.designerKey)
+    await testUtils.createTestChart(chartKey, user.secretKey)
     let event = await client.events.create(chartKey)
     await client.events.book(event.key, 'A-1')
     await client.events.book(event.key, 'A-2')
@@ -38,7 +38,7 @@ test('should list status changes in the first page with page size', async () => 
 })
 test('should list status changes in the first page sorted by descending', async () => {
     let chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.designerKey)
+    await testUtils.createTestChart(chartKey, user.secretKey)
     let event = await client.events.create(chartKey)
     await client.events.book(event.key, 'A-1')
     await client.events.book(event.key, 'A-2')
@@ -60,7 +60,7 @@ test('should list status changes in the first page sorted by descending', async 
 
 test('should list status changes in the first page sorted by ascending', async () => {
     let chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.designerKey)
+    await testUtils.createTestChart(chartKey, user.secretKey)
     let event = await client.events.create(chartKey)
     await client.events.book(event.key, 'A-1')
     await client.events.book(event.key, 'A-2')
@@ -82,7 +82,7 @@ test('should list status changes in the first page sorted by ascending', async (
 
 test('should list status changes in the first page sorted by label', async () => {
     let chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.designerKey)
+    await testUtils.createTestChart(chartKey, user.secretKey)
     let event = await client.events.create(chartKey)
     await client.events.book(event.key, 'A-1')
     await client.events.book(event.key, 'A-2')
@@ -104,7 +104,7 @@ test('should list status changes in the first page sorted by label', async () =>
 
 test('should list status changes in the first page sorted by label descending', async () => {
     let chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.designerKey)
+    await testUtils.createTestChart(chartKey, user.secretKey)
     let event = await client.events.create(chartKey)
     await client.events.book(event.key, 'A-1')
     await client.events.book(event.key, 'A-2')
@@ -126,7 +126,7 @@ test('should list status changes in the first page sorted by label descending', 
 
 test('should list status changes in the first page sorted by label with page size', async () => {
     let chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.designerKey)
+    await testUtils.createTestChart(chartKey, user.secretKey)
     let event = await client.events.create(chartKey)
     await client.events.book(event.key, 'A-1')
     await client.events.book(event.key, 'A-2')
@@ -143,7 +143,7 @@ test('should list status changes in the first page sorted by label with page siz
 
 test('should list status changes in the first page sorted by status', async () => {
     let chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.designerKey)
+    await testUtils.createTestChart(chartKey, user.secretKey)
     let event = await client.events.create(chartKey)
     let holdToken = await client.holdTokens.create()
     await client.events.book(event.key, 'A-1')
@@ -172,7 +172,7 @@ test('should list status changes in the first page sorted by status', async () =
 
 test('should list status changes in the first page sorted by status descending', async () => {
     let chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.designerKey)
+    await testUtils.createTestChart(chartKey, user.secretKey)
     let event = await client.events.create(chartKey)
     let holdToken = await client.holdTokens.create()
     await client.events.book(event.key, 'A-1')
@@ -201,7 +201,7 @@ test('should list status changes in the first page sorted by status descending',
 
 test('should list status changes in the first page sorted by status with page size', async () => {
     let chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.designerKey)
+    await testUtils.createTestChart(chartKey, user.secretKey)
     let event = await client.events.create(chartKey)
     let holdToken = await client.holdTokens.create()
     await client.events.book(event.key, 'A-1')
@@ -226,7 +226,7 @@ test('should list status changes in the first page sorted by status with page si
 
 test('should list status changes in the first page sorted by date ascending', async () => {
     let chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.designerKey)
+    await testUtils.createTestChart(chartKey, user.secretKey)
     let event = await client.events.create(chartKey)
     let holdToken = await client.holdTokens.create()
     await client.events.book(event.key, 'A-1')
@@ -251,7 +251,7 @@ test('should list status changes in the first page sorted by date ascending', as
 
 test('should list status changes in the first page sorted by date ascending with page size', async () => {
     let chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.designerKey)
+    await testUtils.createTestChart(chartKey, user.secretKey)
     let event = await client.events.create(chartKey)
     let holdToken = await client.holdTokens.create()
     await client.events.book(event.key, 'A-1')
@@ -274,7 +274,7 @@ test('should list status changes in the first page sorted by date ascending with
 
 test('should list status changes in the first page with filter', async () => {
     let chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.designerKey)
+    await testUtils.createTestChart(chartKey, user.secretKey)
     let event = await client.events.create(chartKey)
     let holdToken = await client.holdTokens.create()
     await client.events.book(event.key, 'A-1')
@@ -299,7 +299,7 @@ test('should list status changes in the first page with filter', async () => {
 
 test('should list status changes in the first page with filter and page size', async () => {
     let chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.designerKey)
+    await testUtils.createTestChart(chartKey, user.secretKey)
     let event = await client.events.create(chartKey)
     await client.events.book(event.key, 'A-1')
     await client.events.book(event.key, 'A-2')
@@ -319,7 +319,7 @@ test('should list status changes in the first page with filter and page size', a
 
 test('should not list status changes in the first page with unmatched filter', async () => {
     let chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.designerKey)
+    await testUtils.createTestChart(chartKey, user.secretKey)
     let event = await client.events.create(chartKey)
     await client.events.book(event.key, 'A-1')
     await client.events.book(event.key, 'A-2')
@@ -332,7 +332,7 @@ test('should not list status changes in the first page with unmatched filter', a
 
 test('list status changes filtered and sorted by label', async () => {
     let chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.designerKey)
+    await testUtils.createTestChart(chartKey, user.secretKey)
     let event = await client.events.create(chartKey)
     await client.events.book(event.key, 'C-1')
     await client.events.book(event.key, 'A-1')
@@ -354,7 +354,7 @@ test('list status changes filtered and sorted by label', async () => {
 
 test('list status changes filtered and sorted by date ascending', async () => {
     let chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.designerKey)
+    await testUtils.createTestChart(chartKey, user.secretKey)
     let event = await client.events.create(chartKey)
     await client.events.book(event.key, 'B-1')
     await client.events.book(event.key, 'A-2')
@@ -374,7 +374,7 @@ test('list status changes filtered and sorted by date ascending', async () => {
 
 test('list status changes filtered and sorted by status', async () => {
     let chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.designerKey)
+    await testUtils.createTestChart(chartKey, user.secretKey)
     let event = await client.events.create(chartKey)
     let holdToken = await client.holdTokens.create()
     await client.events.book(event.key, 'A-1')
@@ -397,7 +397,7 @@ test('list status changes filtered and sorted by status', async () => {
 
 test('list status changes based on latest parameter passed (and filter), chained', async () => {
     let chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.designerKey)
+    await testUtils.createTestChart(chartKey, user.secretKey)
     let event = await client.events.create(chartKey)
     await client.events.book(event.key, 'B-1')
     await client.events.book(event.key, 'A-1')
@@ -417,7 +417,7 @@ test('list status changes based on latest parameter passed (and filter), chained
 
 test("that parameter order doesn't matter for filtering and latest sortBy is taken into account", async () => {
     let chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.designerKey)
+    await testUtils.createTestChart(chartKey, user.secretKey)
     let event = await client.events.create(chartKey)
     await client.events.book(event.key, 'B-1')
     await client.events.book(event.key, 'A-1')
@@ -437,7 +437,7 @@ test("that parameter order doesn't matter for filtering and latest sortBy is tak
 
 test('that combined sorting parameter still work, sorts based on the latest', async () => {
     let chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.designerKey)
+    await testUtils.createTestChart(chartKey, user.secretKey)
     let event = await client.events.create(chartKey)
     await client.events.book(event.key, 'B-1')
     await client.events.book(event.key, 'A-1')

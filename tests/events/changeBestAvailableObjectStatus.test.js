@@ -3,7 +3,7 @@ const ObjectStatus = require('../../src/Events/ObjectStatus.js')
 
 test('should change best available object status', async () => {
     let chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.designerKey)
+    await testUtils.createTestChart(chartKey, user.secretKey)
     let event = await client.events.create(chartKey)
 
     let bestAvailableObjs = await client.events.changeBestAvailableObjectStatus(event.key, 2, 'lolzor')
@@ -35,7 +35,7 @@ test('should change best available object status', async () => {
 
 test('should change best available object status with categories', async () => {
     let chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.designerKey)
+    await testUtils.createTestChart(chartKey, user.secretKey)
     let event = await client.events.create(chartKey)
     let bestAvailableObjs = await client.events.changeBestAvailableObjectStatus(event.key, 3, 'lolzor', ['cat2'])
 
@@ -44,7 +44,7 @@ test('should change best available object status with categories', async () => {
 
 test('should change best available object status with extra data', async () => {
     let chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.designerKey)
+    await testUtils.createTestChart(chartKey, user.secretKey)
     let event = await client.events.create(chartKey)
     let extraData = [{ 'foo': 'bar' }, { 'foo': 'baz' }]
 
@@ -59,7 +59,7 @@ test('should change best available object status with extra data', async () => {
 
 test('should change best available object status with hold token', async () => {
     let chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.designerKey)
+    await testUtils.createTestChart(chartKey, user.secretKey)
     let objectStatus = new ObjectStatus()
     let event = await client.events.create(chartKey)
     let holdToken = await client.holdTokens.create()
@@ -73,7 +73,7 @@ test('should change best available object status with hold token', async () => {
 
 test('should change best available object status with orderId', async () => {
     let chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.designerKey)
+    await testUtils.createTestChart(chartKey, user.secretKey)
     let event = await client.events.create(chartKey)
 
     let bestAvailableObjs = await client.events.changeBestAvailableObjectStatus(event.key, 1, 'lolzor', null, null, null, 'anOrder')
@@ -84,7 +84,7 @@ test('should change best available object status with orderId', async () => {
 
 test('should book best available object with extra data', async () => {
     let chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.designerKey)
+    await testUtils.createTestChart(chartKey, user.secretKey)
     let event = await client.events.create(chartKey)
     let extraData = [{ 'foo': 'bar' }, { 'foo': 'baz' }, { 'foo': 'bar2' }]
 
@@ -96,7 +96,7 @@ test('should book best available object with extra data', async () => {
 
 test('should book best available object', async () => {
     let chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.designerKey)
+    await testUtils.createTestChart(chartKey, user.secretKey)
     let event = await client.events.create(chartKey)
 
     let bestAvailableObjs = await client.events.bookBestAvailable(event.key, 3)
@@ -108,7 +108,7 @@ test('should book best available object', async () => {
 test('should hold best available object ', async () => {
     let chartKey = testUtils.getChartKey()
     let objectStatus = new ObjectStatus()
-    await testUtils.createTestChart(chartKey, user.designerKey)
+    await testUtils.createTestChart(chartKey, user.secretKey)
     let event = await client.events.create(chartKey)
     let holdToken = await client.holdTokens.create()
 
@@ -122,7 +122,7 @@ test('should hold best available object ', async () => {
 test('should hold best available object with extra data ', async () => {
     let chartKey = testUtils.getChartKey()
     let objectStatus = new ObjectStatus()
-    await testUtils.createTestChart(chartKey, user.designerKey)
+    await testUtils.createTestChart(chartKey, user.secretKey)
     let event = await client.events.create(chartKey)
     let holdToken = await client.holdTokens.create()
     let extraData = [{ 'foo': 'bar' }]
@@ -136,7 +136,7 @@ test('should hold best available object with extra data ', async () => {
 
 test('should respect keepExtraData=true', async () => {
     let chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.designerKey)
+    await testUtils.createTestChart(chartKey, user.secretKey)
     let event = await client.events.create(chartKey)
     await client.events.updateExtraData(event.key, 'B-5', { foo: 'bar' })
 
@@ -148,7 +148,7 @@ test('should respect keepExtraData=true', async () => {
 
 test('should respect keepExtraData=false', async () => {
     let chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.designerKey)
+    await testUtils.createTestChart(chartKey, user.secretKey)
     let event = await client.events.create(chartKey)
     await client.events.updateExtraData(event.key, 'B-5', { foo: 'bar' })
 
@@ -160,7 +160,7 @@ test('should respect keepExtraData=false', async () => {
 
 test('should respect no keepExtraData', async () => {
     let chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.designerKey)
+    await testUtils.createTestChart(chartKey, user.secretKey)
     let event = await client.events.create(chartKey)
     await client.events.updateExtraData(event.key, 'B-5', { foo: 'bar' })
 

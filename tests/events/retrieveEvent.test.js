@@ -2,7 +2,7 @@ const testUtils = require('../testUtils.js')
 
 test('should retrieve event', async () => {
     let chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.designerKey)
+    await testUtils.createTestChart(chartKey, user.secretKey)
     let now = new Date()
     let event = await client.events.create(chartKey)
 
