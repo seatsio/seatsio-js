@@ -10,11 +10,11 @@ class Subaccounts {
     constructor (client) {
         this.client = client
         this.active = new Lister('/subaccounts/active', this.client, 'subaccounts', (data) => {
-            let subaccounts = data.items.map((subaccountsData) => new Subaccount(subaccountsData))
+            const subaccounts = data.items.map((subaccountsData) => new Subaccount(subaccountsData))
             return new Page(subaccounts, data.next_page_starts_after, data.previous_page_ends_before)
         })
         this.inactive = new Lister('/subaccounts/inactive', this.client, 'subaccounts', (data) => {
-            let subaccounts = data.items.map((subaccountsData) => new Subaccount(subaccountsData))
+            const subaccounts = data.items.map((subaccountsData) => new Subaccount(subaccountsData))
             return new Page(subaccounts, data.next_page_starts_after, data.previous_page_ends_before)
         })
     }
@@ -50,7 +50,7 @@ class Subaccounts {
      * @returns {Promise<Subaccount>} Promise object that will resolve to a Subaccount object
      */
     doCreate (email = null, name = null) {
-        let requestParameters = {}
+        const requestParameters = {}
 
         if (name !== null) {
             requestParameters.name = name
@@ -71,7 +71,7 @@ class Subaccounts {
      * @returns {Promise}
      */
     update (id, name = null, email = null) {
-        let requestParameters = {}
+        const requestParameters = {}
 
         if (name !== null) {
             requestParameters.name = name
@@ -133,7 +133,7 @@ class Subaccounts {
      * @returns {AsyncIterator}
      */
     listAll (filter = null) {
-        let requestParameters = filter !== null ? { filter: filter } : {}
+        const requestParameters = filter !== null ? { filter: filter } : {}
         return this.iterator().all(requestParameters)
     }
 
@@ -141,7 +141,7 @@ class Subaccounts {
      * @returns {Page}
      */
     listFirstPage (filter = null, pageSize = null) {
-        let requestParameters = filter !== null ? { filter: filter } : null
+        const requestParameters = filter !== null ? { filter: filter } : null
         return this.iterator().firstPage(requestParameters, pageSize)
     }
 
@@ -149,7 +149,7 @@ class Subaccounts {
      * @returns {Page}
      */
     listPageAfter (afterId, filter = null, pageSize = null) {
-        let requestParameters = filter !== null ? { filter: filter } : null
+        const requestParameters = filter !== null ? { filter: filter } : null
         return this.iterator().pageAfter(afterId, requestParameters, pageSize)
     }
 
@@ -157,7 +157,7 @@ class Subaccounts {
      * @returns {Page}
      */
     listPageBefore (beforeId, filter = null, pageSize = null) {
-        let requestParameters = filter !== null ? { filter: filter } : null
+        const requestParameters = filter !== null ? { filter: filter } : null
         return this.iterator().pageBefore(beforeId, requestParameters, pageSize)
     }
 
@@ -166,7 +166,7 @@ class Subaccounts {
      */
     iterator () {
         return new Lister('/subaccounts', this.client, 'subaccounts', (data) => {
-            let subaccounts = data.items.map((subaccountsData) => new Subaccount(subaccountsData))
+            const subaccounts = data.items.map((subaccountsData) => new Subaccount(subaccountsData))
             return new Page(subaccounts, data.next_page_starts_after, data.previous_page_ends_before)
         })
     }

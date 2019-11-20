@@ -11,7 +11,7 @@ test('should check that only chart key is required', async () => {
     expect(event.chartKey).toBe(chartKey)
     expect(event.bookWholeTables).toBe(false)
     expect(event.supportsBestAvailable).toBe(true)
-    expect(event.createdOn).toBeTruthy()
+    expect(event.createdOn).toBeInstanceOf(Date)
     expect(event.forSaleConfig).toBeFalsy()
     expect(event.updatedOn).toBeFalsy()
 })

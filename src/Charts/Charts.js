@@ -1,6 +1,5 @@
 const Page = require('../Page.js')
 const Lister = require('../Lister.js')
-const utilities = require('../utilities/reportUtility.js')
 const Chart = require('./Chart.js')
 
 class Charts {
@@ -10,7 +9,7 @@ class Charts {
     constructor (client) {
         this.client = client
         this.archive = new Lister('/charts/archive', this.client, 'charts', (data) => {
-            let charts = data.items.map((chartData) => new Chart(chartData))
+            const charts = data.items.map((chartData) => new Chart(chartData))
             return new Page(charts, data.next_page_starts_after, data.previous_page_ends_before)
         })
     }
@@ -23,7 +22,7 @@ class Charts {
      * @returns {Promise<Chart>} Promise that resolves to Chart object
      */
     create (name = null, venueType = null, categories = null) {
-        let requestParameters = {}
+        const requestParameters = {}
 
         if (name !== null) {
             requestParameters.name = name
@@ -48,7 +47,7 @@ class Charts {
      * @returns {Promise}
      */
     update (key, name = null, categories = null) {
-        let requestParameters = {}
+        const requestParameters = {}
 
         if (name !== null) {
             requestParameters.name = name
@@ -206,7 +205,7 @@ class Charts {
      * @returns {Promise}
      */
     addTag (key, tag) {
-        let url = `charts/${key}/tags/${encodeURIComponent(tag)}`
+        const url = `charts/${key}/tags/${encodeURIComponent(tag)}`
         return this.client.post(url)
     }
 
@@ -216,7 +215,7 @@ class Charts {
      * @returns {Promise}
      */
     removeTag (key, tag) {
-        let url = `charts/${key}/tags/${encodeURIComponent(tag)}`
+        const url = `charts/${key}/tags/${encodeURIComponent(tag)}`
         return this.client.delete(url)
     }
 
@@ -262,7 +261,7 @@ class Charts {
      */
     iterator () {
         return new Lister('/charts', this.client, 'charts', (data) => {
-            let charts = data.items.map((chartData) => new Chart(chartData))
+            const charts = data.items.map((chartData) => new Chart(chartData))
             return new Page(charts, data.next_page_starts_after, data.previous_page_ends_before)
         })
     }
