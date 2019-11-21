@@ -1,12 +1,13 @@
 {
   "name": "seatsio",
-  "version": "39.0.0",
+  "version": "40.0.0",
   "main": "index.js",
   "description": "Official JavaScript and Node.JS client library for the Seats.io V2 REST API",
   "license": "MIT",
   "scripts": {
-    "lint": "eslint ./src --fix",
-    "test": "jest"
+    "lint": "eslint ./src",
+    "test": "jest --maxWorkers=4",
+    "bundle": "gulp bundle"
   },
   "jest": {
     "transform": {},

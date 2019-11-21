@@ -2,6 +2,7 @@ const Page = require('./Page.js')
 const StatusChange = require('./Events/StatusChange.js')
 const Chart = require('./Charts/Chart.js')
 const Event = require('./Events/Event.js')
+const User = require('./Users/User.js')
 const Subaccount = require('./Subaccounts/Subaccount.js')
 
 class AsyncIterator {
@@ -23,9 +24,9 @@ class AsyncIterator {
     }
 
     charts (data) {
-        let charts = []
+        const charts = []
         data.items.forEach((chartData) => {
-            let chart = new Chart(chartData)
+            const chart = new Chart(chartData)
             this.items.push(chart)
             charts.push(chart)
         })
@@ -34,9 +35,9 @@ class AsyncIterator {
     }
 
     events (data) {
-        let events = []
+        const events = []
         data.items.forEach(eventData => {
-            let event = new Event(eventData)
+            const event = new Event(eventData)
             this.items.push(event)
             events.push(event)
         })
@@ -44,9 +45,9 @@ class AsyncIterator {
     }
 
     statusChanges (data) {
-        let statusChanges = []
+        const statusChanges = []
         data.items.forEach((statusData) => {
-            let status = new StatusChange(statusData)
+            const status = new StatusChange(statusData)
             this.items.push(status)
             statusChanges.push(status)
         })
@@ -54,13 +55,23 @@ class AsyncIterator {
     }
 
     subaccounts (data) {
-        let subaccounts = []
+        const subaccounts = []
         data.items.forEach((subaccountData) => {
-            let subaccount = new Subaccount(subaccountData)
+            const subaccount = new Subaccount(subaccountData)
             this.items.push(subaccount)
             subaccounts.push(subaccount)
         })
         this.pages.push(new Page(subaccounts, data.next_page_starts_after, data.previous_page_ends_before))
+    }
+
+    users (data) {
+        const users = []
+        data.items.forEach((userData) => {
+            const user = new User(userData)
+            this.items.push(user)
+            users.push(user)
+        })
+        this.pages.push(new Page(users, data.next_page_starts_after, data.previous_page_ends_before))
     }
 
     fetch (fetchParams = {}) {
@@ -86,12 +97,15 @@ class AsyncIterator {
                 case 'subaccounts':
                     this.subaccounts(res.data)
                     break
+                case 'users':
+                    this.users(res.data)
+                    break
                 }
             })
     }
 
     [Symbol.asyncIterator] () {
-        let _this = this
+        const _this = this
 
         return {
             async next () {

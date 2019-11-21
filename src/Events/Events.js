@@ -22,7 +22,7 @@ class Events {
      * @returns {Promise<Event>} Promise that resolves to Event object
      */
     create (chartKey, eventKey = null, bookWholeTablesOrTableBookingModes = null) {
-        let requestParameters = {}
+        const requestParameters = {}
 
         requestParameters.chartKey = chartKey
 
@@ -36,7 +36,7 @@ class Events {
             requestParameters.tableBookingModes = bookWholeTablesOrTableBookingModes
         }
 
-        return this.client.post(`/events`, requestParameters)
+        return this.client.post('/events', requestParameters)
             .then((res) => new Event(res.data))
     }
 
@@ -57,7 +57,7 @@ class Events {
      * @returns {Promise}
      */
     update (eventKey, chartKey = null, newEventKey = null, bookWholeTablesOrTableBookingModes = null) {
-        let requestParameters = {}
+        const requestParameters = {}
 
         if (chartKey !== null) {
             requestParameters.chartKey = chartKey
@@ -123,7 +123,7 @@ class Events {
      */
     iterator () {
         return new Lister('/events', this.client, 'events', (data) => {
-            let events = data.items.map(eventData => new Event(eventData))
+            const events = data.items.map(eventData => new Event(eventData))
             return new Page(events, data.next_page_starts_after, data.previous_page_ends_before)
         })
     }
@@ -134,7 +134,7 @@ class Events {
      */
     statusChanges (eventKey) {
         return new Lister(`/events/${encodeURIComponent(eventKey)}/status-changes`, this.client, 'statusChanges', (data) => {
-            let statusChanges = data.items.map(statusChangesData => new StatusChange(statusChangesData))
+            const statusChanges = data.items.map(statusChangesData => new StatusChange(statusChangesData))
             return new Page(statusChanges, data.next_page_starts_after, data.previous_page_ends_before)
         })
     }
@@ -144,7 +144,7 @@ class Events {
      */
     statusChangesForObject (eventKey, objectId = null) {
         return new Lister(`/events/${encodeURIComponent(eventKey)}/objects/${encodeURIComponent(objectId)}/status-changes`, this.client, 'statusChanges', (data) => {
-            let statusChanges = data.items.map(statusChangesData => new StatusChange(statusChangesData))
+            const statusChanges = data.items.map(statusChangesData => new StatusChange(statusChangesData))
             return new Page(statusChanges, data.next_page_starts_after, data.previous_page_ends_before)
         })
     }
@@ -156,7 +156,7 @@ class Events {
      * @returns {Promise}
      */
     markAsForSale (eventKey, objects = null, categories = null) {
-        let requestParameters = {}
+        const requestParameters = {}
         if (objects !== null) {
             requestParameters.objects = objects
         }
@@ -173,7 +173,7 @@ class Events {
      * @returns {Promise}
      */
     markAsNotForSale (eventKey, objects = null, categories = null) {
-        let requestParameters = {}
+        const requestParameters = {}
 
         if (objects !== null) {
             requestParameters.objects = objects
@@ -201,7 +201,7 @@ class Events {
      * @returns {Promise}
      */
     updateExtraData (eventKey, obj, extraData) {
-        let requestParameters = {}
+        const requestParameters = {}
         requestParameters.extraData = extraData
         return this.client.post(`/events/${encodeURIComponent(eventKey)}/objects/${encodeURIComponent(obj)}/actions/update-extra-data`, requestParameters)
     }
@@ -212,7 +212,7 @@ class Events {
      * @returns {Promise}
      */
     updateExtraDatas (eventKey, extraData) {
-        let requestParameters = {}
+        const requestParameters = {}
         requestParameters.extraData = extraData
         return this.client.post(`/events/${encodeURIComponent(eventKey)}/actions/update-extra-data`, requestParameters)
     }
@@ -237,7 +237,7 @@ class Events {
      * @returns {Promise<ChangeObjectStatusResult>} Promise that resolves to ChangeObjectStatusResult object
      */
     changeObjectStatus (eventKeyOrKeys, objectOrObjects, status, holdToken = null, orderId = null, keepExtraData = null) {
-        let requestParameters = {}
+        const requestParameters = {}
 
         requestParameters.objects = this.normalizeObjects(objectOrObjects)
 
@@ -257,7 +257,7 @@ class Events {
 
         requestParameters.events = Array.isArray(eventKeyOrKeys) ? eventKeyOrKeys : [eventKeyOrKeys]
 
-        return this.client.post(`/seasons/actions/change-object-status?expand=objects`, requestParameters)
+        return this.client.post('/seasons/actions/change-object-status?expand=objects', requestParameters)
             .then((res) => new ChangeObjectStatusResult(res.data.objects))
     }
 
@@ -270,7 +270,7 @@ class Events {
      * @returns {Promise<ChangeObjectStatusResult>} Promise that resolves to ChangeObjectStatusResult object
      */
     book (eventKeyOrKeys, objectOrObjects, holdToken = null, orderId = null, keepExtraData = null) {
-        let objectStatus = new ObjectStatus()
+        const objectStatus = new ObjectStatus()
         return this.changeObjectStatus(eventKeyOrKeys, objectOrObjects, objectStatus.BOOKED, holdToken, orderId, keepExtraData)
     }
 
@@ -284,7 +284,7 @@ class Events {
      * @returns {Promise<BestAvailableObjects>} Promise that resolves to BestAvailableObjects object
      */
     bookBestAvailable (eventKey, number, categories = null, holdToken = null, orderId = null, keepExtraData = null, extraData = null) {
-        let objectStatus = new ObjectStatus()
+        const objectStatus = new ObjectStatus()
         return this.changeBestAvailableObjectStatus(encodeURIComponent(eventKey), number, objectStatus.BOOKED, categories, holdToken, extraData, orderId, keepExtraData)
     }
 
@@ -297,7 +297,7 @@ class Events {
      * @returns {Promise<ChangeObjectStatusResult>} Promise that resolves to ChangeObjectStatusResult object
      */
     release (eventKeyOrKeys, objectOrObjects, holdToken = null, orderId = null, keepExtraData = null) {
-        let objectStatus = new ObjectStatus()
+        const objectStatus = new ObjectStatus()
         return this.changeObjectStatus(eventKeyOrKeys, objectOrObjects, objectStatus.FREE, holdToken, orderId, keepExtraData)
     }
 
@@ -310,7 +310,7 @@ class Events {
      * @returns {Promise<ChangeObjectStatusResult>} Promise that resolves to ChangeObjectStatusResult object
      */
     hold (eventKeyOrKeys, objectOrObjects, holdToken, orderId = null, keepExtraData = null) {
-        let objectStatus = new ObjectStatus()
+        const objectStatus = new ObjectStatus()
         return this.changeObjectStatus(eventKeyOrKeys, objectOrObjects, objectStatus.HELD, holdToken, orderId, keepExtraData)
     }
 
@@ -324,7 +324,7 @@ class Events {
      * @returns {Promise<BestAvailableObjects>} Promise that resolves to BestAvailableObjects object
      */
     holdBestAvailable (eventKey, number, holdToken, categories = null, orderId = null, keepExtraData = null, extraData = null) {
-        let objectStatus = new ObjectStatus()
+        const objectStatus = new ObjectStatus()
         return this.changeBestAvailableObjectStatus(encodeURIComponent(eventKey), number, objectStatus.HELD, categories, holdToken, extraData, orderId, keepExtraData)
     }
 
@@ -340,8 +340,8 @@ class Events {
      * @returns {Promise<BestAvailableObjects>} Promise that resolves to BestAvailableObjects object
      */
     changeBestAvailableObjectStatus (eventKey, number, status, categories = null, holdToken = null, extraData = null, orderId = null, keepExtraData = null) {
-        let requestParameters = {}
-        let bestAvailable = {}
+        const requestParameters = {}
+        const bestAvailable = {}
         requestParameters.status = status
         bestAvailable.number = number
         if (holdToken !== null) {
@@ -376,7 +376,7 @@ class Events {
                     return obj
                 }
                 if (typeof obj === 'string') {
-                    return { 'objectId': obj }
+                    return { objectId: obj }
                 }
                 return obj
             })

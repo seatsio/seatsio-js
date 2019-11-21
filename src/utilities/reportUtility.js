@@ -4,8 +4,8 @@ const ChartReportItem = require('../Reports/ChartReportItem.js')
 module.exports = {
 
     createChangeObjectStatusDetails (data) {
-        let objectDetails = {}
-        for (let key in data) {
+        const objectDetails = {}
+        for (const key in data) {
             objectDetails[key] = new EventReportItem(data[key])
         }
         return objectDetails
@@ -16,7 +16,7 @@ module.exports = {
      * @returns {Object.<string, EventReportItem>}
      */
     createEventReport (reportsData) {
-        let reportObjects = {}
+        const reportObjects = {}
         for (const key of Object.keys(reportsData)) {
             reportObjects[key] = reportsData[key].map(data => new EventReportItem(data))
         }
@@ -28,7 +28,7 @@ module.exports = {
      * @returns {Object.<string, ChartReportItem>}
      */
     createChartReport (reportsData) {
-        let reportObjects = {}
+        const reportObjects = {}
         for (const key of Object.keys(reportsData)) {
             reportObjects[key] = reportsData[key].map(data => new ChartReportItem(data))
         }

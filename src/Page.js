@@ -7,11 +7,11 @@ class Page {
 
     [Symbol.iterator] () {
         let index = 0
-        let charts = this.items
+        const charts = this.items
         return {
             next () {
                 if (index < charts.length) {
-                    let chart = charts[index]
+                    const chart = charts[index]
                     index++
                     return { value: chart, done: false }
                 } else {

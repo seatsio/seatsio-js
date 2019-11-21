@@ -1,4 +1,3 @@
-const utilities = require('../utilities/reportUtility.js')
 const HoldToken = require('./HoldToken.js')
 
 class HoldTokens {
@@ -11,7 +10,7 @@ class HoldTokens {
      * @returns {Promise<HoldToken>} Promise object that will resolve to HoldToken object
      */
     create (expiresInMinutes = null) {
-        let request = {}
+        const request = {}
         if (expiresInMinutes !== null) {
             request.expiresInMinutes = expiresInMinutes
         }
@@ -24,7 +23,7 @@ class HoldTokens {
      * @returns {Promise<HoldToken>} Promise object that will resolve to HoldToken object
      */
     expiresInMinutes (holdToken, minutes) {
-        let request = {}
+        const request = {}
         request.expiresInMinutes = minutes
         return this.client.post(`/hold-tokens/${holdToken}`, request).then((res) => new HoldToken(res.data))
     }

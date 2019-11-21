@@ -13,7 +13,7 @@ test('should retrieve event', async () => {
     expect(retrievedEvent.chartKey).toBe(chartKey)
     expect(retrievedEvent.bookWholeTables).toBe(false)
     expect(retrievedEvent.supportsBestAvailable).toBe(true)
-    expect(retrievedEvent.createdOn).toEqual(event.createdOn)
+    expect(retrievedEvent.createdOn).toBeInstanceOf(Date)
     expect(retrievedEvent.createdOn.getTime()).toBeLessThanOrEqual(now.getTime() + 5000)
     expect(retrievedEvent.forSaleConfig).toBeFalsy()
     expect(retrievedEvent.updatedOn).toBeNull()

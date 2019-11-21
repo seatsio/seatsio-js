@@ -1,4 +1,5 @@
 const Accounts = require('./Accounts/Accounts.js')
+const Users = require('./Users/Users.js')
 const Charts = require('./Charts/Charts.js')
 const Events = require('./Events/Events.js')
 const Subaccounts = require('./Subaccounts/Subaccounts.js')
@@ -21,6 +22,7 @@ class SeatsioClient {
         this.charts = new Charts(this.client)
         this.events = new Events(this.client)
         this.subaccounts = new Subaccounts(this.client)
+        this.users = new Users(this.client)
         this.holdTokens = new HoldTokens(this.client)
         this.accounts = new Accounts(this.client)
         this.chartReports = new ChartReports(this.client)
@@ -29,7 +31,7 @@ class SeatsioClient {
     }
 
     _axiosConfig (baseUrl, secretKey, workspaceKey, extraHeaders) {
-        let config = {
+        const config = {
             baseURL: baseUrl,
             auth: {
                 username: secretKey,
