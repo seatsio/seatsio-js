@@ -4,6 +4,7 @@ const Chart = require('./Charts/Chart.js')
 const Event = require('./Events/Event.js')
 const User = require('./Users/User.js')
 const Subaccount = require('./Subaccounts/Subaccount.js')
+const Workspace = require('./Workspaces/Workspace.js')
 
 class AsyncIterator {
     /**
@@ -64,6 +65,16 @@ class AsyncIterator {
         this.pages.push(new Page(subaccounts, data.next_page_starts_after, data.previous_page_ends_before))
     }
 
+    workspaces (data) {
+        const workspaces = []
+        data.items.forEach((json) => {
+            const workspace = new Workspace(json)
+            this.items.push(workspace)
+            workspaces.push(workspace)
+        })
+        this.pages.push(new Page(workspaces, data.next_page_starts_after, data.previous_page_ends_before))
+    }
+
     users (data) {
         const users = []
         data.items.forEach((userData) => {
@@ -100,6 +111,11 @@ class AsyncIterator {
                 case 'users':
                     this.users(res.data)
                     break
+                case 'workspaces':
+                    this.workspaces(res.data)
+                    break
+                default:
+                    throw new Error(`Unknown object type '${this.objType}'`)
                 }
             })
     }
