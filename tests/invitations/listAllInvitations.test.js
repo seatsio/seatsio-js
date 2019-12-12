@@ -7,6 +7,7 @@ test('invite users', async () => {
     await client.users.invite(email2, 'COMPANY_ADMIN')
 
     const invitations = await client.invitations.listAll()
+
     expect(invitations.length).toBe(2)
     expect(invitations[0].email).toBe(email2)
     expect(invitations[0].date).toBeInstanceOf(Date)
