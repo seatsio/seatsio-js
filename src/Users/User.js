@@ -9,6 +9,7 @@ class User {
         this.createdOn = userJson.createdOn ? new Date(userJson.createdOn) : null
         this.isActive = userJson.isActive
         this.status = userJson.status
+        this.workspaces = userJson.workspaces
     }
 }
 
