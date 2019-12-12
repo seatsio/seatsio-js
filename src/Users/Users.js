@@ -13,10 +13,10 @@ class Users {
     /**
      * @param {string} email
      * @param {string} role
-     * @param {string[]} workspaces
+     * @param {?string[]} workspaces
      * @returns {Promise<User>}
      */
-    invite (email, role, workspaces) {
+    invite (email, role, workspaces = undefined) {
         const requestParameters = { email, role, workspaces }
 
         return this.client.post('/users/actions/invite', requestParameters)
