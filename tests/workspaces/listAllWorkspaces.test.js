@@ -8,7 +8,7 @@ test('should list all workspaces', async () => {
         workspaces.push(workspace)
     }
 
-    expect(workspaces.map(workspace => workspace.id)).toEqual([ws3.id, ws2.id, ws1.id, user.primaryWorkspace.id])
+    expect(workspaces.map(workspace => workspace.id)).toEqual([ws3.id, ws2.id, ws1.id, user.mainWorkspace.id])
 })
 
 test('should filter all workspaces', async () => {
