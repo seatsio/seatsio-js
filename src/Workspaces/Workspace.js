@@ -8,6 +8,7 @@ class Workspace {
         this.name = workspace.name
         this.primaryUser = workspace.primaryUser
         this.settings = workspace.settings
+        this.isMain = workspace.isMain
     }
 }
 
