@@ -20,7 +20,6 @@ class Users {
         const requestParameters = { email, role, workspaces }
 
         return this.client.post('/users/actions/invite', requestParameters)
-            .then((res) => new User(res.data))
     }
 
     /**
