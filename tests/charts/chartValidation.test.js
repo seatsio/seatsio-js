@@ -32,9 +32,7 @@ test('should validate published version of a chart with different validation set
     expect(validationRes.warnings).toContain('VALIDATE_FOCAL_POINT')
     expect(validationRes.warnings).toContain('VALIDATE_DUPLICATE_LABELS')
     expect(validationRes.warnings).not.toContain('VALIDATE_OBJECT_TYPES_PER_CATEGORY')
-    expect(validationRes.errors).toContain('VALIDATE_UNLABELED_OBJECTS')
-    expect(validationRes.errors).toContain('VALIDATE_OBJECTS_WITHOUT_CATEGORIES')
-    expect(validationRes.errors).not.toContain('VALIDATE_OBJECT_TYPES_PER_CATEGORY')
+    expect(validationRes.errors).toEqual([])
 })
 
 test('should validate draft version of a chart', async () => {
