@@ -8,4 +8,5 @@ test('should retrieve a workspace', async () => {
     expect(retrievedWorkspace.primaryUser).toEqual(workspace.primaryUser)
     expect(retrievedWorkspace.settings).toEqual(workspace.settings)
     expect(retrievedWorkspace.name).toBe('a workspace')
+    expect(retrievedWorkspace.isMain).toBe(false)
 })
