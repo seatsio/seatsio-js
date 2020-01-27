@@ -175,6 +175,16 @@ class Charts {
 
     /**
      * @param {string} key
+     * @params {string} workspaceKey
+     * @returns {Promise<Chart>} Promise that resolves to a Chart object
+     */
+    copyToWorkspace (key, workspaceKey) {
+        return this.client.post(`charts/${key}/version/published/actions/copy-to-workspace/${workspaceKey}`)
+            .then((res) => new Chart(res.data))
+    }
+
+    /**
+     * @param {string} key
      * @returns {Promise} Promise that resolves to an SVG doc
      */
     retrievePublishedVersionThumbnail (key) {
