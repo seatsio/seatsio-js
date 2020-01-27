@@ -1,7 +1,7 @@
 test('should list workspaces in first page', async () => {
-    await client.workspaces.create('')
-    const ws2 = await client.workspaces.create('')
-    const ws3 = await client.workspaces.create('')
+    await client.workspaces.create('w1')
+    const ws2 = await client.workspaces.create('w2')
+    const ws3 = await client.workspaces.create('w3')
 
     const page = await client.workspaces.listFirstPage(null, 2)
 
@@ -9,9 +9,9 @@ test('should list workspaces in first page', async () => {
 })
 
 test('should filter workspaces in first page', async () => {
-    const ws1 = await client.workspaces.create('foo')
+    const ws1 = await client.workspaces.create('foo1')
     await client.workspaces.create('bar')
-    const ws3 = await client.workspaces.create('foo')
+    const ws3 = await client.workspaces.create('foo2')
 
     const page = await client.workspaces.listFirstPage('fo', 2)
 

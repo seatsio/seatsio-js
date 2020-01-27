@@ -13,7 +13,7 @@ test('invite users', async () => {
 test('invite non admin users', async () => {
     const email = testUtils.getRandomEmail()
     const workspace = await client.workspaces.create('a workspace')
-    const workspace2 = await client.workspaces.create('a workspace')
+    const workspace2 = await client.workspaces.create('another workspace')
 
     await client.users.invite(email, 'NON_ADMIN', [workspace.key, workspace2.key])
 
