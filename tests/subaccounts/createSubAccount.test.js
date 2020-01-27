@@ -11,10 +11,10 @@ test('should create subaccount', async () => {
     expect(subaccount.active).toBe(true)
 })
 
-test('name is optional in subaccount create', async () => {
+test('name is generated in subaccount create', async () => {
     let subaccount = await client.subaccounts.create()
 
-    expect(subaccount.name).toBeFalsy()
+    expect(subaccount.name).toBeTruthy()
 })
 
 test('subaccount create with email parameter', async () => {
@@ -26,7 +26,7 @@ test('subaccount create with email parameter', async () => {
     expect(subaccount.designerKey).toBeTruthy()
     expect(subaccount.publicKey).toBeTruthy()
     expect(subaccount.email).toBeTruthy()
-    expect(subaccount.name).toBeFalsy()
+    expect(subaccount.name).toBeTruthy()
     expect(subaccount.email).toBe(randomEmail)
 })
 

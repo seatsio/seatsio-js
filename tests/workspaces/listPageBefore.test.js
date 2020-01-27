@@ -1,7 +1,7 @@
 test('should list workspaces before an id', async () => {
-    const ws1 = await client.workspaces.create('')
-    const ws2 = await client.workspaces.create('')
-    const ws3 = await client.workspaces.create('')
+    const ws1 = await client.workspaces.create('foo1')
+    const ws2 = await client.workspaces.create('foo2')
+    const ws3 = await client.workspaces.create('foo3')
 
     const page = await client.workspaces.listPageBefore(ws1.id, null, 2)
 
@@ -9,10 +9,10 @@ test('should list workspaces before an id', async () => {
 })
 
 test('should filter workspaces before an id', async () => {
-    const ws1 = await client.workspaces.create('foo')
+    const ws1 = await client.workspaces.create('foo1')
     await client.workspaces.create('bar')
-    const ws3 = await client.workspaces.create('foo')
-    const ws4 = await client.workspaces.create('foo')
+    const ws3 = await client.workspaces.create('foo2')
+    const ws4 = await client.workspaces.create('foo3')
 
     const page = await client.workspaces.listPageBefore(ws1.id, 'fo', 2)
 
