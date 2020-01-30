@@ -6,7 +6,6 @@ test('should create subaccount', async () => {
     expect(subaccount.secretKey).toBeTruthy()
     expect(subaccount.designerKey).toBeTruthy()
     expect(subaccount.publicKey).toBeTruthy()
-    expect(subaccount.email).toBeTruthy()
     expect(subaccount.name).toBe('subaccountTest')
     expect(subaccount.active).toBe(true)
 })
