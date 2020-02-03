@@ -36,15 +36,6 @@ class Subaccounts {
     }
 
     /**
-     * @param {string} email
-     * @param {?string} name
-     * @returns {Promise<Subaccount>} Promise object that will resolve to a Subaccount object
-     */
-    createWithEmail (email, name = null) {
-        return this.doCreate(email, name)
-    }
-
-    /**
      * @param {?string} email
      * @param {?string} name
      * @returns {Promise<Subaccount>} Promise object that will resolve to a Subaccount object
