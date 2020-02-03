@@ -8,7 +8,7 @@ test('should update subaccount', async () => {
 
     let retrievedSubaccount = await client.subaccounts.retrieve(subaccount.id)
     expect(retrievedSubaccount.name).toBe('jefke')
-    expect(retrievedSubaccount.email).toBe(email)
+    expect(retrievedSubaccount.email).toBe(undefined)
 })
 
 test('email is optional', async () => {
@@ -19,7 +19,7 @@ test('email is optional', async () => {
 
     let retrievedSubaccount = await client.subaccounts.retrieve(subaccount.id)
     expect(retrievedSubaccount.name).toBe('jefke')
-    expect(retrievedSubaccount.email).toBe(email)
+    expect(retrievedSubaccount.email).toBe(undefined)
 })
 
 test('name is not changed when updating with name=null', async () => {
@@ -30,5 +30,5 @@ test('name is not changed when updating with name=null', async () => {
 
     let retrievedSubaccount = await client.subaccounts.retrieve(subaccount.id)
     expect(retrievedSubaccount.name).toBe('joske')
-    expect(retrievedSubaccount.email).toBe(email)
+    expect(retrievedSubaccount.email).toBe(undefined)
 })
