@@ -8,7 +8,6 @@ class Subaccount {
         this.designerKey = subaccount.designerKey
         this.publicKey = subaccount.publicKey
         this.name = subaccount.name
-        this.email = subaccount.email
         this.active = subaccount.active
         this.workspace = subaccount.workspace
     }
