@@ -9,5 +9,6 @@ test('listAll subaccounts when there are more than 20 subaccounts', async () => 
         retrievedSubaccountIds.push(subaccount.id)
     }
 
-    expect(retrievedSubaccountIds.sort()).toEqual(subaccounts.map(s => s.id).sort())
+    let subaccountIDs = subaccounts.map(s => s.id).concat(user.mainWorkspace.primaryUser.id)
+    expect(retrievedSubaccountIds.sort()).toEqual(subaccountIDs.sort())
 })
