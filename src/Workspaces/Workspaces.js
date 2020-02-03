@@ -12,10 +12,11 @@ class Workspaces {
 
     /**
      * @param {string} name
+     * @param {boolean} isTest
      * @returns {Promise<Workspace>} Promise object that will resolve to a Workspace object
      */
-    create (name) {
-        const requestParameters = { name }
+    create (name, isTest = false) {
+        const requestParameters = { name, isTest }
 
         return this.client.post('/workspaces', requestParameters)
             .then((res) => new Workspace(res.data))
