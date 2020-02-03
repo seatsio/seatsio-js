@@ -9,11 +9,10 @@ test('should update subaccount', async () => {
     expect(retrievedSubaccount.name).toBe('jefke')
 })
 
-test('name is not changed when updating with name=null, email is ignored', async () => {
-    let email = testUtils.getRandomEmail()
+test('name is not changed when updating with name=null', async () => {
     let subaccount = await client.subaccounts.create('joske')
 
-    await client.subaccounts.update(subaccount.id, null, email)
+    await client.subaccounts.update(subaccount.id, null)
 
     let retrievedSubaccount = await client.subaccounts.retrieve(subaccount.id)
     expect(retrievedSubaccount.name).toBe('joske')
