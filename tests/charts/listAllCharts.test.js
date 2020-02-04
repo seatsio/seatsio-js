@@ -60,10 +60,13 @@ test('listAll Charts with tag and filter parameters', async () => {
     let chart1 = await client.charts.create('bar')
     let chart2 = await client.charts.create()
     let chart3 = await client.charts.create('bar')
-    await client.charts.create('bar')
-    await client.charts.addTag(chart1.key, 'foo')
-    await client.charts.addTag(chart2.key, 'foo')
-    await client.charts.addTag(chart3.key, 'foo')
+    let promises = [
+        client.charts.create('bar'),
+        client.charts.addTag(chart1.key, 'foo'),
+        client.charts.addTag(chart2.key, 'foo'),
+        client.charts.addTag(chart3.key, 'foo')
+    ]
+    await Promise.all(promises)
     let retrievedKeys = []
     let params = new ChartListParams().withFilter('bar').withTag('foo')
 
@@ -77,11 +80,14 @@ test('listAll Charts with tag and filter parameters', async () => {
 test('listAll Charts with expandEvents parameters', async () => {
     let chart1 = await client.charts.create()
     let chart2 = await client.charts.create()
-    let event1 = await client.events.create(chart1.key)
-    let event2 = await client.events.create(chart1.key)
-    let event3 = await client.events.create(chart2.key)
-    let event4 = await client.events.create(chart2.key)
-    let generatedEventKeys = [event1.key, event2.key, event3.key, event4.key]
+    let promises = [
+        client.events.create(chart1.key),
+        client.events.create(chart1.key),
+        client.events.create(chart2.key),
+        client.events.create(chart2.key)
+    ]
+    let events = await Promise.all(promises)
+    let generatedEventKeys = [events[0].key, events[1].key, events[2].key, events[3].key]
     let retrievedKeys = []
     let params = new ChartListParams().withExpandEvents(true)
 
