@@ -4,8 +4,11 @@ test('should filter subaccounts ', async () => {
     let retrievedSubaccountKeys = []
 
     let subaccount1 = await client.subaccounts.create('account1')
-    await client.subaccounts.create('account2')
-    await client.subaccounts.create('account3')
+    let promises = [
+        client.subaccounts.create('account2'),
+        client.subaccounts.create('account3')
+    ]
+    await Promise.all(promises)
 
     for await (let subaccount of client.subaccounts.listAll('account1')) {
         retrievedSubaccountKeys.push(subaccount.secretKey)
@@ -53,11 +56,14 @@ test('should retrieve page after given subaccount id with filter', async () => {
     let subaccount1 = await client.subaccounts.create('test-/@/11')
     let subaccount2 = await client.subaccounts.create('test-/@/12')
     let subaccount3 = await client.subaccounts.create('test-/@/33')
-    await client.subaccounts.create('test-/@/4')
-    await client.subaccounts.create('test-/@/5')
-    await client.subaccounts.create('test-/@/6')
-    await client.subaccounts.create('test-/@/7')
-    await client.subaccounts.create('test-/@/8')
+    let promises = [
+        client.subaccounts.create('test-/@/4'),
+        client.subaccounts.create('test-/@/5'),
+        client.subaccounts.create('test-/@/6'),
+        client.subaccounts.create('test-/@/7'),
+        client.subaccounts.create('test-/@/8')
+    ]
+    await Promise.all(promises)
 
     let page = await client.subaccounts.listPageAfter(subaccount3.id, 'test-/@/1')
     let retrievedSubaccountKeys = page.items.map(subaccount => subaccount.secretKey)
@@ -71,11 +77,14 @@ test('should should retrieve page before given subaccount id with filter', async
     let subaccount1 = await client.subaccounts.create('test-/@/11')
     let subaccount2 = await client.subaccounts.create('test-/@/12')
     let subaccount3 = await client.subaccounts.create('test-/@/13')
-    await client.subaccounts.create('test-/@/4')
-    await client.subaccounts.create('test-/@/5')
-    await client.subaccounts.create('test-/@/6')
-    await client.subaccounts.create('test-/@/7')
-    await client.subaccounts.create('test-/@/8')
+    let promises = [
+        client.subaccounts.create('test-/@/4'),
+        client.subaccounts.create('test-/@/5'),
+        client.subaccounts.create('test-/@/6'),
+        client.subaccounts.create('test-/@/7'),
+        client.subaccounts.create('test-/@/8')
+    ]
+    await Promise.all(promises)
 
     let page = await client.subaccounts.listPageBefore(subaccount1.id, 'test-/@/1')
     let retrievedSubaccountKeys = page.items.map(subaccount => subaccount.secretKey)
