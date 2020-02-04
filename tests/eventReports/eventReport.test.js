@@ -63,9 +63,12 @@ test('report with object status', async () => {
     let objectStatus = new ObjectStatus()
     await testUtils.createTestChart(chartKey, user.secretKey)
     let event = await client.events.create(chartKey)
-    await client.events.changeObjectStatus(event.key, 'A-1', 'lolzor')
-    await client.events.changeObjectStatus(event.key, 'A-2', 'lolzor')
-    await client.events.changeObjectStatus(event.key, 'A-3', objectStatus.BOOKED)
+    let promises = [
+        client.events.changeObjectStatus(event.key, 'A-1', 'lolzor'),
+        client.events.changeObjectStatus(event.key, 'A-2', 'lolzor'),
+        client.events.changeObjectStatus(event.key, 'A-3', objectStatus.BOOKED)
+    ]
+    await Promise.all(promises)
 
     let report = await client.eventReports.byStatus(event.key)
 
@@ -79,9 +82,12 @@ test('report with specific object status', async () => {
     let objectStatus = new ObjectStatus()
     await testUtils.createTestChart(chartKey, user.secretKey)
     let event = await client.events.create(chartKey)
-    await client.events.changeObjectStatus(event.key, 'A-1', 'lolzor')
-    await client.events.changeObjectStatus(event.key, 'A-2', 'lolzor')
-    await client.events.changeObjectStatus(event.key, 'A-3', objectStatus.BOOKED)
+    let promises = [
+        client.events.changeObjectStatus(event.key, 'A-1', 'lolzor'),
+        client.events.changeObjectStatus(event.key, 'A-2', 'lolzor'),
+        client.events.changeObjectStatus(event.key, 'A-3', objectStatus.BOOKED)
+    ]
+    await Promise.all(promises)
 
     let report = await client.eventReports.byStatus(event.key, 'lolzor')
 
@@ -155,9 +161,12 @@ test('report with orderId', async () => {
     let chartKey = testUtils.getChartKey()
     await testUtils.createTestChart(chartKey, user.secretKey)
     let event = await client.events.create(chartKey)
-    await client.events.book(event.key, 'A-1', null, 'order1')
-    await client.events.book(event.key, 'A-2', null, 'order1')
-    await client.events.book(event.key, 'A-3', null, 'order2')
+    let promises = [
+        client.events.book(event.key, 'A-1', null, 'order1'),
+        client.events.book(event.key, 'A-2', null, 'order1'),
+        client.events.book(event.key, 'A-3', null, 'order2')
+    ]
+    await Promise.all(promises)
 
     let report = await client.eventReports.byOrderId(event.key)
 
@@ -170,9 +179,12 @@ test('report with specific orderId', async () => {
     let chartKey = testUtils.getChartKey()
     await testUtils.createTestChart(chartKey, user.secretKey)
     let event = await client.events.create(chartKey)
-    await client.events.book(event.key, 'A-1', null, 'order1')
-    await client.events.book(event.key, 'A-2', null, 'order1')
-    await client.events.book(event.key, 'A-3', null, 'order2')
+    let promises = [
+        client.events.book(event.key, 'A-1', null, 'order1'),
+        client.events.book(event.key, 'A-2', null, 'order1'),
+        client.events.book(event.key, 'A-3', null, 'order2')
+    ]
+    await Promise.all(promises)
 
     let report = await client.eventReports.byOrderId(event.key, 'order1')
 
@@ -183,9 +195,12 @@ test('report with section', async () => {
     let chartKey = testUtils.getChartKey()
     await testUtils.createTestChart(chartKey, user.secretKey)
     let event = await client.events.create(chartKey)
-    await client.events.book(event.key, 'A-1', null, 'order1')
-    await client.events.book(event.key, 'A-2', null, 'order1')
-    await client.events.book(event.key, 'A-3', null, 'order2')
+    let promises = [
+        client.events.book(event.key, 'A-1', null, 'order1'),
+        client.events.book(event.key, 'A-2', null, 'order1'),
+        client.events.book(event.key, 'A-3', null, 'order2')
+    ]
+    await Promise.all(promises)
 
     let report = await client.eventReports.bySection(event.key)
 
@@ -196,9 +211,12 @@ test('report with specific section', async () => {
     let chartKey = testUtils.getChartKey()
     await testUtils.createTestChart(chartKey, user.secretKey)
     let event = await client.events.create(chartKey)
-    await client.events.book(event.key, 'A-1', null, 'order1')
-    await client.events.book(event.key, 'A-2', null, 'order1')
-    await client.events.book(event.key, 'A-3', null, 'order2')
+    let promises = [
+        client.events.book(event.key, 'A-1', null, 'order1'),
+        client.events.book(event.key, 'A-2', null, 'order1'),
+        client.events.book(event.key, 'A-3', null, 'order2')
+    ]
+    await Promise.all(promises)
 
     let report = await client.eventReports.bySection(event.key, 'NO_SECTION')
 
