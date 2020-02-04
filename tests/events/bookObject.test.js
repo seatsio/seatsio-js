@@ -9,10 +9,13 @@ test('should book an object', async () => {
 
     let bookRes = await client.events.book(event.key, ['A-1', 'A-2'])
 
-    let retrievedObjStatus1 = await client.events.retrieveObjectStatus(event.key, 'A-1')
-    let retrievedObjStatus2 = await client.events.retrieveObjectStatus(event.key, 'A-2')
-    expect(retrievedObjStatus1.status).toEqual(objectStatus.BOOKED)
-    expect(retrievedObjStatus2.status).toEqual(objectStatus.BOOKED)
+    let promises = [
+        client.events.retrieveObjectStatus(event.key, 'A-1'),
+        client.events.retrieveObjectStatus(event.key, 'A-2')
+    ]
+    let retrievedObjectStatuses = await Promise.all(promises)
+    expect(retrievedObjectStatuses[0].status).toEqual(objectStatus.BOOKED)
+    expect(retrievedObjectStatuses[1].status).toEqual(objectStatus.BOOKED)
     expect(Object.keys(bookRes.objects)).toEqual(['A-1', 'A-2'])
 })
 
@@ -37,10 +40,13 @@ test('should book an object with sections', async () => {
 
     let bookRes = await client.events.book(event.key, ['Section A-A-1', 'Section A-A-2'])
 
-    let retrievedObjStatus1 = await client.events.retrieveObjectStatus(event.key, 'Section A-A-1')
-    let retrievedObjStatus2 = await client.events.retrieveObjectStatus(event.key, 'Section A-A-2')
-    expect(retrievedObjStatus1.status).toEqual(objectStatus.BOOKED)
-    expect(retrievedObjStatus2.status).toEqual(objectStatus.BOOKED)
+    let promises = [
+        client.events.retrieveObjectStatus(event.key, 'Section A-A-1'),
+        client.events.retrieveObjectStatus(event.key, 'Section A-A-2')
+    ]
+    let retrievedObjectStatuses = await Promise.all(promises)
+    expect(retrievedObjectStatuses[0].status).toEqual(objectStatus.BOOKED)
+    expect(retrievedObjectStatuses[1].status).toEqual(objectStatus.BOOKED)
     expect(bookRes.objects['Section A-A-1'].entrance).toBe('Entrance 1')
     expect(bookRes.objects['Section A-A-1'].section).toBe('Section A')
     expect(bookRes.objects['Section A-A-1'].labels).toEqual(testUtils.someLabels('1', 'seat', 'A', 'row', 'Section A'))
