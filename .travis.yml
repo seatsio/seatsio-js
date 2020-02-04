@@ -19,6 +19,6 @@ deploy:
     api_key:
         secure: "SPWZynAXE52xkVIRpKbqq28PGcGGM3xMxM3v9r6uhIL89Bwg4bUFDkhfrCUW+Qsk4NNVmpiuO5OXrwDCgZ4rzhqnzyflYbeeQ7WbVh10UizYxDrEMRDEB+v70tE7TydR7QdRyv5uQuvOGuYSnCUfvEN76aqx0FnzpjHDXvt07+ghjm6JE0nMZqigSi4Ge9hISXytH401QD97i+Y67M28v5f/mzjaxTFmNe86y5AoLqin0LMnVqAbGcTKpM9rJW1TSakmEfdpVX7L2KtcxxvytMduOpcnWnaRtQOrTcxz3WpRf1vAXpRM+QXegwR/inhDAreWmtlsMHX3w6QtTm+Vx1yEOjcFTGBKc1lBIReoLyybNuRBTo4rGKGI0u9GwPIADmXYXvTQAIt/+Ypz3c38YBdG69p4Q0oKh9NIhfFgmCrYX4UCYZenVtmbe4UjJfM9+yt0/EeHROGo3oOJD5ePr69bUJlHv6XesUjNjOzzaTsoyb7N2sEIe5kGJVUMRo+d7265yUKblsPVs28gtj1K+lyIzTY2It13nm5BUKb0bfF0a6Gxrj+ox5jOHpA3iQMvBUkEbWuNnebbwrya29y2+E4hejK1ukpZ4zO860p1oYB9JW7c6NXg+rpAUT5CFJHzMDCxBJoqny74joJeyCfqFK+aMIwf0pc0l8czAz8w5Z4="
     file: build/SeatsioClient.js
-    skip_cleanup: true
     on:
         tags: true
+  edge: true
