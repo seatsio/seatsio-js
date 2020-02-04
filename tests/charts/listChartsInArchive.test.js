@@ -16,7 +16,7 @@ test('should list all charts in archive', async () => {
 })
 
 test('get archived charts (above 100 limit)', async () => {
-    let chartPromises = testUtils.createArray(120, async () => {
+    let chartPromises = testUtils.createArray(101, async () => {
         let chart = await client.charts.create()
         await client.charts.moveToArchive(chart.key)
         return chart

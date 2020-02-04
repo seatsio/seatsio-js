@@ -13,15 +13,15 @@ test('should list events in first page', async () => {
 
 test('should list events in first page with page size', async () => {
     let chart = await client.charts.create()
-    let eventPromises = testUtils.createArray(17, () => client.events.create(chart.key))
+    let eventPromises = testUtils.createArray(10, () => client.events.create(chart.key))
     await Promise.all(eventPromises)
-    let event18 = await client.events.create(chart.key)
-    let event19 = await client.events.create(chart.key)
-    let event20 = await client.events.create(chart.key)
+    let event11 = await client.events.create(chart.key)
+    let event12 = await client.events.create(chart.key)
+    let event13 = await client.events.create(chart.key)
 
     let page = await client.events.listFirstPage(3)
 
     let retrievedEventKeys = page.items.map((event) => event.key)
     expect(retrievedEventKeys.length).toBe(3)
-    expect(retrievedEventKeys).toEqual([event20.key, event19.key, event18.key])
+    expect(retrievedEventKeys).toEqual([event13.key, event12.key, event11.key])
 })

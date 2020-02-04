@@ -16,11 +16,11 @@ test('should filter subaccounts ', async () => {
 
 test('should filter subaccounts with special characters', async () => {
     let i = 0
-    let subaccountPromises = testUtils.createArray(55, () => client.subaccounts.create('test-/@/' + i++))
+    let subaccountPromises = testUtils.createArray(21, () => client.subaccounts.create('test-/@/' + i++))
     await Promise.all(subaccountPromises)
 
     let retrievedSubaccountKeys = []
-    for await (let subaccount of client.subaccounts.listAll('test-/@/4')) {
+    for await (let subaccount of client.subaccounts.listAll('test-/@/1')) {
         retrievedSubaccountKeys.push(subaccount.secretKey)
     }
 
