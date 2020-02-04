@@ -9,7 +9,6 @@ script:
   - npm run test
   - npm run bundle
 deploy:
-  edge: true
   - provider: npm
     email: namfaldev@gmail.com
     api_key:
@@ -22,3 +21,4 @@ deploy:
     file: build/SeatsioClient.js
     on:
         tags: true
+  edge: true
