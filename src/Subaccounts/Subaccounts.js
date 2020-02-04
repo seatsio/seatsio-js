@@ -32,32 +32,10 @@ class Subaccounts {
      * @returns {Promise<Subaccount>} Promise object that will resolve to a Subaccount object
      */
     create (name = null) {
-        return this.doCreate(null, name)
-    }
-
-    /**
-     * @param {string} email
-     * @param {?string} name
-     * @returns {Promise<Subaccount>} Promise object that will resolve to a Subaccount object
-     */
-    createWithEmail (email, name = null) {
-        return this.doCreate(email, name)
-    }
-
-    /**
-     * @param {?string} email
-     * @param {?string} name
-     * @returns {Promise<Subaccount>} Promise object that will resolve to a Subaccount object
-     */
-    doCreate (email = null, name = null) {
         const requestParameters = {}
 
         if (name !== null) {
             requestParameters.name = name
-        }
-
-        if (email !== null) {
-            requestParameters.email = email
         }
 
         return this.client.post('/subaccounts', requestParameters)
@@ -67,18 +45,13 @@ class Subaccounts {
     /**
      * @param {string} id
      * @param {?string} name
-     * @param {?string} email
      * @returns {Promise}
      */
-    update (id, name = null, email = null) {
+    update (id, name = null) {
         const requestParameters = {}
 
         if (name !== null) {
             requestParameters.name = name
-        }
-
-        if (email !== null) {
-            requestParameters.email = email
         }
 
         return this.client.post(`/subaccounts/${id}`, requestParameters)

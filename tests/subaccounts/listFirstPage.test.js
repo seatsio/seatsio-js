@@ -7,7 +7,8 @@ test('should list subaccounts in first page', async () => {
     let page = await client.subaccounts.listFirstPage()
 
     let retrievedSubaccountIds = page.items.map((subaccount) => subaccount.id)
-    expect(retrievedSubaccountIds.sort()).toEqual(subaccounts.map(s => s.id).sort())
+    let subaccountIds = subaccounts.map(s => s.id).concat(user.mainWorkspace.primaryUser.id)
+    expect(retrievedSubaccountIds.sort()).toEqual(subaccountIds.sort())
 })
 
 test('should list subaccounts in first page with page size', async () => {
