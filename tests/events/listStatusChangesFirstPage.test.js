@@ -9,21 +9,28 @@ describe('statusChanges firstPage', () => {
 
         let chartKey = testUtils.getChartKey()
         await testUtils.createTestChart(chartKey, testUser.secretKey)
-        global.eventWithOrderedBookings = await testClient.events.create(chartKey)
-        await testClient.events.book(eventWithOrderedBookings.key, 'A-1')
-        await testClient.events.book(eventWithOrderedBookings.key, 'A-2')
-        await testClient.events.book(eventWithOrderedBookings.key, 'A-3')
 
-        global.eventWithHoldToken = await testClient.events.create(chartKey)
+        global.event_1 = await testClient.events.create(chartKey)
+        await testClient.events.book(event_1.key, 'A-1')
+        await testClient.events.book(event_1.key, 'A-2')
+        await testClient.events.book(event_1.key, 'A-3')
+
+        global.event_2 = await testClient.events.create(chartKey)
         let holdToken = await testClient.holdTokens.create()
-        await testClient.events.book(eventWithHoldToken.key, 'A-1')
-        await testClient.events.hold(eventWithHoldToken.key, 'A-2', holdToken.holdToken)
-        await testClient.events.release(eventWithHoldToken.key, 'A-2', holdToken.holdToken)
-        await testClient.events.book(eventWithHoldToken.key, 'A-3')
+        await testClient.events.book(event_2.key, 'A-1')
+        await testClient.events.hold(event_2.key, 'A-2', holdToken.holdToken)
+        await testClient.events.release(event_2.key, 'A-2', holdToken.holdToken)
+        await testClient.events.book(event_2.key, 'A-3')
+
+        global.event_3 = await testClient.events.create(chartKey)
+        await testClient.events.book(event_3.key, 'A-1')
+        await testClient.events.book(event_3.key, 'A-2')
+        await testClient.events.book(event_3.key, 'A-3')
+        await testClient.events.book(event_3.key, 'B-1')
     })
 
     test('should list status changes in the first page', async () => {
-        let firstPage = await testClient.events.statusChanges(eventWithOrderedBookings.key).firstPage()
+        let firstPage = await testClient.events.statusChanges(event_1.key).firstPage()
 
         let labels = [
             firstPage.items[0].objectLabel,
@@ -78,7 +85,7 @@ describe('statusChanges firstPage', () => {
 
     test('should list status changes in the first page sorted by ascending', async () => {
         let params = new StatusChangesParams().sortAscending()
-        let firstPage = await testClient.events.statusChanges(eventWithOrderedBookings.key).firstPage(params)
+        let firstPage = await testClient.events.statusChanges(event_1.key).firstPage(params)
 
         let labels = [
             firstPage.items[0].objectLabel,
@@ -93,7 +100,7 @@ describe('statusChanges firstPage', () => {
 
     test('should list status changes in the first page sorted by label', async () => {
         let params = new StatusChangesParams().sortByObjectLabel()
-        let firstPage = await testClient.events.statusChanges(eventWithOrderedBookings.key).firstPage(params)
+        let firstPage = await testClient.events.statusChanges(event_1.key).firstPage(params)
 
         let labels = [
             firstPage.items[0].objectLabel,
@@ -108,7 +115,7 @@ describe('statusChanges firstPage', () => {
 
     test('should list status changes in the first page sorted by label descending', async () => {
         let params = new StatusChangesParams().sortByObjectLabel().sortDescending()
-        let firstPage = await testClient.events.statusChanges(eventWithOrderedBookings.key).firstPage(params)
+        let firstPage = await testClient.events.statusChanges(event_1.key).firstPage(params)
 
         let labels = [
             firstPage.items[0].objectLabel,
@@ -124,7 +131,7 @@ describe('statusChanges firstPage', () => {
     test('should list status changes in the first page sorted by label with page size', async () => {
         let params = new StatusChangesParams().sortByObjectLabel()
 
-        let firstPage = await testClient.events.statusChanges(eventWithOrderedBookings.key).firstPage(params, 1)
+        let firstPage = await testClient.events.statusChanges(event_1.key).firstPage(params, 1)
 
         expect(firstPage.items[0].objectLabel).toEqual('A-1')
         expect(firstPage.items.length).toBe(1)
@@ -134,7 +141,7 @@ describe('statusChanges firstPage', () => {
 
     test('should list status changes in the first page sorted by status', async () => {
         let params = new StatusChangesParams().sortByStatus()
-        let firstPage = await testClient.events.statusChanges(eventWithHoldToken.key).firstPage(params)
+        let firstPage = await testClient.events.statusChanges(event_2.key).firstPage(params)
 
         let labels = [
             firstPage.items[0].objectLabel,
@@ -154,7 +161,7 @@ describe('statusChanges firstPage', () => {
 
     test('should list status changes in the first page sorted by status descending', async () => {
         let params = new StatusChangesParams().sortByStatus().sortDescending()
-        let firstPage = await testClient.events.statusChanges(eventWithHoldToken.key).firstPage(params)
+        let firstPage = await testClient.events.statusChanges(event_2.key).firstPage(params)
 
         let labels = [
             firstPage.items[0].objectLabel,
@@ -174,7 +181,7 @@ describe('statusChanges firstPage', () => {
 
     test('should list status changes in the first page sorted by status with page size', async () => {
         let params = new StatusChangesParams().sortByStatus()
-        let firstPage = await testClient.events.statusChanges(eventWithHoldToken.key).firstPage(params, 2)
+        let firstPage = await testClient.events.statusChanges(event_2.key).firstPage(params, 2)
 
         let labels = [
             firstPage.items[0].objectLabel,
@@ -190,7 +197,7 @@ describe('statusChanges firstPage', () => {
 
     test('should list status changes in the first page sorted by date ascending', async () => {
         let params = new StatusChangesParams().sortAscending()
-        let firstPage = await testClient.events.statusChanges(eventWithHoldToken.key).firstPage(params)
+        let firstPage = await testClient.events.statusChanges(event_2.key).firstPage(params)
 
         let labels = [
             firstPage.items[0].objectLabel,
@@ -206,7 +213,7 @@ describe('statusChanges firstPage', () => {
 
     test('should list status changes in the first page sorted by date ascending with page size', async () => {
         let params = new StatusChangesParams().sortAscending()
-        let firstPage = await testClient.events.statusChanges(eventWithHoldToken.key).firstPage(params, 2)
+        let firstPage = await testClient.events.statusChanges(event_2.key).firstPage(params, 2)
 
         let labels = [
             firstPage.items[0].objectLabel,
@@ -220,7 +227,7 @@ describe('statusChanges firstPage', () => {
 
     test('should list status changes in the first page with filter', async () => {
         let params = new StatusChangesParams().withFilter('2')
-        let firstPage = await testClient.events.statusChanges(eventWithHoldToken.key).firstPage(params)
+        let firstPage = await testClient.events.statusChanges(event_2.key).firstPage(params)
 
         let labels = [
             firstPage.items[0].objectLabel,
@@ -234,7 +241,7 @@ describe('statusChanges firstPage', () => {
 
     test('should list status changes in the first page with filter and page size', async () => {
         let params = new StatusChangesParams().withFilter('A')
-        let firstPage = await testClient.events.statusChanges(eventWithOrderedBookings.key).firstPage(params, 1)
+        let firstPage = await testClient.events.statusChanges(event_1.key).firstPage(params, 1)
 
         let labels = [
             firstPage.items[0].objectLabel
@@ -337,10 +344,8 @@ describe('statusChanges firstPage', () => {
     })
 
     test('list status changes based on latest parameter passed (and filter), chained', async () => {
-        await testClient.events.book(eventWithOrderedBookings.key, 'B-1')
-
         let params = new StatusChangesParams().sortAscending().withFilter('1').sortByObjectLabel()
-        let firstPage = await testClient.events.statusChanges(eventWithOrderedBookings.key).firstPage(params)
+        let firstPage = await testClient.events.statusChanges(event_3.key).firstPage(params)
 
         let labels = [
             firstPage.items[0].objectLabel,
@@ -352,7 +357,7 @@ describe('statusChanges firstPage', () => {
 
     test("that parameter order doesn't matter for filtering and latest sortBy is taken into account", async () => {
         let params = new StatusChangesParams().sortAscending().sortByObjectLabel().withFilter('1')
-        let firstPage = await testClient.events.statusChanges(eventWithOrderedBookings.key).firstPage(params)
+        let firstPage = await testClient.events.statusChanges(event_3.key).firstPage(params)
 
         let labels = [
             firstPage.items[0].objectLabel,
@@ -364,7 +369,7 @@ describe('statusChanges firstPage', () => {
 
     test('that combined sorting parameter still work, sorts based on the latest', async () => {
         let params = new StatusChangesParams().sortByDate().sortDescending().sortByObjectLabel().sortAscending()
-        let firstPage = await testClient.events.statusChanges(eventWithOrderedBookings.key).firstPage(params)
+        let firstPage = await testClient.events.statusChanges(event_3.key).firstPage(params)
 
         let labels = [
             firstPage.items[0].objectLabel,
