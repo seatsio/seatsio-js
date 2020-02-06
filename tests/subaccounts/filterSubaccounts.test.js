@@ -41,15 +41,18 @@ test('should filter with no results ', async () => {
 })
 
 test('should retrieve first page of subaccounts with filter', async () => {
-    let subaccount1 = await client.subaccounts.create('account1')
-    let subaccount2 = await client.subaccounts.create('account2')
-    let subaccount3 = await client.subaccounts.create('account3')
-    await client.subaccounts.create()
+    let promises = [
+        client.subaccounts.create('account1'),
+        client.subaccounts.create('account2'),
+        client.subaccounts.create('account3'),
+        client.subaccounts.create()
+    ]
+    let subaccounts = await Promise.all(promises)
 
     let page = await client.subaccounts.listFirstPage('account')
     let retrievedSubaccountKeys = page.items.map(subaccount => subaccount.secretKey)
 
-    expect(retrievedSubaccountKeys.sort).toEqual([subaccount1.secretKey, subaccount2.secretKey, subaccount3.secretKey].sort)
+    expect(retrievedSubaccountKeys.sort).toEqual([subaccounts[0].secretKey, subaccounts[1].secretKey, subaccounts[2].secretKey].sort)
 })
 
 test('should retrieve page after given subaccount id with filter', async () => {
