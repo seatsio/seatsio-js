@@ -1,7 +1,7 @@
 const testUtils = require('../testUtils.js')
 const StatusChangesParams = require('../../src/Events/StatusChangesParams.js')
 
-describe('statusChanges firsPage', () => {
+describe('statusChanges firstPage', () => {
     beforeAll(async () => {
         jest.setTimeout(35000)
         global.testUser = await testUtils.createTestUser()
