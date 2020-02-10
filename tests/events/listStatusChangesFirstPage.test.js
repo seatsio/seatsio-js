@@ -3,7 +3,7 @@ const StatusChangesParams = require('../../src/Events/StatusChangesParams.js')
 
 describe('statusChanges firstPage', () => {
     beforeAll(async () => {
-        jest.setTimeout(35000)
+        jest.setTimeout(40000)
         global.testUser = await testUtils.createTestUser()
         global.testClient = testUtils.createClient(testUser.secretKey)
 
@@ -59,18 +59,8 @@ describe('statusChanges firstPage', () => {
     })
 
     test('should list status changes in the first page sorted by descending', async () => {
-        let chartKey = testUtils.getChartKey()
-        await testUtils.createTestChart(chartKey, user.secretKey)
-        let event = await client.events.create(chartKey)
-        let promises = [
-            client.events.book(event.key, 'A-2'),
-            client.events.book(event.key, 'A-1'),
-            client.events.book(event.key, 'A-3')
-        ]
-        await Promise.all(promises)
-
         let params = new StatusChangesParams().sortDescending()
-        let firstPage = await client.events.statusChanges(event.key).firstPage(params)
+        let firstPage = await testClient.events.statusChanges(event_1.key).firstPage(params)
 
         let labels = [
             firstPage.items[0].objectLabel,
