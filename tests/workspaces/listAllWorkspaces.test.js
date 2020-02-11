@@ -1,4 +1,7 @@
+const testUtils = require('../testUtils.js')
+
 test('should list all workspaces', async () => {
+    const { client, user } = await testUtils.createTestUserAndClient()
     const ws1 = await client.workspaces.create('w1')
     const ws2 = await client.workspaces.create('w2')
     const ws3 = await client.workspaces.create('w3')
@@ -12,6 +15,7 @@ test('should list all workspaces', async () => {
 })
 
 test('should filter all workspaces', async () => {
+    const { client, user } = await testUtils.createTestUserAndClient()
     const ws1 = await client.workspaces.create('foo1')
     await client.workspaces.create('bar')
     const ws3 = await client.workspaces.create('foo2')

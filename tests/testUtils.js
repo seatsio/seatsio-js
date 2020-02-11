@@ -8,6 +8,12 @@ const path = require('path')
 const baseUrl = 'https://api-staging.seatsio.net/'
 
 module.exports = {
+    createTestUserAndClient: async function () {
+        const user = await this.createTestUser()
+        const client = this.createClient(user.secretKey)
+        return { user, client }
+    },
+
     createTestUser: function () {
         return axios({
             method: 'POST',
@@ -42,14 +48,14 @@ module.exports = {
     },
 
     createTestChartFromFile: function (filePath, chartKey, secretKey) {
-        let requestBody = fs.readFileSync(path.join(__dirname, filePath), 'utf-8')
-        let client = axios.create({
+        const requestBody = fs.readFileSync(path.join(__dirname, filePath), 'utf-8')
+        const client = axios.create({
             auth: {
                 username: secretKey,
                 password: null
             }
         })
-        let url = `${baseUrl}system/public/charts/${chartKey}`
+        const url = `${baseUrl}system/public/charts/${chartKey}`
         return client.post(url, requestBody)
     },
 
@@ -71,7 +77,7 @@ module.exports = {
     },
 
     createArray (length, fn) {
-        let array = []
+        const array = []
 
         for (let i = 0; i < length; ++i) {
             array.push(fn())

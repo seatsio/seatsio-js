@@ -1,6 +1,7 @@
 const testUtils = require('../testUtils')
 
 test('retrieves a single user', async () => {
+    const { client, user } = await testUtils.createTestUserAndClient()
     const retrievedUser = await client.users.retrieve(user.id)
 
     expect(retrievedUser.id).toBe(user.id)

@@ -1,9 +1,12 @@
+const testUtils = require('../testUtils.js')
+
 test('should activate subaccount', async () => {
-    let subaccount = await client.subaccounts.create()
+    const { client, user } = await testUtils.createTestUserAndClient()
+    const subaccount = await client.subaccounts.create()
     await client.subaccounts.deactivate(subaccount.id)
 
     await client.subaccounts.activate(subaccount.id)
 
-    let retrievedSubaccount = await client.subaccounts.retrieve(subaccount.id)
+    const retrievedSubaccount = await client.subaccounts.retrieve(subaccount.id)
     expect(retrievedSubaccount.active).toBe(true)
 })

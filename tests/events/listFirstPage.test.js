@@ -1,25 +1,27 @@
 const testUtils = require('../testUtils.js')
 
 test('should list events in first page', async () => {
-    let chart = await client.charts.create()
-    let events = await testUtils.createArray(20, () => client.events.create(chart.key))
+    const { client, user } = await testUtils.createTestUserAndClient()
+    const chart = await client.charts.create()
+    const events = await testUtils.createArray(20, () => client.events.create(chart.key))
 
-    let page = await client.events.listFirstPage()
+    const page = await client.events.listFirstPage()
 
-    let retrievedEventKeys = page.items.map((event) => event.key)
+    const retrievedEventKeys = page.items.map((event) => event.key)
     expect(retrievedEventKeys.sort()).toEqual(events.map(e => e.key).sort())
 })
 
 test('should list events in first page with page size', async () => {
-    let chart = await client.charts.create()
+    const { client, user } = await testUtils.createTestUserAndClient()
+    const chart = await client.charts.create()
     await testUtils.createArray(17, () => client.events.create(chart.key))
-    let event18 = await client.events.create(chart.key)
-    let event19 = await client.events.create(chart.key)
-    let event20 = await client.events.create(chart.key)
+    const event18 = await client.events.create(chart.key)
+    const event19 = await client.events.create(chart.key)
+    const event20 = await client.events.create(chart.key)
 
-    let page = await client.events.listFirstPage(3)
+    const page = await client.events.listFirstPage(3)
 
-    let retrievedEventKeys = page.items.map((event) => event.key)
+    const retrievedEventKeys = page.items.map((event) => event.key)
     expect(retrievedEventKeys.length).toBe(3)
     expect(retrievedEventKeys).toEqual([event20.key, event19.key, event18.key])
 })

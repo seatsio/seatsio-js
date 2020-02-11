@@ -2,12 +2,13 @@ const testUtils = require('../testUtils.js')
 const ObjectStatus = require('../../src/Events/ObjectStatus.js')
 
 test('should retrieve object status', async () => {
-    let chartKey = testUtils.getChartKey()
-    let ObjStatus = new ObjectStatus()
+    const { client, user } = await testUtils.createTestUserAndClient()
+    const chartKey = testUtils.getChartKey()
+    const ObjStatus = new ObjectStatus()
     await testUtils.createTestChart(chartKey, user.secretKey)
-    let event = await client.events.create(chartKey)
+    const event = await client.events.create(chartKey)
 
-    let retrievedObj = await client.events.retrieveObjectStatus(event.key, 'A-1')
+    const retrievedObj = await client.events.retrieveObjectStatus(event.key, 'A-1')
 
     expect(retrievedObj.status).toEqual(ObjStatus.FREE)
     expect(retrievedObj.ticketType).toBeFalsy()

@@ -1,5 +1,8 @@
+const testUtils = require('../testUtils.js')
+
 test('should retrieve my account', async () => {
-    let myAccount = await client.accounts.retrieveMyAccount()
+    const { client, user } = await testUtils.createTestUserAndClient()
+    const myAccount = await client.accounts.retrieveMyAccount()
 
     expect(myAccount.secretKey).toBeTruthy()
     expect(myAccount.designerKey).toBeTruthy()

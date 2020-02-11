@@ -1,12 +1,13 @@
 const testUtils = require('../testUtils.js')
 
 test('should retrieve event', async () => {
-    let chartKey = testUtils.getChartKey()
+    const { client, user } = await testUtils.createTestUserAndClient()
+    const chartKey = testUtils.getChartKey()
     await testUtils.createTestChart(chartKey, user.secretKey)
-    let now = new Date()
-    let event = await client.events.create(chartKey)
+    const now = new Date()
+    const event = await client.events.create(chartKey)
 
-    let retrievedEvent = await client.events.retrieve(event.key)
+    const retrievedEvent = await client.events.retrieve(event.key)
 
     expect(retrievedEvent.key).toBe(event.key)
     expect(retrievedEvent.id).toBe(event.id)

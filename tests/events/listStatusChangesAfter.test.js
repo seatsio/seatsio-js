@@ -2,17 +2,18 @@ const testUtils = require('../testUtils.js')
 const StatusChangesParams = require('../../src/Events/StatusChangesParams.js')
 
 test('should list status changes after given id ', async () => {
-    let chartKey = testUtils.getChartKey()
+    const { client, user } = await testUtils.createTestUserAndClient()
+    const chartKey = testUtils.getChartKey()
     await testUtils.createTestChart(chartKey, user.secretKey)
-    let event = await client.events.create(chartKey)
+    const event = await client.events.create(chartKey)
     await client.events.book(event.key, 'A-1')
     await client.events.book(event.key, 'A-2')
     await client.events.book(event.key, 'A-3')
-    let firstPage = await client.events.statusChanges(event.key).firstPage()
+    const firstPage = await client.events.statusChanges(event.key).firstPage()
 
-    let pageAfter = await client.events.statusChanges(event.key).pageAfter(firstPage.items[0].id)
+    const pageAfter = await client.events.statusChanges(event.key).pageAfter(firstPage.items[0].id)
 
-    let labels = [
+    const labels = [
         pageAfter.items[0].objectLabel,
         pageAfter.items[1].objectLabel
     ]
@@ -23,15 +24,16 @@ test('should list status changes after given id ', async () => {
 })
 
 test('should list status changes after given id with page size', async () => {
-    let chartKey = testUtils.getChartKey()
+    const { client, user } = await testUtils.createTestUserAndClient()
+    const chartKey = testUtils.getChartKey()
     await testUtils.createTestChart(chartKey, user.secretKey)
-    let event = await client.events.create(chartKey)
+    const event = await client.events.create(chartKey)
     await client.events.book(event.key, 'A-1')
     await client.events.book(event.key, 'A-2')
     await client.events.book(event.key, 'A-3')
-    let firstPage = await client.events.statusChanges(event.key).firstPage()
+    const firstPage = await client.events.statusChanges(event.key).firstPage()
 
-    let pageAfter = await client.events.statusChanges(event.key).pageAfter(firstPage.items[0].id, null, 1)
+    const pageAfter = await client.events.statusChanges(event.key).pageAfter(firstPage.items[0].id, null, 1)
 
     expect(pageAfter.items[0].objectLabel).toEqual('A-2')
     expect(pageAfter.previousPageEndsBefore).toBe(pageAfter.items[0].id + '')
@@ -40,18 +42,19 @@ test('should list status changes after given id with page size', async () => {
 })
 
 test('should list status changes after given id sorted by label', async () => {
-    let chartKey = testUtils.getChartKey()
+    const { client, user } = await testUtils.createTestUserAndClient()
+    const chartKey = testUtils.getChartKey()
     await testUtils.createTestChart(chartKey, user.secretKey)
-    let event = await client.events.create(chartKey)
+    const event = await client.events.create(chartKey)
     await client.events.book(event.key, 'A-1')
     await client.events.book(event.key, 'A-2')
     await client.events.book(event.key, 'A-3')
-    let firstPage = await client.events.statusChanges(event.key).firstPage()
+    const firstPage = await client.events.statusChanges(event.key).firstPage()
 
-    let params = new StatusChangesParams().sortByObjectLabel()
-    let pageAfter = await client.events.statusChanges(event.key).pageAfter(firstPage.items[2].id, params)
+    const params = new StatusChangesParams().sortByObjectLabel()
+    const pageAfter = await client.events.statusChanges(event.key).pageAfter(firstPage.items[2].id, params)
 
-    let labels = [
+    const labels = [
         pageAfter.items[0].objectLabel,
         pageAfter.items[1].objectLabel
     ]
@@ -62,18 +65,19 @@ test('should list status changes after given id sorted by label', async () => {
 })
 
 test('should list status changes after given id sorted by label with page size', async () => {
-    let chartKey = testUtils.getChartKey()
+    const { client, user } = await testUtils.createTestUserAndClient()
+    const chartKey = testUtils.getChartKey()
     await testUtils.createTestChart(chartKey, user.secretKey)
-    let event = await client.events.create(chartKey)
+    const event = await client.events.create(chartKey)
     await client.events.book(event.key, 'A-1')
     await client.events.book(event.key, 'A-2')
     await client.events.book(event.key, 'A-3')
-    let firstPage = await client.events.statusChanges(event.key).firstPage()
+    const firstPage = await client.events.statusChanges(event.key).firstPage()
 
-    let params = new StatusChangesParams().sortByObjectLabel()
-    let pageAfter = await client.events.statusChanges(event.key).pageAfter(firstPage.items[2].id, params, 1)
+    const params = new StatusChangesParams().sortByObjectLabel()
+    const pageAfter = await client.events.statusChanges(event.key).pageAfter(firstPage.items[2].id, params, 1)
 
-    let labels = [
+    const labels = [
         pageAfter.items[0].objectLabel
     ]
     expect(labels).toEqual(['A-2'])
@@ -83,22 +87,23 @@ test('should list status changes after given id sorted by label with page size',
 })
 
 test('should list status changes after given id sorted by status', async () => {
-    let chartKey = testUtils.getChartKey()
+    const { client, user } = await testUtils.createTestUserAndClient()
+    const chartKey = testUtils.getChartKey()
     await testUtils.createTestChart(chartKey, user.secretKey)
-    let event = await client.events.create(chartKey)
-    let holdToken = await client.holdTokens.create()
+    const event = await client.events.create(chartKey)
+    const holdToken = await client.holdTokens.create()
     await client.events.book(event.key, 'A-1')
     await client.events.hold(event.key, 'A-2', holdToken.holdToken)
     await client.events.hold(event.key, 'B-1', holdToken.holdToken)
     await client.events.release(event.key, 'A-2', holdToken.holdToken)
     await client.events.release(event.key, 'B-1', holdToken.holdToken)
     await client.events.book(event.key, 'A-3')
-    let firstPage = await client.events.statusChanges(event.key).firstPage()
+    const firstPage = await client.events.statusChanges(event.key).firstPage()
 
-    let params = new StatusChangesParams().sortByStatus()
-    let pageAfter = await client.events.statusChanges(event.key).pageAfter(firstPage.items[1].id, params)
+    const params = new StatusChangesParams().sortByStatus()
+    const pageAfter = await client.events.statusChanges(event.key).pageAfter(firstPage.items[1].id, params)
 
-    let labels = [
+    const labels = [
         pageAfter.items[0].objectLabel,
         pageAfter.items[1].objectLabel,
         pageAfter.items[2].objectLabel
@@ -110,22 +115,23 @@ test('should list status changes after given id sorted by status', async () => {
 })
 
 test('should list status changes after given id sorted by status with page size', async () => {
-    let chartKey = testUtils.getChartKey()
+    const { client, user } = await testUtils.createTestUserAndClient()
+    const chartKey = testUtils.getChartKey()
     await testUtils.createTestChart(chartKey, user.secretKey)
-    let event = await client.events.create(chartKey)
-    let holdToken = await client.holdTokens.create()
+    const event = await client.events.create(chartKey)
+    const holdToken = await client.holdTokens.create()
     await client.events.book(event.key, 'A-1')
     await client.events.hold(event.key, 'A-2', holdToken.holdToken)
     await client.events.hold(event.key, 'B-1', holdToken.holdToken)
     await client.events.release(event.key, 'A-2', holdToken.holdToken)
     await client.events.release(event.key, 'B-1', holdToken.holdToken)
     await client.events.book(event.key, 'A-3')
-    let firstPage = await client.events.statusChanges(event.key).firstPage()
+    const firstPage = await client.events.statusChanges(event.key).firstPage()
 
-    let params = new StatusChangesParams().sortByStatus()
-    let pageAfter = await client.events.statusChanges(event.key).pageAfter(firstPage.items[1].id, params, 2)
+    const params = new StatusChangesParams().sortByStatus()
+    const pageAfter = await client.events.statusChanges(event.key).pageAfter(firstPage.items[1].id, params, 2)
 
-    let labels = [
+    const labels = [
         pageAfter.items[0].objectLabel,
         pageAfter.items[1].objectLabel
     ]
@@ -136,19 +142,20 @@ test('should list status changes after given id sorted by status with page size'
 })
 
 test('should list status changes after given id sorted by date ascending', async () => {
-    let chartKey = testUtils.getChartKey()
+    const { client, user } = await testUtils.createTestUserAndClient()
+    const chartKey = testUtils.getChartKey()
     await testUtils.createTestChart(chartKey, user.secretKey)
-    let event = await client.events.create(chartKey)
+    const event = await client.events.create(chartKey)
     await client.events.book(event.key, 'A-1')
     await client.events.book(event.key, 'A-2')
     await client.events.book(event.key, 'A-3')
     await client.events.book(event.key, 'A-4')
-    let firstPage = await client.events.statusChanges(event.key).firstPage()
+    const firstPage = await client.events.statusChanges(event.key).firstPage()
 
-    let params = new StatusChangesParams().sortAscending()
-    let pageAfter = await client.events.statusChanges(event.key).pageAfter(firstPage.items[2].id, params)
+    const params = new StatusChangesParams().sortAscending()
+    const pageAfter = await client.events.statusChanges(event.key).pageAfter(firstPage.items[2].id, params)
 
-    let labels = [
+    const labels = [
         pageAfter.items[0].objectLabel,
         pageAfter.items[1].objectLabel
     ]
@@ -159,19 +166,20 @@ test('should list status changes after given id sorted by date ascending', async
 })
 
 test('should list status changes after given id sorted by date ascending with page size', async () => {
-    let chartKey = testUtils.getChartKey()
+    const { client, user } = await testUtils.createTestUserAndClient()
+    const chartKey = testUtils.getChartKey()
     await testUtils.createTestChart(chartKey, user.secretKey)
-    let event = await client.events.create(chartKey)
+    const event = await client.events.create(chartKey)
     await client.events.book(event.key, 'A-1')
     await client.events.book(event.key, 'A-2')
     await client.events.book(event.key, 'A-3')
     await client.events.book(event.key, 'A-4')
-    let firstPage = await client.events.statusChanges(event.key).firstPage()
+    const firstPage = await client.events.statusChanges(event.key).firstPage()
 
-    let params = new StatusChangesParams().sortAscending()
-    let pageAfter = await client.events.statusChanges(event.key).pageAfter(firstPage.items[2].id, params, 1)
+    const params = new StatusChangesParams().sortAscending()
+    const pageAfter = await client.events.statusChanges(event.key).pageAfter(firstPage.items[2].id, params, 1)
 
-    let labels = [
+    const labels = [
         pageAfter.items[0].objectLabel
     ]
     expect(labels).toEqual(['A-3'])
@@ -181,20 +189,21 @@ test('should list status changes after given id sorted by date ascending with pa
 })
 
 test('should list status changes after given id with filter', async () => {
-    let chartKey = testUtils.getChartKey()
+    const { client, user } = await testUtils.createTestUserAndClient()
+    const chartKey = testUtils.getChartKey()
     await testUtils.createTestChart(chartKey, user.secretKey)
-    let event = await client.events.create(chartKey)
-    let holdToken = await client.holdTokens.create()
+    const event = await client.events.create(chartKey)
+    const holdToken = await client.holdTokens.create()
     await client.events.book(event.key, 'A-1')
     await client.events.hold(event.key, 'A-2', holdToken.holdToken)
     await client.events.hold(event.key, 'B-1', holdToken.holdToken)
     await client.events.book(event.key, 'A-3')
-    let firstPage = await client.events.statusChanges(event.key).firstPage()
+    const firstPage = await client.events.statusChanges(event.key).firstPage()
 
-    let params = new StatusChangesParams().withFilter('1')
-    let pageAfter = await client.events.statusChanges(event.key).pageAfter(firstPage.items[0].id, params)
+    const params = new StatusChangesParams().withFilter('1')
+    const pageAfter = await client.events.statusChanges(event.key).pageAfter(firstPage.items[0].id, params)
 
-    let labels = [
+    const labels = [
         pageAfter.items[0].objectLabel,
         pageAfter.items[1].objectLabel
     ]
@@ -205,18 +214,19 @@ test('should list status changes after given id with filter', async () => {
 })
 
 test('should list status changes after given id with filter and page size', async () => {
-    let chartKey = testUtils.getChartKey()
+    const { client, user } = await testUtils.createTestUserAndClient()
+    const chartKey = testUtils.getChartKey()
     await testUtils.createTestChart(chartKey, user.secretKey)
-    let event = await client.events.create(chartKey)
-    let holdToken = await client.holdTokens.create()
+    const event = await client.events.create(chartKey)
+    const holdToken = await client.holdTokens.create()
     await client.events.book(event.key, 'A-1')
     await client.events.hold(event.key, 'A-2', holdToken.holdToken)
     await client.events.hold(event.key, 'B-1', holdToken.holdToken)
     await client.events.book(event.key, 'A-3')
-    let firstPage = await client.events.statusChanges(event.key).firstPage()
+    const firstPage = await client.events.statusChanges(event.key).firstPage()
 
-    let params = new StatusChangesParams().withFilter('1')
-    let pageAfter = await client.events.statusChanges(event.key).pageAfter(firstPage.items[0].id, params, 1)
+    const params = new StatusChangesParams().withFilter('1')
+    const pageAfter = await client.events.statusChanges(event.key).pageAfter(firstPage.items[0].id, params, 1)
 
     expect(pageAfter.items[0].objectLabel).toEqual('B-1')
     expect(pageAfter.items.length).toBe(1)
@@ -225,16 +235,17 @@ test('should list status changes after given id with filter and page size', asyn
 })
 
 test('should not list status changes after given id with unmatched filter', async () => {
-    let chartKey = testUtils.getChartKey()
+    const { client, user } = await testUtils.createTestUserAndClient()
+    const chartKey = testUtils.getChartKey()
     await testUtils.createTestChart(chartKey, user.secretKey)
-    let event = await client.events.create(chartKey)
+    const event = await client.events.create(chartKey)
     await client.events.book(event.key, 'A-2')
     await client.events.book(event.key, 'B-2')
     await client.events.book(event.key, 'C-2')
-    let firstPage = await client.events.statusChanges(event.key).firstPage()
+    const firstPage = await client.events.statusChanges(event.key).firstPage()
 
-    let params = new StatusChangesParams().withFilter('1')
-    let pageAfter = await client.events.statusChanges(event.key).pageAfter(firstPage.items[0].id, params)
+    const params = new StatusChangesParams().withFilter('1')
+    const pageAfter = await client.events.statusChanges(event.key).pageAfter(firstPage.items[0].id, params)
 
     expect(pageAfter.items).toEqual([])
 })

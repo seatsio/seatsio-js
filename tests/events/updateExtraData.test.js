@@ -1,13 +1,14 @@
 const testUtils = require('../testUtils.js')
 
 test('should update extra data of an event', async () => {
-    let chartKey = testUtils.getChartKey()
+    const { client, user } = await testUtils.createTestUserAndClient()
+    const chartKey = testUtils.getChartKey()
     await testUtils.createTestChart(chartKey, user.secretKey)
-    let event = await client.events.create(chartKey)
-    let extraData = { 'foo': 'bar' }
+    const event = await client.events.create(chartKey)
+    const extraData = { foo: 'bar' }
 
     await client.events.updateExtraData(event.key, 'A-1', extraData)
 
-    let objStatus = await client.events.retrieveObjectStatus(event.key, 'A-1')
+    const objStatus = await client.events.retrieveObjectStatus(event.key, 'A-1')
     expect(objStatus.extraData).toEqual(extraData)
 })

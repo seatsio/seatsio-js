@@ -1,6 +1,9 @@
+const testUtils = require('./testUtils.js')
+
 test('check error handling', async () => {
+    const { client, user } = await testUtils.createTestUserAndClient()
     expect.assertions(1)
-    let errorSnapshot = {
+    const errorSnapshot = {
         status: 400,
         messages: ['#: required key [chartKey] not found'],
         errors:

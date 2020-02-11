@@ -1,6 +1,7 @@
 const testUtils = require('../testUtils.js')
 
 test('should copy to workspace', async () => {
+    const { client, user } = await testUtils.createTestUserAndClient()
     const workspace = await client.workspaces.create('a workspace')
     const workspaceClient = testUtils.createClient(user.secretKey, workspace.key)
     const chart = await client.charts.create('My chart')
