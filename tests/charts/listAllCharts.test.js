@@ -1,21 +1,9 @@
 const ChartListParams = require('../../src/Charts/ChartListParams.js')
 const testUtils = require('../testUtils.js')
 
-test('listAll when there are more than 20 charts', async () => {
+test('listAll when there are many charts', async () => {
     const { client, user } = await testUtils.createTestUserAndClient()
-    const charts = await testUtils.createArray(25, () => client.charts.create())
-
-    const retrievedKeys = []
-    for await (const chart of client.charts.listAll()) {
-        retrievedKeys.push(chart.key)
-    }
-
-    expect(retrievedKeys.sort()).toEqual(charts.map(c => c.key).sort())
-})
-
-test('listAll when there are more than 40 charts', async () => {
-    const { client, user } = await testUtils.createTestUserAndClient()
-    const charts = await testUtils.createArray(45, () => client.charts.create())
+    const charts = await testUtils.createArray(15, () => client.charts.create())
 
     const retrievedKeys = []
     for await (const chart of client.charts.listAll()) {
@@ -38,7 +26,7 @@ test('listAll when there are no charts', async () => {
 
 test('listAll Charts with filter', async () => {
     const { client, user } = await testUtils.createTestUserAndClient()
-    const fooCharts = await testUtils.createArray(21, () => client.charts.create('foo'))
+    const fooCharts = await testUtils.createArray(3, () => client.charts.create('foo'))
     await client.charts.create('bar')
     const params = new ChartListParams().withFilter('foo')
 
@@ -52,7 +40,7 @@ test('listAll Charts with filter', async () => {
 
 test('listAll Charts with tag', async () => {
     const { client, user } = await testUtils.createTestUserAndClient()
-    const fooCharts = await testUtils.createArray(21, async () => {
+    const fooCharts = await testUtils.createArray(3, async () => {
         const chart = await client.charts.create()
         await client.charts.addTag(chart.key, 'foo')
         return chart
@@ -111,7 +99,7 @@ test('listAll Charts with expandEvents parameters', async () => {
 
 test('list all charts with validation', async () => {
     const { client, user } = await testUtils.createTestUserAndClient()
-    await testUtils.createArray(45, () => client.charts.create())
+    await testUtils.createArray(3, () => client.charts.create())
     const params = new ChartListParams(...Array(3), true)
 
     for await (const chart of client.charts.listAll(params)) {
@@ -121,7 +109,7 @@ test('list all charts with validation', async () => {
 
 test('list all charts without validation', async () => {
     const { client, user } = await testUtils.createTestUserAndClient()
-    await testUtils.createArray(45, () => client.charts.create())
+    await testUtils.createArray(3, () => client.charts.create())
     const params = new ChartListParams()
 
     for await (const chart of client.charts.listAll(params)) {

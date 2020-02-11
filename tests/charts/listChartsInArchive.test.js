@@ -16,9 +16,9 @@ test('should list all charts in archive', async () => {
     expect(archivedChartKeys.sort()).toEqual([chart1.key, chart2.key].sort())
 })
 
-test('get archived charts (above 100 limit)', async () => {
+test('get many archived charts)', async () => {
     const { client, user } = await testUtils.createTestUserAndClient()
-    const charts = await testUtils.createArray(120, async () => {
+    const charts = await testUtils.createArray(15, async () => {
         const chart = await client.charts.create()
         await client.charts.moveToArchive(chart.key)
         return chart
@@ -34,7 +34,7 @@ test('get archived charts (above 100 limit)', async () => {
 
 test('get first page of archived charts', async () => {
     const { client, user } = await testUtils.createTestUserAndClient()
-    const charts = await testUtils.createArray(10, async () => {
+    const charts = await testUtils.createArray(3, async () => {
         const chart = await client.charts.create()
         await client.charts.moveToArchive(chart.key)
         return chart
@@ -42,7 +42,7 @@ test('get first page of archived charts', async () => {
 
     const firstPage = await client.charts.archive.firstPage()
 
-    expect(firstPage.items.length).toBe(10)
+    expect(firstPage.items.length).toBe(3)
     expect(firstPage.items.map(c => c.key).sort()).toEqual(charts.map(c => c.key).sort())
 })
 
