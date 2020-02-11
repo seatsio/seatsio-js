@@ -6,7 +6,7 @@
   "license": "MIT",
   "scripts": {
     "lint": "eslint ./src",
-    "test": "jest --maxWorkers=4",
+    "test": "jest --maxWorkers=4 --verbose",
     "bundle": "gulp bundle"
   },
   "jest": {
