@@ -16,12 +16,11 @@ test('should list all charts in archive', async () => {
 })
 
 test('get archived charts (above 100 limit)', async () => {
-    let chartPromises = testUtils.createArray(120, async () => {
-        let chart = await client.charts.create()
+    const charts = await testUtils.createArray(120, async () => {
+        const chart = await client.charts.create()
         await client.charts.moveToArchive(chart.key)
         return chart
     })
-    let charts = await Promise.all(chartPromises)
 
     let archivedChartKeys = []
     for await (let chart of client.charts.archive.all()) {
@@ -32,12 +31,11 @@ test('get archived charts (above 100 limit)', async () => {
 })
 
 test('get first page of archived charts', async () => {
-    let chartPromises = testUtils.createArray(10, async () => {
-        let chart = await client.charts.create()
+    const charts = await testUtils.createArray(10, async () => {
+        const chart = await client.charts.create()
         await client.charts.moveToArchive(chart.key)
         return chart
     })
-    let charts = await Promise.all(chartPromises)
 
     let firstPage = await client.charts.archive.firstPage()
 

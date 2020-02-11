@@ -1,8 +1,7 @@
 const testUtils = require('../testUtils.js')
 
 test('should list subaccounts in first page', async () => {
-    let subaccountPromises = testUtils.createArray(50, () => client.subaccounts.create())
-    let subaccounts = await Promise.all(subaccountPromises)
+    let subaccounts = await testUtils.createArray(50, () => client.subaccounts.create())
 
     let page = await client.subaccounts.listFirstPage()
 
@@ -12,8 +11,7 @@ test('should list subaccounts in first page', async () => {
 })
 
 test('should list subaccounts in first page with page size', async () => {
-    let subaccountPromises = testUtils.createArray(47, () => client.subaccounts.create())
-    await Promise.all(subaccountPromises)
+    await testUtils.createArray(47, () => client.subaccounts.create())
     let subaccount48 = await client.subaccounts.create()
     let subaccount49 = await client.subaccounts.create()
     let subaccount50 = await client.subaccounts.create()

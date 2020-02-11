@@ -77,7 +77,7 @@ module.exports = {
             array.push(fn())
         }
 
-        return array
+        return Promise.all(array)
     },
 
     deferred () {
