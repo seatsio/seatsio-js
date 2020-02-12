@@ -78,18 +78,18 @@ test('listAll Charts with tag and filter parameters', async () => {
 
 test('listAll Charts with expandEvents parameters', async () => {
     const { client, user } = await testUtils.createTestUserAndClient()
-    let chart1 = await client.charts.create()
-    let chart2 = await client.charts.create()
-    let promises = [
+    const chart1 = await client.charts.create()
+    const chart2 = await client.charts.create()
+    const promises = [
         client.events.create(chart1.key),
         client.events.create(chart1.key),
         client.events.create(chart2.key),
         client.events.create(chart2.key)
     ]
-    let events = await Promise.all(promises)
-    let generatedEventKeys = [events[0].key, events[1].key, events[2].key, events[3].key]
-    let retrievedKeys = []
-    let params = new ChartListParams().withExpandEvents(true)
+    const events = await Promise.all(promises)
+    const generatedEventKeys = [events[0].key, events[1].key, events[2].key, events[3].key]
+    const retrievedKeys = []
+    const params = new ChartListParams().withExpandEvents(true)
 
     for await (const chart of client.charts.listAll(params)) {
         for (const event of chart.events) {

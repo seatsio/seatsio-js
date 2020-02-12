@@ -3,12 +3,12 @@ const testUtils = require('../testUtils.js')
 
 test('should list first page of charts', async () => {
     const { client, user } = await testUtils.createTestUserAndClient()
-    let promises = [
+    const promises = [
         client.charts.create(),
         client.charts.create(),
         client.charts.create()
     ]
-    let charts = await Promise.all(promises)
+    const charts = await Promise.all(promises)
 
     const page = await client.charts.listFirstPage()
     const chartKeys = page.items.map((chart) => chart.key)
@@ -18,13 +18,13 @@ test('should list first page of charts', async () => {
 
 test('should list first page of charts with filter', async () => {
     const { client, user } = await testUtils.createTestUserAndClient()
-    let promises = [
+    const promises = [
         client.charts.create('foo'),
         client.charts.create('foo'),
         client.charts.create('bar'),
         client.charts.create('foo')
     ]
-    let charts = await Promise.all(promises)
+    const charts = await Promise.all(promises)
     const params = new ChartListParams().withFilter('foo')
 
     const page = await client.charts.listFirstPage(params)
@@ -35,12 +35,12 @@ test('should list first page of charts with filter', async () => {
 
 test('should list first page of charts with tag', async () => {
     const { client, user } = await testUtils.createTestUserAndClient()
-    let promises = [
+    const promises = [
         client.charts.create('foo'),
         client.charts.create('foo'),
         client.charts.create('bar')
     ]
-    let charts = await Promise.all(promises)
+    const charts = await Promise.all(promises)
     await client.charts.addTag(charts[2].key, 'foo')
     const params = new ChartListParams().withTag('foo')
 
