@@ -2,170 +2,182 @@ const testUtils = require('../testUtils.js')
 const ObjectStatus = require('../../src/Events/ObjectStatus.js')
 
 test('should change best available object status', async () => {
-    let chartKey = testUtils.getChartKey()
+    const { client, user } = await testUtils.createTestUserAndClient()
+    const chartKey = testUtils.getChartKey()
     await testUtils.createTestChart(chartKey, user.secretKey)
-    let event = await client.events.create(chartKey)
+    const event = await client.events.create(chartKey)
 
-    let bestAvailableObjs = await client.events.changeBestAvailableObjectStatus(event.key, 2, 'lolzor')
+    const bestAvailableObjs = await client.events.changeBestAvailableObjectStatus(event.key, 2, 'lolzor')
 
     expect(bestAvailableObjs.nextToEachOther).toBe(true)
     expect(bestAvailableObjs.objects.sort()).toEqual(['B-4', 'B-5'])
     expect(bestAvailableObjs.objectDetails).toEqual({
         'B-4': {
-            'categoryKey': '9',
-            'categoryLabel': 'Cat1',
-            'forSale': true,
-            'label': 'B-4',
-            'labels': { 'own': { 'label': '4', 'type': 'seat' }, 'parent': { 'label': 'B', 'type': 'row' } },
-            'objectType': 'seat',
-            'status': 'lolzor'
+            categoryKey: '9',
+            categoryLabel: 'Cat1',
+            forSale: true,
+            label: 'B-4',
+            labels: { own: { label: '4', type: 'seat' }, parent: { label: 'B', type: 'row' } },
+            objectType: 'seat',
+            status: 'lolzor'
         },
         'B-5': {
-            'categoryKey': '9',
-            'categoryLabel': 'Cat1',
-            'forSale': true,
-            'label': 'B-5',
-            'labels': { 'own': { 'label': '5', 'type': 'seat' }, 'parent': { 'label': 'B', 'type': 'row' } },
-            'objectType': 'seat',
-            'status': 'lolzor'
+            categoryKey: '9',
+            categoryLabel: 'Cat1',
+            forSale: true,
+            label: 'B-5',
+            labels: { own: { label: '5', type: 'seat' }, parent: { label: 'B', type: 'row' } },
+            objectType: 'seat',
+            status: 'lolzor'
         }
     }
     )
 })
 
 test('should change best available object status with categories', async () => {
-    let chartKey = testUtils.getChartKey()
+    const { client, user } = await testUtils.createTestUserAndClient()
+    const chartKey = testUtils.getChartKey()
     await testUtils.createTestChart(chartKey, user.secretKey)
-    let event = await client.events.create(chartKey)
-    let bestAvailableObjs = await client.events.changeBestAvailableObjectStatus(event.key, 3, 'lolzor', ['cat2'])
+    const event = await client.events.create(chartKey)
+    const bestAvailableObjs = await client.events.changeBestAvailableObjectStatus(event.key, 3, 'lolzor', ['cat2'])
 
     expect(bestAvailableObjs.objects.sort()).toEqual(['C-4', 'C-5', 'C-6'])
 })
 
 test('should change best available object status with extra data', async () => {
-    let chartKey = testUtils.getChartKey()
+    const { client, user } = await testUtils.createTestUserAndClient()
+    const chartKey = testUtils.getChartKey()
     await testUtils.createTestChart(chartKey, user.secretKey)
-    let event = await client.events.create(chartKey)
-    let extraData = [{ 'foo': 'bar' }, { 'foo': 'baz' }]
+    const event = await client.events.create(chartKey)
+    const extraData = [{ foo: 'bar' }, { foo: 'baz' }]
 
-    let bestAvailableObjs = await client.events.changeBestAvailableObjectStatus(event.key, 2, 'lolzor', null, null, extraData)
+    const bestAvailableObjs = await client.events.changeBestAvailableObjectStatus(event.key, 2, 'lolzor', null, null, extraData)
 
-    let b4Status = await client.events.retrieveObjectStatus(event.key, 'B-4')
-    let b5Status = await client.events.retrieveObjectStatus(event.key, 'B-5')
+    const b4Status = await client.events.retrieveObjectStatus(event.key, 'B-4')
+    const b5Status = await client.events.retrieveObjectStatus(event.key, 'B-5')
     expect(bestAvailableObjs.objects.sort()).toEqual(['B-4', 'B-5'])
     expect(b4Status.extraData).toEqual(extraData[0])
     expect(b5Status.extraData).toEqual(extraData[1])
 })
 
 test('should change best available object status with hold token', async () => {
-    let chartKey = testUtils.getChartKey()
+    const { client, user } = await testUtils.createTestUserAndClient()
+    const chartKey = testUtils.getChartKey()
     await testUtils.createTestChart(chartKey, user.secretKey)
-    let objectStatus = new ObjectStatus()
-    let event = await client.events.create(chartKey)
-    let holdToken = await client.holdTokens.create()
+    const objectStatus = new ObjectStatus()
+    const event = await client.events.create(chartKey)
+    const holdToken = await client.holdTokens.create()
 
-    let bestAvailableObjs = await client.events.changeBestAvailableObjectStatus(event.key, 1, objectStatus.HELD, null, holdToken.holdToken)
+    const bestAvailableObjs = await client.events.changeBestAvailableObjectStatus(event.key, 1, objectStatus.HELD, null, holdToken.holdToken)
 
-    let objStatus = await client.events.retrieveObjectStatus(event.key, bestAvailableObjs.objects[0])
+    const objStatus = await client.events.retrieveObjectStatus(event.key, bestAvailableObjs.objects[0])
     expect(objStatus.status).toBe(objectStatus.HELD)
     expect(objStatus.holdToken).toBe(holdToken.holdToken)
 })
 
 test('should change best available object status with orderId', async () => {
-    let chartKey = testUtils.getChartKey()
+    const { client, user } = await testUtils.createTestUserAndClient()
+    const chartKey = testUtils.getChartKey()
     await testUtils.createTestChart(chartKey, user.secretKey)
-    let event = await client.events.create(chartKey)
+    const event = await client.events.create(chartKey)
 
-    let bestAvailableObjs = await client.events.changeBestAvailableObjectStatus(event.key, 1, 'lolzor', null, null, null, 'anOrder')
+    const bestAvailableObjs = await client.events.changeBestAvailableObjectStatus(event.key, 1, 'lolzor', null, null, null, 'anOrder')
 
-    let objStatus = await client.events.retrieveObjectStatus(event.key, bestAvailableObjs.objects[0])
+    const objStatus = await client.events.retrieveObjectStatus(event.key, bestAvailableObjs.objects[0])
     expect(objStatus.orderId).toBe('anOrder')
 })
 
 test('should book best available object with extra data', async () => {
-    let chartKey = testUtils.getChartKey()
+    const { client, user } = await testUtils.createTestUserAndClient()
+    const chartKey = testUtils.getChartKey()
     await testUtils.createTestChart(chartKey, user.secretKey)
-    let event = await client.events.create(chartKey)
-    let extraData = [{ 'foo': 'bar' }, { 'foo': 'baz' }, { 'foo': 'bar2' }]
+    const event = await client.events.create(chartKey)
+    const extraData = [{ foo: 'bar' }, { foo: 'baz' }, { foo: 'bar2' }]
 
-    let bestAvailableObjs = await client.events.bookBestAvailable(event.key, 3, null, null, null, null, extraData)
+    const bestAvailableObjs = await client.events.bookBestAvailable(event.key, 3, null, null, null, null, extraData)
 
     expect(bestAvailableObjs.nextToEachOther).toBe(true)
     expect(bestAvailableObjs.objects).toEqual(['B-4', 'B-5', 'B-6'])
 })
 
 test('should book best available object', async () => {
-    let chartKey = testUtils.getChartKey()
+    const { client, user } = await testUtils.createTestUserAndClient()
+    const chartKey = testUtils.getChartKey()
     await testUtils.createTestChart(chartKey, user.secretKey)
-    let event = await client.events.create(chartKey)
+    const event = await client.events.create(chartKey)
 
-    let bestAvailableObjs = await client.events.bookBestAvailable(event.key, 3)
+    const bestAvailableObjs = await client.events.bookBestAvailable(event.key, 3)
 
     expect(bestAvailableObjs.nextToEachOther).toBe(true)
     expect(bestAvailableObjs.objects).toEqual(['B-4', 'B-5', 'B-6'])
 })
 
 test('should hold best available object ', async () => {
-    let chartKey = testUtils.getChartKey()
-    let objectStatus = new ObjectStatus()
+    const { client, user } = await testUtils.createTestUserAndClient()
+    const chartKey = testUtils.getChartKey()
+    const objectStatus = new ObjectStatus()
     await testUtils.createTestChart(chartKey, user.secretKey)
-    let event = await client.events.create(chartKey)
-    let holdToken = await client.holdTokens.create()
+    const event = await client.events.create(chartKey)
+    const holdToken = await client.holdTokens.create()
 
-    let bestAvailableObjs = await client.events.holdBestAvailable(event.key, 1, holdToken.holdToken)
+    const bestAvailableObjs = await client.events.holdBestAvailable(event.key, 1, holdToken.holdToken)
 
-    let objStatus = await client.events.retrieveObjectStatus(event.key, bestAvailableObjs.objects[0])
+    const objStatus = await client.events.retrieveObjectStatus(event.key, bestAvailableObjs.objects[0])
     expect(objStatus.status).toBe(objectStatus.HELD)
     expect(objStatus.holdToken).toBe(holdToken.holdToken)
 })
 
 test('should hold best available object with extra data ', async () => {
-    let chartKey = testUtils.getChartKey()
-    let objectStatus = new ObjectStatus()
+    const { client, user } = await testUtils.createTestUserAndClient()
+    const chartKey = testUtils.getChartKey()
+    const objectStatus = new ObjectStatus()
     await testUtils.createTestChart(chartKey, user.secretKey)
-    let event = await client.events.create(chartKey)
-    let holdToken = await client.holdTokens.create()
-    let extraData = [{ 'foo': 'bar' }]
+    const event = await client.events.create(chartKey)
+    const holdToken = await client.holdTokens.create()
+    const extraData = [{ foo: 'bar' }]
 
-    let bestAvailableObjs = await client.events.holdBestAvailable(event.key, 1, holdToken.holdToken, null, null, null, extraData)
+    const bestAvailableObjs = await client.events.holdBestAvailable(event.key, 1, holdToken.holdToken, null, null, null, extraData)
 
-    let objStatus = await client.events.retrieveObjectStatus(event.key, bestAvailableObjs.objects[0])
+    const objStatus = await client.events.retrieveObjectStatus(event.key, bestAvailableObjs.objects[0])
     expect(objStatus.status).toBe(objectStatus.HELD)
     expect(objStatus.holdToken).toBe(holdToken.holdToken)
 })
 
 test('should respect keepExtraData=true', async () => {
-    let chartKey = testUtils.getChartKey()
+    const { client, user } = await testUtils.createTestUserAndClient()
+    const chartKey = testUtils.getChartKey()
     await testUtils.createTestChart(chartKey, user.secretKey)
-    let event = await client.events.create(chartKey)
+    const event = await client.events.create(chartKey)
     await client.events.updateExtraData(event.key, 'B-5', { foo: 'bar' })
 
     await client.events.changeBestAvailableObjectStatus(event.key, 1, 'someStatus', null, null, null, null, true)
 
-    let status = await client.events.retrieveObjectStatus(event.key, 'B-5')
+    const status = await client.events.retrieveObjectStatus(event.key, 'B-5')
     expect(status.extraData).toEqual({ foo: 'bar' })
 })
 
 test('should respect keepExtraData=false', async () => {
-    let chartKey = testUtils.getChartKey()
+    const { client, user } = await testUtils.createTestUserAndClient()
+    const chartKey = testUtils.getChartKey()
     await testUtils.createTestChart(chartKey, user.secretKey)
-    let event = await client.events.create(chartKey)
+    const event = await client.events.create(chartKey)
     await client.events.updateExtraData(event.key, 'B-5', { foo: 'bar' })
 
     await client.events.changeBestAvailableObjectStatus(event.key, 1, 'someStatus', null, null, null, null, false)
 
-    let status = await client.events.retrieveObjectStatus(event.key, 'B-5')
+    const status = await client.events.retrieveObjectStatus(event.key, 'B-5')
     expect(status.extraData).toBeFalsy()
 })
 
 test('should respect no keepExtraData', async () => {
-    let chartKey = testUtils.getChartKey()
+    const { client, user } = await testUtils.createTestUserAndClient()
+    const chartKey = testUtils.getChartKey()
     await testUtils.createTestChart(chartKey, user.secretKey)
-    let event = await client.events.create(chartKey)
+    const event = await client.events.create(chartKey)
     await client.events.updateExtraData(event.key, 'B-5', { foo: 'bar' })
 
     await client.events.changeBestAvailableObjectStatus(event.key, 1, 'someStatus', null, null, null, null, false)
 
-    let status = await client.events.retrieveObjectStatus(event.key, 'B-5')
+    const status = await client.events.retrieveObjectStatus(event.key, 'B-5')
     expect(status.extraData).toBeFalsy()
 })

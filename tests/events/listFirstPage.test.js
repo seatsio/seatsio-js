@@ -1,27 +1,27 @@
 const testUtils = require('../testUtils.js')
 
 test('should list events in first page', async () => {
-    let chart = await client.charts.create()
-    let eventPromises = testUtils.createArray(20, () => client.events.create(chart.key))
-    let events = await Promise.all(eventPromises)
+    const { client, user } = await testUtils.createTestUserAndClient()
+    const chart = await client.charts.create()
+    const events = await testUtils.createArray(3, () => client.events.create(chart.key))
 
-    let page = await client.events.listFirstPage()
+    const page = await client.events.listFirstPage()
 
-    let retrievedEventKeys = page.items.map((event) => event.key)
+    const retrievedEventKeys = page.items.map((event) => event.key)
     expect(retrievedEventKeys.sort()).toEqual(events.map(e => e.key).sort())
 })
 
 test('should list events in first page with page size', async () => {
-    let chart = await client.charts.create()
-    let eventPromises = testUtils.createArray(10, () => client.events.create(chart.key))
-    await Promise.all(eventPromises)
-    let event11 = await client.events.create(chart.key)
-    let event12 = await client.events.create(chart.key)
-    let event13 = await client.events.create(chart.key)
+    const { client, user } = await testUtils.createTestUserAndClient()
+    const chart = await client.charts.create()
+    await testUtils.createArray(7, () => client.events.create(chart.key))
+    const event8 = await client.events.create(chart.key)
+    const event9 = await client.events.create(chart.key)
+    const event10 = await client.events.create(chart.key)
 
-    let page = await client.events.listFirstPage(3)
+    const page = await client.events.listFirstPage(3)
 
-    let retrievedEventKeys = page.items.map((event) => event.key)
+    const retrievedEventKeys = page.items.map((event) => event.key)
     expect(retrievedEventKeys.length).toBe(3)
-    expect(retrievedEventKeys).toEqual([event13.key, event12.key, event11.key])
+    expect(retrievedEventKeys).toEqual([event10.key, event9.key, event8.key])
 })

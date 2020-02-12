@@ -1,7 +1,10 @@
-test('should retrieve hold tokens', async () => {
-    let holdToken = await client.holdTokens.create()
+const testUtils = require('../testUtils.js')
 
-    let retrievedToken = await client.holdTokens.retrieve(holdToken.holdToken)
+test('should retrieve hold tokens', async () => {
+    const { client, user } = await testUtils.createTestUserAndClient()
+    const holdToken = await client.holdTokens.create()
+
+    const retrievedToken = await client.holdTokens.retrieve(holdToken.holdToken)
 
     expect(retrievedToken.holdToken).toBe(holdToken.holdToken)
     expect(retrievedToken.expiresAt).toEqual(holdToken.expiresAt)

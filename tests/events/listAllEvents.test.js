@@ -1,13 +1,13 @@
 const testUtils = require('../testUtils.js')
 
-test('listAll events when there are more than 40 events)', async () => {
-    let chart = await client.charts.create()
+test('listAll events when there are more than 10 events)', async () => {
+    const { client, user } = await testUtils.createTestUserAndClient()
+    const chart = await client.charts.create()
 
-    let eventPromises = testUtils.createArray(41, () => client.events.create(chart.key))
-    let events = await Promise.all(eventPromises)
+    const events = await testUtils.createArray(15, () => client.events.create(chart.key))
 
-    let retrievedEventKeys = []
-    for await (let event of client.events.listAll()) {
+    const retrievedEventKeys = []
+    for await (const event of client.events.listAll()) {
         retrievedEventKeys.push(event.key)
     }
 

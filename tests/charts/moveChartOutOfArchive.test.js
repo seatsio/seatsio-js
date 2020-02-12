@@ -1,11 +1,14 @@
+const testUtils = require('../testUtils.js')
+
 test('should move chart out of archive', async () => {
-    let chart = await client.charts.create()
+    const { client, user } = await testUtils.createTestUserAndClient()
+    const chart = await client.charts.create()
     await client.charts.moveToArchive(chart.key)
-    let retrievedChartKeys = []
+    const retrievedChartKeys = []
 
     await client.charts.moveOutOfArchive(chart.key)
 
-    for await (let chart of client.charts.archive.all()) {
+    for await (const chart of client.charts.archive.all()) {
         retrievedChartKeys.push(chart.key)
     }
     expect(retrievedChartKeys).toEqual([])

@@ -1,7 +1,10 @@
-test('should retrieve subaccount', async () => {
-    let subaccount = await client.subaccounts.create('joske')
+const testUtils = require('../testUtils.js')
 
-    let retrievedSubaccount = await client.subaccounts.retrieve(subaccount.id)
+test('should retrieve subaccount', async () => {
+    const { client, user } = await testUtils.createTestUserAndClient()
+    const subaccount = await client.subaccounts.create('joske')
+
+    const retrievedSubaccount = await client.subaccounts.retrieve(subaccount.id)
 
     expect(retrievedSubaccount.id).toBe(subaccount.id)
     expect(retrievedSubaccount.secretKey).toBeTruthy()

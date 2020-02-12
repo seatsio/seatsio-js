@@ -1,7 +1,7 @@
 language: node_js
 version: 1.0
 node_js:
-- 10
+- 13
 before_script:
 - export TZ=Europe/Brussels
 script:

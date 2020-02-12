@@ -1,5 +1,8 @@
+const testUtils = require('../testUtils.js')
+
 test('should create subaccount with name', async () => {
-    let subaccount = await client.subaccounts.create('subaccountTest')
+    const { client, user } = await testUtils.createTestUserAndClient()
+    const subaccount = await client.subaccounts.create('subaccountTest')
 
     expect(subaccount.secretKey).toBeTruthy()
     expect(subaccount.designerKey).toBeTruthy()
@@ -10,7 +13,8 @@ test('should create subaccount with name', async () => {
 })
 
 test('name is generated in subaccount create', async () => {
-    let subaccount = await client.subaccounts.create()
+    const { client, user } = await testUtils.createTestUserAndClient()
+    const subaccount = await client.subaccounts.create()
 
     expect(subaccount.name).toBeTruthy()
     expect(subaccount.email).toBeFalsy()

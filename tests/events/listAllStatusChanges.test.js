@@ -5,7 +5,8 @@ const ObjectStatus = require('../../src/Events/ObjectStatus.js')
 const StatusChangesParams = require('../../src/Events/StatusChangesParams.js')
 
 test('should list all status changes', async () => {
-    let chartKey = testUtils.getChartKey()
+    const { client, user } = await testUtils.createTestUserAndClient()
+    const chartKey = testUtils.getChartKey()
     await testUtils.createTestChart(chartKey, user.secretKey)
     let event = await client.events.create(chartKey)
     let promises = [
@@ -17,7 +18,7 @@ test('should list all status changes', async () => {
 
     let labels = []
 
-    for await (let statusChange of client.events.statusChanges(event.key).all()) {
+    for await (const statusChange of client.events.statusChanges(event.key).all()) {
         labels.push(statusChange.objectLabel)
     }
 
@@ -25,13 +26,14 @@ test('should list all status changes', async () => {
 })
 
 test('status changes parameter', async () => {
-    let justFilter = new StatusChangesParams('foo')
-    let sortAscendingOnly = new StatusChangesParams().sortAscending()
-    let sortByStatusOnly = new StatusChangesParams().sortByStatus()
-    let sortAscendingWithFilter = new StatusChangesParams('foo').sortAscending().withFilter('bar')
-    let sortDescendingWithFilter = new StatusChangesParams().sortAscending().withFilter('bar').sortDescending()
-    let sortByLabelDescendingWithFilter = new StatusChangesParams().sortAscending().withFilter('bar').sortByObjectLabel().sortDescending()
-    let sortByStatusAscendingWithFilterChained = new StatusChangesParams().sortDescending().withFilter('bar').sortByObjectLabel().sortAscending().sortByStatus()
+    const { client, user } = await testUtils.createTestUserAndClient()
+    const justFilter = new StatusChangesParams('foo')
+    const sortAscendingOnly = new StatusChangesParams().sortAscending()
+    const sortByStatusOnly = new StatusChangesParams().sortByStatus()
+    const sortAscendingWithFilter = new StatusChangesParams('foo').sortAscending().withFilter('bar')
+    const sortDescendingWithFilter = new StatusChangesParams().sortAscending().withFilter('bar').sortDescending()
+    const sortByLabelDescendingWithFilter = new StatusChangesParams().sortAscending().withFilter('bar').sortByObjectLabel().sortDescending()
+    const sortByStatusAscendingWithFilterChained = new StatusChangesParams().sortDescending().withFilter('bar').sortByObjectLabel().sortAscending().sortByStatus()
 
     expect(justFilter.filter).toBe('foo')
     expect(justFilter.sortField).toBeNull()
@@ -55,7 +57,8 @@ test('status changes parameter', async () => {
 })
 
 test('should list all status changes sorted by label', async () => {
-    let chartKey = testUtils.getChartKey()
+    const { client, user } = await testUtils.createTestUserAndClient()
+    const chartKey = testUtils.getChartKey()
     await testUtils.createTestChart(chartKey, user.secretKey)
     let event = await client.events.create(chartKey)
     let promises = [
@@ -67,8 +70,8 @@ test('should list all status changes sorted by label', async () => {
 
     let labels = []
 
-    let params = new StatusChangesParams().sortByObjectLabel()
-    for await (let statusChange of client.events.statusChanges(event.key).all(params)) {
+    const params = new StatusChangesParams().sortByObjectLabel()
+    for await (const statusChange of client.events.statusChanges(event.key).all(params)) {
         labels.push(statusChange.objectLabel)
     }
 
@@ -76,19 +79,20 @@ test('should list all status changes sorted by label', async () => {
 })
 
 test('should list all status changes sorted by status', async () => {
-    let chartKey = testUtils.getChartKey()
+    const { client, user } = await testUtils.createTestUserAndClient()
+    const chartKey = testUtils.getChartKey()
     await testUtils.createTestChart(chartKey, user.secretKey)
-    let event = await client.events.create(chartKey)
-    let holdToken = await client.holdTokens.create()
+    const event = await client.events.create(chartKey)
+    const holdToken = await client.holdTokens.create()
     await client.events.book(event.key, 'B-1')
     await client.events.hold(event.key, 'A-1', holdToken.holdToken)
     await client.events.release(event.key, 'A-1', holdToken.holdToken)
     await client.events.book(event.key, 'A-2')
     await client.events.hold(event.key, 'A-3', holdToken.holdToken)
-    let labels = []
+    const labels = []
 
-    let params = new StatusChangesParams().sortByStatus()
-    for await (let statusChange of client.events.statusChanges(event.key).all(params)) {
+    const params = new StatusChangesParams().sortByStatus()
+    for await (const statusChange of client.events.statusChanges(event.key).all(params)) {
         labels.push(statusChange.objectLabel)
     }
 
@@ -96,16 +100,17 @@ test('should list all status changes sorted by status', async () => {
 })
 
 test('should list all status changes sorted by date ascending', async () => {
-    let chartKey = testUtils.getChartKey()
+    const { client, user } = await testUtils.createTestUserAndClient()
+    const chartKey = testUtils.getChartKey()
     await testUtils.createTestChart(chartKey, user.secretKey)
-    let event = await client.events.create(chartKey)
+    const event = await client.events.create(chartKey)
     await client.events.book(event.key, 'A-1')
     await client.events.book(event.key, 'A-3')
     await client.events.book(event.key, 'A-2')
-    let labels = []
+    const labels = []
 
-    let params = new StatusChangesParams().sortByDate().sortAscending()
-    for await (let statusChange of client.events.statusChanges(event.key).all(params)) {
+    const params = new StatusChangesParams().sortByDate().sortAscending()
+    for await (const statusChange of client.events.statusChanges(event.key).all(params)) {
         labels.push(statusChange.objectLabel)
     }
 
@@ -113,16 +118,17 @@ test('should list all status changes sorted by date ascending', async () => {
 })
 
 test('should list all status changes with filter', async () => {
-    let chartKey = testUtils.getChartKey()
+    const { client, user } = await testUtils.createTestUserAndClient()
+    const chartKey = testUtils.getChartKey()
     await testUtils.createTestChart(chartKey, user.secretKey)
-    let event = await client.events.create(chartKey)
+    const event = await client.events.create(chartKey)
     await client.events.book(event.key, 'A-1')
     await client.events.book(event.key, 'A-2')
     await client.events.book(event.key, 'B-2')
-    let labels = []
+    const labels = []
 
-    let params = new StatusChangesParams().withFilter('2')
-    for await (let statusChange of client.events.statusChanges(event.key).all(params)) {
+    const params = new StatusChangesParams().withFilter('2')
+    for await (const statusChange of client.events.statusChanges(event.key).all(params)) {
         labels.push(statusChange.objectLabel)
     }
 
@@ -130,16 +136,17 @@ test('should list all status changes with filter', async () => {
 })
 
 test('should not list status changes with unmatched filter', async () => {
-    let chartKey = testUtils.getChartKey()
+    const { client, user } = await testUtils.createTestUserAndClient()
+    const chartKey = testUtils.getChartKey()
     await testUtils.createTestChart(chartKey, user.secretKey)
-    let event = await client.events.create(chartKey)
+    const event = await client.events.create(chartKey)
     await client.events.book(event.key, 'A-1')
     await client.events.book(event.key, 'A-2')
     await client.events.book(event.key, 'B-2')
-    let labels = []
+    const labels = []
 
-    let params = new StatusChangesParams().withFilter('3')
-    for await (let statusChange of client.events.statusChanges(event.key).all(params)) {
+    const params = new StatusChangesParams().withFilter('3')
+    for await (const statusChange of client.events.statusChanges(event.key).all(params)) {
         labels.push(statusChange.objectLabel)
     }
 
@@ -147,17 +154,18 @@ test('should not list status changes with unmatched filter', async () => {
 })
 
 test('properties of status changes', async () => {
-    let chartKey = testUtils.getChartKey()
-    let objectStatus = new ObjectStatus()
+    const { client, user } = await testUtils.createTestUserAndClient()
+    const chartKey = testUtils.getChartKey()
+    const objectStatus = new ObjectStatus()
     await testUtils.createTestChart(chartKey, user.secretKey)
-    let event = await client.events.create(chartKey)
-    let obj = new ObjectProperties('A-1').setExtraData({ 'foo': 'bar' })
-    let now = new Date().getTime()
+    const event = await client.events.create(chartKey)
+    const obj = new ObjectProperties('A-1').setExtraData({ foo: 'bar' })
+    const now = new Date().getTime()
     await client.events.book(event.key, obj, null, 'order1')
 
-    let statusChanges = client.events.statusChanges(event.key).all()
-    let statusChangesIterator = statusChanges[Symbol.asyncIterator]()
-    let statusChange = await statusChangesIterator.next()
+    const statusChanges = client.events.statusChanges(event.key).all()
+    const statusChangesIterator = statusChanges[Symbol.asyncIterator]()
+    const statusChange = await statusChangesIterator.next()
 
     expect(statusChange.value.id).toBeTruthy()
     expect(statusChange.value.date.getTime()).toBeGreaterThanOrEqual(now)
@@ -166,33 +174,35 @@ test('properties of status changes', async () => {
     expect(statusChange.value.objectLabel).toBe('A-1')
     expect(statusChange.value.status).toBe(objectStatus.BOOKED)
     expect(statusChange.value.eventId).toBe(event.id)
-    expect(statusChange.value.extraData).toEqual({ 'foo': 'bar' })
+    expect(statusChange.value.extraData).toEqual({ foo: 'bar' })
     expect(statusChange.value.origin.type).toBe('API_CALL')
 })
 
 test('should list status changes with hold token', async () => {
-    let chartKey = testUtils.getChartKey()
+    const { client, user } = await testUtils.createTestUserAndClient()
+    const chartKey = testUtils.getChartKey()
     await testUtils.createTestChart(chartKey, user.secretKey)
-    let event = await client.events.create(chartKey)
-    let holdToken = await client.holdTokens.create()
+    const event = await client.events.create(chartKey)
+    const holdToken = await client.holdTokens.create()
     await client.events.hold(event.key, 'A-1', holdToken.holdToken)
 
-    let statusChanges = client.events.statusChanges(event.key).all()
-    let statusChangesIterator = statusChanges[Symbol.asyncIterator]()
-    let statusChange = await statusChangesIterator.next()
+    const statusChanges = client.events.statusChanges(event.key).all()
+    const statusChangesIterator = statusChanges[Symbol.asyncIterator]()
+    const statusChange = await statusChangesIterator.next()
 
     expect(statusChange.value.holdToken).toEqual(holdToken.holdToken)
 })
 
 test('should list status changes with null hold token if no hold token was used', async () => {
-    let chartKey = testUtils.getChartKey()
+    const { client, user } = await testUtils.createTestUserAndClient()
+    const chartKey = testUtils.getChartKey()
     await testUtils.createTestChart(chartKey, user.secretKey)
-    let event = await client.events.create(chartKey)
+    const event = await client.events.create(chartKey)
     await client.events.book(event.key, 'A-2')
 
-    let statusChanges = client.events.statusChanges(event.key).all()
-    let statusChangesIterator = statusChanges[Symbol.asyncIterator]()
-    let statusChange = await statusChangesIterator.next()
+    const statusChanges = client.events.statusChanges(event.key).all()
+    const statusChangesIterator = statusChanges[Symbol.asyncIterator]()
+    const statusChange = await statusChangesIterator.next()
 
     expect(statusChange.value.holdToken).toEqual(null)
 })

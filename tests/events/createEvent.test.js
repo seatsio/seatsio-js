@@ -1,10 +1,11 @@
 const testUtils = require('../testUtils.js')
 
 test('should check that only chart key is required', async () => {
-    let chartKey = testUtils.getChartKey()
+    const { client, user } = await testUtils.createTestUserAndClient()
+    const chartKey = testUtils.getChartKey()
     await testUtils.createTestChart(chartKey, user.secretKey)
 
-    let event = await client.events.create(chartKey)
+    const event = await client.events.create(chartKey)
 
     expect(event.key).toBeTruthy()
     expect(event.id).toBeTruthy()
@@ -17,28 +18,31 @@ test('should check that only chart key is required', async () => {
 })
 
 test('should pass in event key as a create() param', async () => {
-    let chart = await client.charts.create()
+    const { client, user } = await testUtils.createTestUserAndClient()
+    const chart = await client.charts.create()
 
-    let event = await client.events.create(chart.key, 'eventKey')
+    const event = await client.events.create(chart.key, 'eventKey')
 
     expect(event.key).toBe('eventKey')
 })
 
 test('should pass in BookWholeTables as a create() param', async () => {
-    let chart = await client.charts.create()
+    const { client, user } = await testUtils.createTestUserAndClient()
+    const chart = await client.charts.create()
 
-    let event = await client.events.create(chart.key, null, false)
+    const event = await client.events.create(chart.key, null, false)
 
     expect(event.key).toBeTruthy()
     expect(event.bookWholeTables).toBe(false)
 })
 
 test('should pass in tableBookingModes as a create() param', async () => {
-    let chartKey = testUtils.getChartKey()
+    const { client, user } = await testUtils.createTestUserAndClient()
+    const chartKey = testUtils.getChartKey()
     await testUtils.createTestChartWithTables(chartKey, user.secretKey)
-    let tableBookingModes = { 'T1': 'BY_TABLE', 'T2': 'BY_SEAT' }
+    const tableBookingModes = { T1: 'BY_TABLE', T2: 'BY_SEAT' }
 
-    let event = await client.events.create(chartKey, null, tableBookingModes)
+    const event = await client.events.create(chartKey, null, tableBookingModes)
 
     expect(event.key).toBeTruthy()
     expect(event.bookWholeTables).toBe(false)

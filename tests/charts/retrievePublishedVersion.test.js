@@ -1,7 +1,10 @@
-test('should retrieve published version of a chart', async () => {
-    let chart = await client.charts.create()
+const testUtils = require('../testUtils.js')
 
-    let retrievedChart = await client.charts.retrievePublishedVersion(chart.key)
+test('should retrieve published version of a chart', async () => {
+    const { client, user } = await testUtils.createTestUserAndClient()
+    const chart = await client.charts.create()
+
+    const retrievedChart = await client.charts.retrievePublishedVersion(chart.key)
 
     expect(retrievedChart.name).toEqual('Untitled chart')
     expect(retrievedChart.venueType).toEqual('MIXED')

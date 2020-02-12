@@ -1,4 +1,7 @@
+const testUtils = require('../testUtils.js')
+
 test('should create a workspace', async () => {
+    const { client, user } = await testUtils.createTestUserAndClient()
     const workspace = await client.workspaces.create('a workspace')
 
     expect(workspace.key).toBeTruthy()
@@ -10,6 +13,7 @@ test('should create a workspace', async () => {
 })
 
 test('should create a test workspace', async () => {
+    const { client, user } = await testUtils.createTestUserAndClient()
     const workspace = await client.workspaces.create('a workspace', true)
 
     expect(workspace.key).toBeTruthy()

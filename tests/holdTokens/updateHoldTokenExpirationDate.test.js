@@ -1,12 +1,15 @@
+const testUtils = require('../testUtils.js')
+
 test('should update hold token expiration date', async () => {
-    let d = new Date().toISOString()
-    let lowerBound = new Date(d)
-    let upperBound = new Date(d)
+    const { client, user } = await testUtils.createTestUserAndClient()
+    const d = new Date().toISOString()
+    const lowerBound = new Date(d)
+    const upperBound = new Date(d)
     lowerBound.setMinutes(lowerBound.getMinutes() + 30)
     upperBound.setMinutes(upperBound.getMinutes() + 31)
-    let holdToken = await client.holdTokens.create()
+    const holdToken = await client.holdTokens.create()
 
-    let updatedHoldToken = await client.holdTokens.expiresInMinutes(holdToken.holdToken, 30)
+    const updatedHoldToken = await client.holdTokens.expiresInMinutes(holdToken.holdToken, 30)
 
     expect(updatedHoldToken.holdToken).toBe(holdToken.holdToken)
     expect(lowerBound.getTime() <= updatedHoldToken.expiresAt.getTime()).toBe(true)
