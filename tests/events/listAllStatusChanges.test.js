@@ -9,9 +9,13 @@ test('should list all status changes', async () => {
     const chartKey = testUtils.getChartKey()
     await testUtils.createTestChart(chartKey, user.secretKey)
     const event = await client.events.create(chartKey)
-    await client.events.book(event.key, 'A-1')
-    await client.events.book(event.key, 'A-2')
-    await client.events.book(event.key, 'A-3')
+    const promises = [
+        client.events.book(event.key, 'A-1'),
+        client.events.book(event.key, 'A-2'),
+        client.events.book(event.key, 'A-3')
+    ]
+    await Promise.all(promises)
+
     const labels = []
 
     for await (const statusChange of client.events.statusChanges(event.key).all()) {
@@ -57,9 +61,13 @@ test('should list all status changes sorted by label', async () => {
     const chartKey = testUtils.getChartKey()
     await testUtils.createTestChart(chartKey, user.secretKey)
     const event = await client.events.create(chartKey)
-    await client.events.book(event.key, 'A-1')
-    await client.events.book(event.key, 'A-2')
-    await client.events.book(event.key, 'A-3')
+    const promises = [
+        client.events.book(event.key, 'A-1'),
+        client.events.book(event.key, 'A-2'),
+        client.events.book(event.key, 'A-3')
+    ]
+    await Promise.all(promises)
+
     const labels = []
 
     const params = new StatusChangesParams().sortByObjectLabel()

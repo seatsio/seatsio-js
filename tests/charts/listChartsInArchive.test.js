@@ -4,10 +4,13 @@ test('should list all charts in archive', async () => {
     const { client, user } = await testUtils.createTestUserAndClient()
     const chart1 = await client.charts.create()
     const chart2 = await client.charts.create()
-    await client.charts.create()
     const archivedChartKeys = []
-    await client.charts.moveToArchive(chart1.key)
-    await client.charts.moveToArchive(chart2.key)
+    const promises = [
+        client.charts.create(),
+        client.charts.moveToArchive(chart1.key),
+        client.charts.moveToArchive(chart2.key)
+    ]
+    await Promise.all(promises)
 
     for await (const chart of client.charts.archive.all()) {
         archivedChartKeys.push(chart.key)
@@ -49,11 +52,14 @@ test('get first page of archived charts', async () => {
 test('get first page of archived charts with page size', async () => {
     const { client, user } = await testUtils.createTestUserAndClient()
     const chart1 = await client.charts.create()
-    await client.charts.moveToArchive(chart1.key)
     const chart2 = await client.charts.create()
-    await client.charts.moveToArchive(chart2.key)
     const chart3 = await client.charts.create()
-    await client.charts.moveToArchive(chart3.key)
+    const promises = [
+        client.charts.moveToArchive(chart1.key),
+        client.charts.moveToArchive(chart2.key),
+        client.charts.moveToArchive(chart3.key)
+    ]
+    await Promise.all(promises)
 
     const firstPage = await client.charts.archive.firstPage(null, 2)
 
@@ -64,11 +70,14 @@ test('get first page of archived charts with page size', async () => {
 test('get page after given archived charts id', async () => {
     const { client, user } = await testUtils.createTestUserAndClient()
     const chart1 = await client.charts.create()
-    await client.charts.moveToArchive(chart1.key)
     const chart2 = await client.charts.create()
-    await client.charts.moveToArchive(chart2.key)
     const chart3 = await client.charts.create()
-    await client.charts.moveToArchive(chart3.key)
+    const promises = [
+        client.charts.moveToArchive(chart1.key),
+        client.charts.moveToArchive(chart2.key),
+        client.charts.moveToArchive(chart3.key)
+    ]
+    await Promise.all(promises)
 
     const page = await client.charts.archive.pageAfter(chart3.id)
 
@@ -80,11 +89,14 @@ test('get page after given archived charts id', async () => {
 test('get page after given archived charts id with page size', async () => {
     const { client, user } = await testUtils.createTestUserAndClient()
     const chart1 = await client.charts.create()
-    await client.charts.moveToArchive(chart1.key)
     const chart2 = await client.charts.create()
-    await client.charts.moveToArchive(chart2.key)
     const chart3 = await client.charts.create()
-    await client.charts.moveToArchive(chart3.key)
+    const promises = [
+        client.charts.moveToArchive(chart1.key),
+        client.charts.moveToArchive(chart2.key),
+        client.charts.moveToArchive(chart3.key)
+    ]
+    await Promise.all(promises)
 
     const page = await client.charts.archive.pageAfter(chart3.id, null, 1)
 
@@ -96,11 +108,14 @@ test('get page after given archived charts id with page size', async () => {
 test('get page before given archived charts id', async () => {
     const { client, user } = await testUtils.createTestUserAndClient()
     const chart1 = await client.charts.create()
-    await client.charts.moveToArchive(chart1.key)
     const chart2 = await client.charts.create()
-    await client.charts.moveToArchive(chart2.key)
     const chart3 = await client.charts.create()
-    await client.charts.moveToArchive(chart3.key)
+    const promises = [
+        client.charts.moveToArchive(chart1.key),
+        client.charts.moveToArchive(chart2.key),
+        client.charts.moveToArchive(chart3.key)
+    ]
+    await Promise.all(promises)
 
     const page = await client.charts.archive.pageBefore(chart1.id)
 
@@ -112,11 +127,14 @@ test('get page before given archived charts id', async () => {
 test('get page after given archived charts id with page size', async () => {
     const { client, user } = await testUtils.createTestUserAndClient()
     const chart1 = await client.charts.create()
-    await client.charts.moveToArchive(chart1.key)
     const chart2 = await client.charts.create()
-    await client.charts.moveToArchive(chart2.key)
     const chart3 = await client.charts.create()
-    await client.charts.moveToArchive(chart3.key)
+    const promises = [
+        client.charts.moveToArchive(chart1.key),
+        client.charts.moveToArchive(chart2.key),
+        client.charts.moveToArchive(chart3.key)
+    ]
+    await Promise.all(promises)
 
     const page = await client.charts.archive.pageBefore(chart1.id, null, 1)
 

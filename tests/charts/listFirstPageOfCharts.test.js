@@ -3,41 +3,50 @@ const testUtils = require('../testUtils.js')
 
 test('should list first page of charts', async () => {
     const { client, user } = await testUtils.createTestUserAndClient()
-    const chart1 = await client.charts.create()
-    const chart2 = await client.charts.create()
-    const chart3 = await client.charts.create()
+    const promises = [
+        client.charts.create(),
+        client.charts.create(),
+        client.charts.create()
+    ]
+    const charts = await Promise.all(promises)
 
     const page = await client.charts.listFirstPage()
     const chartKeys = page.items.map((chart) => chart.key)
 
-    expect(chartKeys.sort()).toEqual([chart1.key, chart2.key, chart3.key].sort())
+    expect(chartKeys.sort()).toEqual([charts[0].key, charts[1].key, charts[2].key].sort())
 })
 
 test('should list first page of charts with filter', async () => {
     const { client, user } = await testUtils.createTestUserAndClient()
-    const chart1 = await client.charts.create('foo')
-    const chart2 = await client.charts.create('foo')
-    await client.charts.create('bar')
-    const chart4 = await client.charts.create('foo')
+    const promises = [
+        client.charts.create('foo'),
+        client.charts.create('foo'),
+        client.charts.create('bar'),
+        client.charts.create('foo')
+    ]
+    const charts = await Promise.all(promises)
     const params = new ChartListParams().withFilter('foo')
 
     const page = await client.charts.listFirstPage(params)
     const chartKeys = page.items.map((chart) => chart.key)
 
-    expect(chartKeys.sort()).toEqual([chart1.key, chart2.key, chart4.key].sort())
+    expect(chartKeys.sort()).toEqual([charts[0].key, charts[1].key, charts[3].key].sort())
 })
 
 test('should list first page of charts with tag', async () => {
     const { client, user } = await testUtils.createTestUserAndClient()
-    await client.charts.create('foo')
-    await client.charts.create('foo')
-    const chart3 = await client.charts.create('bar')
-    await client.charts.addTag(chart3.key, 'foo')
+    const promises = [
+        client.charts.create('foo'),
+        client.charts.create('foo'),
+        client.charts.create('bar')
+    ]
+    const charts = await Promise.all(promises)
+    await client.charts.addTag(charts[2].key, 'foo')
     const params = new ChartListParams().withTag('foo')
 
     const page = await client.charts.listFirstPage(params)
 
-    expect(page.items[0].key).toEqual(chart3.key)
+    expect(page.items[0].key).toEqual(charts[2].key)
 })
 
 test('pageSize of list first page of charts with page size', async () => {

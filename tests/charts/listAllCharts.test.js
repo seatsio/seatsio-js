@@ -80,11 +80,14 @@ test('listAll Charts with expandEvents parameters', async () => {
     const { client, user } = await testUtils.createTestUserAndClient()
     const chart1 = await client.charts.create()
     const chart2 = await client.charts.create()
-    const event1 = await client.events.create(chart1.key)
-    const event2 = await client.events.create(chart1.key)
-    const event3 = await client.events.create(chart2.key)
-    const event4 = await client.events.create(chart2.key)
-    const generatedEventKeys = [event1.key, event2.key, event3.key, event4.key]
+    const promises = [
+        client.events.create(chart1.key),
+        client.events.create(chart1.key),
+        client.events.create(chart2.key),
+        client.events.create(chart2.key)
+    ]
+    const events = await Promise.all(promises)
+    const generatedEventKeys = [events[0].key, events[1].key, events[2].key, events[3].key]
     const retrievedKeys = []
     const params = new ChartListParams().withExpandEvents(true)
 
