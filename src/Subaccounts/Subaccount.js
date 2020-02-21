@@ -9,7 +9,6 @@ class Subaccount {
         this.publicKey = subaccount.publicKey
         this.name = subaccount.name
         this.active = subaccount.active
-        this.workspace = subaccount.workspace
     }
 }
 
