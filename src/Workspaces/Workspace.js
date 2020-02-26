@@ -5,6 +5,7 @@ class Workspace {
     constructor (workspace) {
         this.id = workspace.id
         this.key = workspace.key
+        this.secretKey = workspace.secretKey
         this.name = workspace.name
         this.primaryUser = workspace.primaryUser
         this.settings = workspace.settings

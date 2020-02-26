@@ -7,6 +7,7 @@ test('should retrieve a workspace', async () => {
     const retrievedWorkspace = await client.workspaces.retrieve(workspace.key)
 
     expect(retrievedWorkspace.key).toBe(workspace.key)
+    expect(retrievedWorkspace.secretKey).toBe(workspace.secretKey)
     expect(retrievedWorkspace.id).toBe(workspace.id)
     expect(retrievedWorkspace.primaryUser).toEqual(workspace.primaryUser)
     expect(retrievedWorkspace.settings).toEqual(workspace.settings)
