@@ -237,28 +237,43 @@ class Events {
      * @returns {Promise<ChangeObjectStatusResult>} Promise that resolves to ChangeObjectStatusResult object
      */
     changeObjectStatus (eventKeyOrKeys, objectOrObjects, status, holdToken = null, orderId = null, keepExtraData = null) {
-        const requestParameters = {}
+        const request = this.changeObjectStatusRequest(objectOrObjects, status, holdToken, orderId, keepExtraData)
+        request.events = Array.isArray(eventKeyOrKeys) ? eventKeyOrKeys : [eventKeyOrKeys]
 
-        requestParameters.objects = this.normalizeObjects(objectOrObjects)
-
-        requestParameters.status = status
-
-        if (holdToken !== null) {
-            requestParameters.holdToken = holdToken
-        }
-
-        if (orderId !== null) {
-            requestParameters.orderId = orderId
-        }
-
-        if (keepExtraData !== null) {
-            requestParameters.keepExtraData = keepExtraData
-        }
-
-        requestParameters.events = Array.isArray(eventKeyOrKeys) ? eventKeyOrKeys : [eventKeyOrKeys]
-
-        return this.client.post('/seasons/actions/change-object-status?expand=objects', requestParameters)
+        return this.client.post('/seasons/actions/change-object-status?expand=objects', request)
             .then((res) => new ChangeObjectStatusResult(res.data.objects))
+    }
+
+    /**
+     * @param {StatusChangeRequest[]} statusChangeRequests
+     * @returns {Promise<ChangeObjectStatusResult[]>}
+     */
+    changeObjectStatusInBatch (statusChangeRequests) {
+        const requests = statusChangeRequests.map(r => {
+            const json = this.changeObjectStatusRequest(r.objects, r.status, r.holdToken, r.orderId, r.keepExtraData)
+            json.event = r.eventKey
+            return json
+        })
+        const request = { statusChanges: requests }
+
+        return this.client.post('/events/actions/change-object-status?expand=objects', request)
+            .then((res) => res.data.results.map(r => new ChangeObjectStatusResult(r.objects)))
+    }
+
+    changeObjectStatusRequest (objectOrObjects, status, holdToken, orderId, keepExtraData) {
+        const request = {}
+        request.objects = this.normalizeObjects(objectOrObjects)
+        request.status = status
+        if (holdToken !== null) {
+            request.holdToken = holdToken
+        }
+        if (orderId !== null) {
+            request.orderId = orderId
+        }
+        if (keepExtraData !== null) {
+            request.keepExtraData = keepExtraData
+        }
+        return request
     }
 
     /**
