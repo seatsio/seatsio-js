@@ -13,8 +13,8 @@ test('should change object status in batch', async () => {
     const event2 = await client.events.create(chartKey2)
 
     const result = await client.events.changeObjectStatusInBatch([
-        new StatusChangeRequest(event1.key, 'A-1', 'lolzor'),
-        new StatusChangeRequest(event2.key, 'A-2', 'lolzor')
+        new StatusChangeRequest(event1.key, ['A-1'], 'lolzor'),
+        new StatusChangeRequest(event2.key, ['A-2'], 'lolzor')
     ])
 
     expect(result[0].objects['A-1'].status).toBe('lolzor')
