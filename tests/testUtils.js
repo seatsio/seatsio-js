@@ -12,8 +12,9 @@ module.exports = {
         const company = await this.createTestCompany()
         const user = company.admin
         const subaccount = company.subaccount
+        const workspace = company.workspace
         const client = this.createClient(user.secretKey)
-        return { user, subaccount, client }
+        return { user, subaccount, workspace, client }
     },
 
     createTestCompany: function () {
