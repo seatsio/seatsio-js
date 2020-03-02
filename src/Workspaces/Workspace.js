@@ -7,7 +7,6 @@ class Workspace {
         this.key = workspace.key
         this.secretKey = workspace.secretKey
         this.name = workspace.name
-        this.primaryUser = workspace.primaryUser
         this.settings = workspace.settings
         this.isMain = workspace.isMain
         this.isTest = workspace.isTest

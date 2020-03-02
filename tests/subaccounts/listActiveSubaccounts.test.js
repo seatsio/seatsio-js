@@ -1,7 +1,7 @@
 const testUtils = require('../testUtils.js')
 
 test('should list all active subaccounts', async () => {
-    const { client, user } = await testUtils.createTestUserAndClient()
+    const { client, subaccount } = await testUtils.createTestUserAndClient()
     const subaccount1 = await client.subaccounts.create()
     const subaccount2 = await client.subaccounts.create()
     const subaccount3 = await client.subaccounts.create()
@@ -12,18 +12,18 @@ test('should list all active subaccounts', async () => {
         activeSubaccountIds.push(subaccount.id)
     }
 
-    expect(activeSubaccountIds.sort()).toEqual([subaccount2.id, subaccount1.id, user.mainWorkspace.primaryUser.id].sort())
+    expect(activeSubaccountIds.sort()).toEqual([subaccount2.id, subaccount1.id, subaccount.id].sort())
 })
 
 test('should list first page of active subaccounts', async () => {
-    const { client, user } = await testUtils.createTestUserAndClient()
+    const { client, subaccount } = await testUtils.createTestUserAndClient()
     const subaccount1 = await client.subaccounts.create()
     const subaccount2 = await client.subaccounts.create()
     const subaccount3 = await client.subaccounts.create()
 
     const firstPage = await client.subaccounts.active.firstPage()
 
-    expect(firstPage.items.map(item => item.id).sort()).toEqual([subaccount1.id, subaccount2.id, subaccount3.id, user.mainWorkspace.primaryUser.id].sort())
+    expect(firstPage.items.map(item => item.id).sort()).toEqual([subaccount1.id, subaccount2.id, subaccount3.id, subaccount.id].sort())
     expect(firstPage.items.length).toBe(4)
 })
 
@@ -40,14 +40,14 @@ test('should list first page of active subaccounts with page size', async () => 
 })
 
 test('should list page after of active subaccounts', async () => {
-    const { client, user } = await testUtils.createTestUserAndClient()
+    const { client, subaccount } = await testUtils.createTestUserAndClient()
     const subaccount1 = await client.subaccounts.create()
     const subaccount2 = await client.subaccounts.create()
     const subaccount3 = await client.subaccounts.create()
 
     const pageAfter = await client.subaccounts.active.pageAfter(subaccount3.id)
 
-    expect([pageAfter.items[0].id, pageAfter.items[1].id, pageAfter.items[2].id].sort()).toEqual([subaccount1.id, subaccount2.id, user.mainWorkspace.primaryUser.id].sort())
+    expect([pageAfter.items[0].id, pageAfter.items[1].id, pageAfter.items[2].id].sort()).toEqual([subaccount1.id, subaccount2.id, subaccount.id].sort())
     expect(pageAfter.items.length).toBe(3)
 })
 

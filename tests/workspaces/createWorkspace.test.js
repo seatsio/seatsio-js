@@ -7,7 +7,6 @@ test('should create a workspace', async () => {
     expect(workspace.key).toBeTruthy()
     expect(workspace.secretKey).toBeTruthy()
     expect(workspace.id).toBeTruthy()
-    expect(workspace.primaryUser).toBeTruthy()
     expect(workspace.settings).toBeTruthy()
     expect(workspace.name).toBe('a workspace')
     expect(workspace.isTest).toBeFalsy()

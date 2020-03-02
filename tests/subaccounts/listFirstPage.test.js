@@ -1,13 +1,13 @@
 const testUtils = require('../testUtils.js')
 
 test('should list subaccounts in first page', async () => {
-    const { client, user } = await testUtils.createTestUserAndClient()
+    const { client, subaccount } = await testUtils.createTestUserAndClient()
     const subaccounts = await testUtils.createArray(3, () => client.subaccounts.create())
 
     const page = await client.subaccounts.listFirstPage()
 
     const retrievedSubaccountIds = page.items.map((subaccount) => subaccount.id)
-    const subaccountIds = subaccounts.map(s => s.id).concat(user.mainWorkspace.primaryUser.id)
+    const subaccountIds = subaccounts.map(s => s.id).concat(subaccount.id)
     expect(retrievedSubaccountIds.sort()).toEqual(subaccountIds.sort())
 })
 

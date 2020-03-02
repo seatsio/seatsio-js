@@ -198,6 +198,13 @@ let previousPage = client.charts.listPageBefore(nextPage.previousPageEndsBefore)
 previousPage.items.forEach(chart => console.log(`Chart key: ${chart.key}`));
 ```
 
+### Creating a workspace
+
+```js
+let client = new SeatsioClient(<COMPANY ADMIN KEY>)
+await client.workspaces.create('a workspace');
+```
+
 ## Error Handling
 When an API call results in an error, a rejected promise is returned with the response received from the server. This response contains a message string describing what went wrong, and also two other properties:
 

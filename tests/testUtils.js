@@ -9,15 +9,17 @@ const baseUrl = 'https://api-staging.seatsio.net/'
 
 module.exports = {
     createTestUserAndClient: async function () {
-        const user = await this.createTestUser()
+        const company = await this.createTestCompany()
+        const user = company.admin
+        const subaccount = company.subaccount
         const client = this.createClient(user.secretKey)
-        return { user, client }
+        return { user, subaccount, client }
     },
 
-    createTestUser: function () {
+    createTestCompany: function () {
         return axios({
             method: 'POST',
-            url: baseUrl + 'system/public/users/actions/create-test-user'
+            url: baseUrl + 'system/public/users/actions/create-test-company'
         }).then(response => {
             return response.data
         })
