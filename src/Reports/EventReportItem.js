@@ -22,6 +22,10 @@ class EventReportItem {
         this.numFree = report.numFree
         this.numHeld = report.numHeld
         this.extraData = report.extraData
+        this.isAccessible = report.isAccessible
+        this.isCompanionSeat = report.isCompanionSeat
+        this.hasRestrictedView = report.hasRestrictedView
+        this.displayedObjectType = report.displayedObjectType
     }
 }
 

@@ -26,6 +26,10 @@ test('report properties', async () => {
     expect(reportItem.section).toBeFalsy()
     expect(reportItem.entrance).toBeFalsy()
     expect(reportItem.extraData).toEqual(extraData)
+    expect(reportItem.isAccessible).toBe(false)
+    expect(reportItem.isCompanionSeat).toBe(false)
+    expect(reportItem.hasRestrictedView).toBe(false)
+    expect(reportItem.displayedObjectType).toBe(undefined)
 })
 
 test('report has hold token', async () => {
@@ -59,6 +63,10 @@ test('report properties for GA', async () => {
     expect(reportItem.numFree).toBe(92)
     expect(reportItem.numHeld).toBe(3)
     expect(reportItem.objectType).toBe('generalAdmission')
+    expect(reportItem.isAccessible).toBe(undefined)
+    expect(reportItem.isCompanionSeat).toBe(undefined)
+    expect(reportItem.hasRestrictedView).toBe(undefined)
+    expect(reportItem.displayedObjectType).toBe(undefined)
 })
 
 test('report with object status', async () => {
