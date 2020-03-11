@@ -18,7 +18,10 @@ test('should change object status', async () => {
             label: 'A-1',
             labels: { own: { label: '1', type: 'seat' }, parent: { label: 'A', type: 'row' } },
             objectType: 'seat',
-            status: 'lolzor'
+            status: 'lolzor',
+            isAccessible: false,
+            hasRestrictedView: false,
+            isCompanionSeat: false
         }
     })
 })

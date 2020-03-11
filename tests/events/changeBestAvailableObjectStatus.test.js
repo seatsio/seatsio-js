@@ -19,7 +19,10 @@ test('should change best available object status', async () => {
             label: 'B-4',
             labels: { own: { label: '4', type: 'seat' }, parent: { label: 'B', type: 'row' } },
             objectType: 'seat',
-            status: 'lolzor'
+            status: 'lolzor',
+            isAccessible: false,
+            hasRestrictedView: false,
+            isCompanionSeat: false
         },
         'B-5': {
             categoryKey: '9',
@@ -28,7 +31,10 @@ test('should change best available object status', async () => {
             label: 'B-5',
             labels: { own: { label: '5', type: 'seat' }, parent: { label: 'B', type: 'row' } },
             objectType: 'seat',
-            status: 'lolzor'
+            status: 'lolzor',
+            isAccessible: false,
+            hasRestrictedView: false,
+            isCompanionSeat: false
         }
     }
     )
