@@ -22,7 +22,7 @@
   },
   "author": "Nami Falhan <namfaldev@gmail.com> (https://www.seats.io)",
   "dependencies": {
-    "acorn": "7.1.0",
+    "acorn": "7.1.1",
     "axios": "0.19.2",
     "uuid": "3.3.3"
   },
