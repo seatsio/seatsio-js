@@ -33,9 +33,7 @@ This library uses `async/await` introduced with ES2017 and `for await` loops whi
 
 ## Versioning
 
-seatsio-js only uses major version numbers: v2, v3, v4 etc. Each release - backwards compatible or not - receives a new major version number.
-
-The reason: we want to play safe and assume that each release _might_ break backwards compatibility.
+seatsio-js follows semver since v54.2.0.
 
 Please note that any version below v2 is not production ready.
 
