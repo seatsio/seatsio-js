@@ -33,7 +33,7 @@ This library uses `async/await` introduced with ES2017 and `for await` loops whi
 
 ## Versioning
 
-seatsio-js follows semver since v54.3.0.
+seatsio-js follows semver since v54.4.0.
 
 Please note that any version below v2 is not production ready.
 
