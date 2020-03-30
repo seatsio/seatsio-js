@@ -12,14 +12,12 @@ deploy:
   - provider: npm
     edge: true
     email: matti@seats.io
-    api_key:
-        secure: $NPM_API_KEY
+    api_key: $NPM_API_KEY
     on:
         tags: true
   - provider: releases
     edge: true
-    api_key:
-        secure: $GITHUB_OAUTH
+    api_key: $GITHUB_OAUTH
     file: build/SeatsioClient.js
     on:
         tags: true
