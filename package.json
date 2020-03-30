@@ -1,6 +1,6 @@
 {
   "name": "seatsio",
-  "version": "55.0.0",
+  "version": "54.4.0",
   "main": "index.js",
   "description": "Official JavaScript and Node.JS client library for the Seats.io V2 REST API",
   "license": "MIT",
@@ -22,7 +22,7 @@
   },
   "author": "Nami Falhan <namfaldev@gmail.com> (https://www.seats.io)",
   "dependencies": {
-    "acorn": "7.1.0",
+    "acorn": "7.1.1",
     "axios": "0.19.2",
     "uuid": "3.3.3"
   },
