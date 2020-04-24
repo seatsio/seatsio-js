@@ -34,6 +34,14 @@ class Workspaces {
 
     /**
      * @param {string} key
+     */
+    regenerateSecretKey (key) {
+        return this.client.post(`/workspaces/${key}/actions/regenerate-secret-key`)
+            .then(res => res.data.secretKey)
+    }
+
+    /**
+     * @param {string} key
      * @returns {Promise<Workspace>} Promise object that will resolve to a Workspace object
      */
     retrieve (key) {
