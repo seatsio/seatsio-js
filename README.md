@@ -40,10 +40,10 @@ Please note that any version below v2 is not production ready.
 ## Examples
 
 ### Creating a chart and an event
-Once you create a new `SeatsioClient` using your _secret key_, you can create _charts_ and then _events_. You can find your _secret key_ in the Settings section of your account: https://app.seats.io/settings. It is important that you keep your _secret key_ private and not expose it in-browser calls unless it is password protected.
+Once you create a new `SeatsioClient` using your _secret key_, you can create _charts_ and then _events_. You can find your _secret key_ in the Settings section of your workspace: https://app.seats.io/workspace-settings. It is important that you keep your _secret key_ private and not expose it in-browser calls unless it is password protected.
 
 ```js
-let client = new SeatsioClient(<SECRET KEY>)
+let client = new SeatsioClient(<WORKSPACE SECRET KEY>)
 let chart = await client.charts.create()
 let event = await client.events.create(chart.key)
 console.log(`Created a chart with key ${chart.key} and an event with key: ${event.key}`)
@@ -56,14 +56,14 @@ Booking an object changes its status to `booked`. Booked seats are not selectabl
 [https://docs.seats.io/docs/api-book-objects](https://docs.seats.io/docs/api-book-objects).
 
 ```js
-let client = new SeatsioClient(<SECRET KEY>)
+let client = new SeatsioClient(<WORKSPACE SECRET KEY>)
 await client.events.book(<AN EVENT KEY>, ['A-1', 'A-2'])
 ```
 
 ### Booking objects that are on `HOLD`
 
 ```js
-let client = new SeatsioClient(<SECRET KEY>)
+let client = new SeatsioClient(<WORKSPACE SECRET KEY>)
 await client.events.book(<AN EVENT KEY>, ["A-1", "A-2"], <A HOLD TOKEN>)
 ```
 
@@ -72,14 +72,14 @@ await client.events.book(<AN EVENT KEY>, ["A-1", "A-2"], <A HOLD TOKEN>)
 Either
 
 ```js
-let client = new SeatsioClient(<SECRET KEY>)
+let client = new SeatsioClient(<WORKSPACE SECRET KEY>)
 await client.events.book(<AN EVENT KEY>, ["GA1", "GA1", "GA1"])
 ```
 
 Or:
 
 ```js
-let client = new SeatsioClient(<SECRET KEY>)
+let client = new SeatsioClient(<WORKSPACE SECRET KEY>)
 await client.events.book(<AN EVENT KEY>, {"objectId": "GA1", "quantity" : 3})
 ```
 
@@ -90,7 +90,7 @@ Releasing objects changes its status to `free`. Free seats are selectable on a r
 [https://docs.seats.io/docs/api-release-objects](https://docs.seats.io/docs/api-release-objects).
 
 ```js
-let client = new SeatsioClient(<SECRET KEY>)
+let client = new SeatsioClient(<WORKSPACE SECRET KEY>)
 await client.events.release(<AN EVENT KEY>, ["A-1", "A-2"])
 ```
 
@@ -101,7 +101,7 @@ Changes the object status to a custom status of your choice. If you need more st
 [https://docs.seats.io/docs/api-custom-object-status](https://docs.seats.io/docs/api-custom-object-status)
 
 ```js
-let client = new SeatsioClient(<SECRET KEY>)
+let client = new SeatsioClient(<WORKSPACE SECRET KEY>)
 await client.events.changeObjectStatus(<AN EVENT KEY>, ["A-1", "A-2"], "unavailable")
 ```
 ### Listing status changes
@@ -153,7 +153,7 @@ The report types you can choose from are:
 [https://docs.seats.io/docs/api-event-reports](https://docs.seats.io/docs/api-event-reports)
 
 ```js
-let client = new SeatsioClient(<SECRET KEY>)
+let client = new SeatsioClient(<WORKSPACE SECRET KEY>)
 await client.eventReports.byStatus(<AN EVENT KEY>, <OPTIONAL FILTER>)
 ```
 
@@ -162,7 +162,7 @@ await client.eventReports.byStatus(<AN EVENT KEY>, <OPTIONAL FILTER>)
 You can list all charts using `listAll()` method which returns an asynchronous iterator `AsyncIterator`. You can use `for await` loop to retrieve all charts.
 
 ```js
-let client = new SeatsioClient(<SECRET KEY>)
+let client = new SeatsioClient(<WORKSPACE SECRET KEY>)
 
 for await(let chart of client.charts.listAll()){
     console.log(`Chart key: ${chart.key}`)
