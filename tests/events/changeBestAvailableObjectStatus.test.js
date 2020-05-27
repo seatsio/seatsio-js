@@ -22,7 +22,9 @@ test('should change best available object status', async () => {
             status: 'lolzor',
             isAccessible: false,
             hasRestrictedView: false,
-            isCompanionSeat: false
+            isCompanionSeat: false,
+            leftNeighbour: 'B-3',
+            rightNeighbour: 'B-5'
         },
         'B-5': {
             categoryKey: '9',
@@ -34,7 +36,9 @@ test('should change best available object status', async () => {
             status: 'lolzor',
             isAccessible: false,
             hasRestrictedView: false,
-            isCompanionSeat: false
+            isCompanionSeat: false,
+            leftNeighbour: 'B-4',
+            rightNeighbour: 'B-6'
         }
     }
     )

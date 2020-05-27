@@ -1,6 +1,6 @@
 {
   "name": "seatsio",
-  "version": "54.7.0",
+  "version": "54.8.0",
   "main": "index.js",
   "description": "Official JavaScript and Node.JS client library for the Seats.io V2 REST API",
   "license": "MIT",
@@ -8,13 +8,6 @@
     "lint": "eslint ./src",
     "test": "jest --maxWorkers=8 --verbose",
     "bundle": "gulp bundle"
-  },
-  "jest": {
-    "transform": {},
-    "testEnvironment": "node",
-    "setupFilesAfterEnv": [
-      "<rootDir>/tests/setupTests.js"
-    ]
   },
   "repository": {
     "type": "git",

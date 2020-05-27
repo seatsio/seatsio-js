@@ -30,6 +30,8 @@ test('report properties', async () => {
     expect(reportItem.isCompanionSeat).toBe(false)
     expect(reportItem.hasRestrictedView).toBe(false)
     expect(reportItem.displayedObjectType).toBe(undefined)
+    expect(reportItem.leftNeighbour).toBe(undefined)
+    expect(reportItem.rightNeighbour).toBe('A-2')
 })
 
 test('report has hold token', async () => {

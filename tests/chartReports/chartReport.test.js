@@ -15,6 +15,8 @@ test('chart report properties', async () => {
     expect(reportItem.objectType).toBe('seat')
     expect(reportItem.section).toBeFalsy()
     expect(reportItem.entrance).toBeFalsy()
+    expect(reportItem.leftNeighbour).toBe(undefined)
+    expect(reportItem.rightNeighbour).toBe('A-2')
 })
 
 test('chart report properties for GA', async () => {

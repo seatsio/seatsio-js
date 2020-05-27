@@ -21,7 +21,8 @@ test('should change object status', async () => {
             status: 'lolzor',
             isAccessible: false,
             hasRestrictedView: false,
-            isCompanionSeat: false
+            isCompanionSeat: false,
+            rightNeighbour: 'A-2'
         }
     })
 })

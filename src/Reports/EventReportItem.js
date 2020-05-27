@@ -26,6 +26,8 @@ class EventReportItem {
         this.isCompanionSeat = report.isCompanionSeat
         this.hasRestrictedView = report.hasRestrictedView
         this.displayedObjectType = report.displayedObjectType
+        this.leftNeighbour = report.leftNeighbour
+        this.rightNeighbour = report.rightNeighbour
     }
 }
 
