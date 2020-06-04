@@ -1,4 +1,5 @@
 const testUtils = require('../testUtils.js')
+const Channel = require('../../src/Events/Channel.js')
 
 test('should assign objects to channels', async () => {
     const {client, user} = await testUtils.createTestUserAndClient()
@@ -17,20 +18,20 @@ test('should assign objects to channels', async () => {
 
     const retrievedEvent = await client.events.retrieve(event.key)
     expect(retrievedEvent.channels).toEqual([
-        {
+        new Channel({
             "key": "channelKey1",
             "name": "channel 1",
             "color": "blue",
             "index": 1,
             "objects": ['A-1', 'A-2']
-        }, {
+        }),
+        new Channel({
             "key": "channelKey2",
             "name": "channel 2",
             "color": "red",
             "index": 2,
             "objects": ['A-3']
-        }
+        })
     ])
-
 
 })
