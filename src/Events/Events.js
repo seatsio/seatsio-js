@@ -49,6 +49,14 @@ class Events {
             .then((res) => new Event(res.data))
     }
 
+    updateChannels(eventKey, channels) {
+        return this.client.post(`/events/${encodeURIComponent(eventKey)}/channels/update`, {channels: channels});
+    }
+
+    assignObjectsToChannel(eventKey, channelConfig) {
+        return this.client.post(`/events/${encodeURIComponent(eventKey)}/channels/assign-objects`, {channelConfig: channelConfig});
+    }
+
     /**
      * @param {string} eventKey
      * @param {?string} chartKey

@@ -14,6 +14,7 @@ class Event {
         this.chartKey = event.chartKey
         this.createdOn = event.createdOn ? new Date(event.createdOn) : null
         this.updatedOn = event.updatedOn ? new Date(event.updatedOn) : null
+        this.channels = event.channels
     }
 }
 
