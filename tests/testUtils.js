@@ -5,7 +5,7 @@ const uuidv1 = require('uuid/v1')
 const LabelClasses = require('../src/Common/Labels.js')
 const path = require('path')
 
-const baseUrl = 'http://localhost:9001/'
+const baseUrl = 'https://api-staging.seatsio.net/'
 
 module.exports = {
     createTestUserAndClient: async function () {
