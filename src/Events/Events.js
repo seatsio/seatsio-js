@@ -68,7 +68,7 @@ class Events {
      * @param {?object} bookWholeTablesOrTableBookingModes
      * @returns {Promise}
      */
-    update (eventKey, chartKey = null, newEventKey = null, bookWholeTablesOrTableBookingModes = null) {
+    update (eventKey, chartKey = null, newEventKey = null, bookWholeTablesOrTableBookingModes = null, socialDistancingRulesetKey = null) {
         const requestParameters = {}
 
         if (chartKey !== null) {
@@ -76,13 +76,17 @@ class Events {
         }
 
         if (newEventKey !== null) {
-            requestParameters.eventKey = encodeURIComponent(newEventKey)
+            requestParameters.eventKey = newEventKey
         }
 
         if (typeof bookWholeTablesOrTableBookingModes === 'boolean') {
             requestParameters.bookWholeTables = bookWholeTablesOrTableBookingModes
         } else if (bookWholeTablesOrTableBookingModes !== null) {
             requestParameters.tableBookingModes = bookWholeTablesOrTableBookingModes
+        }
+
+        if (socialDistancingRulesetKey !== null) {
+            requestParameters.socialDistancingRulesetKey = socialDistancingRulesetKey
         }
 
         return this.client.post(`events/${encodeURIComponent(eventKey)}`, requestParameters)
