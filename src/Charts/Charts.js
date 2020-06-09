@@ -185,6 +185,14 @@ class Charts {
 
     /**
      * @param {string} key
+     * @param {object} socialDistancingRulesets
+     */
+    saveSocialDistancingRulesets (key, socialDistancingRulesets) {
+        return this.client.post(`/charts/${key}/social-distancing-rulesets`, { socialDistancingRulesets })
+    }
+
+    /**
+     * @param {string} key
      * @returns {Promise} Promise that resolves to an SVG doc
      */
     retrievePublishedVersionThumbnail (key) {

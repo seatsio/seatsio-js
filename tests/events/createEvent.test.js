@@ -1,4 +1,5 @@
 const testUtils = require('../testUtils.js')
+const SocialDistancingRuleset = require('../../src/Charts/SocialDistancingRuleset.js')
 
 test('should check that only chart key is required', async () => {
     const { client, user } = await testUtils.createTestUserAndClient()
@@ -47,4 +48,15 @@ test('should pass in tableBookingModes as a create() param', async () => {
     expect(event.key).toBeTruthy()
     expect(event.bookWholeTables).toBe(false)
     expect(event.tableBookingModes).toEqual(tableBookingModes)
+})
+
+test('it supports a social distancing ruleset key', async () => {
+    const { client } = await testUtils.createTestUserAndClient()
+    const chart = await client.charts.create()
+    const rulesets = { ruleset1: new SocialDistancingRuleset(0, 'My ruleset') }
+    await client.charts.saveSocialDistancingRulesets(chart.key, rulesets)
+
+    const event = await client.events.create(chart.key, null, null, 'ruleset1')
+
+    expect(event.socialDistancingRulesetKey).toBe('ruleset1')
 })
