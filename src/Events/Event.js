@@ -16,6 +16,7 @@ class Event {
         this.createdOn = event.createdOn ? new Date(event.createdOn) : null
         this.updatedOn = event.updatedOn ? new Date(event.updatedOn) : null
         this.channels = event.channels ? event.channels.map(c => new Channel(c)) : null
+        this.socialDistancingRulesetKey = event.socialDistancingRulesetKey
     }
 }
 

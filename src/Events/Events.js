@@ -21,19 +21,23 @@ class Events {
      * @param {?object} bookWholeTablesOrTableBookingModes
      * @returns {Promise<Event>} Promise that resolves to Event object
      */
-    create (chartKey, eventKey = null, bookWholeTablesOrTableBookingModes = null) {
+    create (chartKey, eventKey = null, bookWholeTablesOrTableBookingModes = null, socialDistancingRulesetKey = null) {
         const requestParameters = {}
 
         requestParameters.chartKey = chartKey
 
         if (eventKey !== null) {
-            requestParameters.eventKey = encodeURIComponent(eventKey)
+            requestParameters.eventKey = eventKey
         }
 
         if ((bookWholeTablesOrTableBookingModes === true) || (bookWholeTablesOrTableBookingModes === false)) {
             requestParameters.bookWholeTables = bookWholeTablesOrTableBookingModes
         } else if (bookWholeTablesOrTableBookingModes) {
             requestParameters.tableBookingModes = bookWholeTablesOrTableBookingModes
+        }
+
+        if (socialDistancingRulesetKey !== null) {
+            requestParameters.socialDistancingRulesetKey = socialDistancingRulesetKey
         }
 
         return this.client.post('/events', requestParameters)
@@ -49,12 +53,12 @@ class Events {
             .then((res) => new Event(res.data))
     }
 
-    updateChannels(eventKey, channels) {
-        return this.client.post(`/events/${encodeURIComponent(eventKey)}/channels/update`, {channels: channels});
+    updateChannels (eventKey, channels) {
+        return this.client.post(`/events/${encodeURIComponent(eventKey)}/channels/update`, { channels: channels })
     }
 
-    assignObjectsToChannel(eventKey, channelConfig) {
-        return this.client.post(`/events/${encodeURIComponent(eventKey)}/channels/assign-objects`, {channelConfig: channelConfig});
+    assignObjectsToChannel (eventKey, channelConfig) {
+        return this.client.post(`/events/${encodeURIComponent(eventKey)}/channels/assign-objects`, { channelConfig: channelConfig })
     }
 
     /**
@@ -64,7 +68,7 @@ class Events {
      * @param {?object} bookWholeTablesOrTableBookingModes
      * @returns {Promise}
      */
-    update (eventKey, chartKey = null, newEventKey = null, bookWholeTablesOrTableBookingModes = null) {
+    update (eventKey, chartKey = null, newEventKey = null, bookWholeTablesOrTableBookingModes = null, socialDistancingRulesetKey = null) {
         const requestParameters = {}
 
         if (chartKey !== null) {
@@ -72,13 +76,17 @@ class Events {
         }
 
         if (newEventKey !== null) {
-            requestParameters.eventKey = encodeURIComponent(newEventKey)
+            requestParameters.eventKey = newEventKey
         }
 
         if (typeof bookWholeTablesOrTableBookingModes === 'boolean') {
             requestParameters.bookWholeTables = bookWholeTablesOrTableBookingModes
         } else if (bookWholeTablesOrTableBookingModes !== null) {
             requestParameters.tableBookingModes = bookWholeTablesOrTableBookingModes
+        }
+
+        if (socialDistancingRulesetKey !== null) {
+            requestParameters.socialDistancingRulesetKey = socialDistancingRulesetKey
         }
 
         return this.client.post(`events/${encodeURIComponent(eventKey)}`, requestParameters)
