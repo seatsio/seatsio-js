@@ -32,6 +32,8 @@ test('report properties', async () => {
     expect(reportItem.displayedObjectType).toBe(undefined)
     expect(reportItem.leftNeighbour).toBe(undefined)
     expect(reportItem.rightNeighbour).toBe('A-2')
+    expect(reportItem.isSelectable).toBe(false)
+    expect(reportItem.isDisabledBySocialDistancing).toBe(false)
 })
 
 test('report has hold token', async () => {
@@ -230,68 +232,31 @@ test('report with specific section', async () => {
     expect(report.NO_SECTION.length).toBe(34)
 })
 
-test('specific non existing status', async () => {
+test('report by selectability', async () => {
     const { client, user } = await testUtils.createTestUserAndClient()
     const chartKey = testUtils.getChartKey()
     await testUtils.createTestChart(chartKey, user.secretKey)
     const event = await client.events.create(chartKey)
+    await client.events.book(event.key, 'A-1', null, 'order1')
+    await client.events.book(event.key, 'A-2', null, 'order1')
+    await client.events.book(event.key, 'A-3', null, 'order2')
 
-    const report = await client.eventReports.byStatus(event.key, 'lolzor')
+    const report = await client.eventReports.bySelectability(event.key)
 
-    expect(report).toEqual({})
+    expect(report.selectable.length).toBe(31)
+    expect(report.not_selectable.length).toBe(3)
 })
 
-test('specific non existing section', async () => {
+test('report by specific selectability', async () => {
     const { client, user } = await testUtils.createTestUserAndClient()
     const chartKey = testUtils.getChartKey()
     await testUtils.createTestChart(chartKey, user.secretKey)
     const event = await client.events.create(chartKey)
+    await client.events.book(event.key, 'A-1', null, 'order1')
+    await client.events.book(event.key, 'A-2', null, 'order1')
+    await client.events.book(event.key, 'A-3', null, 'order2')
 
-    const report = await client.eventReports.bySection(event.key, 'lolzor')
+    const report = await client.eventReports.bySelectability(event.key, 'selectable')
 
-    expect(report).toEqual({})
-})
-
-test('specific non existing orderId', async () => {
-    const { client, user } = await testUtils.createTestUserAndClient()
-    const chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.secretKey)
-    const event = await client.events.create(chartKey)
-
-    const report = await client.eventReports.byOrderId(event.key, 'lolzor')
-
-    expect(report).toEqual({})
-})
-
-test('specific non existing label', async () => {
-    const { client, user } = await testUtils.createTestUserAndClient()
-    const chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.secretKey)
-    const event = await client.events.create(chartKey)
-
-    const report = await client.eventReports.byLabel(event.key, 'lolzor')
-
-    expect(report).toEqual({})
-})
-
-test('specific non existing categoryKey', async () => {
-    const { client, user } = await testUtils.createTestUserAndClient()
-    const chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.secretKey)
-    const event = await client.events.create(chartKey)
-
-    const report = await client.eventReports.byCategoryKey(event.key, 'lolzor')
-
-    expect(report).toEqual({})
-})
-
-test('specific non existing categoryLabel', async () => {
-    const { client, user } = await testUtils.createTestUserAndClient()
-    const chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.secretKey)
-    const event = await client.events.create(chartKey)
-
-    const report = await client.eventReports.byCategoryLabel(event.key, 'lolzor')
-
-    expect(report).toEqual({})
+    expect(report.selectable.length).toBe(31)
 })

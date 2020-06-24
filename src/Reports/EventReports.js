@@ -34,7 +34,7 @@ class EventReports {
      */
     byStatus (eventKey, status = null) {
         return this.client.get(EventReports.reportUrl('byStatus', eventKey, status))
-            .then((res) => utilities.createEventReport(res.data, status))
+            .then((res) => utilities.createEventReport(res.data))
     }
 
     /**
@@ -53,7 +53,7 @@ class EventReports {
      */
     byCategoryLabel (eventKey, categoryLabel = null) {
         return this.client.get(EventReports.reportUrl('byCategoryLabel', eventKey, categoryLabel))
-            .then((res) => utilities.createEventReport(res.data, categoryLabel))
+            .then((res) => utilities.createEventReport(res.data))
     }
 
     /**
@@ -72,7 +72,7 @@ class EventReports {
      */
     byCategoryKey (eventKey, categoryKey = null) {
         return this.client.get(EventReports.reportUrl('byCategoryKey', eventKey, categoryKey))
-            .then((res) => utilities.createEventReport(res.data, categoryKey))
+            .then((res) => utilities.createEventReport(res.data))
     }
 
     /**
@@ -91,7 +91,7 @@ class EventReports {
      */
     byLabel (eventKey, label = null) {
         return this.client.get(EventReports.reportUrl('byLabel', eventKey, label))
-            .then((res) => utilities.createEventReport(res.data, label))
+            .then((res) => utilities.createEventReport(res.data))
     }
 
     /**
@@ -101,7 +101,7 @@ class EventReports {
      */
     byOrderId (eventKey, orderId = null) {
         return this.client.get(EventReports.reportUrl('byOrderId', eventKey, orderId))
-            .then((res) => utilities.createEventReport(res.data, orderId))
+            .then((res) => utilities.createEventReport(res.data))
     }
 
     /**
@@ -111,7 +111,7 @@ class EventReports {
      */
     bySection (eventKey, section = null) {
         return this.client.get(EventReports.reportUrl('bySection', eventKey, section))
-            .then((res) => utilities.createEventReport(res.data, section))
+            .then((res) => utilities.createEventReport(res.data))
     }
 
     /**
@@ -120,6 +120,25 @@ class EventReports {
      */
     summaryBySection (eventKey) {
         return this.client.get(EventReports.summaryReportUrl('bySection', eventKey))
+            .then((res) => res.data)
+    }
+
+    /**
+     * @param {string} eventKey
+     * @param {?string} selectability
+     * @returns {Object.<string, EventReportItem[]>}
+     */
+    bySelectability (eventKey, selectability = null) {
+        return this.client.get(EventReports.reportUrl('bySelectability', eventKey, selectability))
+            .then((res) => utilities.createEventReport(res.data))
+    }
+
+    /**
+     * @param {string} eventKey
+     * @returns {Object} JSON response from the server
+     */
+    summaryBySelectability (eventKey) {
+        return this.client.get(EventReports.summaryReportUrl('bySelectability', eventKey))
             .then((res) => res.data)
     }
 }
