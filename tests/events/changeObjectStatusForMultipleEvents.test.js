@@ -19,7 +19,6 @@ test('should change object status for multiple events', async () => {
 test('should book multiple events', async () => {
     const { client, user } = await testUtils.createTestUserAndClient()
     const chartKey = testUtils.getChartKey()
-    const objectStatus = new ObjectStatus()
     await testUtils.createTestChart(chartKey, user.secretKey)
     const event1 = await client.events.create(chartKey)
     const event2 = await client.events.create(chartKey)
@@ -28,14 +27,13 @@ test('should book multiple events', async () => {
 
     const objStatus1 = await client.events.retrieveObjectStatus(event1.key, 'A-1')
     const objStatus2 = await client.events.retrieveObjectStatus(event2.key, 'A-1')
-    expect(objStatus1.status).toBe(objectStatus.BOOKED)
-    expect(objStatus2.status).toBe(objectStatus.BOOKED)
+    expect(objStatus1.status).toBe(ObjectStatus.BOOKED)
+    expect(objStatus2.status).toBe(ObjectStatus.BOOKED)
 })
 
 test('should release multiple events', async () => {
     const { client, user } = await testUtils.createTestUserAndClient()
     const chartKey = testUtils.getChartKey()
-    const objectStatus = new ObjectStatus()
     await testUtils.createTestChart(chartKey, user.secretKey)
     const event1 = await client.events.create(chartKey)
     const event2 = await client.events.create(chartKey)
@@ -45,14 +43,13 @@ test('should release multiple events', async () => {
 
     const objStatus1 = await client.events.retrieveObjectStatus(event1.key, 'A-1')
     const objStatus2 = await client.events.retrieveObjectStatus(event2.key, 'A-1')
-    expect(objStatus1.status).toBe(objectStatus.FREE)
-    expect(objStatus2.status).toBe(objectStatus.FREE)
+    expect(objStatus1.status).toBe(ObjectStatus.FREE)
+    expect(objStatus2.status).toBe(ObjectStatus.FREE)
 })
 
 test('should hold multiple events', async () => {
     const { client, user } = await testUtils.createTestUserAndClient()
     const chartKey = testUtils.getChartKey()
-    const objectStatus = new ObjectStatus()
     await testUtils.createTestChart(chartKey, user.secretKey)
     const event1 = await client.events.create(chartKey)
     const event2 = await client.events.create(chartKey)
@@ -62,6 +59,6 @@ test('should hold multiple events', async () => {
 
     const objStatus1 = await client.events.retrieveObjectStatus(event1.key, 'A-1')
     const objStatus2 = await client.events.retrieveObjectStatus(event2.key, 'A-1')
-    expect(objStatus1.status).toBe(objectStatus.HELD)
-    expect(objStatus2.status).toBe(objectStatus.HELD)
+    expect(objStatus1.status).toBe(ObjectStatus.HELD)
+    expect(objStatus2.status).toBe(ObjectStatus.HELD)
 })
