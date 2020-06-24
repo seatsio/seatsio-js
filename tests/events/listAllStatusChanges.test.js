@@ -156,7 +156,6 @@ test('should not list status changes with unmatched filter', async () => {
 test('properties of status changes', async () => {
     const { client, user } = await testUtils.createTestUserAndClient()
     const chartKey = testUtils.getChartKey()
-    const objectStatus = new ObjectStatus()
     await testUtils.createTestChart(chartKey, user.secretKey)
     const event = await client.events.create(chartKey)
     const obj = new ObjectProperties('A-1').setExtraData({ foo: 'bar' })
@@ -172,7 +171,7 @@ test('properties of status changes', async () => {
     expect(statusChange.value.date.getTime()).toBeLessThanOrEqual((now + 60000))
     expect(statusChange.value.orderId).toBe('order1')
     expect(statusChange.value.objectLabel).toBe('A-1')
-    expect(statusChange.value.status).toBe(objectStatus.BOOKED)
+    expect(statusChange.value.status).toBe(ObjectStatus.BOOKED)
     expect(statusChange.value.eventId).toBe(event.id)
     expect(statusChange.value.extraData).toEqual({ foo: 'bar' })
     expect(statusChange.value.origin.type).toBe('API_CALL')

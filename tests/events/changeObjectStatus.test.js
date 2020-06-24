@@ -104,15 +104,14 @@ test('should change object status with objectId inside class', async () => {
 test('should change object status with hold token', async () => {
     const { client, user } = await testUtils.createTestUserAndClient()
     const chartKey = testUtils.getChartKey()
-    const objectStatus = new ObjectStatus()
     await testUtils.createTestChart(chartKey, user.secretKey)
     const event = await client.events.create(chartKey)
     const holdToken = await client.holdTokens.create()
 
-    await client.events.changeObjectStatus(event.key, 'A-1', objectStatus.HELD, holdToken.holdToken)
+    await client.events.changeObjectStatus(event.key, 'A-1', ObjectStatus.HELD, holdToken.holdToken)
 
     const objStatus = await client.events.retrieveObjectStatus(event.key, 'A-1')
-    expect(objStatus.status).toBe(objectStatus.HELD)
+    expect(objStatus.status).toBe(ObjectStatus.HELD)
     expect(objStatus.holdToken).toBe(holdToken.holdToken)
 })
 

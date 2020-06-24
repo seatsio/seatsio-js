@@ -4,7 +4,6 @@ const ObjectStatus = require('../../src/Events/ObjectStatus.js')
 test('should book an object', async () => {
     const { client, user } = await testUtils.createTestUserAndClient()
     const chartKey = testUtils.getChartKey()
-    const objectStatus = new ObjectStatus()
     await testUtils.createTestChart(chartKey, user.secretKey)
     const event = await client.events.create(chartKey)
 
@@ -15,29 +14,27 @@ test('should book an object', async () => {
         client.events.retrieveObjectStatus(event.key, 'A-2')
     ]
     const retrievedObjectStatuses = await Promise.all(promises)
-    expect(retrievedObjectStatuses[0].status).toEqual(objectStatus.BOOKED)
-    expect(retrievedObjectStatuses[1].status).toEqual(objectStatus.BOOKED)
+    expect(retrievedObjectStatuses[0].status).toEqual(ObjectStatus.BOOKED)
+    expect(retrievedObjectStatuses[1].status).toEqual(ObjectStatus.BOOKED)
     expect(Object.keys(bookRes.objects)).toEqual(['A-1', 'A-2'])
 })
 
 test('should book an object with quantity', async () => {
     const { client, user } = await testUtils.createTestUserAndClient()
     const chartKey = testUtils.getChartKey()
-    const objectStatus = new ObjectStatus()
     await testUtils.createTestChart(chartKey, user.secretKey)
     const event = await client.events.create(chartKey)
 
     await client.events.book(event.key, { objectId: 'GA1', quantity: 100 })
 
     const retrievedObjStatus = await client.events.retrieveObjectStatus(event.key, 'GA1')
-    expect(retrievedObjStatus.status).toEqual(objectStatus.BOOKED)
+    expect(retrievedObjStatus.status).toEqual(ObjectStatus.BOOKED)
     expect(retrievedObjStatus.quantity).toEqual(100)
 })
 
 test('should book an object with sections', async () => {
     const { client, user } = await testUtils.createTestUserAndClient()
     const chartKey = testUtils.getChartKey()
-    const objectStatus = new ObjectStatus()
     await testUtils.createTestChartWithSections(chartKey, user.secretKey)
     const event = await client.events.create(chartKey)
 
@@ -48,8 +45,8 @@ test('should book an object with sections', async () => {
         client.events.retrieveObjectStatus(event.key, 'Section A-A-2')
     ]
     const retrievedObjectStatuses = await Promise.all(promises)
-    expect(retrievedObjectStatuses[0].status).toEqual(objectStatus.BOOKED)
-    expect(retrievedObjectStatuses[1].status).toEqual(objectStatus.BOOKED)
+    expect(retrievedObjectStatuses[0].status).toEqual(ObjectStatus.BOOKED)
+    expect(retrievedObjectStatuses[1].status).toEqual(ObjectStatus.BOOKED)
     expect(bookRes.objects['Section A-A-1'].entrance).toBe('Entrance 1')
     expect(bookRes.objects['Section A-A-1'].section).toBe('Section A')
     expect(bookRes.objects['Section A-A-1'].labels).toEqual(testUtils.someLabels('1', 'seat', 'A', 'row', 'Section A'))
@@ -58,7 +55,6 @@ test('should book an object with sections', async () => {
 test('should hold and then book, check hold token exists', async () => {
     const { client, user } = await testUtils.createTestUserAndClient()
     const chartKey = testUtils.getChartKey()
-    const objectStatus = new ObjectStatus()
     await testUtils.createTestChart(chartKey, user.secretKey)
     const event = await client.events.create(chartKey)
     const holdToken = await client.holdTokens.create()
@@ -67,7 +63,7 @@ test('should hold and then book, check hold token exists', async () => {
     await client.events.book(event.key, 'A-1', holdToken.holdToken)
 
     const objStatus = await client.events.retrieveObjectStatus(event.key, 'A-1')
-    expect(objStatus.status).toBe(objectStatus.BOOKED)
+    expect(objStatus.status).toBe(ObjectStatus.BOOKED)
     expect(objStatus.holdToken).toBeFalsy()
 })
 

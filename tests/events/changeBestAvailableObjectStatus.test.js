@@ -74,14 +74,13 @@ test('should change best available object status with hold token', async () => {
     const { client, user } = await testUtils.createTestUserAndClient()
     const chartKey = testUtils.getChartKey()
     await testUtils.createTestChart(chartKey, user.secretKey)
-    const objectStatus = new ObjectStatus()
     const event = await client.events.create(chartKey)
     const holdToken = await client.holdTokens.create()
 
-    const bestAvailableObjs = await client.events.changeBestAvailableObjectStatus(event.key, 1, objectStatus.HELD, null, holdToken.holdToken)
+    const bestAvailableObjs = await client.events.changeBestAvailableObjectStatus(event.key, 1, ObjectStatus.HELD, null, holdToken.holdToken)
 
     const objStatus = await client.events.retrieveObjectStatus(event.key, bestAvailableObjs.objects[0])
-    expect(objStatus.status).toBe(objectStatus.HELD)
+    expect(objStatus.status).toBe(ObjectStatus.HELD)
     expect(objStatus.holdToken).toBe(holdToken.holdToken)
 })
 
@@ -125,7 +124,6 @@ test('should book best available object', async () => {
 test('should hold best available object ', async () => {
     const { client, user } = await testUtils.createTestUserAndClient()
     const chartKey = testUtils.getChartKey()
-    const objectStatus = new ObjectStatus()
     await testUtils.createTestChart(chartKey, user.secretKey)
     const event = await client.events.create(chartKey)
     const holdToken = await client.holdTokens.create()
@@ -133,14 +131,13 @@ test('should hold best available object ', async () => {
     const bestAvailableObjs = await client.events.holdBestAvailable(event.key, 1, holdToken.holdToken)
 
     const objStatus = await client.events.retrieveObjectStatus(event.key, bestAvailableObjs.objects[0])
-    expect(objStatus.status).toBe(objectStatus.HELD)
+    expect(objStatus.status).toBe(ObjectStatus.HELD)
     expect(objStatus.holdToken).toBe(holdToken.holdToken)
 })
 
 test('should hold best available object with extra data ', async () => {
     const { client, user } = await testUtils.createTestUserAndClient()
     const chartKey = testUtils.getChartKey()
-    const objectStatus = new ObjectStatus()
     await testUtils.createTestChart(chartKey, user.secretKey)
     const event = await client.events.create(chartKey)
     const holdToken = await client.holdTokens.create()
@@ -149,7 +146,7 @@ test('should hold best available object with extra data ', async () => {
     const bestAvailableObjs = await client.events.holdBestAvailable(event.key, 1, holdToken.holdToken, null, null, null, extraData)
 
     const objStatus = await client.events.retrieveObjectStatus(event.key, bestAvailableObjs.objects[0])
-    expect(objStatus.status).toBe(objectStatus.HELD)
+    expect(objStatus.status).toBe(ObjectStatus.HELD)
     expect(objStatus.holdToken).toBe(holdToken.holdToken)
 })
 

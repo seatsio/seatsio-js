@@ -301,8 +301,7 @@ class Events {
      * @returns {Promise<ChangeObjectStatusResult>} Promise that resolves to ChangeObjectStatusResult object
      */
     book (eventKeyOrKeys, objectOrObjects, holdToken = null, orderId = null, keepExtraData = null) {
-        const objectStatus = new ObjectStatus()
-        return this.changeObjectStatus(eventKeyOrKeys, objectOrObjects, objectStatus.BOOKED, holdToken, orderId, keepExtraData)
+        return this.changeObjectStatus(eventKeyOrKeys, objectOrObjects, ObjectStatus.BOOKED, holdToken, orderId, keepExtraData)
     }
 
     /**
@@ -315,8 +314,7 @@ class Events {
      * @returns {Promise<BestAvailableObjects>} Promise that resolves to BestAvailableObjects object
      */
     bookBestAvailable (eventKey, number, categories = null, holdToken = null, orderId = null, keepExtraData = null, extraData = null) {
-        const objectStatus = new ObjectStatus()
-        return this.changeBestAvailableObjectStatus(encodeURIComponent(eventKey), number, objectStatus.BOOKED, categories, holdToken, extraData, orderId, keepExtraData)
+        return this.changeBestAvailableObjectStatus(encodeURIComponent(eventKey), number, ObjectStatus.BOOKED, categories, holdToken, extraData, orderId, keepExtraData)
     }
 
     /**
@@ -328,8 +326,7 @@ class Events {
      * @returns {Promise<ChangeObjectStatusResult>} Promise that resolves to ChangeObjectStatusResult object
      */
     release (eventKeyOrKeys, objectOrObjects, holdToken = null, orderId = null, keepExtraData = null) {
-        const objectStatus = new ObjectStatus()
-        return this.changeObjectStatus(eventKeyOrKeys, objectOrObjects, objectStatus.FREE, holdToken, orderId, keepExtraData)
+        return this.changeObjectStatus(eventKeyOrKeys, objectOrObjects, ObjectStatus.FREE, holdToken, orderId, keepExtraData)
     }
 
     /**
@@ -341,8 +338,7 @@ class Events {
      * @returns {Promise<ChangeObjectStatusResult>} Promise that resolves to ChangeObjectStatusResult object
      */
     hold (eventKeyOrKeys, objectOrObjects, holdToken, orderId = null, keepExtraData = null) {
-        const objectStatus = new ObjectStatus()
-        return this.changeObjectStatus(eventKeyOrKeys, objectOrObjects, objectStatus.HELD, holdToken, orderId, keepExtraData)
+        return this.changeObjectStatus(eventKeyOrKeys, objectOrObjects, ObjectStatus.HELD, holdToken, orderId, keepExtraData)
     }
 
     /**
@@ -355,8 +351,7 @@ class Events {
      * @returns {Promise<BestAvailableObjects>} Promise that resolves to BestAvailableObjects object
      */
     holdBestAvailable (eventKey, number, holdToken, categories = null, orderId = null, keepExtraData = null, extraData = null) {
-        const objectStatus = new ObjectStatus()
-        return this.changeBestAvailableObjectStatus(encodeURIComponent(eventKey), number, objectStatus.HELD, categories, holdToken, extraData, orderId, keepExtraData)
+        return this.changeBestAvailableObjectStatus(encodeURIComponent(eventKey), number, ObjectStatus.HELD, categories, holdToken, extraData, orderId, keepExtraData)
     }
 
     /**
