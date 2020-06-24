@@ -28,6 +28,8 @@ class EventReportItem {
         this.displayedObjectType = report.displayedObjectType
         this.leftNeighbour = report.leftNeighbour
         this.rightNeighbour = report.rightNeighbour
+        this.isSelectable = report.isSelectable
+        this.isDisabledBySocialDistancing = report.isDisabledBySocialDistancing
     }
 }
 

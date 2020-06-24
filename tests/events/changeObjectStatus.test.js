@@ -22,7 +22,9 @@ test('should change object status', async () => {
             isAccessible: false,
             hasRestrictedView: false,
             isCompanionSeat: false,
-            rightNeighbour: 'A-2'
+            rightNeighbour: 'A-2',
+            isSelectable: false,
+            isDisabledBySocialDistancing: false
         }
     })
 })

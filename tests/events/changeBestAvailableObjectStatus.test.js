@@ -11,37 +11,6 @@ test('should change best available object status', async () => {
 
     expect(bestAvailableObjs.nextToEachOther).toBe(true)
     expect(bestAvailableObjs.objects.sort()).toEqual(['B-4', 'B-5'])
-    expect(bestAvailableObjs.objectDetails).toEqual({
-        'B-4': {
-            categoryKey: '9',
-            categoryLabel: 'Cat1',
-            forSale: true,
-            label: 'B-4',
-            labels: { own: { label: '4', type: 'seat' }, parent: { label: 'B', type: 'row' } },
-            objectType: 'seat',
-            status: 'lolzor',
-            isAccessible: false,
-            hasRestrictedView: false,
-            isCompanionSeat: false,
-            leftNeighbour: 'B-3',
-            rightNeighbour: 'B-5'
-        },
-        'B-5': {
-            categoryKey: '9',
-            categoryLabel: 'Cat1',
-            forSale: true,
-            label: 'B-5',
-            labels: { own: { label: '5', type: 'seat' }, parent: { label: 'B', type: 'row' } },
-            objectType: 'seat',
-            status: 'lolzor',
-            isAccessible: false,
-            hasRestrictedView: false,
-            isCompanionSeat: false,
-            leftNeighbour: 'B-4',
-            rightNeighbour: 'B-6'
-        }
-    }
-    )
 })
 
 test('should change best available object status with categories', async () => {
