@@ -167,3 +167,24 @@ test('should respect no keepExtraData', async () => {
     const status = await client.events.retrieveObjectStatus(event.key, 'A-1')
     expect(status.extraData).toBeFalsy()
 })
+
+test('should accept channel keys', async () => {
+    const { client, user } = await testUtils.createTestUserAndClient()
+    const chartKey = testUtils.getChartKey()
+    await testUtils.createTestChart(chartKey, user.secretKey)
+    const event = await client.events.create(chartKey)
+    await client.events.updateChannels(event.key, {
+        "channelKey1": {
+            "name": "channel 1",
+            "color": "#FFAABB",
+            "index": 1
+        }
+    })
+    await client.events.assignObjectsToChannel(event.key, {
+        "channelKey1": ["A-1", "A-2"]
+    })
+    await client.events.changeObjectStatus(event.key, ['A-1'], 'someStatus', null, null, null, ['channelKey1'])
+
+    const objStatus = await client.events.retrieveObjectStatus(event.key, 'A-1')
+    expect(objStatus.status).toBe("someStatus")
+})
