@@ -10,6 +10,7 @@ class Workspace {
         this.settings = workspace.settings
         this.isMain = workspace.isMain
         this.isTest = workspace.isTest
+        this.isActive = workspace.isActive
     }
 }
 
