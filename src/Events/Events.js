@@ -250,10 +250,11 @@ class Events {
      * @param {?string} holdToken
      * @param {?string} orderId
      * @param {?boolean} keepExtraData
+     * @param {?string[]} channelKeys
      * @returns {Promise<ChangeObjectStatusResult>} Promise that resolves to ChangeObjectStatusResult object
      */
-    changeObjectStatus (eventKeyOrKeys, objectOrObjects, status, holdToken = null, orderId = null, keepExtraData = null) {
-        const request = this.changeObjectStatusRequest(objectOrObjects, status, holdToken, orderId, keepExtraData)
+    changeObjectStatus (eventKeyOrKeys, objectOrObjects, status, holdToken = null, orderId = null, keepExtraData = null, channelKeys = null) {
+        const request = this.changeObjectStatusRequest(objectOrObjects, status, holdToken, orderId, keepExtraData, channelKeys)
         request.events = Array.isArray(eventKeyOrKeys) ? eventKeyOrKeys : [eventKeyOrKeys]
 
         return this.client.post('/seasons/actions/change-object-status?expand=objects', request)
@@ -276,7 +277,7 @@ class Events {
             .then((res) => res.data.results.map(r => new ChangeObjectStatusResult(r.objects)))
     }
 
-    changeObjectStatusRequest (objectOrObjects, status, holdToken, orderId, keepExtraData) {
+    changeObjectStatusRequest (objectOrObjects, status, holdToken, orderId, keepExtraData, channelKeys) {
         const request = {}
         request.objects = this.normalizeObjects(objectOrObjects)
         request.status = status
@@ -289,6 +290,9 @@ class Events {
         if (keepExtraData !== null) {
             request.keepExtraData = keepExtraData
         }
+        if (channelKeys !== null) {
+            request.channelKeys = channelKeys
+        }
         return request
     }
 
@@ -298,10 +302,11 @@ class Events {
      * @param {?string} holdToken
      * @param {?string} orderId
      * @param {?boolean} keepExtraData
+     * @param {?string[]} channelKeys
      * @returns {Promise<ChangeObjectStatusResult>} Promise that resolves to ChangeObjectStatusResult object
      */
-    book (eventKeyOrKeys, objectOrObjects, holdToken = null, orderId = null, keepExtraData = null) {
-        return this.changeObjectStatus(eventKeyOrKeys, objectOrObjects, ObjectStatus.BOOKED, holdToken, orderId, keepExtraData)
+    book (eventKeyOrKeys, objectOrObjects, holdToken = null, orderId = null, keepExtraData = null, channelKeys = null) {
+        return this.changeObjectStatus(eventKeyOrKeys, objectOrObjects, ObjectStatus.BOOKED, holdToken, orderId, keepExtraData, channelKeys)
     }
 
     /**
@@ -323,10 +328,11 @@ class Events {
      * @param {?string} holdToken
      * @param {?string} orderId
      * @param {?boolean} keepExtraData
+     * @param {?string[]} channelKeys
      * @returns {Promise<ChangeObjectStatusResult>} Promise that resolves to ChangeObjectStatusResult object
      */
-    release (eventKeyOrKeys, objectOrObjects, holdToken = null, orderId = null, keepExtraData = null) {
-        return this.changeObjectStatus(eventKeyOrKeys, objectOrObjects, ObjectStatus.FREE, holdToken, orderId, keepExtraData)
+    release (eventKeyOrKeys, objectOrObjects, holdToken = null, orderId = null, keepExtraData = null, channelKeys = null) {
+        return this.changeObjectStatus(eventKeyOrKeys, objectOrObjects, ObjectStatus.FREE, holdToken, orderId, keepExtraData, channelKeys)
     }
 
     /**
@@ -335,10 +341,11 @@ class Events {
      * @param {string} holdToken
      * @param {?string} orderId
      * @param {?boolean} keepExtraData
+     * @param {?string[]} channelKeys
      * @returns {Promise<ChangeObjectStatusResult>} Promise that resolves to ChangeObjectStatusResult object
      */
-    hold (eventKeyOrKeys, objectOrObjects, holdToken, orderId = null, keepExtraData = null) {
-        return this.changeObjectStatus(eventKeyOrKeys, objectOrObjects, ObjectStatus.HELD, holdToken, orderId, keepExtraData)
+    hold (eventKeyOrKeys, objectOrObjects, holdToken, orderId = null, keepExtraData = null, channelKeys = null) {
+        return this.changeObjectStatus(eventKeyOrKeys, objectOrObjects, ObjectStatus.HELD, holdToken, orderId, keepExtraData, channelKeys)
     }
 
     /**
