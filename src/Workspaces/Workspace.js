@@ -8,7 +8,7 @@ class Workspace {
         this.secretKey = workspace.secretKey
         this.name = workspace.name
         this.settings = workspace.settings
-        this.isMain = workspace.isMain
+        this.isDefault = workspace.isDefault
         this.isTest = workspace.isTest
         this.isActive = workspace.isActive
     }

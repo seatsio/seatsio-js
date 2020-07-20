@@ -11,7 +11,7 @@ test('should retrieve a workspace', async () => {
     expect(retrievedWorkspace.id).toBe(workspace.id)
     expect(retrievedWorkspace.settings).toEqual(workspace.settings)
     expect(retrievedWorkspace.name).toBe('a workspace')
-    expect(retrievedWorkspace.isMain).toBe(false)
+    expect(retrievedWorkspace.isDefault).toBe(false)
     expect(retrievedWorkspace.isTest).toBe(false)
     expect(retrievedWorkspace.isActive).toBe(true)
 })

@@ -35,6 +35,14 @@ class Workspaces {
     /**
      * @param {string} key
      */
+    setDefault (key) {
+        const requestParameters = { key }
+        return this.client.post(`/workspaces/actions/set-default/${key}`, requestParameters)
+    }
+
+    /**
+     * @param {string} key
+     */
     regenerateSecretKey (key) {
         return this.client.post(`/workspaces/${key}/actions/regenerate-secret-key`)
             .then(res => res.data.secretKey)
