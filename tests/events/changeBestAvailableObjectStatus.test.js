@@ -157,3 +157,33 @@ test('should respect no keepExtraData', async () => {
     const status = await client.events.retrieveObjectStatus(event.key, 'B-5')
     expect(status.extraData).toBeFalsy()
 })
+
+test('should accept channel keys', async () => {
+    const { client, user } = await testUtils.createTestUserAndClient()
+    const chartKey = testUtils.getChartKey()
+    await testUtils.createTestChart(chartKey, user.secretKey)
+    const event = await client.events.create(chartKey)
+    await client.events.updateChannels(event.key, {
+        channelKey1: { name: 'channel 1', color: '#FFAABB', index: 1 }
+    })
+    await client.events.assignObjectsToChannel(event.key, { channelKey1: ['B-6'] })
+
+    const bestAvailableObjs = await client.events.changeBestAvailableObjectStatus(event.key, 1, 'lolzor', null, null, null, null, null, null, ['channelKey1'])
+
+    expect(bestAvailableObjs.objects).toEqual(['B-6'])
+})
+
+test('should accept ignoreChannels', async () => {
+    const { client, user } = await testUtils.createTestUserAndClient()
+    const chartKey = testUtils.getChartKey()
+    await testUtils.createTestChart(chartKey, user.secretKey)
+    const event = await client.events.create(chartKey)
+    await client.events.updateChannels(event.key, {
+        channelKey1: { name: 'channel 1', color: '#FFAABB', index: 1 }
+    })
+    await client.events.assignObjectsToChannel(event.key, { channelKey1: ['A-1'] })
+
+    const bestAvailableObjs = await client.events.changeBestAvailableObjectStatus(event.key, 1, 'lolzor', null, null, null, null, null, true)
+
+    expect(bestAvailableObjs.objects).toEqual(['B-5'])
+})

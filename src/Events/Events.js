@@ -19,6 +19,7 @@ class Events {
      * @param {string} chartKey
      * @param {?string} eventKey
      * @param {?object} bookWholeTablesOrTableBookingModes
+     * @param {?string} socialDistancingRulesetKey
      * @returns {Promise<Event>} Promise that resolves to Event object
      */
     create (chartKey, eventKey = null, bookWholeTablesOrTableBookingModes = null, socialDistancingRulesetKey = null) {
@@ -66,6 +67,7 @@ class Events {
      * @param {?string} chartKey
      * @param {?string} newEventKey
      * @param {?object} bookWholeTablesOrTableBookingModes
+     * @param {?string} socialDistancingRulesetKey
      * @returns {Promise}
      */
     update (eventKey, chartKey = null, newEventKey = null, bookWholeTablesOrTableBookingModes = null, socialDistancingRulesetKey = null) {
@@ -250,11 +252,12 @@ class Events {
      * @param {?string} holdToken
      * @param {?string} orderId
      * @param {?boolean} keepExtraData
+     * @param {?boolean} ignoreChannels
      * @param {?string[]} channelKeys
      * @returns {Promise<ChangeObjectStatusResult>} Promise that resolves to ChangeObjectStatusResult object
      */
-    changeObjectStatus (eventKeyOrKeys, objectOrObjects, status, holdToken = null, orderId = null, keepExtraData = null, channelKeys = null) {
-        const request = this.changeObjectStatusRequest(objectOrObjects, status, holdToken, orderId, keepExtraData, channelKeys)
+    changeObjectStatus (eventKeyOrKeys, objectOrObjects, status, holdToken = null, orderId = null, keepExtraData = null, ignoreChannels = null, channelKeys = null) {
+        const request = this.changeObjectStatusRequest(objectOrObjects, status, holdToken, orderId, keepExtraData, ignoreChannels, channelKeys)
         request.events = Array.isArray(eventKeyOrKeys) ? eventKeyOrKeys : [eventKeyOrKeys]
 
         return this.client.post('/seasons/actions/change-object-status?expand=objects', request)
@@ -277,7 +280,7 @@ class Events {
             .then((res) => res.data.results.map(r => new ChangeObjectStatusResult(r.objects)))
     }
 
-    changeObjectStatusRequest (objectOrObjects, status, holdToken, orderId, keepExtraData, channelKeys) {
+    changeObjectStatusRequest (objectOrObjects, status, holdToken, orderId, keepExtraData, ignoreChannels, channelKeys) {
         const request = {}
         request.objects = this.normalizeObjects(objectOrObjects)
         request.status = status
@@ -289,6 +292,9 @@ class Events {
         }
         if (keepExtraData !== null) {
             request.keepExtraData = keepExtraData
+        }
+        if (ignoreChannels !== null) {
+            request.ignoreChannels = ignoreChannels
         }
         if (channelKeys !== null) {
             request.channelKeys = channelKeys
@@ -302,11 +308,12 @@ class Events {
      * @param {?string} holdToken
      * @param {?string} orderId
      * @param {?boolean} keepExtraData
+     * @param {?boolean} ignoreChannels
      * @param {?string[]} channelKeys
      * @returns {Promise<ChangeObjectStatusResult>} Promise that resolves to ChangeObjectStatusResult object
      */
-    book (eventKeyOrKeys, objectOrObjects, holdToken = null, orderId = null, keepExtraData = null, channelKeys = null) {
-        return this.changeObjectStatus(eventKeyOrKeys, objectOrObjects, ObjectStatus.BOOKED, holdToken, orderId, keepExtraData, channelKeys)
+    book (eventKeyOrKeys, objectOrObjects, holdToken = null, orderId = null, keepExtraData = null, ignoreChannels = null, channelKeys = null) {
+        return this.changeObjectStatus(eventKeyOrKeys, objectOrObjects, ObjectStatus.BOOKED, holdToken, orderId, keepExtraData, ignoreChannels, channelKeys)
     }
 
     /**
@@ -316,10 +323,12 @@ class Events {
      * @param {?string} holdToken
      * @param {?string} orderId
      * @param {?boolean} keepExtraData
+     * @param {?boolean} ignoreChannels
+     * @param {?string[]} channelKeys
      * @returns {Promise<BestAvailableObjects>} Promise that resolves to BestAvailableObjects object
      */
-    bookBestAvailable (eventKey, number, categories = null, holdToken = null, orderId = null, keepExtraData = null, extraData = null) {
-        return this.changeBestAvailableObjectStatus(encodeURIComponent(eventKey), number, ObjectStatus.BOOKED, categories, holdToken, extraData, orderId, keepExtraData)
+    bookBestAvailable (eventKey, number, categories = null, holdToken = null, orderId = null, keepExtraData = null, extraData = null, ignoreChannels = null, channelKeys = null) {
+        return this.changeBestAvailableObjectStatus(encodeURIComponent(eventKey), number, ObjectStatus.BOOKED, categories, holdToken, extraData, orderId, keepExtraData, ignoreChannels, channelKeys)
     }
 
     /**
@@ -328,11 +337,12 @@ class Events {
      * @param {?string} holdToken
      * @param {?string} orderId
      * @param {?boolean} keepExtraData
+     * @param {?boolean} ignoreChannels
      * @param {?string[]} channelKeys
      * @returns {Promise<ChangeObjectStatusResult>} Promise that resolves to ChangeObjectStatusResult object
      */
-    release (eventKeyOrKeys, objectOrObjects, holdToken = null, orderId = null, keepExtraData = null, channelKeys = null) {
-        return this.changeObjectStatus(eventKeyOrKeys, objectOrObjects, ObjectStatus.FREE, holdToken, orderId, keepExtraData, channelKeys)
+    release (eventKeyOrKeys, objectOrObjects, holdToken = null, orderId = null, keepExtraData = null, ignoreChannels = null, channelKeys = null) {
+        return this.changeObjectStatus(eventKeyOrKeys, objectOrObjects, ObjectStatus.FREE, holdToken, orderId, keepExtraData, ignoreChannels, channelKeys)
     }
 
     /**
@@ -341,11 +351,12 @@ class Events {
      * @param {string} holdToken
      * @param {?string} orderId
      * @param {?boolean} keepExtraData
+     * @param {?boolean} ignoreChannels
      * @param {?string[]} channelKeys
      * @returns {Promise<ChangeObjectStatusResult>} Promise that resolves to ChangeObjectStatusResult object
      */
-    hold (eventKeyOrKeys, objectOrObjects, holdToken, orderId = null, keepExtraData = null, channelKeys = null) {
-        return this.changeObjectStatus(eventKeyOrKeys, objectOrObjects, ObjectStatus.HELD, holdToken, orderId, keepExtraData, channelKeys)
+    hold (eventKeyOrKeys, objectOrObjects, holdToken, orderId = null, keepExtraData = null, ignoreChannels = null, channelKeys = null) {
+        return this.changeObjectStatus(eventKeyOrKeys, objectOrObjects, ObjectStatus.HELD, holdToken, orderId, keepExtraData, ignoreChannels, channelKeys)
     }
 
     /**
@@ -355,10 +366,12 @@ class Events {
      * @param {?string[]} categories
      * @param {?string} orderId
      * @param {?boolean} keepExtraData
+     * @param {?boolean} ignoreChannels
+     * @param {?string[]} channelKeys
      * @returns {Promise<BestAvailableObjects>} Promise that resolves to BestAvailableObjects object
      */
-    holdBestAvailable (eventKey, number, holdToken, categories = null, orderId = null, keepExtraData = null, extraData = null) {
-        return this.changeBestAvailableObjectStatus(encodeURIComponent(eventKey), number, ObjectStatus.HELD, categories, holdToken, extraData, orderId, keepExtraData)
+    holdBestAvailable (eventKey, number, holdToken, categories = null, orderId = null, keepExtraData = null, extraData = null, ignoreChannels = null, channelKeys = null) {
+        return this.changeBestAvailableObjectStatus(encodeURIComponent(eventKey), number, ObjectStatus.HELD, categories, holdToken, extraData, orderId, keepExtraData, ignoreChannels, channelKeys)
     }
 
     /**
@@ -370,9 +383,11 @@ class Events {
      * @param {?object} extraData
      * @param {?string} orderId
      * @param {?boolean} keepExtraData
+     * @param {?boolean} ignoreChannels
+     * @param {?string[]} channelKeys
      * @returns {Promise<BestAvailableObjects>} Promise that resolves to BestAvailableObjects object
      */
-    changeBestAvailableObjectStatus (eventKey, number, status, categories = null, holdToken = null, extraData = null, orderId = null, keepExtraData = null) {
+    changeBestAvailableObjectStatus (eventKey, number, status, categories = null, holdToken = null, extraData = null, orderId = null, keepExtraData = null, ignoreChannels = null, channelKeys = null) {
         const requestParameters = {}
         const bestAvailable = {}
         requestParameters.status = status
@@ -392,6 +407,12 @@ class Events {
         }
         if (keepExtraData !== null) {
             requestParameters.keepExtraData = keepExtraData
+        }
+        if (ignoreChannels !== null) {
+            requestParameters.ignoreChannels = ignoreChannels
+        }
+        if (channelKeys !== null) {
+            requestParameters.channelKeys = channelKeys
         }
         requestParameters.bestAvailable = bestAvailable
 
