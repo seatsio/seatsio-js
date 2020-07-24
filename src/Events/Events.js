@@ -270,7 +270,7 @@ class Events {
      */
     changeObjectStatusInBatch (statusChangeRequests) {
         const requests = statusChangeRequests.map(r => {
-            const json = this.changeObjectStatusRequest(r.objectOrObjects, r.status, r.holdToken, r.orderId, r.keepExtraData)
+            const json = this.changeObjectStatusRequest(r.objectOrObjects, r.status, r.holdToken, r.orderId, r.keepExtraData, r.ignoreChannels, r.channelKeys)
             json.event = r.eventKey
             return json
         })
