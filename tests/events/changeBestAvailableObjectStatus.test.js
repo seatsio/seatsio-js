@@ -59,7 +59,7 @@ test('should change best available object status with orderId', async () => {
     await testUtils.createTestChart(chartKey, user.secretKey)
     const event = await client.events.create(chartKey)
 
-    const bestAvailableObjs = await client.events.changeBestAvailableObjectStatus(event.key, 1, 'lolzor', null, null, null, 'anOrder')
+    const bestAvailableObjs = await client.events.changeBestAvailableObjectStatus(event.key, 1, 'lolzor', null, null, null, null, 'anOrder')
 
     const objStatus = await client.events.retrieveObjectStatus(event.key, bestAvailableObjs.objects[0])
     expect(objStatus.orderId).toBe('anOrder')
@@ -72,7 +72,7 @@ test('should book best available object with extra data', async () => {
     const event = await client.events.create(chartKey)
     const extraData = [{ foo: 'bar' }, { foo: 'baz' }, { foo: 'bar2' }]
 
-    const bestAvailableObjs = await client.events.bookBestAvailable(event.key, 3, null, null, null, null, extraData)
+    const bestAvailableObjs = await client.events.bookBestAvailable(event.key, 3, null, null, extraData)
 
     expect(bestAvailableObjs.nextToEachOther).toBe(true)
     expect(bestAvailableObjs.objects).toEqual(['B-4', 'B-5', 'B-6'])
@@ -112,7 +112,7 @@ test('should hold best available object with extra data ', async () => {
     const holdToken = await client.holdTokens.create()
     const extraData = [{ foo: 'bar' }]
 
-    const bestAvailableObjs = await client.events.holdBestAvailable(event.key, 1, holdToken.holdToken, null, null, null, extraData)
+    const bestAvailableObjs = await client.events.holdBestAvailable(event.key, 1, holdToken.holdToken, null, extraData)
 
     const objStatus = await client.events.retrieveObjectStatus(event.key, bestAvailableObjs.objects[0])
     expect(objStatus.status).toBe(ObjectStatus.HELD)
@@ -126,7 +126,7 @@ test('should hold best available object with ticket types ', async () => {
     const event = await client.events.create(chartKey)
     const holdToken = await client.holdTokens.create()
 
-    const bestAvailableObjs = await client.events.holdBestAvailable(event.key, 2, holdToken.holdToken, null, null, null, null, null, null, ['adult', 'child'])
+    const bestAvailableObjs = await client.events.holdBestAvailable(event.key, 2, holdToken.holdToken, null, null, ['adult', 'child'])
 
     const objStatus1 = await client.events.retrieveObjectStatus(event.key, bestAvailableObjs.objects[0])
     expect(objStatus1.ticketType).toBe('adult')
@@ -141,7 +141,7 @@ test('should respect keepExtraData=true', async () => {
     const event = await client.events.create(chartKey)
     await client.events.updateExtraData(event.key, 'B-5', { foo: 'bar' })
 
-    await client.events.changeBestAvailableObjectStatus(event.key, 1, 'someStatus', null, null, null, null, true)
+    await client.events.changeBestAvailableObjectStatus(event.key, 1, 'someStatus', null, null, null, null, null, true)
 
     const status = await client.events.retrieveObjectStatus(event.key, 'B-5')
     expect(status.extraData).toEqual({ foo: 'bar' })
@@ -154,7 +154,7 @@ test('should respect keepExtraData=false', async () => {
     const event = await client.events.create(chartKey)
     await client.events.updateExtraData(event.key, 'B-5', { foo: 'bar' })
 
-    await client.events.changeBestAvailableObjectStatus(event.key, 1, 'someStatus', null, null, null, null, false)
+    await client.events.changeBestAvailableObjectStatus(event.key, 1, 'someStatus', null, null, null, null, null, false)
 
     const status = await client.events.retrieveObjectStatus(event.key, 'B-5')
     expect(status.extraData).toBeFalsy()
@@ -167,7 +167,7 @@ test('should respect no keepExtraData', async () => {
     const event = await client.events.create(chartKey)
     await client.events.updateExtraData(event.key, 'B-5', { foo: 'bar' })
 
-    await client.events.changeBestAvailableObjectStatus(event.key, 1, 'someStatus', null, null, null, null, false)
+    await client.events.changeBestAvailableObjectStatus(event.key, 1, 'someStatus')
 
     const status = await client.events.retrieveObjectStatus(event.key, 'B-5')
     expect(status.extraData).toBeFalsy()
@@ -183,7 +183,7 @@ test('should accept channel keys', async () => {
     })
     await client.events.assignObjectsToChannel(event.key, { channelKey1: ['B-6'] })
 
-    const bestAvailableObjs = await client.events.changeBestAvailableObjectStatus(event.key, 1, 'lolzor', null, null, null, null, null, null, ['channelKey1'])
+    const bestAvailableObjs = await client.events.changeBestAvailableObjectStatus(event.key, 1, 'lolzor', null, null, null, null, null, null, null, ['channelKey1'])
 
     expect(bestAvailableObjs.objects).toEqual(['B-6'])
 })
@@ -198,7 +198,7 @@ test('should accept ignoreChannels', async () => {
     })
     await client.events.assignObjectsToChannel(event.key, { channelKey1: ['A-1'] })
 
-    const bestAvailableObjs = await client.events.changeBestAvailableObjectStatus(event.key, 1, 'lolzor', null, null, null, null, null, true)
+    const bestAvailableObjs = await client.events.changeBestAvailableObjectStatus(event.key, 1, 'lolzor', null, null, null, null, null, null, true)
 
     expect(bestAvailableObjs.objects).toEqual(['B-5'])
 })

@@ -321,14 +321,16 @@ class Events {
      * @param {number} number
      * @param {?string[]} categories
      * @param {?string} holdToken
+     * @param {?object} extraData
+     * @param {?string[]} ticketTypes
      * @param {?string} orderId
      * @param {?boolean} keepExtraData
      * @param {?boolean} ignoreChannels
      * @param {?string[]} channelKeys
      * @returns {Promise<BestAvailableObjects>} Promise that resolves to BestAvailableObjects object
      */
-    bookBestAvailable (eventKey, number, categories = null, holdToken = null, orderId = null, keepExtraData = null, extraData = null, ignoreChannels = null, channelKeys = null) {
-        return this.changeBestAvailableObjectStatus(encodeURIComponent(eventKey), number, ObjectStatus.BOOKED, categories, holdToken, extraData, orderId, keepExtraData, ignoreChannels, channelKeys)
+    bookBestAvailable (eventKey, number, categories = null, holdToken = null, extraData = null, ticketTypes = null, orderId = null, keepExtraData = null, ignoreChannels = null, channelKeys = null) {
+        return this.changeBestAvailableObjectStatus(encodeURIComponent(eventKey), number, ObjectStatus.BOOKED, categories, holdToken, extraData, ticketTypes, orderId, keepExtraData, ignoreChannels, channelKeys)
     }
 
     /**
@@ -364,6 +366,8 @@ class Events {
      * @param {number} number
      * @param {string} holdToken
      * @param {?string[]} categories
+     * @param {?object} extraData
+     * @param {?string[]} ticketTypes
      * @param {?string} orderId
      * @param {?boolean} keepExtraData
      * @param {?boolean} ignoreChannels
@@ -371,8 +375,8 @@ class Events {
      * @param {?string[]} ticketTypes
      * @returns {Promise<BestAvailableObjects>} Promise that resolves to BestAvailableObjects object
      */
-    holdBestAvailable (eventKey, number, holdToken, categories = null, orderId = null, keepExtraData = null, extraData = null, ignoreChannels = null, channelKeys = null, ticketTypes = null) {
-        return this.changeBestAvailableObjectStatus(encodeURIComponent(eventKey), number, ObjectStatus.HELD, categories, holdToken, extraData, orderId, keepExtraData, ignoreChannels, channelKeys, ticketTypes)
+    holdBestAvailable (eventKey, number, holdToken, categories = null, extraData = null, ticketTypes = null, orderId = null, keepExtraData = null, ignoreChannels = null, channelKeys = null) {
+        return this.changeBestAvailableObjectStatus(encodeURIComponent(eventKey), number, ObjectStatus.HELD, categories, holdToken, extraData, ticketTypes, orderId, keepExtraData, ignoreChannels, channelKeys)
     }
 
     /**
@@ -382,13 +386,14 @@ class Events {
      * @param {string[]} categories
      * @param {?string} holdToken
      * @param {?object} extraData
+     * @param {?string[]} ticketTypes
      * @param {?string} orderId
      * @param {?boolean} keepExtraData
      * @param {?boolean} ignoreChannels
      * @param {?string[]} channelKeys
      * @returns {Promise<BestAvailableObjects>} Promise that resolves to BestAvailableObjects object
      */
-    changeBestAvailableObjectStatus (eventKey, number, status, categories = null, holdToken = null, extraData = null, orderId = null, keepExtraData = null, ignoreChannels = null, channelKeys = null, ticketTypes = null) {
+    changeBestAvailableObjectStatus (eventKey, number, status, categories = null, holdToken = null, extraData = null, ticketTypes = null, orderId = null, keepExtraData = null, ignoreChannels = null, channelKeys = null) {
         const requestParameters = {}
         const bestAvailable = {}
         requestParameters.status = status
