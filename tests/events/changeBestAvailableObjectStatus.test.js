@@ -119,6 +119,21 @@ test('should hold best available object with extra data ', async () => {
     expect(objStatus.holdToken).toBe(holdToken.holdToken)
 })
 
+test('should hold best available object with ticket types ', async () => {
+    const { client, user } = await testUtils.createTestUserAndClient()
+    const chartKey = testUtils.getChartKey()
+    await testUtils.createTestChart(chartKey, user.secretKey)
+    const event = await client.events.create(chartKey)
+    const holdToken = await client.holdTokens.create()
+
+    const bestAvailableObjs = await client.events.holdBestAvailable(event.key, 2, holdToken.holdToken, null, null, null, null, null, null, ['adult', 'child'])
+
+    const objStatus1 = await client.events.retrieveObjectStatus(event.key, bestAvailableObjs.objects[0])
+    expect(objStatus1.ticketType).toBe('adult')
+    const objStatus2 = await client.events.retrieveObjectStatus(event.key, bestAvailableObjs.objects[1])
+    expect(objStatus2.ticketType).toBe('child')
+})
+
 test('should respect keepExtraData=true', async () => {
     const { client, user } = await testUtils.createTestUserAndClient()
     const chartKey = testUtils.getChartKey()

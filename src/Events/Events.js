@@ -368,10 +368,11 @@ class Events {
      * @param {?boolean} keepExtraData
      * @param {?boolean} ignoreChannels
      * @param {?string[]} channelKeys
+     * @param {?string[]} ticketTypes
      * @returns {Promise<BestAvailableObjects>} Promise that resolves to BestAvailableObjects object
      */
-    holdBestAvailable (eventKey, number, holdToken, categories = null, orderId = null, keepExtraData = null, extraData = null, ignoreChannels = null, channelKeys = null) {
-        return this.changeBestAvailableObjectStatus(encodeURIComponent(eventKey), number, ObjectStatus.HELD, categories, holdToken, extraData, orderId, keepExtraData, ignoreChannels, channelKeys)
+    holdBestAvailable (eventKey, number, holdToken, categories = null, orderId = null, keepExtraData = null, extraData = null, ignoreChannels = null, channelKeys = null, ticketTypes = null) {
+        return this.changeBestAvailableObjectStatus(encodeURIComponent(eventKey), number, ObjectStatus.HELD, categories, holdToken, extraData, orderId, keepExtraData, ignoreChannels, channelKeys, ticketTypes)
     }
 
     /**
@@ -387,7 +388,7 @@ class Events {
      * @param {?string[]} channelKeys
      * @returns {Promise<BestAvailableObjects>} Promise that resolves to BestAvailableObjects object
      */
-    changeBestAvailableObjectStatus (eventKey, number, status, categories = null, holdToken = null, extraData = null, orderId = null, keepExtraData = null, ignoreChannels = null, channelKeys = null) {
+    changeBestAvailableObjectStatus (eventKey, number, status, categories = null, holdToken = null, extraData = null, orderId = null, keepExtraData = null, ignoreChannels = null, channelKeys = null, ticketTypes = null) {
         const requestParameters = {}
         const bestAvailable = {}
         requestParameters.status = status
@@ -401,9 +402,11 @@ class Events {
         if (categories !== null) {
             bestAvailable.categories = categories
         }
-
         if (extraData !== null) {
             bestAvailable.extraData = extraData
+        }
+        if (ticketTypes !== null) {
+            bestAvailable.ticketTypes = ticketTypes
         }
         if (keepExtraData !== null) {
             requestParameters.keepExtraData = keepExtraData
