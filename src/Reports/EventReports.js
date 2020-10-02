@@ -141,6 +141,25 @@ class EventReports {
         return this.client.get(EventReports.summaryReportUrl('bySelectability', eventKey))
             .then((res) => res.data)
     }
+
+    /**
+     * @param {string} eventKey
+     * @param {?string} channel
+     * @returns {Object.<string, EventReportItem[]>}
+     */
+    byChannel (eventKey, channel = null) {
+        return this.client.get(EventReports.reportUrl('byChannel', eventKey, channel))
+            .then((res) => utilities.createEventReport(res.data))
+    }
+
+    /**
+     * @param {string} eventKey
+     * @returns {Object} JSON response from the server
+     */
+    summaryByChannel (eventKey) {
+        return this.client.get(EventReports.summaryReportUrl('byChannel', eventKey))
+            .then((res) => res.data)
+    }
 }
 
 module.exports = EventReports

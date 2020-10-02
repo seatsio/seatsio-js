@@ -9,6 +9,10 @@ test('report properties', async () => {
     const event = await client.events.create(chartKey)
     const extraData = { foo: 'bar' }
     await client.events.book(event.key, (new ObjectProperties('A-1')).setTicketType('ticketType1').setExtraData(extraData), null, 'order1')
+    await client.events.updateChannels(event.key, {
+        channel1: { name: 'channel 1', color: 'blue', index: 1 }
+    })
+    await client.events.assignObjectsToChannel(event.key, { channel1: ['A-1'] })
 
     const report = await client.eventReports.byLabel(event.key)
 
@@ -256,4 +260,35 @@ test('report by specific selectability', async () => {
     const report = await client.eventReports.bySelectability(event.key, 'selectable')
 
     expect(report.selectable.length).toBe(31)
+})
+
+test('report by channel', async () => {
+    const { client, user } = await testUtils.createTestUserAndClient()
+    const chartKey = testUtils.getChartKey()
+    await testUtils.createTestChart(chartKey, user.secretKey)
+    const event = await client.events.create(chartKey)
+    await client.events.updateChannels(event.key, {
+        channel1: { name: 'channel 1', color: 'blue', index: 1 }
+    })
+    await client.events.assignObjectsToChannel(event.key, { channel1: ['A-1', 'A-2'] })
+
+    const report = await client.eventReports.byChannel(event.key)
+
+    expect(report.channel1.length).toBe(2)
+    expect(report.NO_CHANNEL.length).toBe(32)
+})
+
+test('report by specific channel', async () => {
+    const { client, user } = await testUtils.createTestUserAndClient()
+    const chartKey = testUtils.getChartKey()
+    await testUtils.createTestChart(chartKey, user.secretKey)
+    const event = await client.events.create(chartKey)
+    await client.events.updateChannels(event.key, {
+        channel1: { name: 'channel 1', color: 'blue', index: 1 }
+    })
+    await client.events.assignObjectsToChannel(event.key, { channel1: ['A-1', 'A-2'] })
+
+    const report = await client.eventReports.byChannel(event.key, 'channel1')
+
+    expect(report.channel1.length).toBe(2)
 })
