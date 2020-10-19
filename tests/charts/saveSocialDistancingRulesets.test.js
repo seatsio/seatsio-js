@@ -5,7 +5,7 @@ test('should save rulesets', async () => {
     const { client } = await testUtils.createTestUserAndClient()
     const chart = await client.charts.create()
     const rulesets = {
-        ruleset1: new SocialDistancingRuleset(0, 'My first ruleset', 1, true, 2, 1, 10, 0, false, ['A-1'], ['A-2']),
+        ruleset1: new SocialDistancingRuleset(0, 'My first ruleset', 1, true, 2, 1, 10, 0, true, false, ['A-1'], ['A-2']),
         ruleset2: new SocialDistancingRuleset(1, 'My second ruleset')
     }
 
@@ -24,6 +24,7 @@ test('should save rulesets', async () => {
             numberOfDisabledSeatsToTheSides: 1,
             maxOccupancyAbsolute: 10,
             maxOccupancyPercentage: 0,
+            oneGroupPerTable: true,
             fixedGroupLayout: false
         },
         ruleset2: {
@@ -37,6 +38,7 @@ test('should save rulesets', async () => {
             numberOfDisabledSeatsToTheSides: 0,
             maxOccupancyAbsolute: 0,
             maxOccupancyPercentage: 0,
+            oneGroupPerTable: false,
             fixedGroupLayout: false
         }
     })
@@ -64,6 +66,7 @@ test('should save fixed ruleset', async () => {
             numberOfDisabledSeatsToTheSides: 0,
             maxOccupancyAbsolute: 0,
             maxOccupancyPercentage: 0,
+            oneGroupPerTable: false,
             fixedGroupLayout: true
         }
     })
@@ -73,7 +76,7 @@ test('should save rule based ruleset', async () => {
     const { client } = await testUtils.createTestUserAndClient()
     const chart = await client.charts.create()
     const rulesets = {
-        ruleset1: new SocialDistancingRuleset(0, 'My first ruleset', 1, true, 2, 1, 10, 0, false, ['A-1'], ['A-2'])
+        ruleset1: SocialDistancingRuleset.ruleBased(0, 'My first ruleset', 1, true, 2, 1, 10, 0, true, ['A-1'], ['A-2'])
     }
 
     await client.charts.saveSocialDistancingRulesets(chart.key, rulesets)
@@ -91,6 +94,7 @@ test('should save rule based ruleset', async () => {
             numberOfDisabledSeatsToTheSides: 1,
             maxOccupancyAbsolute: 10,
             maxOccupancyPercentage: 0,
+            oneGroupPerTable: true,
             fixedGroupLayout: false
         }
     })

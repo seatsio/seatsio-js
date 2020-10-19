@@ -1,5 +1,6 @@
 class SocialDistancingRuleset {
-    constructor (index, name, numberOfDisabledSeatsToTheSides, disableSeatsInFrontAndBehind, numberOfDisabledAisleSeats, maxGroupSize, maxOccupancyAbsolute, maxOccupancyPercentage, fixedGroupLayout, disabledSeats, enabledSeats) {
+    constructor (index, name, numberOfDisabledSeatsToTheSides, disableSeatsInFrontAndBehind, numberOfDisabledAisleSeats, maxGroupSize, maxOccupancyAbsolute, maxOccupancyPercentage,
+        oneGroupPerTable, fixedGroupLayout, disabledSeats, enabledSeats) {
         this.index = index
         this.name = name
         this.numberOfDisabledSeatsToTheSides = numberOfDisabledSeatsToTheSides
@@ -8,17 +9,20 @@ class SocialDistancingRuleset {
         this.maxGroupSize = maxGroupSize
         this.maxOccupancyAbsolute = maxOccupancyAbsolute
         this.maxOccupancyPercentage = maxOccupancyPercentage
+        this.oneGroupPerTable = oneGroupPerTable
         this.fixedGroupLayout = fixedGroupLayout
         this.disabledSeats = disabledSeats
         this.enabledSeats = enabledSeats
     }
 
     static fixed (index, name, disabledSeats) {
-        return new SocialDistancingRuleset(index, name, undefined, undefined, undefined, undefined, undefined, undefined, true, disabledSeats, undefined)
+        return new SocialDistancingRuleset(index, name, undefined, undefined, undefined, undefined, undefined, undefined, false, true, disabledSeats, undefined)
     }
 
-    static ruleBased (index, name, numberOfDisabledSeatsToTheSides, disableSeatsInFrontAndBehind, numberOfDisabledAisleSeats, maxGroupSize, maxOccupancyAbsolute, maxOccupancyPercentage, disabledSeats, enabledSeats) {
-        return new SocialDistancingRuleset(index, name, numberOfDisabledSeatsToTheSides, disableSeatsInFrontAndBehind, numberOfDisabledAisleSeats, maxGroupSize, maxOccupancyAbsolute, maxOccupancyPercentage, false, disabledSeats, enabledSeats)
+    static ruleBased (index, name, numberOfDisabledSeatsToTheSides, disableSeatsInFrontAndBehind, numberOfDisabledAisleSeats, maxGroupSize, maxOccupancyAbsolute,
+        maxOccupancyPercentage, oneGroupPerTable, disabledSeats, enabledSeats) {
+        return new SocialDistancingRuleset(index, name, numberOfDisabledSeatsToTheSides, disableSeatsInFrontAndBehind, numberOfDisabledAisleSeats, maxGroupSize,
+            maxOccupancyAbsolute, maxOccupancyPercentage, oneGroupPerTable, false, disabledSeats, enabledSeats)
     }
 
     static fromJson (json) {
@@ -31,6 +35,7 @@ class SocialDistancingRuleset {
             json.maxGroupSize,
             json.maxOccupancyAbsolute,
             json.maxOccupancyPercentage,
+            json.oneGroupPerTable,
             json.fixedGroupLayout,
             json.disabledSeats,
             json.enabledSeats

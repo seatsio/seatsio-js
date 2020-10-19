@@ -1,6 +1,6 @@
 {
   "name": "seatsio",
-  "version": "57.0.0",
+  "version": "58.0.0",
   "main": "index.js",
   "description": "Official JavaScript and Node.JS client library for the Seats.io V2 REST API",
   "license": "MIT",
