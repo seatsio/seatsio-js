@@ -31,7 +31,7 @@ test('chart report properties for GA', async () => {
     expect(reportItem.objectType).toBe('generalAdmission')
 })
 
-test('byLabel method for Reports module', async () => {
+test('get report byLabel', async () => {
     const { client, user } = await testUtils.createTestUserAndClient()
     const chartKey = testUtils.getChartKey()
     await testUtils.createTestChart(chartKey, user.secretKey)
@@ -42,7 +42,47 @@ test('byLabel method for Reports module', async () => {
     expect(report['A-2'].length).toBe(1)
 })
 
-test('get reports byCategoryKey', async () => {
+test('get report byLabel, bookWholeTables not passed in', async () => {
+    const { client, user } = await testUtils.createTestUserAndClient()
+    const chartKey = testUtils.getChartKey()
+    await testUtils.createTestChartWithTables(chartKey, user.secretKey)
+
+    const report = await client.chartReports.byLabel(chartKey)
+
+    expect(new Set(Object.keys(report))).toEqual(new Set(['T1-1', 'T1-2', 'T1-3', 'T1-4', 'T1-5', 'T1-6', 'T2-1', 'T2-2', 'T2-3', 'T2-4', 'T2-5', 'T2-6', 'T1', 'T2']))
+})
+
+test('get report byLabel, bookWholeTables chart', async () => {
+    const { client, user } = await testUtils.createTestUserAndClient()
+    const chartKey = testUtils.getChartKey()
+    await testUtils.createTestChartWithTables(chartKey, user.secretKey)
+
+    const report = await client.chartReports.byLabel(chartKey, 'chart')
+
+    expect(new Set(Object.keys(report))).toEqual(new Set(['T1-1', 'T1-2', 'T1-3', 'T1-4', 'T1-5', 'T1-6', 'T2']))
+})
+
+test('get report byLabel, bookWholeTables true', async () => {
+    const { client, user } = await testUtils.createTestUserAndClient()
+    const chartKey = testUtils.getChartKey()
+    await testUtils.createTestChartWithTables(chartKey, user.secretKey)
+
+    const report = await client.chartReports.byLabel(chartKey, 'true')
+
+    expect(new Set(Object.keys(report))).toEqual(new Set(['T1', 'T2']))
+})
+
+test('get report byLabel, bookWholeTables false', async () => {
+    const { client, user } = await testUtils.createTestUserAndClient()
+    const chartKey = testUtils.getChartKey()
+    await testUtils.createTestChartWithTables(chartKey, user.secretKey)
+
+    const report = await client.chartReports.byLabel(chartKey, 'false')
+
+    expect(new Set(Object.keys(report))).toEqual(new Set(['T1-1', 'T1-2', 'T1-3', 'T1-4', 'T1-5', 'T1-6', 'T2-1', 'T2-2', 'T2-3', 'T2-4', 'T2-5', 'T2-6']))
+})
+
+test('get report byCategoryKey', async () => {
     const { client, user } = await testUtils.createTestUserAndClient()
     const chartKey = testUtils.getChartKey()
     await testUtils.createTestChart(chartKey, user.secretKey)
@@ -53,7 +93,7 @@ test('get reports byCategoryKey', async () => {
     expect(report['10'].length).toBe(17)
 })
 
-test('get reports byCategoryLabel', async () => {
+test('get report byCategoryLabel', async () => {
     const { client, user } = await testUtils.createTestUserAndClient()
     const chartKey = testUtils.getChartKey()
     await testUtils.createTestChart(chartKey, user.secretKey)

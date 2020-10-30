@@ -5,40 +5,36 @@ class ChartReports {
         this.client = client
     }
 
-    /**
-     * @param {string} reportType
-     * @param {string} eventKey
-     * @returns {string}
-     */
-    static reportUrl (reportType, eventKey) {
-        return `/reports/charts/${encodeURIComponent(eventKey)}/${reportType}`
-    }
-
-    /**
-     * @param {string} chartKey
-     * @returns {Object.<string, ChartReportItem[]>}
-     */
-    byLabel (chartKey) {
-        return this.client.get(ChartReports.reportUrl('byLabel', chartKey))
+    fetchReport (reportType, eventKey, bookWholeTables) {
+        return this.client.get(`/reports/charts/${encodeURIComponent(eventKey)}/${reportType}`, { params: { bookWholeTables } })
             .then((res) => utilities.createChartReport(res.data))
     }
 
     /**
      * @param {string} chartKey
+     * @param {string} bookWholeTables
      * @returns {Object.<string, ChartReportItem[]>}
      */
-    byCategoryLabel (chartKey) {
-        return this.client.get(ChartReports.reportUrl('byCategoryLabel', chartKey))
-            .then((res) => utilities.createChartReport(res.data))
+    byLabel (chartKey, bookWholeTables = undefined) {
+        return this.fetchReport('byLabel', chartKey, bookWholeTables)
     }
 
     /**
      * @param {string} chartKey
+     * @param {string} bookWholeTables
      * @returns {Object.<string, ChartReportItem[]>}
      */
-    byCategoryKey (chartKey) {
-        return this.client.get(ChartReports.reportUrl('byCategoryKey', chartKey))
-            .then((res) => utilities.createChartReport(res.data))
+    byCategoryLabel (chartKey, bookWholeTables = undefined) {
+        return this.fetchReport('byCategoryLabel', chartKey, bookWholeTables)
+    }
+
+    /**
+     * @param {string} chartKey
+     * @param {string} bookWholeTables
+     * @returns {Object.<string, ChartReportItem[]>}
+     */
+    byCategoryKey (chartKey, bookWholeTables = undefined) {
+        return this.fetchReport('byCategoryKey', chartKey, bookWholeTables)
     }
 }
 
