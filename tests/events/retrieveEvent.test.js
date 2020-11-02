@@ -1,4 +1,5 @@
 const testUtils = require('../testUtils.js')
+const TableBookingConfig = require('../../src/Events/TableBookingConfig')
 
 test('should retrieve event', async () => {
     const { client, user } = await testUtils.createTestUserAndClient()
@@ -12,7 +13,7 @@ test('should retrieve event', async () => {
     expect(retrievedEvent.key).toBe(event.key)
     expect(retrievedEvent.id).toBe(event.id)
     expect(retrievedEvent.chartKey).toBe(chartKey)
-    expect(retrievedEvent.bookWholeTables).toBe(false)
+    expect(retrievedEvent.tableBookingConfig).toEqual(TableBookingConfig.inherit())
     expect(retrievedEvent.supportsBestAvailable).toBe(true)
     expect(retrievedEvent.createdOn).toBeInstanceOf(Date)
     expect(retrievedEvent.createdOn.getTime()).toBeLessThanOrEqual(now.getTime() + 5000)

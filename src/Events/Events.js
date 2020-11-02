@@ -18,11 +18,11 @@ class Events {
     /**
      * @param {string} chartKey
      * @param {?string} eventKey
-     * @param {?object} bookWholeTablesOrTableBookingModes
+     * @param {?TableBookingConfig} tableBookingConfig
      * @param {?string} socialDistancingRulesetKey
      * @returns {Promise<Event>} Promise that resolves to Event object
      */
-    create (chartKey, eventKey = null, bookWholeTablesOrTableBookingModes = null, socialDistancingRulesetKey = null) {
+    create (chartKey, eventKey = null, tableBookingConfig = null, socialDistancingRulesetKey = null) {
         const requestParameters = {}
 
         requestParameters.chartKey = chartKey
@@ -31,10 +31,8 @@ class Events {
             requestParameters.eventKey = eventKey
         }
 
-        if ((bookWholeTablesOrTableBookingModes === true) || (bookWholeTablesOrTableBookingModes === false)) {
-            requestParameters.bookWholeTables = bookWholeTablesOrTableBookingModes
-        } else if (bookWholeTablesOrTableBookingModes) {
-            requestParameters.tableBookingModes = bookWholeTablesOrTableBookingModes
+        if (tableBookingConfig !== null) {
+            requestParameters.tableBookingConfig = tableBookingConfig
         }
 
         if (socialDistancingRulesetKey !== null) {
@@ -66,11 +64,11 @@ class Events {
      * @param {string} eventKey
      * @param {?string} chartKey
      * @param {?string} newEventKey
-     * @param {?object} bookWholeTablesOrTableBookingModes
+     * @param {?TableBookingConfig} tableBookingConfig
      * @param {?string} socialDistancingRulesetKey
      * @returns {Promise}
      */
-    update (eventKey, chartKey = null, newEventKey = null, bookWholeTablesOrTableBookingModes = null, socialDistancingRulesetKey = null) {
+    update (eventKey, chartKey = null, newEventKey = null, tableBookingConfig = null, socialDistancingRulesetKey = null) {
         const requestParameters = {}
 
         if (chartKey !== null) {
@@ -81,10 +79,8 @@ class Events {
             requestParameters.eventKey = newEventKey
         }
 
-        if (typeof bookWholeTablesOrTableBookingModes === 'boolean') {
-            requestParameters.bookWholeTables = bookWholeTablesOrTableBookingModes
-        } else if (bookWholeTablesOrTableBookingModes !== null) {
-            requestParameters.tableBookingModes = bookWholeTablesOrTableBookingModes
+        if (tableBookingConfig !== null) {
+            requestParameters.tableBookingConfig = tableBookingConfig
         }
 
         if (socialDistancingRulesetKey !== null) {

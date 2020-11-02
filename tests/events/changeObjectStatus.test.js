@@ -1,6 +1,7 @@
 const testUtils = require('../testUtils.js')
 const ObjectStatus = require('../../src/Events/ObjectStatus.js')
 const ObjectProperties = require('../../src/Events/ObjectProperties.js')
+const TableBookingConfig = require('../../src/Events/TableBookingConfig')
 
 test('should change object status', async () => {
     const { client, user } = await testUtils.createTestUserAndClient()
@@ -44,7 +45,7 @@ test('should change object status for table', async () => {
     const { client, user } = await testUtils.createTestUserAndClient()
     const chartKey = testUtils.getChartKey()
     await testUtils.createTestChartWithTables(chartKey, user.secretKey)
-    const event = await client.events.create(chartKey, null, true)
+    const event = await client.events.create(chartKey, null, TableBookingConfig.allByTable())
 
     const result = await client.events.changeObjectStatus(event.key, 'T1', 'lolzor')
 

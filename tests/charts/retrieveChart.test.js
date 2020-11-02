@@ -1,7 +1,7 @@
 const testUtils = require('../testUtils.js')
 
 test('should retrieve chart', async () => {
-    const { client, user } = await testUtils.createTestUserAndClient()
+    const { client } = await testUtils.createTestUserAndClient()
     const chart = await client.charts.create()
     await client.charts.addTag(chart.key, 'tag1')
 
@@ -21,7 +21,7 @@ test('should retrieve chart', async () => {
 })
 
 test('should retrieve chart with events', async () => {
-    const { client, user } = await testUtils.createTestUserAndClient()
+    const { client } = await testUtils.createTestUserAndClient()
     const chart = await client.charts.create()
     const event1 = await client.events.create(chart.key)
     const event2 = await client.events.create(chart.key)
@@ -30,27 +30,4 @@ test('should retrieve chart with events', async () => {
 
     const retrievedEventIds = [retrievedChart.events[0].id, retrievedChart.events[1].id]
     expect(retrievedEventIds.sort()).toEqual([event1.id, event2.id].sort())
-})
-
-test('should retrieve chart with updated event (bookWholeTables)', async () => {
-    const { client, user } = await testUtils.createTestUserAndClient()
-    const chart = await client.charts.create()
-    const event = await client.events.create(chart.key)
-    await client.events.update(event.key, null, null, true)
-
-    const retrievedChart = await client.charts.retrieveWithEvents(chart.key)
-
-    expect(retrievedChart.events[0].id).toEqual(event.id)
-})
-
-test('should retrieve chart with updated event (markAsForSale and tableBookingModes)', async () => {
-    const { client, user } = await testUtils.createTestUserAndClient()
-    const chart = await client.charts.create()
-    const event = await client.events.create(chart.key)
-    await client.events.markAsForSale(event.key, ['o1', 'o2'], ['cat1', 'cat2'])
-    await client.events.update(event.key, null, null, true)
-
-    const retrievedChart = await client.charts.retrieveWithEvents(chart.key)
-
-    expect(retrievedChart.events[0].id).toEqual(event.id)
 })
