@@ -4,12 +4,26 @@ const SocialDistancingRuleset = require('../../src/Charts/SocialDistancingRulese
 test('should save rulesets', async () => {
     const { client } = await testUtils.createTestUserAndClient()
     const chart = await client.charts.create()
-    const rulesets = {
-        ruleset1: new SocialDistancingRuleset(0, 'My first ruleset', 1, true, 2, 1, 10, 0, true, false, ['A-1'], ['A-2']),
-        ruleset2: new SocialDistancingRuleset(1, 'My second ruleset')
-    }
 
-    await client.charts.saveSocialDistancingRulesets(chart.key, rulesets)
+    const ruleset1 = SocialDistancingRuleset.ruleBased('My first ruleset')
+        .setIndex(0)
+        .setNumberOfDisabledSeatsToTheSides(1)
+        .setDisableSeatsInFrontAndBehind(true)
+        .setDisableDiagonalSeatsInFrontAndBehind(true)
+        .setNumberOfDisabledAisleSeats(2)
+        .setMaxGroupSize(1)
+        .setMaxOccupancyPercentage(10)
+        .setOneGroupPerTable(true)
+        .setDisabledSeats(['A-1'])
+        .setEnabledSeats(['A-2'])
+        .build()
+
+    const ruleset2 = SocialDistancingRuleset.fixed('My second ruleset')
+        .setIndex(1)
+        .setDisabledSeats(['A-1'])
+        .build()
+
+    await client.charts.saveSocialDistancingRulesets(chart.key, { ruleset1: ruleset1, ruleset2: ruleset2 })
 
     const retrievedChart = await client.charts.retrieve(chart.key)
     expect(retrievedChart.socialDistancingRulesets).toEqual({
@@ -17,13 +31,14 @@ test('should save rulesets', async () => {
             index: 0,
             name: 'My first ruleset',
             disableSeatsInFrontAndBehind: true,
+            disableDiagonalSeatsInFrontAndBehind: true,
             disabledSeats: ['A-1'],
             enabledSeats: ['A-2'],
             maxGroupSize: 1,
             numberOfDisabledAisleSeats: 2,
             numberOfDisabledSeatsToTheSides: 1,
-            maxOccupancyAbsolute: 10,
-            maxOccupancyPercentage: 0,
+            maxOccupancyAbsolute: 0,
+            maxOccupancyPercentage: 10,
             oneGroupPerTable: true,
             fixedGroupLayout: false
         },
@@ -31,34 +46,7 @@ test('should save rulesets', async () => {
             index: 1,
             name: 'My second ruleset',
             disableSeatsInFrontAndBehind: false,
-            disabledSeats: [],
-            enabledSeats: [],
-            maxGroupSize: 0,
-            numberOfDisabledAisleSeats: 0,
-            numberOfDisabledSeatsToTheSides: 0,
-            maxOccupancyAbsolute: 0,
-            maxOccupancyPercentage: 0,
-            oneGroupPerTable: false,
-            fixedGroupLayout: false
-        }
-    })
-})
-
-test('should save fixed ruleset', async () => {
-    const { client } = await testUtils.createTestUserAndClient()
-    const chart = await client.charts.create()
-    const rulesets = {
-        ruleset1: SocialDistancingRuleset.fixed(0, 'My first ruleset', ['A-1'])
-    }
-
-    await client.charts.saveSocialDistancingRulesets(chart.key, rulesets)
-
-    const retrievedChart = await client.charts.retrieve(chart.key)
-    expect(retrievedChart.socialDistancingRulesets).toEqual({
-        ruleset1: {
-            index: 0,
-            name: 'My first ruleset',
-            disableSeatsInFrontAndBehind: false,
+            disableDiagonalSeatsInFrontAndBehind: false,
             disabledSeats: ['A-1'],
             enabledSeats: [],
             maxGroupSize: 0,
@@ -68,34 +56,6 @@ test('should save fixed ruleset', async () => {
             maxOccupancyPercentage: 0,
             oneGroupPerTable: false,
             fixedGroupLayout: true
-        }
-    })
-})
-
-test('should save rule based ruleset', async () => {
-    const { client } = await testUtils.createTestUserAndClient()
-    const chart = await client.charts.create()
-    const rulesets = {
-        ruleset1: SocialDistancingRuleset.ruleBased(0, 'My first ruleset', 1, true, 2, 1, 10, 0, true, ['A-1'], ['A-2'])
-    }
-
-    await client.charts.saveSocialDistancingRulesets(chart.key, rulesets)
-
-    const retrievedChart = await client.charts.retrieve(chart.key)
-    expect(retrievedChart.socialDistancingRulesets).toEqual({
-        ruleset1: {
-            index: 0,
-            name: 'My first ruleset',
-            disableSeatsInFrontAndBehind: true,
-            disabledSeats: ['A-1'],
-            enabledSeats: ['A-2'],
-            maxGroupSize: 1,
-            numberOfDisabledAisleSeats: 2,
-            numberOfDisabledSeatsToTheSides: 1,
-            maxOccupancyAbsolute: 10,
-            maxOccupancyPercentage: 0,
-            oneGroupPerTable: true,
-            fixedGroupLayout: false
         }
     })
 })

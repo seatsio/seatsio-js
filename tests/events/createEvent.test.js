@@ -43,7 +43,7 @@ test('should pass in tableBookingConfig as a create() param', async () => {
 test('it supports a social distancing ruleset key', async () => {
     const { client } = await testUtils.createTestUserAndClient()
     const chart = await client.charts.create()
-    const rulesets = { ruleset1: new SocialDistancingRuleset(0, 'My ruleset') }
+    const rulesets = { ruleset1: SocialDistancingRuleset.ruleBased('My ruleset').build() }
     await client.charts.saveSocialDistancingRulesets(chart.key, rulesets)
 
     const event = await client.events.create(chart.key, null, null, 'ruleset1')

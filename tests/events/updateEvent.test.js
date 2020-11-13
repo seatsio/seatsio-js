@@ -48,8 +48,8 @@ test('it supports a social distancing ruleset key', async () => {
     const { client } = await testUtils.createTestUserAndClient()
     const chart = await client.charts.create()
     const rulesets = {
-        ruleset1: new SocialDistancingRuleset(0, 'My ruleset'),
-        ruleset2: new SocialDistancingRuleset(1, 'Another ruleset')
+        ruleset1: SocialDistancingRuleset.ruleBased('My ruleset').build(),
+        ruleset2: SocialDistancingRuleset.ruleBased('Another ruleset').build()
     }
     await client.charts.saveSocialDistancingRulesets(chart.key, rulesets)
     const event = await client.events.create(chart.key, null, null, 'ruleset1')
@@ -64,7 +64,7 @@ test('it supports removing the social distancing ruleset key', async () => {
     const { client } = await testUtils.createTestUserAndClient()
     const chart = await client.charts.create()
     const rulesets = {
-        ruleset1: new SocialDistancingRuleset(0, 'My ruleset')
+        ruleset1: SocialDistancingRuleset.ruleBased('My ruleset').build()
     }
     await client.charts.saveSocialDistancingRulesets(chart.key, rulesets)
     const event = await client.events.create(chart.key, null, null, 'ruleset1')
