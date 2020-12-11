@@ -2,6 +2,7 @@ const testUtils = require('../testUtils.js')
 const ObjectStatus = require('../../src/Events/ObjectStatus.js')
 const ObjectProperties = require('../../src/Events/ObjectProperties.js')
 const TableBookingConfig = require('../../src/Events/TableBookingConfig')
+const SocialDistancingRuleset = require('../../src/Charts/SocialDistancingRuleset')
 
 test('should change object status', async () => {
     const { client, user } = await testUtils.createTestUserAndClient()
@@ -209,4 +210,19 @@ test('should accept ignoreChannels', async () => {
 
     const objStatus = await client.events.retrieveObjectStatus(event.key, 'A-1')
     expect(objStatus.status).toBe('someStatus')
+})
+
+test('should accept ignoreSocialDistancing', async () => {
+    const { client, user } = await testUtils.createTestUserAndClient()
+    const chartKey = testUtils.getChartKey()
+    await testUtils.createTestChart(chartKey, user.secretKey)
+    const event = await client.events.create(chartKey)
+    const ruleset = SocialDistancingRuleset.fixed('ruleset').setDisabledSeats(['A-1']).build()
+    await client.charts.saveSocialDistancingRulesets(chartKey, { ruleset })
+    await client.events.update(event.key, null, null, null, 'ruleset')
+
+    await client.events.changeObjectStatus(event.key, ['A-1'], ObjectStatus.BOOKED, null, null, null, null, null, true)
+
+    const objStatus = await client.events.retrieveObjectStatus(event.key, 'A-1')
+    expect(objStatus.status).toBe(ObjectStatus.BOOKED)
 })

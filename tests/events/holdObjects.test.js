@@ -1,5 +1,6 @@
 const testUtils = require('../testUtils.js')
 const ObjectStatus = require('../../src/Events/ObjectStatus.js')
+const SocialDistancingRuleset = require('../../src/Charts/SocialDistancingRuleset')
 
 test('should hold objects', async () => {
     const { client, user } = await testUtils.createTestUserAndClient()
@@ -60,7 +61,24 @@ test('should accept ignoreChannels', async () => {
         channelKey1: { name: 'channel 1', color: '#FFAABB', index: 1 }
     })
     await client.events.assignObjectsToChannel(event.key, { channelKey1: ['A-1'] })
+
     await client.events.hold(event.key, ['A-1'], holdToken.holdToken, null, null, true)
+
+    const objStatus = await client.events.retrieveObjectStatus(event.key, 'A-1')
+    expect(objStatus.status).toBe(ObjectStatus.HELD)
+})
+
+test('should accept ignoreSocialDistancing', async () => {
+    const { client, user } = await testUtils.createTestUserAndClient()
+    const chartKey = testUtils.getChartKey()
+    await testUtils.createTestChart(chartKey, user.secretKey)
+    const event = await client.events.create(chartKey)
+    const ruleset = SocialDistancingRuleset.fixed('ruleset').setDisabledSeats(['A-1']).build()
+    await client.charts.saveSocialDistancingRulesets(chartKey, { ruleset })
+    await client.events.update(event.key, null, null, null, 'ruleset')
+    const holdToken = await client.holdTokens.create()
+
+    await client.events.hold(event.key, ['A-1'], holdToken.holdToken, null, null, null, null, true)
 
     const objStatus = await client.events.retrieveObjectStatus(event.key, 'A-1')
     expect(objStatus.status).toBe(ObjectStatus.HELD)

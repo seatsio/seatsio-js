@@ -250,10 +250,11 @@ class Events {
      * @param {?boolean} keepExtraData
      * @param {?boolean} ignoreChannels
      * @param {?string[]} channelKeys
+     * @param {?boolean} ignoreSocialDistancing
      * @returns {Promise<ChangeObjectStatusResult>} Promise that resolves to ChangeObjectStatusResult object
      */
-    changeObjectStatus (eventKeyOrKeys, objectOrObjects, status, holdToken = null, orderId = null, keepExtraData = null, ignoreChannels = null, channelKeys = null) {
-        const request = this.changeObjectStatusRequest(objectOrObjects, status, holdToken, orderId, keepExtraData, ignoreChannels, channelKeys)
+    changeObjectStatus (eventKeyOrKeys, objectOrObjects, status, holdToken = null, orderId = null, keepExtraData = null, ignoreChannels = null, channelKeys = null, ignoreSocialDistancing = null) {
+        const request = this.changeObjectStatusRequest(objectOrObjects, status, holdToken, orderId, keepExtraData, ignoreChannels, channelKeys, ignoreSocialDistancing)
         request.events = Array.isArray(eventKeyOrKeys) ? eventKeyOrKeys : [eventKeyOrKeys]
 
         return this.client.post('/seasons/actions/change-object-status?expand=objects', request)
@@ -276,7 +277,7 @@ class Events {
             .then((res) => res.data.results.map(r => new ChangeObjectStatusResult(r.objects)))
     }
 
-    changeObjectStatusRequest (objectOrObjects, status, holdToken, orderId, keepExtraData, ignoreChannels, channelKeys) {
+    changeObjectStatusRequest (objectOrObjects, status, holdToken, orderId, keepExtraData, ignoreChannels, channelKeys, ignoreSocialDistancing) {
         const request = {}
         request.objects = this.normalizeObjects(objectOrObjects)
         request.status = status
@@ -295,6 +296,9 @@ class Events {
         if (channelKeys !== null) {
             request.channelKeys = channelKeys
         }
+        if (ignoreSocialDistancing !== null) {
+            request.ignoreSocialDistancing = ignoreSocialDistancing
+        }
         return request
     }
 
@@ -306,10 +310,11 @@ class Events {
      * @param {?boolean} keepExtraData
      * @param {?boolean} ignoreChannels
      * @param {?string[]} channelKeys
+     * @param {?boolean} ignoreSocialDistancing
      * @returns {Promise<ChangeObjectStatusResult>} Promise that resolves to ChangeObjectStatusResult object
      */
-    book (eventKeyOrKeys, objectOrObjects, holdToken = null, orderId = null, keepExtraData = null, ignoreChannels = null, channelKeys = null) {
-        return this.changeObjectStatus(eventKeyOrKeys, objectOrObjects, ObjectStatus.BOOKED, holdToken, orderId, keepExtraData, ignoreChannels, channelKeys)
+    book (eventKeyOrKeys, objectOrObjects, holdToken = null, orderId = null, keepExtraData = null, ignoreChannels = null, channelKeys = null, ignoreSocialDistancing = null) {
+        return this.changeObjectStatus(eventKeyOrKeys, objectOrObjects, ObjectStatus.BOOKED, holdToken, orderId, keepExtraData, ignoreChannels, channelKeys, ignoreSocialDistancing)
     }
 
     /**
@@ -351,10 +356,11 @@ class Events {
      * @param {?boolean} keepExtraData
      * @param {?boolean} ignoreChannels
      * @param {?string[]} channelKeys
+     * @param {?boolean} ignoreSocialDistancing
      * @returns {Promise<ChangeObjectStatusResult>} Promise that resolves to ChangeObjectStatusResult object
      */
-    hold (eventKeyOrKeys, objectOrObjects, holdToken, orderId = null, keepExtraData = null, ignoreChannels = null, channelKeys = null) {
-        return this.changeObjectStatus(eventKeyOrKeys, objectOrObjects, ObjectStatus.HELD, holdToken, orderId, keepExtraData, ignoreChannels, channelKeys)
+    hold (eventKeyOrKeys, objectOrObjects, holdToken, orderId = null, keepExtraData = null, ignoreChannels = null, channelKeys = null, ignoreSocialDistancing = null) {
+        return this.changeObjectStatus(eventKeyOrKeys, objectOrObjects, ObjectStatus.HELD, holdToken, orderId, keepExtraData, ignoreChannels, channelKeys, ignoreSocialDistancing)
     }
 
     /**
