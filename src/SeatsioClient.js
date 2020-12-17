@@ -13,8 +13,8 @@ const errorResponseHandler = require('./errorInterceptor.js')
 const Axios = require('axios')
 
 class SeatsioClient {
-    constructor (secretKey, workspaceKey = null, baseUrl = 'https://api.seatsio.net/', extraHeaders = {}) {
-        this.client = Axios.create(this._axiosConfig(baseUrl, secretKey, workspaceKey, extraHeaders))
+    constructor (region, secretKey, workspaceKey = null, extraHeaders = {}) {
+        this.client = Axios.create(this._axiosConfig(region.url, secretKey, workspaceKey, extraHeaders))
         this._setupRequestListener()
 
         this.errInterceptor = this.client.interceptors.response.use(

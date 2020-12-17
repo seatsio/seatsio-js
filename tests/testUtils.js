@@ -4,6 +4,7 @@ const fs = require('fs')
 const uuidv1 = require('uuid/v1')
 const LabelClasses = require('../src/Common/Labels.js')
 const path = require('path')
+const Region = require('../src/Region')
 
 const baseUrl = 'https://api-staging.seatsio.net/'
 
@@ -31,7 +32,7 @@ module.exports = {
     },
 
     createClient: function (secretKey, workspaceKey = null) {
-        return new SeatsioClient(secretKey, workspaceKey, baseUrl)
+        return new SeatsioClient(new Region(baseUrl), secretKey, workspaceKey)
     },
 
     createTestChart: async function (chartKey, secretKey) {
