@@ -6,28 +6,6 @@ class EventReports {
     }
 
     /**
-     * @param {string} reportType
-     * @param {string} eventKey
-     * * @param {string} filter
-     * @returns {string}
-     */
-    static reportUrl (reportType, eventKey, filter) {
-        if (filter === null || typeof filter === 'undefined') {
-            return `/reports/events/${encodeURIComponent(eventKey)}/${reportType}`
-        }
-        return `/reports/events/${encodeURIComponent(eventKey)}/${reportType}/${encodeURIComponent(filter)}`
-    }
-
-    /**
-     * @param {string} reportType
-     * @param {string} eventKey
-     * @returns {string}
-     */
-    static summaryReportUrl (reportType, eventKey) {
-        return `/reports/events/${encodeURIComponent(eventKey)}/${reportType}/summary`
-    }
-
-    /**
      * @param {string} eventKey
      * @param {?string} status
      * @returns {Object.<string, EventReportItem[]>}
@@ -43,6 +21,15 @@ class EventReports {
      */
     summaryByStatus (eventKey) {
         return this.client.get(EventReports.summaryReportUrl('byStatus', eventKey))
+            .then((res) => res.data)
+    }
+
+    /**
+     * @param {string} eventKey
+     * @returns {Object} JSON response from the server
+     */
+    deepSummaryByStatus (eventKey) {
+        return this.client.get(EventReports.deepSummaryReportUrl('byStatus', eventKey))
             .then((res) => res.data)
     }
 
@@ -67,6 +54,15 @@ class EventReports {
 
     /**
      * @param {string} eventKey
+     * @returns {Object} JSON response from the server
+     */
+    deepSummaryByCategoryLabel (eventKey) {
+        return this.client.get(EventReports.deepSummaryReportUrl('byCategoryLabel', eventKey))
+            .then((res) => res.data)
+    }
+
+    /**
+     * @param {string} eventKey
      * @param {?string} categoryKey
      * @returns {Object.<string, EventReportItem[]>}
      */
@@ -81,6 +77,15 @@ class EventReports {
      */
     summaryByCategoryKey (eventKey) {
         return this.client.get(EventReports.summaryReportUrl('byCategoryKey', eventKey))
+            .then((res) => res.data)
+    }
+
+    /**
+     * @param {string} eventKey
+     * @returns {Object} JSON response from the server
+     */
+    deepSummaryByCategoryKey (eventKey) {
+        return this.client.get(EventReports.deepSummaryReportUrl('byCategoryKey', eventKey))
             .then((res) => res.data)
     }
 
@@ -125,6 +130,15 @@ class EventReports {
 
     /**
      * @param {string} eventKey
+     * @returns {Object} JSON response from the server
+     */
+    deepSummaryBySection (eventKey) {
+        return this.client.get(EventReports.deepSummaryReportUrl('bySection', eventKey))
+            .then((res) => res.data)
+    }
+
+    /**
+     * @param {string} eventKey
      * @param {?string} selectability
      * @returns {Object.<string, EventReportItem[]>}
      */
@@ -139,6 +153,15 @@ class EventReports {
      */
     summaryBySelectability (eventKey) {
         return this.client.get(EventReports.summaryReportUrl('bySelectability', eventKey))
+            .then((res) => res.data)
+    }
+
+    /**
+     * @param {string} eventKey
+     * @returns {Object} JSON response from the server
+     */
+    deepSummaryBySelectability (eventKey) {
+        return this.client.get(EventReports.deepSummaryReportUrl('bySelectability', eventKey))
             .then((res) => res.data)
     }
 
@@ -159,6 +182,30 @@ class EventReports {
     summaryByChannel (eventKey) {
         return this.client.get(EventReports.summaryReportUrl('byChannel', eventKey))
             .then((res) => res.data)
+    }
+
+    /**
+     * @param {string} eventKey
+     * @returns {Object} JSON response from the server
+     */
+    deepSummaryByChannel (eventKey) {
+        return this.client.get(EventReports.deepSummaryReportUrl('byChannel', eventKey))
+            .then((res) => res.data)
+    }
+
+    static reportUrl (reportType, eventKey, filter) {
+        if (filter === null || typeof filter === 'undefined') {
+            return `/reports/events/${encodeURIComponent(eventKey)}/${reportType}`
+        }
+        return `/reports/events/${encodeURIComponent(eventKey)}/${reportType}/${encodeURIComponent(filter)}`
+    }
+
+    static summaryReportUrl (reportType, eventKey) {
+        return `/reports/events/${encodeURIComponent(eventKey)}/${reportType}/summary`
+    }
+
+    static deepSummaryReportUrl (reportType, eventKey) {
+        return `/reports/events/${encodeURIComponent(eventKey)}/${reportType}/summary/deep`
     }
 }
 
