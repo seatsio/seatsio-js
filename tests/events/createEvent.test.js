@@ -28,7 +28,7 @@ test('should pass in event key as a create() param', async () => {
     expect(event.key).toBe('eventKey')
 })
 
-test('should pass in tableBookingConfig as a create() param', async () => {
+test('supports tableBookingConfig custom', async () => {
     const { client, user } = await testUtils.createTestUserAndClient()
     const chartKey = testUtils.getChartKey()
     await testUtils.createTestChartWithTables(chartKey, user.secretKey)
@@ -38,6 +38,17 @@ test('should pass in tableBookingConfig as a create() param', async () => {
 
     expect(event.key).toBeTruthy()
     expect(event.tableBookingConfig).toEqual(tableBookingConfig)
+})
+
+test('supports tableBookingConfig inherit', async () => {
+    const { client, user } = await testUtils.createTestUserAndClient()
+    const chartKey = testUtils.getChartKey()
+    await testUtils.createTestChartWithTables(chartKey, user.secretKey)
+
+    const event = await client.events.create(chartKey, null, TableBookingConfig.inherit())
+
+    expect(event.key).toBeTruthy()
+    expect(event.tableBookingConfig).toEqual(TableBookingConfig.inherit())
 })
 
 test('it supports a social distancing ruleset key', async () => {
