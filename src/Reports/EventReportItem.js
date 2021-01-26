@@ -18,6 +18,7 @@ class EventReportItem {
         this.forSale = report.forSale
         this.holdToken = report.holdToken
         this.capacity = report.capacity
+        this.bookAsAWhole = report.bookAsAWhole
         this.numBooked = report.numBooked
         this.numFree = report.numFree
         this.numHeld = report.numHeld

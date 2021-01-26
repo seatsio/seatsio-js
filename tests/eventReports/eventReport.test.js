@@ -37,6 +37,7 @@ test('report properties', async () => {
     expect(reportItem.rightNeighbour).toBe('A-2')
     expect(reportItem.isSelectable).toBe(false)
     expect(reportItem.isDisabledBySocialDistancing).toBe(false)
+    expect(reportItem.bookAsAWhole).toBe(undefined)
 })
 
 test('report has hold token', async () => {
@@ -74,6 +75,7 @@ test('report properties for GA', async () => {
     expect(reportItem.isCompanionSeat).toBe(undefined)
     expect(reportItem.hasRestrictedView).toBe(undefined)
     expect(reportItem.displayedObjectType).toBe(undefined)
+    expect(reportItem.bookAsAWhole).toBe(false)
 })
 
 test('report with object status', async () => {
