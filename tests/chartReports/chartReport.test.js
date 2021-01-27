@@ -17,6 +17,7 @@ test('chart report properties', async () => {
     expect(reportItem.entrance).toBeFalsy()
     expect(reportItem.leftNeighbour).toBe(undefined)
     expect(reportItem.rightNeighbour).toBe('A-2')
+    expect(reportItem.bookAsAWhole).toBe(undefined)
 })
 
 test('chart report properties for GA', async () => {
@@ -29,6 +30,7 @@ test('chart report properties for GA', async () => {
     const reportItem = report.GA1[0]
     expect(reportItem.capacity).toBe(100)
     expect(reportItem.objectType).toBe('generalAdmission')
+    expect(reportItem.bookAsAWhole).toBe(false)
 })
 
 test('get report byLabel', async () => {
