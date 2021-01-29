@@ -14,6 +14,8 @@ jobs:
       - run: npm install
       - run: npm run lint
       - run: npm run test
+        env:
+          TZ: Europe/Brussels
       - run: npm run bundle
       - run: npm publish
         env:
