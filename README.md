@@ -10,7 +10,7 @@ This is the official JavaScript client library for the [Seats.io V2 REST API](ht
 >
 > **Only use this in browser code if you know what you're doing (e.g. if you're building a password-protected backoffice application for admins)**. You have been warned :) 
 
-![Build](https://github.com/actions/seatsio-js/workflows/Build/badge.svg)
+![Build](https://github.com/seatsio/seatsio-js/workflows/Build/badge.svg)
 
 ## Installing
 For Node, you can install using npm:
