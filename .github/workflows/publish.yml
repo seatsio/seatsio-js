@@ -16,7 +16,7 @@ jobs:
 
   publish-npm:
     needs: build
-    runs-on: ubunutu-latest
+    runs-on: ubuntu-latest
     steps:
       - run: npm publish
         env:
@@ -24,7 +24,7 @@ jobs:
 
   publish-github:
     needs: build
-    runs-on: ubunutu-latest
+    runs-on: ubuntu-latest
     steps:
       - uses: svenstaro/upload-release-action@v2
         with:
