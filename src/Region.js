@@ -1,10 +1,18 @@
 class Region {
-    static US () {
-        return new Region(Region.urlForId('us'))
-    }
-
     static EU () {
         return new Region(Region.urlForId('eu'))
+    }
+
+    static NA () {
+        return new Region(Region.urlForId('na'))
+    }
+
+    static SA () {
+        return new Region(Region.urlForId('sa'))
+    }
+
+    static OC () {
+        return new Region(Region.urlForId('oc'))
     }
 
     constructor (url) {
