@@ -41,18 +41,25 @@ test('summaryByCategoryKey', async () => {
 
     expect(report).toEqual({
         9: {
-            bySection: { NO_SECTION: 116 },
             count: 116,
+            bySection: { NO_SECTION: 116 },
             bySelectability: { selectable: 115, not_selectable: 1 },
             byStatus: { booked: 1, free: 115 },
             byChannel: { NO_CHANNEL: 116 }
         },
         10: {
-            bySection: { NO_SECTION: 116 },
             count: 116,
+            bySection: { NO_SECTION: 116 },
             bySelectability: { selectable: 116 },
             byStatus: { free: 116 },
             byChannel: { NO_CHANNEL: 116 }
+        },
+        NO_CATEGORY: {
+            count: 0,
+            bySection: {},
+            bySelectability: {},
+            byStatus: {},
+            byChannel: {}
         }
     })
 })
@@ -68,18 +75,25 @@ test('summaryByCategoryLabel', async () => {
 
     expect(report).toEqual({
         Cat2: {
-            bySection: { NO_SECTION: 116 },
             count: 116,
+            bySection: { NO_SECTION: 116 },
             bySelectability: { selectable: 116 },
             byStatus: { free: 116 },
             byChannel: { NO_CHANNEL: 116 }
         },
         Cat1: {
-            bySection: { NO_SECTION: 116 },
             count: 116,
+            bySection: { NO_SECTION: 116 },
             bySelectability: { selectable: 115, not_selectable: 1 },
             byStatus: { booked: 1, free: 115 },
             byChannel: { NO_CHANNEL: 116 }
+        },
+        NO_CATEGORY: {
+            count: 0,
+            bySection: {},
+            bySelectability: {},
+            byStatus: {},
+            byChannel: {}
         }
     })
 })

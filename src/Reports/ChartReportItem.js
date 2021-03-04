@@ -13,6 +13,7 @@ class ChartReportItem {
         this.objectType = chartReport.objectType
         this.section = chartReport.section
         this.capacity = chartReport.capacity
+        this.bookAsAWhole = chartReport.bookAsAWhole
         this.leftNeighbour = chartReport.leftNeighbour
         this.rightNeighbour = chartReport.rightNeighbour
     }
