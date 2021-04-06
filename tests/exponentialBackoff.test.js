@@ -24,7 +24,7 @@ test('aborts directly if server returns error other than 429', async () => {
     } catch (e) {
         expect(e).toBe('get /status/400 resulted in 400  BAD REQUEST  error')
         const waitTime = new Date().getTime() - start.getTime()
-        expect(waitTime).toBeLessThan(5000)
+        expect(waitTime).toBeLessThan(2000)
     }
 })
 
