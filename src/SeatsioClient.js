@@ -15,11 +15,10 @@ const Axios = require('axios')
 class SeatsioClient {
     constructor (region, secretKey, workspaceKey = null, extraHeaders = {}) {
         this.client = Axios.create(this._axiosConfig(region.url, secretKey, workspaceKey, extraHeaders))
-        this._setupRequestListener()
 
-        this.errInterceptor = this.client.interceptors.response.use(
-            response => response, errorResponseHandler
-        )
+        this._setupRequestListenerInterceptors()
+        this.client.interceptors.response.use(response => response, exponentialBackoffInterceptor(this.client))
+        this.errInterceptor = this.client.interceptors.response.use(response => response, errorResponseHandler)
 
         this.charts = new Charts(this.client)
         this.events = new Events(this.client)
@@ -52,7 +51,7 @@ class SeatsioClient {
         return config
     }
 
-    _setupRequestListener () {
+    _setupRequestListenerInterceptors () {
         this.client.interceptors.request.use(config => {
             if (this.requestListener) {
                 config.listener = this.requestListener()
@@ -79,6 +78,34 @@ class SeatsioClient {
 
     setRequestListener (requestListener) {
         this.requestListener = requestListener
+    }
+}
+
+function exponentialBackoffInterceptor (axios) {
+    const maxRetries = 5
+
+    return response => {
+        if (response.response.status !== 429) {
+            return Promise.reject(response)
+        }
+
+        const config = response.config
+        if (!config) {
+            return Promise.reject(response)
+        }
+
+        config.__retryCount = config.__retryCount || 0
+        if (config.__retryCount >= maxRetries) {
+            return Promise.reject(response)
+        }
+
+        const backoff = new Promise(resolve => {
+            const waitTime = Math.pow(2, config.__retryCount + 2) * 100
+            config.__retryCount++
+            setTimeout(() => resolve(), waitTime)
+        })
+
+        return backoff.then(() => axios(config))
     }
 }
 
