@@ -6,7 +6,7 @@ const LabelClasses = require('../src/Common/Labels.js')
 const path = require('path')
 const Region = require('../src/Region')
 
-const baseUrl = 'http://localhost:9001/'
+const baseUrl = 'https://api-staging-eu.seatsio.net/'
 
 module.exports = {
     createTestUserAndClient: async function () {
