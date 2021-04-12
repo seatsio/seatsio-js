@@ -1,6 +1,7 @@
 # seatsio-js, the official Seats.io JS library
 
 [![Build](https://github.com/seatsio/seatsio-js/workflows/Build/badge.svg)](https://github.com/seatsio/seatsio-js/actions/workflows/build.yml)
+[![npm version](https://badge.fury.io/js/seatsio.svg)](https://badge.fury.io/js/seatsio)
 
 This is the official JavaScript client library for the [Seats.io V2 REST API](https://docs.seats.io/docs/api-overview).
 
