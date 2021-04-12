@@ -1,4 +1,7 @@
 # seatsio-js, the official Seats.io JS library
+
+[![Build](https://github.com/seatsio/seatsio-js/workflows/Build/badge.svg)](https://github.com/seatsio/seatsio-js/actions/workflows/build.yml)
+
 This is the official JavaScript client library for the [Seats.io V2 REST API](https://docs.seats.io/docs/api-overview).
 
 > **Read This First!**
@@ -9,8 +12,6 @@ This is the official JavaScript client library for the [Seats.io V2 REST API](ht
 > So, while `seatsio-js` technically works in clientside code too, it's almost never a good idea to do so. 
 >
 > **Only use this in browser code if you know what you're doing (e.g. if you're building a password-protected backoffice application for admins)**. You have been warned :) 
-
-![Build](https://github.com/seatsio/seatsio-js/workflows/Build/badge.svg)
 
 ## Installing
 For Node, you can install using npm:
