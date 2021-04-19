@@ -17,7 +17,7 @@ test('should book an object', async () => {
     const retrievedObjectStatuses = await Promise.all(promises)
     expect(retrievedObjectStatuses[0].status).toEqual(ObjectStatus.BOOKED)
     expect(retrievedObjectStatuses[1].status).toEqual(ObjectStatus.BOOKED)
-    expect(Object.keys(bookRes.objects)).toEqual(['A-1', 'A-2'])
+    expect(Object.keys(bookRes.objects).sort()).toEqual(['A-1', 'A-2'])
 })
 
 test('should book an object with quantity', async () => {

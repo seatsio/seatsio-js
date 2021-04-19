@@ -18,7 +18,7 @@ test('should hold objects', async () => {
     expect(status2.status).toBe(ObjectStatus.HELD)
     expect(status2.holdToken).toBe(holdToken.holdToken)
 
-    expect(Object.keys(holdResult.objects)).toEqual(['A-1', 'A-2'])
+    expect(Object.keys(holdResult.objects).sort()).toEqual(['A-1', 'A-2'])
 })
 
 test('should keep extra data', async () => {
