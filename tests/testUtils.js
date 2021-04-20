@@ -1,7 +1,7 @@
 const { SeatsioClient } = require('../index.js')
 const axios = require('axios')
 const fs = require('fs')
-const uuidv1 = require('uuid/v1')
+const { v4: uuidv4 } = require('uuid')
 const LabelClasses = require('../src/Common/Labels.js')
 const path = require('path')
 const Region = require('../src/Region')
@@ -28,7 +28,7 @@ module.exports = {
     },
 
     getChartKey: function () {
-        return uuidv1()
+        return uuidv4()
     },
 
     createClient: function (secretKey, workspaceKey = null) {
@@ -77,7 +77,7 @@ module.exports = {
     },
 
     getRandomEmail () {
-        return uuidv1() + '@mailinator.com'
+        return uuidv4() + '@mailinator.com'
     },
 
     createArray (length, fn) {
