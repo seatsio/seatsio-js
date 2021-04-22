@@ -15,6 +15,19 @@ test('deepSummaryByStatus', async () => {
     expect(report.booked.bySection.NO_SECTION.bySelectability.not_selectable).toEqual(1)
 })
 
+test('deepSummaryByObjectType', async () => {
+    const { client, user } = await testUtils.createTestUserAndClient()
+    const chartKey = testUtils.getChartKey()
+    await testUtils.createTestChart(chartKey, user.secretKey)
+    const event = await client.events.create(chartKey)
+
+    const report = await client.eventReports.deepSummaryByObjectType(event.key)
+
+    expect(report.seat.count).toEqual(32)
+    expect(report.seat.bySection.NO_SECTION.count).toEqual(32)
+    expect(report.seat.bySection.NO_SECTION.bySelectability.selectable).toEqual(32)
+})
+
 test('deepSummaryByCategoryKey', async () => {
     const { client, user } = await testUtils.createTestUserAndClient()
     const chartKey = testUtils.getChartKey()

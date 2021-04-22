@@ -35,6 +35,34 @@ class EventReports {
 
     /**
      * @param {string} eventKey
+     * @param {?string} objectType
+     * @returns {Object.<string, EventReportItem[]>}
+     */
+    byObjectType (eventKey, objectType = null) {
+        return this.client.get(EventReports.reportUrl('byObjectType', eventKey, objectType))
+            .then((res) => utilities.createEventReport(res.data))
+    }
+
+    /**
+     * @param {string} eventKey
+     * @returns {Object} JSON response from the server
+     */
+    summaryByObjectType (eventKey) {
+        return this.client.get(EventReports.summaryReportUrl('byObjectType', eventKey))
+            .then((res) => res.data)
+    }
+
+    /**
+     * @param {string} eventKey
+     * @returns {Object} JSON response from the server
+     */
+    deepSummaryByObjectType (eventKey) {
+        return this.client.get(EventReports.deepSummaryReportUrl('byObjectType', eventKey))
+            .then((res) => res.data)
+    }
+
+    /**
+     * @param {string} eventKey
      * @param {?string} categoryLabel
      * @returns {Object.<string, EventReportItem[]>}
      */

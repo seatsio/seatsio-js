@@ -24,6 +24,15 @@ class ChartReports {
      * @param {string} bookWholeTables
      * @returns {Object.<string, ChartReportItem[]>}
      */
+    byObjectType (chartKey, bookWholeTables = undefined) {
+        return this.fetchReport('byObjectType', chartKey, bookWholeTables)
+    }
+
+    /**
+     * @param {string} chartKey
+     * @param {string} bookWholeTables
+     * @returns {Object.<string, ChartReportItem[]>}
+     */
     byCategoryLabel (chartKey, bookWholeTables = undefined) {
         return this.fetchReport('byCategoryLabel', chartKey, bookWholeTables)
     }

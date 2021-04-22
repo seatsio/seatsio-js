@@ -44,6 +44,17 @@ test('get report byLabel', async () => {
     expect(report['A-2'].length).toBe(1)
 })
 
+test('get report byObjectType', async () => {
+    const { client, user } = await testUtils.createTestUserAndClient()
+    const chartKey = testUtils.getChartKey()
+    await testUtils.createTestChart(chartKey, user.secretKey)
+
+    const report = await client.chartReports.byObjectType(chartKey)
+
+    expect(report.seat.length).toBe(32)
+    expect(report.generalAdmission.length).toBe(2)
+})
+
 test('get report byLabel, bookWholeTables not passed in', async () => {
     const { client, user } = await testUtils.createTestUserAndClient()
     const chartKey = testUtils.getChartKey()

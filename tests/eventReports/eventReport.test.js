@@ -235,6 +235,20 @@ test('report with specific section', async () => {
     expect(report.NO_SECTION.length).toBe(34)
 })
 
+test('report by object type', async () => {
+    const { client, user } = await testUtils.createTestUserAndClient()
+    const chartKey = testUtils.getChartKey()
+    await testUtils.createTestChart(chartKey, user.secretKey)
+    const event = await client.events.create(chartKey)
+
+    const report = await client.eventReports.byObjectType(event.key)
+
+    expect(report.seat.length).toBe(32)
+    expect(report.generalAdmission.length).toBe(2)
+    expect(report.table.length).toBe(0)
+    expect(report.booth.length).toBe(0)
+})
+
 test('report by selectability', async () => {
     const { client, user } = await testUtils.createTestUserAndClient()
     const chartKey = testUtils.getChartKey()
