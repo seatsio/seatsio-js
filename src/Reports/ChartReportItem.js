@@ -16,6 +16,7 @@ class ChartReportItem {
         this.bookAsAWhole = chartReport.bookAsAWhole
         this.leftNeighbour = chartReport.leftNeighbour
         this.rightNeighbour = chartReport.rightNeighbour
+        this.distanceToFocalPoint = chartReport.distanceToFocalPoint
     }
 }
 

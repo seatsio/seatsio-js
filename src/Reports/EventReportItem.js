@@ -32,6 +32,7 @@ class EventReportItem {
         this.isSelectable = report.isSelectable
         this.isDisabledBySocialDistancing = report.isDisabledBySocialDistancing
         this.channel = report.channel
+        this.distanceToFocalPoint = report.distanceToFocalPoint
     }
 }
 

@@ -38,6 +38,7 @@ test('report properties', async () => {
     expect(reportItem.isSelectable).toBe(false)
     expect(reportItem.isDisabledBySocialDistancing).toBe(false)
     expect(reportItem.bookAsAWhole).toBe(undefined)
+    expect(reportItem.distanceToFocalPoint).toBeTruthy()
 })
 
 test('report has hold token', async () => {
