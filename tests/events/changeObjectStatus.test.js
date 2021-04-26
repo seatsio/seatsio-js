@@ -26,7 +26,8 @@ test('should change object status', async () => {
             isCompanionSeat: false,
             rightNeighbour: 'A-2',
             isSelectable: false,
-            isDisabledBySocialDistancing: false
+            isDisabledBySocialDistancing: false,
+            distanceToFocalPoint: 79.43847425150014
         }
     })
 })
