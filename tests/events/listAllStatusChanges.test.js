@@ -167,8 +167,8 @@ test('properties of status changes', async () => {
     const statusChange = await statusChangesIterator.next()
 
     expect(statusChange.value.id).toBeTruthy()
-    expect(statusChange.value.date.getTime()).toBeGreaterThanOrEqual(now)
-    expect(statusChange.value.date.getTime()).toBeLessThanOrEqual((now + 60000))
+    expect(statusChange.value.date.getTime()).toBeGreaterThanOrEqual(now - 5000)
+    expect(statusChange.value.date.getTime()).toBeLessThanOrEqual(now + 5000)
     expect(statusChange.value.orderId).toBe('order1')
     expect(statusChange.value.objectLabel).toBe('A-1')
     expect(statusChange.value.status).toBe(ObjectStatus.BOOKED)

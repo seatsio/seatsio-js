@@ -103,10 +103,94 @@ class Workspaces {
     }
 
     /**
+     * @returns {AsyncIterator}
+     */
+    listActive (filter = null) {
+        const requestParameters = filter !== null ? { filter: filter } : {}
+        return this.activeWorkspacesIterator().all(requestParameters)
+    }
+
+    /**
+     * @returns {Page}
+     */
+    listActiveFirstPage (filter = null, pageSize = null) {
+        const requestParameters = filter !== null ? { filter: filter } : null
+        return this.activeWorkspacesIterator().firstPage(requestParameters, pageSize)
+    }
+
+    /**
+     * @returns {Page}
+     */
+    listActivePageAfter (afterId, filter = null, pageSize = null) {
+        const requestParameters = filter !== null ? { filter: filter } : null
+        return this.activeWorkspacesIterator().pageAfter(afterId, requestParameters, pageSize)
+    }
+
+    /**
+     * @returns {Page}
+     */
+    listActivePageBefore (beforeId, filter = null, pageSize = null) {
+        const requestParameters = filter !== null ? { filter: filter } : null
+        return this.activeWorkspacesIterator().pageBefore(beforeId, requestParameters, pageSize)
+    }
+
+    /**
+     * @returns {AsyncIterator}
+     */
+    listInactive (filter = null) {
+        const requestParameters = filter !== null ? { filter: filter } : {}
+        return this.inactiveWorkspacesIterator().all(requestParameters)
+    }
+
+    /**
+     * @returns {Page}
+     */
+    listInactiveFirstPage (filter = null, pageSize = null) {
+        const requestParameters = filter !== null ? { filter: filter } : null
+        return this.inactiveWorkspacesIterator().firstPage(requestParameters, pageSize)
+    }
+
+    /**
+     * @returns {Page}
+     */
+    listInactivePageAfter (afterId, filter = null, pageSize = null) {
+        const requestParameters = filter !== null ? { filter: filter } : null
+        return this.inactiveWorkspacesIterator().pageAfter(afterId, requestParameters, pageSize)
+    }
+
+    /**
+     * @returns {Page}
+     */
+    listInactivePageBefore (beforeId, filter = null, pageSize = null) {
+        const requestParameters = filter !== null ? { filter: filter } : null
+        return this.inactiveWorkspacesIterator().pageBefore(beforeId, requestParameters, pageSize)
+    }
+
+    /**
      * @returns {Lister}
      */
     iterator () {
         return new Lister('/workspaces', this.client, 'workspaces', (data) => {
+            const workspaces = data.items.map((json) => new Workspace(json))
+            return new Page(workspaces, data.next_page_starts_after, data.previous_page_ends_before)
+        })
+    }
+
+    /**
+     * @returns {Lister}
+     */
+    activeWorkspacesIterator () {
+        return new Lister('/workspaces/active', this.client, 'workspaces', (data) => {
+            const workspaces = data.items.map((json) => new Workspace(json))
+            return new Page(workspaces, data.next_page_starts_after, data.previous_page_ends_before)
+        })
+    }
+
+    /**
+     * @returns {Lister}
+     */
+    inactiveWorkspacesIterator () {
+        return new Lister('/workspaces/inactive', this.client, 'workspaces', (data) => {
             const workspaces = data.items.map((json) => new Workspace(json))
             return new Page(workspaces, data.next_page_starts_after, data.previous_page_ends_before)
         })

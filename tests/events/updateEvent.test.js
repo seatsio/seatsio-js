@@ -14,8 +14,8 @@ test('should update event\'s chart key', async () => {
     const now = new Date()
     expect(retrievedEvent.chartKey).toBe(chart2.key)
     expect(retrievedEvent.updatedOn).toBeInstanceOf(Date)
-    expect(retrievedEvent.updatedOn.getTime()).toBeLessThanOrEqual(now.getTime())
-    expect(retrievedEvent.updatedOn.getTime()).toBeGreaterThanOrEqual((now.getTime() - 60000))
+    expect(retrievedEvent.updatedOn.getTime()).toBeLessThanOrEqual(now.getTime() + 5000)
+    expect(retrievedEvent.updatedOn.getTime()).toBeGreaterThanOrEqual((now.getTime() - 5000))
 })
 
 test('should update event key', async () => {
