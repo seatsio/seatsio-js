@@ -19,6 +19,7 @@ test('should change object status', async () => {
             forSale: true,
             label: 'A-1',
             labels: { own: { label: '1', type: 'seat' }, parent: { label: 'A', type: 'row' } },
+            ids: { own: '1', parent: 'A', section: null },
             objectType: 'seat',
             status: 'lolzor',
             isAccessible: false,

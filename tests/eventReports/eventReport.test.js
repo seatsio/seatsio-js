@@ -1,6 +1,7 @@
 const testUtils = require('../testUtils.js')
 const ObjectStatus = require('../../src/Events/ObjectStatus.js')
 const ObjectProperties = require('../../src/Events/ObjectProperties.js')
+const { IDs } = require('../../src/Common/IDs')
 
 test('report properties', async () => {
     const { client, user } = await testUtils.createTestUserAndClient()
@@ -20,6 +21,7 @@ test('report properties', async () => {
     expect(reportItem.status).toBe(ObjectStatus.BOOKED)
     expect(reportItem.label).toBe('A-1')
     expect(reportItem.labels).toEqual(testUtils.someLabels('1', 'seat', 'A', 'row'))
+    expect(reportItem.ids).toEqual(new IDs('1', 'A', null))
     expect(reportItem.categoryLabel).toBe('Cat1')
     expect(reportItem.categoryKey).toBe('9')
     expect(reportItem.ticketType).toBe('ticketType1')

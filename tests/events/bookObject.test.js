@@ -1,6 +1,7 @@
 const testUtils = require('../testUtils.js')
 const ObjectStatus = require('../../src/Events/ObjectStatus.js')
 const SocialDistancingRuleset = require('../../src/Charts/SocialDistancingRuleset')
+const { IDs } = require('../../src/Common/IDs')
 
 test('should book an object', async () => {
     const { client, user } = await testUtils.createTestUserAndClient()
@@ -51,6 +52,7 @@ test('should book an object with sections', async () => {
     expect(bookRes.objects['Section A-A-1'].entrance).toBe('Entrance 1')
     expect(bookRes.objects['Section A-A-1'].section).toBe('Section A')
     expect(bookRes.objects['Section A-A-1'].labels).toEqual(testUtils.someLabels('1', 'seat', 'A', 'row', 'Section A'))
+    expect(bookRes.objects['Section A-A-1'].ids).toEqual(new IDs('1', 'A', 'Section A'))
 })
 
 test('should hold and then book, check hold token exists', async () => {

@@ -1,4 +1,5 @@
 const helperFunctions = require('../utilities/helperFunctions.js')
+const { IDs } = require('../Common/IDs')
 
 class EventReportItem {
     /**
@@ -7,6 +8,7 @@ class EventReportItem {
     constructor (report) {
         this.label = report.label
         this.labels = helperFunctions.labelCreator(report)
+        this.ids = new IDs(report.ids.own, report.ids.parent, report.ids.section)
         this.status = report.status
         this.categoryLabel = report.categoryLabel
         this.categoryKey = report.categoryKey

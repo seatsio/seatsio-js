@@ -1,4 +1,5 @@
 const helperFunctions = require('../utilities/helperFunctions.js')
+const { IDs } = require('../Common/IDs')
 
 class ChartReportItem {
     /**
@@ -7,6 +8,7 @@ class ChartReportItem {
     constructor (chartReport) {
         this.label = chartReport.label
         this.labels = helperFunctions.labelCreator(chartReport)
+        this.ids = new IDs(chartReport.ids.own, chartReport.ids.parent, chartReport.ids.section)
         this.categoryLabel = chartReport.categoryLabel
         this.categoryKey = chartReport.categoryKey
         this.entrance = chartReport.entrance
