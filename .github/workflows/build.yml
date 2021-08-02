@@ -14,9 +14,9 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
-        with:
-          node-version: 13
-          registry-url: https://registry.npmjs.org/
+      with:
+        node-version: 13
+        registry-url: https://registry.npmjs.org/
       - run: npm install
       - run: npm run lint
       - uses: zcong1993/setup-timezone@master
