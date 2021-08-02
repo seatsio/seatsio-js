@@ -6,6 +6,9 @@ on:
       versionType:
         description: 'minor or major'
         required: true
+      description:
+        description: 'Release description'
+        required: true
 
 jobs:
   build:
@@ -33,3 +36,4 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           tag: ${{ steps.package-version.outputs.current-version}}
+          body: ${{ github.event.inputs.description }}
