@@ -24,12 +24,11 @@ jobs:
         with:
           node-version: 13
           registry-url: https://registry.npmjs.org/
-      - run: npm version ${{ github.event.inputs.versionType }}
+      - run: npm version ${{ github.event.inputs.versionType }} --no-git-tag-version
       - uses: ad-m/github-push-action@master
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           branch: ${{ github.ref }}
-          tags: false
       - id: package-version
         uses: martinbeentjes/npm-get-version-action@master
       - uses: ncipollo/release-action@v1
