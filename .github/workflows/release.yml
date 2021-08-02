@@ -29,7 +29,6 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           branch: ${{ github.ref }}
-          tags: true
       - id: package-version
         uses: martinbeentjes/npm-get-version-action@master
       - uses: ncipollo/release-action@v1
