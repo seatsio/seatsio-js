@@ -1,4 +1,4 @@
-name: 'Version bump'
+name: 'Release'
 
 on:
   workflow_dispatch:
@@ -22,9 +22,14 @@ jobs:
           node-version: 13
           registry-url: https://registry.npmjs.org/
       - run: npm version ${{ github.event.inputs.versionType }}
-      - name: Push changes
-        uses: ad-m/github-push-action@master
+      - uses: ad-m/github-push-action@master
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           branch: ${{ github.ref }}
           tags: true
+      - id: package-version
+        uses: martinbeentjes/npm-get-version-action@master
+      - uses: ncipollo/release-action@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          tag: ${{ steps.package-version.outputs.current-version}}
