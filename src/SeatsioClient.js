@@ -17,6 +17,7 @@ class SeatsioClient {
         this.client = Axios.create(this._axiosConfig(region.url, secretKey, workspaceKey, extraHeaders))
 
         this._setupRequestListenerInterceptors()
+        this.client.maxRetries = 5
         this.client.interceptors.response.use(response => response, exponentialBackoffInterceptor(this.client))
         this.errInterceptor = this.client.interceptors.response.use(response => response, errorResponseHandler)
 
@@ -78,12 +79,16 @@ class SeatsioClient {
 
     setRequestListener (requestListener) {
         this.requestListener = requestListener
+        return this
+    }
+
+    setMaxRetries (maxRetries) {
+        this.client.maxRetries = maxRetries
+        return this
     }
 }
 
 function exponentialBackoffInterceptor (axios) {
-    const maxRetries = 5
-
     return response => {
         if (response.response.status !== 429) {
             return Promise.reject(response)
@@ -95,7 +100,7 @@ function exponentialBackoffInterceptor (axios) {
         }
 
         config.__retryCount = config.__retryCount || 0
-        if (config.__retryCount >= maxRetries) {
+        if (config.__retryCount >= axios.maxRetries) {
             return Promise.reject(response)
         }
 
