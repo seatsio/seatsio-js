@@ -1,5 +1,5 @@
 const testUtils = require('../testUtils.js')
-const ObjectInfo = require('../../src/Events/ObjectInfo.js')
+const EventObjectInfo = require('../../src/Events/EventObjectInfo.js')
 
 test('should change best available object status', async () => {
     const { client, user } = await testUtils.createTestUserAndClient()
@@ -46,10 +46,10 @@ test('should change best available object status with hold token', async () => {
     const event = await client.events.create(chartKey)
     const holdToken = await client.holdTokens.create()
 
-    const bestAvailableObjs = await client.events.changeBestAvailableObjectStatus(event.key, 1, ObjectInfo.HELD, null, holdToken.holdToken)
+    const bestAvailableObjs = await client.events.changeBestAvailableObjectStatus(event.key, 1, EventObjectInfo.HELD, null, holdToken.holdToken)
 
     const objectInfo = await client.events.retrieveObjectInfo(event.key, bestAvailableObjs.objects[0])
-    expect(objectInfo.status).toBe(ObjectInfo.HELD)
+    expect(objectInfo.status).toBe(EventObjectInfo.HELD)
     expect(objectInfo.holdToken).toBe(holdToken.holdToken)
 })
 
@@ -100,7 +100,7 @@ test('should hold best available object ', async () => {
     const bestAvailableObjs = await client.events.holdBestAvailable(event.key, 1, holdToken.holdToken)
 
     const objectInfo = await client.events.retrieveObjectInfo(event.key, bestAvailableObjs.objects[0])
-    expect(objectInfo.status).toBe(ObjectInfo.HELD)
+    expect(objectInfo.status).toBe(EventObjectInfo.HELD)
     expect(objectInfo.holdToken).toBe(holdToken.holdToken)
 })
 
@@ -115,7 +115,7 @@ test('should hold best available object with extra data ', async () => {
     const bestAvailableObjs = await client.events.holdBestAvailable(event.key, 1, holdToken.holdToken, null, extraData)
 
     const objectInfo = await client.events.retrieveObjectInfo(event.key, bestAvailableObjs.objects[0])
-    expect(objectInfo.status).toBe(ObjectInfo.HELD)
+    expect(objectInfo.status).toBe(EventObjectInfo.HELD)
     expect(objectInfo.holdToken).toBe(holdToken.holdToken)
 })
 

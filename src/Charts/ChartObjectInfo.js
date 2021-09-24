@@ -1,7 +1,7 @@
 const helperFunctions = require('../utilities/helperFunctions.js')
 const { IDs } = require('../Common/IDs')
 
-class ChartReportItem {
+class ChartObjectInfo {
     /**
      * @param {object} chartReport
      */
@@ -22,4 +22,4 @@ class ChartReportItem {
     }
 }
 
-module.exports = ChartReportItem
+module.exports = ChartObjectInfo

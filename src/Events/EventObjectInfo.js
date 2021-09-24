@@ -1,7 +1,7 @@
 const helperFunctions = require('../utilities/helperFunctions.js')
 const { IDs } = require('../Common/IDs')
 
-class ObjectInfo {
+class EventObjectInfo {
     /**
      * @param {object} report
      */
@@ -39,8 +39,8 @@ class ObjectInfo {
     }
 }
 
-ObjectInfo.FREE = 'free'
-ObjectInfo.BOOKED = 'booked'
-ObjectInfo.HELD = 'reservedByToken'
+EventObjectInfo.FREE = 'free'
+EventObjectInfo.BOOKED = 'booked'
+EventObjectInfo.HELD = 'reservedByToken'
 
-module.exports = ObjectInfo
+module.exports = EventObjectInfo

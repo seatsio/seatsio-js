@@ -1,6 +1,6 @@
 const Page = require('../Page.js')
 const Lister = require('../Lister.js')
-const ObjectInfo = require('./ObjectInfo.js')
+const EventObjectInfo = require('./EventObjectInfo.js')
 const StatusChange = require('./StatusChange.js')
 const BestAvailableObjects = require('./BestAvailableObjects.js')
 const ChangeObjectStatusResult = require('./ChangeObjectStatusResult.js')
@@ -238,7 +238,7 @@ class Events {
      */
     retrieveObjectInfo (eventKey, obj) {
         return this.client.get(`events/${encodeURIComponent(eventKey)}/objects/${encodeURIComponent(obj)}`)
-            .then((res) => new ObjectInfo(res.data))
+            .then((res) => new EventObjectInfo(res.data))
     }
 
     /**
@@ -255,7 +255,7 @@ class Events {
             .then((res) => {
                 const objectInfos = res.data
                 for (const key of Object.keys(objectInfos)) {
-                    objectInfos[key] = new ObjectInfo(objectInfos[key])
+                    objectInfos[key] = new EventObjectInfo(objectInfos[key])
                 }
                 return objectInfos
             })
@@ -334,7 +334,7 @@ class Events {
      * @returns {Promise<ChangeObjectStatusResult>}
      */
     book (eventKeyOrKeys, objectOrObjects, holdToken = null, orderId = null, keepExtraData = null, ignoreChannels = null, channelKeys = null, ignoreSocialDistancing = null) {
-        return this.changeObjectStatus(eventKeyOrKeys, objectOrObjects, ObjectInfo.BOOKED, holdToken, orderId, keepExtraData, ignoreChannels, channelKeys, ignoreSocialDistancing)
+        return this.changeObjectStatus(eventKeyOrKeys, objectOrObjects, EventObjectInfo.BOOKED, holdToken, orderId, keepExtraData, ignoreChannels, channelKeys, ignoreSocialDistancing)
     }
 
     /**
@@ -351,7 +351,7 @@ class Events {
      * @returns {Promise<BestAvailableObjects>}
      */
     bookBestAvailable (eventKey, number, categories = null, holdToken = null, extraData = null, ticketTypes = null, orderId = null, keepExtraData = null, ignoreChannels = null, channelKeys = null) {
-        return this.changeBestAvailableObjectStatus(encodeURIComponent(eventKey), number, ObjectInfo.BOOKED, categories, holdToken, extraData, ticketTypes, orderId, keepExtraData, ignoreChannels, channelKeys)
+        return this.changeBestAvailableObjectStatus(encodeURIComponent(eventKey), number, EventObjectInfo.BOOKED, categories, holdToken, extraData, ticketTypes, orderId, keepExtraData, ignoreChannels, channelKeys)
     }
 
     /**
@@ -365,7 +365,7 @@ class Events {
      * @returns {Promise<ChangeObjectStatusResult>}
      */
     release (eventKeyOrKeys, objectOrObjects, holdToken = null, orderId = null, keepExtraData = null, ignoreChannels = null, channelKeys = null) {
-        return this.changeObjectStatus(eventKeyOrKeys, objectOrObjects, ObjectInfo.FREE, holdToken, orderId, keepExtraData, ignoreChannels, channelKeys)
+        return this.changeObjectStatus(eventKeyOrKeys, objectOrObjects, EventObjectInfo.FREE, holdToken, orderId, keepExtraData, ignoreChannels, channelKeys)
     }
 
     /**
@@ -380,7 +380,7 @@ class Events {
      * @returns {Promise<ChangeObjectStatusResult>}
      */
     hold (eventKeyOrKeys, objectOrObjects, holdToken, orderId = null, keepExtraData = null, ignoreChannels = null, channelKeys = null, ignoreSocialDistancing = null) {
-        return this.changeObjectStatus(eventKeyOrKeys, objectOrObjects, ObjectInfo.HELD, holdToken, orderId, keepExtraData, ignoreChannels, channelKeys, ignoreSocialDistancing)
+        return this.changeObjectStatus(eventKeyOrKeys, objectOrObjects, EventObjectInfo.HELD, holdToken, orderId, keepExtraData, ignoreChannels, channelKeys, ignoreSocialDistancing)
     }
 
     /**
@@ -398,7 +398,7 @@ class Events {
      * @returns {Promise<BestAvailableObjects>}
      */
     holdBestAvailable (eventKey, number, holdToken, categories = null, extraData = null, ticketTypes = null, orderId = null, keepExtraData = null, ignoreChannels = null, channelKeys = null) {
-        return this.changeBestAvailableObjectStatus(encodeURIComponent(eventKey), number, ObjectInfo.HELD, categories, holdToken, extraData, ticketTypes, orderId, keepExtraData, ignoreChannels, channelKeys)
+        return this.changeBestAvailableObjectStatus(encodeURIComponent(eventKey), number, EventObjectInfo.HELD, categories, holdToken, extraData, ticketTypes, orderId, keepExtraData, ignoreChannels, channelKeys)
     }
 
     /**

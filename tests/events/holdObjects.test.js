@@ -1,5 +1,5 @@
 const testUtils = require('../testUtils.js')
-const ObjectInfo = require('../../src/Events/ObjectInfo.js')
+const EventObjectInfo = require('../../src/Events/EventObjectInfo.js')
 const SocialDistancingRuleset = require('../../src/Charts/SocialDistancingRuleset')
 
 test('should hold objects', async () => {
@@ -11,11 +11,11 @@ test('should hold objects', async () => {
     const holdResult = await client.events.hold(event.key, ['A-1', 'A-2'], holdToken.holdToken)
 
     const status1 = await client.events.retrieveObjectInfo(event.key, 'A-1')
-    expect(status1.status).toBe(ObjectInfo.HELD)
+    expect(status1.status).toBe(EventObjectInfo.HELD)
     expect(status1.holdToken).toBe(holdToken.holdToken)
 
     const status2 = await client.events.retrieveObjectInfo(event.key, 'A-2')
-    expect(status2.status).toBe(ObjectInfo.HELD)
+    expect(status2.status).toBe(EventObjectInfo.HELD)
     expect(status2.holdToken).toBe(holdToken.holdToken)
 
     expect(Object.keys(holdResult.objects).sort()).toEqual(['A-1', 'A-2'])
@@ -48,7 +48,7 @@ test('should accept channel keys', async () => {
     await client.events.hold(event.key, ['A-1'], holdToken.holdToken, null, null, null, ['channelKey1'])
 
     const objectInfo = await client.events.retrieveObjectInfo(event.key, 'A-1')
-    expect(objectInfo.status).toBe(ObjectInfo.HELD)
+    expect(objectInfo.status).toBe(EventObjectInfo.HELD)
 })
 
 test('should accept ignoreChannels', async () => {
@@ -65,7 +65,7 @@ test('should accept ignoreChannels', async () => {
     await client.events.hold(event.key, ['A-1'], holdToken.holdToken, null, null, true)
 
     const objectInfo = await client.events.retrieveObjectInfo(event.key, 'A-1')
-    expect(objectInfo.status).toBe(ObjectInfo.HELD)
+    expect(objectInfo.status).toBe(EventObjectInfo.HELD)
 })
 
 test('should accept ignoreSocialDistancing', async () => {
@@ -81,5 +81,5 @@ test('should accept ignoreSocialDistancing', async () => {
     await client.events.hold(event.key, ['A-1'], holdToken.holdToken, null, null, null, null, true)
 
     const objectInfo = await client.events.retrieveObjectInfo(event.key, 'A-1')
-    expect(objectInfo.status).toBe(ObjectInfo.HELD)
+    expect(objectInfo.status).toBe(EventObjectInfo.HELD)
 })

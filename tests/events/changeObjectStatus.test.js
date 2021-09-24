@@ -1,5 +1,5 @@
 const testUtils = require('../testUtils.js')
-const ObjectInfo = require('../../src/Events/ObjectInfo.js')
+const EventObjectInfo = require('../../src/Events/EventObjectInfo.js')
 const ObjectProperties = require('../../src/Events/ObjectProperties.js')
 const TableBookingConfig = require('../../src/Events/TableBookingConfig')
 const SocialDistancingRuleset = require('../../src/Charts/SocialDistancingRuleset')
@@ -114,10 +114,10 @@ test('should change object status with hold token', async () => {
     const event = await client.events.create(chartKey)
     const holdToken = await client.holdTokens.create()
 
-    await client.events.changeObjectStatus(event.key, 'A-1', ObjectInfo.HELD, holdToken.holdToken)
+    await client.events.changeObjectStatus(event.key, 'A-1', EventObjectInfo.HELD, holdToken.holdToken)
 
     const objectInfo = await client.events.retrieveObjectInfo(event.key, 'A-1')
-    expect(objectInfo.status).toBe(ObjectInfo.HELD)
+    expect(objectInfo.status).toBe(EventObjectInfo.HELD)
     expect(objectInfo.holdToken).toBe(holdToken.holdToken)
 })
 
@@ -223,8 +223,8 @@ test('should accept ignoreSocialDistancing', async () => {
     await client.charts.saveSocialDistancingRulesets(chartKey, { ruleset })
     await client.events.update(event.key, null, null, null, 'ruleset')
 
-    await client.events.changeObjectStatus(event.key, ['A-1'], ObjectInfo.BOOKED, null, null, null, null, null, true)
+    await client.events.changeObjectStatus(event.key, ['A-1'], EventObjectInfo.BOOKED, null, null, null, null, null, true)
 
     const objectInfo = await client.events.retrieveObjectInfo(event.key, 'A-1')
-    expect(objectInfo.status).toBe(ObjectInfo.BOOKED)
+    expect(objectInfo.status).toBe(EventObjectInfo.BOOKED)
 })

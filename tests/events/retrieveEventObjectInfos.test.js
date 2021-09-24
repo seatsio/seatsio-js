@@ -1,7 +1,7 @@
 const testUtils = require('../testUtils.js')
-const ObjectInfo = require('../../src/Events/ObjectInfo.js')
+const EventObjectInfo = require('../../src/Events/EventObjectInfo.js')
 
-test('should retrieve object infos', async () => {
+test('should retrieve event object infos', async () => {
     const { client, user } = await testUtils.createTestUserAndClient()
     const chartKey = testUtils.getChartKey()
     await testUtils.createTestChart(chartKey, user.secretKey)
@@ -9,8 +9,8 @@ test('should retrieve object infos', async () => {
 
     const objectInfos = await client.events.retrieveObjectInfos(event.key, ['A-1', 'A-2'])
 
-    expect(objectInfos['A-1'].status).toEqual(ObjectInfo.FREE)
-    expect(objectInfos['A-2'].status).toEqual(ObjectInfo.FREE)
+    expect(objectInfos['A-1'].status).toEqual(EventObjectInfo.FREE)
+    expect(objectInfos['A-2'].status).toEqual(EventObjectInfo.FREE)
     expect(objectInfos['A-3']).toBe(undefined)
 })
 

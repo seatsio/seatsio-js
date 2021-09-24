@@ -1,5 +1,5 @@
 const testUtils = require('../testUtils.js')
-const ObjectInfo = require('../../src/Events/ObjectInfo.js')
+const EventObjectInfo = require('../../src/Events/EventObjectInfo.js')
 const ObjectProperties = require('../../src/Events/ObjectProperties.js')
 
 test('should release objects', async () => {
@@ -13,8 +13,8 @@ test('should release objects', async () => {
 
     const status1 = await client.events.retrieveObjectInfo(event.key, 'A-1')
     const status2 = await client.events.retrieveObjectInfo(event.key, 'A-2')
-    expect(status1.status).toBe(ObjectInfo.FREE)
-    expect(status2.status).toBe(ObjectInfo.FREE)
+    expect(status1.status).toBe(EventObjectInfo.FREE)
+    expect(status2.status).toBe(EventObjectInfo.FREE)
     expect(Object.keys(releaseRes.objects).sort()).toEqual(['A-1', 'A-2'])
 })
 
@@ -29,7 +29,7 @@ test('should release objects with hold tokens', async () => {
     await client.events.release(event.key, 'A-1', holdToken.holdToken)
 
     const objectInfo = await client.events.retrieveObjectInfo(event.key, 'A-1')
-    expect(objectInfo.status).toBe(ObjectInfo.FREE)
+    expect(objectInfo.status).toBe(EventObjectInfo.FREE)
     expect(objectInfo.holdToken).toBeFalsy()
 })
 
@@ -43,7 +43,7 @@ test('should release objects with order id', async () => {
     await client.events.release(event.key, 'A-1', null, 'order1')
 
     const objectInfo = await client.events.retrieveObjectInfo(event.key, 'A-1')
-    expect(objectInfo.status).toBe(ObjectInfo.FREE)
+    expect(objectInfo.status).toBe(EventObjectInfo.FREE)
     expect(objectInfo.orderId).toBe('order1')
 })
 
@@ -74,7 +74,7 @@ test('should accept channel keys', async () => {
     await client.events.release(event.key, ['A-1'], null, null, null, null, ['channelKey1'])
 
     const objectInfo = await client.events.retrieveObjectInfo(event.key, 'A-1')
-    expect(objectInfo.status).toBe(ObjectInfo.FREE)
+    expect(objectInfo.status).toBe(EventObjectInfo.FREE)
 })
 
 test('should accept ignoreChannels', async () => {
@@ -91,5 +91,5 @@ test('should accept ignoreChannels', async () => {
     await client.events.release(event.key, ['A-1'], null, null, null, true)
 
     const objectInfo = await client.events.retrieveObjectInfo(event.key, 'A-1')
-    expect(objectInfo.status).toBe(ObjectInfo.FREE)
+    expect(objectInfo.status).toBe(EventObjectInfo.FREE)
 })
