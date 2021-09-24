@@ -18,11 +18,11 @@ test('should change object status in batch', async () => {
     ])
 
     expect(result[0].objects['A-1'].status).toBe('lolzor')
-    const status1 = await client.events.retrieveObjectStatus(event1.key, 'A-1')
+    const status1 = await client.events.retrieveObjectInfo(event1.key, 'A-1')
     expect(status1.status).toBe('lolzor')
 
     expect(result[1].objects['A-2'].status).toBe('lolzor')
-    const status2 = await client.events.retrieveObjectStatus(event2.key, 'A-2')
+    const status2 = await client.events.retrieveObjectInfo(event2.key, 'A-2')
     expect(status2.status).toBe('lolzor')
 })
 

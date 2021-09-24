@@ -1,7 +1,6 @@
 const testUtils = require('../testUtils.js')
-const helperFunctions = require('../../src/utilities/helperFunctions.js')
 const ObjectProperties = require('../../src/Events/ObjectProperties.js')
-const ObjectStatus = require('../../src/Events/ObjectStatus.js')
+const ObjectInfo = require('../../src/Events/ObjectInfo.js')
 const StatusChangesParams = require('../../src/Events/StatusChangesParams.js')
 
 test('should list all status changes', async () => {
@@ -171,7 +170,7 @@ test('properties of status changes', async () => {
     expect(statusChange.value.date.getTime()).toBeLessThanOrEqual(now + 5000)
     expect(statusChange.value.orderId).toBe('order1')
     expect(statusChange.value.objectLabel).toBe('A-1')
-    expect(statusChange.value.status).toBe(ObjectStatus.BOOKED)
+    expect(statusChange.value.status).toBe(ObjectInfo.BOOKED)
     expect(statusChange.value.eventId).toBe(event.id)
     expect(statusChange.value.extraData).toEqual({ foo: 'bar' })
     expect(statusChange.value.origin.type).toBe('API_CALL')

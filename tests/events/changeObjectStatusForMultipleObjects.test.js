@@ -9,10 +9,10 @@ test('should change object status for multiple objects as an array of string', a
 
     await client.events.changeObjectStatus(event.key, ['A-1', 'A-2'], 'lolzor')
 
-    const objStatus1 = await client.events.retrieveObjectStatus(event.key, 'A-1')
-    const objStatus2 = await client.events.retrieveObjectStatus(event.key, 'A-2')
-    expect(objStatus1.status).toBe('lolzor')
-    expect(objStatus2.status).toBe('lolzor')
+    const objectInfo1 = await client.events.retrieveObjectInfo(event.key, 'A-1')
+    const objectInfo2 = await client.events.retrieveObjectInfo(event.key, 'A-2')
+    expect(objectInfo1.status).toBe('lolzor')
+    expect(objectInfo2.status).toBe('lolzor')
 })
 
 test('should change object status for multiple objects as an array of objects', async () => {
@@ -24,10 +24,10 @@ test('should change object status for multiple objects as an array of objects', 
 
     await client.events.changeObjectStatus(event.key, objects, 'lolzor')
 
-    const objStatus1 = await client.events.retrieveObjectStatus(event.key, 'A-1')
-    const objStatus2 = await client.events.retrieveObjectStatus(event.key, 'A-2')
-    expect(objStatus1.status).toBe('lolzor')
-    expect(objStatus2.status).toBe('lolzor')
+    const objectInfo1 = await client.events.retrieveObjectInfo(event.key, 'A-1')
+    const objectInfo2 = await client.events.retrieveObjectInfo(event.key, 'A-2')
+    expect(objectInfo1.status).toBe('lolzor')
+    expect(objectInfo2.status).toBe('lolzor')
 })
 
 test('should change object status for multiple objects as an array of classes', async () => {
@@ -38,10 +38,10 @@ test('should change object status for multiple objects as an array of classes', 
     const objects = [{ objectId: 'A-1' }, { objectId: 'A-2' }]
     await client.events.changeObjectStatus(event.key, objects, 'lolzor')
 
-    const objStatus1 = await client.events.retrieveObjectStatus(event.key, 'A-1')
-    const objStatus2 = await client.events.retrieveObjectStatus(event.key, 'A-2')
-    expect(objStatus1.status).toBe('lolzor')
-    expect(objStatus2.status).toBe('lolzor')
+    const objectInfo1 = await client.events.retrieveObjectInfo(event.key, 'A-1')
+    const objectInfo2 = await client.events.retrieveObjectInfo(event.key, 'A-2')
+    expect(objectInfo1.status).toBe('lolzor')
+    expect(objectInfo2.status).toBe('lolzor')
 })
 
 test('should change object status for multiple objects as an array of classes with general admission', async () => {
@@ -53,10 +53,10 @@ test('should change object status for multiple objects as an array of classes wi
 
     await client.events.changeObjectStatus(event.key, objects, 'lolzor')
 
-    const objStatusA1 = await client.events.retrieveObjectStatus(event.key, 'A-1')
-    const objStatusGA1 = await client.events.retrieveObjectStatus(event.key, 'GA1')
-    expect(objStatusA1.status).toBe('lolzor')
-    expect(objStatusGA1.quantity).toBe(5)
+    const objectInfo1 = await client.events.retrieveObjectInfo(event.key, 'A-1')
+    const objectInfoGA1 = await client.events.retrieveObjectInfo(event.key, 'GA1')
+    expect(objectInfo1.status).toBe('lolzor')
+    expect(objectInfoGA1.numBooked).toBe(5)
 })
 
 test('should change object status for multiple objects as an array of classes and strings', async () => {
@@ -68,10 +68,10 @@ test('should change object status for multiple objects as an array of classes an
 
     await client.events.changeObjectStatus(event.key, objects, 'lolzor')
 
-    const objStatusA1 = await client.events.retrieveObjectStatus(event.key, 'A-1')
-    const objStatusGA1 = await client.events.retrieveObjectStatus(event.key, 'GA1')
-    expect(objStatusA1.status).toBe('lolzor')
-    expect(objStatusGA1.quantity).toBe(5)
+    const objectInfo1 = await client.events.retrieveObjectInfo(event.key, 'A-1')
+    const objectInfoGA1 = await client.events.retrieveObjectInfo(event.key, 'GA1')
+    expect(objectInfo1.status).toBe('lolzor')
+    expect(objectInfoGA1.numBooked).toBe(5)
 })
 
 test('should change object status for multiple objects with ticket types', async () => {
@@ -86,8 +86,8 @@ test('should change object status for multiple objects with ticket types', async
 
     await client.events.changeObjectStatus(event.key, objects, 'lolzor')
 
-    const status1 = await client.events.retrieveObjectStatus(event.key, 'A-1')
-    const status2 = await client.events.retrieveObjectStatus(event.key, 'A-2')
+    const status1 = await client.events.retrieveObjectInfo(event.key, 'A-1')
+    const status2 = await client.events.retrieveObjectInfo(event.key, 'A-2')
     expect(status1.status).toBe('lolzor')
     expect(status1.ticketType).toBe('T1')
     expect(status2.status).toBe('lolzor')
@@ -106,10 +106,10 @@ test('should change object status for multiple objects with quantity', async () 
 
     await client.events.changeObjectStatus(event.key, objects, 'lolzor')
 
-    const status1 = await client.events.retrieveObjectStatus(event.key, 'GA1')
-    const status2 = await client.events.retrieveObjectStatus(event.key, '34')
-    expect(status1.quantity).toBe(5)
-    expect(status2.quantity).toBe(10)
+    const status1 = await client.events.retrieveObjectInfo(event.key, 'GA1')
+    const status2 = await client.events.retrieveObjectInfo(event.key, '34')
+    expect(status1.numBooked).toBe(5)
+    expect(status2.numBooked).toBe(10)
 })
 
 test('should change object status for multiple objects, GAs and Seats', async () => {
@@ -124,9 +124,9 @@ test('should change object status for multiple objects, GAs and Seats', async ()
 
     await client.events.changeObjectStatus(event.key, objects, 'lolzor')
 
-    const status1 = await client.events.retrieveObjectStatus(event.key, 'GA1')
-    const status2 = await client.events.retrieveObjectStatus(event.key, 'A-1')
-    expect(status1.quantity).toBe(5)
+    const status1 = await client.events.retrieveObjectInfo(event.key, 'GA1')
+    const status2 = await client.events.retrieveObjectInfo(event.key, 'A-1')
+    expect(status1.numBooked).toBe(5)
     expect(status2.status).toBe('lolzor')
 })
 
@@ -142,8 +142,8 @@ test('should change object status for multiple objects with extra data', async (
 
     await client.events.changeObjectStatus(event.key, objects, 'lolzor')
 
-    const status1 = await client.events.retrieveObjectStatus(event.key, 'A-1')
-    const status2 = await client.events.retrieveObjectStatus(event.key, 'A-2')
+    const status1 = await client.events.retrieveObjectInfo(event.key, 'A-1')
+    const status2 = await client.events.retrieveObjectInfo(event.key, 'A-2')
     expect(status1.extraData).toEqual({ foo: 'bar' })
     expect(status2.extraData).toEqual({ foo: 'baz' })
 })

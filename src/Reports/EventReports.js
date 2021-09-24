@@ -8,7 +8,7 @@ class EventReports {
     /**
      * @param {string} eventKey
      * @param {?string} status
-     * @returns {Object.<string, EventReportItem[]>}
+     * @returns {Object.<string, ObjectInfo[]>}
      */
     byStatus (eventKey, status = null) {
         return this.client.get(EventReports.reportUrl('byStatus', eventKey, status))
@@ -36,7 +36,7 @@ class EventReports {
     /**
      * @param {string} eventKey
      * @param {?string} objectType
-     * @returns {Object.<string, EventReportItem[]>}
+     * @returns {Object.<string, ObjectInfo[]>}
      */
     byObjectType (eventKey, objectType = null) {
         return this.client.get(EventReports.reportUrl('byObjectType', eventKey, objectType))
@@ -64,7 +64,7 @@ class EventReports {
     /**
      * @param {string} eventKey
      * @param {?string} categoryLabel
-     * @returns {Object.<string, EventReportItem[]>}
+     * @returns {Object.<string, ObjectInfo[]>}
      */
     byCategoryLabel (eventKey, categoryLabel = null) {
         return this.client.get(EventReports.reportUrl('byCategoryLabel', eventKey, categoryLabel))
@@ -92,7 +92,7 @@ class EventReports {
     /**
      * @param {string} eventKey
      * @param {?string} categoryKey
-     * @returns {Object.<string, EventReportItem[]>}
+     * @returns {Object.<string, ObjectInfo[]>}
      */
     byCategoryKey (eventKey, categoryKey = null) {
         return this.client.get(EventReports.reportUrl('byCategoryKey', eventKey, categoryKey))
@@ -120,7 +120,7 @@ class EventReports {
     /**
      * @param {string} eventKey
      * @param {?string} label
-     * @returns {Object.<string, EventReportItem[]>}
+     * @returns {Object.<string, ObjectInfo[]>}
      */
     byLabel (eventKey, label = null) {
         return this.client.get(EventReports.reportUrl('byLabel', eventKey, label))
@@ -130,7 +130,7 @@ class EventReports {
     /**
      * @param {string} eventKey
      * @param {?string} orderId
-     * @returns {Object.<string, EventReportItem[]>}
+     * @returns {Object.<string, ObjectInfo[]>}
      */
     byOrderId (eventKey, orderId = null) {
         return this.client.get(EventReports.reportUrl('byOrderId', eventKey, orderId))
@@ -140,7 +140,7 @@ class EventReports {
     /**
      * @param {string} eventKey
      * @param {?string} section
-     * @returns {Object.<string, EventReportItem[]>}
+     * @returns {Object.<string, ObjectInfo[]>}
      */
     bySection (eventKey, section = null) {
         return this.client.get(EventReports.reportUrl('bySection', eventKey, section))
@@ -168,7 +168,7 @@ class EventReports {
     /**
      * @param {string} eventKey
      * @param {?string} selectability
-     * @returns {Object.<string, EventReportItem[]>}
+     * @returns {Object.<string, ObjectInfo[]>}
      */
     bySelectability (eventKey, selectability = null) {
         return this.client.get(EventReports.reportUrl('bySelectability', eventKey, selectability))
@@ -196,7 +196,7 @@ class EventReports {
     /**
      * @param {string} eventKey
      * @param {?string} channel
-     * @returns {Object.<string, EventReportItem[]>}
+     * @returns {Object.<string, ObjectInfo[]>}
      */
     byChannel (eventKey, channel = null) {
         return this.client.get(EventReports.reportUrl('byChannel', eventKey, channel))

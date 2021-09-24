@@ -1,5 +1,5 @@
 const testUtils = require('../testUtils.js')
-const ObjectStatus = require('../../src/Events/ObjectStatus.js')
+const ObjectInfo = require('../../src/Events/ObjectInfo.js')
 const ObjectProperties = require('../../src/Events/ObjectProperties.js')
 const TableBookingConfig = require('../../src/Events/TableBookingConfig')
 const SocialDistancingRuleset = require('../../src/Charts/SocialDistancingRuleset')
@@ -77,9 +77,9 @@ test('should change object status with GA and quantity', async () => {
         quantity: 100
     }, 'myCustomStatus')
 
-    const retrievedStatus = await client.events.retrieveObjectStatus(event.key, 'GA1')
+    const retrievedStatus = await client.events.retrieveObjectInfo(event.key, 'GA1')
     expect(Object.keys(result.objects)).toEqual(['GA1'])
-    expect(retrievedStatus.quantity).toBe(100)
+    expect(retrievedStatus.numBooked).toBe(100)
     expect(retrievedStatus.status).toBe('myCustomStatus')
 })
 
@@ -91,8 +91,8 @@ test('should change object status with objectId as string', async () => {
 
     await client.events.changeObjectStatus(event.key, 'A-1', 'lolzor')
 
-    const objStatus = await client.events.retrieveObjectStatus(event.key, 'A-1')
-    expect(objStatus.status).toBe('lolzor')
+    const objectInfo = await client.events.retrieveObjectInfo(event.key, 'A-1')
+    expect(objectInfo.status).toBe('lolzor')
 })
 
 test('should change object status with objectId inside class', async () => {
@@ -103,8 +103,8 @@ test('should change object status with objectId inside class', async () => {
 
     await client.events.changeObjectStatus(event.key, new ObjectProperties('A-1'), 'lolzor')
 
-    const objStatus = await client.events.retrieveObjectStatus(event.key, 'A-1')
-    expect(objStatus.status).toBe('lolzor')
+    const objectInfo = await client.events.retrieveObjectInfo(event.key, 'A-1')
+    expect(objectInfo.status).toBe('lolzor')
 })
 
 test('should change object status with hold token', async () => {
@@ -114,11 +114,11 @@ test('should change object status with hold token', async () => {
     const event = await client.events.create(chartKey)
     const holdToken = await client.holdTokens.create()
 
-    await client.events.changeObjectStatus(event.key, 'A-1', ObjectStatus.HELD, holdToken.holdToken)
+    await client.events.changeObjectStatus(event.key, 'A-1', ObjectInfo.HELD, holdToken.holdToken)
 
-    const objStatus = await client.events.retrieveObjectStatus(event.key, 'A-1')
-    expect(objStatus.status).toBe(ObjectStatus.HELD)
-    expect(objStatus.holdToken).toBe(holdToken.holdToken)
+    const objectInfo = await client.events.retrieveObjectInfo(event.key, 'A-1')
+    expect(objectInfo.status).toBe(ObjectInfo.HELD)
+    expect(objectInfo.holdToken).toBe(holdToken.holdToken)
 })
 
 test('should change object status with OrderId', async () => {
@@ -129,8 +129,8 @@ test('should change object status with OrderId', async () => {
 
     await client.events.changeObjectStatus(event.key, 'A-1', 'lolzor', null, 'order1')
 
-    const objStatus = await client.events.retrieveObjectStatus(event.key, 'A-1')
-    expect(objStatus.orderId).toBe('order1')
+    const objectInfo = await client.events.retrieveObjectInfo(event.key, 'A-1')
+    expect(objectInfo.orderId).toBe('order1')
 })
 
 test('should respect keepExtraData=true', async () => {
@@ -142,7 +142,7 @@ test('should respect keepExtraData=true', async () => {
 
     await client.events.changeObjectStatus(event.key, ['A-1'], 'someStatus', null, null, true)
 
-    const status = await client.events.retrieveObjectStatus(event.key, 'A-1')
+    const status = await client.events.retrieveObjectInfo(event.key, 'A-1')
     expect(status.extraData).toEqual({ foo: 'bar' })
 })
 
@@ -155,7 +155,7 @@ test('should respect keepExtraData=false', async () => {
 
     await client.events.changeObjectStatus(event.key, ['A-1'], 'someStatus', null, null, false)
 
-    const status = await client.events.retrieveObjectStatus(event.key, 'A-1')
+    const status = await client.events.retrieveObjectInfo(event.key, 'A-1')
     expect(status.extraData).toBeFalsy()
 })
 
@@ -168,7 +168,7 @@ test('should respect no keepExtraData', async () => {
 
     await client.events.changeObjectStatus(event.key, ['A-1'], 'someStatus', null, null, false)
 
-    const status = await client.events.retrieveObjectStatus(event.key, 'A-1')
+    const status = await client.events.retrieveObjectInfo(event.key, 'A-1')
     expect(status.extraData).toBeFalsy()
 })
 
@@ -189,8 +189,8 @@ test('should accept channel keys', async () => {
     })
     await client.events.changeObjectStatus(event.key, ['A-1'], 'someStatus', null, null, null, null, ['channelKey1'])
 
-    const objStatus = await client.events.retrieveObjectStatus(event.key, 'A-1')
-    expect(objStatus.status).toBe('someStatus')
+    const objectInfo = await client.events.retrieveObjectInfo(event.key, 'A-1')
+    expect(objectInfo.status).toBe('someStatus')
 })
 
 test('should accept ignoreChannels', async () => {
@@ -210,8 +210,8 @@ test('should accept ignoreChannels', async () => {
     })
     await client.events.changeObjectStatus(event.key, ['A-1'], 'someStatus', null, null, null, true)
 
-    const objStatus = await client.events.retrieveObjectStatus(event.key, 'A-1')
-    expect(objStatus.status).toBe('someStatus')
+    const objectInfo = await client.events.retrieveObjectInfo(event.key, 'A-1')
+    expect(objectInfo.status).toBe('someStatus')
 })
 
 test('should accept ignoreSocialDistancing', async () => {
@@ -223,8 +223,8 @@ test('should accept ignoreSocialDistancing', async () => {
     await client.charts.saveSocialDistancingRulesets(chartKey, { ruleset })
     await client.events.update(event.key, null, null, null, 'ruleset')
 
-    await client.events.changeObjectStatus(event.key, ['A-1'], ObjectStatus.BOOKED, null, null, null, null, null, true)
+    await client.events.changeObjectStatus(event.key, ['A-1'], ObjectInfo.BOOKED, null, null, null, null, null, true)
 
-    const objStatus = await client.events.retrieveObjectStatus(event.key, 'A-1')
-    expect(objStatus.status).toBe(ObjectStatus.BOOKED)
+    const objectInfo = await client.events.retrieveObjectInfo(event.key, 'A-1')
+    expect(objectInfo.status).toBe(ObjectInfo.BOOKED)
 })

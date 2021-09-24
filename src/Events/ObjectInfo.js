@@ -1,7 +1,7 @@
 const helperFunctions = require('../utilities/helperFunctions.js')
 const { IDs } = require('../Common/IDs')
 
-class EventReportItem {
+class ObjectInfo {
     /**
      * @param {object} report
      */
@@ -35,7 +35,12 @@ class EventReportItem {
         this.isDisabledBySocialDistancing = report.isDisabledBySocialDistancing
         this.channel = report.channel
         this.distanceToFocalPoint = report.distanceToFocalPoint
+        this.holds = report.holds
     }
 }
 
-module.exports = EventReportItem
+ObjectInfo.FREE = 'free'
+ObjectInfo.BOOKED = 'booked'
+ObjectInfo.HELD = 'reservedByToken'
+
+module.exports = ObjectInfo

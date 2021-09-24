@@ -1,6 +1,6 @@
 const Page = require('../Page.js')
 const Lister = require('../Lister.js')
-const ObjectStatus = require('./ObjectStatus.js')
+const ObjectInfo = require('./ObjectInfo.js')
 const StatusChange = require('./StatusChange.js')
 const BestAvailableObjects = require('./BestAvailableObjects.js')
 const ChangeObjectStatusResult = require('./ChangeObjectStatusResult.js')
@@ -20,7 +20,7 @@ class Events {
      * @param {?string} eventKey
      * @param {?TableBookingConfig} tableBookingConfig
      * @param {?string} socialDistancingRulesetKey
-     * @returns {Promise<Event>} Promise that resolves to Event object
+     * @returns {Promise<Event>}
      */
     create (chartKey, eventKey = null, tableBookingConfig = null, socialDistancingRulesetKey = null) {
         const requestParameters = {}
@@ -45,7 +45,7 @@ class Events {
 
     /**
      * @param {string} eventKey
-     * @returns {Promise<Event>} Promise that resolves to Event object
+     * @returns {Promise<Event>}
      */
     retrieve (eventKey) {
         return this.client.get(`/events/${encodeURIComponent(eventKey)}`)
@@ -234,11 +234,31 @@ class Events {
     /**
      * @param {string} eventKey
      * @param {string} obj
-     * @returns {Promise<ObjectStatus>} Promise that resolves to ObjectStatus object
+     * @returns {Promise<ObjectInfo>}
      */
-    retrieveObjectStatus (eventKey, obj) {
+    retrieveObjectInfo (eventKey, obj) {
         return this.client.get(`events/${encodeURIComponent(eventKey)}/objects/${encodeURIComponent(obj)}`)
-            .then((res) => new ObjectStatus(res.data))
+            .then((res) => new ObjectInfo(res.data))
+    }
+
+    /**
+     * @param {string} eventKey
+     * @param {string[]} labels
+     * @returns {Promise<Map<String, ObjectInfo>>}
+     */
+    retrieveObjectInfos (eventKey, labels) {
+        const params = new URLSearchParams()
+        labels.forEach(label => {
+            params.append('label', label)
+        })
+        return this.client.get(`events/${encodeURIComponent(eventKey)}/objects`, { params })
+            .then((res) => {
+                const objectInfos = res.data
+                for (const key of Object.keys(objectInfos)) {
+                    objectInfos[key] = new ObjectInfo(objectInfos[key])
+                }
+                return objectInfos
+            })
     }
 
     /**
@@ -251,7 +271,7 @@ class Events {
      * @param {?boolean} ignoreChannels
      * @param {?string[]} channelKeys
      * @param {?boolean} ignoreSocialDistancing
-     * @returns {Promise<ChangeObjectStatusResult>} Promise that resolves to ChangeObjectStatusResult object
+     * @returns {Promise<ChangeObjectStatusResult>}
      */
     changeObjectStatus (eventKeyOrKeys, objectOrObjects, status, holdToken = null, orderId = null, keepExtraData = null, ignoreChannels = null, channelKeys = null, ignoreSocialDistancing = null) {
         const request = this.changeObjectStatusRequest(objectOrObjects, status, holdToken, orderId, keepExtraData, ignoreChannels, channelKeys, ignoreSocialDistancing)
@@ -311,10 +331,10 @@ class Events {
      * @param {?boolean} ignoreChannels
      * @param {?string[]} channelKeys
      * @param {?boolean} ignoreSocialDistancing
-     * @returns {Promise<ChangeObjectStatusResult>} Promise that resolves to ChangeObjectStatusResult object
+     * @returns {Promise<ChangeObjectStatusResult>}
      */
     book (eventKeyOrKeys, objectOrObjects, holdToken = null, orderId = null, keepExtraData = null, ignoreChannels = null, channelKeys = null, ignoreSocialDistancing = null) {
-        return this.changeObjectStatus(eventKeyOrKeys, objectOrObjects, ObjectStatus.BOOKED, holdToken, orderId, keepExtraData, ignoreChannels, channelKeys, ignoreSocialDistancing)
+        return this.changeObjectStatus(eventKeyOrKeys, objectOrObjects, ObjectInfo.BOOKED, holdToken, orderId, keepExtraData, ignoreChannels, channelKeys, ignoreSocialDistancing)
     }
 
     /**
@@ -328,10 +348,10 @@ class Events {
      * @param {?boolean} keepExtraData
      * @param {?boolean} ignoreChannels
      * @param {?string[]} channelKeys
-     * @returns {Promise<BestAvailableObjects>} Promise that resolves to BestAvailableObjects object
+     * @returns {Promise<BestAvailableObjects>}
      */
     bookBestAvailable (eventKey, number, categories = null, holdToken = null, extraData = null, ticketTypes = null, orderId = null, keepExtraData = null, ignoreChannels = null, channelKeys = null) {
-        return this.changeBestAvailableObjectStatus(encodeURIComponent(eventKey), number, ObjectStatus.BOOKED, categories, holdToken, extraData, ticketTypes, orderId, keepExtraData, ignoreChannels, channelKeys)
+        return this.changeBestAvailableObjectStatus(encodeURIComponent(eventKey), number, ObjectInfo.BOOKED, categories, holdToken, extraData, ticketTypes, orderId, keepExtraData, ignoreChannels, channelKeys)
     }
 
     /**
@@ -342,10 +362,10 @@ class Events {
      * @param {?boolean} keepExtraData
      * @param {?boolean} ignoreChannels
      * @param {?string[]} channelKeys
-     * @returns {Promise<ChangeObjectStatusResult>} Promise that resolves to ChangeObjectStatusResult object
+     * @returns {Promise<ChangeObjectStatusResult>}
      */
     release (eventKeyOrKeys, objectOrObjects, holdToken = null, orderId = null, keepExtraData = null, ignoreChannels = null, channelKeys = null) {
-        return this.changeObjectStatus(eventKeyOrKeys, objectOrObjects, ObjectStatus.FREE, holdToken, orderId, keepExtraData, ignoreChannels, channelKeys)
+        return this.changeObjectStatus(eventKeyOrKeys, objectOrObjects, ObjectInfo.FREE, holdToken, orderId, keepExtraData, ignoreChannels, channelKeys)
     }
 
     /**
@@ -357,10 +377,10 @@ class Events {
      * @param {?boolean} ignoreChannels
      * @param {?string[]} channelKeys
      * @param {?boolean} ignoreSocialDistancing
-     * @returns {Promise<ChangeObjectStatusResult>} Promise that resolves to ChangeObjectStatusResult object
+     * @returns {Promise<ChangeObjectStatusResult>}
      */
     hold (eventKeyOrKeys, objectOrObjects, holdToken, orderId = null, keepExtraData = null, ignoreChannels = null, channelKeys = null, ignoreSocialDistancing = null) {
-        return this.changeObjectStatus(eventKeyOrKeys, objectOrObjects, ObjectStatus.HELD, holdToken, orderId, keepExtraData, ignoreChannels, channelKeys, ignoreSocialDistancing)
+        return this.changeObjectStatus(eventKeyOrKeys, objectOrObjects, ObjectInfo.HELD, holdToken, orderId, keepExtraData, ignoreChannels, channelKeys, ignoreSocialDistancing)
     }
 
     /**
@@ -375,10 +395,10 @@ class Events {
      * @param {?boolean} ignoreChannels
      * @param {?string[]} channelKeys
      * @param {?string[]} ticketTypes
-     * @returns {Promise<BestAvailableObjects>} Promise that resolves to BestAvailableObjects object
+     * @returns {Promise<BestAvailableObjects>}
      */
     holdBestAvailable (eventKey, number, holdToken, categories = null, extraData = null, ticketTypes = null, orderId = null, keepExtraData = null, ignoreChannels = null, channelKeys = null) {
-        return this.changeBestAvailableObjectStatus(encodeURIComponent(eventKey), number, ObjectStatus.HELD, categories, holdToken, extraData, ticketTypes, orderId, keepExtraData, ignoreChannels, channelKeys)
+        return this.changeBestAvailableObjectStatus(encodeURIComponent(eventKey), number, ObjectInfo.HELD, categories, holdToken, extraData, ticketTypes, orderId, keepExtraData, ignoreChannels, channelKeys)
     }
 
     /**
@@ -393,7 +413,7 @@ class Events {
      * @param {?boolean} keepExtraData
      * @param {?boolean} ignoreChannels
      * @param {?string[]} channelKeys
-     * @returns {Promise<BestAvailableObjects>} Promise that resolves to BestAvailableObjects object
+     * @returns {Promise<BestAvailableObjects>}
      */
     changeBestAvailableObjectStatus (eventKey, number, status, categories = null, holdToken = null, extraData = null, ticketTypes = null, orderId = null, keepExtraData = null, ignoreChannels = null, channelKeys = null) {
         const requestParameters = {}

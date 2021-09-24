@@ -8,28 +8,28 @@ class Accounts {
     }
 
     /**
-     * @returns {Promise<Account>} Promise that resolves to Account object
+     * @returns {Promise<Account>}
      */
     retrieveMyAccount () {
         return this.client.get(baseUrl).then((res) => new Account(res.data))
     }
 
     /**
-     * @returns {Promise<string>} Promise that resolves to a string
+     * @returns {Promise<string>}
      */
     regenerateSecretKey () {
         return this.client.post(baseUrl + '/secret-key/actions/regenerate').then((res) => res.data.secretKey)
     }
 
     /**
-     * @returns {Promise<string>} Promise that resolves to a string
+     * @returns {Promise<string>}
      */
     regenerateDesignerKey () {
         return this.client.post(baseUrl + '/designer-key/actions/regenerate').then((res) => res.data.designerKey)
     }
 
     /**
-     * @returns {Promise} Promise
+     * @returns {Promise}
      */
     enableDraftChartDrawings () {
         return this.client.post(baseUrl + '/draft-chart-drawings/actions/enable')

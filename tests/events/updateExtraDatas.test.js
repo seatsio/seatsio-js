@@ -9,8 +9,8 @@ test('should update extra datas of an event', async () => {
 
     await client.events.updateExtraDatas(event.key, { 'A-1': extraData1, 'A-2': extraData2 })
 
-    const objStatus1 = await client.events.retrieveObjectStatus(event.key, 'A-1')
-    const objStatus2 = await client.events.retrieveObjectStatus(event.key, 'A-2')
-    expect(objStatus1.extraData).toEqual(extraData1)
-    expect(objStatus2.extraData).toEqual(extraData2)
+    const objectInfo1 = await client.events.retrieveObjectInfo(event.key, 'A-1')
+    const objectInfo2 = await client.events.retrieveObjectInfo(event.key, 'A-2')
+    expect(objectInfo1.extraData).toEqual(extraData1)
+    expect(objectInfo2.extraData).toEqual(extraData2)
 })

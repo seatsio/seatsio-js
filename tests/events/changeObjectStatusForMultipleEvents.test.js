@@ -1,5 +1,5 @@
 const testUtils = require('../testUtils.js')
-const ObjectStatus = require('../../src/Events/ObjectStatus.js')
+const ObjectInfo = require('../../src/Events/ObjectInfo.js')
 
 test('should change object status for multiple events', async () => {
     const { client, user } = await testUtils.createTestUserAndClient()
@@ -10,10 +10,10 @@ test('should change object status for multiple events', async () => {
 
     await client.events.changeObjectStatus([event1.key, event2.key], 'A-1', 'lolzor')
 
-    const objStatus1 = await client.events.retrieveObjectStatus(event1.key, 'A-1')
-    const objStatus2 = await client.events.retrieveObjectStatus(event2.key, 'A-1')
-    expect(objStatus1.status).toBe('lolzor')
-    expect(objStatus2.status).toBe('lolzor')
+    const objectInfo1 = await client.events.retrieveObjectInfo(event1.key, 'A-1')
+    const objectInfo2 = await client.events.retrieveObjectInfo(event2.key, 'A-1')
+    expect(objectInfo1.status).toBe('lolzor')
+    expect(objectInfo2.status).toBe('lolzor')
 })
 
 test('should book multiple events', async () => {
@@ -25,10 +25,10 @@ test('should book multiple events', async () => {
 
     await client.events.book([event1.key, event2.key], 'A-1')
 
-    const objStatus1 = await client.events.retrieveObjectStatus(event1.key, 'A-1')
-    const objStatus2 = await client.events.retrieveObjectStatus(event2.key, 'A-1')
-    expect(objStatus1.status).toBe(ObjectStatus.BOOKED)
-    expect(objStatus2.status).toBe(ObjectStatus.BOOKED)
+    const objectInfo1 = await client.events.retrieveObjectInfo(event1.key, 'A-1')
+    const objectInfo2 = await client.events.retrieveObjectInfo(event2.key, 'A-1')
+    expect(objectInfo1.status).toBe(ObjectInfo.BOOKED)
+    expect(objectInfo2.status).toBe(ObjectInfo.BOOKED)
 })
 
 test('should release multiple events', async () => {
@@ -41,10 +41,10 @@ test('should release multiple events', async () => {
 
     await client.events.release([event1.key, event2.key], 'A-1')
 
-    const objStatus1 = await client.events.retrieveObjectStatus(event1.key, 'A-1')
-    const objStatus2 = await client.events.retrieveObjectStatus(event2.key, 'A-1')
-    expect(objStatus1.status).toBe(ObjectStatus.FREE)
-    expect(objStatus2.status).toBe(ObjectStatus.FREE)
+    const objectInfo1 = await client.events.retrieveObjectInfo(event1.key, 'A-1')
+    const objectInfo2 = await client.events.retrieveObjectInfo(event2.key, 'A-1')
+    expect(objectInfo1.status).toBe(ObjectInfo.FREE)
+    expect(objectInfo2.status).toBe(ObjectInfo.FREE)
 })
 
 test('should hold multiple events', async () => {
@@ -57,8 +57,8 @@ test('should hold multiple events', async () => {
 
     await client.events.hold([event1.key, event2.key], 'A-1', holdToken.holdToken)
 
-    const objStatus1 = await client.events.retrieveObjectStatus(event1.key, 'A-1')
-    const objStatus2 = await client.events.retrieveObjectStatus(event2.key, 'A-1')
-    expect(objStatus1.status).toBe(ObjectStatus.HELD)
-    expect(objStatus2.status).toBe(ObjectStatus.HELD)
+    const objectInfo1 = await client.events.retrieveObjectInfo(event1.key, 'A-1')
+    const objectInfo2 = await client.events.retrieveObjectInfo(event2.key, 'A-1')
+    expect(objectInfo1.status).toBe(ObjectInfo.HELD)
+    expect(objectInfo2.status).toBe(ObjectInfo.HELD)
 })

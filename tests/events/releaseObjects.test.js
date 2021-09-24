@@ -1,5 +1,5 @@
 const testUtils = require('../testUtils.js')
-const ObjectStatus = require('../../src/Events/ObjectStatus.js')
+const ObjectInfo = require('../../src/Events/ObjectInfo.js')
 const ObjectProperties = require('../../src/Events/ObjectProperties.js')
 
 test('should release objects', async () => {
@@ -11,10 +11,10 @@ test('should release objects', async () => {
 
     const releaseRes = await client.events.release(event.key, ['A-1', 'A-2'])
 
-    const status1 = await client.events.retrieveObjectStatus(event.key, 'A-1')
-    const status2 = await client.events.retrieveObjectStatus(event.key, 'A-2')
-    expect(status1.status).toBe(ObjectStatus.FREE)
-    expect(status2.status).toBe(ObjectStatus.FREE)
+    const status1 = await client.events.retrieveObjectInfo(event.key, 'A-1')
+    const status2 = await client.events.retrieveObjectInfo(event.key, 'A-2')
+    expect(status1.status).toBe(ObjectInfo.FREE)
+    expect(status2.status).toBe(ObjectInfo.FREE)
     expect(Object.keys(releaseRes.objects).sort()).toEqual(['A-1', 'A-2'])
 })
 
@@ -28,9 +28,9 @@ test('should release objects with hold tokens', async () => {
 
     await client.events.release(event.key, 'A-1', holdToken.holdToken)
 
-    const objStatus = await client.events.retrieveObjectStatus(event.key, 'A-1')
-    expect(objStatus.status).toBe(ObjectStatus.FREE)
-    expect(objStatus.holdToken).toBeFalsy()
+    const objectInfo = await client.events.retrieveObjectInfo(event.key, 'A-1')
+    expect(objectInfo.status).toBe(ObjectInfo.FREE)
+    expect(objectInfo.holdToken).toBeFalsy()
 })
 
 test('should release objects with order id', async () => {
@@ -42,9 +42,9 @@ test('should release objects with order id', async () => {
 
     await client.events.release(event.key, 'A-1', null, 'order1')
 
-    const objStatus = await client.events.retrieveObjectStatus(event.key, 'A-1')
-    expect(objStatus.status).toBe(ObjectStatus.FREE)
-    expect(objStatus.orderId).toBe('order1')
+    const objectInfo = await client.events.retrieveObjectInfo(event.key, 'A-1')
+    expect(objectInfo.status).toBe(ObjectInfo.FREE)
+    expect(objectInfo.orderId).toBe('order1')
 })
 
 test('should keep extra data', async () => {
@@ -56,7 +56,7 @@ test('should keep extra data', async () => {
 
     await client.events.release(event.key, ['A-1'], null, null, true)
 
-    const status = await client.events.retrieveObjectStatus(event.key, 'A-1')
+    const status = await client.events.retrieveObjectInfo(event.key, 'A-1')
     expect(status.extraData).toEqual({ foo: 'bar' })
 })
 
@@ -73,8 +73,8 @@ test('should accept channel keys', async () => {
 
     await client.events.release(event.key, ['A-1'], null, null, null, null, ['channelKey1'])
 
-    const objStatus = await client.events.retrieveObjectStatus(event.key, 'A-1')
-    expect(objStatus.status).toBe(ObjectStatus.FREE)
+    const objectInfo = await client.events.retrieveObjectInfo(event.key, 'A-1')
+    expect(objectInfo.status).toBe(ObjectInfo.FREE)
 })
 
 test('should accept ignoreChannels', async () => {
@@ -90,6 +90,6 @@ test('should accept ignoreChannels', async () => {
 
     await client.events.release(event.key, ['A-1'], null, null, null, true)
 
-    const objStatus = await client.events.retrieveObjectStatus(event.key, 'A-1')
-    expect(objStatus.status).toBe(ObjectStatus.FREE)
+    const objectInfo = await client.events.retrieveObjectInfo(event.key, 'A-1')
+    expect(objectInfo.status).toBe(ObjectInfo.FREE)
 })

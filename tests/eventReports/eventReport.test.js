@@ -1,5 +1,5 @@
 const testUtils = require('../testUtils.js')
-const ObjectStatus = require('../../src/Events/ObjectStatus.js')
+const ObjectInfo = require('../../src/Events/ObjectInfo.js')
 const ObjectProperties = require('../../src/Events/ObjectProperties.js')
 const { IDs } = require('../../src/Common/IDs')
 
@@ -18,7 +18,7 @@ test('report properties', async () => {
     const report = await client.eventReports.byLabel(event.key)
 
     const reportItem = report['A-1'][0]
-    expect(reportItem.status).toBe(ObjectStatus.BOOKED)
+    expect(reportItem.status).toBe(ObjectInfo.BOOKED)
     expect(reportItem.label).toBe('A-1')
     expect(reportItem.labels).toEqual(testUtils.someLabels('1', 'seat', 'A', 'row'))
     expect(reportItem.ids).toEqual(new IDs('1', 'A', null))
@@ -88,13 +88,13 @@ test('report with object status', async () => {
     const event = await client.events.create(chartKey)
     await client.events.changeObjectStatus(event.key, 'A-1', 'lolzor')
     await client.events.changeObjectStatus(event.key, 'A-2', 'lolzor')
-    await client.events.changeObjectStatus(event.key, 'A-3', ObjectStatus.BOOKED)
+    await client.events.changeObjectStatus(event.key, 'A-3', ObjectInfo.BOOKED)
 
     const report = await client.eventReports.byStatus(event.key)
 
     expect(report.lolzor.length).toBe(2)
-    expect(report[ObjectStatus.BOOKED].length).toBe(1)
-    expect(report[ObjectStatus.FREE].length).toBe(31)
+    expect(report[ObjectInfo.BOOKED].length).toBe(1)
+    expect(report[ObjectInfo.FREE].length).toBe(31)
 })
 
 test('report with specific object status', async () => {
@@ -104,7 +104,7 @@ test('report with specific object status', async () => {
     const event = await client.events.create(chartKey)
     await client.events.changeObjectStatus(event.key, 'A-1', 'lolzor')
     await client.events.changeObjectStatus(event.key, 'A-2', 'lolzor')
-    await client.events.changeObjectStatus(event.key, 'A-3', ObjectStatus.BOOKED)
+    await client.events.changeObjectStatus(event.key, 'A-3', ObjectInfo.BOOKED)
 
     const report = await client.eventReports.byStatus(event.key, 'lolzor')
 

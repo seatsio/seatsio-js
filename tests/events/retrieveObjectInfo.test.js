@@ -1,14 +1,16 @@
 const testUtils = require('../testUtils.js')
+const ObjectInfo = require('../../src/Events/ObjectInfo.js')
 
-test('should update extra data of an event', async () => {
+test('should retrieve object info', async () => {
     const { client, user } = await testUtils.createTestUserAndClient()
     const chartKey = testUtils.getChartKey()
     await testUtils.createTestChart(chartKey, user.secretKey)
     const event = await client.events.create(chartKey)
-    const extraData = { foo: 'bar' }
-
-    await client.events.updateExtraData(event.key, 'A-1', extraData)
 
     const objectInfo = await client.events.retrieveObjectInfo(event.key, 'A-1')
-    expect(objectInfo.extraData).toEqual(extraData)
+
+    expect(objectInfo.status).toEqual(ObjectInfo.FREE)
+    expect(objectInfo.ticketType).toBeFalsy()
+    expect(objectInfo.extraData).toBeFalsy()
+    expect(objectInfo.forSale).toBe(true)
 })

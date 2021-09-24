@@ -1,5 +1,5 @@
 const testUtils = require('../testUtils.js')
-const ObjectStatus = require('../../src/Events/ObjectStatus.js')
+const ObjectInfo = require('../../src/Events/ObjectInfo.js')
 const SocialDistancingRuleset = require('../../src/Charts/SocialDistancingRuleset')
 
 test('should hold objects', async () => {
@@ -10,12 +10,12 @@ test('should hold objects', async () => {
     const holdToken = await client.holdTokens.create()
     const holdResult = await client.events.hold(event.key, ['A-1', 'A-2'], holdToken.holdToken)
 
-    const status1 = await client.events.retrieveObjectStatus(event.key, 'A-1')
-    expect(status1.status).toBe(ObjectStatus.HELD)
+    const status1 = await client.events.retrieveObjectInfo(event.key, 'A-1')
+    expect(status1.status).toBe(ObjectInfo.HELD)
     expect(status1.holdToken).toBe(holdToken.holdToken)
 
-    const status2 = await client.events.retrieveObjectStatus(event.key, 'A-2')
-    expect(status2.status).toBe(ObjectStatus.HELD)
+    const status2 = await client.events.retrieveObjectInfo(event.key, 'A-2')
+    expect(status2.status).toBe(ObjectInfo.HELD)
     expect(status2.holdToken).toBe(holdToken.holdToken)
 
     expect(Object.keys(holdResult.objects).sort()).toEqual(['A-1', 'A-2'])
@@ -31,8 +31,8 @@ test('should keep extra data', async () => {
 
     await client.events.hold(event.key, ['A-1'], holdToken.holdToken, null, true)
 
-    const retrievedObjStatus1 = await client.events.retrieveObjectStatus(event.key, 'A-1')
-    expect(retrievedObjStatus1.extraData).toEqual({ foo: 'bar' })
+    const objectInfo = await client.events.retrieveObjectInfo(event.key, 'A-1')
+    expect(objectInfo.extraData).toEqual({ foo: 'bar' })
 })
 
 test('should accept channel keys', async () => {
@@ -47,8 +47,8 @@ test('should accept channel keys', async () => {
     await client.events.assignObjectsToChannel(event.key, { channelKey1: ['A-1'] })
     await client.events.hold(event.key, ['A-1'], holdToken.holdToken, null, null, null, ['channelKey1'])
 
-    const objStatus = await client.events.retrieveObjectStatus(event.key, 'A-1')
-    expect(objStatus.status).toBe(ObjectStatus.HELD)
+    const objectInfo = await client.events.retrieveObjectInfo(event.key, 'A-1')
+    expect(objectInfo.status).toBe(ObjectInfo.HELD)
 })
 
 test('should accept ignoreChannels', async () => {
@@ -64,8 +64,8 @@ test('should accept ignoreChannels', async () => {
 
     await client.events.hold(event.key, ['A-1'], holdToken.holdToken, null, null, true)
 
-    const objStatus = await client.events.retrieveObjectStatus(event.key, 'A-1')
-    expect(objStatus.status).toBe(ObjectStatus.HELD)
+    const objectInfo = await client.events.retrieveObjectInfo(event.key, 'A-1')
+    expect(objectInfo.status).toBe(ObjectInfo.HELD)
 })
 
 test('should accept ignoreSocialDistancing', async () => {
@@ -80,6 +80,6 @@ test('should accept ignoreSocialDistancing', async () => {
 
     await client.events.hold(event.key, ['A-1'], holdToken.holdToken, null, null, null, null, true)
 
-    const objStatus = await client.events.retrieveObjectStatus(event.key, 'A-1')
-    expect(objStatus.status).toBe(ObjectStatus.HELD)
+    const objectInfo = await client.events.retrieveObjectInfo(event.key, 'A-1')
+    expect(objectInfo.status).toBe(ObjectInfo.HELD)
 })
