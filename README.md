@@ -154,6 +154,23 @@ A combination of filter, sorting order and sorting option is also possible.
 let parameter = new StatusChangesParams().withFilter('testFilter').sortByStatus().sortAscending()
 ```
 
+### Retrieving object category and status (and other information)
+
+```js
+import { SeatsioClient, Region } from 'seatsio'
+
+let client = new SeatsioClient(Region.EU(), <WORKSPACE SECRET KEY>)
+let objectInfos = await client.events.retrieveObjectInfos(event.key, ['A-1', 'A-2'])
+
+console.log(objectInfos['A-1'].categoryKey)
+console.log(objectInfos['A-1'].categoryLabel)
+console.log(objectInfos['A-1'].status)
+    
+console.log(objectInfos['A-2'].categoryKey)
+console.log(objectInfos['A-2'].categoryLabel)
+console.log(objectInfos['A-2'].status)
+```
+
 ### Event reports
 
 Want to know which seats of an event are booked, and which ones are free? That’s where reporting comes in handy.
