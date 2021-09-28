@@ -233,18 +233,18 @@ class Events {
 
     /**
      * @param {string} eventKey
-     * @param {string} obj
-     * @returns {Promise<ObjectInfo>}
+     * @param {string} label
+     * @returns {Promise<EventObjectInfo>}
      */
-    retrieveObjectInfo (eventKey, obj) {
-        return this.client.get(`events/${encodeURIComponent(eventKey)}/objects/${encodeURIComponent(obj)}`)
-            .then((res) => new EventObjectInfo(res.data))
+    async retrieveObjectInfo (eventKey, label) {
+        const result = await this.retrieveObjectInfos(eventKey, [label])
+        return result[label]
     }
 
     /**
      * @param {string} eventKey
      * @param {string[]} labels
-     * @returns {Promise<Map<String, ObjectInfo>>}
+     * @returns {Promise<Map<String, EventObjectInfo>>}
      */
     retrieveObjectInfos (eventKey, labels) {
         const params = new URLSearchParams()
