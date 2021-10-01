@@ -31,7 +31,7 @@
     "gulp-uglify": "latest",
     "gulp-uglify-es": "latest",
     "jest": "27.1.0",
-    "jest-cli": "27.1.0",
+    "jest-cli": "27.2.4",
     "uuid": "8.3.2"
   }
 }
