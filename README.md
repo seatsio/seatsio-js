@@ -246,7 +246,7 @@ When an API call results in an error, a rejected promise is returned with the re
 
 - `messages`: an array of error messages that the server returned. In most cases, this array will contain only one element.
 - `requestId`: the identifier of the request you made. Please mention this to us when you have questions, as it will make debugging easier.
-- 
+
 ## Rate limiting - exponential backoff
 
 This library supports [exponential backoff](https://en.wikipedia.org/wiki/Exponential_backoff).
