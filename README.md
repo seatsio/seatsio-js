@@ -241,6 +241,17 @@ let client = new SeatsioClient(Region.EU(), <COMPANY ADMIN KEY>)
 await client.workspaces.create('a workspace');
 ```
 
+### Creating a chart and an event with the company admin key
+
+```js
+import { SeatsioClient, Region } from 'seatsio'
+
+let client = new SeatsioClient(Region.EU(), <COMPANY ADMIN KEY>, <WORKSPACE PUBLIC KEY>)
+let chart = await client.charts.create()
+let event = await client.events.create(chart.key)
+console.log(`Created a chart with key ${chart.key} and an event with key: ${event.key}`)
+```
+
 ## Error Handling
 When an API call results in an error, a rejected promise is returned with the response received from the server. This response contains a message string describing what went wrong, and also two other properties:
 
