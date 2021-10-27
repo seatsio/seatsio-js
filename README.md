@@ -253,10 +253,16 @@ console.log(`Created a chart with key ${chart.key} and an event with key: ${even
 ```
 
 ## Error Handling
-When an API call results in an error, a rejected promise is returned with the response received from the server. This response contains a message string describing what went wrong, and also two other properties:
+When an API call results in an error, a rejected promise is returned with a value that looks like
 
-- `messages`: an array of error messages that the server returned. In most cases, this array will contain only one element.
-- `requestId`: the identifier of the request you made. Please mention this to us when you have questions, as it will make debugging easier.
+```json
+{
+  errors: [{ code: 'RATE_LIMIT_EXCEEDED', message: 'Rate limit exceeded' }],
+  messages: ['Rate limit exceeded'],
+  requestId: '123456',
+  status: 429
+}
+```
 
 ## Rate limiting - exponential backoff
 
