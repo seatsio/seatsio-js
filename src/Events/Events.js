@@ -277,7 +277,7 @@ class Events {
         const request = this.changeObjectStatusRequest(objectOrObjects, status, holdToken, orderId, keepExtraData, ignoreChannels, channelKeys, ignoreSocialDistancing)
         request.events = Array.isArray(eventKeyOrKeys) ? eventKeyOrKeys : [eventKeyOrKeys]
 
-        return this.client.post('/seasons/actions/change-object-status?expand=objects', request)
+        return this.client.post('/events/groups/actions/change-object-status?expand=objects', request)
             .then((res) => new ChangeObjectStatusResult(res.data.objects))
     }
 
