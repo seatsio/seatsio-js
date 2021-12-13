@@ -272,9 +272,11 @@ class Events {
      * @param {?string[]} channelKeys
      * @param {?boolean} ignoreSocialDistancing
      * @returns {Promise<ChangeObjectStatusResult>}
+     * @param {?string[]} allowedPreviousStatuses
+     * @param {?string[]} rejectedPreviousStatuses
      */
-    changeObjectStatus (eventKeyOrKeys, objectOrObjects, status, holdToken = null, orderId = null, keepExtraData = null, ignoreChannels = null, channelKeys = null, ignoreSocialDistancing = null) {
-        const request = this.changeObjectStatusRequest(objectOrObjects, status, holdToken, orderId, keepExtraData, ignoreChannels, channelKeys, ignoreSocialDistancing)
+    changeObjectStatus (eventKeyOrKeys, objectOrObjects, status, holdToken = null, orderId = null, keepExtraData = null, ignoreChannels = null, channelKeys = null, ignoreSocialDistancing = null, allowedPreviousStatuses = null, rejectedPreviousStatuses = null) {
+        const request = this.changeObjectStatusRequest(objectOrObjects, status, holdToken, orderId, keepExtraData, ignoreChannels, channelKeys, ignoreSocialDistancing, allowedPreviousStatuses, rejectedPreviousStatuses)
         request.events = Array.isArray(eventKeyOrKeys) ? eventKeyOrKeys : [eventKeyOrKeys]
 
         return this.client.post('/events/groups/actions/change-object-status?expand=objects', request)
@@ -287,7 +289,18 @@ class Events {
      */
     changeObjectStatusInBatch (statusChangeRequests) {
         const requests = statusChangeRequests.map(r => {
-            const json = this.changeObjectStatusRequest(r.objectOrObjects, r.status, r.holdToken, r.orderId, r.keepExtraData, r.ignoreChannels, r.channelKeys)
+            const json = this.changeObjectStatusRequest(
+                r.objectOrObjects,
+                r.status,
+                r.holdToken,
+                r.orderId,
+                r.keepExtraData,
+                r.ignoreChannels,
+                r.channelKeys,
+                null,
+                r.allowedPreviousStatuses,
+                r.rejectedPreviousStatuses
+            )
             json.event = r.eventKey
             return json
         })
@@ -297,7 +310,7 @@ class Events {
             .then((res) => res.data.results.map(r => new ChangeObjectStatusResult(r.objects)))
     }
 
-    changeObjectStatusRequest (objectOrObjects, status, holdToken, orderId, keepExtraData, ignoreChannels, channelKeys, ignoreSocialDistancing) {
+    changeObjectStatusRequest (objectOrObjects, status, holdToken, orderId, keepExtraData, ignoreChannels, channelKeys, ignoreSocialDistancing, allowedPreviousStatuses, rejectedPreviousStatuses) {
         const request = {}
         request.objects = this.normalizeObjects(objectOrObjects)
         request.status = status
@@ -318,6 +331,12 @@ class Events {
         }
         if (ignoreSocialDistancing !== null) {
             request.ignoreSocialDistancing = ignoreSocialDistancing
+        }
+        if (allowedPreviousStatuses !== null) {
+            request.allowedPreviousStatuses = allowedPreviousStatuses
+        }
+        if (rejectedPreviousStatuses !== null) {
+            request.rejectedPreviousStatuses = rejectedPreviousStatuses
         }
         return request
     }
