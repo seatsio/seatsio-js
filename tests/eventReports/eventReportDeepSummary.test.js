@@ -70,18 +70,18 @@ test('deepSummaryBySection', async () => {
     expect(report.NO_SECTION.byCategoryLabel.Cat1.bySelectability.not_selectable).toEqual(1)
 })
 
-test('deepSummaryBySelectability', async () => {
+test('deepSummaryByAvailability', async () => {
     const { client, user } = await testUtils.createTestUserAndClient()
     const chartKey = testUtils.getChartKey()
     await testUtils.createTestChart(chartKey, user.secretKey)
     const event = await client.events.create(chartKey)
     await client.events.book(event.key, (new ObjectProperties('A-1')))
 
-    const report = await client.eventReports.deepSummaryBySelectability(event.key)
+    const report = await client.eventReports.deepSummaryByAvailability(event.key)
 
-    expect(report.not_selectable.count).toEqual(1)
-    expect(report.not_selectable.byCategoryLabel.Cat1.count).toEqual(1)
-    expect(report.not_selectable.byCategoryLabel.Cat1.bySection.NO_SECTION).toEqual(1)
+    expect(report.not_available.count).toEqual(1)
+    expect(report.not_available.byCategoryLabel.Cat1.count).toEqual(1)
+    expect(report.not_available.byCategoryLabel.Cat1.bySection.NO_SECTION).toEqual(1)
 })
 
 test('deepSummaryByChannel', async () => {

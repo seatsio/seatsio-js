@@ -170,8 +170,8 @@ class EventReports {
      * @param {?string} selectability
      * @returns {Object.<string, ObjectInfo[]>}
      */
-    bySelectability (eventKey, selectability = null) {
-        return this.client.get(EventReports.reportUrl('bySelectability', eventKey, selectability))
+    byAvailability (eventKey, selectability = null) {
+        return this.client.get(EventReports.reportUrl('byAvailability', eventKey, selectability))
             .then((res) => utilities.createEventReport(res.data))
     }
 
@@ -179,8 +179,8 @@ class EventReports {
      * @param {string} eventKey
      * @returns {Object} JSON response from the server
      */
-    summaryBySelectability (eventKey) {
-        return this.client.get(EventReports.summaryReportUrl('bySelectability', eventKey))
+    summaryByAvailability (eventKey) {
+        return this.client.get(EventReports.summaryReportUrl('byAvailability', eventKey))
             .then((res) => res.data)
     }
 
@@ -188,8 +188,8 @@ class EventReports {
      * @param {string} eventKey
      * @returns {Object} JSON response from the server
      */
-    deepSummaryBySelectability (eventKey) {
-        return this.client.get(EventReports.deepSummaryReportUrl('bySelectability', eventKey))
+    deepSummaryByAvailability (eventKey) {
+        return this.client.get(EventReports.deepSummaryReportUrl('byAvailability', eventKey))
             .then((res) => res.data)
     }
 

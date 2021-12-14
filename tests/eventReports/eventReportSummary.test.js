@@ -17,6 +17,7 @@ test('summaryByStatus', async () => {
             count: 1,
             byCategoryKey: { 9: 1 },
             bySelectability: { not_selectable: 1 },
+            byAvailability: { not_available: 1 },
             byCategoryLabel: { Cat1: 1 },
             byChannel: { NO_CHANNEL: 1 }
         },
@@ -26,6 +27,7 @@ test('summaryByStatus', async () => {
             count: 231,
             byCategoryKey: { 9: 115, 10: 116 },
             bySelectability: { selectable: 231 },
+            byAvailability: { available: 231 },
             byCategoryLabel: { Cat2: 116, Cat1: 115 },
             byChannel: { NO_CHANNEL: 231 }
         }
@@ -47,6 +49,7 @@ test('summaryByObjectType', async () => {
             count: 32,
             byCategoryKey: { 9: 16, 10: 16 },
             bySelectability: { selectable: 32 },
+            byAvailability: { available: 32 },
             byCategoryLabel: { Cat1: 16, Cat2: 16 },
             byChannel: { NO_CHANNEL: 32 }
         },
@@ -56,6 +59,7 @@ test('summaryByObjectType', async () => {
             byStatus: { free: 200 },
             byCategoryKey: { 9: 100, 10: 100 },
             bySelectability: { selectable: 200 },
+            byAvailability: { available: 200 },
             byCategoryLabel: { Cat2: 100, Cat1: 100 },
             byChannel: { NO_CHANNEL: 200 }
         },
@@ -65,6 +69,7 @@ test('summaryByObjectType', async () => {
             byStatus: {},
             byCategoryKey: {},
             bySelectability: { },
+            byAvailability: { },
             byCategoryLabel: {},
             byChannel: { }
         },
@@ -74,6 +79,7 @@ test('summaryByObjectType', async () => {
             byStatus: {},
             byCategoryKey: {},
             bySelectability: { },
+            byAvailability: { },
             byCategoryLabel: {},
             byChannel: { }
         }
@@ -94,6 +100,7 @@ test('summaryByCategoryKey', async () => {
             count: 116,
             bySection: { NO_SECTION: 116 },
             bySelectability: { selectable: 115, not_selectable: 1 },
+            byAvailability: { available: 115, not_available: 1 },
             byStatus: { booked: 1, free: 115 },
             byChannel: { NO_CHANNEL: 116 },
             byObjectType: {
@@ -105,6 +112,7 @@ test('summaryByCategoryKey', async () => {
             count: 116,
             bySection: { NO_SECTION: 116 },
             bySelectability: { selectable: 116 },
+            byAvailability: { available: 116 },
             byStatus: { free: 116 },
             byChannel: { NO_CHANNEL: 116 },
             byObjectType: {
@@ -116,6 +124,7 @@ test('summaryByCategoryKey', async () => {
             count: 0,
             bySection: {},
             bySelectability: {},
+            byAvailability: { },
             byStatus: {},
             byChannel: {},
             byObjectType: {}
@@ -137,6 +146,7 @@ test('summaryByCategoryLabel', async () => {
             count: 116,
             bySection: { NO_SECTION: 116 },
             bySelectability: { selectable: 116 },
+            byAvailability: { available: 116 },
             byStatus: { free: 116 },
             byChannel: { NO_CHANNEL: 116 },
             byObjectType: {
@@ -148,6 +158,7 @@ test('summaryByCategoryLabel', async () => {
             count: 116,
             bySection: { NO_SECTION: 116 },
             bySelectability: { selectable: 115, not_selectable: 1 },
+            byAvailability: { available: 115, not_available: 1 },
             byStatus: { booked: 1, free: 115 },
             byChannel: { NO_CHANNEL: 116 },
             byObjectType: {
@@ -159,6 +170,7 @@ test('summaryByCategoryLabel', async () => {
             count: 0,
             bySection: {},
             bySelectability: {},
+            byAvailability: {},
             byStatus: {},
             byChannel: {},
             byObjectType: {}
@@ -179,6 +191,7 @@ test('summaryBySection', async () => {
             count: 232,
             byCategoryKey: { 9: 116, 10: 116 },
             bySelectability: { selectable: 231, not_selectable: 1 },
+            byAvailability: { available: 231, not_available: 1 },
             byStatus: { booked: 1, free: 231 },
             byCategoryLabel: { Cat2: 116, Cat1: 116 },
             byChannel: { NO_CHANNEL: 232 },
@@ -190,20 +203,21 @@ test('summaryBySection', async () => {
     })
 })
 
-test('summaryBySelectability', async () => {
+test('summaryByAvailability', async () => {
     const { client, user } = await testUtils.createTestUserAndClient()
     const chartKey = testUtils.getChartKey()
     await testUtils.createTestChart(chartKey, user.secretKey)
     const event = await client.events.create(chartKey)
     await client.events.book(event.key, (new ObjectProperties('A-1')))
 
-    const report = await client.eventReports.summaryBySelectability(event.key)
+    const report = await client.eventReports.summaryByAvailability(event.key)
 
     expect(report).toEqual({
-        selectable: {
+        available: {
             bySection: { NO_SECTION: 231 },
             count: 231,
             byCategoryKey: { 9: 115, 10: 116 },
+            bySelectability: { selectable: 231 },
             byStatus: { free: 231 },
             byCategoryLabel: { Cat2: 116, Cat1: 115 },
             byChannel: { NO_CHANNEL: 231 },
@@ -212,10 +226,11 @@ test('summaryBySelectability', async () => {
                 seat: 31
             }
         },
-        not_selectable: {
+        not_available: {
             bySection: { NO_SECTION: 1 },
             count: 1,
             byCategoryKey: { 9: 1 },
+            bySelectability: { not_selectable: 1 },
             byStatus: { booked: 1 },
             byCategoryLabel: { Cat1: 1 },
             byChannel: { NO_CHANNEL: 1 },
@@ -246,6 +261,7 @@ test('summaryByChannel', async () => {
             byStatus: { free: 230 },
             byCategoryLabel: { Cat2: 116, Cat1: 114 },
             bySelectability: { selectable: 230 },
+            byAvailability: { available: 230 },
             byObjectType: {
                 generalAdmission: 200,
                 seat: 30
@@ -258,6 +274,7 @@ test('summaryByChannel', async () => {
             byStatus: { free: 2 },
             byCategoryLabel: { Cat1: 2 },
             bySelectability: { selectable: 2 },
+            byAvailability: { available: 2 },
             byObjectType: {
                 seat: 2
             }

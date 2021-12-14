@@ -252,7 +252,7 @@ test('report by object type', async () => {
     expect(report.booth.length).toBe(0)
 })
 
-test('report by selectability', async () => {
+test('report by availability', async () => {
     const { client, user } = await testUtils.createTestUserAndClient()
     const chartKey = testUtils.getChartKey()
     await testUtils.createTestChart(chartKey, user.secretKey)
@@ -261,13 +261,13 @@ test('report by selectability', async () => {
     await client.events.book(event.key, 'A-2', null, 'order1')
     await client.events.book(event.key, 'A-3', null, 'order2')
 
-    const report = await client.eventReports.bySelectability(event.key)
+    const report = await client.eventReports.byAvailability(event.key)
 
-    expect(report.selectable.length).toBe(31)
-    expect(report.not_selectable.length).toBe(3)
+    expect(report.available.length).toBe(31)
+    expect(report.not_available.length).toBe(3)
 })
 
-test('report by specific selectability', async () => {
+test('report by specific availability', async () => {
     const { client, user } = await testUtils.createTestUserAndClient()
     const chartKey = testUtils.getChartKey()
     await testUtils.createTestChart(chartKey, user.secretKey)
@@ -276,9 +276,9 @@ test('report by specific selectability', async () => {
     await client.events.book(event.key, 'A-2', null, 'order1')
     await client.events.book(event.key, 'A-3', null, 'order2')
 
-    const report = await client.eventReports.bySelectability(event.key, 'selectable')
+    const report = await client.eventReports.byAvailability(event.key, 'available')
 
-    expect(report.selectable.length).toBe(31)
+    expect(report.available.length).toBe(31)
 })
 
 test('report by channel', async () => {
