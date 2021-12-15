@@ -71,3 +71,37 @@ test('should accept ignoreChannels', async () => {
 
     expect(result[0].objects['A-1'].status).toBe('lolzor')
 })
+
+test('should accept allowedPreviousStatuses', async () => {
+    const { client, user } = await testUtils.createTestUserAndClient()
+    const chartKey = testUtils.getChartKey()
+    await testUtils.createTestChart(chartKey, user.secretKey)
+    const event = await client.events.create(chartKey)
+
+    try {
+        await client.events.changeObjectStatusInBatch([
+            new StatusChangeRequest(event.key, ['A-1'], 'lolzor', null, null, null, null, null, ['MustBeThisStatus'], null)
+        ])
+        throw new Error('Should have failed')
+    } catch (e) {
+        expect(e.errors.length).toEqual(1)
+        expect(e.errors[0].code).toBe('ILLEGAL_STATUS_CHANGE')
+    }
+})
+
+test('should accept rejectedPreviousStatuses', async () => {
+    const { client, user } = await testUtils.createTestUserAndClient()
+    const chartKey = testUtils.getChartKey()
+    await testUtils.createTestChart(chartKey, user.secretKey)
+    const event = await client.events.create(chartKey)
+
+    try {
+        await client.events.changeObjectStatusInBatch([
+            new StatusChangeRequest(event.key, ['A-1'], 'lolzor', null, null, null, true, null, null, ['free'])
+        ])
+        throw new Error('Should have failed')
+    } catch (e) {
+        expect(e.errors.length).toEqual(1)
+        expect(e.errors[0].code).toBe('ILLEGAL_STATUS_CHANGE')
+    }
+})

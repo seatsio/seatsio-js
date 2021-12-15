@@ -228,3 +228,33 @@ test('should accept ignoreSocialDistancing', async () => {
     const objectInfo = await client.events.retrieveObjectInfo(event.key, 'A-1')
     expect(objectInfo.status).toBe(EventObjectInfo.BOOKED)
 })
+
+test('should accept allowedPreviousStatuses', async () => {
+    const { client, user } = await testUtils.createTestUserAndClient()
+    const chartKey = testUtils.getChartKey()
+    await testUtils.createTestChart(chartKey, user.secretKey)
+    const event = await client.events.create(chartKey)
+
+    try {
+        await client.events.changeObjectStatus(event.key, ['A-1'], EventObjectInfo.BOOKED, null, null, null, null, null, true, ['MustBeThisStatus'], null)
+        throw new Error('Should have failed')
+    } catch (e) {
+        expect(e.errors.length).toEqual(1)
+        expect(e.errors[0].code).toBe('ILLEGAL_STATUS_CHANGE')
+    }
+})
+
+test('should accept rejectedPreviousStatuses', async () => {
+    const { client, user } = await testUtils.createTestUserAndClient()
+    const chartKey = testUtils.getChartKey()
+    await testUtils.createTestChart(chartKey, user.secretKey)
+    const event = await client.events.create(chartKey)
+
+    try {
+        await client.events.changeObjectStatus(event.key, ['A-1'], EventObjectInfo.BOOKED, null, null, null, null, null, true, null, ['free'])
+        throw new Error('Should have failed')
+    } catch (e) {
+        expect(e.errors.length).toEqual(1)
+        expect(e.errors[0].code).toBe('ILLEGAL_STATUS_CHANGE')
+    }
+})
