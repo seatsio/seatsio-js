@@ -103,13 +103,9 @@ test('listAll Charts with expandEvents parameters', async () => {
 test('listAll Charts with expandEvents parameters and eventsLimit', async () => {
     const { client } = await testUtils.createTestUserAndClient()
     const chart1 = await client.charts.create()
-    const promises = [
-        client.events.create(chart1.key),
-        client.events.create(chart1.key),
-        client.events.create(chart1.key)
-    ]
-    const events = await Promise.all(promises)
-    const expectedEventKeys = [events[0].key, events[1].key]
+    const event1 = await client.events.create(chart1.key)
+    const event2 = await client.events.create(chart1.key)
+    const event3 = await client.events.create(chart1.key)
     const retrievedKeys = []
     const params = new ChartListParams().withExpandEvents(true).withEventsLimit(2)
 
@@ -119,7 +115,7 @@ test('listAll Charts with expandEvents parameters and eventsLimit', async () => 
         }
     }
 
-    expect(retrievedKeys.sort()).toEqual(expectedEventKeys.sort())
+    expect(retrievedKeys).toEqual([event3.key, event2.key])
 })
 
 test('list all charts with validation', async () => {
