@@ -257,10 +257,10 @@ When an API call results in an error, a rejected promise is returned with a valu
 
 ```json
 {
-  errors: [{ code: 'RATE_LIMIT_EXCEEDED', message: 'Rate limit exceeded' }],
-  messages: ['Rate limit exceeded'],
-  requestId: '123456',
-  status: 429
+  "errors": [{ code: "RATE_LIMIT_EXCEEDED", message: "Rate limit exceeded" }],
+  "messages": ["Rate limit exceeded"],
+  "requestId": "123456",
+  "status": 429
 }
 ```
 
