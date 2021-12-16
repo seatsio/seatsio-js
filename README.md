@@ -38,10 +38,31 @@ seatsio-js follows semver since v54.4.0.
 
 Please note that any version below v2 is not production ready.
 
-## Examples
+## Usage
+
+### General instructions
+
+To use this library, you'll need to create a `SeatsioClient`:
+
+```js
+import { SeatsioClient, Region } from 'seatsio'
+
+let client = new SeatsioClient(Region.EU(), <WORKSPACE SECRET KEY>)
+...
+```
+
+You can find your _workspace secret key_ in the Settings section of your workspace: https://app.seats.io/workspace-settings. It is important that you keep your _secret key_ private and not expose it in-browser calls unless it is password protected.
+
+The region should correspond to the region of your account:
+
+- `Region.EU()`: Europe
+- `Region.NA()`: North-America
+- `Region.SA()`: South-America
+- `Region.OC()`: Oceania
+
+If you're unsure about your region, have a look at your [company settings page](https://app.seats.io/company-settings).
 
 ### Creating a chart and an event
-Once you create a new `SeatsioClient` using your _secret key_, you can create _charts_ and then _events_. You can find your _secret key_ in the Settings section of your workspace: https://app.seats.io/workspace-settings. It is important that you keep your _secret key_ private and not expose it in-browser calls unless it is password protected.
 
 ```js
 import { SeatsioClient, Region } from 'seatsio'
