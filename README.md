@@ -51,7 +51,7 @@ let client = new SeatsioClient(Region.EU(), <WORKSPACE SECRET KEY>)
 ...
 ```
 
-You can find your _workspace secret key_ in the Settings section of your workspace: https://app.seats.io/workspace-settings. It is important that you keep your _secret key_ private and not expose it in-browser calls unless it is password protected.
+You can find your _workspace secret key_ in the [settings section of your workspace](https://app.seats.io/workspace-settings). It is important that you keep your _secret key_ private and not expose it in-browser calls unless it is password protected.
 
 The region should correspond to the region of your account:
 
