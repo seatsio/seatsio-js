@@ -308,7 +308,7 @@ test('report by specific availability reason', async () => {
 
     const report = await client.eventReports.byAvailabilityReason(event.key, 'booked')
 
-    expect(report.available.length).toBe(3)
+    expect(report.booked.length).toBe(3)
 })
 
 test('report by channel', async () => {
