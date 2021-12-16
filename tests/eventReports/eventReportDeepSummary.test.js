@@ -84,6 +84,20 @@ test('deepSummaryByAvailability', async () => {
     expect(report.not_available.byCategoryLabel.Cat1.bySection.NO_SECTION).toEqual(1)
 })
 
+test('deepSummaryByAvailabilityReason', async () => {
+    const { client, user } = await testUtils.createTestUserAndClient()
+    const chartKey = testUtils.getChartKey()
+    await testUtils.createTestChart(chartKey, user.secretKey)
+    const event = await client.events.create(chartKey)
+    await client.events.book(event.key, (new ObjectProperties('A-1')))
+
+    const report = await client.eventReports.deepSummaryByAvailabilityReason(event.key)
+
+    expect(report.booked.count).toEqual(1)
+    expect(report.booked.byCategoryLabel.Cat1.count).toEqual(1)
+    expect(report.booked.byCategoryLabel.Cat1.bySection.NO_SECTION).toEqual(1)
+})
+
 test('deepSummaryByChannel', async () => {
     const { client, user } = await testUtils.createTestUserAndClient()
     const chartKey = testUtils.getChartKey()

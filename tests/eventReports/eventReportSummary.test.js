@@ -18,6 +18,7 @@ test('summaryByStatus', async () => {
             byCategoryKey: { 9: 1 },
             bySelectability: { not_selectable: 1 },
             byAvailability: { not_available: 1 },
+            byAvailabilityReason: { booked: 1 },
             byCategoryLabel: { Cat1: 1 },
             byChannel: { NO_CHANNEL: 1 }
         },
@@ -28,6 +29,7 @@ test('summaryByStatus', async () => {
             byCategoryKey: { 9: 115, 10: 116 },
             bySelectability: { selectable: 231 },
             byAvailability: { available: 231 },
+            byAvailabilityReason: { available: 231 },
             byCategoryLabel: { Cat2: 116, Cat1: 115 },
             byChannel: { NO_CHANNEL: 231 }
         }
@@ -50,6 +52,7 @@ test('summaryByObjectType', async () => {
             byCategoryKey: { 9: 16, 10: 16 },
             bySelectability: { selectable: 32 },
             byAvailability: { available: 32 },
+            byAvailabilityReason: { available: 32 },
             byCategoryLabel: { Cat1: 16, Cat2: 16 },
             byChannel: { NO_CHANNEL: 32 }
         },
@@ -60,28 +63,31 @@ test('summaryByObjectType', async () => {
             byCategoryKey: { 9: 100, 10: 100 },
             bySelectability: { selectable: 200 },
             byAvailability: { available: 200 },
+            byAvailabilityReason: { available: 200 },
             byCategoryLabel: { Cat2: 100, Cat1: 100 },
             byChannel: { NO_CHANNEL: 200 }
         },
         table: {
             count: 0,
-            bySection: { },
+            bySection: {},
             byStatus: {},
             byCategoryKey: {},
-            bySelectability: { },
-            byAvailability: { },
+            bySelectability: {},
+            byAvailability: {},
+            byAvailabilityReason: {},
             byCategoryLabel: {},
-            byChannel: { }
+            byChannel: {}
         },
         booth: {
             count: 0,
-            bySection: { },
+            bySection: {},
             byStatus: {},
             byCategoryKey: {},
-            bySelectability: { },
-            byAvailability: { },
+            bySelectability: {},
+            byAvailability: {},
+            byAvailabilityReason: {},
             byCategoryLabel: {},
-            byChannel: { }
+            byChannel: {}
         }
     })
 })
@@ -101,6 +107,7 @@ test('summaryByCategoryKey', async () => {
             bySection: { NO_SECTION: 116 },
             bySelectability: { selectable: 115, not_selectable: 1 },
             byAvailability: { available: 115, not_available: 1 },
+            byAvailabilityReason: { available: 115, booked: 1 },
             byStatus: { booked: 1, free: 115 },
             byChannel: { NO_CHANNEL: 116 },
             byObjectType: {
@@ -113,6 +120,7 @@ test('summaryByCategoryKey', async () => {
             bySection: { NO_SECTION: 116 },
             bySelectability: { selectable: 116 },
             byAvailability: { available: 116 },
+            byAvailabilityReason: { available: 116 },
             byStatus: { free: 116 },
             byChannel: { NO_CHANNEL: 116 },
             byObjectType: {
@@ -124,7 +132,8 @@ test('summaryByCategoryKey', async () => {
             count: 0,
             bySection: {},
             bySelectability: {},
-            byAvailability: { },
+            byAvailability: {},
+            byAvailabilityReason: { },
             byStatus: {},
             byChannel: {},
             byObjectType: {}
@@ -147,6 +156,7 @@ test('summaryByCategoryLabel', async () => {
             bySection: { NO_SECTION: 116 },
             bySelectability: { selectable: 116 },
             byAvailability: { available: 116 },
+            byAvailabilityReason: { available: 116 },
             byStatus: { free: 116 },
             byChannel: { NO_CHANNEL: 116 },
             byObjectType: {
@@ -159,6 +169,7 @@ test('summaryByCategoryLabel', async () => {
             bySection: { NO_SECTION: 116 },
             bySelectability: { selectable: 115, not_selectable: 1 },
             byAvailability: { available: 115, not_available: 1 },
+            byAvailabilityReason: { available: 115, booked: 1 },
             byStatus: { booked: 1, free: 115 },
             byChannel: { NO_CHANNEL: 116 },
             byObjectType: {
@@ -171,6 +182,7 @@ test('summaryByCategoryLabel', async () => {
             bySection: {},
             bySelectability: {},
             byAvailability: {},
+            byAvailabilityReason: { },
             byStatus: {},
             byChannel: {},
             byObjectType: {}
@@ -192,6 +204,7 @@ test('summaryBySection', async () => {
             byCategoryKey: { 9: 116, 10: 116 },
             bySelectability: { selectable: 231, not_selectable: 1 },
             byAvailability: { available: 231, not_available: 1 },
+            byAvailabilityReason: { available: 231, booked: 1 },
             byStatus: { booked: 1, free: 231 },
             byCategoryLabel: { Cat2: 116, Cat1: 116 },
             byChannel: { NO_CHANNEL: 232 },
@@ -218,6 +231,7 @@ test('summaryByAvailability', async () => {
             count: 231,
             byCategoryKey: { 9: 115, 10: 116 },
             bySelectability: { selectable: 231 },
+            byAvailabilityReason: { available: 231 },
             byStatus: { free: 231 },
             byCategoryLabel: { Cat2: 116, Cat1: 115 },
             byChannel: { NO_CHANNEL: 231 },
@@ -231,12 +245,86 @@ test('summaryByAvailability', async () => {
             count: 1,
             byCategoryKey: { 9: 1 },
             bySelectability: { not_selectable: 1 },
+            byAvailabilityReason: { booked: 1 },
             byStatus: { booked: 1 },
             byCategoryLabel: { Cat1: 1 },
             byChannel: { NO_CHANNEL: 1 },
             byObjectType: {
                 seat: 1
             }
+        }
+    })
+})
+
+test('summaryByAvailabilityReason', async () => {
+    const { client, user } = await testUtils.createTestUserAndClient()
+    const chartKey = testUtils.getChartKey()
+    await testUtils.createTestChart(chartKey, user.secretKey)
+    const event = await client.events.create(chartKey)
+    await client.events.book(event.key, (new ObjectProperties('A-1')))
+
+    const report = await client.eventReports.summaryByAvailabilityReason(event.key)
+
+    expect(report).toEqual({
+        available: {
+            bySection: { NO_SECTION: 231 },
+            count: 231,
+            byCategoryKey: { 9: 115, 10: 116 },
+            bySelectability: { selectable: 231 },
+            byAvailability: { available: 231 },
+            byStatus: { free: 231 },
+            byCategoryLabel: { Cat2: 116, Cat1: 115 },
+            byChannel: { NO_CHANNEL: 231 },
+            byObjectType: {
+                generalAdmission: 200,
+                seat: 31
+            }
+        },
+        booked: {
+            bySection: { NO_SECTION: 1 },
+            count: 1,
+            byCategoryKey: { 9: 1 },
+            bySelectability: { not_selectable: 1 },
+            byAvailability: { not_available: 1 },
+            byStatus: { booked: 1 },
+            byCategoryLabel: { Cat1: 1 },
+            byChannel: { NO_CHANNEL: 1 },
+            byObjectType: {
+                seat: 1
+            }
+        },
+        disabled_by_social_distancing: {
+            count: 0,
+            bySection: { },
+            byCategoryKey: { },
+            bySelectability: { },
+            byAvailability: { },
+            byStatus: { },
+            byCategoryLabel: { },
+            byChannel: { },
+            byObjectType: {}
+        },
+        not_for_sale: {
+            count: 0,
+            bySection: { },
+            byCategoryKey: { },
+            bySelectability: { },
+            byAvailability: { },
+            byStatus: { },
+            byCategoryLabel: { },
+            byChannel: { },
+            byObjectType: {}
+        },
+        reservedByToken: {
+            count: 0,
+            bySection: { },
+            byCategoryKey: { },
+            bySelectability: { },
+            byAvailability: { },
+            byStatus: { },
+            byCategoryLabel: { },
+            byChannel: { },
+            byObjectType: {}
         }
     })
 })
@@ -261,6 +349,7 @@ test('summaryByChannel', async () => {
             byStatus: { free: 230 },
             byCategoryLabel: { Cat2: 116, Cat1: 114 },
             bySelectability: { selectable: 230 },
+            byAvailabilityReason: { available: 230 },
             byAvailability: { available: 230 },
             byObjectType: {
                 generalAdmission: 200,
@@ -275,6 +364,7 @@ test('summaryByChannel', async () => {
             byCategoryLabel: { Cat1: 2 },
             bySelectability: { selectable: 2 },
             byAvailability: { available: 2 },
+            byAvailabilityReason: { available: 2 },
             byObjectType: {
                 seat: 2
             }

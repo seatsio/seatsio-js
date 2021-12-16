@@ -167,11 +167,21 @@ class EventReports {
 
     /**
      * @param {string} eventKey
-     * @param {?string} selectability
+     * @param {?string} availability
      * @returns {Object.<string, ObjectInfo[]>}
      */
-    byAvailability (eventKey, selectability = null) {
-        return this.client.get(EventReports.reportUrl('byAvailability', eventKey, selectability))
+    byAvailability (eventKey, availability = null) {
+        return this.client.get(EventReports.reportUrl('byAvailability', eventKey, availability))
+            .then((res) => utilities.createEventReport(res.data))
+    }
+
+    /**
+     * @param {string} eventKey
+     * @param {?string} availabilityReason
+     * @returns {Object.<string, ObjectInfo[]>}
+     */
+    byAvailabilityReason (eventKey, availabilityReason = null) {
+        return this.client.get(EventReports.reportUrl('byAvailabilityReason', eventKey, availabilityReason))
             .then((res) => utilities.createEventReport(res.data))
     }
 
@@ -188,8 +198,26 @@ class EventReports {
      * @param {string} eventKey
      * @returns {Object} JSON response from the server
      */
+    summaryByAvailabilityReason (eventKey) {
+        return this.client.get(EventReports.summaryReportUrl('byAvailabilityReason', eventKey))
+            .then((res) => res.data)
+    }
+
+    /**
+     * @param {string} eventKey
+     * @returns {Object} JSON response from the server
+     */
     deepSummaryByAvailability (eventKey) {
         return this.client.get(EventReports.deepSummaryReportUrl('byAvailability', eventKey))
+            .then((res) => res.data)
+    }
+
+    /**
+     * @param {string} eventKey
+     * @returns {Object} JSON response from the server
+     */
+    deepSummaryByAvailabilityReason (eventKey) {
+        return this.client.get(EventReports.deepSummaryReportUrl('byAvailabilityReason', eventKey))
             .then((res) => res.data)
     }
 

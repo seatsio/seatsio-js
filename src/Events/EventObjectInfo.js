@@ -31,7 +31,8 @@ class EventObjectInfo {
         this.displayedObjectType = report.displayedObjectType
         this.leftNeighbour = report.leftNeighbour
         this.rightNeighbour = report.rightNeighbour
-        this.isSelectable = report.isSelectable
+        this.isAvailable = report.isAvailable
+        this.availabilityReason = report.availabilityReason
         this.isDisabledBySocialDistancing = report.isDisabledBySocialDistancing
         this.channel = report.channel
         this.distanceToFocalPoint = report.distanceToFocalPoint

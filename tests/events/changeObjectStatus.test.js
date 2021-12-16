@@ -26,7 +26,8 @@ test('should change object status', async () => {
             hasRestrictedView: false,
             isCompanionSeat: false,
             rightNeighbour: 'A-2',
-            isSelectable: false,
+            isAvailable: false,
+            availabilityReason: 'lolzor',
             isDisabledBySocialDistancing: false,
             distanceToFocalPoint: 79.43847425150014
         }

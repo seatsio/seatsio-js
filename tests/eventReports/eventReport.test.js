@@ -37,7 +37,8 @@ test('report properties', async () => {
     expect(reportItem.displayedObjectType).toBe(undefined)
     expect(reportItem.leftNeighbour).toBe(undefined)
     expect(reportItem.rightNeighbour).toBe('A-2')
-    expect(reportItem.isSelectable).toBe(false)
+    expect(reportItem.isAvailable).toBe(false)
+    expect(reportItem.availabilityReason).toBe('booked')
     expect(reportItem.isDisabledBySocialDistancing).toBe(false)
     expect(reportItem.bookAsAWhole).toBe(undefined)
     expect(reportItem.distanceToFocalPoint).toBeTruthy()
@@ -279,6 +280,35 @@ test('report by specific availability', async () => {
     const report = await client.eventReports.byAvailability(event.key, 'available')
 
     expect(report.available.length).toBe(31)
+})
+
+test('report by availability reason', async () => {
+    const { client, user } = await testUtils.createTestUserAndClient()
+    const chartKey = testUtils.getChartKey()
+    await testUtils.createTestChart(chartKey, user.secretKey)
+    const event = await client.events.create(chartKey)
+    await client.events.book(event.key, 'A-1', null, 'order1')
+    await client.events.book(event.key, 'A-2', null, 'order1')
+    await client.events.book(event.key, 'A-3', null, 'order2')
+
+    const report = await client.eventReports.byAvailabilityReason(event.key)
+
+    expect(report.available.length).toBe(31)
+    expect(report.booked.length).toBe(3)
+})
+
+test('report by specific availability reason', async () => {
+    const { client, user } = await testUtils.createTestUserAndClient()
+    const chartKey = testUtils.getChartKey()
+    await testUtils.createTestChart(chartKey, user.secretKey)
+    const event = await client.events.create(chartKey)
+    await client.events.book(event.key, 'A-1', null, 'order1')
+    await client.events.book(event.key, 'A-2', null, 'order1')
+    await client.events.book(event.key, 'A-3', null, 'order2')
+
+    const report = await client.eventReports.byAvailabilityReason(event.key, 'booked')
+
+    expect(report.available.length).toBe(3)
 })
 
 test('report by channel', async () => {
