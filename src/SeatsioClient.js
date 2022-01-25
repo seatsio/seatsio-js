@@ -11,6 +11,7 @@ const EventReports = require('./Reports/EventReports.js')
 const UsageReports = require('./Reports/UsageReports.js')
 const errorResponseHandler = require('./errorInterceptor.js')
 const Axios = require('axios')
+const Seasons = require('./Seasons/Seasons')
 
 class SeatsioClient {
     constructor (region, secretKey, workspaceKey = null, extraHeaders = {}) {
@@ -32,6 +33,7 @@ class SeatsioClient {
         this.chartReports = new ChartReports(this.client)
         this.eventReports = new EventReports(this.client)
         this.usageReports = new UsageReports(this.client)
+        this.seasons = new Seasons(this.client)
     }
 
     _axiosConfig (baseUrl, secretKey, workspaceKey, extraHeaders) {

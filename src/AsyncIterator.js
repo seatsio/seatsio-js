@@ -5,6 +5,7 @@ const Event = require('./Events/Event.js')
 const User = require('./Users/User.js')
 const Subaccount = require('./Subaccounts/Subaccount.js')
 const Workspace = require('./Workspaces/Workspace.js')
+const Season = require('./Seasons/Season')
 
 class AsyncIterator {
     /**
@@ -43,6 +44,16 @@ class AsyncIterator {
             events.push(event)
         })
         this.pages.push(new Page(events, data.next_page_starts_after, data.previous_page_ends_before))
+    }
+
+    seasons (data) {
+        const seasons = []
+        data.items.forEach(seasonData => {
+            const season = new Season(seasonData)
+            this.items.push(season)
+            seasons.push(season)
+        })
+        this.pages.push(new Page(seasons, data.next_page_starts_after, data.previous_page_ends_before))
     }
 
     statusChanges (data) {
@@ -101,6 +112,9 @@ class AsyncIterator {
                     break
                 case 'events':
                     this.events(res.data)
+                    break
+                case 'seasons':
+                    this.seasons(res.data)
                     break
                 case 'statusChanges':
                     this.statusChanges(res.data)
