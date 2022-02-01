@@ -119,3 +119,14 @@ test('get report byCategoryLabel', async () => {
     expect(report.Cat1.length).toBe(17)
     expect(report.Cat2.length).toBe(17)
 })
+
+test('get report bySection', async () => {
+    const { client, user } = await testUtils.createTestUserAndClient()
+    const chartKey = testUtils.getChartKey()
+    await testUtils.createTestChartWithSections(chartKey, user.secretKey)
+
+    const report = await client.chartReports.bySection(chartKey)
+
+    expect(report['Section A'].length).toBe(36)
+    expect(report['Section B'].length).toBe(35)
+})
