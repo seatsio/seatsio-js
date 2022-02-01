@@ -25,11 +25,11 @@ class ChartReports {
 
     /**
      * @param {string} chartKey
+     * @param {string} bookWholeTables
      * @returns {Object} JSON response from the server
      */
-    summaryByObjectType (chartKey) {
-        return this.client.get(ChartReports.summaryReportUrl('byObjectType', chartKey))
-            .then((res) => res.data)
+    summaryByObjectType (chartKey, bookWholeTables = undefined) {
+        return this.fetchSummaryReport('byObjectType', chartKey, bookWholeTables)
     }
 
     /**
@@ -43,11 +43,11 @@ class ChartReports {
 
     /**
      * @param {string} chartKey
+     * @param {string} bookWholeTables
      * @returns {Object} JSON response from the server
      */
-    summaryByCategoryLabel (chartKey) {
-        return this.client.get(ChartReports.summaryReportUrl('byCategoryLabel', chartKey))
-            .then((res) => res.data)
+    summaryByCategoryLabel (chartKey, bookWholeTables = undefined) {
+        return this.fetchSummaryReport('byCategoryLabel', chartKey, bookWholeTables)
     }
 
     /**
@@ -61,11 +61,11 @@ class ChartReports {
 
     /**
      * @param {string} chartKey
+     * @param {string} bookWholeTables
      * @returns {Object} JSON response from the server
      */
-    summaryByCategoryKey (chartKey) {
-        return this.client.get(ChartReports.summaryReportUrl('byCategoryKey', chartKey))
-            .then((res) => res.data)
+    summaryByCategoryKey (chartKey, bookWholeTables = undefined) {
+        return this.fetchSummaryReport('byCategoryKey', chartKey, bookWholeTables)
     }
 
     /**
@@ -79,20 +79,21 @@ class ChartReports {
 
     /**
      * @param {string} chartKey
+     * @param {string} bookWholeTables
      * @returns {Object} JSON response from the server
      */
-    summaryBySection (chartKey) {
-        return this.client.get(ChartReports.summaryReportUrl('bySection', chartKey))
-            .then((res) => res.data)
+    summaryBySection (chartKey, bookWholeTables = undefined) {
+        return this.fetchSummaryReport('bySection', chartKey, bookWholeTables)
     }
 
-    fetchReport (reportType, eventKey, bookWholeTables) {
-        return this.client.get(`/reports/charts/${encodeURIComponent(eventKey)}/${reportType}`, { params: { bookWholeTables } })
+    fetchReport (reportType, chartKey, bookWholeTables) {
+        return this.client.get(`/reports/charts/${encodeURIComponent(chartKey)}/${reportType}`, { params: { bookWholeTables } })
             .then((res) => utilities.createChartReport(res.data))
     }
 
-    static summaryReportUrl (reportType, eventKey) {
-        return `/reports/charts/${encodeURIComponent(eventKey)}/${reportType}/summary`
+    fetchSummaryReport (reportType, chartKey, bookWholeTables) {
+        return this.client.get(`/reports/charts/${encodeURIComponent(chartKey)}/${reportType}/summary`, { params: { bookWholeTables } })
+            .then((res) => res.data)
     }
 }
 

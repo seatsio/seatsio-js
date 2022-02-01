@@ -35,6 +35,41 @@ test('summaryByObjectType', async () => {
     })
 })
 
+test('summaryByObjectType_bookWholeTablesTrue', async () => {
+    const { client, user } = await testUtils.createTestUserAndClient()
+    const chartKey = testUtils.getChartKey()
+    await testUtils.createTestChartWithTables(chartKey, user.secretKey)
+
+    const report = await client.chartReports.summaryByObjectType(chartKey, 'true')
+
+    expect(report).toEqual({
+        seat: {
+            count: 0,
+            bySection: {},
+            byCategoryKey: {},
+            byCategoryLabel: {}
+        },
+        generalAdmission: {
+            count: 0,
+            bySection: {},
+            byCategoryKey: {},
+            byCategoryLabel: {}
+        },
+        table: {
+            count: 2,
+            bySection: { NO_SECTION: 2 },
+            byCategoryKey: { 9: 2 },
+            byCategoryLabel: { Cat1: 2 }
+        },
+        booth: {
+            count: 0,
+            bySection: {},
+            byCategoryKey: {},
+            byCategoryLabel: {}
+        }
+    })
+})
+
 test('summaryByCategoryKey', async () => {
     const { client, user } = await testUtils.createTestUserAndClient()
     const chartKey = testUtils.getChartKey()
