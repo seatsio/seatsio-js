@@ -1,11 +1,12 @@
 const testUtils = require('../testUtils.js')
 const TableBookingConfig = require('../../src/Events/TableBookingConfig')
+const SeasonParams = require('../../src/Seasons/SeasonParams')
 
 test('retrieve season', async () => {
     const { client, user } = await testUtils.createTestUserAndClient()
     const chartKey = testUtils.getChartKey()
     await testUtils.createTestChart(chartKey, user.secretKey)
-    const season = await client.seasons.create(chartKey, null, null, ['event1', 'event2'])
+    const season = await client.seasons.create(chartKey, new SeasonParams().eventKeys(['event1', 'event2']))
     const partialSeason1 = await client.seasons.createPartialSeason(season.key)
     const partialSeason2 = await client.seasons.createPartialSeason(season.key)
 

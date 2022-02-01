@@ -12,36 +12,34 @@ class Seasons {
 
     /**
      * @param {string} chartKey
-     * @param {?string} key
-     * @param {?number} numberOfEvents
-     * @param {?string[]} eventKeys
-     * @param {?TableBookingConfig} tableBookingConfig
-     * @param {?string} socialDistancingRulesetKey
+     * @param {?seasonParams} SeasonParams
      * @returns {Promise<Season>}
      */
-    create (chartKey, key = null, numberOfEvents = null, eventKeys = null, tableBookingConfig = null, socialDistancingRulesetKey = null) {
+    create (chartKey, seasonParams = null) {
         const requestParameters = {}
 
         requestParameters.chartKey = chartKey
 
-        if (key !== null) {
-            requestParameters.key = key
-        }
+        if (seasonParams !== null) {
+            if (seasonParams._key !== null) {
+                requestParameters.key = seasonParams._key
+            }
 
-        if (numberOfEvents !== null) {
-            requestParameters.numberOfEvents = numberOfEvents
-        }
+            if (seasonParams._numberOfEvents !== null) {
+                requestParameters.numberOfEvents = seasonParams._numberOfEvents
+            }
 
-        if (eventKeys !== null) {
-            requestParameters.eventKeys = eventKeys
-        }
+            if (seasonParams._eventKeys !== null) {
+                requestParameters.eventKeys = seasonParams._eventKeys
+            }
 
-        if (tableBookingConfig !== null) {
-            requestParameters.tableBookingConfig = tableBookingConfig
-        }
+            if (seasonParams._tableBookingConfig !== null) {
+                requestParameters.tableBookingConfig = seasonParams._tableBookingConfig
+            }
 
-        if (socialDistancingRulesetKey !== null) {
-            requestParameters.socialDistancingRulesetKey = socialDistancingRulesetKey
+            if (seasonParams._socialDistancingRulesetKey !== null) {
+                requestParameters.socialDistancingRulesetKey = seasonParams._socialDistancingRulesetKey
+            }
         }
 
         return this.client.post('/seasons', requestParameters)
