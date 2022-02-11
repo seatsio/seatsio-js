@@ -174,6 +174,8 @@ test('properties of status changes', async () => {
     expect(statusChange.value.eventId).toBe(event.id)
     expect(statusChange.value.extraData).toEqual({ foo: 'bar' })
     expect(statusChange.value.origin.type).toBe('API_CALL')
+    expect(statusChange.value.displayedLabel).toBe('A-1')
+    expect(statusChange.value.isPresentOnChart).toBe(true)
 })
 
 test('should list status changes with hold token', async () => {
