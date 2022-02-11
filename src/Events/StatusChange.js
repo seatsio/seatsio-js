@@ -13,6 +13,8 @@ class StatusChange {
         this.extraData = statusChange.extraData ? statusChange.extraData : null
         this.holdToken = statusChange.holdToken ? statusChange.holdToken : null
         this.origin = statusChange.origin
+        this.isPresentOnChart = statusChange.isPresentOnChart
+        this.displayedLabel = statusChange.displayedLabel ? statusChange.displayedLabel : null
     }
 }
 
