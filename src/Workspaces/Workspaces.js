@@ -4,7 +4,7 @@ const Workspace = require('./Workspace.js')
 
 class Workspaces {
     /**
-     * @param {SeatsioClient} client
+     * @param {Axios} client
      */
     constructor (client) {
         this.client = client

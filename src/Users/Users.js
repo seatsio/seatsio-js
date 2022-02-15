@@ -4,7 +4,7 @@ const User = require('./User.js')
 
 class Users {
     /**
-     * @param {SeatsioClient} client
+     * @param {Axios} client
      */
     constructor (client) {
         this.client = client

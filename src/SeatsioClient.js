@@ -23,7 +23,7 @@ class SeatsioClient {
         this.errInterceptor = this.client.interceptors.response.use(response => response, errorResponseHandler)
 
         this.charts = new Charts(this.client)
-        this.events = new Events(this.client)
+        this.events = new Events(this.client, this)
         this.subaccounts = new Subaccounts(this.client)
         this.workspaces = new Workspaces(this.client)
         this.users = new Users(this.client)
@@ -33,7 +33,7 @@ class SeatsioClient {
         this.chartReports = new ChartReports(this.client)
         this.eventReports = new EventReports(this.client)
         this.usageReports = new UsageReports(this.client)
-        this.seasons = new Seasons(this.client)
+        this.seasons = new Seasons(this.client, this)
     }
 
     _axiosConfig (baseUrl, secretKey, workspaceKey, extraHeaders) {

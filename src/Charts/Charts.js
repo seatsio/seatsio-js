@@ -4,7 +4,7 @@ const Chart = require('./Chart.js')
 
 class Charts {
     /**
-     * @param {SeatsioClient} client
+     * @param {Axios} client
      */
     constructor (client) {
         this.client = client

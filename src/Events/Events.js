@@ -4,11 +4,11 @@ const EventObjectInfo = require('./EventObjectInfo.js')
 const StatusChange = require('./StatusChange.js')
 const BestAvailableObjects = require('./BestAvailableObjects.js')
 const ChangeObjectStatusResult = require('./ChangeObjectStatusResult.js')
-const Event = require('./Event.js')
+const EventDeserializer = require('./EventDeserializer')
 
 class Events {
     /**
-     * @param {SeatsioClient} client
+     * @param {Axios} client
      */
     constructor (client) {
         this.client = client
@@ -40,7 +40,7 @@ class Events {
         }
 
         return this.client.post('/events', requestParameters)
-            .then((res) => new Event(res.data))
+            .then((res) => new EventDeserializer().fromJson(res.data))
     }
 
     /**
@@ -49,7 +49,7 @@ class Events {
      */
     retrieve (eventKey) {
         return this.client.get(`/events/${encodeURIComponent(eventKey)}`)
-            .then((res) => new Event(res.data))
+            .then((res) => new EventDeserializer().fromJson(res.data))
     }
 
     updateChannels (eventKey, channels) {
@@ -137,7 +137,7 @@ class Events {
      */
     iterator () {
         return new Lister('/events', this.client, 'events', (data) => {
-            const events = data.items.map(eventData => new Event(eventData))
+            const events = data.items.map(eventData => new EventDeserializer().fromJson(eventData))
             return new Page(events, data.next_page_starts_after, data.previous_page_ends_before)
         })
     }

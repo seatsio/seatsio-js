@@ -2,7 +2,7 @@ const Invitation = require('./Invitation.js')
 
 class Invitations {
     /**
-     * @param {SeatsioClient} client
+     * @param {Axios} client
      */
     constructor (client) {
         this.client = client

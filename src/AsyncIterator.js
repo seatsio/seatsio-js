@@ -1,16 +1,16 @@
 const Page = require('./Page.js')
 const StatusChange = require('./Events/StatusChange.js')
 const Chart = require('./Charts/Chart.js')
-const Event = require('./Events/Event.js')
 const User = require('./Users/User.js')
 const Subaccount = require('./Subaccounts/Subaccount.js')
 const Workspace = require('./Workspaces/Workspace.js')
 const Season = require('./Seasons/Season')
+const EventDeserializer = require('./Events/EventDeserializer')
 
 class AsyncIterator {
     /**
      * @param {string} url
-     * @param {SeatsioClient} client
+     * @param {Axios} client
      * @param {string} objType
      * @param {object} params
      */
@@ -39,7 +39,7 @@ class AsyncIterator {
     events (data) {
         const events = []
         data.items.forEach(eventData => {
-            const event = new Event(eventData)
+            const event = new EventDeserializer().fromJson(eventData)
             this.items.push(event)
             events.push(event)
         })
