@@ -17,6 +17,10 @@ class Event {
         this.channels = event.channels ? event.channels.map(c => new Channel(c)) : null
         this.socialDistancingRulesetKey = event.socialDistancingRulesetKey
     }
+
+    isSeason () {
+        return false
+    }
 }
 
 module.exports = Event

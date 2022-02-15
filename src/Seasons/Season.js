@@ -1,15 +1,17 @@
 const Event = require('../Events/Event.js')
 
-class Season {
+class Season extends Event {
     /**
      * @param {object} season
      */
     constructor (season) {
-        this.id = season.id
-        this.key = season.key
-        this.seasonEvent = new Event(season.seasonEvent)
+        super(season)
         this.partialSeasonKeys = season.partialSeasonKeys
-        this.events = season.events.map(e => new Event(e))
+        this.events = season.events ? season.events.map(e => new Event(e)) : undefined
+    }
+
+    isSeason () {
+        return true
     }
 }
 

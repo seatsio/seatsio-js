@@ -1,6 +1,6 @@
-const Event = require('../Events/Event.js')
 const ChartValidation = require('./ChartValidation')
 const SocialDistancingRuleset = require('./SocialDistancingRuleset')
+const EventDeserializer = require('../Events/EventDeserializer')
 
 class Chart {
     /**
@@ -14,7 +14,7 @@ class Chart {
         this.tags = chart.tags
         this.publishedVersionThumbnailUrl = chart.publishedVersionThumbnailUrl
         this.draftVersionThumbnailUrl = chart.draftVersionThumbnailUrl || null
-        this.events = chart.events ? chart.events.map(event => new Event(event)) : []
+        this.events = chart.events ? chart.events.map(event => new EventDeserializer().fromJson(event)) : []
         this.archived = chart.archived
         if (chart.validation) this.validation = new ChartValidation(chart.validation)
         this.socialDistancingRulesets = Chart.socialDistancingRulesetsFromJson(chart.socialDistancingRulesets)

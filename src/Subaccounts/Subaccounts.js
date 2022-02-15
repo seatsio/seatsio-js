@@ -5,7 +5,7 @@ const Chart = require('../Charts/Chart.js')
 
 class Subaccounts {
     /**
-     * @param {SeatsioClient} client
+     * @param {Axios} client
      */
     constructor (client) {
         this.client = client

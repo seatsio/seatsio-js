@@ -10,20 +10,16 @@ test('chart key is required', async () => {
 
     const season = await client.seasons.create(chartKey)
 
-    expect(season.key).toBeTruthy()
-    expect(season.id).toBeTruthy()
     expect(season.partialSeasonKeys.length).toBe(0)
     expect(season.events.length).toBe(0)
-
-    const seasonEvent = season.seasonEvent
-    expect(seasonEvent.id).toBeTruthy()
-    expect(seasonEvent.key).toBe(season.key)
-    expect(seasonEvent.chartKey).toBe(chartKey)
-    expect(seasonEvent.tableBookingConfig).toEqual(TableBookingConfig.inherit())
-    expect(seasonEvent.supportsBestAvailable).toBe(true)
-    expect(seasonEvent.createdOn).toBeInstanceOf(Date)
-    expect(seasonEvent.forSaleConfig).toBeFalsy()
-    expect(seasonEvent.updatedOn).toBeFalsy()
+    expect(season.id).toBeTruthy()
+    expect(season.key).toBe(season.key)
+    expect(season.chartKey).toBe(chartKey)
+    expect(season.tableBookingConfig).toEqual(TableBookingConfig.inherit())
+    expect(season.supportsBestAvailable).toBe(true)
+    expect(season.createdOn).toBeInstanceOf(Date)
+    expect(season.forSaleConfig).toBeFalsy()
+    expect(season.updatedOn).toBeFalsy()
 })
 
 test('key can be passed in', async () => {
@@ -61,7 +57,7 @@ test('table booking config can be passed in', async () => {
 
     const season = await client.seasons.create(chartKey, new SeasonParams().tableBookingConfig(tableBookingConfig))
 
-    expect(season.seasonEvent.tableBookingConfig).toEqual(tableBookingConfig)
+    expect(season.tableBookingConfig).toEqual(tableBookingConfig)
 })
 
 test('social distancing ruleset key can be passed in', async () => {
@@ -72,5 +68,5 @@ test('social distancing ruleset key can be passed in', async () => {
 
     const season = await client.seasons.create(chart.key, new SeasonParams().socialDistancingRulesetKey('ruleset1'))
 
-    expect(season.seasonEvent.socialDistancingRulesetKey).toBe('ruleset1')
+    expect(season.socialDistancingRulesetKey).toBe('ruleset1')
 })
