@@ -1,9 +1,11 @@
 class StatusChangesParams {
     /**
      * @param {?string} filter
+     * @param {?string} filterType
      */
-    constructor (filter = null) {
+    constructor (filter = null, filterType = 'CONTAINS') {
         this.filter = filter
+        this.filterType = filterType
         this.sortField = null
         this.sortDirection = null
     }
@@ -50,10 +52,12 @@ class StatusChangesParams {
 
     /**
      * @param {string} filter
+     * @param {?string} filterType: CONTAINS, MATCHES, BEGINS_WITH or ENDS_WITH
      * @returns {StatusChangesParams}
      */
-    withFilter (filter) {
+    withFilter (filter, filterType = 'CONTAINS') {
         this.filter = filter
+        this.filterType = filterType
         return this
     }
 
@@ -69,6 +73,7 @@ class StatusChangesParams {
 
         return {
             filter: this.filter,
+            filterType: this.filterType,
             sort: sort
         }
     }
