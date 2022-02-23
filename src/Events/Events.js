@@ -20,9 +20,10 @@ class Events {
      * @param {?string} eventKey
      * @param {?TableBookingConfig} tableBookingConfig
      * @param {?string} socialDistancingRulesetKey
+     * @param {?object} objectCategories
      * @returns {Promise<Event>}
      */
-    create (chartKey, eventKey = null, tableBookingConfig = null, socialDistancingRulesetKey = null) {
+    create (chartKey, eventKey = null, tableBookingConfig = null, socialDistancingRulesetKey = null, objectCategories = null) {
         const requestParameters = {}
 
         requestParameters.chartKey = chartKey
@@ -37,6 +38,10 @@ class Events {
 
         if (socialDistancingRulesetKey !== null) {
             requestParameters.socialDistancingRulesetKey = socialDistancingRulesetKey
+        }
+
+        if (objectCategories !== null) {
+            requestParameters.objectCategories = objectCategories
         }
 
         return this.client.post('/events', requestParameters)
@@ -66,9 +71,10 @@ class Events {
      * @param {?string} newEventKey
      * @param {?TableBookingConfig} tableBookingConfig
      * @param {?string} socialDistancingRulesetKey
+     * @param {?object} objectCategories
      * @returns {Promise}
      */
-    update (eventKey, chartKey = null, newEventKey = null, tableBookingConfig = null, socialDistancingRulesetKey = null) {
+    update (eventKey, chartKey = null, newEventKey = null, tableBookingConfig = null, socialDistancingRulesetKey = null, objectCategories = null) {
         const requestParameters = {}
 
         if (chartKey !== null) {
@@ -85,6 +91,10 @@ class Events {
 
         if (socialDistancingRulesetKey !== null) {
             requestParameters.socialDistancingRulesetKey = socialDistancingRulesetKey
+        }
+
+        if (objectCategories !== null) {
+            requestParameters.objectCategories = objectCategories
         }
 
         return this.client.post(`events/${encodeURIComponent(eventKey)}`, requestParameters)

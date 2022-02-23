@@ -74,3 +74,29 @@ test('it supports removing the social distancing ruleset key', async () => {
     const retrievedEvent = await client.events.retrieve(event.key)
     expect(retrievedEvent.socialDistancingRulesetKey).toBe(undefined)
 })
+
+test('it supports object categories', async () => {
+    const { client, user } = await testUtils.createTestUserAndClient()
+    const chartKey = testUtils.getChartKey()
+    await testUtils.createTestChart(chartKey, user.secretKey)
+
+    const event = await client.events.create(chartKey, null, null, null, { 'A-1': 9 })
+
+    await client.events.update(event.key, null, null, null, null, { 'A-1': 10 })
+
+    const retrievedEvent = await client.events.retrieve(event.key)
+    expect(retrievedEvent.objectCategories).toEqual({ 'A-1': 10 })
+})
+
+test('it supports removing the object categories', async () => {
+    const { client, user } = await testUtils.createTestUserAndClient()
+    const chartKey = testUtils.getChartKey()
+    await testUtils.createTestChart(chartKey, user.secretKey)
+
+    const event = await client.events.create(chartKey, null, null, null, { 'A-2': 9 })
+
+    await client.events.update(event.key, null, null, null, null, { })
+
+    const retrievedEvent = await client.events.retrieve(event.key)
+    expect(retrievedEvent.objectCategories).toBeFalsy()
+})
