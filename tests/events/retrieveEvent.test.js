@@ -1,6 +1,6 @@
 const testUtils = require('../testUtils.js')
 const TableBookingConfig = require('../../src/Events/TableBookingConfig')
-const SeasonParams = require("../../src/Seasons/SeasonParams");
+const SeasonParams = require('../../src/Seasons/SeasonParams')
 
 test('should retrieve event', async () => {
     const { client, user } = await testUtils.createTestUserAndClient()
@@ -20,6 +20,7 @@ test('should retrieve event', async () => {
     expect(retrievedEvent.createdOn.getTime()).toBeLessThanOrEqual(now.getTime() + 5000)
     expect(retrievedEvent.forSaleConfig).toBeFalsy()
     expect(retrievedEvent.updatedOn).toBeNull()
+    expect(retrievedEvent.topLevelSeasonKey).toBe(undefined)
 })
 
 test('retrieve season', async () => {
@@ -32,6 +33,10 @@ test('retrieve season', async () => {
 
     const retrievedSeason = await client.events.retrieve(season.key)
 
+    expect(retrievedSeason.isSeason()).toBe(true)
+    expect(retrievedSeason.isTopLevelSeason).toBe(true)
+    expect(retrievedSeason.isPartialSeason).toBe(false)
+    expect(retrievedSeason.isEventInSeason).toBe(false)
     expect(retrievedSeason.key).toBeTruthy()
     expect(retrievedSeason.id).toBeTruthy()
     expect(retrievedSeason.partialSeasonKeys).toEqual([partialSeason1.key, partialSeason2.key])
@@ -42,4 +47,47 @@ test('retrieve season', async () => {
     expect(retrievedSeason.createdOn).toBeInstanceOf(Date)
     expect(retrievedSeason.forSaleConfig).toBeFalsy()
     expect(retrievedSeason.updatedOn).toBeFalsy()
+    expect(retrievedSeason.topLevelSeasonKey).toBe(undefined)
+})
+
+test('retrieve partial season', async () => {
+    const { client, user } = await testUtils.createTestUserAndClient()
+    const chartKey = testUtils.getChartKey()
+    await testUtils.createTestChart(chartKey, user.secretKey)
+    const season = await client.seasons.create(chartKey, new SeasonParams().eventKeys(['event1', 'event2']))
+    const partialSeason1 = await client.seasons.createPartialSeason(season.key, null, ['event1', 'event2'])
+    const partialSeason2 = await client.seasons.createPartialSeason(season.key)
+
+    const retrievedSeason = await client.events.retrieve(partialSeason1.key)
+
+    expect(retrievedSeason.isSeason()).toBe(true)
+    expect(retrievedSeason.isTopLevelSeason).toBe(false)
+    expect(retrievedSeason.isPartialSeason).toBe(true)
+    expect(retrievedSeason.isEventInSeason).toBe(false)
+    expect(retrievedSeason.key).toBeTruthy()
+    expect(retrievedSeason.id).toBeTruthy()
+    expect(retrievedSeason.partialSeasonKeys).toBe(undefined)
+    expect(retrievedSeason.events.map(e => e.key)).toEqual(['event1', 'event2'])
+    expect(retrievedSeason.chartKey).toBe(chartKey)
+    expect(retrievedSeason.tableBookingConfig).toEqual(TableBookingConfig.inherit())
+    expect(retrievedSeason.supportsBestAvailable).toBe(true)
+    expect(retrievedSeason.createdOn).toBeInstanceOf(Date)
+    expect(retrievedSeason.forSaleConfig).toBeFalsy()
+    expect(retrievedSeason.updatedOn).toBeFalsy()
+    expect(retrievedSeason.topLevelSeasonKey).toBe(season.key)
+})
+
+test('retrieve event in season', async () => {
+    const { client, user } = await testUtils.createTestUserAndClient()
+    const chartKey = testUtils.getChartKey()
+    await testUtils.createTestChart(chartKey, user.secretKey)
+    const season = await client.seasons.create(chartKey, new SeasonParams().eventKeys(['event1', 'event2']))
+
+    const retrievedEvent = await client.events.retrieve('event1')
+
+    expect(retrievedEvent.isSeason()).toBe(false)
+    expect(retrievedEvent.isTopLevelSeason).toBe(false)
+    expect(retrievedEvent.isPartialSeason).toBe(false)
+    expect(retrievedEvent.isEventInSeason).toBe(true)
+    expect(retrievedEvent.topLevelSeasonKey).toBe(season.key)
 })
