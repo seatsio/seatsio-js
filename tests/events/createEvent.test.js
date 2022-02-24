@@ -61,3 +61,13 @@ test('it supports a social distancing ruleset key', async () => {
 
     expect(event.socialDistancingRulesetKey).toBe('ruleset1')
 })
+
+test('it supports object categories', async () => {
+    const { client, user } = await testUtils.createTestUserAndClient()
+    const chartKey = testUtils.getChartKey()
+    await testUtils.createTestChart(chartKey, user.secretKey)
+
+    const event = await client.events.create(chartKey, null, null, null, { 'A-1': 10 })
+
+    expect(event.objectCategories).toEqual({ 'A-1': 10 })
+})

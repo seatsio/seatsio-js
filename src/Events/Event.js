@@ -20,6 +20,7 @@ class Event {
         this.isTopLevelSeason = event.isTopLevelSeason
         this.isPartialSeason = event.isPartialSeason
         this.isEventInSeason = event.isEventInSeason
+        this.objectCategories = event.objectCategories
     }
 
     isSeason () {
