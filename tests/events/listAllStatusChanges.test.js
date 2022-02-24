@@ -2,6 +2,7 @@ const testUtils = require('../testUtils.js')
 const ObjectProperties = require('../../src/Events/ObjectProperties.js')
 const EventObjectInfo = require('../../src/Events/EventObjectInfo.js')
 const StatusChangesParams = require('../../src/Events/StatusChangesParams.js')
+const {TableBookingconfig} = require("../../index");
 
 test('should list all status changes', async () => {
     const { client, user } = await testUtils.createTestUserAndClient()
@@ -176,6 +177,23 @@ test('properties of status changes', async () => {
     expect(statusChange.value.origin.type).toBe('API_CALL')
     expect(statusChange.value.displayedLabel).toBe('A-1')
     expect(statusChange.value.isPresentOnChart).toBe(true)
+    expect(statusChange.value.notPresentOnChartReason).toBe(undefined)
+})
+
+test('not present on chart anymore', async () => {
+    const { client, user } = await testUtils.createTestUserAndClient()
+    const chartKey = testUtils.getChartKey()
+    await testUtils.createTestChartWithTables(chartKey, user.secretKey)
+    const event = await client.events.create(chartKey, null, TableBookingconfig.allByTable())
+    await client.events.book(event.key, 'T1')
+    await client.events.update(event.key, null, null, TableBookingconfig.allBySeat())
+
+    const statusChanges = client.events.statusChanges(event.key).all()
+    const statusChangesIterator = statusChanges[Symbol.asyncIterator]()
+    const statusChange = await statusChangesIterator.next()
+
+    expect(statusChange.value.isPresentOnChart).toBe(false)
+    expect(statusChange.value.notPresentOnChartReason).toBe('SWITCHED_TO_BOOK_BY_SEAT')
 })
 
 test('should list status changes with hold token', async () => {

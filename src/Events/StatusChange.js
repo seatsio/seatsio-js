@@ -14,6 +14,7 @@ class StatusChange {
         this.holdToken = statusChange.holdToken ? statusChange.holdToken : null
         this.origin = statusChange.origin
         this.isPresentOnChart = statusChange.isPresentOnChart
+        this.notPresentOnChartReason = statusChange.notPresentOnChartReason
         this.displayedLabel = statusChange.displayedLabel ? statusChange.displayedLabel : null
     }
 }
