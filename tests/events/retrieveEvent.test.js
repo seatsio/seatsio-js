@@ -20,7 +20,7 @@ test('should retrieve event', async () => {
     expect(retrievedEvent.createdOn.getTime()).toBeLessThanOrEqual(now.getTime() + 5000)
     expect(retrievedEvent.forSaleConfig).toBeFalsy()
     expect(retrievedEvent.updatedOn).toBeNull()
-    expect(retrievedEvent.seasonKey).toBeNull()
+    expect(retrievedEvent.topLevelSeasonKey).toBe(undefined)
 })
 
 test('retrieve season', async () => {
@@ -34,7 +34,9 @@ test('retrieve season', async () => {
     const retrievedSeason = await client.events.retrieve(season.key)
 
     expect(retrievedSeason.isSeason()).toBe(true)
-    expect(retrievedSeason.isTopLevelSeason()).toBe(true)
+    expect(retrievedSeason.isTopLevelSeason).toBe(true)
+    expect(retrievedSeason.isPartialSeason).toBe(false)
+    expect(retrievedSeason.isEventInSeason).toBe(false)
     expect(retrievedSeason.key).toBeTruthy()
     expect(retrievedSeason.id).toBeTruthy()
     expect(retrievedSeason.partialSeasonKeys).toEqual([partialSeason1.key, partialSeason2.key])
@@ -45,7 +47,7 @@ test('retrieve season', async () => {
     expect(retrievedSeason.createdOn).toBeInstanceOf(Date)
     expect(retrievedSeason.forSaleConfig).toBeFalsy()
     expect(retrievedSeason.updatedOn).toBeFalsy()
-    expect(retrievedSeason.seasonKey).toBe(undefined)
+    expect(retrievedSeason.topLevelSeasonKey).toBe(undefined)
 })
 
 test('retrieve partial season', async () => {
@@ -59,7 +61,9 @@ test('retrieve partial season', async () => {
     const retrievedSeason = await client.events.retrieve(partialSeason1.key)
 
     expect(retrievedSeason.isSeason()).toBe(true)
-    expect(retrievedSeason.isPartialSeason()).toBe(true)
+    expect(retrievedSeason.isTopLevelSeason).toBe(false)
+    expect(retrievedSeason.isPartialSeason).toBe(true)
+    expect(retrievedSeason.isEventInSeason).toBe(false)
     expect(retrievedSeason.key).toBeTruthy()
     expect(retrievedSeason.id).toBeTruthy()
     expect(retrievedSeason.partialSeasonKeys).toBe(undefined)
@@ -70,7 +74,7 @@ test('retrieve partial season', async () => {
     expect(retrievedSeason.createdOn).toBeInstanceOf(Date)
     expect(retrievedSeason.forSaleConfig).toBeFalsy()
     expect(retrievedSeason.updatedOn).toBeFalsy()
-    expect(retrievedSeason.seasonKey).toBe(season.key)
+    expect(retrievedSeason.topLevelSeasonKey).toBe(season.key)
 })
 
 test('retrieve event in season', async () => {
@@ -82,5 +86,8 @@ test('retrieve event in season', async () => {
     const retrievedEvent = await client.events.retrieve('event1')
 
     expect(retrievedEvent.isSeason()).toBe(false)
-    expect(retrievedEvent.seasonKey).toBe(season.key)
+    expect(retrievedEvent.isTopLevelSeason).toBe(false)
+    expect(retrievedEvent.isPartialSeason).toBe(false)
+    expect(retrievedEvent.isEventInSeason).toBe(true)
+    expect(retrievedEvent.topLevelSeasonKey).toBe(season.key)
 })

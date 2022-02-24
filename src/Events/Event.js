@@ -16,18 +16,13 @@ class Event {
         this.updatedOn = event.updatedOn ? new Date(event.updatedOn) : null
         this.channels = event.channels ? event.channels.map(c => new Channel(c)) : null
         this.socialDistancingRulesetKey = event.socialDistancingRulesetKey
-        this.seasonKey = event.season ? event.season.key : null
+        this.topLevelSeasonKey = event.topLevelSeasonKey
+        this.isTopLevelSeason = event.isTopLevelSeason
+        this.isPartialSeason = event.isPartialSeason
+        this.isEventInSeason = event.isEventInSeason
     }
 
     isSeason () {
-        return false
-    }
-
-    isTopLevelSeason () {
-        return false
-    }
-
-    isPartialSeason () {
         return false
     }
 }
