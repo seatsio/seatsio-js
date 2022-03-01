@@ -30,7 +30,7 @@
     "gulp-tap": "latest",
     "gulp-uglify": "latest",
     "gulp-uglify-es": "latest",
-    "jest": "27.4.7",
+    "jest": "27.5.1",
     "jest-cli": "27.4.7",
     "uuid": "8.3.2"
   }
