@@ -1,4 +1,5 @@
 const Season = require('./Season')
+const EventDeserializer = require('../Events/EventDeserializer')
 
 class Seasons {
     /**
@@ -84,7 +85,7 @@ class Seasons {
         }
 
         return this.client.post(`/seasons/${encodeURIComponent(key)}/actions/create-events`, requestParameters)
-            .then((res) => new Season(res.data))
+            .then((res) => res.data.events.map(e => new EventDeserializer().fromJson(e)))
     }
 
     /**
