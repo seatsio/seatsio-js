@@ -21,6 +21,7 @@ test('should retrieve event', async () => {
     expect(retrievedEvent.forSaleConfig).toBeFalsy()
     expect(retrievedEvent.updatedOn).toBeNull()
     expect(retrievedEvent.topLevelSeasonKey).toBe(undefined)
+    expect(retrievedEvent.categories.length).toBe(3)
 })
 
 test('retrieve season', async () => {
