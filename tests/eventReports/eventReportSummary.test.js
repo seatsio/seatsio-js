@@ -128,6 +128,16 @@ test('summaryByCategoryKey', async () => {
                 seat: 16
             }
         },
+        'string11': {
+            count: 0,
+            bySection: {},
+            bySelectability: {},
+            byAvailability: {},
+            byAvailabilityReason: { },
+            byStatus: {},
+            byChannel: {},
+            byObjectType: {}
+        },
         NO_CATEGORY: {
             count: 0,
             bySection: {},
@@ -176,6 +186,16 @@ test('summaryByCategoryLabel', async () => {
                 generalAdmission: 100,
                 seat: 16
             }
+        },
+        Cat3: {
+            count: 0,
+            bySection: {},
+            bySelectability: {},
+            byAvailability: {},
+            byAvailabilityReason: { },
+            byStatus: {},
+            byChannel: {},
+            byObjectType: {}
         },
         NO_CATEGORY: {
             count: 0,
