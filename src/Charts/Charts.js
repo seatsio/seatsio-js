@@ -60,6 +60,14 @@ class Charts {
         return this.client.post(`/charts/${key}`, requestParameters)
     }
 
+    addCategory (key, category) {
+        return this.client.post(`/charts/${key}/categories`, category)
+    }
+
+    removeCategory (chartKey, categoryKey) {
+        return this.client.delete(`/charts/${chartKey}/categories/${categoryKey}`)
+    }
+
     /**
      * @param {string} key
      * @returns {object}
