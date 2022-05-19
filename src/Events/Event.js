@@ -1,27 +1,28 @@
 const ForSaleConfig = require('./ForSaleConfig.js')
 const Channel = require('./Channel.js')
+const Category = require('../Charts/Category')
 
 class Event {
     /**
-     * @param {object} event
+     * @param {object} json
      */
-    constructor (event) {
-        this.id = event.id
-        this.key = event.key
-        this.tableBookingConfig = event.tableBookingConfig
-        this.supportsBestAvailable = event.supportsBestAvailable
-        this.forSaleConfig = event.forSaleConfig ? new ForSaleConfig(event.forSaleConfig.forSale, event.forSaleConfig.objects, event.forSaleConfig.categories) : null
-        this.chartKey = event.chartKey
-        this.createdOn = event.createdOn ? new Date(event.createdOn) : null
-        this.updatedOn = event.updatedOn ? new Date(event.updatedOn) : null
-        this.channels = event.channels ? event.channels.map(c => new Channel(c)) : null
-        this.socialDistancingRulesetKey = event.socialDistancingRulesetKey
-        this.topLevelSeasonKey = event.topLevelSeasonKey
-        this.isTopLevelSeason = event.isTopLevelSeason
-        this.isPartialSeason = event.isPartialSeason
-        this.isEventInSeason = event.isEventInSeason
-        this.objectCategories = event.objectCategories
-        this.categories = event.categories
+    constructor (json) {
+        this.id = json.id
+        this.key = json.key
+        this.tableBookingConfig = json.tableBookingConfig
+        this.supportsBestAvailable = json.supportsBestAvailable
+        this.forSaleConfig = json.forSaleConfig ? new ForSaleConfig(json.forSaleConfig.forSale, json.forSaleConfig.objects, json.forSaleConfig.categories) : null
+        this.chartKey = json.chartKey
+        this.createdOn = json.createdOn ? new Date(json.createdOn) : null
+        this.updatedOn = json.updatedOn ? new Date(json.updatedOn) : null
+        this.channels = json.channels ? json.channels.map(c => new Channel(c)) : null
+        this.socialDistancingRulesetKey = json.socialDistancingRulesetKey
+        this.topLevelSeasonKey = json.topLevelSeasonKey
+        this.isTopLevelSeason = json.isTopLevelSeason
+        this.isPartialSeason = json.isPartialSeason
+        this.isEventInSeason = json.isEventInSeason
+        this.objectCategories = json.objectCategories
+        this.categories = json.categories ? json.categories.map(c => Category.fromJson(c)) : null
     }
 
     isSeason () {

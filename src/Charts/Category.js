@@ -46,6 +46,10 @@ class Category {
         this.accessible = accessible
         return this
     }
+
+    static fromJson (json) {
+        return new Category(json.key, json.label, json.color, json.accessible)
+    }
 }
 
 module.exports = Category

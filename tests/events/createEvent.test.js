@@ -17,6 +17,7 @@ test('should check that only chart key is required', async () => {
     expect(event.createdOn).toBeInstanceOf(Date)
     expect(event.forSaleConfig).toBeFalsy()
     expect(event.updatedOn).toBeFalsy()
+    expect(event.categories).toEqual(testUtils.testChartCategories)
 })
 
 test('should pass in event key as a create() param', async () => {

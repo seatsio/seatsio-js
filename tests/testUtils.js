@@ -5,6 +5,7 @@ const { v4: uuidv4 } = require('uuid')
 const LabelClasses = require('../src/Common/Labels.js')
 const path = require('path')
 const Region = require('../src/Region')
+const Category = require("../src/Charts/Category");
 
 const baseUrl = 'https://api-staging-eu.seatsio.net/'
 
@@ -104,5 +105,11 @@ module.exports = {
             reject,
             resolve
         }
-    }
+    },
+
+    testChartCategories: [
+        new Category(9, 'Cat1', '#87A9CD', false),
+        new Category(10, 'Cat2', '#5E42ED', false),
+        new Category('string11', 'Cat3', '#5E42BB', false)
+    ]
 }
