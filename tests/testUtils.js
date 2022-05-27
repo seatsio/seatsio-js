@@ -109,6 +109,7 @@ module.exports = {
 
     async statusChangesPresent (client, eventKey) {
         const deferred = this.deferred()
+        const start = new Date()
 
         const fetchStatusChanges = async () => {
             try {
@@ -116,7 +117,11 @@ module.exports = {
                 if (statusChanges.items.length !== 0) {
                     deferred.resolve(statusChanges.items)
                 } else {
-                    setTimeout(fetchStatusChanges, 1000)
+                    if (new Date().getTime() - start.getTime() > 10000) {
+                        deferred.reject('No status changes for event ' + eventKey)
+                    } else {
+                        setTimeout(fetchStatusChanges, 1000)
+                    }
                 }
             } catch (e) {
                 deferred.reject(e)
