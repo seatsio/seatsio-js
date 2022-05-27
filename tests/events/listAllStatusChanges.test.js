@@ -2,22 +2,17 @@ const testUtils = require('../testUtils.js')
 const ObjectProperties = require('../../src/Events/ObjectProperties.js')
 const EventObjectInfo = require('../../src/Events/EventObjectInfo.js')
 const StatusChangesParams = require('../../src/Events/StatusChangesParams.js')
-const {TableBookingconfig} = require("../../index");
+const { TableBookingconfig, StatusChangeRequest } = require('../../index')
 
 test('should list all status changes', async () => {
     const { client, user } = await testUtils.createTestUserAndClient()
     const chartKey = testUtils.getChartKey()
     await testUtils.createTestChart(chartKey, user.secretKey)
     const event = await client.events.create(chartKey)
-    const promises = [
-        client.events.book(event.key, 'A-1'),
-        client.events.book(event.key, 'A-2'),
-        client.events.book(event.key, 'A-3')
-    ]
-    await Promise.all(promises)
+    await client.events.book(event.key, ['A-1', 'A-2', 'A-3'])
+    await testUtils.statusChangesPresent(client, event.key)
 
     const labels = []
-
     for await (const statusChange of client.events.statusChanges(event.key).all()) {
         labels.push(statusChange.objectLabel)
     }
@@ -61,15 +56,10 @@ test('should list all status changes sorted by label', async () => {
     const chartKey = testUtils.getChartKey()
     await testUtils.createTestChart(chartKey, user.secretKey)
     const event = await client.events.create(chartKey)
-    const promises = [
-        client.events.book(event.key, 'A-1'),
-        client.events.book(event.key, 'A-2'),
-        client.events.book(event.key, 'A-3')
-    ]
-    await Promise.all(promises)
+    await client.events.book(event.key, ['A-1', 'A-2', 'A-3'])
+    await testUtils.statusChangesPresent(client, event.key)
 
     const labels = []
-
     const params = new StatusChangesParams().sortByObjectLabel()
     for await (const statusChange of client.events.statusChanges(event.key).all(params)) {
         labels.push(statusChange.objectLabel)
@@ -84,13 +74,16 @@ test('should list all status changes sorted by status', async () => {
     await testUtils.createTestChart(chartKey, user.secretKey)
     const event = await client.events.create(chartKey)
     const holdToken = await client.holdTokens.create()
-    await client.events.book(event.key, 'B-1')
-    await client.events.hold(event.key, 'A-1', holdToken.holdToken)
-    await client.events.release(event.key, 'A-1', holdToken.holdToken)
-    await client.events.book(event.key, 'A-2')
-    await client.events.hold(event.key, 'A-3', holdToken.holdToken)
-    const labels = []
+    await client.events.changeObjectStatusInBatch([
+        new StatusChangeRequest(event.key, 'B-1', EventObjectInfo.BOOKED),
+        new StatusChangeRequest(event.key, 'A-1', EventObjectInfo.HELD, holdToken.holdToken),
+        new StatusChangeRequest(event.key, 'A-1', EventObjectInfo.FREE, holdToken.holdToken),
+        new StatusChangeRequest(event.key, 'A-2', EventObjectInfo.BOOKED),
+        new StatusChangeRequest(event.key, 'A-3', EventObjectInfo.HELD, holdToken.holdToken)
+    ])
+    await testUtils.statusChangesPresent(client, event.key)
 
+    const labels = []
     const params = new StatusChangesParams().sortByStatus()
     for await (const statusChange of client.events.statusChanges(event.key).all(params)) {
         labels.push(statusChange.objectLabel)
@@ -104,11 +97,14 @@ test('should list all status changes sorted by date ascending', async () => {
     const chartKey = testUtils.getChartKey()
     await testUtils.createTestChart(chartKey, user.secretKey)
     const event = await client.events.create(chartKey)
-    await client.events.book(event.key, 'A-1')
-    await client.events.book(event.key, 'A-3')
-    await client.events.book(event.key, 'A-2')
-    const labels = []
+    await client.events.changeObjectStatusInBatch([
+        new StatusChangeRequest(event.key, 'A-1', EventObjectInfo.BOOKED),
+        new StatusChangeRequest(event.key, 'A-3', EventObjectInfo.BOOKED),
+        new StatusChangeRequest(event.key, 'A-2', EventObjectInfo.BOOKED)
+    ])
+    await testUtils.statusChangesPresent(client, event.key)
 
+    const labels = []
     const params = new StatusChangesParams().sortByDate().sortAscending()
     for await (const statusChange of client.events.statusChanges(event.key).all(params)) {
         labels.push(statusChange.objectLabel)
@@ -122,11 +118,14 @@ test('should list all status changes with filter', async () => {
     const chartKey = testUtils.getChartKey()
     await testUtils.createTestChart(chartKey, user.secretKey)
     const event = await client.events.create(chartKey)
-    await client.events.book(event.key, 'A-1')
-    await client.events.book(event.key, 'A-2')
-    await client.events.book(event.key, 'B-2')
-    const labels = []
+    await client.events.changeObjectStatusInBatch([
+        new StatusChangeRequest(event.key, 'A-1', EventObjectInfo.BOOKED),
+        new StatusChangeRequest(event.key, 'A-2', EventObjectInfo.BOOKED),
+        new StatusChangeRequest(event.key, 'B-2', EventObjectInfo.BOOKED)
+    ])
+    await testUtils.statusChangesPresent(client, event.key)
 
+    const labels = []
     const params = new StatusChangesParams().withFilter('2')
     for await (const statusChange of client.events.statusChanges(event.key).all(params)) {
         labels.push(statusChange.objectLabel)
@@ -140,11 +139,14 @@ test('should not list status changes with unmatched filter', async () => {
     const chartKey = testUtils.getChartKey()
     await testUtils.createTestChart(chartKey, user.secretKey)
     const event = await client.events.create(chartKey)
-    await client.events.book(event.key, 'A-1')
-    await client.events.book(event.key, 'A-2')
-    await client.events.book(event.key, 'B-2')
-    const labels = []
+    await client.events.changeObjectStatusInBatch([
+        new StatusChangeRequest(event.key, 'A-1', EventObjectInfo.BOOKED),
+        new StatusChangeRequest(event.key, 'A-2', EventObjectInfo.BOOKED),
+        new StatusChangeRequest(event.key, 'B-2', EventObjectInfo.BOOKED)
+    ])
+    await testUtils.statusChangesPresent(client, event.key)
 
+    const labels = []
     const params = new StatusChangesParams().withFilter('3')
     for await (const statusChange of client.events.statusChanges(event.key).all(params)) {
         labels.push(statusChange.objectLabel)
@@ -161,6 +163,7 @@ test('properties of status changes', async () => {
     const obj = new ObjectProperties('A-1').setExtraData({ foo: 'bar' })
     const now = new Date().getTime()
     await client.events.book(event.key, obj, null, 'order1')
+    await testUtils.statusChangesPresent(client, event.key)
 
     const statusChanges = client.events.statusChanges(event.key).all()
     const statusChangesIterator = statusChanges[Symbol.asyncIterator]()
@@ -187,6 +190,7 @@ test('not present on chart anymore', async () => {
     const event = await client.events.create(chartKey, null, TableBookingconfig.allByTable())
     await client.events.book(event.key, 'T1')
     await client.events.update(event.key, null, null, TableBookingconfig.allBySeat())
+    await testUtils.statusChangesPresent(client, event.key)
 
     const statusChanges = client.events.statusChanges(event.key).all()
     const statusChangesIterator = statusChanges[Symbol.asyncIterator]()
@@ -203,6 +207,7 @@ test('should list status changes with hold token', async () => {
     const event = await client.events.create(chartKey)
     const holdToken = await client.holdTokens.create()
     await client.events.hold(event.key, 'A-1', holdToken.holdToken)
+    await testUtils.statusChangesPresent(client, event.key)
 
     const statusChanges = client.events.statusChanges(event.key).all()
     const statusChangesIterator = statusChanges[Symbol.asyncIterator]()
@@ -217,6 +222,7 @@ test('should list status changes with null hold token if no hold token was used'
     await testUtils.createTestChart(chartKey, user.secretKey)
     const event = await client.events.create(chartKey)
     await client.events.book(event.key, 'A-2')
+    await testUtils.statusChangesPresent(client, event.key)
 
     const statusChanges = client.events.statusChanges(event.key).all()
     const statusChangesIterator = statusChanges[Symbol.asyncIterator]()

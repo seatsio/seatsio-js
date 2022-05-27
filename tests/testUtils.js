@@ -5,7 +5,7 @@ const { v4: uuidv4 } = require('uuid')
 const LabelClasses = require('../src/Common/Labels.js')
 const path = require('path')
 const Region = require('../src/Region')
-const Category = require("../src/Charts/Category");
+const Category = require('../src/Charts/Category')
 
 const baseUrl = 'https://api-staging-eu.seatsio.net/'
 
@@ -105,6 +105,26 @@ module.exports = {
             reject,
             resolve
         }
+    },
+
+    async statusChangesPresent (client, eventKey) {
+        const deferred = this.deferred()
+
+        const fetchStatusChanges = async () => {
+            try {
+                const statusChanges = await client.events.statusChanges(eventKey).firstPage()
+                if (statusChanges.items.length !== 0) {
+                    deferred.resolve(statusChanges.items)
+                } else {
+                    setTimeout(fetchStatusChanges, 1000)
+                }
+            } catch (e) {
+                deferred.reject(e)
+            }
+        }
+        fetchStatusChanges()
+
+        return deferred.promise
     },
 
     testChartCategories: [
