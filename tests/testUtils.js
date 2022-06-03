@@ -107,14 +107,14 @@ module.exports = {
         }
     },
 
-    async statusChangesPresent (client, eventKey) {
+    async statusChangesPresent (client, eventKey, numStatusChanges) {
         const deferred = this.deferred()
         const start = new Date()
 
         const fetchStatusChanges = async () => {
             try {
                 const statusChanges = await client.events.statusChanges(eventKey).firstPage()
-                if (statusChanges.items.length !== 0) {
+                if (statusChanges.items.length === numStatusChanges) {
                     deferred.resolve(statusChanges.items)
                 } else {
                     if (new Date().getTime() - start.getTime() > 10000) {

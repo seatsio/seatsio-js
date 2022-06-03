@@ -12,7 +12,7 @@ test('should list status changes for objects', async () => {
         new StatusChangeRequest(event.key, 'A-2', 's4'),
         new StatusChangeRequest(event.key, 'A-1', 's3')
     ])
-    await testUtils.statusChangesPresent(client, event.key)
+    await testUtils.statusChangesPresent(client, event.key, 4)
 
     const statuses = []
     for await (const statusChange of client.events.statusChangesForObject(event.key, 'A-1').all()) {
