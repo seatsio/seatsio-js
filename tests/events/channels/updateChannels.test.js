@@ -1,5 +1,5 @@
-const testUtils = require('../testUtils.js')
-const Channel = require('../../src/Events/Channel.js')
+const testUtils = require('../../testUtils.js')
+const Channel = require('../../../src/Events/Channel.js')
 
 test('should update channels', async () => {
     const {client} = await testUtils.createTestUserAndClient()
