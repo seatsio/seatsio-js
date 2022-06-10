@@ -6,12 +6,12 @@ test('should assign objects to channels', async () => {
     const chartKey = testUtils.getChartKey()
     await testUtils.createTestChart(chartKey, user.secretKey)
     const event = await client.events.create(chartKey)
-    await client.events.updateChannels(event.key, {
+    await client.events.channels.replace(event.key, {
         "channelKey1": {name: "channel 1", color: "blue", index: 1},
         "channelKey2": {name: "channel 2", color: "red", index: 2}
     })
 
-    await client.events.assignObjectsToChannel(event.key, {
+    await client.events.channels.setObjects(event.key, {
         "channelKey1": ["A-1", "A-2"],
         "channelKey2": ["A-3"]
     })

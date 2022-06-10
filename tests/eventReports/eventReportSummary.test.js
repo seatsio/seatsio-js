@@ -354,10 +354,10 @@ test('summaryByChannel', async () => {
     const chartKey = testUtils.getChartKey()
     await testUtils.createTestChart(chartKey, user.secretKey)
     const event = await client.events.create(chartKey)
-    await client.events.updateChannels(event.key, {
+    await client.events.channels.replace(event.key, {
         channel1: { name: 'channel 1', color: 'blue', index: 1 }
     })
-    await client.events.assignObjectsToChannel(event.key, { channel1: ['A-1', 'A-2'] })
+    await client.events.channels.setObjects(event.key, { channel1: ['A-1', 'A-2'] })
 
     const report = await client.eventReports.summaryByChannel(event.key)
 

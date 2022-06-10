@@ -1,6 +1,7 @@
 const Page = require('../Page.js')
 const Lister = require('../Lister.js')
 const EventObjectInfo = require('./EventObjectInfo.js')
+const Channels = require('./Channels.js')
 const StatusChange = require('./StatusChange.js')
 const BestAvailableObjects = require('./BestAvailableObjects.js')
 const ChangeObjectStatusResult = require('./ChangeObjectStatusResult.js')
@@ -12,6 +13,7 @@ class Events {
      */
     constructor (client) {
         this.client = client
+        this.channels = new Channels(this.client)
     }
 
     /* @return Event */
@@ -55,14 +57,6 @@ class Events {
     retrieve (eventKey) {
         return this.client.get(`/events/${encodeURIComponent(eventKey)}`)
             .then((res) => new EventDeserializer().fromJson(res.data))
-    }
-
-    updateChannels (eventKey, channels) {
-        return this.client.post(`/events/${encodeURIComponent(eventKey)}/channels/update`, { channels: channels })
-    }
-
-    assignObjectsToChannel (eventKey, channelConfig) {
-        return this.client.post(`/events/${encodeURIComponent(eventKey)}/channels/assign-objects`, { channelConfig: channelConfig })
     }
 
     /**

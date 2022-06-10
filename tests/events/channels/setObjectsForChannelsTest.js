@@ -6,7 +6,7 @@ test('should update channels', async () => {
     const chart = await client.charts.create()
     const event = await client.events.create(chart.key)
 
-    await client.events.updateChannels(event.key, {
+    await client.events.channels.replace(event.key, {
         "channelKey1": {
             "name": "channel 1",
             "color": "#FFAABB",
