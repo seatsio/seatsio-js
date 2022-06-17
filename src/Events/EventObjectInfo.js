@@ -37,6 +37,7 @@ class EventObjectInfo {
         this.channel = report.channel
         this.distanceToFocalPoint = report.distanceToFocalPoint
         this.holds = report.holds
+        this.numSeats = report.numSeats
     }
 }
 

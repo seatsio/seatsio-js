@@ -36,6 +36,18 @@ test('chart report properties for GA', async () => {
     expect(reportItem.bookAsAWhole).toBe(false)
 })
 
+test('chart report properties for table', async () => {
+    const { client, user } = await testUtils.createTestUserAndClient()
+    const chartKey = testUtils.getChartKey()
+    await testUtils.createTestChartWithTables(chartKey, user.secretKey)
+
+    const report = await client.chartReports.byLabel(chartKey, 'true')
+
+    const reportItem = report.T1[0]
+    expect(reportItem.numSeats).toBe(6)
+    expect(reportItem.bookAsAWhole).toBe(false)
+})
+
 test('get report byLabel', async () => {
     const { client, user } = await testUtils.createTestUserAndClient()
     const chartKey = testUtils.getChartKey()

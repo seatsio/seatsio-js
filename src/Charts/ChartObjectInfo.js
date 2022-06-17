@@ -19,6 +19,7 @@ class ChartObjectInfo {
         this.leftNeighbour = chartReport.leftNeighbour
         this.rightNeighbour = chartReport.rightNeighbour
         this.distanceToFocalPoint = chartReport.distanceToFocalPoint
+        this.numSeats = chartReport.numSeats
     }
 }
 

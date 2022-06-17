@@ -2,6 +2,7 @@ const testUtils = require('../testUtils.js')
 const EventObjectInfo = require('../../src/Events/EventObjectInfo.js')
 const ObjectProperties = require('../../src/Events/ObjectProperties.js')
 const { IDs } = require('../../src/Common/IDs')
+const { TableBookingconfig } = require('../../index')
 
 test('report properties', async () => {
     const { client, user } = await testUtils.createTestUserAndClient()
@@ -79,6 +80,19 @@ test('report properties for GA', async () => {
     expect(reportItem.isCompanionSeat).toBe(undefined)
     expect(reportItem.hasRestrictedView).toBe(undefined)
     expect(reportItem.displayedObjectType).toBe(undefined)
+    expect(reportItem.bookAsAWhole).toBe(false)
+})
+
+test('report properties for table', async () => {
+    const { client, user } = await testUtils.createTestUserAndClient()
+    const chartKey = testUtils.getChartKey()
+    await testUtils.createTestChartWithTables(chartKey, user.secretKey)
+    const event = await client.events.create(chartKey, null, TableBookingconfig.allByTable())
+
+    const report = await client.eventReports.byLabel(event.key)
+
+    const reportItem = report.T1[0]
+    expect(reportItem.numSeats).toBe(6)
     expect(reportItem.bookAsAWhole).toBe(false)
 })
 

@@ -1,12 +1,12 @@
 const ChartObjectInfo = require('../Charts/ChartObjectInfo.js')
-const ObjectInfo = require('../Events/EventObjectInfo.js')
+const EventObjectInfo = require('../Events/EventObjectInfo.js')
 
 module.exports = {
 
     createChangeObjectStatusDetails (data) {
         const objectDetails = {}
         for (const key in data) {
-            objectDetails[key] = new ObjectInfo(data[key])
+            objectDetails[key] = new EventObjectInfo(data[key])
         }
         return objectDetails
     },
@@ -18,7 +18,7 @@ module.exports = {
     createEventReport (reportsData) {
         const reportObjects = {}
         for (const key of Object.keys(reportsData)) {
-            reportObjects[key] = reportsData[key].map(data => new ObjectInfo(data))
+            reportObjects[key] = reportsData[key].map(data => new EventObjectInfo(data))
         }
         return reportObjects
     },
