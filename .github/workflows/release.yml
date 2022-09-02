@@ -22,7 +22,7 @@ jobs:
           token: '${{ secrets.GITHUB_TOKEN }}'
       - uses: actions/setup-node@v1
         with:
-          node-version: 13
+          node-version: 18
           registry-url: https://registry.npmjs.org/
       - run: npm version ${{ github.event.inputs.versionType }}
       - uses: ad-m/github-push-action@master
