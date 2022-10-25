@@ -17,7 +17,7 @@ class EventReports {
 
     /**
      * @param {string} eventKey
-     * @returns {Object} JSON response from the server
+     * @returns {object} JSON response from the server
      */
     summaryByStatus (eventKey) {
         return this.client.get(EventReports.summaryReportUrl('byStatus', eventKey))
@@ -26,7 +26,7 @@ class EventReports {
 
     /**
      * @param {string} eventKey
-     * @returns {Object} JSON response from the server
+     * @returns {object} JSON response from the server
      */
     deepSummaryByStatus (eventKey) {
         return this.client.get(EventReports.deepSummaryReportUrl('byStatus', eventKey))
@@ -45,7 +45,7 @@ class EventReports {
 
     /**
      * @param {string} eventKey
-     * @returns {Object} JSON response from the server
+     * @returns {object} JSON response from the server
      */
     summaryByObjectType (eventKey) {
         return this.client.get(EventReports.summaryReportUrl('byObjectType', eventKey))
@@ -54,7 +54,7 @@ class EventReports {
 
     /**
      * @param {string} eventKey
-     * @returns {Object} JSON response from the server
+     * @returns {object} JSON response from the server
      */
     deepSummaryByObjectType (eventKey) {
         return this.client.get(EventReports.deepSummaryReportUrl('byObjectType', eventKey))
@@ -73,7 +73,7 @@ class EventReports {
 
     /**
      * @param {string} eventKey
-     * @returns {Object} JSON response from the server
+     * @returns {object} JSON response from the server
      */
     summaryByCategoryLabel (eventKey) {
         return this.client.get(EventReports.summaryReportUrl('byCategoryLabel', eventKey))
@@ -82,7 +82,7 @@ class EventReports {
 
     /**
      * @param {string} eventKey
-     * @returns {Object} JSON response from the server
+     * @returns {object} JSON response from the server
      */
     deepSummaryByCategoryLabel (eventKey) {
         return this.client.get(EventReports.deepSummaryReportUrl('byCategoryLabel', eventKey))
@@ -101,7 +101,7 @@ class EventReports {
 
     /**
      * @param {string} eventKey
-     * @returns {Object} JSON response from the server
+     * @returns {object} JSON response from the server
      */
     summaryByCategoryKey (eventKey) {
         return this.client.get(EventReports.summaryReportUrl('byCategoryKey', eventKey))
@@ -110,7 +110,7 @@ class EventReports {
 
     /**
      * @param {string} eventKey
-     * @returns {Object} JSON response from the server
+     * @returns {object} JSON response from the server
      */
     deepSummaryByCategoryKey (eventKey) {
         return this.client.get(EventReports.deepSummaryReportUrl('byCategoryKey', eventKey))
@@ -149,7 +149,7 @@ class EventReports {
 
     /**
      * @param {string} eventKey
-     * @returns {Object} JSON response from the server
+     * @returns {object} JSON response from the server
      */
     summaryBySection (eventKey) {
         return this.client.get(EventReports.summaryReportUrl('bySection', eventKey))
@@ -158,7 +158,7 @@ class EventReports {
 
     /**
      * @param {string} eventKey
-     * @returns {Object} JSON response from the server
+     * @returns {object} JSON response from the server
      */
     deepSummaryBySection (eventKey) {
         return this.client.get(EventReports.deepSummaryReportUrl('bySection', eventKey))
@@ -187,7 +187,7 @@ class EventReports {
 
     /**
      * @param {string} eventKey
-     * @returns {Object} JSON response from the server
+     * @returns {object} JSON response from the server
      */
     summaryByAvailability (eventKey) {
         return this.client.get(EventReports.summaryReportUrl('byAvailability', eventKey))
@@ -196,7 +196,7 @@ class EventReports {
 
     /**
      * @param {string} eventKey
-     * @returns {Object} JSON response from the server
+     * @returns {object} JSON response from the server
      */
     summaryByAvailabilityReason (eventKey) {
         return this.client.get(EventReports.summaryReportUrl('byAvailabilityReason', eventKey))
@@ -205,7 +205,7 @@ class EventReports {
 
     /**
      * @param {string} eventKey
-     * @returns {Object} JSON response from the server
+     * @returns {object} JSON response from the server
      */
     deepSummaryByAvailability (eventKey) {
         return this.client.get(EventReports.deepSummaryReportUrl('byAvailability', eventKey))
@@ -214,7 +214,7 @@ class EventReports {
 
     /**
      * @param {string} eventKey
-     * @returns {Object} JSON response from the server
+     * @returns {object} JSON response from the server
      */
     deepSummaryByAvailabilityReason (eventKey) {
         return this.client.get(EventReports.deepSummaryReportUrl('byAvailabilityReason', eventKey))
@@ -233,7 +233,7 @@ class EventReports {
 
     /**
      * @param {string} eventKey
-     * @returns {Object} JSON response from the server
+     * @returns {object} JSON response from the server
      */
     summaryByChannel (eventKey) {
         return this.client.get(EventReports.summaryReportUrl('byChannel', eventKey))
@@ -242,7 +242,7 @@ class EventReports {
 
     /**
      * @param {string} eventKey
-     * @returns {Object} JSON response from the server
+     * @returns {object} JSON response from the server
      */
     deepSummaryByChannel (eventKey) {
         return this.client.get(EventReports.deepSummaryReportUrl('byChannel', eventKey))

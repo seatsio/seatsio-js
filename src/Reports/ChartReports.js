@@ -26,7 +26,7 @@ class ChartReports {
     /**
      * @param {string} chartKey
      * @param {string} bookWholeTables
-     * @returns {Object} JSON response from the server
+     * @returns {object} JSON response from the server
      */
     summaryByObjectType (chartKey, bookWholeTables = undefined) {
         return this.fetchSummaryReport('byObjectType', chartKey, bookWholeTables)
@@ -44,7 +44,7 @@ class ChartReports {
     /**
      * @param {string} chartKey
      * @param {string} bookWholeTables
-     * @returns {Object} JSON response from the server
+     * @returns {object} JSON response from the server
      */
     summaryByCategoryLabel (chartKey, bookWholeTables = undefined) {
         return this.fetchSummaryReport('byCategoryLabel', chartKey, bookWholeTables)
@@ -62,7 +62,7 @@ class ChartReports {
     /**
      * @param {string} chartKey
      * @param {string} bookWholeTables
-     * @returns {Object} JSON response from the server
+     * @returns {object} JSON response from the server
      */
     summaryByCategoryKey (chartKey, bookWholeTables = undefined) {
         return this.fetchSummaryReport('byCategoryKey', chartKey, bookWholeTables)
@@ -80,7 +80,7 @@ class ChartReports {
     /**
      * @param {string} chartKey
      * @param {string} bookWholeTables
-     * @returns {Object} JSON response from the server
+     * @returns {object} JSON response from the server
      */
     summaryBySection (chartKey, bookWholeTables = undefined) {
         return this.fetchSummaryReport('bySection', chartKey, bookWholeTables)

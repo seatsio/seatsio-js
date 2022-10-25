@@ -11,7 +11,7 @@ class Event {
         this.key = json.key
         this.tableBookingConfig = json.tableBookingConfig
         this.supportsBestAvailable = json.supportsBestAvailable
-        this.forSaleConfig = json.forSaleConfig ? new ForSaleConfig(json.forSaleConfig.forSale, json.forSaleConfig.objects, json.forSaleConfig.categories) : null
+        this.forSaleConfig = json.forSaleConfig ? new ForSaleConfig(json.forSaleConfig.forSale, json.forSaleConfig.objects, json.forSaleConfig.areaPlaces, json.forSaleConfig.categories) : null
         this.chartKey = json.chartKey
         this.createdOn = json.createdOn ? new Date(json.createdOn) : null
         this.updatedOn = json.updatedOn ? new Date(json.updatedOn) : null

@@ -169,34 +169,41 @@ class Events {
 
     /**
      * @param {string} eventKey
-     * @param {?object} objects
+     * @param {?string[]} objects
+     * @param {?object} areaPlaces
      * @param {?string[]} categories
      * @returns {Promise}
      */
-    markAsForSale (eventKey, objects = null, categories = null) {
+    markAsForSale (eventKey, objects = null, areaPlaces = null, categories = null) {
         const requestParameters = {}
         if (objects !== null) {
             requestParameters.objects = objects
         }
+        if (areaPlaces !== null) {
+            requestParameters.areaPlaces = areaPlaces
+        }
         if (categories !== null) {
             requestParameters.categories = categories
         }
+
         return this.client.post(`events/${encodeURIComponent(eventKey)}/actions/mark-as-for-sale`, requestParameters)
     }
 
     /**
      * @param {string} eventKey
-     * @param {?object} objects
+     * @param {?string[]} objects
+     * @param {?object} areaPlaces
      * @param {?string[]} categories
      * @returns {Promise}
      */
-    markAsNotForSale (eventKey, objects = null, categories = null) {
+    markAsNotForSale (eventKey, objects = null, areaPlaces = null, categories = null) {
         const requestParameters = {}
-
         if (objects !== null) {
             requestParameters.objects = objects
         }
-
+        if (areaPlaces !== null) {
+            requestParameters.areaPlaces = areaPlaces
+        }
         if (categories !== null) {
             requestParameters.categories = categories
         }
