@@ -14,7 +14,7 @@
     "url": "https://github.com/seatsio/seatsio-js"
   },
   "dependencies": {
-    "axios": "0.27.2"
+    "axios": "1.1.3"
   },
   "devDependencies": {
     "browserify": "17.0.0",
