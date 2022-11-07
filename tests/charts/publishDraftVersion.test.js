@@ -1,7 +1,7 @@
 const testUtils = require('../testUtils.js')
 
 test('should publish a chart', async () => {
-    const { client, user } = await testUtils.createTestUserAndClient()
+    const { client } = await testUtils.createTestUserAndClient()
     const chart = await client.charts.create('oldName')
     await client.events.create(chart.key)
     await client.charts.update(chart.key, 'newName')

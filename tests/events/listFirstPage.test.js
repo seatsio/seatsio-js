@@ -1,7 +1,7 @@
 const testUtils = require('../testUtils.js')
 
 test('should list events in first page', async () => {
-    const { client, user } = await testUtils.createTestUserAndClient()
+    const { client } = await testUtils.createTestUserAndClient()
     const chart = await client.charts.create()
     const events = await testUtils.createArray(3, () => client.events.create(chart.key))
 
@@ -12,7 +12,7 @@ test('should list events in first page', async () => {
 })
 
 test('should list events in first page with page size', async () => {
-    const { client, user } = await testUtils.createTestUserAndClient()
+    const { client } = await testUtils.createTestUserAndClient()
     const chart = await client.charts.create()
     await testUtils.createArray(7, () => client.events.create(chart.key))
     const event8 = await client.events.create(chart.key)

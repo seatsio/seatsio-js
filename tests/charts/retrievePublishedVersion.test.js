@@ -1,7 +1,7 @@
 const testUtils = require('../testUtils.js')
 
 test('should retrieve published version of a chart', async () => {
-    const { client, user } = await testUtils.createTestUserAndClient()
+    const { client } = await testUtils.createTestUserAndClient()
     const chart = await client.charts.create()
 
     const retrievedChart = await client.charts.retrievePublishedVersion(chart.key)

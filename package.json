@@ -5,7 +5,7 @@
   "description": "Official JavaScript and Node.JS client library for the Seats.io REST API",
   "license": "MIT",
   "scripts": {
-    "lint": "eslint ./src",
+    "lint": "eslint ./src ./tests",
     "test": "jest --maxWorkers=8 --verbose",
     "bundle": "gulp bundle"
   },

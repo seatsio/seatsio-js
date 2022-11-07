@@ -1,7 +1,7 @@
 const testUtils = require('../testUtils.js')
 
 test('should copy chart to parent', async () => {
-    const { client, user } = await testUtils.createTestUserAndClient()
+    const { client } = await testUtils.createTestUserAndClient()
     const subaccount = await client.subaccounts.create()
     const chart = await testUtils.createClient(subaccount.secretKey).charts.create('aChart')
 

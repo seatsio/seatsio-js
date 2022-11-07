@@ -94,7 +94,7 @@ test('summaryByCategoryKey', async () => {
                 seat: 16
             }
         },
-        'string11': {
+        string11: {
             count: 0,
             bySection: {},
             byObjectType: {}

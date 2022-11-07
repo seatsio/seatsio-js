@@ -103,7 +103,7 @@ test('listAll Charts with expandEvents parameters', async () => {
 test('listAll Charts with expandEvents parameters and eventsLimit', async () => {
     const { client } = await testUtils.createTestUserAndClient()
     const chart1 = await client.charts.create()
-    const event1 = await client.events.create(chart1.key)
+    await client.events.create(chart1.key)
     const event2 = await client.events.create(chart1.key)
     const event3 = await client.events.create(chart1.key)
     const retrievedKeys = []

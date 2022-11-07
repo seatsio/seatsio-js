@@ -1,7 +1,7 @@
 const testUtils = require('../testUtils.js')
 
 test('should copy chart', async () => {
-    const { client, user } = await testUtils.createTestUserAndClient()
+    const { client } = await testUtils.createTestUserAndClient()
     const chart = await client.charts.create('My Chart', 'BOOTHS')
 
     const copiedChart = await client.charts.copy(chart.key)

@@ -1,7 +1,7 @@
 const testUtils = require('../testUtils.js')
 
 test('should list workspaces before an id', async () => {
-    const { client, user } = await testUtils.createTestUserAndClient()
+    const { client } = await testUtils.createTestUserAndClient()
     const ws1 = await client.workspaces.create('foo1')
     const ws2 = await client.workspaces.create('foo2')
     const ws3 = await client.workspaces.create('foo3')
@@ -12,7 +12,7 @@ test('should list workspaces before an id', async () => {
 })
 
 test('should filter workspaces before an id', async () => {
-    const { client, user } = await testUtils.createTestUserAndClient()
+    const { client } = await testUtils.createTestUserAndClient()
     const ws1 = await client.workspaces.create('foo1')
     await client.workspaces.create('bar')
     const ws3 = await client.workspaces.create('foo2')

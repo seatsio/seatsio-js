@@ -2,7 +2,7 @@ const ChartListParams = require('../../src/Charts/ChartListParams.js')
 const testUtils = require('../testUtils.js')
 
 test('should list first page of charts', async () => {
-    const { client, user } = await testUtils.createTestUserAndClient()
+    const { client } = await testUtils.createTestUserAndClient()
     const promises = [
         client.charts.create(),
         client.charts.create(),
@@ -17,7 +17,7 @@ test('should list first page of charts', async () => {
 })
 
 test('should list first page of charts with filter', async () => {
-    const { client, user } = await testUtils.createTestUserAndClient()
+    const { client } = await testUtils.createTestUserAndClient()
     const promises = [
         client.charts.create('foo'),
         client.charts.create('foo'),
@@ -34,7 +34,7 @@ test('should list first page of charts with filter', async () => {
 })
 
 test('should list first page of charts with tag', async () => {
-    const { client, user } = await testUtils.createTestUserAndClient()
+    const { client } = await testUtils.createTestUserAndClient()
     const promises = [
         client.charts.create('foo'),
         client.charts.create('foo'),
@@ -50,7 +50,7 @@ test('should list first page of charts with tag', async () => {
 })
 
 test('pageSize of list first page of charts with page size', async () => {
-    const { client, user } = await testUtils.createTestUserAndClient()
+    const { client } = await testUtils.createTestUserAndClient()
     await client.charts.create('foo')
     await client.charts.create('foo')
     const chart3 = await client.charts.create('bar')
@@ -63,7 +63,7 @@ test('pageSize of list first page of charts with page size', async () => {
 })
 
 test('should list first page of charts with expanded events', async () => {
-    const { client, user } = await testUtils.createTestUserAndClient()
+    const { client } = await testUtils.createTestUserAndClient()
     const generatedKeys = []
     for (let i = 0; i < 5; i++) {
         const chart = await client.charts.create(i.toString())

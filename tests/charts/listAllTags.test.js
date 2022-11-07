@@ -1,7 +1,7 @@
 const testUtils = require('../testUtils.js')
 
 test('should retrieve all tags of all charts', async () => {
-    const { client, user } = await testUtils.createTestUserAndClient()
+    const { client } = await testUtils.createTestUserAndClient()
     const chart1 = await client.charts.create()
     const chart2 = await client.charts.create()
     await client.charts.addTag(chart1.key, 'tag1')
