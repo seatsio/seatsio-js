@@ -1,4 +1,4 @@
-const axios = require('axios')
+const axios = require('../../node_modules/axios/dist/node/axios.cjs')
 const testUtils = require('../testUtils.js')
 
 test('should delete an event', async () => {

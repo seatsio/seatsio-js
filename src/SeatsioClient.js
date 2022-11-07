@@ -10,7 +10,7 @@ const ChartReports = require('./Reports/ChartReports.js')
 const EventReports = require('./Reports/EventReports.js')
 const UsageReports = require('./Reports/UsageReports.js')
 const errorResponseHandler = require('./errorInterceptor.js')
-const Axios = require('axios')
+const Axios = require('../node_modules/axios/dist/node/axios.cjs')
 const Seasons = require('./Seasons/Seasons')
 
 class SeatsioClient {
