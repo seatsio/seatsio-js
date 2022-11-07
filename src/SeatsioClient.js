@@ -112,7 +112,7 @@ function exponentialBackoffInterceptor (axios) {
             setTimeout(() => resolve(), waitTime)
         })
 
-        // workaround for https://github.com/axios/axios/issues/5089
+        // TODO: remove this line when https://github.com/axios/axios/issues/5089 gets fixed
         const sanitizedConfig = { ...config, headers: JSON.parse(JSON.stringify(config.headers || {})) }
 
         return backoff.then(() => axios(sanitizedConfig))
