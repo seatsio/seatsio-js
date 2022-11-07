@@ -7,5 +7,5 @@ class IDs {
 }
 
 module.exports = {
-    IDs: IDs
+    IDs
 }

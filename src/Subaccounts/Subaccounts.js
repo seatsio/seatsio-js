@@ -106,7 +106,7 @@ class Subaccounts {
      * @returns {AsyncIterator}
      */
     listAll (filter = null) {
-        const requestParameters = filter !== null ? { filter: filter } : {}
+        const requestParameters = filter !== null ? { filter } : {}
         return this.iterator().all(requestParameters)
     }
 
@@ -114,7 +114,7 @@ class Subaccounts {
      * @returns {Page}
      */
     listFirstPage (filter = null, pageSize = null) {
-        const requestParameters = filter !== null ? { filter: filter } : null
+        const requestParameters = filter !== null ? { filter } : null
         return this.iterator().firstPage(requestParameters, pageSize)
     }
 
@@ -122,7 +122,7 @@ class Subaccounts {
      * @returns {Page}
      */
     listPageAfter (afterId, filter = null, pageSize = null) {
-        const requestParameters = filter !== null ? { filter: filter } : null
+        const requestParameters = filter !== null ? { filter } : null
         return this.iterator().pageAfter(afterId, requestParameters, pageSize)
     }
 
@@ -130,7 +130,7 @@ class Subaccounts {
      * @returns {Page}
      */
     listPageBefore (beforeId, filter = null, pageSize = null) {
-        const requestParameters = filter !== null ? { filter: filter } : null
+        const requestParameters = filter !== null ? { filter } : null
         return this.iterator().pageBefore(beforeId, requestParameters, pageSize)
     }
 

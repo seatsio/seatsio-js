@@ -21,6 +21,6 @@ class LabelAndType {
 }
 
 module.exports = {
-    Labels: Labels,
-    LabelAndType: LabelAndType
+    Labels,
+    LabelAndType
 }

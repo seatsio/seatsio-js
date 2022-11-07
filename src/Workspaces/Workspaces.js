@@ -74,7 +74,7 @@ class Workspaces {
      * @returns {AsyncIterator}
      */
     listAll (filter = null) {
-        const requestParameters = filter !== null ? { filter: filter } : {}
+        const requestParameters = filter !== null ? { filter } : {}
         return this.iterator().all(requestParameters)
     }
 
@@ -82,7 +82,7 @@ class Workspaces {
      * @returns {Page}
      */
     listFirstPage (filter = null, pageSize = null) {
-        const requestParameters = filter !== null ? { filter: filter } : null
+        const requestParameters = filter !== null ? { filter } : null
         return this.iterator().firstPage(requestParameters, pageSize)
     }
 
@@ -90,7 +90,7 @@ class Workspaces {
      * @returns {Page}
      */
     listPageAfter (afterId, filter = null, pageSize = null) {
-        const requestParameters = filter !== null ? { filter: filter } : null
+        const requestParameters = filter !== null ? { filter } : null
         return this.iterator().pageAfter(afterId, requestParameters, pageSize)
     }
 
@@ -98,7 +98,7 @@ class Workspaces {
      * @returns {Page}
      */
     listPageBefore (beforeId, filter = null, pageSize = null) {
-        const requestParameters = filter !== null ? { filter: filter } : null
+        const requestParameters = filter !== null ? { filter } : null
         return this.iterator().pageBefore(beforeId, requestParameters, pageSize)
     }
 
@@ -106,7 +106,7 @@ class Workspaces {
      * @returns {AsyncIterator}
      */
     listActive (filter = null) {
-        const requestParameters = filter !== null ? { filter: filter } : {}
+        const requestParameters = filter !== null ? { filter } : {}
         return this.activeWorkspacesIterator().all(requestParameters)
     }
 
@@ -114,7 +114,7 @@ class Workspaces {
      * @returns {Page}
      */
     listActiveFirstPage (filter = null, pageSize = null) {
-        const requestParameters = filter !== null ? { filter: filter } : null
+        const requestParameters = filter !== null ? { filter } : null
         return this.activeWorkspacesIterator().firstPage(requestParameters, pageSize)
     }
 
@@ -122,7 +122,7 @@ class Workspaces {
      * @returns {Page}
      */
     listActivePageAfter (afterId, filter = null, pageSize = null) {
-        const requestParameters = filter !== null ? { filter: filter } : null
+        const requestParameters = filter !== null ? { filter } : null
         return this.activeWorkspacesIterator().pageAfter(afterId, requestParameters, pageSize)
     }
 
@@ -130,7 +130,7 @@ class Workspaces {
      * @returns {Page}
      */
     listActivePageBefore (beforeId, filter = null, pageSize = null) {
-        const requestParameters = filter !== null ? { filter: filter } : null
+        const requestParameters = filter !== null ? { filter } : null
         return this.activeWorkspacesIterator().pageBefore(beforeId, requestParameters, pageSize)
     }
 
@@ -138,7 +138,7 @@ class Workspaces {
      * @returns {AsyncIterator}
      */
     listInactive (filter = null) {
-        const requestParameters = filter !== null ? { filter: filter } : {}
+        const requestParameters = filter !== null ? { filter } : {}
         return this.inactiveWorkspacesIterator().all(requestParameters)
     }
 
@@ -146,7 +146,7 @@ class Workspaces {
      * @returns {Page}
      */
     listInactiveFirstPage (filter = null, pageSize = null) {
-        const requestParameters = filter !== null ? { filter: filter } : null
+        const requestParameters = filter !== null ? { filter } : null
         return this.inactiveWorkspacesIterator().firstPage(requestParameters, pageSize)
     }
 
@@ -154,7 +154,7 @@ class Workspaces {
      * @returns {Page}
      */
     listInactivePageAfter (afterId, filter = null, pageSize = null) {
-        const requestParameters = filter !== null ? { filter: filter } : null
+        const requestParameters = filter !== null ? { filter } : null
         return this.inactiveWorkspacesIterator().pageAfter(afterId, requestParameters, pageSize)
     }
 
@@ -162,7 +162,7 @@ class Workspaces {
      * @returns {Page}
      */
     listInactivePageBefore (beforeId, filter = null, pageSize = null) {
-        const requestParameters = filter !== null ? { filter: filter } : null
+        const requestParameters = filter !== null ? { filter } : null
         return this.inactiveWorkspacesIterator().pageBefore(beforeId, requestParameters, pageSize)
     }
 

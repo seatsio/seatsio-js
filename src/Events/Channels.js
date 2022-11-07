@@ -9,10 +9,10 @@ class Channels {
     add (eventKey, channelKey, name, color, index, objects) {
         return this.client.post(`/events/${encodeURIComponent(eventKey)}/channels`, {
             key: channelKey,
-            name: name,
-            color: color,
-            index: index,
-            objects: objects
+            name,
+            color,
+            index,
+            objects
         })
     }
 
@@ -30,22 +30,22 @@ class Channels {
 
     addObjects (eventKey, channelKey, objects) {
         return this.client.post(`/events/${encodeURIComponent(eventKey)}/channels/${encodeURIComponent(channelKey)}/objects`, {
-            objects: objects
+            objects
         })
     }
 
     removeObjects (eventKey, channelKey, objects) {
         return this.client.delete(`/events/${encodeURIComponent(eventKey)}/channels/${encodeURIComponent(channelKey)}/objects`, {
-            data: { objects: objects }
+            data: { objects }
         })
     }
 
     replace (eventKey, channels) {
-        return this.client.post(`/events/${encodeURIComponent(eventKey)}/channels/update`, { channels: channels })
+        return this.client.post(`/events/${encodeURIComponent(eventKey)}/channels/update`, { channels })
     }
 
     setObjects (eventKey, channelConfig) {
-        return this.client.post(`/events/${encodeURIComponent(eventKey)}/channels/assign-objects`, { channelConfig: channelConfig })
+        return this.client.post(`/events/${encodeURIComponent(eventKey)}/channels/assign-objects`, { channelConfig })
     }
 }
 
