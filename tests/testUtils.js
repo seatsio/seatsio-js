@@ -1,5 +1,5 @@
 const { SeatsioClient } = require('../index.js')
-const axios = require('../node_modules/axios/dist/node/axios.cjs')
+const axios = require('axios')
 const fs = require('fs')
 const { v4: uuidv4 } = require('uuid')
 const LabelClasses = require('../src/Common/Labels.js')
