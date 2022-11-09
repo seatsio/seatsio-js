@@ -21,14 +21,6 @@ For Node, you can install using npm:
 npm install seatsio
 ```
 
-This library uses `async/await` introduced with ES2017 and `for await` loops which is part of the ES2018. `for await` loops gained native support from Node 10 onwards. As a result, the minimum required version for Node is 10. 
-
-## Versioning
-
-seatsio-js follows semver since v54.4.0.
-
-Please note that any version below v2 is not production ready.
-
 ## Usage
 
 ### General instructions
