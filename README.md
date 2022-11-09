@@ -20,15 +20,6 @@ For Node, you can install using npm:
 ```sh
 npm install seatsio
 ```
-Then you can use it with require: 
-```js
-const { SeatsioClient } = require('seatsio')
-```
-For browser, you can directly include it from GitHub:
-
-```html
-<script src="https://github.com/seatsio/seatsio-js/releases/download/<RELEASE_TAG>/SeatsioClient.js"></script>
-```
 
 This library uses `async/await` introduced with ES2017 and `for await` loops which is part of the ES2018. `for await` loops gained native support from Node 10 onwards. As a result, the minimum required version for Node is 10. 
 
