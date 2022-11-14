@@ -74,7 +74,7 @@ class StatusChangesParams {
         return {
             filter: this.filter,
             filterType: this.filterType,
-            sort: sort
+            sort
         }
     }
 }

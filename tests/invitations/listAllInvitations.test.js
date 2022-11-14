@@ -1,7 +1,7 @@
 const testUtils = require('../testUtils')
 
 test('invite users', async () => {
-    const { client, user } = await testUtils.createTestUserAndClient()
+    const { client } = await testUtils.createTestUserAndClient()
     const email1 = testUtils.getRandomEmail()
     await client.users.invite(email1, 'COMPANY_ADMIN')
     const email2 = testUtils.getRandomEmail()

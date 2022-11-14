@@ -1,7 +1,7 @@
 const testUtils = require('../testUtils.js')
 
 test('should retrieve subaccount', async () => {
-    const { client, user } = await testUtils.createTestUserAndClient()
+    const { client } = await testUtils.createTestUserAndClient()
     const subaccount = await client.subaccounts.create('joske')
 
     const retrievedSubaccount = await client.subaccounts.retrieve(subaccount.id)

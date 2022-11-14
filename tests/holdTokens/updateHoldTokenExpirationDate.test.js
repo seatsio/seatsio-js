@@ -1,7 +1,7 @@
 const testUtils = require('../testUtils.js')
 
 test('should update hold token expiration date', async () => {
-    const { client, user } = await testUtils.createTestUserAndClient()
+    const { client } = await testUtils.createTestUserAndClient()
     const d = new Date().toISOString()
     const lowerBound = new Date(d)
     const upperBound = new Date(d)

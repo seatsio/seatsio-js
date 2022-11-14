@@ -23,7 +23,7 @@ test('should save rulesets', async () => {
         .setDisabledSeats(['A-1'])
         .build()
 
-    await client.charts.saveSocialDistancingRulesets(chart.key, { ruleset1: ruleset1, ruleset2: ruleset2 })
+    await client.charts.saveSocialDistancingRulesets(chart.key, { ruleset1, ruleset2 })
 
     const retrievedChart = await client.charts.retrieve(chart.key)
     expect(retrievedChart.socialDistancingRulesets).toEqual({

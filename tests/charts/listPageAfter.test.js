@@ -2,7 +2,7 @@ const ChartListParams = require('../../src/Charts/ChartListParams.js')
 const testUtils = require('../testUtils.js')
 
 test('should list charts after a given chart id', async () => {
-    const { client, user } = await testUtils.createTestUserAndClient()
+    const { client } = await testUtils.createTestUserAndClient()
     const chart1 = await client.charts.create()
     const chart2 = await client.charts.create()
     const chart3 = await client.charts.create()
@@ -14,7 +14,7 @@ test('should list charts after a given chart id', async () => {
 })
 
 test('should list charts after a given chart id with filter', async () => {
-    const { client, user } = await testUtils.createTestUserAndClient()
+    const { client } = await testUtils.createTestUserAndClient()
     const chart1 = await client.charts.create('foo')
     await client.charts.create('bar')
     const chart3 = await client.charts.create('foo')
@@ -28,7 +28,7 @@ test('should list charts after a given chart id with filter', async () => {
 })
 
 test('should list charts after a given chart id with page size', async () => {
-    const { client, user } = await testUtils.createTestUserAndClient()
+    const { client } = await testUtils.createTestUserAndClient()
     await client.charts.create()
     const chart2 = await client.charts.create()
     const chart3 = await client.charts.create()

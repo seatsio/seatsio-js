@@ -92,18 +92,18 @@ module.exports = {
     },
 
     deferred () {
-        let resolve
-        let reject
+        let res
+        let rej
 
-        const promise = new Promise((res, rej) => {
-            resolve = res
-            reject = rej
+        const promise = new Promise((resolve, reject) => {
+            res = resolve
+            rej = reject
         })
 
         return {
             promise,
-            reject,
-            resolve
+            reject: rej,
+            resolve: res
         }
     },
 

@@ -1,7 +1,7 @@
 const testUtils = require('../testUtils.js')
 
 test('should retrieve hold tokens', async () => {
-    const { client, user } = await testUtils.createTestUserAndClient()
+    const { client } = await testUtils.createTestUserAndClient()
     const holdToken = await client.holdTokens.create()
 
     const retrievedToken = await client.holdTokens.retrieve(holdToken.holdToken)

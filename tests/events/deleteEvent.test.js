@@ -2,7 +2,7 @@ const axios = require('axios')
 const testUtils = require('../testUtils.js')
 
 test('should delete an event', async () => {
-    const { client, user } = await testUtils.createTestUserAndClient()
+    const { client } = await testUtils.createTestUserAndClient()
     const chart = await client.charts.create()
     const event = await client.events.create(chart.key)
 

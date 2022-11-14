@@ -1,13 +1,12 @@
 {
   "name": "seatsio",
-  "version": "70.0.0",
+  "version": "71.0.0",
   "main": "index.js",
   "description": "Official JavaScript and Node.JS client library for the Seats.io REST API",
   "license": "MIT",
   "scripts": {
-    "lint": "eslint ./src",
-    "test": "jest --maxWorkers=8 --verbose",
-    "bundle": "gulp bundle"
+    "lint": "eslint ./src ./tests",
+    "test": "jest --maxWorkers=8 --verbose"
   },
   "repository": {
     "type": "git",
@@ -17,19 +16,11 @@
     "axios": "0.27.2"
   },
   "devDependencies": {
-    "browserify": "17.0.0",
     "eslint": "8.26.0",
     "eslint-config-standard": "17.0.0",
     "eslint-plugin-import": "2.26.0",
-    "eslint-plugin-node": "11.1.0",
+    "eslint-plugin-n": "15.5.0",
     "eslint-plugin-promise": "6.1.1",
-    "eslint-plugin-standard": "5.0.0",
-    "gulp": "4.0.2",
-    "gulp-buffer": "0.0.2",
-    "gulp-jest": "4.0.4",
-    "gulp-tap": "2.0.0",
-    "gulp-uglify": "3.0.2",
-    "gulp-uglify-es": "3.0.0",
     "jest": "29.2.2",
     "jest-cli": "29.2.2",
     "uuid": "9.0.0"

@@ -1,7 +1,7 @@
 const testUtils = require('../testUtils.js')
 
 test('should list all charts in archive', async () => {
-    const { client, user } = await testUtils.createTestUserAndClient()
+    const { client } = await testUtils.createTestUserAndClient()
     const chart1 = await client.charts.create()
     const chart2 = await client.charts.create()
     const archivedChartKeys = []
@@ -20,7 +20,7 @@ test('should list all charts in archive', async () => {
 })
 
 test('get many archived charts)', async () => {
-    const { client, user } = await testUtils.createTestUserAndClient()
+    const { client } = await testUtils.createTestUserAndClient()
     const charts = await testUtils.createArray(15, async () => {
         const chart = await client.charts.create()
         await client.charts.moveToArchive(chart.key)
@@ -36,7 +36,7 @@ test('get many archived charts)', async () => {
 })
 
 test('get first page of archived charts', async () => {
-    const { client, user } = await testUtils.createTestUserAndClient()
+    const { client } = await testUtils.createTestUserAndClient()
     const charts = await testUtils.createArray(3, async () => {
         const chart = await client.charts.create()
         await client.charts.moveToArchive(chart.key)
@@ -50,7 +50,7 @@ test('get first page of archived charts', async () => {
 })
 
 test('get first page of archived charts with page size', async () => {
-    const { client, user } = await testUtils.createTestUserAndClient()
+    const { client } = await testUtils.createTestUserAndClient()
     const chart1 = await client.charts.create()
     const chart2 = await client.charts.create()
     const chart3 = await client.charts.create()
@@ -68,7 +68,7 @@ test('get first page of archived charts with page size', async () => {
 })
 
 test('get page after given archived charts id', async () => {
-    const { client, user } = await testUtils.createTestUserAndClient()
+    const { client } = await testUtils.createTestUserAndClient()
     const chart1 = await client.charts.create()
     const chart2 = await client.charts.create()
     const chart3 = await client.charts.create()
@@ -87,7 +87,7 @@ test('get page after given archived charts id', async () => {
 })
 
 test('get page after given archived charts id with page size', async () => {
-    const { client, user } = await testUtils.createTestUserAndClient()
+    const { client } = await testUtils.createTestUserAndClient()
     const chart1 = await client.charts.create()
     const chart2 = await client.charts.create()
     const chart3 = await client.charts.create()
@@ -106,7 +106,7 @@ test('get page after given archived charts id with page size', async () => {
 })
 
 test('get page before given archived charts id', async () => {
-    const { client, user } = await testUtils.createTestUserAndClient()
+    const { client } = await testUtils.createTestUserAndClient()
     const chart1 = await client.charts.create()
     const chart2 = await client.charts.create()
     const chart3 = await client.charts.create()
@@ -125,7 +125,7 @@ test('get page before given archived charts id', async () => {
 })
 
 test('get page after given archived charts id with page size', async () => {
-    const { client, user } = await testUtils.createTestUserAndClient()
+    const { client } = await testUtils.createTestUserAndClient()
     const chart1 = await client.charts.create()
     const chart2 = await client.charts.create()
     const chart3 = await client.charts.create()

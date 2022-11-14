@@ -1,7 +1,7 @@
 const testUtils = require('../testUtils.js')
 
 test('should change the holdPeriod', async () => {
-    const { client, user } = await testUtils.createTestUserAndClient()
+    const { client } = await testUtils.createTestUserAndClient()
     await client.accounts.changeHoldPeriod(14)
 
     const account = await client.accounts.retrieveMyAccount()

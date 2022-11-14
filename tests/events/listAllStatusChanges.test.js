@@ -21,7 +21,6 @@ test('should list all status changes', async () => {
 })
 
 test('status changes parameter', async () => {
-    const { client, user } = await testUtils.createTestUserAndClient()
     const justFilter = new StatusChangesParams('foo')
     const sortAscendingOnly = new StatusChangesParams().sortAscending()
     const sortByStatusOnly = new StatusChangesParams().sortByStatus()

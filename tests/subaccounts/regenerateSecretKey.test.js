@@ -1,7 +1,7 @@
 const testUtils = require('../testUtils.js')
 
 test('should regenerate secret key', async () => {
-    const { client, user } = await testUtils.createTestUserAndClient()
+    const { client } = await testUtils.createTestUserAndClient()
     const subaccount = await client.subaccounts.create()
 
     const newSecretKey = await client.subaccounts.regenerateSecretKey(subaccount.id)
