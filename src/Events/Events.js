@@ -23,9 +23,10 @@ class Events {
      * @param {?TableBookingConfig} tableBookingConfig
      * @param {?string} socialDistancingRulesetKey
      * @param {?object} objectCategories
+     * @param {?array} categories
      * @returns {Promise<Event>}
      */
-    create (chartKey, eventKey = null, tableBookingConfig = null, socialDistancingRulesetKey = null, objectCategories = null) {
+    create (chartKey, eventKey = null, tableBookingConfig = null, socialDistancingRulesetKey = null, objectCategories = null, categories = null) {
         const requestParameters = {}
 
         requestParameters.chartKey = chartKey
@@ -44,6 +45,10 @@ class Events {
 
         if (objectCategories !== null) {
             requestParameters.objectCategories = objectCategories
+        }
+
+        if (categories != null) {
+            requestParameters.categories = categories
         }
 
         return this.client.post('/events', requestParameters)
