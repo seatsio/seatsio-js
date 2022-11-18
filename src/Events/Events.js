@@ -73,7 +73,7 @@ class Events {
      * @param {?object} objectCategories
      * @returns {Promise}
      */
-    update (eventKey, chartKey = null, newEventKey = null, tableBookingConfig = null, socialDistancingRulesetKey = null, objectCategories = null) {
+    update (eventKey, chartKey = null, newEventKey = null, tableBookingConfig = null, socialDistancingRulesetKey = null, objectCategories = null, categories = null) {
         const requestParameters = {}
 
         if (chartKey !== null) {
@@ -94,6 +94,10 @@ class Events {
 
         if (objectCategories !== null) {
             requestParameters.objectCategories = objectCategories
+        }
+
+        if (categories != null) {
+            requestParameters.categories = categories
         }
 
         return this.client.post(`events/${encodeURIComponent(eventKey)}`, requestParameters)
