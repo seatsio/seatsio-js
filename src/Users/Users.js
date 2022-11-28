@@ -1,6 +1,7 @@
 const Page = require('../Page.js')
 const Lister = require('../Lister.js')
 const User = require('./User.js')
+const Invitation = require('../Invitations/Invitation')
 
 class Users {
     /**
@@ -20,6 +21,7 @@ class Users {
         const requestParameters = { email, role, workspaces }
 
         return this.client.post('/users/actions/invite', requestParameters)
+            .then(res => new Invitation(res.data))
     }
 
     /**
