@@ -1,6 +1,7 @@
 const testUtils = require('../testUtils.js')
 const SocialDistancingRuleset = require('../../src/Charts/SocialDistancingRuleset.js')
 const TableBookingConfig = require('../../src/Events/TableBookingConfig')
+const Category = require('../../src/Charts/Category')
 
 test('should update event\'s chart key', async () => {
     const { client } = await testUtils.createTestUserAndClient()
@@ -99,4 +100,35 @@ test('it supports removing the object categories', async () => {
 
     const retrievedEvent = await client.events.retrieve(event.key)
     expect(retrievedEvent.objectCategories).toBeFalsy()
+})
+
+test('it supports updating the categories', async () => {
+    const { client, user } = await testUtils.createTestUserAndClient()
+    const chartKey = testUtils.getChartKey()
+    await testUtils.createTestChart(chartKey, user.secretKey)
+    const eventCategory = new Category('eventCat1', 'Event Level Category', '#AAABBB')
+    const newEventCategory = new Category('eventCat2', 'Event Level Category 2', '#BBBCCC')
+    const event = await client.events.create(chartKey, null, null, null, null, [eventCategory])
+
+    await client.events.update(event.key, null, null, null, null, null, [newEventCategory])
+
+    const retrievedEvent = await client.events.retrieve(event.key)
+    expect(retrievedEvent.categories.length).toEqual(4) // 3 from sampleChart.json, 1 event level category
+    expect(retrievedEvent.categories.filter(cat => cat.key === 'eventCat1').length).toEqual(0)
+    expect(retrievedEvent.categories.filter(cat => cat.key === 'eventCat2').length).toEqual(1)
+    expect(retrievedEvent.categories.filter(cat => cat.key === 'eventCat2')[0].label).toEqual('Event Level Category 2')
+    expect(retrievedEvent.categories.filter(cat => cat.key === 'eventCat2')[0].color).toEqual('#BBBCCC')
+})
+
+test('it supports removing categoreis', async () => {
+    const { client, user } = await testUtils.createTestUserAndClient()
+    const chartKey = testUtils.getChartKey()
+    await testUtils.createTestChart(chartKey, user.secretKey)
+    const eventCategory = new Category('eventCat1', 'Event Level Category', '#AAABBB')
+    const event = await client.events.create(chartKey, null, null, null, null, [eventCategory])
+
+    await client.events.update(event.key, null, null, null, null, null, [])
+
+    const retrievedEvent = await client.events.retrieve(event.key)
+    expect(retrievedEvent.categories.length).toEqual(3) // 3 from sampleChart.json, event level category was removed
 })

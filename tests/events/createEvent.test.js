@@ -1,6 +1,7 @@
 const testUtils = require('../testUtils.js')
 const SocialDistancingRuleset = require('../../src/Charts/SocialDistancingRuleset.js')
 const TableBookingConfig = require('../../src/Events/TableBookingConfig')
+const Category = require('../../src/Charts/Category')
 
 test('should check that only chart key is required', async () => {
     const { client, user } = await testUtils.createTestUserAndClient()
@@ -71,4 +72,19 @@ test('it supports object categories', async () => {
     const event = await client.events.create(chartKey, null, null, null, { 'A-1': 10 })
 
     expect(event.objectCategories).toEqual({ 'A-1': 10 })
+})
+
+test('it supports categories', async () => {
+    const { client, user } = await testUtils.createTestUserAndClient()
+    const chartKey = testUtils.getChartKey()
+    await testUtils.createTestChart(chartKey, user.secretKey)
+
+    const eventCategory = new Category('eventCat1', 'Event Level Category', '#AAABBB')
+
+    const event = await client.events.create(chartKey, null, null, null, null, [eventCategory])
+
+    expect(event.categories.length).toEqual(4) // 3 from sampleChart.json, 1 event level category
+    expect(event.categories.filter(cat => cat.key === 'eventCat1').length).toEqual(1)
+    expect(event.categories.filter(cat => cat.key === 'eventCat1')[0].label).toEqual('Event Level Category')
+    expect(event.categories.filter(cat => cat.key === 'eventCat1')[0].color).toEqual('#AAABBB')
 })
