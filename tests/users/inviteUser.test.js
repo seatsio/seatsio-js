@@ -9,6 +9,8 @@ test('invite users', async () => {
     const invitations = await client.invitations.listAll()
     expect(invitations.length).toBe(1)
     expect(invitation.email).toBe(email)
+    expect(invitation.id).toBeTruthy()
+    expect(invitation.status).toBe('PENDING')
 })
 
 test('invite non admin users', async () => {
