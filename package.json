@@ -13,7 +13,7 @@
     "url": "https://github.com/seatsio/seatsio-js"
   },
   "dependencies": {
-    "axios": "0.27.2"
+    "axios": "1.2.0"
   },
   "devDependencies": {
     "eslint": "8.26.0",
