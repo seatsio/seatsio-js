@@ -16,7 +16,7 @@
     "axios": "0.27.2"
   },
   "devDependencies": {
-    "eslint": "8.26.0",
+    "eslint": "8.29.0",
     "eslint-config-standard": "17.0.0",
     "eslint-plugin-import": "2.26.0",
     "eslint-plugin-n": "15.5.1",
