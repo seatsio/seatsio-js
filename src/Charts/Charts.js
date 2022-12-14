@@ -108,24 +108,6 @@ class Charts {
      * @param {string} key
      * @returns {Promise}
      */
-    retrievePublishedVersion (key) {
-        return this.client.get(`charts/${key}/version/published`)
-            .then((res) => res.data)
-    }
-
-    /**
-     * @param {string} key
-     * @returns {Promise}
-     */
-    retrieveDraftVersion (key) {
-        return this.client.get(`charts/${key}/version/draft`)
-            .then((res) => res.data)
-    }
-
-    /**
-     * @param {string} key
-     * @returns {Promise}
-     */
     publishDraftVersion (key) {
         return this.client.post(`charts/${key}/version/draft/actions/publish`)
     }
