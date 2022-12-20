@@ -47,6 +47,7 @@ class SeatsioClient {
             errorHandle: false
         }
 
+        config.headers['X-Client-Lib'] = 'js'
         if (workspaceKey) {
             config.headers['X-Workspace-Key'] = workspaceKey
         }
