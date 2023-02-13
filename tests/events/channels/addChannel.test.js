@@ -31,6 +31,42 @@ test('can add a channel', async () => {
     ])
 })
 
+test('can add multiple channels', async () => {
+    const {
+        client,
+        user
+    } = await testUtils.createTestUserAndClient()
+    const chartKey = testUtils.getChartKey()
+    await testUtils.createTestChart(chartKey, user.secretKey)
+    const event = await client.events.create(chartKey)
+
+    await client.events.channels.addMultiple(
+        event.key,
+        [
+            { key: 'channelKey1', name: 'channel 1', color: '#FFFF98', index: 1, objects: ['A-1', 'A-2'] },
+            { key: 'channelKey2', name: 'channel 2', color: '#FFFF99', index: 2, objects: ['A-3'] }
+        ]
+    )
+
+    const retrievedEvent = await client.events.retrieve(event.key)
+    expect(retrievedEvent.channels).toEqual([
+        new Channel({
+            key: 'channelKey1',
+            name: 'channel 1',
+            color: '#FFFF98',
+            index: 1,
+            objects: ['A-1', 'A-2']
+        }),
+        new Channel({
+            key: 'channelKey2',
+            name: 'channel 2',
+            color: '#FFFF99',
+            index: 2,
+            objects: ['A-3']
+        })
+    ])
+})
+
 test('index is optional', async () => {
     const {
         client,
