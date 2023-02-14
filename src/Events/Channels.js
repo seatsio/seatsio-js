@@ -16,6 +16,10 @@ class Channels {
         })
     }
 
+    addMultiple (eventKey, channelCreationParams) {
+        return this.client.post(`/events/${encodeURIComponent(eventKey)}/channels`, channelCreationParams)
+    }
+
     remove (eventKey, channelKey) {
         return this.client.delete(`/events/${encodeURIComponent(eventKey)}/channels/${encodeURIComponent(channelKey)}`)
     }
