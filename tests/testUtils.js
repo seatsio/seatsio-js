@@ -81,14 +81,14 @@ module.exports = {
         return uuidv4() + '@mailinator.com'
     },
 
-    createArray (length, fn) {
+    async createArray (length, fn) {
         const array = []
 
         for (let i = 0; i < length; ++i) {
-            array.push(fn())
+            array.push(await fn())
         }
 
-        return Promise.all(array)
+        return array
     },
 
     deferred () {

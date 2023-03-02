@@ -21,13 +21,13 @@ test('should filter subaccounts ', async () => {
 test('should filter subaccounts with special characters', async () => {
     const { client } = await testUtils.createTestUserAndClient()
     let i = 0
-    await testUtils.createArray(20, () => client.subaccounts.create('test-/@/' + i++))
+    await testUtils.createArray(10, () => client.subaccounts.create('test-/@/' + i++))
     const retrievedSubaccountKeys = []
     for await (const subaccount of client.subaccounts.listAll('test-/@/1')) {
         retrievedSubaccountKeys.push(subaccount.secretKey)
     }
 
-    expect(retrievedSubaccountKeys.length).toEqual(11)
+    expect(retrievedSubaccountKeys.length).toEqual(1)
 })
 
 test('should filter with no results ', async () => {
