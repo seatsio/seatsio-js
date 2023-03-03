@@ -68,6 +68,11 @@ class Charts {
         return this.client.delete(`/charts/${chartKey}/categories/${categoryKey}`)
     }
 
+    listCategories (key) {
+        return this.client.get(`/charts/${key}/categories`)
+            .then((res) => res.data.categories);
+    }
+
     /**
      * @param {string} key
      * @returns {object}

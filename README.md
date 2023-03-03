@@ -256,6 +256,18 @@ let event = await client.events.create(chart.key)
 console.log(`Created a chart with key ${chart.key} and an event with key: ${event.key}`)
 ```
 
+### Listing categories
+
+```js
+import { SeatsioClient, Region } from 'seatsio'
+
+let client = new SeatsioClient(Region.EU(), <COMPANY ADMIN KEY>, <WORKSPACE PUBLIC KEY>)
+let categories = await client.charts.listCategories("the chart key")
+for (const category of categoryList) {
+    console.log(category.label)
+}
+```
+
 ## Error Handling
 When an API call results in an error, a rejected promise is returned with a value that looks like
 
