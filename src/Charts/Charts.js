@@ -70,7 +70,7 @@ class Charts {
 
     listCategories (key) {
         return this.client.get(`/charts/${key}/categories`)
-            .then((res) => res.data.categories);
+            .then((res) => res.data.categories)
     }
 
     /**
