@@ -56,6 +56,19 @@ let event = await client.events.create(chart.key)
 console.log(`Created a chart with key ${chart.key} and an event with key: ${event.key}`)
 ```
 
+### Creating multiple events
+
+```js
+import { SeatsioClient, Region, Events } from 'seatsio'
+
+let client = new SeatsioClient(Region.EU(), <WORKSPACE SECRET KEY>)
+let chart = await client.charts.create()
+let events = await client.events.createMultiple(chart.key, [ Events.eventCreationParams(), Events.eventCreationParams('aSpecificEventKey') ])
+for (const event of events) {
+    console.log(`Created an event with key: ${event.key}`)
+}
+```
+
 ### Booking objects
 
 Booking an object changes its status to `booked`. Booked seats are not selectable on a rendered chart.

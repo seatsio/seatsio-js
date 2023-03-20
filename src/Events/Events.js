@@ -16,7 +16,6 @@ class Events {
         this.channels = new Channels(this.client)
     }
 
-    /* @return Event */
     /**
      * @param {string} chartKey
      * @param {?string} eventKey
@@ -53,6 +52,73 @@ class Events {
 
         return this.client.post('/events', requestParameters)
             .then((res) => new EventDeserializer().fromJson(res.data))
+    }
+
+    /**
+     * @param {?string} eventKey
+     * @param {?TableBookingConfig} tableBookingConfig
+     * @param {?string} socialDistancingRulesetKey
+     * @param {?object} objectCategories
+     * @param {?array} categories
+     * @returns an object containing the necessary data for event creation
+     * @static
+     */
+    static eventCreationParams (eventKey = null, tableBookingConfig = null, socialDistancingRulesetKey = null, objectCategories = null, categories = null) {
+        const eventDefinition = {}
+        eventDefinition.eventKey = eventKey
+        eventDefinition.tableBookingConfig = tableBookingConfig
+        eventDefinition.socialDistancingRulesetKey = socialDistancingRulesetKey
+        eventDefinition.objectCategories = objectCategories
+        eventDefinition.categories = categories
+        return eventDefinition
+    }
+
+    /**
+     * @param {string} chartKey
+     * @param {object[]} events use {@link Events.eventCreationParams()} as a convenience function to create these objects
+     * @returns {Promise<Event[]>}
+     */
+    createMultiple (chartKey, events) {
+        const requestParameters = {}
+
+        requestParameters.chartKey = chartKey
+        requestParameters.events = []
+
+        if (events) {
+            for (let i = 0; i < events.length; i++) {
+                const event = {}
+                if (events[i].eventKey !== null) {
+                    event.eventKey = events[i].eventKey
+                }
+
+                if (events[i].tableBookingConfig !== null) {
+                    event.tableBookingConfig = events[i].tableBookingConfig
+                }
+
+                if (events[i].socialDistancingRulesetKey !== null) {
+                    event.socialDistancingRulesetKey = events[i].socialDistancingRulesetKey
+                }
+
+                if (events[i].objectCategories !== null) {
+                    event.objectCategories = events[i].objectCategories
+                }
+
+                if (events[i].categories != null) {
+                    event.categories = events[i].categories
+                }
+                requestParameters.events.push(event)
+            }
+        }
+
+        return this.client.post('/events/actions/create-multiple', requestParameters)
+            .then((res) => {
+                const result = []
+                const deserializer = new EventDeserializer()
+                for (const event of res.data.events) {
+                    result.push(deserializer.fromJson(event))
+                }
+                return result
+            })
     }
 
     /**
