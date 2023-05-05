@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "forceConsistentCasingInFileNames": true,
+    "noImplicitReturns": true,
+    "strict": true,
+    "esModuleInterop": true,
+    "noUnusedLocals": true,
+    "allowUnreachableCode": false,
+    "lib": [
+      "dom",
+      "es2017"
+    ],
+    "outDir": "tmp/ts-cache",
+    "skipLibCheck": true
+  },
+  "include": [
+    "src/main/js/**/*",
+    "src/test/**/*"
+  ],
+  "exclude": ["node_modules", "dist"]
+}
