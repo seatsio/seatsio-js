@@ -16,6 +16,7 @@
     "axios": "1.4.0"
   },
   "devDependencies": {
+    "@types/node": "^20.0.0",
     "eslint": "8.39.0",
     "eslint-config-standard": "17.0.0",
     "eslint-plugin-import": "2.27.5",
