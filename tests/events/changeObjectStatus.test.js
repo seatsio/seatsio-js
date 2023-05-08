@@ -29,7 +29,7 @@ test('should change object status', async () => {
             isAvailable: false,
             availabilityReason: 'lolzor',
             isDisabledBySocialDistancing: false,
-            distanceToFocalPoint: 79.43847425150014
+            distanceToFocalPoint: 98.67842540608864
         }
     })
 })
