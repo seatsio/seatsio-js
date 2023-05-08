@@ -10,7 +10,7 @@ test('should change best available object status', async () => {
     const bestAvailableObjs = await client.events.changeBestAvailableObjectStatus(event.key, 2, 'lolzor')
 
     expect(bestAvailableObjs.nextToEachOther).toBe(true)
-    expect(bestAvailableObjs.objects.sort()).toEqual(['B-4', 'B-5'])
+    expect(bestAvailableObjs.objects.sort()).toEqual(['A-4', 'A-5'])
 })
 
 test('should change best available object status with categories', async () => {
@@ -32,9 +32,9 @@ test('should change best available object status with extra data', async () => {
 
     const bestAvailableObjs = await client.events.changeBestAvailableObjectStatus(event.key, 2, 'lolzor', null, null, extraData)
 
-    const objectInfo4 = await client.events.retrieveObjectInfo(event.key, 'B-4')
-    const objectInfo5 = await client.events.retrieveObjectInfo(event.key, 'B-5')
-    expect(bestAvailableObjs.objects.sort()).toEqual(['B-4', 'B-5'])
+    const objectInfo4 = await client.events.retrieveObjectInfo(event.key, 'A-4')
+    const objectInfo5 = await client.events.retrieveObjectInfo(event.key, 'A-5')
+    expect(bestAvailableObjs.objects.sort()).toEqual(['A-4', 'A-5'])
     expect(objectInfo4.extraData).toEqual(extraData[0])
     expect(objectInfo5.extraData).toEqual(extraData[1])
 })
@@ -75,7 +75,19 @@ test('should book best available object with extra data', async () => {
     const bestAvailableObjs = await client.events.bookBestAvailable(event.key, 3, null, null, extraData)
 
     expect(bestAvailableObjs.nextToEachOther).toBe(true)
-    expect(bestAvailableObjs.objects).toEqual(['B-4', 'B-5', 'B-6'])
+    expect(bestAvailableObjs.objects).toEqual(['A-4', 'A-5', 'A-6'])
+})
+
+test('should book best available while leaving orphan seats', async () => {
+    const { client, user } = await testUtils.createTestUserAndClient()
+    const chartKey = testUtils.getChartKey()
+    await testUtils.createTestChart(chartKey, user.secretKey)
+    const event = await client.events.create(chartKey)
+    await client.events.book(event.key, ['A-4', 'A-5'])
+
+    const bestAvailableObjs = await client.events.bookBestAvailable(event.key, 2, null, null, null, null, null, null, null, null, false)
+
+    expect(bestAvailableObjs.objects).toEqual(['A-2', 'A-3'])
 })
 
 test('should book best available object', async () => {
@@ -87,7 +99,7 @@ test('should book best available object', async () => {
     const bestAvailableObjs = await client.events.bookBestAvailable(event.key, 3)
 
     expect(bestAvailableObjs.nextToEachOther).toBe(true)
-    expect(bestAvailableObjs.objects).toEqual(['B-4', 'B-5', 'B-6'])
+    expect(bestAvailableObjs.objects).toEqual(['A-4', 'A-5', 'A-6'])
 })
 
 test('should hold best available object ', async () => {
@@ -139,11 +151,11 @@ test('should respect keepExtraData=true', async () => {
     const chartKey = testUtils.getChartKey()
     await testUtils.createTestChart(chartKey, user.secretKey)
     const event = await client.events.create(chartKey)
-    await client.events.updateExtraData(event.key, 'B-5', { foo: 'bar' })
+    await client.events.updateExtraData(event.key, 'A-5', { foo: 'bar' })
 
     await client.events.changeBestAvailableObjectStatus(event.key, 1, 'someStatus', null, null, null, null, null, true)
 
-    const status = await client.events.retrieveObjectInfo(event.key, 'B-5')
+    const status = await client.events.retrieveObjectInfo(event.key, 'A-5')
     expect(status.extraData).toEqual({ foo: 'bar' })
 })
 
@@ -152,11 +164,11 @@ test('should respect keepExtraData=false', async () => {
     const chartKey = testUtils.getChartKey()
     await testUtils.createTestChart(chartKey, user.secretKey)
     const event = await client.events.create(chartKey)
-    await client.events.updateExtraData(event.key, 'B-5', { foo: 'bar' })
+    await client.events.updateExtraData(event.key, 'A-5', { foo: 'bar' })
 
     await client.events.changeBestAvailableObjectStatus(event.key, 1, 'someStatus', null, null, null, null, null, false)
 
-    const status = await client.events.retrieveObjectInfo(event.key, 'B-5')
+    const status = await client.events.retrieveObjectInfo(event.key, 'A-5')
     expect(status.extraData).toBeFalsy()
 })
 
@@ -165,11 +177,11 @@ test('should respect no keepExtraData', async () => {
     const chartKey = testUtils.getChartKey()
     await testUtils.createTestChart(chartKey, user.secretKey)
     const event = await client.events.create(chartKey)
-    await client.events.updateExtraData(event.key, 'B-5', { foo: 'bar' })
+    await client.events.updateExtraData(event.key, 'A-5', { foo: 'bar' })
 
     await client.events.changeBestAvailableObjectStatus(event.key, 1, 'someStatus')
 
-    const status = await client.events.retrieveObjectInfo(event.key, 'B-5')
+    const status = await client.events.retrieveObjectInfo(event.key, 'A-5')
     expect(status.extraData).toBeFalsy()
 })
 
@@ -181,11 +193,11 @@ test('should accept channel keys', async () => {
     await client.events.channels.replace(event.key, {
         channelKey1: { name: 'channel 1', color: '#FFAABB', index: 1 }
     })
-    await client.events.channels.setObjects(event.key, { channelKey1: ['B-6'] })
+    await client.events.channels.setObjects(event.key, { channelKey1: ['A-6'] })
 
     const bestAvailableObjs = await client.events.changeBestAvailableObjectStatus(event.key, 1, 'lolzor', null, null, null, null, null, null, null, ['channelKey1'])
 
-    expect(bestAvailableObjs.objects).toEqual(['B-6'])
+    expect(bestAvailableObjs.objects).toEqual(['A-6'])
 })
 
 test('should accept ignoreChannels', async () => {
@@ -200,5 +212,5 @@ test('should accept ignoreChannels', async () => {
 
     const bestAvailableObjs = await client.events.changeBestAvailableObjectStatus(event.key, 1, 'lolzor', null, null, null, null, null, null, true)
 
-    expect(bestAvailableObjs.objects).toEqual(['B-5'])
+    expect(bestAvailableObjs.objects).toEqual(['A-5'])
 })

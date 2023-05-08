@@ -62,9 +62,9 @@ test('should change object status with GA', async () => {
     await testUtils.createTestChart(chartKey, user.secretKey)
     const event = await client.events.create(chartKey)
 
-    const result = await client.events.changeObjectStatus(event.key, '34', 'lolzor')
+    const result = await client.events.changeObjectStatus(event.key, 'GA2', 'lolzor')
 
-    expect(Object.keys(result.objects)).toEqual(['34'])
+    expect(Object.keys(result.objects)).toEqual(['GA2'])
 })
 
 test('should change object status with GA and quantity', async () => {
