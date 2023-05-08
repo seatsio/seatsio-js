@@ -455,8 +455,8 @@ class Events {
      * @param {?string[]} channelKeys
      * @returns {Promise<BestAvailableObjects>}
      */
-    bookBestAvailable (eventKey, number, categories = null, holdToken = null, extraData = null, ticketTypes = null, orderId = null, keepExtraData = null, ignoreChannels = null, channelKeys = null) {
-        return this.changeBestAvailableObjectStatus(encodeURIComponent(eventKey), number, EventObjectInfo.BOOKED, categories, holdToken, extraData, ticketTypes, orderId, keepExtraData, ignoreChannels, channelKeys)
+    bookBestAvailable (eventKey, number, categories = null, holdToken = null, extraData = null, ticketTypes = null, orderId = null, keepExtraData = null, ignoreChannels = null, channelKeys = null, tryToPreventOrphanSeats = null) {
+        return this.changeBestAvailableObjectStatus(encodeURIComponent(eventKey), number, EventObjectInfo.BOOKED, categories, holdToken, extraData, ticketTypes, orderId, keepExtraData, ignoreChannels, channelKeys, tryToPreventOrphanSeats)
     }
 
     /**
@@ -502,8 +502,8 @@ class Events {
      * @param {?string[]} ticketTypes
      * @returns {Promise<BestAvailableObjects>}
      */
-    holdBestAvailable (eventKey, number, holdToken, categories = null, extraData = null, ticketTypes = null, orderId = null, keepExtraData = null, ignoreChannels = null, channelKeys = null) {
-        return this.changeBestAvailableObjectStatus(encodeURIComponent(eventKey), number, EventObjectInfo.HELD, categories, holdToken, extraData, ticketTypes, orderId, keepExtraData, ignoreChannels, channelKeys)
+    holdBestAvailable (eventKey, number, holdToken, categories = null, extraData = null, ticketTypes = null, orderId = null, keepExtraData = null, ignoreChannels = null, channelKeys = null, tryToPreventOrphanSeats = null) {
+        return this.changeBestAvailableObjectStatus(encodeURIComponent(eventKey), number, EventObjectInfo.HELD, categories, holdToken, extraData, ticketTypes, orderId, keepExtraData, ignoreChannels, channelKeys, tryToPreventOrphanSeats)
     }
 
     /**
@@ -520,7 +520,7 @@ class Events {
      * @param {?string[]} channelKeys
      * @returns {Promise<BestAvailableObjects>}
      */
-    changeBestAvailableObjectStatus (eventKey, number, status, categories = null, holdToken = null, extraData = null, ticketTypes = null, orderId = null, keepExtraData = null, ignoreChannels = null, channelKeys = null) {
+    changeBestAvailableObjectStatus (eventKey, number, status, categories = null, holdToken = null, extraData = null, ticketTypes = null, orderId = null, keepExtraData = null, ignoreChannels = null, channelKeys = null, tryToPreventOrphanSeats = null) {
         const requestParameters = {}
         const bestAvailable = {}
         requestParameters.status = status
@@ -539,6 +539,9 @@ class Events {
         }
         if (ticketTypes !== null) {
             bestAvailable.ticketTypes = ticketTypes
+        }
+        if (tryToPreventOrphanSeats !== null) {
+            bestAvailable.tryToPreventOrphanSeats = tryToPreventOrphanSeats
         }
         if (keepExtraData !== null) {
             requestParameters.keepExtraData = keepExtraData
