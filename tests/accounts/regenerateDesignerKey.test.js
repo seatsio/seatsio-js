@@ -1,7 +1,7 @@
-const testUtils = require('../testUtils.js')
+import { TestUtils } from '../testUtils'
 
 test('should regenerate the designer key', async () => {
-    const { client, user } = await testUtils.createTestUserAndClient()
+    const { client, user } = await TestUtils.createTestUserAndClient()
     const newDesignerKey = await client.accounts.regenerateDesignerKey()
 
     expect(newDesignerKey).not.toBeFalsy()

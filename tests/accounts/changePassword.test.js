@@ -1,6 +1,6 @@
-const testUtils = require('../testUtils.js')
+import { TestUtils } from '../testUtils'
 
 test('should change the password', async () => {
-    const { client } = await testUtils.createTestUserAndClient()
+    const { client } = await TestUtils.createTestUserAndClient()
     await client.accounts.changePassword('someNewPassword')
 })

@@ -1,7 +1,7 @@
-const testUtils = require('../testUtils.js')
+import { TestUtils } from '../testUtils'
 
 test('updates a setting', async () => {
-    const { client } = await testUtils.createTestUserAndClient()
+    const { client } = await TestUtils.createTestUserAndClient()
     await client.accounts.updateSetting('VALIDATE_DUPLICATE_LABELS', 'OFF')
 
     const account = await client.accounts.retrieveMyAccount()

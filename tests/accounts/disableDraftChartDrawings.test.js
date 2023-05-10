@@ -1,7 +1,7 @@
-const testUtils = require('../testUtils.js')
+import { TestUtils } from '../testUtils'
 
 test('should disable draft chart drawings', async () => {
-    const { client } = await testUtils.createTestUserAndClient()
+    const { client } = await TestUtils.createTestUserAndClient()
     await client.accounts.enableDraftChartDrawings()
 
     await client.accounts.disableDraftChartDrawings()
