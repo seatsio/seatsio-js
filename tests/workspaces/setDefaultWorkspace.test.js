@@ -1,7 +1,7 @@
-const testUtils = require('../testUtils.js')
+import { TestUtils } from '../testUtils'
 
 test('should set the default workspace', async () => {
-    const { client } = await testUtils.createTestUserAndClient()
+    const { client } = await TestUtils.createTestUserAndClient()
     const workspace = await client.workspaces.create('a workspace')
 
     await client.workspaces.setDefault(workspace.key)

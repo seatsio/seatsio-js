@@ -1,7 +1,7 @@
-const testUtils = require('../testUtils.js')
+import { TestUtils } from '../testUtils'
 
 test('should list all inactive subaccounts', async () => {
-    const { client } = await testUtils.createTestUserAndClient()
+    const { client } = await TestUtils.createTestUserAndClient()
     const subaccount1 = await client.subaccounts.create()
     const subaccount2 = await client.subaccounts.create()
     const promises = [
@@ -20,7 +20,7 @@ test('should list all inactive subaccounts', async () => {
 })
 
 test('should list first page of inactive subaccounts', async () => {
-    const { client } = await testUtils.createTestUserAndClient()
+    const { client } = await TestUtils.createTestUserAndClient()
     const subaccount1 = await client.subaccounts.create()
     const subaccount2 = await client.subaccounts.create()
     const subaccount3 = await client.subaccounts.create()
@@ -39,7 +39,7 @@ test('should list first page of inactive subaccounts', async () => {
 })
 
 test('should list first page of inactive subaccounts with page size', async () => {
-    const { client } = await testUtils.createTestUserAndClient()
+    const { client } = await TestUtils.createTestUserAndClient()
     const subaccount1 = await client.subaccounts.create()
     const subaccount2 = await client.subaccounts.create()
     const subaccount3 = await client.subaccounts.create()
@@ -56,7 +56,7 @@ test('should list first page of inactive subaccounts with page size', async () =
 })
 
 test('should list page after of inactive subaccounts', async () => {
-    const { client } = await testUtils.createTestUserAndClient()
+    const { client } = await TestUtils.createTestUserAndClient()
     const subaccount1 = await client.subaccounts.create()
     const subaccount2 = await client.subaccounts.create()
     const subaccount3 = await client.subaccounts.create()
@@ -72,7 +72,7 @@ test('should list page after of inactive subaccounts', async () => {
 })
 
 test('should list page after of inactive subaccounts with page size', async () => {
-    const { client } = await testUtils.createTestUserAndClient()
+    const { client } = await TestUtils.createTestUserAndClient()
     await client.subaccounts.create()
     const subaccount2 = await client.subaccounts.create()
     const subaccount3 = await client.subaccounts.create()
@@ -87,7 +87,7 @@ test('should list page after of inactive subaccounts with page size', async () =
 })
 
 test('should list page before of inactive subaccounts', async () => {
-    const { client } = await testUtils.createTestUserAndClient()
+    const { client } = await TestUtils.createTestUserAndClient()
     const subaccount1 = await client.subaccounts.create()
     const subaccount2 = await client.subaccounts.create()
     const subaccount3 = await client.subaccounts.create()
@@ -103,7 +103,7 @@ test('should list page before of inactive subaccounts', async () => {
 })
 
 test('should list page before of inactive subaccounts with page size', async () => {
-    const { client } = await testUtils.createTestUserAndClient()
+    const { client } = await TestUtils.createTestUserAndClient()
     const subaccount1 = await client.subaccounts.create()
     const subaccount2 = await client.subaccounts.create()
     const promises = [

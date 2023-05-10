@@ -1,12 +1,12 @@
-const testUtils = require('../testUtils.js')
-const SocialDistancingRuleset = require('../../src/Charts/SocialDistancingRuleset.js')
-const TableBookingConfig = require('../../src/Events/TableBookingConfig')
-const SeasonParams = require('../../src/Seasons/SeasonParams')
+import { TestUtils } from '../testUtils'
+import { SeasonParams } from '../../src/Seasons/SeasonParams'
+import { TableBookingConfig } from '../../src/Events/TableBookingConfig'
+import { SocialDistancingRuleset } from '../../src/Charts/SocialDistancingRuleset.js'
 
 test('chart key is required', async () => {
-    const { client, user } = await testUtils.createTestUserAndClient()
-    const chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.secretKey)
+    const { client, user } = await TestUtils.createTestUserAndClient()
+    const chartKey = TestUtils.getChartKey()
+    await TestUtils.createTestChart(chartKey, user.secretKey)
 
     const season = await client.seasons.create(chartKey)
 
@@ -23,7 +23,7 @@ test('chart key is required', async () => {
 })
 
 test('key can be passed in', async () => {
-    const { client } = await testUtils.createTestUserAndClient()
+    const { client } = await TestUtils.createTestUserAndClient()
     const chart = await client.charts.create()
 
     const season = await client.seasons.create(chart.key, new SeasonParams().key('aSeason'))
@@ -32,7 +32,7 @@ test('key can be passed in', async () => {
 })
 
 test('number of events can be passed in', async () => {
-    const { client } = await testUtils.createTestUserAndClient()
+    const { client } = await TestUtils.createTestUserAndClient()
     const chart = await client.charts.create()
 
     const season = await client.seasons.create(chart.key, new SeasonParams().numberOfEvents(2))
@@ -41,7 +41,7 @@ test('number of events can be passed in', async () => {
 })
 
 test('event keys can be passed in', async () => {
-    const { client } = await testUtils.createTestUserAndClient()
+    const { client } = await TestUtils.createTestUserAndClient()
     const chart = await client.charts.create()
 
     const season = await client.seasons.create(chart.key, new SeasonParams().eventKeys(['event1', 'event2']))
@@ -50,9 +50,9 @@ test('event keys can be passed in', async () => {
 })
 
 test('table booking config can be passed in', async () => {
-    const { client, user } = await testUtils.createTestUserAndClient()
-    const chartKey = testUtils.getChartKey()
-    await testUtils.createTestChartWithTables(chartKey, user.secretKey)
+    const { client, user } = await TestUtils.createTestUserAndClient()
+    const chartKey = TestUtils.getChartKey()
+    await TestUtils.createTestChartWithTables(chartKey, user.secretKey)
     const tableBookingConfig = TableBookingConfig.custom({ T1: 'BY_TABLE', T2: 'BY_SEAT' })
 
     const season = await client.seasons.create(chartKey, new SeasonParams().tableBookingConfig(tableBookingConfig))
@@ -61,7 +61,7 @@ test('table booking config can be passed in', async () => {
 })
 
 test('social distancing ruleset key can be passed in', async () => {
-    const { client } = await testUtils.createTestUserAndClient()
+    const { client } = await TestUtils.createTestUserAndClient()
     const chart = await client.charts.create()
     const rulesets = { ruleset1: SocialDistancingRuleset.ruleBased('My ruleset').build() }
     await client.charts.saveSocialDistancingRulesets(chart.key, rulesets)

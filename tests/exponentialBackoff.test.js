@@ -1,5 +1,5 @@
-const Region = require('../src/Region')
-const { SeatsioClient } = require('../index.js')
+import { Region } from '../src/Region'
+import { SeatsioClient } from '../index.js'
 
 test('aborts eventually if server keeps returning 429', async () => {
     const client = new SeatsioClient(new Region('https://httpbin.seatsio.net'))

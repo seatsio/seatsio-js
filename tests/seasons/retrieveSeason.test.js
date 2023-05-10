@@ -1,11 +1,11 @@
-const testUtils = require('../testUtils.js')
-const TableBookingConfig = require('../../src/Events/TableBookingConfig')
-const SeasonParams = require('../../src/Seasons/SeasonParams')
+import { TestUtils } from '../testUtils'
+import { SeasonParams } from '../../src/Seasons/SeasonParams'
+import { TableBookingConfig } from '../../src/Events/TableBookingConfig'
 
 test('retrieve season', async () => {
-    const { client, user } = await testUtils.createTestUserAndClient()
-    const chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.secretKey)
+    const { client, user } = await TestUtils.createTestUserAndClient()
+    const chartKey = TestUtils.getChartKey()
+    await TestUtils.createTestChart(chartKey, user.secretKey)
     const season = await client.seasons.create(chartKey, new SeasonParams().eventKeys(['event1', 'event2']))
     const partialSeason1 = await client.seasons.createPartialSeason(season.key)
     const partialSeason2 = await client.seasons.createPartialSeason(season.key)

@@ -1,7 +1,7 @@
-const testUtils = require('../testUtils.js')
+import { TestUtils } from '../testUtils'
 
 test('should update subaccount', async () => {
-    const { client } = await testUtils.createTestUserAndClient()
+    const { client } = await TestUtils.createTestUserAndClient()
     const subaccount = await client.subaccounts.create('joske')
 
     await client.subaccounts.update(subaccount.id, 'jefke')
@@ -11,7 +11,7 @@ test('should update subaccount', async () => {
 })
 
 test('name is not changed when updating with name=null', async () => {
-    const { client } = await testUtils.createTestUserAndClient()
+    const { client } = await TestUtils.createTestUserAndClient()
     const subaccount = await client.subaccounts.create('joske')
 
     await client.subaccounts.update(subaccount.id, null)

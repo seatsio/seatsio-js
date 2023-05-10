@@ -1,8 +1,8 @@
-const testUtils = require('../testUtils.js')
+import { TestUtils } from '../testUtils'
 
 test('should list subaccounts in first page', async () => {
-    const { client, subaccount } = await testUtils.createTestUserAndClient()
-    const subaccounts = await testUtils.createArray(3, () => client.subaccounts.create())
+    const { client, subaccount } = await TestUtils.createTestUserAndClient()
+    const subaccounts = await TestUtils.createArray(3, () => client.subaccounts.create())
 
     const page = await client.subaccounts.listFirstPage()
 
@@ -12,8 +12,8 @@ test('should list subaccounts in first page', async () => {
 })
 
 test('should list subaccounts in first page with page size', async () => {
-    const { client } = await testUtils.createTestUserAndClient()
-    await testUtils.createArray(7, () => client.subaccounts.create())
+    const { client } = await TestUtils.createTestUserAndClient()
+    await TestUtils.createArray(7, () => client.subaccounts.create())
     const subaccount8 = await client.subaccounts.create()
     const subaccount9 = await client.subaccounts.create()
     const subaccount10 = await client.subaccounts.create()

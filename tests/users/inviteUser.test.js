@@ -1,8 +1,8 @@
-const testUtils = require('../testUtils')
+import { TestUtils } from '../testUtils'
 
 test('invite users', async () => {
-    const { client } = await testUtils.createTestUserAndClient()
-    const email = testUtils.getRandomEmail()
+    const { client } = await TestUtils.createTestUserAndClient()
+    const email = TestUtils.getRandomEmail()
 
     const invitation = await client.users.invite(email, 'COMPANY_ADMIN')
 
@@ -14,8 +14,8 @@ test('invite users', async () => {
 })
 
 test('invite non admin users', async () => {
-    const { client } = await testUtils.createTestUserAndClient()
-    const email = testUtils.getRandomEmail()
+    const { client } = await TestUtils.createTestUserAndClient()
+    const email = TestUtils.getRandomEmail()
     const workspace = await client.workspaces.create('a workspace')
     const workspace2 = await client.workspaces.create('another workspace')
 

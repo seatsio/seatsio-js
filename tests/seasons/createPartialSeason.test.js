@@ -1,8 +1,8 @@
-const testUtils = require('../testUtils.js')
-const SeasonParams = require('../../src/Seasons/SeasonParams')
+import { TestUtils } from '../testUtils'
+import { SeasonParams } from '../../src/Seasons/SeasonParams'
 
 test('key can be passed in', async () => {
-    const { client } = await testUtils.createTestUserAndClient()
+    const { client } = await TestUtils.createTestUserAndClient()
     const chart = await client.charts.create()
     const season = await client.seasons.create(chart.key)
 
@@ -12,7 +12,7 @@ test('key can be passed in', async () => {
 })
 
 test('event keys can be passed in', async () => {
-    const { client } = await testUtils.createTestUserAndClient()
+    const { client } = await TestUtils.createTestUserAndClient()
     const chart = await client.charts.create()
     const season = await client.seasons.create(chart.key, new SeasonParams().eventKeys(['event1', 'event2']))
 

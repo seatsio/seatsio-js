@@ -1,10 +1,10 @@
-const testUtils = require('../testUtils')
+import { TestUtils } from '../testUtils'
 
 test('invite users', async () => {
-    const { client } = await testUtils.createTestUserAndClient()
-    const email1 = testUtils.getRandomEmail()
+    const { client } = await TestUtils.createTestUserAndClient()
+    const email1 = TestUtils.getRandomEmail()
     await client.users.invite(email1, 'COMPANY_ADMIN')
-    const email2 = testUtils.getRandomEmail()
+    const email2 = TestUtils.getRandomEmail()
     await client.users.invite(email2, 'COMPANY_ADMIN')
 
     const invitations = await client.invitations.listAll()

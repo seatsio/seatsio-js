@@ -1,7 +1,7 @@
-const testUtils = require('../testUtils.js')
+import { TestUtils } from '../testUtils'
 
 test('should retrieve hold tokens', async () => {
-    const { client } = await testUtils.createTestUserAndClient()
+    const { client } = await TestUtils.createTestUserAndClient()
     const holdToken = await client.holdTokens.create()
 
     const retrievedToken = await client.holdTokens.retrieve(holdToken.holdToken)

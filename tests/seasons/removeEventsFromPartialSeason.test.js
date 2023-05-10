@@ -1,8 +1,8 @@
-const testUtils = require('../testUtils.js')
-const SeasonParams = require('../../src/Seasons/SeasonParams')
+import { TestUtils } from '../testUtils'
+import { SeasonParams } from '../../src/Seasons/SeasonParams'
 
 test('add events to partial season', async () => {
-    const { client } = await testUtils.createTestUserAndClient()
+    const { client } = await TestUtils.createTestUserAndClient()
     const chart = await client.charts.create()
     const season = await client.seasons.create(chart.key, new SeasonParams().eventKeys(['event1', 'event2']))
     const partialSeason = await client.seasons.createPartialSeason(season.key, null, ['event1', 'event2'])

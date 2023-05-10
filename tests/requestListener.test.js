@@ -1,9 +1,9 @@
-const testUtils = require('./testUtils.js')
+import { TestUtils } from './TestUtils.js'
 
 test('listens to successful requests', async () => {
-    const { client } = await testUtils.createTestUserAndClient()
-    const requestStartedDeferred = testUtils.deferred()
-    const requestEndedDeferred = testUtils.deferred()
+    const { client } = await TestUtils.createTestUserAndClient()
+    const requestStartedDeferred = TestUtils.deferred()
+    const requestEndedDeferred = TestUtils.deferred()
 
     client.setRequestListener(() => ({
         onRequestStarted: () => requestStartedDeferred.resolve(),
@@ -15,9 +15,9 @@ test('listens to successful requests', async () => {
 })
 
 test('listens to unsuccessful requests', async () => {
-    const { client } = await testUtils.createTestUserAndClient()
-    const requestStartedDeferred = testUtils.deferred()
-    const requestEndedDeferred = testUtils.deferred()
+    const { client } = await TestUtils.createTestUserAndClient()
+    const requestStartedDeferred = TestUtils.deferred()
+    const requestEndedDeferred = TestUtils.deferred()
 
     client.setRequestListener(() => ({
         onRequestStarted: () => requestStartedDeferred.resolve(),

@@ -1,7 +1,7 @@
-const testUtils = require('../testUtils.js')
+import { TestUtils } from '../testUtils'
 
 test('should retrieve a workspace', async () => {
-    const { client } = await testUtils.createTestUserAndClient()
+    const { client } = await TestUtils.createTestUserAndClient()
     const workspace = await client.workspaces.create('a workspace')
 
     const retrievedWorkspace = await client.workspaces.retrieve(workspace.key)

@@ -1,7 +1,7 @@
-const testUtils = require('../testUtils.js')
+import { TestUtils } from '../testUtils'
 
 test('should list inactive workspaces', async () => {
-    const { client } = await testUtils.createTestUserAndClient()
+    const { client } = await TestUtils.createTestUserAndClient()
     const ws1 = await client.workspaces.create('w1')
     await client.workspaces.deactivate(ws1.key)
     await client.workspaces.create('w2')
@@ -17,7 +17,7 @@ test('should list inactive workspaces', async () => {
 })
 
 test('should filter inactive workspaces', async () => {
-    const { client } = await testUtils.createTestUserAndClient()
+    const { client } = await TestUtils.createTestUserAndClient()
     const ws1 = await client.workspaces.create('foo1')
     await client.workspaces.create('bar')
     await client.workspaces.deactivate(ws1.key)

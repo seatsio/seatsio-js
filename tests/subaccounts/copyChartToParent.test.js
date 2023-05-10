@@ -1,9 +1,9 @@
-const testUtils = require('../testUtils.js')
+import { TestUtils } from '../testUtils'
 
 test('should copy chart to parent', async () => {
-    const { client } = await testUtils.createTestUserAndClient()
+    const { client } = await TestUtils.createTestUserAndClient()
     const subaccount = await client.subaccounts.create()
-    const chart = await testUtils.createClient(subaccount.secretKey).charts.create('aChart')
+    const chart = await TestUtils.createClient(subaccount.secretKey).charts.create('aChart')
 
     const copiedChart = await client.subaccounts.copyChartToParent(subaccount.id, chart.key)
 

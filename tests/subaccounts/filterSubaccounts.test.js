@@ -1,7 +1,7 @@
-const testUtils = require('../testUtils.js')
+import { TestUtils } from '../testUtils'
 
 test('should filter subaccounts ', async () => {
-    const { client } = await testUtils.createTestUserAndClient()
+    const { client } = await TestUtils.createTestUserAndClient()
     const retrievedSubaccountKeys = []
 
     const subaccount1 = await client.subaccounts.create('account1')
@@ -19,9 +19,9 @@ test('should filter subaccounts ', async () => {
 })
 
 test('should filter subaccounts with special characters', async () => {
-    const { client } = await testUtils.createTestUserAndClient()
+    const { client } = await TestUtils.createTestUserAndClient()
     let i = 0
-    await testUtils.createArray(10, () => client.subaccounts.create('test-/@/' + i++))
+    await TestUtils.createArray(10, () => client.subaccounts.create('test-/@/' + i++))
     const retrievedSubaccountKeys = []
     for await (const subaccount of client.subaccounts.listAll('test-/@/1')) {
         retrievedSubaccountKeys.push(subaccount.secretKey)
@@ -31,7 +31,7 @@ test('should filter subaccounts with special characters', async () => {
 })
 
 test('should filter with no results ', async () => {
-    const { client } = await testUtils.createTestUserAndClient()
+    const { client } = await TestUtils.createTestUserAndClient()
     const retrievedSubaccountKeys = []
 
     for await (const subaccount of client.subaccounts.listAll('account1')) {
@@ -42,7 +42,7 @@ test('should filter with no results ', async () => {
 })
 
 test('should retrieve first page of subaccounts with filter', async () => {
-    const { client } = await testUtils.createTestUserAndClient()
+    const { client } = await TestUtils.createTestUserAndClient()
     const promises = [
         client.subaccounts.create('account1'),
         client.subaccounts.create('account2'),
@@ -58,7 +58,7 @@ test('should retrieve first page of subaccounts with filter', async () => {
 })
 
 test('should retrieve page after given subaccount id with filter', async () => {
-    const { client } = await testUtils.createTestUserAndClient()
+    const { client } = await TestUtils.createTestUserAndClient()
     const subaccount1 = await client.subaccounts.create('test-/@/11')
     const subaccount2 = await client.subaccounts.create('test-/@/12')
     const subaccount3 = await client.subaccounts.create('test-/@/33')
@@ -80,7 +80,7 @@ test('should retrieve page after given subaccount id with filter', async () => {
 })
 
 test('should should retrieve page before given subaccount id with filter', async () => {
-    const { client } = await testUtils.createTestUserAndClient()
+    const { client } = await TestUtils.createTestUserAndClient()
     const subaccount1 = await client.subaccounts.create('test-/@/11')
     const subaccount2 = await client.subaccounts.create('test-/@/12')
     const subaccount3 = await client.subaccounts.create('test-/@/13')

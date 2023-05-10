@@ -1,7 +1,7 @@
-const testUtils = require('../testUtils.js')
+import { TestUtils } from '../testUtils'
 
 test('should create hold tokens', async () => {
-    const { client } = await testUtils.createTestUserAndClient()
+    const { client } = await TestUtils.createTestUserAndClient()
     const now = new Date().getTime()
     const holdToken = await client.holdTokens.create()
 
@@ -12,7 +12,7 @@ test('should create hold tokens', async () => {
 })
 
 test('should create hold token that expires in 1 minute', async () => {
-    const { client } = await testUtils.createTestUserAndClient()
+    const { client } = await TestUtils.createTestUserAndClient()
     const holdToken = await client.holdTokens.create(1)
 
     expect(holdToken.expiresAt instanceof Date).toBe(true)

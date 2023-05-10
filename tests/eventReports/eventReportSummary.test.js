@@ -1,10 +1,10 @@
-const testUtils = require('../testUtils.js')
-const ObjectProperties = require('../../src/Events/ObjectProperties.js')
+import { TestUtils } from '../testUtils'
+import { ObjectProperties } from '../../src/Events/ObjectProperties.js'
 
 test('summaryByStatus', async () => {
-    const { client, user } = await testUtils.createTestUserAndClient()
-    const chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.secretKey)
+    const { client, user } = await TestUtils.createTestUserAndClient()
+    const chartKey = TestUtils.getChartKey()
+    await TestUtils.createTestChart(chartKey, user.secretKey)
     const event = await client.events.create(chartKey)
     await client.events.book(event.key, (new ObjectProperties('A-1')))
 
@@ -37,9 +37,9 @@ test('summaryByStatus', async () => {
 })
 
 test('summaryByObjectType', async () => {
-    const { client, user } = await testUtils.createTestUserAndClient()
-    const chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.secretKey)
+    const { client, user } = await TestUtils.createTestUserAndClient()
+    const chartKey = TestUtils.getChartKey()
+    await TestUtils.createTestChart(chartKey, user.secretKey)
     const event = await client.events.create(chartKey)
 
     const report = await client.eventReports.summaryByObjectType(event.key)
@@ -93,9 +93,9 @@ test('summaryByObjectType', async () => {
 })
 
 test('summaryByCategoryKey', async () => {
-    const { client, user } = await testUtils.createTestUserAndClient()
-    const chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.secretKey)
+    const { client, user } = await TestUtils.createTestUserAndClient()
+    const chartKey = TestUtils.getChartKey()
+    await TestUtils.createTestChart(chartKey, user.secretKey)
     const event = await client.events.create(chartKey)
     await client.events.book(event.key, (new ObjectProperties('A-1')))
 
@@ -152,9 +152,9 @@ test('summaryByCategoryKey', async () => {
 })
 
 test('summaryByCategoryLabel', async () => {
-    const { client, user } = await testUtils.createTestUserAndClient()
-    const chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.secretKey)
+    const { client, user } = await TestUtils.createTestUserAndClient()
+    const chartKey = TestUtils.getChartKey()
+    await TestUtils.createTestChart(chartKey, user.secretKey)
     const event = await client.events.create(chartKey)
     await client.events.book(event.key, (new ObjectProperties('A-1')))
 
@@ -211,9 +211,9 @@ test('summaryByCategoryLabel', async () => {
 })
 
 test('summaryBySection', async () => {
-    const { client, user } = await testUtils.createTestUserAndClient()
-    const chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.secretKey)
+    const { client, user } = await TestUtils.createTestUserAndClient()
+    const chartKey = TestUtils.getChartKey()
+    await TestUtils.createTestChart(chartKey, user.secretKey)
     const event = await client.events.create(chartKey)
     await client.events.book(event.key, (new ObjectProperties('A-1')))
 
@@ -237,9 +237,9 @@ test('summaryBySection', async () => {
 })
 
 test('summaryByAvailability', async () => {
-    const { client, user } = await testUtils.createTestUserAndClient()
-    const chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.secretKey)
+    const { client, user } = await TestUtils.createTestUserAndClient()
+    const chartKey = TestUtils.getChartKey()
+    await TestUtils.createTestChart(chartKey, user.secretKey)
     const event = await client.events.create(chartKey)
     await client.events.book(event.key, (new ObjectProperties('A-1')))
 
@@ -277,9 +277,9 @@ test('summaryByAvailability', async () => {
 })
 
 test('summaryByAvailabilityReason', async () => {
-    const { client, user } = await testUtils.createTestUserAndClient()
-    const chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.secretKey)
+    const { client, user } = await TestUtils.createTestUserAndClient()
+    const chartKey = TestUtils.getChartKey()
+    await TestUtils.createTestChart(chartKey, user.secretKey)
     const event = await client.events.create(chartKey)
     await client.events.book(event.key, (new ObjectProperties('A-1')))
 
@@ -350,9 +350,9 @@ test('summaryByAvailabilityReason', async () => {
 })
 
 test('summaryByChannel', async () => {
-    const { client, user } = await testUtils.createTestUserAndClient()
-    const chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.secretKey)
+    const { client, user } = await TestUtils.createTestUserAndClient()
+    const chartKey = TestUtils.getChartKey()
+    await TestUtils.createTestChart(chartKey, user.secretKey)
     const event = await client.events.create(chartKey)
     await client.events.channels.replace(event.key, {
         channel1: { name: 'channel 1', color: 'blue', index: 1 }

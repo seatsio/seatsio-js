@@ -1,7 +1,7 @@
-const testUtils = require('../testUtils.js')
+import { TestUtils } from '../testUtils'
 
 test('should list subaccounts after given subaccount id', async () => {
-    const { client } = await testUtils.createTestUserAndClient()
+    const { client } = await TestUtils.createTestUserAndClient()
     const subaccount1 = await client.subaccounts.create()
     const subaccount2 = await client.subaccounts.create()
     const subaccount3 = await client.subaccounts.create()
@@ -13,7 +13,7 @@ test('should list subaccounts after given subaccount id', async () => {
 })
 
 test('should list subaccounts after given subaccount id with page size', async () => {
-    const { client } = await testUtils.createTestUserAndClient()
+    const { client } = await TestUtils.createTestUserAndClient()
     await client.subaccounts.create()
     const subaccount2 = await client.subaccounts.create()
     const subaccount3 = await client.subaccounts.create()

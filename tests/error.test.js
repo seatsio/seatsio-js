@@ -1,7 +1,7 @@
-const testUtils = require('./testUtils.js')
+import { TestUtils } from './testUtils.js'
 
 test('check error handling', async () => {
-    const { client } = await testUtils.createTestUserAndClient()
+    const { client } = await TestUtils.createTestUserAndClient()
     expect.assertions(1)
     const errorSnapshot = {
         status: 400,

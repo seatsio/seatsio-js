@@ -1,8 +1,8 @@
-const testUtils = require('../testUtils.js')
+import { TestUtils } from '../testUtils'
 
 test('listAll subaccounts when there are more than 10 subaccounts', async () => {
-    const { client, subaccount } = await testUtils.createTestUserAndClient()
-    const subaccounts = await testUtils.createArray(15, () => client.subaccounts.create())
+    const { client, subaccount } = await TestUtils.createTestUserAndClient()
+    const subaccounts = await TestUtils.createArray(15, () => client.subaccounts.create())
 
     const retrievedSubaccountIds = []
     for await (const subaccount of client.subaccounts.listAll()) {

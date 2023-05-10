@@ -1,10 +1,10 @@
-const testUtils = require('../testUtils.js')
-const ObjectProperties = require('../../src/Events/ObjectProperties.js')
+import { TestUtils } from '../testUtils.js'
+import { ObjectProperties } from '../../src/Events/ObjectProperties'
 
 test('deepSummaryByStatus', async () => {
-    const { client, user } = await testUtils.createTestUserAndClient()
-    const chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.secretKey)
+    const { client, user } = await TestUtils.createTestUserAndClient()
+    const chartKey = TestUtils.getChartKey()
+    await TestUtils.createTestChart(chartKey, user.secretKey)
     const event = await client.events.create(chartKey)
     await client.events.book(event.key, (new ObjectProperties('A-1')))
 
@@ -16,9 +16,9 @@ test('deepSummaryByStatus', async () => {
 })
 
 test('deepSummaryByObjectType', async () => {
-    const { client, user } = await testUtils.createTestUserAndClient()
-    const chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.secretKey)
+    const { client, user } = await TestUtils.createTestUserAndClient()
+    const chartKey = TestUtils.getChartKey()
+    await TestUtils.createTestChart(chartKey, user.secretKey)
     const event = await client.events.create(chartKey)
 
     const report = await client.eventReports.deepSummaryByObjectType(event.key)
@@ -29,9 +29,9 @@ test('deepSummaryByObjectType', async () => {
 })
 
 test('deepSummaryByCategoryKey', async () => {
-    const { client, user } = await testUtils.createTestUserAndClient()
-    const chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.secretKey)
+    const { client, user } = await TestUtils.createTestUserAndClient()
+    const chartKey = TestUtils.getChartKey()
+    await TestUtils.createTestChart(chartKey, user.secretKey)
     const event = await client.events.create(chartKey)
     await client.events.book(event.key, (new ObjectProperties('A-1')))
 
@@ -43,9 +43,9 @@ test('deepSummaryByCategoryKey', async () => {
 })
 
 test('deepSummaryByCategoryLabel', async () => {
-    const { client, user } = await testUtils.createTestUserAndClient()
-    const chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.secretKey)
+    const { client, user } = await TestUtils.createTestUserAndClient()
+    const chartKey = TestUtils.getChartKey()
+    await TestUtils.createTestChart(chartKey, user.secretKey)
     const event = await client.events.create(chartKey)
     await client.events.book(event.key, (new ObjectProperties('A-1')))
 
@@ -57,9 +57,9 @@ test('deepSummaryByCategoryLabel', async () => {
 })
 
 test('deepSummaryBySection', async () => {
-    const { client, user } = await testUtils.createTestUserAndClient()
-    const chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.secretKey)
+    const { client, user } = await TestUtils.createTestUserAndClient()
+    const chartKey = TestUtils.getChartKey()
+    await TestUtils.createTestChart(chartKey, user.secretKey)
     const event = await client.events.create(chartKey)
     await client.events.book(event.key, (new ObjectProperties('A-1')))
 
@@ -71,9 +71,9 @@ test('deepSummaryBySection', async () => {
 })
 
 test('deepSummaryByAvailability', async () => {
-    const { client, user } = await testUtils.createTestUserAndClient()
-    const chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.secretKey)
+    const { client, user } = await TestUtils.createTestUserAndClient()
+    const chartKey = TestUtils.getChartKey()
+    await TestUtils.createTestChart(chartKey, user.secretKey)
     const event = await client.events.create(chartKey)
     await client.events.book(event.key, (new ObjectProperties('A-1')))
 
@@ -85,9 +85,9 @@ test('deepSummaryByAvailability', async () => {
 })
 
 test('deepSummaryByAvailabilityReason', async () => {
-    const { client, user } = await testUtils.createTestUserAndClient()
-    const chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.secretKey)
+    const { client, user } = await TestUtils.createTestUserAndClient()
+    const chartKey = TestUtils.getChartKey()
+    await TestUtils.createTestChart(chartKey, user.secretKey)
     const event = await client.events.create(chartKey)
     await client.events.book(event.key, (new ObjectProperties('A-1')))
 
@@ -99,9 +99,9 @@ test('deepSummaryByAvailabilityReason', async () => {
 })
 
 test('deepSummaryByChannel', async () => {
-    const { client, user } = await testUtils.createTestUserAndClient()
-    const chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.secretKey)
+    const { client, user } = await TestUtils.createTestUserAndClient()
+    const chartKey = TestUtils.getChartKey()
+    await TestUtils.createTestChart(chartKey, user.secretKey)
     const event = await client.events.create(chartKey)
     await client.events.book(event.key, (new ObjectProperties('A-1')))
 

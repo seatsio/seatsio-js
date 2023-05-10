@@ -1,7 +1,7 @@
-const testUtils = require('../testUtils.js')
+import { TestUtils } from '../testUtils'
 
 test('create events in season by event keys', async () => {
-    const { client } = await testUtils.createTestUserAndClient()
+    const { client } = await TestUtils.createTestUserAndClient()
     const chart = await client.charts.create()
     const season = await client.seasons.create(chart.key)
 
@@ -11,7 +11,7 @@ test('create events in season by event keys', async () => {
 })
 
 test('create events in season by number of events', async () => {
-    const { client } = await testUtils.createTestUserAndClient()
+    const { client } = await TestUtils.createTestUserAndClient()
     const chart = await client.charts.create()
     const season = await client.seasons.create(chart.key)
 
