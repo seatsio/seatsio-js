@@ -9,7 +9,7 @@ import { HoldTokens } from './HoldTokens/HoldTokens'
 import { ChartReports } from './Reports/ChartReports'
 import { EventReports } from './Reports/EventReports'
 import { UsageReports } from './Reports/UsageReports'
-import errorResponseHandler from './errorInterceptor'
+import { errorResponseHandler } from './errorInterceptor'
 import Axios from 'axios'
 import { Seasons } from './Seasons/Seasons'
 

@@ -1,10 +1,10 @@
-const testUtils = require('../testUtils.js')
-const { StatusChangeRequest } = require('../../index')
+import { TestUtils } from '../TestUtils'
+import { StatusChangeRequest } from '../../index'
 
 test('should list status changes for objects', async () => {
-    const { client, user } = await testUtils.createTestUserAndClient()
-    const chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.secretKey)
+    const { client, user } = await TestUtils.createTestUserAndClient()
+    const chartKey = TestUtils.getChartKey()
+    await TestUtils.createTestChart(chartKey, user.secretKey)
     const event = await client.events.create(chartKey)
     await client.events.changeObjectStatusInBatch([
         new StatusChangeRequest(event.key, 'A-1', 's1'),
@@ -12,7 +12,7 @@ test('should list status changes for objects', async () => {
         new StatusChangeRequest(event.key, 'A-2', 's4'),
         new StatusChangeRequest(event.key, 'A-1', 's3')
     ])
-    await testUtils.statusChangesPresent(client, event.key, 4)
+    await TestUtils.statusChangesPresent(client, event.key, 4)
 
     const statuses = []
     for await (const statusChange of client.events.statusChangesForObject(event.key, 'A-1').all()) {

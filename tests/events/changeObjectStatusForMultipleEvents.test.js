@@ -1,10 +1,10 @@
-const testUtils = require('../testUtils.js')
-const EventObjectInfo = require('../../src/Events/EventObjectInfo.js')
+import { TestUtils } from '../testUtils'
+import { EventObjectInfo } from '../../src/Events/EventObjectInfo'
 
 test('should change object status for multiple events', async () => {
-    const { client, user } = await testUtils.createTestUserAndClient()
-    const chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.secretKey)
+    const { client, user } = await TestUtils.createTestUserAndClient()
+    const chartKey = TestUtils.getChartKey()
+    await TestUtils.createTestChart(chartKey, user.secretKey)
     const event1 = await client.events.create(chartKey)
     const event2 = await client.events.create(chartKey)
 
@@ -17,9 +17,9 @@ test('should change object status for multiple events', async () => {
 })
 
 test('should book multiple events', async () => {
-    const { client, user } = await testUtils.createTestUserAndClient()
-    const chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.secretKey)
+    const { client, user } = await TestUtils.createTestUserAndClient()
+    const chartKey = TestUtils.getChartKey()
+    await TestUtils.createTestChart(chartKey, user.secretKey)
     const event1 = await client.events.create(chartKey)
     const event2 = await client.events.create(chartKey)
 
@@ -32,9 +32,9 @@ test('should book multiple events', async () => {
 })
 
 test('should release multiple events', async () => {
-    const { client, user } = await testUtils.createTestUserAndClient()
-    const chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.secretKey)
+    const { client, user } = await TestUtils.createTestUserAndClient()
+    const chartKey = TestUtils.getChartKey()
+    await TestUtils.createTestChart(chartKey, user.secretKey)
     const event1 = await client.events.create(chartKey)
     const event2 = await client.events.create(chartKey)
     await client.events.book([event1.key, event2.key], 'A-1')
@@ -48,9 +48,9 @@ test('should release multiple events', async () => {
 })
 
 test('should hold multiple events', async () => {
-    const { client, user } = await testUtils.createTestUserAndClient()
-    const chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.secretKey)
+    const { client, user } = await TestUtils.createTestUserAndClient()
+    const chartKey = TestUtils.getChartKey()
+    await TestUtils.createTestChart(chartKey, user.secretKey)
     const event1 = await client.events.create(chartKey)
     const event2 = await client.events.create(chartKey)
     const holdToken = await client.holdTokens.create()

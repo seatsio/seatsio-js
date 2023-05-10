@@ -1,10 +1,10 @@
-const testUtils = require('../testUtils.js')
-const EventObjectInfo = require('../../src/Events/EventObjectInfo.js')
+import { TestUtils } from '../TestUtils'
+import { EventObjectInfo } from '../../src/Events/EventObjectInfo.js'
 
 test('should retrieve event object infos', async () => {
-    const { client, user } = await testUtils.createTestUserAndClient()
-    const chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.secretKey)
+    const { client, user } = await TestUtils.createTestUserAndClient()
+    const chartKey = TestUtils.getChartKey()
+    await TestUtils.createTestChart(chartKey, user.secretKey)
     const event = await client.events.create(chartKey)
 
     const objectInfos = await client.events.retrieveObjectInfos(event.key, ['A-1', 'A-2'])
@@ -15,9 +15,9 @@ test('should retrieve event object infos', async () => {
 })
 
 test('holds', async () => {
-    const { client, user } = await testUtils.createTestUserAndClient()
-    const chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.secretKey)
+    const { client, user } = await TestUtils.createTestUserAndClient()
+    const chartKey = TestUtils.getChartKey()
+    await TestUtils.createTestChart(chartKey, user.secretKey)
     const event = await client.events.create(chartKey)
     const holdToken = await client.holdTokens.create()
     await client.events.hold(event.key, 'GA1', holdToken.holdToken)

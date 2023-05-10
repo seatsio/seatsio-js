@@ -1,11 +1,11 @@
-const testUtils = require('../testUtils.js')
-const EventObjectInfo = require('../../src/Events/EventObjectInfo.js')
-const ObjectProperties = require('../../src/Events/ObjectProperties.js')
+import { TestUtils } from '../TestUtils'
+import { EventObjectInfo } from '../../src/Events/EventObjectInfo.js'
+import { ObjectProperties } from '../../src/Events/ObjectProperties.js'
 
 test('should release objects', async () => {
-    const { client, user } = await testUtils.createTestUserAndClient()
-    const chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.secretKey)
+    const { client, user } = await TestUtils.createTestUserAndClient()
+    const chartKey = TestUtils.getChartKey()
+    await TestUtils.createTestChart(chartKey, user.secretKey)
     const event = await client.events.create(chartKey)
     await client.events.book(event.key, ['A-1', 'A-2'])
 
@@ -19,9 +19,9 @@ test('should release objects', async () => {
 })
 
 test('should release objects with hold tokens', async () => {
-    const { client, user } = await testUtils.createTestUserAndClient()
-    const chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.secretKey)
+    const { client, user } = await TestUtils.createTestUserAndClient()
+    const chartKey = TestUtils.getChartKey()
+    await TestUtils.createTestChart(chartKey, user.secretKey)
     const event = await client.events.create(chartKey)
     const holdToken = await client.holdTokens.create()
     await client.events.hold(event.key, 'A-1', holdToken.holdToken)
@@ -34,9 +34,9 @@ test('should release objects with hold tokens', async () => {
 })
 
 test('should release objects with order id', async () => {
-    const { client, user } = await testUtils.createTestUserAndClient()
-    const chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.secretKey)
+    const { client, user } = await TestUtils.createTestUserAndClient()
+    const chartKey = TestUtils.getChartKey()
+    await TestUtils.createTestChart(chartKey, user.secretKey)
     const event = await client.events.create(chartKey)
     await client.events.book(event.key, 'A-1')
 
@@ -48,9 +48,9 @@ test('should release objects with order id', async () => {
 })
 
 test('should keep extra data', async () => {
-    const { client, user } = await testUtils.createTestUserAndClient()
-    const chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.secretKey)
+    const { client, user } = await TestUtils.createTestUserAndClient()
+    const chartKey = TestUtils.getChartKey()
+    await TestUtils.createTestChart(chartKey, user.secretKey)
     const event = await client.events.create(chartKey)
     await client.events.book(event.key, [new ObjectProperties('A-1').setExtraData({ foo: 'bar' })])
 
@@ -61,9 +61,9 @@ test('should keep extra data', async () => {
 })
 
 test('should accept channel keys', async () => {
-    const { client, user } = await testUtils.createTestUserAndClient()
-    const chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.secretKey)
+    const { client, user } = await TestUtils.createTestUserAndClient()
+    const chartKey = TestUtils.getChartKey()
+    await TestUtils.createTestChart(chartKey, user.secretKey)
     const event = await client.events.create(chartKey)
     await client.events.channels.replace(event.key, {
         channelKey1: { name: 'channel 1', color: '#FFAABB', index: 1 }
@@ -78,9 +78,9 @@ test('should accept channel keys', async () => {
 })
 
 test('should accept ignoreChannels', async () => {
-    const { client, user } = await testUtils.createTestUserAndClient()
-    const chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.secretKey)
+    const { client, user } = await TestUtils.createTestUserAndClient()
+    const chartKey = TestUtils.getChartKey()
+    await TestUtils.createTestChart(chartKey, user.secretKey)
     const event = await client.events.create(chartKey)
     await client.events.channels.replace(event.key, {
         channelKey1: { name: 'channel 1', color: '#FFAABB', index: 1 }

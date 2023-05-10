@@ -1,10 +1,10 @@
-const testUtils = require('../../testUtils.js')
-const Channel = require('../../../src/Events/Channel.js')
+import { TestUtils } from '../../testUtils'
+import { Channel } from '../../../src/Events/Channel'
 
 test('should assign objects to channels', async () => {
-    const { client, user } = await testUtils.createTestUserAndClient()
-    const chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.secretKey)
+    const { client, user } = await TestUtils.createTestUserAndClient()
+    const chartKey = TestUtils.getChartKey()
+    await TestUtils.createTestChart(chartKey, user.secretKey)
     const event = await client.events.create(chartKey)
     await client.events.channels.replace(event.key, {
         channelKey1: { name: 'channel 1', color: 'blue', index: 1 },

@@ -1,58 +1,57 @@
-const { SeatsioClient } = require('../index.js')
-const axios = require('axios')
-const fs = require('fs')
-const { v4: uuidv4 } = require('uuid')
-const LabelClasses = require('../src/Common/Labels.js')
-const path = require('path')
-const Region = require('../src/Region')
-const Category = require('../src/Charts/Category')
+import axios from 'axios'
+import { v4 as uuidv4 } from 'uuid'
+import { Region, SeatsioClient } from '../index'
+import * as fs from 'fs'
+import path from 'path'
+import * as LabelClasses from '../src/Common/Labels'
+import { Category } from '../src/Charts/Category'
 
 const baseUrl = 'https://api-staging-eu.seatsio.net/'
 
-module.exports = {
-    createTestUserAndClient: async function () {
-        const company = await this.createTestCompany()
+export class TestUtils {
+    static async createTestUserAndClient () {
+        const company = await TestUtils.createTestCompany()
         const user = company.admin
         const subaccount = company.subaccount
         const workspace = company.workspace
         const client = this.createClient(user.secretKey)
         return { user, subaccount, workspace, client }
-    },
+    }
 
-    createTestCompany: function () {
+    static createTestCompany () {
         return axios({
             method: 'POST',
             url: baseUrl + 'system/public/users/actions/create-test-company'
         }).then(response => {
             return response.data
         })
-    },
+    }
 
-    getChartKey: function () {
+    static getChartKey () {
         return uuidv4()
-    },
+    }
 
-    createClient: function (secretKey, workspaceKey = null) {
+    static createClient (secretKey, workspaceKey = null) {
         return new SeatsioClient(new Region(baseUrl), secretKey, workspaceKey)
-    },
+    }
 
-    createTestChart: async function (chartKey, secretKey) {
+    static async createTestChart (chartKey, secretKey) {
         await this.createTestChartFromFile('/sampleChart.json', chartKey, secretKey)
-    },
+    }
 
-    createErroneousTestChart: async function (chartKey, secretKey) {
+    static async createErroneousTestChart (chartKey, secretKey) {
         await this.createTestChartFromFile('/sampleChartWithErrors.json', chartKey, secretKey)
-    },
+    }
 
-    createTestChartWithTables: async function (chartKey, secretKey) {
+    static async createTestChartWithTables (chartKey, secretKey) {
         await this.createTestChartFromFile('/sampleChartWithTables.json', chartKey, secretKey)
-    },
+    }
 
-    createTestChartWithSections: async function (chartKey, secretKey) {
+    static async createTestChartWithSections (chartKey, secretKey) {
         await this.createTestChartFromFile('/sampleChartWithSections.json', chartKey, secretKey)
-    },
+    }
 
-    createTestChartFromFile: function (filePath, chartKey, secretKey) {
+    static async createTestChartFromFile (filePath, chartKey, secretKey) {
         const requestBody = fs.readFileSync(path.join(__dirname, filePath), 'utf-8')
         const client = axios.create({
             auth: {
@@ -62,9 +61,9 @@ module.exports = {
         })
         const url = `${baseUrl}system/public/charts/${chartKey}`
         return client.post(url, requestBody)
-    },
+    }
 
-    someLabels (ownLabel, ownType, parentLabel = null, parentType = null, section = null) {
+    static someLabels (ownLabel, ownType, parentLabel = null, parentType = null, section = null) {
         let labels
         if (parentLabel) {
             labels = new LabelClasses.Labels(new LabelClasses.LabelAndType(ownLabel, ownType), new LabelClasses.LabelAndType(parentLabel, parentType))
@@ -75,13 +74,13 @@ module.exports = {
             labels.section = section
         }
         return labels
-    },
+    }
 
-    getRandomEmail () {
+    static getRandomEmail () {
         return uuidv4() + '@mailinator.com'
-    },
+    }
 
-    async createArray (length, fn) {
+    static async createArray (length, fn) {
         const array = []
 
         for (let i = 0; i < length; ++i) {
@@ -89,9 +88,9 @@ module.exports = {
         }
 
         return array
-    },
+    }
 
-    deferred () {
+    static deferred () {
         let res
         let rej
 
@@ -105,9 +104,9 @@ module.exports = {
             reject: rej,
             resolve: res
         }
-    },
+    }
 
-    async statusChangesPresent (client, eventKey, numStatusChanges) {
+    static async statusChangesPresent (client, eventKey, numStatusChanges) {
         const deferred = this.deferred()
         const start = new Date()
 
@@ -130,9 +129,9 @@ module.exports = {
         fetchStatusChanges()
 
         return deferred.promise
-    },
+    }
 
-    testChartCategories: [
+    static testChartCategories = [
         new Category(9, 'Cat1', '#87A9CD', false),
         new Category(10, 'Cat2', '#5E42ED', false),
         new Category('string11', 'Cat3', '#5E42BB', false)

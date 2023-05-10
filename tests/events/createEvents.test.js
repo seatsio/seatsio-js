@@ -1,13 +1,13 @@
-const testUtils = require('../testUtils.js')
-const SocialDistancingRuleset = require('../../src/Charts/SocialDistancingRuleset.js')
-const TableBookingConfig = require('../../src/Events/TableBookingConfig')
-const Category = require('../../src/Charts/Category')
-const Events = require('../../src/Events/Events')
+import { TestUtils } from '../TestUtils.js'
+import { SocialDistancingRuleset } from '../../src/Charts/SocialDistancingRuleset.js'
+import { TableBookingConfig } from '../../src/Events/TableBookingConfig'
+import { Category } from '../../src/Charts/Category'
+import { Events } from '../../src/Events/Events'
 
 test('should check that a minimum of one event is required', async () => {
-    const { client, user } = await testUtils.createTestUserAndClient()
-    const chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.secretKey)
+    const { client, user } = await TestUtils.createTestUserAndClient()
+    const chartKey = TestUtils.getChartKey()
+    await TestUtils.createTestChart(chartKey, user.secretKey)
 
     try {
         await client.events.createMultiple(chartKey)
@@ -19,9 +19,9 @@ test('should check that a minimum of one event is required', async () => {
 })
 
 test('should check that an empty object is a valid event definition', async () => {
-    const { client, user } = await testUtils.createTestUserAndClient()
-    const chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.secretKey)
+    const { client, user } = await TestUtils.createTestUserAndClient()
+    const chartKey = TestUtils.getChartKey()
+    await TestUtils.createTestChart(chartKey, user.secretKey)
 
     const events = await client.events.createMultiple(chartKey, [{}])
 
@@ -30,7 +30,7 @@ test('should check that an empty object is a valid event definition', async () =
 })
 
 test('should create a single event', async () => {
-    const { client } = await testUtils.createTestUserAndClient()
+    const { client } = await TestUtils.createTestUserAndClient()
     const chart = await client.charts.create()
 
     const events = await client.events.createMultiple(chart.key, [
@@ -45,7 +45,7 @@ test('should create a single event', async () => {
 })
 
 test('should create multiple events', async () => {
-    const { client } = await testUtils.createTestUserAndClient()
+    const { client } = await TestUtils.createTestUserAndClient()
     const chart = await client.charts.create()
 
     const events = [
@@ -65,9 +65,9 @@ test('should create multiple events', async () => {
 })
 
 test('supports tableBookingConfig custom', async () => {
-    const { client, user } = await testUtils.createTestUserAndClient()
-    const chartKey = testUtils.getChartKey()
-    await testUtils.createTestChartWithTables(chartKey, user.secretKey)
+    const { client, user } = await TestUtils.createTestUserAndClient()
+    const chartKey = TestUtils.getChartKey()
+    await TestUtils.createTestChartWithTables(chartKey, user.secretKey)
     const tableBookingConfig = TableBookingConfig.custom({ T1: 'BY_TABLE', T2: 'BY_SEAT' })
 
     const events = await client.events.createMultiple(chartKey, [
@@ -79,9 +79,9 @@ test('supports tableBookingConfig custom', async () => {
 })
 
 test('supports tableBookingConfig inherit', async () => {
-    const { client, user } = await testUtils.createTestUserAndClient()
-    const chartKey = testUtils.getChartKey()
-    await testUtils.createTestChartWithTables(chartKey, user.secretKey)
+    const { client, user } = await TestUtils.createTestUserAndClient()
+    const chartKey = TestUtils.getChartKey()
+    await TestUtils.createTestChartWithTables(chartKey, user.secretKey)
 
     const events = await client.events.createMultiple(chartKey, [
         Events.eventCreationParams(null, TableBookingConfig.inherit())
@@ -92,7 +92,7 @@ test('supports tableBookingConfig inherit', async () => {
 })
 
 test('it supports a social distancing ruleset key', async () => {
-    const { client } = await testUtils.createTestUserAndClient()
+    const { client } = await TestUtils.createTestUserAndClient()
     const chart = await client.charts.create()
     const rulesets = { ruleset1: SocialDistancingRuleset.ruleBased('My ruleset').build() }
     await client.charts.saveSocialDistancingRulesets(chart.key, rulesets)
@@ -105,9 +105,9 @@ test('it supports a social distancing ruleset key', async () => {
 })
 
 test('it supports object categories', async () => {
-    const { client, user } = await testUtils.createTestUserAndClient()
-    const chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.secretKey)
+    const { client, user } = await TestUtils.createTestUserAndClient()
+    const chartKey = TestUtils.getChartKey()
+    await TestUtils.createTestChart(chartKey, user.secretKey)
 
     const events = await client.events.createMultiple(chartKey, [
         Events.eventCreationParams(null, null, null, { 'A-1': 10 })
@@ -117,9 +117,9 @@ test('it supports object categories', async () => {
 })
 
 test('it supports categories', async () => {
-    const { client, user } = await testUtils.createTestUserAndClient()
-    const chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.secretKey)
+    const { client, user } = await TestUtils.createTestUserAndClient()
+    const chartKey = TestUtils.getChartKey()
+    await TestUtils.createTestChart(chartKey, user.secretKey)
 
     const eventCategory = new Category('eventCat1', 'Event Level Category', '#AAABBB')
 

@@ -1,10 +1,10 @@
-const testUtils = require('../testUtils.js')
-const EventObjectInfo = require('../../src/Events/EventObjectInfo.js')
+import { TestUtils } from '../TestUtils'
+import { EventObjectInfo } from '../../src/Events/EventObjectInfo.js'
 
 test('should retrieve event object info', async () => {
-    const { client, user } = await testUtils.createTestUserAndClient()
-    const chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.secretKey)
+    const { client, user } = await TestUtils.createTestUserAndClient()
+    const chartKey = TestUtils.getChartKey()
+    await TestUtils.createTestChart(chartKey, user.secretKey)
     const event = await client.events.create(chartKey)
 
     const objectInfo = await client.events.retrieveObjectInfo(event.key, 'A-1')

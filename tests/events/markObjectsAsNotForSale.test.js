@@ -1,9 +1,9 @@
-const testUtils = require('../testUtils.js')
+import { TestUtils } from '../TestUtils'
 
 test('should mark objects as not for sale', async () => {
-    const { client, user } = await testUtils.createTestUserAndClient()
-    const chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.secretKey)
+    const { client, user } = await TestUtils.createTestUserAndClient()
+    const chartKey = TestUtils.getChartKey()
+    await TestUtils.createTestChart(chartKey, user.secretKey)
     const event = await client.events.create(chartKey)
 
     await client.events.markAsNotForSale(event.key, ['o1', 'o2'], { GA1: 3 }, ['cat1', 'cat2'])
@@ -16,7 +16,7 @@ test('should mark objects as not for sale', async () => {
 })
 
 test('that categories and area places are optional for mark as not for sale', async () => {
-    const { client } = await testUtils.createTestUserAndClient()
+    const { client } = await TestUtils.createTestUserAndClient()
     const chart = await client.charts.create()
     const event = await client.events.create(chart.key)
 
@@ -29,7 +29,7 @@ test('that categories and area places are optional for mark as not for sale', as
 })
 
 test('that objects are optional for mark as not for sale', async () => {
-    const { client } = await testUtils.createTestUserAndClient()
+    const { client } = await TestUtils.createTestUserAndClient()
     const chart = await client.charts.create()
     const event = await client.events.create(chart.key)
 

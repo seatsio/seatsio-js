@@ -1,9 +1,17 @@
-module.exports = {
-    SeatsioClient: require('./src/SeatsioClient.js'),
-    StatusChangesParams: require('./src/Events/StatusChangesParams.js'),
-    StatusChangeRequest: require('./src/Events/StatusChangeRequest.js'),
-    TableBookingconfig: require('./src/Events/TableBookingConfig.js'),
-    ChartListParams: require('./src/Charts/ChartListParams.js'),
-    SocialDistancingRuleset: require('./src/Charts/SocialDistancingRuleset.js'),
-    Region: require('./src/Region.js')
+import { SeatsioClient } from './src/SeatsioClient.js'
+import { StatusChangesParams } from './src/Events/StatusChangesParams.js'
+import { StatusChangeRequest } from './src/Events/StatusChangeRequest.js'
+import { TableBookingConfig } from './src/Events/TableBookingConfig.js'
+import { ChartListParams } from './src/Charts/ChartListParams.js'
+import { SocialDistancingRuleset } from './src/Charts/SocialDistancingRuleset.js'
+import { Region } from './src/Region.js'
+
+export {
+    SeatsioClient,
+    StatusChangesParams,
+    StatusChangeRequest,
+    TableBookingConfig,
+    ChartListParams,
+    SocialDistancingRuleset,
+    Region
 }

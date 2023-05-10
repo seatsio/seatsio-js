@@ -1,15 +1,15 @@
-const testUtils = require('../testUtils.js')
-const StatusChangeRequest = require('../../src/Events/StatusChangeRequest.js')
+import { TestUtils } from '../TestUtils.js'
+import StatusChangeRequest from '../../src/Events/StatusChangeRequest.js'
 
 test('should change object status in batch', async () => {
-    const { client, user } = await testUtils.createTestUserAndClient()
+    const { client, user } = await TestUtils.createTestUserAndClient()
 
-    const chartKey1 = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey1, user.secretKey)
+    const chartKey1 = TestUtils.getChartKey()
+    await TestUtils.createTestChart(chartKey1, user.secretKey)
     const event1 = await client.events.create(chartKey1)
 
-    const chartKey2 = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey2, user.secretKey)
+    const chartKey2 = TestUtils.getChartKey()
+    await TestUtils.createTestChart(chartKey2, user.secretKey)
     const event2 = await client.events.create(chartKey2)
 
     const result = await client.events.changeObjectStatusInBatch([
@@ -27,9 +27,9 @@ test('should change object status in batch', async () => {
 })
 
 test('should accept channel keys', async () => {
-    const { client, user } = await testUtils.createTestUserAndClient()
-    const chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.secretKey)
+    const { client, user } = await TestUtils.createTestUserAndClient()
+    const chartKey = TestUtils.getChartKey()
+    await TestUtils.createTestChart(chartKey, user.secretKey)
     const event = await client.events.create(chartKey)
     await client.events.channels.replace(event.key, {
         channelKey1: {
@@ -50,9 +50,9 @@ test('should accept channel keys', async () => {
 })
 
 test('should accept ignoreChannels', async () => {
-    const { client, user } = await testUtils.createTestUserAndClient()
-    const chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.secretKey)
+    const { client, user } = await TestUtils.createTestUserAndClient()
+    const chartKey = TestUtils.getChartKey()
+    await TestUtils.createTestChart(chartKey, user.secretKey)
     const event = await client.events.create(chartKey)
     await client.events.channels.replace(event.key, {
         channelKey1: {
@@ -73,9 +73,9 @@ test('should accept ignoreChannels', async () => {
 })
 
 test('should accept allowedPreviousStatuses', async () => {
-    const { client, user } = await testUtils.createTestUserAndClient()
-    const chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.secretKey)
+    const { client, user } = await TestUtils.createTestUserAndClient()
+    const chartKey = TestUtils.getChartKey()
+    await TestUtils.createTestChart(chartKey, user.secretKey)
     const event = await client.events.create(chartKey)
 
     try {
@@ -90,9 +90,9 @@ test('should accept allowedPreviousStatuses', async () => {
 })
 
 test('should accept rejectedPreviousStatuses', async () => {
-    const { client, user } = await testUtils.createTestUserAndClient()
-    const chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.secretKey)
+    const { client, user } = await TestUtils.createTestUserAndClient()
+    const chartKey = TestUtils.getChartKey()
+    await TestUtils.createTestChart(chartKey, user.secretKey)
     const event = await client.events.create(chartKey)
 
     try {

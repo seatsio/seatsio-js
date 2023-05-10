@@ -1,4 +1,4 @@
-function errorResponseHandler (error) {
+export function errorResponseHandler (error) {
     return new Promise(function (resolve, reject) {
         if (typeof error.response !== 'undefined') {
             if (typeof error.response.data !== 'undefined' && error.response.data) {
@@ -11,5 +11,3 @@ function errorResponseHandler (error) {
         }
     })
 }
-
-module.exports = errorResponseHandler

@@ -1,9 +1,9 @@
-const testUtils = require('../testUtils.js')
+import { TestUtils } from '../TestUtils'
 
 test('should update extra data of an event', async () => {
-    const { client, user } = await testUtils.createTestUserAndClient()
-    const chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.secretKey)
+    const { client, user } = await TestUtils.createTestUserAndClient()
+    const chartKey = TestUtils.getChartKey()
+    await TestUtils.createTestChart(chartKey, user.secretKey)
     const event = await client.events.create(chartKey)
     const extraData = { foo: 'bar' }
 

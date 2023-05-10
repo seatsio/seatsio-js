@@ -1,8 +1,8 @@
-const testUtils = require('../../testUtils.js')
-const Channel = require('../../../src/Events/Channel.js')
+import { Channel } from '../../../src/Events/Channel'
+import { TestUtils } from '../../testUtils'
 
 test('should update channels', async () => {
-    const { client } = await testUtils.createTestUserAndClient()
+    const { client } = await TestUtils.createTestUserAndClient()
     const chart = await client.charts.create()
     const event = await client.events.create(chart.key)
 

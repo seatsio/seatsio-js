@@ -1,11 +1,11 @@
-const testUtils = require('../testUtils.js')
-const EventObjectInfo = require('../../src/Events/EventObjectInfo.js')
-const SocialDistancingRuleset = require('../../src/Charts/SocialDistancingRuleset')
+import { TestUtils } from '../TestUtils.js'
+import { EventObjectInfo } from '../../src/Events/EventObjectInfo.js'
+import { SocialDistancingRuleset } from '../../src/Charts/SocialDistancingRuleset'
 
 test('should hold objects', async () => {
-    const { client, user } = await testUtils.createTestUserAndClient()
-    const chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.secretKey)
+    const { client, user } = await TestUtils.createTestUserAndClient()
+    const chartKey = TestUtils.getChartKey()
+    await TestUtils.createTestChart(chartKey, user.secretKey)
     const event = await client.events.create(chartKey)
     const holdToken = await client.holdTokens.create()
     const holdResult = await client.events.hold(event.key, ['A-1', 'A-2'], holdToken.holdToken)
@@ -22,9 +22,9 @@ test('should hold objects', async () => {
 })
 
 test('should keep extra data', async () => {
-    const { client, user } = await testUtils.createTestUserAndClient()
-    const chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.secretKey)
+    const { client, user } = await TestUtils.createTestUserAndClient()
+    const chartKey = TestUtils.getChartKey()
+    await TestUtils.createTestChart(chartKey, user.secretKey)
     const event = await client.events.create(chartKey)
     const holdToken = await client.holdTokens.create()
     await client.events.updateExtraData(event.key, 'A-1', { foo: 'bar' })
@@ -36,9 +36,9 @@ test('should keep extra data', async () => {
 })
 
 test('should accept channel keys', async () => {
-    const { client, user } = await testUtils.createTestUserAndClient()
-    const chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.secretKey)
+    const { client, user } = await TestUtils.createTestUserAndClient()
+    const chartKey = TestUtils.getChartKey()
+    await TestUtils.createTestChart(chartKey, user.secretKey)
     const event = await client.events.create(chartKey)
     const holdToken = await client.holdTokens.create()
     await client.events.channels.replace(event.key, {
@@ -52,9 +52,9 @@ test('should accept channel keys', async () => {
 })
 
 test('should accept ignoreChannels', async () => {
-    const { client, user } = await testUtils.createTestUserAndClient()
-    const chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.secretKey)
+    const { client, user } = await TestUtils.createTestUserAndClient()
+    const chartKey = TestUtils.getChartKey()
+    await TestUtils.createTestChart(chartKey, user.secretKey)
     const event = await client.events.create(chartKey)
     const holdToken = await client.holdTokens.create()
     await client.events.channels.replace(event.key, {
@@ -69,9 +69,9 @@ test('should accept ignoreChannels', async () => {
 })
 
 test('should accept ignoreSocialDistancing', async () => {
-    const { client, user } = await testUtils.createTestUserAndClient()
-    const chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.secretKey)
+    const { client, user } = await TestUtils.createTestUserAndClient()
+    const chartKey = TestUtils.getChartKey()
+    await TestUtils.createTestChart(chartKey, user.secretKey)
     const event = await client.events.create(chartKey)
     const ruleset = SocialDistancingRuleset.fixed('ruleset').setDisabledSeats(['A-1']).build()
     await client.charts.saveSocialDistancingRulesets(chartKey, { ruleset })

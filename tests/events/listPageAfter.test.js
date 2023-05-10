@@ -1,7 +1,7 @@
-const testUtils = require('../testUtils.js')
+import { TestUtils } from '../TestUtils.js'
 
 test('should list events after given event id', async () => {
-    const { client } = await testUtils.createTestUserAndClient()
+    const { client } = await TestUtils.createTestUserAndClient()
     const chart = await client.charts.create()
     const event1 = await client.events.create(chart.key)
     const event2 = await client.events.create(chart.key)
@@ -14,7 +14,7 @@ test('should list events after given event id', async () => {
 })
 
 test('should list events after given event id with page size', async () => {
-    const { client } = await testUtils.createTestUserAndClient()
+    const { client } = await TestUtils.createTestUserAndClient()
     const chart = await client.charts.create()
     await client.events.create(chart.key)
     const event2 = await client.events.create(chart.key)

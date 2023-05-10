@@ -1,10 +1,10 @@
-const testUtils = require('../testUtils.js')
-const SocialDistancingRuleset = require('../../src/Charts/SocialDistancingRuleset.js')
-const TableBookingConfig = require('../../src/Events/TableBookingConfig')
-const Category = require('../../src/Charts/Category')
+import { TestUtils } from '../TestUtils'
+import { SocialDistancingRuleset } from '../../src/Charts/SocialDistancingRuleset.js'
+import { TableBookingConfig } from '../../src/Events/TableBookingConfig'
+import { Category } from '../../src/Charts/Category'
 
 test('should update event\'s chart key', async () => {
-    const { client } = await testUtils.createTestUserAndClient()
+    const { client } = await TestUtils.createTestUserAndClient()
     const chart1 = await client.charts.create()
     const chart2 = await client.charts.create()
     const event = await client.events.create(chart1.key)
@@ -20,7 +20,7 @@ test('should update event\'s chart key', async () => {
 })
 
 test('should update event key', async () => {
-    const { client } = await testUtils.createTestUserAndClient()
+    const { client } = await TestUtils.createTestUserAndClient()
     const chart = await client.charts.create()
     const event = await client.events.create(chart.key)
 
@@ -32,9 +32,9 @@ test('should update event key', async () => {
 })
 
 test('should update tableBookingConfig parameter of an event', async () => {
-    const { client, user } = await testUtils.createTestUserAndClient()
-    const chartKey = testUtils.getChartKey()
-    await testUtils.createTestChartWithTables(chartKey, user.secretKey)
+    const { client, user } = await TestUtils.createTestUserAndClient()
+    const chartKey = TestUtils.getChartKey()
+    await TestUtils.createTestChartWithTables(chartKey, user.secretKey)
     const event = await client.events.create(chartKey)
 
     await client.events.update(event.key, null, null, TableBookingConfig.custom({ T1: 'BY_TABLE', T2: 'BY_SEAT' }))
@@ -46,7 +46,7 @@ test('should update tableBookingConfig parameter of an event', async () => {
 })
 
 test('it supports a social distancing ruleset key', async () => {
-    const { client } = await testUtils.createTestUserAndClient()
+    const { client } = await TestUtils.createTestUserAndClient()
     const chart = await client.charts.create()
     const rulesets = {
         ruleset1: SocialDistancingRuleset.ruleBased('My ruleset').build(),
@@ -62,7 +62,7 @@ test('it supports a social distancing ruleset key', async () => {
 })
 
 test('it supports removing the social distancing ruleset key', async () => {
-    const { client } = await testUtils.createTestUserAndClient()
+    const { client } = await TestUtils.createTestUserAndClient()
     const chart = await client.charts.create()
     const rulesets = {
         ruleset1: SocialDistancingRuleset.ruleBased('My ruleset').build()
@@ -77,9 +77,9 @@ test('it supports removing the social distancing ruleset key', async () => {
 })
 
 test('it supports object categories', async () => {
-    const { client, user } = await testUtils.createTestUserAndClient()
-    const chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.secretKey)
+    const { client, user } = await TestUtils.createTestUserAndClient()
+    const chartKey = TestUtils.getChartKey()
+    await TestUtils.createTestChart(chartKey, user.secretKey)
 
     const event = await client.events.create(chartKey, null, null, null, { 'A-1': 9 })
 
@@ -90,9 +90,9 @@ test('it supports object categories', async () => {
 })
 
 test('it supports removing the object categories', async () => {
-    const { client, user } = await testUtils.createTestUserAndClient()
-    const chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.secretKey)
+    const { client, user } = await TestUtils.createTestUserAndClient()
+    const chartKey = TestUtils.getChartKey()
+    await TestUtils.createTestChart(chartKey, user.secretKey)
 
     const event = await client.events.create(chartKey, null, null, null, { 'A-2': 9 })
 
@@ -103,9 +103,9 @@ test('it supports removing the object categories', async () => {
 })
 
 test('it supports updating the categories', async () => {
-    const { client, user } = await testUtils.createTestUserAndClient()
-    const chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.secretKey)
+    const { client, user } = await TestUtils.createTestUserAndClient()
+    const chartKey = TestUtils.getChartKey()
+    await TestUtils.createTestChart(chartKey, user.secretKey)
     const eventCategory = new Category('eventCat1', 'Event Level Category', '#AAABBB')
     const newEventCategory = new Category('eventCat2', 'Event Level Category 2', '#BBBCCC')
     const event = await client.events.create(chartKey, null, null, null, null, [eventCategory])
@@ -121,9 +121,9 @@ test('it supports updating the categories', async () => {
 })
 
 test('it supports removing categoreis', async () => {
-    const { client, user } = await testUtils.createTestUserAndClient()
-    const chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.secretKey)
+    const { client, user } = await TestUtils.createTestUserAndClient()
+    const chartKey = TestUtils.getChartKey()
+    await TestUtils.createTestChart(chartKey, user.secretKey)
     const eventCategory = new Category('eventCat1', 'Event Level Category', '#AAABBB')
     const event = await client.events.create(chartKey, null, null, null, null, [eventCategory])
 

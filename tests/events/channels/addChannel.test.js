@@ -1,12 +1,13 @@
-const testUtils = require('../../testUtils')
-const Channel = require('../../../src/Events/Channel')
+import { Channel } from '../../../src/Events/Channel'
+import { TestUtils } from '../../testUtils'
+
 test('can add a channel', async () => {
     const {
         client,
         user
-    } = await testUtils.createTestUserAndClient()
-    const chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.secretKey)
+    } = await TestUtils.createTestUserAndClient()
+    const chartKey = TestUtils.getChartKey()
+    await TestUtils.createTestChart(chartKey, user.secretKey)
     const event = await client.events.create(chartKey)
 
     await client.events.channels.add(event.key, 'channelKey1', 'channel 1', '#FFFF98', 1, ['A-1', 'A-2'])
@@ -35,9 +36,9 @@ test('can add multiple channels', async () => {
     const {
         client,
         user
-    } = await testUtils.createTestUserAndClient()
-    const chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.secretKey)
+    } = await TestUtils.createTestUserAndClient()
+    const chartKey = TestUtils.getChartKey()
+    await TestUtils.createTestChart(chartKey, user.secretKey)
     const event = await client.events.create(chartKey)
 
     await client.events.channels.addMultiple(
@@ -71,9 +72,9 @@ test('index is optional', async () => {
     const {
         client,
         user
-    } = await testUtils.createTestUserAndClient()
-    const chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.secretKey)
+    } = await TestUtils.createTestUserAndClient()
+    const chartKey = TestUtils.getChartKey()
+    await TestUtils.createTestChart(chartKey, user.secretKey)
     const event = await client.events.create(chartKey)
 
     await client.events.channels.add(event.key, 'channelKey1', 'channel 1', '#FFFF98', undefined, ['A-1', 'A-2'])
@@ -93,9 +94,9 @@ test('objects are optional', async () => {
     const {
         client,
         user
-    } = await testUtils.createTestUserAndClient()
-    const chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.secretKey)
+    } = await TestUtils.createTestUserAndClient()
+    const chartKey = TestUtils.getChartKey()
+    await TestUtils.createTestChart(chartKey, user.secretKey)
     const event = await client.events.create(chartKey)
 
     await client.events.channels.add(event.key, 'channelKey1', 'channel 1', '#FFFF98', 1, undefined)

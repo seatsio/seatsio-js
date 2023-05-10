@@ -1,13 +1,13 @@
-const testUtils = require('../testUtils.js')
-const EventObjectInfo = require('../../src/Events/EventObjectInfo.js')
-const ObjectProperties = require('../../src/Events/ObjectProperties.js')
-const TableBookingConfig = require('../../src/Events/TableBookingConfig')
-const SocialDistancingRuleset = require('../../src/Charts/SocialDistancingRuleset')
+import { TestUtils } from '../TestUtils.js'
+import { EventObjectInfo } from '../../src/Events/EventObjectInfo.js'
+import { ObjectProperties } from '../../src/Events/ObjectProperties.js'
+import { TableBookingConfig } from '../../src/Events/TableBookingConfig'
+import { SocialDistancingRuleset } from '../../src/Charts/SocialDistancingRuleset'
 
 test('should change object status', async () => {
-    const { client, user } = await testUtils.createTestUserAndClient()
-    const chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.secretKey)
+    const { client, user } = await TestUtils.createTestUserAndClient()
+    const chartKey = TestUtils.getChartKey()
+    await TestUtils.createTestChart(chartKey, user.secretKey)
     const event = await client.events.create(chartKey)
 
     const result = await client.events.changeObjectStatus(event.key, 'A-1', 'lolzor')
@@ -35,9 +35,9 @@ test('should change object status', async () => {
 })
 
 test('should change object status for table seat', async () => {
-    const { client, user } = await testUtils.createTestUserAndClient()
-    const chartKey = testUtils.getChartKey()
-    await testUtils.createTestChartWithTables(chartKey, user.secretKey)
+    const { client, user } = await TestUtils.createTestUserAndClient()
+    const chartKey = TestUtils.getChartKey()
+    await TestUtils.createTestChartWithTables(chartKey, user.secretKey)
     const event = await client.events.create(chartKey)
 
     const result = await client.events.changeObjectStatus(event.key, 'T1-1', 'lolzor')
@@ -46,9 +46,9 @@ test('should change object status for table seat', async () => {
 })
 
 test('should change object status for table', async () => {
-    const { client, user } = await testUtils.createTestUserAndClient()
-    const chartKey = testUtils.getChartKey()
-    await testUtils.createTestChartWithTables(chartKey, user.secretKey)
+    const { client, user } = await TestUtils.createTestUserAndClient()
+    const chartKey = TestUtils.getChartKey()
+    await TestUtils.createTestChartWithTables(chartKey, user.secretKey)
     const event = await client.events.create(chartKey, null, TableBookingConfig.allByTable())
 
     const result = await client.events.changeObjectStatus(event.key, 'T1', 'lolzor')
@@ -57,9 +57,9 @@ test('should change object status for table', async () => {
 })
 
 test('should change object status with GA', async () => {
-    const { client, user } = await testUtils.createTestUserAndClient()
-    const chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.secretKey)
+    const { client, user } = await TestUtils.createTestUserAndClient()
+    const chartKey = TestUtils.getChartKey()
+    await TestUtils.createTestChart(chartKey, user.secretKey)
     const event = await client.events.create(chartKey)
 
     const result = await client.events.changeObjectStatus(event.key, '34', 'lolzor')
@@ -68,9 +68,9 @@ test('should change object status with GA', async () => {
 })
 
 test('should change object status with GA and quantity', async () => {
-    const { client, user } = await testUtils.createTestUserAndClient()
-    const chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.secretKey)
+    const { client, user } = await TestUtils.createTestUserAndClient()
+    const chartKey = TestUtils.getChartKey()
+    await TestUtils.createTestChart(chartKey, user.secretKey)
     const event = await client.events.create(chartKey)
 
     const result = await client.events.changeObjectStatus(event.key, {
@@ -85,9 +85,9 @@ test('should change object status with GA and quantity', async () => {
 })
 
 test('should change object status with objectId as string', async () => {
-    const { client, user } = await testUtils.createTestUserAndClient()
-    const chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.secretKey)
+    const { client, user } = await TestUtils.createTestUserAndClient()
+    const chartKey = TestUtils.getChartKey()
+    await TestUtils.createTestChart(chartKey, user.secretKey)
     const event = await client.events.create(chartKey)
 
     await client.events.changeObjectStatus(event.key, 'A-1', 'lolzor')
@@ -97,9 +97,9 @@ test('should change object status with objectId as string', async () => {
 })
 
 test('should change object status with objectId inside class', async () => {
-    const { client, user } = await testUtils.createTestUserAndClient()
-    const chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.secretKey)
+    const { client, user } = await TestUtils.createTestUserAndClient()
+    const chartKey = TestUtils.getChartKey()
+    await TestUtils.createTestChart(chartKey, user.secretKey)
     const event = await client.events.create(chartKey)
 
     await client.events.changeObjectStatus(event.key, new ObjectProperties('A-1'), 'lolzor')
@@ -109,9 +109,9 @@ test('should change object status with objectId inside class', async () => {
 })
 
 test('should change object status with hold token', async () => {
-    const { client, user } = await testUtils.createTestUserAndClient()
-    const chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.secretKey)
+    const { client, user } = await TestUtils.createTestUserAndClient()
+    const chartKey = TestUtils.getChartKey()
+    await TestUtils.createTestChart(chartKey, user.secretKey)
     const event = await client.events.create(chartKey)
     const holdToken = await client.holdTokens.create()
 
@@ -123,9 +123,9 @@ test('should change object status with hold token', async () => {
 })
 
 test('should change object status with OrderId', async () => {
-    const { client, user } = await testUtils.createTestUserAndClient()
-    const chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.secretKey)
+    const { client, user } = await TestUtils.createTestUserAndClient()
+    const chartKey = TestUtils.getChartKey()
+    await TestUtils.createTestChart(chartKey, user.secretKey)
     const event = await client.events.create(chartKey)
 
     await client.events.changeObjectStatus(event.key, 'A-1', 'lolzor', null, 'order1')
@@ -135,9 +135,9 @@ test('should change object status with OrderId', async () => {
 })
 
 test('should respect keepExtraData=true', async () => {
-    const { client, user } = await testUtils.createTestUserAndClient()
-    const chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.secretKey)
+    const { client, user } = await TestUtils.createTestUserAndClient()
+    const chartKey = TestUtils.getChartKey()
+    await TestUtils.createTestChart(chartKey, user.secretKey)
     const event = await client.events.create(chartKey)
     await client.events.updateExtraData(event.key, 'A-1', { foo: 'bar' })
 
@@ -148,9 +148,9 @@ test('should respect keepExtraData=true', async () => {
 })
 
 test('should respect keepExtraData=false', async () => {
-    const { client, user } = await testUtils.createTestUserAndClient()
-    const chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.secretKey)
+    const { client, user } = await TestUtils.createTestUserAndClient()
+    const chartKey = TestUtils.getChartKey()
+    await TestUtils.createTestChart(chartKey, user.secretKey)
     const event = await client.events.create(chartKey)
     await client.events.updateExtraData(event.key, 'A-1', { foo: 'bar' })
 
@@ -161,9 +161,9 @@ test('should respect keepExtraData=false', async () => {
 })
 
 test('should respect no keepExtraData', async () => {
-    const { client, user } = await testUtils.createTestUserAndClient()
-    const chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.secretKey)
+    const { client, user } = await TestUtils.createTestUserAndClient()
+    const chartKey = TestUtils.getChartKey()
+    await TestUtils.createTestChart(chartKey, user.secretKey)
     const event = await client.events.create(chartKey)
     await client.events.updateExtraData(event.key, 'A-1', { foo: 'bar' })
 
@@ -174,9 +174,9 @@ test('should respect no keepExtraData', async () => {
 })
 
 test('should accept channel keys', async () => {
-    const { client, user } = await testUtils.createTestUserAndClient()
-    const chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.secretKey)
+    const { client, user } = await TestUtils.createTestUserAndClient()
+    const chartKey = TestUtils.getChartKey()
+    await TestUtils.createTestChart(chartKey, user.secretKey)
     const event = await client.events.create(chartKey)
     await client.events.channels.replace(event.key, {
         channelKey1: {
@@ -195,9 +195,9 @@ test('should accept channel keys', async () => {
 })
 
 test('should accept ignoreChannels', async () => {
-    const { client, user } = await testUtils.createTestUserAndClient()
-    const chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.secretKey)
+    const { client, user } = await TestUtils.createTestUserAndClient()
+    const chartKey = TestUtils.getChartKey()
+    await TestUtils.createTestChart(chartKey, user.secretKey)
     const event = await client.events.create(chartKey)
     await client.events.channels.replace(event.key, {
         channelKey1: {
@@ -216,9 +216,9 @@ test('should accept ignoreChannels', async () => {
 })
 
 test('should accept ignoreSocialDistancing', async () => {
-    const { client, user } = await testUtils.createTestUserAndClient()
-    const chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.secretKey)
+    const { client, user } = await TestUtils.createTestUserAndClient()
+    const chartKey = TestUtils.getChartKey()
+    await TestUtils.createTestChart(chartKey, user.secretKey)
     const event = await client.events.create(chartKey)
     const ruleset = SocialDistancingRuleset.fixed('ruleset').setDisabledSeats(['A-1']).build()
     await client.charts.saveSocialDistancingRulesets(chartKey, { ruleset })
@@ -231,9 +231,9 @@ test('should accept ignoreSocialDistancing', async () => {
 })
 
 test('should accept allowedPreviousStatuses', async () => {
-    const { client, user } = await testUtils.createTestUserAndClient()
-    const chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.secretKey)
+    const { client, user } = await TestUtils.createTestUserAndClient()
+    const chartKey = TestUtils.getChartKey()
+    await TestUtils.createTestChart(chartKey, user.secretKey)
     const event = await client.events.create(chartKey)
 
     try {
@@ -246,9 +246,9 @@ test('should accept allowedPreviousStatuses', async () => {
 })
 
 test('should accept rejectedPreviousStatuses', async () => {
-    const { client, user } = await testUtils.createTestUserAndClient()
-    const chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.secretKey)
+    const { client, user } = await TestUtils.createTestUserAndClient()
+    const chartKey = TestUtils.getChartKey()
+    await TestUtils.createTestChart(chartKey, user.secretKey)
     const event = await client.events.create(chartKey)
 
     try {
