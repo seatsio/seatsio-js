@@ -1,16 +1,16 @@
-const testUtils = require('../testUtils.js')
-const { IDs } = require('../../src/Common/IDs')
+import { TestUtils } from '../TestUtils.js'
+import { IDs } from '../../src/Common/IDs'
 
 test('chart report properties', async () => {
-    const { client, user } = await testUtils.createTestUserAndClient()
-    const chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.secretKey)
+    const { client, user } = await TestUtils.createTestUserAndClient()
+    const chartKey = TestUtils.getChartKey()
+    await TestUtils.createTestChart(chartKey, user.secretKey)
 
     const report = await client.chartReports.byLabel(chartKey)
 
     const reportItem = report['A-1'][0]
     expect(reportItem.label).toBe('A-1')
-    expect(reportItem.labels).toEqual(testUtils.someLabels('1', 'seat', 'A', 'row'))
+    expect(reportItem.labels).toEqual(TestUtils.someLabels('1', 'seat', 'A', 'row'))
     expect(reportItem.ids).toEqual(new IDs('1', 'A', null))
     expect(reportItem.categoryLabel).toBe('Cat1')
     expect(reportItem.categoryKey).toBe('9')
@@ -24,9 +24,9 @@ test('chart report properties', async () => {
 })
 
 test('chart report properties for GA', async () => {
-    const { client, user } = await testUtils.createTestUserAndClient()
-    const chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.secretKey)
+    const { client, user } = await TestUtils.createTestUserAndClient()
+    const chartKey = TestUtils.getChartKey()
+    await TestUtils.createTestChart(chartKey, user.secretKey)
 
     const report = await client.chartReports.byLabel(chartKey)
 
@@ -37,9 +37,9 @@ test('chart report properties for GA', async () => {
 })
 
 test('chart report properties for table', async () => {
-    const { client, user } = await testUtils.createTestUserAndClient()
-    const chartKey = testUtils.getChartKey()
-    await testUtils.createTestChartWithTables(chartKey, user.secretKey)
+    const { client, user } = await TestUtils.createTestUserAndClient()
+    const chartKey = TestUtils.getChartKey()
+    await TestUtils.createTestChartWithTables(chartKey, user.secretKey)
 
     const report = await client.chartReports.byLabel(chartKey, 'true')
 
@@ -49,9 +49,9 @@ test('chart report properties for table', async () => {
 })
 
 test('get report byLabel', async () => {
-    const { client, user } = await testUtils.createTestUserAndClient()
-    const chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.secretKey)
+    const { client, user } = await TestUtils.createTestUserAndClient()
+    const chartKey = TestUtils.getChartKey()
+    await TestUtils.createTestChart(chartKey, user.secretKey)
 
     const report = await client.chartReports.byLabel(chartKey)
 
@@ -60,9 +60,9 @@ test('get report byLabel', async () => {
 })
 
 test('get report byObjectType', async () => {
-    const { client, user } = await testUtils.createTestUserAndClient()
-    const chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.secretKey)
+    const { client, user } = await TestUtils.createTestUserAndClient()
+    const chartKey = TestUtils.getChartKey()
+    await TestUtils.createTestChart(chartKey, user.secretKey)
 
     const report = await client.chartReports.byObjectType(chartKey)
 
@@ -71,9 +71,9 @@ test('get report byObjectType', async () => {
 })
 
 test('get report byLabel, bookWholeTables not passed in', async () => {
-    const { client, user } = await testUtils.createTestUserAndClient()
-    const chartKey = testUtils.getChartKey()
-    await testUtils.createTestChartWithTables(chartKey, user.secretKey)
+    const { client, user } = await TestUtils.createTestUserAndClient()
+    const chartKey = TestUtils.getChartKey()
+    await TestUtils.createTestChartWithTables(chartKey, user.secretKey)
 
     const report = await client.chartReports.byLabel(chartKey)
 
@@ -81,9 +81,9 @@ test('get report byLabel, bookWholeTables not passed in', async () => {
 })
 
 test('get report byLabel, bookWholeTables chart', async () => {
-    const { client, user } = await testUtils.createTestUserAndClient()
-    const chartKey = testUtils.getChartKey()
-    await testUtils.createTestChartWithTables(chartKey, user.secretKey)
+    const { client, user } = await TestUtils.createTestUserAndClient()
+    const chartKey = TestUtils.getChartKey()
+    await TestUtils.createTestChartWithTables(chartKey, user.secretKey)
 
     const report = await client.chartReports.byLabel(chartKey, 'chart')
 
@@ -91,9 +91,9 @@ test('get report byLabel, bookWholeTables chart', async () => {
 })
 
 test('get report byLabel, bookWholeTables true', async () => {
-    const { client, user } = await testUtils.createTestUserAndClient()
-    const chartKey = testUtils.getChartKey()
-    await testUtils.createTestChartWithTables(chartKey, user.secretKey)
+    const { client, user } = await TestUtils.createTestUserAndClient()
+    const chartKey = TestUtils.getChartKey()
+    await TestUtils.createTestChartWithTables(chartKey, user.secretKey)
 
     const report = await client.chartReports.byLabel(chartKey, 'true')
 
@@ -101,9 +101,9 @@ test('get report byLabel, bookWholeTables true', async () => {
 })
 
 test('get report byLabel, bookWholeTables false', async () => {
-    const { client, user } = await testUtils.createTestUserAndClient()
-    const chartKey = testUtils.getChartKey()
-    await testUtils.createTestChartWithTables(chartKey, user.secretKey)
+    const { client, user } = await TestUtils.createTestUserAndClient()
+    const chartKey = TestUtils.getChartKey()
+    await TestUtils.createTestChartWithTables(chartKey, user.secretKey)
 
     const report = await client.chartReports.byLabel(chartKey, 'false')
 
@@ -111,9 +111,9 @@ test('get report byLabel, bookWholeTables false', async () => {
 })
 
 test('get report byCategoryKey', async () => {
-    const { client, user } = await testUtils.createTestUserAndClient()
-    const chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.secretKey)
+    const { client, user } = await TestUtils.createTestUserAndClient()
+    const chartKey = TestUtils.getChartKey()
+    await TestUtils.createTestChart(chartKey, user.secretKey)
 
     const report = await client.chartReports.byCategoryKey(chartKey)
 
@@ -122,9 +122,9 @@ test('get report byCategoryKey', async () => {
 })
 
 test('get report byCategoryLabel', async () => {
-    const { client, user } = await testUtils.createTestUserAndClient()
-    const chartKey = testUtils.getChartKey()
-    await testUtils.createTestChart(chartKey, user.secretKey)
+    const { client, user } = await TestUtils.createTestUserAndClient()
+    const chartKey = TestUtils.getChartKey()
+    await TestUtils.createTestChart(chartKey, user.secretKey)
 
     const report = await client.chartReports.byCategoryLabel(chartKey)
 
@@ -133,9 +133,9 @@ test('get report byCategoryLabel', async () => {
 })
 
 test('get report bySection', async () => {
-    const { client, user } = await testUtils.createTestUserAndClient()
-    const chartKey = testUtils.getChartKey()
-    await testUtils.createTestChartWithSections(chartKey, user.secretKey)
+    const { client, user } = await TestUtils.createTestUserAndClient()
+    const chartKey = TestUtils.getChartKey()
+    await TestUtils.createTestChartWithSections(chartKey, user.secretKey)
 
     const report = await client.chartReports.bySection(chartKey)
 
