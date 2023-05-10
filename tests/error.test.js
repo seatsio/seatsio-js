@@ -1,4 +1,4 @@
-import { TestUtils } from './testUtils.js'
+import { TestUtils } from './testUtils'
 
 test('check error handling', async () => {
     const { client } = await TestUtils.createTestUserAndClient()
@@ -14,5 +14,5 @@ test('check error handling', async () => {
         warnings: []
     }
 
-    await expect(client.events.create()).rejects.toMatchObject(errorSnapshot)
+    await expect(client.events.create(null)).rejects.toMatchObject(errorSnapshot)
 })
