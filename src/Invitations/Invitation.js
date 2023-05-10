@@ -1,4 +1,4 @@
-class Invitation {
+export class Invitation {
     constructor (json) {
         this.id = json.id
         this.status = json.status
@@ -6,5 +6,3 @@ class Invitation {
         this.date = new Date(json.date)
     }
 }
-
-module.exports = Invitation

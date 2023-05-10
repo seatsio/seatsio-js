@@ -3,7 +3,7 @@ const Lister = require('../Lister.js')
 const Subaccount = require('./Subaccount.js')
 const Chart = require('../Charts/Chart.js')
 
-class Subaccounts {
+export class Subaccounts {
     /**
      * @param {Axios} client
      */
@@ -144,5 +144,3 @@ class Subaccounts {
         })
     }
 }
-
-module.exports = Subaccounts

@@ -1,6 +1,6 @@
-const HoldToken = require('./HoldToken.js')
+const { HoldToken } = require('./HoldToken')
 
-class HoldTokens {
+export class HoldTokens {
     constructor (client) {
         this.client = client
     }
@@ -36,5 +36,3 @@ class HoldTokens {
         return this.client.get(`/hold-tokens/${holdToken}`).then((res) => new HoldToken(res.data))
     }
 }
-
-module.exports = HoldTokens

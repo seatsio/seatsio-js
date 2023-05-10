@@ -1,4 +1,4 @@
-class ForSaleConfig {
+export class ForSaleConfig {
     /**
      * @param {boolean} forSale
      * @param {string[]} objects
@@ -12,5 +12,3 @@ class ForSaleConfig {
         this.categories = categories
     }
 }
-
-module.exports = ForSaleConfig

@@ -1,4 +1,4 @@
-class SocialDistancingRuleset {
+export class SocialDistancingRuleset {
     static fixed (name) {
         return new FixedSocialDistancingRulesetBuilder(name)
     }
@@ -129,5 +129,3 @@ class RuleBasedSocialDistancingRulesetBuilder {
         return this
     }
 }
-
-module.exports = SocialDistancingRuleset

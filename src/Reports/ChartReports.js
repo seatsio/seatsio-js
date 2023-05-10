@@ -1,6 +1,6 @@
-const utilities = require('../utilities/reportUtility.js')
+import { Utilities } from '../utilities/reportUtility'
 
-class ChartReports {
+export class ChartReports {
     constructor (client) {
         this.client = client
     }
@@ -88,7 +88,7 @@ class ChartReports {
 
     fetchReport (reportType, chartKey, bookWholeTables) {
         return this.client.get(`/reports/charts/${encodeURIComponent(chartKey)}/${reportType}`, { params: { bookWholeTables } })
-            .then((res) => utilities.createChartReport(res.data))
+            .then((res) => Utilities.createChartReport(res.data))
     }
 
     fetchSummaryReport (reportType, chartKey, bookWholeTables) {
@@ -96,5 +96,3 @@ class ChartReports {
             .then((res) => res.data)
     }
 }
-
-module.exports = ChartReports

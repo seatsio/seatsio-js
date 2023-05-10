@@ -1,7 +1,7 @@
-const ChartValidationSettings = require('./ChartValidationSettings.js')
-const DefaultRendererSettings = require('./DefaultRendererSettings.js')
+import { ChartValidationSettings } from './ChartValidationSettings'
+import { DefaultRendererSettings } from './DefaultRendererSettings'
 
-class AccountSettings {
+export class AccountSettings {
     /**
      * @param {object} settings
      */
@@ -13,5 +13,3 @@ class AccountSettings {
         this.defaultRendererSettings = new DefaultRendererSettings(settings.defaultRendererSettings)
     }
 }
-
-module.exports = AccountSettings

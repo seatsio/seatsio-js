@@ -1,6 +1,6 @@
-const Event = require('../Events/Event.js')
+import { Event } from '../Events/Event'
 
-class Season extends Event {
+export class Season extends Event {
     /**
      * @param {object} season
      */
@@ -14,5 +14,3 @@ class Season extends Event {
         return true
     }
 }
-
-module.exports = Season

@@ -1,8 +1,8 @@
-const ChartValidation = require('./ChartValidation')
-const SocialDistancingRuleset = require('./SocialDistancingRuleset')
-const EventDeserializer = require('../Events/EventDeserializer')
+import { EventDeserializer } from '../Events/EventDeserializer'
+import { ChartValidation } from './ChartValidation'
+import { SocialDistancingRuleset } from '../../index'
 
-class Chart {
+export class Chart {
     /**
      * @param {object} chart
      */
@@ -32,5 +32,3 @@ class Chart {
         return result
     }
 }
-
-module.exports = Chart

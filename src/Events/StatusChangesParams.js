@@ -1,4 +1,4 @@
-class StatusChangesParams {
+export class StatusChangesParams {
     /**
      * @param {?string} filter
      * @param {?string} filterType
@@ -78,5 +78,3 @@ class StatusChangesParams {
         }
     }
 }
-
-module.exports = StatusChangesParams

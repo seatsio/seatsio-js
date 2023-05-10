@@ -1,7 +1,5 @@
-class StatusChange {
-    /**
-     * @param {object} statusChange
-     */
+export class StatusChange {
+
     constructor (statusChange) {
         this.id = statusChange.id
         this.eventId = statusChange.eventId
@@ -18,5 +16,3 @@ class StatusChange {
         this.displayedLabel = statusChange.displayedLabel ? statusChange.displayedLabel : null
     }
 }
-
-module.exports = StatusChange

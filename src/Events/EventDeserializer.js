@@ -1,7 +1,7 @@
-const Season = require('../Seasons/Season')
-const Event = require('./Event.js')
+import { Season } from '../Seasons/Season'
+import { Event } from './Event'
 
-class EventDeserializer {
+export class EventDeserializer {
     fromJson (event) {
         if (event.isSeason) {
             return new Season(event)
@@ -10,4 +10,3 @@ class EventDeserializer {
     }
 }
 
-module.exports = EventDeserializer

@@ -1,7 +1,7 @@
 const Season = require('./Season')
 const EventDeserializer = require('../Events/EventDeserializer')
 
-class Seasons {
+export class Seasons {
     /**
      * @param {Axios} client
      * @param {SeatsioClient} seatsioClient
@@ -119,5 +119,3 @@ class Seasons {
         return this.seatsioClient.events.retrieve(key)
     }
 }
-
-module.exports = Seasons

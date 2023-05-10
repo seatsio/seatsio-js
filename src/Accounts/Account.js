@@ -1,6 +1,6 @@
-const AccountSettings = require('./AccountSettings.js')
+import { AccountSettings } from './AccountSettings'
 
-class Account {
+export class Account {
     /**
      * @param {object} account
      */
@@ -14,5 +14,3 @@ class Account {
         this.role = account.role
     }
 }
-
-module.exports = Account

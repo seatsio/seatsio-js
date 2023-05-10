@@ -1,4 +1,4 @@
-class PageFetcher {
+export class PageFetcher {
     constructor (url, client, pageCreator) {
         this.url = url
         this.client = client
@@ -35,5 +35,3 @@ class PageFetcher {
         return this.pageCreator(res)
     }
 }
-
-module.exports = PageFetcher

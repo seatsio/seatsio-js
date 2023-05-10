@@ -1,4 +1,4 @@
-class StatusChangeRequest {
+export class StatusChangeRequest {
     /**
      * @param {string} eventKey
      * @param {object|object[]} objectOrObjects
@@ -24,5 +24,3 @@ class StatusChangeRequest {
         this.rejectedPreviousStatuses = rejectedPreviousStatuses
     }
 }
-
-module.exports = StatusChangeRequest

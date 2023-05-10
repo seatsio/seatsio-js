@@ -1,4 +1,4 @@
-class UsageReports {
+export class UsageReports {
     constructor (client) {
         this.client = client
     }
@@ -28,5 +28,3 @@ class UsageReports {
             .then((res) => res.data)
     }
 }
-
-module.exports = UsageReports

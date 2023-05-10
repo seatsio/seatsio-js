@@ -1,5 +1,3 @@
-const Page = require('./Page.js')
-const StatusChange = require('./Events/StatusChange.js')
 const Chart = require('./Charts/Chart.js')
 const User = require('./Users/User.js')
 const Subaccount = require('./Subaccounts/Subaccount.js')
@@ -7,7 +5,7 @@ const Workspace = require('./Workspaces/Workspace.js')
 const Season = require('./Seasons/Season')
 const EventDeserializer = require('./Events/EventDeserializer')
 
-class AsyncIterator {
+export class AsyncIterator {
     /**
      * @param {string} url
      * @param {Axios} client
@@ -157,4 +155,3 @@ class AsyncIterator {
     }
 }
 
-module.exports = AsyncIterator

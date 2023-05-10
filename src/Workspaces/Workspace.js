@@ -1,4 +1,4 @@
-class Workspace {
+export class Workspace {
     /**
      * @param {object} workspace
      */
@@ -13,5 +13,3 @@ class Workspace {
         this.isActive = workspace.isActive
     }
 }
-
-module.exports = Workspace

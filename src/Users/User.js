@@ -1,4 +1,4 @@
-class User {
+export class User {
     constructor (userJson) {
         this.id = userJson.id
         this.email = userJson.email
@@ -12,5 +12,3 @@ class User {
         this.workspaces = userJson.workspaces
     }
 }
-
-module.exports = User

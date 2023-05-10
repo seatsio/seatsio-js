@@ -1,4 +1,4 @@
-class Labels {
+export class Labels {
     /**
      * @param {LabelAndType} own
      * @param {?LabelAndType} parent
@@ -9,7 +9,7 @@ class Labels {
     }
 }
 
-class LabelAndType {
+export class LabelAndType {
     /**
      * @param {string} label
      * @param {string} type
@@ -18,9 +18,4 @@ class LabelAndType {
         this.label = label
         this.type = type
     }
-}
-
-module.exports = {
-    Labels,
-    LabelAndType
 }

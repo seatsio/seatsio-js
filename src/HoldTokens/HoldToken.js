@@ -1,4 +1,4 @@
-class HoldToken {
+export class HoldToken {
     /**
      * @param {object} holdToken
      */
@@ -9,5 +9,3 @@ class HoldToken {
         this.workspaceKey = holdToken.workspaceKey
     }
 }
-
-module.exports = HoldToken

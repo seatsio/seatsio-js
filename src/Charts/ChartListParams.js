@@ -1,4 +1,4 @@
-class ChartListParams {
+export class ChartListParams {
     /**
      * @param {?string} filter
      * @param {?string} tag
@@ -74,5 +74,3 @@ class ChartListParams {
         }
     }
 }
-
-module.exports = ChartListParams

@@ -1,4 +1,4 @@
-class ChartValidationSettings {
+export class ChartValidationSettings {
     /**
      * @param {object} chartValidations
      */
@@ -11,5 +11,3 @@ class ChartValidationSettings {
         this.VALIDATE_EMPTY_FLOOR = chartValidations.VALIDATE_EMPTY_FLOOR
     }
 }
-
-module.exports = ChartValidationSettings

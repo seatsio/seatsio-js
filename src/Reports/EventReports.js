@@ -1,6 +1,6 @@
-const utilities = require('../utilities/reportUtility.js')
+import { Utilities } from '../utilities/reportUtility'
 
-class EventReports {
+export class EventReports {
     constructor (client) {
         this.client = client
     }
@@ -12,7 +12,7 @@ class EventReports {
      */
     byStatus (eventKey, status = null) {
         return this.client.get(EventReports.reportUrl('byStatus', eventKey, status))
-            .then((res) => utilities.createEventReport(res.data))
+            .then((res) => Utilities.createEventReport(res.data))
     }
 
     /**
@@ -40,7 +40,7 @@ class EventReports {
      */
     byObjectType (eventKey, objectType = null) {
         return this.client.get(EventReports.reportUrl('byObjectType', eventKey, objectType))
-            .then((res) => utilities.createEventReport(res.data))
+            .then((res) => Utilities.createEventReport(res.data))
     }
 
     /**
@@ -68,7 +68,7 @@ class EventReports {
      */
     byCategoryLabel (eventKey, categoryLabel = null) {
         return this.client.get(EventReports.reportUrl('byCategoryLabel', eventKey, categoryLabel))
-            .then((res) => utilities.createEventReport(res.data))
+            .then((res) => Utilities.createEventReport(res.data))
     }
 
     /**
@@ -96,7 +96,7 @@ class EventReports {
      */
     byCategoryKey (eventKey, categoryKey = null) {
         return this.client.get(EventReports.reportUrl('byCategoryKey', eventKey, categoryKey))
-            .then((res) => utilities.createEventReport(res.data))
+            .then((res) => Utilities.createEventReport(res.data))
     }
 
     /**
@@ -124,7 +124,7 @@ class EventReports {
      */
     byLabel (eventKey, label = null) {
         return this.client.get(EventReports.reportUrl('byLabel', eventKey, label))
-            .then((res) => utilities.createEventReport(res.data))
+            .then((res) => Utilities.createEventReport(res.data))
     }
 
     /**
@@ -134,7 +134,7 @@ class EventReports {
      */
     byOrderId (eventKey, orderId = null) {
         return this.client.get(EventReports.reportUrl('byOrderId', eventKey, orderId))
-            .then((res) => utilities.createEventReport(res.data))
+            .then((res) => Utilities.createEventReport(res.data))
     }
 
     /**
@@ -144,7 +144,7 @@ class EventReports {
      */
     bySection (eventKey, section = null) {
         return this.client.get(EventReports.reportUrl('bySection', eventKey, section))
-            .then((res) => utilities.createEventReport(res.data))
+            .then((res) => Utilities.createEventReport(res.data))
     }
 
     /**
@@ -172,7 +172,7 @@ class EventReports {
      */
     byAvailability (eventKey, availability = null) {
         return this.client.get(EventReports.reportUrl('byAvailability', eventKey, availability))
-            .then((res) => utilities.createEventReport(res.data))
+            .then((res) => Utilities.createEventReport(res.data))
     }
 
     /**
@@ -182,7 +182,7 @@ class EventReports {
      */
     byAvailabilityReason (eventKey, availabilityReason = null) {
         return this.client.get(EventReports.reportUrl('byAvailabilityReason', eventKey, availabilityReason))
-            .then((res) => utilities.createEventReport(res.data))
+            .then((res) => Utilities.createEventReport(res.data))
     }
 
     /**
@@ -228,7 +228,7 @@ class EventReports {
      */
     byChannel (eventKey, channel = null) {
         return this.client.get(EventReports.reportUrl('byChannel', eventKey, channel))
-            .then((res) => utilities.createEventReport(res.data))
+            .then((res) => Utilities.createEventReport(res.data))
     }
 
     /**
@@ -264,5 +264,3 @@ class EventReports {
         return `/reports/events/${encodeURIComponent(eventKey)}/${reportType}/summary/deep`
     }
 }
-
-module.exports = EventReports

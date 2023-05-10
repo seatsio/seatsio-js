@@ -1,19 +1,19 @@
-const Accounts = require('./Accounts/Accounts.js')
-const Users = require('./Users/Users.js')
-const Invitations = require('./Invitations/Invitations.js')
-const Charts = require('./Charts/Charts.js')
-const Events = require('./Events/Events.js')
-const Subaccounts = require('./Subaccounts/Subaccounts.js')
-const Workspaces = require('./Workspaces/Workspaces.js')
-const HoldTokens = require('./HoldTokens/HoldTokens.js')
-const ChartReports = require('./Reports/ChartReports.js')
-const EventReports = require('./Reports/EventReports.js')
-const UsageReports = require('./Reports/UsageReports.js')
-const errorResponseHandler = require('./errorInterceptor.js')
-const Axios = require('axios')
-const Seasons = require('./Seasons/Seasons')
+import { Accounts } from './Accounts/Accounts'
+import { Users } from './Users/Users'
+import { Invitations } from './Invitations/Invitations'
+import { Charts } from './Charts/Charts'
+import { Events } from './Events/Events'
+import { Subaccounts } from './Subaccounts/Subaccounts'
+import { Workspaces } from './Workspaces/Workspaces'
+import { HoldTokens } from './HoldTokens/HoldTokens'
+import { ChartReports } from './Reports/ChartReports'
+import { EventReports } from './Reports/EventReports'
+import { UsageReports } from './Reports/UsageReports'
+import errorResponseHandler from './errorInterceptor'
+import Axios from 'axios'
+import { Seasons } from './Seasons/Seasons'
 
-class SeatsioClient {
+export class SeatsioClient {
     constructor (region, secretKey, workspaceKey = null, extraHeaders = {}) {
         this.client = Axios.create(this._axiosConfig(region.url, secretKey, workspaceKey, extraHeaders))
 
@@ -116,5 +116,3 @@ function exponentialBackoffInterceptor (axios) {
         return backoff.then(() => axios(config))
     }
 }
-
-module.exports = SeatsioClient

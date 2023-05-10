@@ -1,30 +1,18 @@
-const Page = require('../Page.js')
-const Lister = require('../Lister.js')
-const EventObjectInfo = require('./EventObjectInfo.js')
-const Channels = require('./Channels.js')
-const StatusChange = require('./StatusChange.js')
-const BestAvailableObjects = require('./BestAvailableObjects.js')
-const ChangeObjectStatusResult = require('./ChangeObjectStatusResult.js')
-const EventDeserializer = require('./EventDeserializer')
+import { Page } from '../Page'
+import { Lister } from '../Lister'
+import { EventObjectInfo } from './EventObjectInfo'
+import { Channels } from './Channels'
+import { StatusChange } from './StatusChange'
+import { EventDeserializer } from './EventDeserializer'
+import { ChangeObjectStatusResult } from './ChangeObjectStatusResult'
+import { BestAvailableObjects } from './BestAvailableObjects'
 
-class Events {
-    /**
-     * @param {Axios} client
-     */
+export class Events {
     constructor (client) {
         this.client = client
         this.channels = new Channels(this.client)
     }
 
-    /**
-     * @param {string} chartKey
-     * @param {?string} eventKey
-     * @param {?TableBookingConfig} tableBookingConfig
-     * @param {?string} socialDistancingRulesetKey
-     * @param {?object} objectCategories
-     * @param {?array} categories
-     * @returns {Promise<Event>}
-     */
     create (chartKey, eventKey = null, tableBookingConfig = null, socialDistancingRulesetKey = null, objectCategories = null, categories = null) {
         const requestParameters = {}
 
@@ -130,15 +118,6 @@ class Events {
             .then((res) => new EventDeserializer().fromJson(res.data))
     }
 
-    /**
-     * @param {string} eventKey
-     * @param {?string} chartKey
-     * @param {?string} newEventKey
-     * @param {?TableBookingConfig} tableBookingConfig
-     * @param {?string} socialDistancingRulesetKey
-     * @param {?object} objectCategories
-     * @returns {Promise}
-     */
     update (eventKey, chartKey = null, newEventKey = null, tableBookingConfig = null, socialDistancingRulesetKey = null, objectCategories = null, categories = null) {
         const requestParameters = {}
 
@@ -573,5 +552,3 @@ class Events {
         return this.normalizeObjects([objectOrObjects])
     }
 }
-
-module.exports = Events

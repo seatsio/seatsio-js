@@ -1,13 +1,13 @@
-const helperFunctions = require('../utilities/helperFunctions.js')
-const { IDs } = require('../Common/IDs')
+import { HelperFunctions } from '../utilities/helperFunctions'
+import { IDs } from '../Common/IDs'
 
-class ChartObjectInfo {
+export class ChartObjectInfo {
     /**
      * @param {object} chartReport
      */
     constructor (chartReport) {
         this.label = chartReport.label
-        this.labels = helperFunctions.labelCreator(chartReport)
+        this.labels = HelperFunctions.labelCreator(chartReport)
         this.ids = new IDs(chartReport.ids.own, chartReport.ids.parent, chartReport.ids.section)
         this.categoryLabel = chartReport.categoryLabel
         this.categoryKey = chartReport.categoryKey
@@ -22,5 +22,3 @@ class ChartObjectInfo {
         this.numSeats = chartReport.numSeats
     }
 }
-
-module.exports = ChartObjectInfo

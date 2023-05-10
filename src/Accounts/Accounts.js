@@ -1,8 +1,8 @@
-const Account = require('./Account.js')
+import { Account } from './Account'
 
 const baseUrl = '/accounts/me'
 
-class Accounts {
+export class Accounts {
     constructor (client) {
         this.client = client
     }
@@ -67,5 +67,3 @@ class Accounts {
         return this.client.post(baseUrl + '/settings', { key, value })
     }
 }
-
-module.exports = Accounts

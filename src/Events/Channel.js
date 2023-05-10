@@ -1,4 +1,4 @@
-class Channel {
+export class Channel {
     /**
      * @param {object} Channel
      */
@@ -10,5 +10,3 @@ class Channel {
         this.objects = channel.objects
     }
 }
-
-module.exports = Channel

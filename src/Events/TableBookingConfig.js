@@ -1,4 +1,4 @@
-class TableBookingConfig {
+export class TableBookingConfig {
     /**
      * @param {string} mode
      * @param {object} tables
@@ -37,5 +37,3 @@ class TableBookingConfig {
         return new TableBookingConfig('CUSTOM', tables)
     }
 }
-
-module.exports = TableBookingConfig

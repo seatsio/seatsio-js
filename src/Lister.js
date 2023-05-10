@@ -1,7 +1,7 @@
-const AsyncIterator = require('./AsyncIterator.js')
-const PageFetcher = require('./PageFetcher.js')
+import { PageFetcher } from './PageFetcher'
+import { AsyncIterator } from './AsyncIterator'
 
-class Lister {
+export class Lister {
     constructor (url, client, type, pageCreatorFunction) {
         this.pageFetcher = new PageFetcher(url, client, pageCreatorFunction)
         this.url = url
@@ -50,5 +50,3 @@ class Lister {
         return this.pageFetcher.fetchBefore(beforeId, params, pageSize)
     }
 }
-
-module.exports = Lister

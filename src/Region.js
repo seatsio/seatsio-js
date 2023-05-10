@@ -1,4 +1,4 @@
-class Region {
+export class Region {
     static EU () {
         return new Region(Region.urlForId('eu'))
     }
@@ -23,5 +23,3 @@ class Region {
         return 'https://api-{region}.seatsio.net'.replace('{region}', id)
     }
 }
-
-module.exports = Region

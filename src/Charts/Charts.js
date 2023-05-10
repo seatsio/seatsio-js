@@ -1,8 +1,8 @@
-const Page = require('../Page.js')
-const Lister = require('../Lister.js')
-const Chart = require('./Chart.js')
+import Page from '../Page'
+import Lister from '../Lister'
+import Chart from './Chart'
 
-class Charts {
+export class Charts {
     /**
      * @param {Axios} client
      */
@@ -297,5 +297,3 @@ class Charts {
         })
     }
 }
-
-module.exports = Charts

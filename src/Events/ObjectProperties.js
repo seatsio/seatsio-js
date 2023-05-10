@@ -1,4 +1,4 @@
-class ObjectProperties {
+export class ObjectProperties {
     /**
      * @param {string} objectId
      */
@@ -31,5 +31,3 @@ class ObjectProperties {
         return this
     }
 }
-
-module.exports = ObjectProperties

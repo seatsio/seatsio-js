@@ -1,4 +1,4 @@
-class Category {
+export class Category {
     /**
      * @param {string|number} key
      * @param {string} label
@@ -51,5 +51,3 @@ class Category {
         return new Category(json.key, json.label, json.color, json.accessible)
     }
 }
-
-module.exports = Category

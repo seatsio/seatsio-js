@@ -1,6 +1,6 @@
-const Invitation = require('./Invitation.js')
+import { Invitation } from './Invitation'
 
-class Invitations {
+export class Invitations {
     /**
      * @param {Axios} client
      */
@@ -16,5 +16,3 @@ class Invitations {
             .then((res) => res.data.map(json => new Invitation(json)))
     }
 }
-
-module.exports = Invitations

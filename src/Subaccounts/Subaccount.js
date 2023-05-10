@@ -1,4 +1,4 @@
-class Subaccount {
+export class Subaccount {
     /**
      * @param {object} subaccount
      */
@@ -11,5 +11,3 @@ class Subaccount {
         this.active = subaccount.active
     }
 }
-
-module.exports = Subaccount

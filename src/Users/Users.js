@@ -1,9 +1,8 @@
-const Page = require('../Page.js')
 const Lister = require('../Lister.js')
 const User = require('./User.js')
 const Invitation = require('../Invitations/Invitation')
 
-class Users {
+export class Users {
     /**
      * @param {Axios} client
      */
@@ -91,5 +90,3 @@ class Users {
         })
     }
 }
-
-module.exports = Users

@@ -1,13 +1,13 @@
-const helperFunctions = require('../utilities/helperFunctions.js')
-const { IDs } = require('../Common/IDs')
+import { HelperFunctions } from '../utilities/helperFunctions'
+import { IDs } from '../Common/IDs'
 
-class EventObjectInfo {
+export class EventObjectInfo {
     /**
      * @param {object} report
      */
     constructor (report) {
         this.label = report.label
-        this.labels = helperFunctions.labelCreator(report)
+        this.labels = HelperFunctions.labelCreator(report)
         this.ids = new IDs(report.ids.own, report.ids.parent, report.ids.section)
         this.status = report.status
         this.categoryLabel = report.categoryLabel
@@ -44,5 +44,3 @@ class EventObjectInfo {
 EventObjectInfo.FREE = 'free'
 EventObjectInfo.BOOKED = 'booked'
 EventObjectInfo.HELD = 'reservedByToken'
-
-module.exports = EventObjectInfo

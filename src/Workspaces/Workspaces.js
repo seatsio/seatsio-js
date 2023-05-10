@@ -2,7 +2,7 @@ const Page = require('../Page.js')
 const Lister = require('../Lister.js')
 const Workspace = require('./Workspace.js')
 
-class Workspaces {
+export class Workspaces {
     /**
      * @param {Axios} client
      */
@@ -196,5 +196,3 @@ class Workspaces {
         })
     }
 }
-
-module.exports = Workspaces

@@ -1,8 +1,8 @@
-const ForSaleConfig = require('./ForSaleConfig.js')
-const Channel = require('./Channel.js')
-const Category = require('../Charts/Category')
+import { ForSaleConfig } from './ForSaleConfig'
+import { Channel } from './Channel'
+import { Category } from '../Charts/Category'
 
-class Event {
+export class Event {
     /**
      * @param {object} json
      */
@@ -29,5 +29,3 @@ class Event {
         return false
     }
 }
-
-module.exports = Event

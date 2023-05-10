@@ -1,4 +1,4 @@
-class SeasonParams {
+export class SeasonParams {
     key (key) {
         this._key = key
         return this
@@ -24,5 +24,3 @@ class SeasonParams {
         return this
     }
 }
-
-module.exports = SeasonParams

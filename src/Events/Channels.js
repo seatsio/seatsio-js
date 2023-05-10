@@ -1,4 +1,4 @@
-class Channels {
+export class Channels {
     /**
      * @param {Axios} client
      */
@@ -52,5 +52,3 @@ class Channels {
         return this.client.post(`/events/${encodeURIComponent(eventKey)}/channels/assign-objects`, { channelConfig })
     }
 }
-
-module.exports = Channels

@@ -1,4 +1,4 @@
-class DefaultRendererSettings {
+export class DefaultRendererSettings {
     /**
      * @param {object} defaultRendererSettings
      */
@@ -7,5 +7,3 @@ class DefaultRendererSettings {
         this.multiSelectEnabled = defaultRendererSettings.multiSelectEnabled
     }
 }
-
-module.exports = DefaultRendererSettings
