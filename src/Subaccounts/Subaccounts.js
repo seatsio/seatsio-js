@@ -1,7 +1,7 @@
-const Page = require('../Page.js')
-const Lister = require('../Lister.js')
-const Subaccount = require('./Subaccount.js')
-const Chart = require('../Charts/Chart.js')
+import { Page } from '../Page.js'
+import { Lister } from '../Lister.js'
+import { Subaccount } from './Subaccount.js'
+import { Chart } from '../Charts/Chart.js'
 
 export class Subaccounts {
     /**

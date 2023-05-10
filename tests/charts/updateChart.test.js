@@ -1,7 +1,7 @@
-const testUtils = require('../testUtils.js')
+import { TestUtils } from '../testUtils'
 
 test('should update chart name', async () => {
-    const { client } = await testUtils.createTestUserAndClient()
+    const { client } = await TestUtils.createTestUserAndClient()
     const categories = [{ key: 1, label: 'Category 1', color: '#aaaaaa', accessible: false }]
     const chart = await client.charts.create(null, null, categories)
 
@@ -13,7 +13,7 @@ test('should update chart name', async () => {
 })
 
 test('should update chart categories', async () => {
-    const { client } = await testUtils.createTestUserAndClient()
+    const { client } = await TestUtils.createTestUserAndClient()
     const chart = await client.charts.create('aChart')
     const categories = [{ key: 1, label: 'Category 1', color: '#aaaaaa', accessible: false }, { key: 2, label: 'Category 2', color: '#bbbbbb', accessible: true }]
 

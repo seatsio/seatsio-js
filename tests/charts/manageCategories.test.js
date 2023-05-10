@@ -1,7 +1,7 @@
-const testUtils = require('../testUtils.js')
+import { TestUtils } from '../testUtils'
 
 test('should add a category', async () => {
-    const { client } = await testUtils.createTestUserAndClient()
+    const { client } = await TestUtils.createTestUserAndClient()
     const categories = [
         { key: 1, label: 'Category 1', color: '#aaaaaa', accessible: false }
     ]
@@ -18,7 +18,7 @@ test('should add a category', async () => {
 })
 
 test('should remove a category', async () => {
-    const { client } = await testUtils.createTestUserAndClient()
+    const { client } = await TestUtils.createTestUserAndClient()
     const categories = [
         { key: 1, label: 'Category 1', color: '#aaaaaa', accessible: false },
         { key: 'cat2', label: 'Category 2', color: '#bbbbbb', accessible: true }
@@ -32,7 +32,7 @@ test('should remove a category', async () => {
 })
 
 test('should retrieve the categories of a chart', async () => {
-    const { client } = await testUtils.createTestUserAndClient()
+    const { client } = await TestUtils.createTestUserAndClient()
     const categories = [
         { key: 1, label: 'Category 1', color: '#aaaaaa', accessible: false },
         { key: 'cat2', label: 'Category 2', color: '#bbbbbb', accessible: true }

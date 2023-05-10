@@ -1,8 +1,8 @@
-const testUtils = require('../testUtils.js')
-const SocialDistancingRuleset = require('../../src/Charts/SocialDistancingRuleset.js')
+import { TestUtils } from '../testUtils'
+import { SocialDistancingRuleset } from '../../src/Charts/SocialDistancingRuleset.js'
 
 test('should save rulesets', async () => {
-    const { client } = await testUtils.createTestUserAndClient()
+    const { client } = await TestUtils.createTestUserAndClient()
     const chart = await client.charts.create()
 
     const ruleset1 = SocialDistancingRuleset.ruleBased('My first ruleset')

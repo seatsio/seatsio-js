@@ -1,8 +1,8 @@
-const Category = require('../../src/Charts/Category.js')
-const testUtils = require('../testUtils.js')
+import Category from '../../src/Charts/Category.js'
+import { TestUtils } from '../testUtils'
 
 test('should create a chart with default parameters', async () => {
-    const { client } = await testUtils.createTestUserAndClient()
+    const { client } = await TestUtils.createTestUserAndClient()
     const chart = await client.charts.create()
 
     expect(chart.key).toBeTruthy()
@@ -20,7 +20,7 @@ test('should create a chart with default parameters', async () => {
 })
 
 test('should create chart with name', async () => {
-    const { client } = await testUtils.createTestUserAndClient()
+    const { client } = await TestUtils.createTestUserAndClient()
     const chart = await client.charts.create('aChart')
 
     const retrievedChart = await client.charts.retrievePublishedVersion(chart.key)
@@ -30,7 +30,7 @@ test('should create chart with name', async () => {
 })
 
 test('should create chart with venue type', async () => {
-    const { client } = await testUtils.createTestUserAndClient()
+    const { client } = await TestUtils.createTestUserAndClient()
     const chart = await client.charts.create(null, 'BOOTHS')
 
     const retrievedChart = await client.charts.retrievePublishedVersion(chart.key)
@@ -40,7 +40,7 @@ test('should create chart with venue type', async () => {
 })
 
 test('should create chart with categories as class', async () => {
-    const { client } = await testUtils.createTestUserAndClient()
+    const { client } = await TestUtils.createTestUserAndClient()
     const cat1 = { key: 1, label: 'Category 1', color: '#aaaaaa', accessible: false }
     const cat2 = { key: 3, label: 'Category 2', color: '#bbbbbb', accessible: true }
 
@@ -53,7 +53,7 @@ test('should create chart with categories as class', async () => {
 })
 
 test('should create chart with categories as instance of Category class', async () => {
-    const { client } = await testUtils.createTestUserAndClient()
+    const { client } = await TestUtils.createTestUserAndClient()
     const cat1 = new Category(1, 'Category 1', '#aaaaaa')
     const cat2 = new Category(2, 'Category 2', '#bbbbbb', true)
     const expectedCategories = [

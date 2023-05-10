@@ -1,7 +1,7 @@
-const testUtils = require('../testUtils.js')
+import { TestUtils } from '../testUtils'
 
 test('should add tag', async () => {
-    const { client } = await testUtils.createTestUserAndClient()
+    const { client } = await TestUtils.createTestUserAndClient()
     const chart = await client.charts.create()
 
     await client.charts.addTag(chart.key, 'tag1')
@@ -12,7 +12,7 @@ test('should add tag', async () => {
 })
 
 test('should be able to add a tag with special characters', async () => {
-    const { client } = await testUtils.createTestUserAndClient()
+    const { client } = await TestUtils.createTestUserAndClient()
     const chart = await client.charts.create()
 
     await client.charts.addTag(chart.key, 'tag1/:"-<>')

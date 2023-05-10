@@ -1,14 +1,14 @@
-const testUtils = require('../testUtils.js')
+import { TestUtils } from '../testUtils'
 
 test('should validate published version of a chart', async () => {
-    const { client, user } = await testUtils.createTestUserAndClient()
+    const { client, user } = await TestUtils.createTestUserAndClient()
     await client.accounts.updateSetting('VALIDATE_DUPLICATE_LABELS', 'WARNING')
     await client.accounts.updateSetting('VALIDATE_OBJECTS_WITHOUT_CATEGORIES', 'WARNING')
     await client.accounts.updateSetting('VALIDATE_UNLABELED_OBJECTS', 'WARNING')
     await client.accounts.updateSetting('VALIDATE_FOCAL_POINT', 'WARNING')
     await client.accounts.updateSetting('VALIDATE_OBJECT_TYPES_PER_CATEGORY', 'WARNING')
-    const chartKey = testUtils.getChartKey()
-    await testUtils.createErroneousTestChart(chartKey, user.secretKey)
+    const chartKey = TestUtils.getChartKey()
+    await TestUtils.createErroneousTestChart(chartKey, user.secretKey)
     await client.events.create(chartKey)
 
     const validationRes = await client.charts.validatePublishedVersion(chartKey)
@@ -22,12 +22,12 @@ test('should validate published version of a chart', async () => {
 })
 
 test('should validate published version of a chart with different validation settings', async () => {
-    const { client, user } = await testUtils.createTestUserAndClient()
+    const { client, user } = await TestUtils.createTestUserAndClient()
     await client.accounts.updateSetting('VALIDATE_DUPLICATE_LABELS', 'WARNING')
     await client.accounts.updateSetting('VALIDATE_FOCAL_POINT', 'WARNING')
     await client.accounts.updateSetting('VALIDATE_OBJECT_TYPES_PER_CATEGORY', 'OFF')
-    const chartKey = testUtils.getChartKey()
-    await testUtils.createErroneousTestChart(chartKey, user.secretKey)
+    const chartKey = TestUtils.getChartKey()
+    await TestUtils.createErroneousTestChart(chartKey, user.secretKey)
 
     const validationRes = await client.charts.validatePublishedVersion(chartKey)
 
@@ -38,14 +38,14 @@ test('should validate published version of a chart with different validation set
 })
 
 test('should validate draft version of a chart', async () => {
-    const { client, user } = await testUtils.createTestUserAndClient()
+    const { client, user } = await TestUtils.createTestUserAndClient()
     await client.accounts.updateSetting('VALIDATE_DUPLICATE_LABELS', 'WARNING')
     await client.accounts.updateSetting('VALIDATE_OBJECTS_WITHOUT_CATEGORIES', 'WARNING')
     await client.accounts.updateSetting('VALIDATE_UNLABELED_OBJECTS', 'WARNING')
     await client.accounts.updateSetting('VALIDATE_FOCAL_POINT', 'WARNING')
     await client.accounts.updateSetting('VALIDATE_OBJECT_TYPES_PER_CATEGORY', 'WARNING')
-    const chartKey = testUtils.getChartKey()
-    await testUtils.createErroneousTestChart(chartKey, user.secretKey)
+    const chartKey = TestUtils.getChartKey()
+    await TestUtils.createErroneousTestChart(chartKey, user.secretKey)
     await client.events.create(chartKey)
     await client.charts.update(chartKey, 'New name')
 

@@ -1,7 +1,4 @@
 export class Workspace {
-    /**
-     * @param {object} workspace
-     */
     constructor (workspace) {
         this.id = workspace.id
         this.key = workspace.key

@@ -1,7 +1,7 @@
-const testUtils = require('../testUtils.js')
+import { TestUtils } from '../testUtils'
 
 test('should retrieve chart', async () => {
-    const { client } = await testUtils.createTestUserAndClient()
+    const { client } = await TestUtils.createTestUserAndClient()
     const chart = await client.charts.create()
     await client.charts.addTag(chart.key, 'tag1')
 
@@ -21,7 +21,7 @@ test('should retrieve chart', async () => {
 })
 
 test('should retrieve chart with events', async () => {
-    const { client } = await testUtils.createTestUserAndClient()
+    const { client } = await TestUtils.createTestUserAndClient()
     const chart = await client.charts.create()
     const event1 = await client.events.create(chart.key)
     const event2 = await client.events.create(chart.key)

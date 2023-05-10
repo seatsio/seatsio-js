@@ -1,8 +1,8 @@
-const ChartListParams = require('../../src/Charts/ChartListParams.js')
-const testUtils = require('../testUtils.js')
+import { ChartListParams } from '../../src/Charts/ChartListParams.js'
+import { TestUtils } from '../testUtils'
 
 test('should list charts before a given chart id', async () => {
-    const { client } = await testUtils.createTestUserAndClient()
+    const { client } = await TestUtils.createTestUserAndClient()
     const chart1 = await client.charts.create()
     const chart2 = await client.charts.create()
     const chart3 = await client.charts.create()
@@ -14,7 +14,7 @@ test('should list charts before a given chart id', async () => {
 })
 
 test('should list charts before a given chart id with filter', async () => {
-    const { client } = await testUtils.createTestUserAndClient()
+    const { client } = await TestUtils.createTestUserAndClient()
     const chart1 = await client.charts.create('foo')
     const chart2 = await client.charts.create('foo')
     await client.charts.create('bar')
@@ -28,7 +28,7 @@ test('should list charts before a given chart id with filter', async () => {
 })
 
 test('should list charts before a given chart id with page size', async () => {
-    const { client } = await testUtils.createTestUserAndClient()
+    const { client } = await TestUtils.createTestUserAndClient()
     const chart1 = await client.charts.create('foo')
     const chart2 = await client.charts.create('foo')
     const chart3 = await client.charts.create('bar')

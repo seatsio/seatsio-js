@@ -1,21 +1,12 @@
-const Season = require('./Season')
-const EventDeserializer = require('../Events/EventDeserializer')
+import { Season } from './Season'
+import { EventDeserializer } from '../Events/EventDeserializer'
 
 export class Seasons {
-    /**
-     * @param {Axios} client
-     * @param {SeatsioClient} seatsioClient
-     */
     constructor (client, seatsioClient) {
         this.client = client
         this.seatsioClient = seatsioClient
     }
 
-    /**
-     * @param {string} chartKey
-     * @param {?seasonParams} SeasonParams
-     * @returns {Promise<Season>}
-     */
     create (chartKey, seasonParams = null) {
         const requestParameters = {}
 

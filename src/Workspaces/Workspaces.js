@@ -1,6 +1,6 @@
-const Page = require('../Page.js')
-const Lister = require('../Lister.js')
-const Workspace = require('./Workspace.js')
+import { Page } from '../Page.js'
+import { Lister } from '../Lister.js'
+import { Workspace } from './Workspace.js'
 
 export class Workspaces {
     /**

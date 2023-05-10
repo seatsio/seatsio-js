@@ -1,9 +1,9 @@
-const Chart = require('./Charts/Chart.js')
-const User = require('./Users/User.js')
-const Subaccount = require('./Subaccounts/Subaccount.js')
-const Workspace = require('./Workspaces/Workspace.js')
-const Season = require('./Seasons/Season')
-const EventDeserializer = require('./Events/EventDeserializer')
+import { Chart } from './Charts/Chart.js'
+import { EventDeserializer } from './Events/EventDeserializer'
+import { Season } from './Seasons/Season'
+import { Workspace } from './Workspaces/Workspace.js'
+import { Subaccount } from './Subaccounts/Subaccount.js'
+import { User } from './Users/User.js'
 
 export class AsyncIterator {
     /**
@@ -154,4 +154,3 @@ export class AsyncIterator {
         }
     }
 }
-

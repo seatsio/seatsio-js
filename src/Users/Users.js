@@ -1,6 +1,6 @@
-const Lister = require('../Lister.js')
-const User = require('./User.js')
-const Invitation = require('../Invitations/Invitation')
+import { Lister } from '../Lister.js'
+import { User } from './User.js'
+import { Invitation } from '../Invitations/Invitation'
 
 export class Users {
     /**
