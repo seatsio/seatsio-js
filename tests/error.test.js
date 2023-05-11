@@ -14,5 +14,5 @@ test('check error handling', async () => {
         warnings: []
     }
 
-    await expect(client.events.create(null)).rejects.toMatchObject(errorSnapshot)
+    await expect(client.events.create()).rejects.toMatchObject(errorSnapshot)
 })
