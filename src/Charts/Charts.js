@@ -1,6 +1,6 @@
-import Page from '../Page'
-import Lister from '../Lister'
-import Chart from './Chart'
+import { Lister } from '../Lister.js'
+import { Chart } from './Chart.js'
+import { Page } from '../Page.js'
 
 export class Charts {
     /**

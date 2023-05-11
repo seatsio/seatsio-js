@@ -1,5 +1,5 @@
-import ChartListParams from '../../src/Charts/ChartListParams'
 import { TestUtils } from '../testUtils'
+import { ChartListParams } from '../../src/Charts/ChartListParams.js'
 
 test('should list first page of charts', async () => {
     const { client } = await TestUtils.createTestUserAndClient()

@@ -1,8 +1,8 @@
 import { TestUtils } from '../testUtils.js'
-import { TableBookingConfig } from '../../index'
 import { IDs } from '../../src/Common/IDs'
 import { ObjectProperties } from '../../src/Events/ObjectProperties.js'
 import { EventObjectInfo } from '../../src/Events/EventObjectInfo.js'
+import { TableBookingConfig } from '../../src/Events/TableBookingConfig.js'
 
 test('report properties', async () => {
     const { client, user } = await TestUtils.createTestUserAndClient()

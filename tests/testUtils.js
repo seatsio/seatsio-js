@@ -5,6 +5,7 @@ import * as fs from 'fs'
 import path from 'path'
 import * as LabelClasses from '../src/Common/Labels'
 import { Category } from '../src/Charts/Category'
+import { fileURLToPath } from 'url'
 
 const baseUrl = 'https://api-staging-eu.seatsio.net/'
 
@@ -52,6 +53,7 @@ export class TestUtils {
     }
 
     static async createTestChartFromFile (filePath, chartKey, secretKey) {
+        const __dirname = fileURLToPath(new URL('.', import.meta.url))
         const requestBody = fs.readFileSync(path.join(__dirname, filePath), 'utf-8')
         const client = axios.create({
             auth: {

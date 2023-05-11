@@ -1,6 +1,6 @@
 import { EventDeserializer } from '../Events/EventDeserializer'
 import { ChartValidation } from './ChartValidation'
-import { SocialDistancingRuleset } from '../../index'
+import { SocialDistancingRuleset } from './SocialDistancingRuleset.js'
 
 export class Chart {
     /**

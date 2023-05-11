@@ -2,7 +2,8 @@ import { TestUtils } from '../TestUtils.js'
 import { ObjectProperties } from '../../src/Events/ObjectProperties.js'
 import { EventObjectInfo } from '../../src/Events/EventObjectInfo.js'
 import { StatusChangesParams } from '../../src/Events/StatusChangesParams.js'
-import { StatusChangeRequest, TableBookingconfig } from '../../index'
+import { StatusChangeRequest } from '../../src/Events/StatusChangeRequest.js'
+import { TableBookingConfig as TableBookingconfig } from '../../src/Events/TableBookingConfig.js'
 
 test('should list all status changes', async () => {
     const { client, user } = await TestUtils.createTestUserAndClient()

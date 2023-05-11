@@ -1,4 +1,5 @@
-import LabelClasses from '../Common/Labels'
+import * as LabelClasses from '../Common/Labels.js'
+
 export class HelperFunctions {
     /**
      * @param data
