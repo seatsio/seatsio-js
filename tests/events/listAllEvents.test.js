@@ -1,4 +1,4 @@
-import { TestUtils } from '../TestUtils.js'
+import { TestUtils } from '../TestUtils'
 
 test('listAll events when there are more than 10 events)', async () => {
     const { client } = await TestUtils.createTestUserAndClient()

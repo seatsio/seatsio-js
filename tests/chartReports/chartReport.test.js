@@ -1,4 +1,4 @@
-import { TestUtils } from '../TestUtils.js'
+import { TestUtils } from '../TestUtils'
 import { IDs } from '../../src/Common/IDs'
 
 test('chart report properties', async () => {

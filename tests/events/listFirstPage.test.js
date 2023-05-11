@@ -1,4 +1,4 @@
-import { TestUtils } from '../TestUtils.js'
+import { TestUtils } from '../TestUtils'
 
 test('should list events in first page', async () => {
     const { client } = await TestUtils.createTestUserAndClient()

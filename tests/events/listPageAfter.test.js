@@ -1,4 +1,4 @@
-import { TestUtils } from '../TestUtils.js'
+import { TestUtils } from '../TestUtils'
 
 test('should list events after given event id', async () => {
     const { client } = await TestUtils.createTestUserAndClient()

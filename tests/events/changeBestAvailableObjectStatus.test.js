@@ -1,4 +1,4 @@
-import TestUtils from '../TestUtils.js'
+import { TestUtils } from '../TestUtils'
 import { EventObjectInfo } from '../../src/Events/EventObjectInfo'
 
 test('should change best available object status', async () => {

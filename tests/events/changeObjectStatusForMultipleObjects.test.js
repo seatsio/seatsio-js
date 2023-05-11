@@ -1,4 +1,4 @@
-import { TestUtils } from '../TestUtils.js'
+import { TestUtils } from '../TestUtils'
 import { ObjectProperties } from '../../src/Events/ObjectProperties.js'
 
 test('should change object status for multiple objects as an array of string', async () => {

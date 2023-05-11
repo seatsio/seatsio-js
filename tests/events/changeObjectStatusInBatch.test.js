@@ -1,4 +1,4 @@
-import { TestUtils } from '../TestUtils.js'
+import { TestUtils } from '../TestUtils'
 import { StatusChangeRequest } from '../../src/Events/StatusChangeRequest.js'
 
 test('should change object status in batch', async () => {

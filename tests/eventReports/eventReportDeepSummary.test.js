@@ -1,4 +1,4 @@
-import { TestUtils } from '../testUtils.js'
+import { TestUtils } from '../TestUtils'
 import { ObjectProperties } from '../../src/Events/ObjectProperties'
 
 test('deepSummaryByStatus', async () => {

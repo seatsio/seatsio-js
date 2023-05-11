@@ -1,4 +1,4 @@
-import Category from '../../src/Charts/Category.js'
+import { Category } from '../../src/Charts/Category.js'
 import { TestUtils } from '../testUtils'
 
 test('should create a chart with default parameters', async () => {

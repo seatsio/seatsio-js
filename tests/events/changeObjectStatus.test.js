@@ -1,4 +1,4 @@
-import { TestUtils } from '../TestUtils.js'
+import { TestUtils } from '../TestUtils'
 import { EventObjectInfo } from '../../src/Events/EventObjectInfo.js'
 import { ObjectProperties } from '../../src/Events/ObjectProperties.js'
 import { TableBookingConfig } from '../../src/Events/TableBookingConfig'

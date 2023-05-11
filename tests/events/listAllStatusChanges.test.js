@@ -1,4 +1,4 @@
-import { TestUtils } from '../TestUtils.js'
+import { TestUtils } from '../TestUtils'
 import { ObjectProperties } from '../../src/Events/ObjectProperties.js'
 import { EventObjectInfo } from '../../src/Events/EventObjectInfo.js'
 import { StatusChangesParams } from '../../src/Events/StatusChangesParams.js'

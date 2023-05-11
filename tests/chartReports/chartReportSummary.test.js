@@ -1,4 +1,4 @@
-import { TestUtils } from '../TestUtils.js'
+import { TestUtils } from '../TestUtils'
 
 test('summaryByObjectType', async () => {
     const { client, user } = await TestUtils.createTestUserAndClient()
