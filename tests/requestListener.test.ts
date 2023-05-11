@@ -1,14 +1,17 @@
-import { TestUtils } from './TestUtils.js'
+import { TestUtils } from './testUtils'
 
 test('listens to successful requests', async () => {
     const { client } = await TestUtils.createTestUserAndClient()
     const requestStartedDeferred = TestUtils.deferred()
     const requestEndedDeferred = TestUtils.deferred()
 
-    client.setRequestListener(() => ({
-        onRequestStarted: () => requestStartedDeferred.resolve(),
-        onRequestEnded: () => requestEndedDeferred.resolve()
-    }))
+    client.setRequestListener(() => {
+        const resolve = requestStartedDeferred.resolve()
+        return ({
+            onRequestStarted: () => resolve,
+            onRequestEnded: () => requestEndedDeferred.resolve()
+        })
+    })
 
     await client.charts.create()
     await Promise.all([requestStartedDeferred.promise, requestEndedDeferred.promise])
