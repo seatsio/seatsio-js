@@ -1,8 +1,6 @@
-// @ts-expect-error TS(1149): File name '/Users/bver/Development/work/seatsio/se... Remove this comment to see the full error message
 import { TestUtils } from '../testUtils'
 import { ObjectProperties } from '../../src/Events/ObjectProperties.js'
 
-// @ts-expect-error TS(2582): Cannot find name 'test'. Do you need to install ty... Remove this comment to see the full error message
 test('summaryByStatus', async () => {
     const { client, user } = await TestUtils.createTestUserAndClient()
     const chartKey = TestUtils.getChartKey()
@@ -12,7 +10,6 @@ test('summaryByStatus', async () => {
 
     const report = await client.eventReports.summaryByStatus(event.key)
 
-    // @ts-expect-error TS(2304): Cannot find name 'expect'.
     expect(report).toEqual({
         booked: {
             bySection: { NO_SECTION: 1 },
@@ -39,7 +36,6 @@ test('summaryByStatus', async () => {
     })
 })
 
-// @ts-expect-error TS(2582): Cannot find name 'test'. Do you need to install ty... Remove this comment to see the full error message
 test('summaryByObjectType', async () => {
     const { client, user } = await TestUtils.createTestUserAndClient()
     const chartKey = TestUtils.getChartKey()
@@ -48,7 +44,6 @@ test('summaryByObjectType', async () => {
 
     const report = await client.eventReports.summaryByObjectType(event.key)
 
-    // @ts-expect-error TS(2304): Cannot find name 'expect'.
     expect(report).toEqual({
         seat: {
             bySection: { NO_SECTION: 32 },
@@ -97,7 +92,6 @@ test('summaryByObjectType', async () => {
     })
 })
 
-// @ts-expect-error TS(2582): Cannot find name 'test'. Do you need to install ty... Remove this comment to see the full error message
 test('summaryByCategoryKey', async () => {
     const { client, user } = await TestUtils.createTestUserAndClient()
     const chartKey = TestUtils.getChartKey()
@@ -107,7 +101,6 @@ test('summaryByCategoryKey', async () => {
 
     const report = await client.eventReports.summaryByCategoryKey(event.key)
 
-    // @ts-expect-error TS(2304): Cannot find name 'expect'.
     expect(report).toEqual({
         9: {
             count: 116,
@@ -158,7 +151,6 @@ test('summaryByCategoryKey', async () => {
     })
 })
 
-// @ts-expect-error TS(2582): Cannot find name 'test'. Do you need to install ty... Remove this comment to see the full error message
 test('summaryByCategoryLabel', async () => {
     const { client, user } = await TestUtils.createTestUserAndClient()
     const chartKey = TestUtils.getChartKey()
@@ -168,7 +160,6 @@ test('summaryByCategoryLabel', async () => {
 
     const report = await client.eventReports.summaryByCategoryLabel(event.key)
 
-    // @ts-expect-error TS(2304): Cannot find name 'expect'.
     expect(report).toEqual({
         Cat2: {
             count: 116,
@@ -219,7 +210,6 @@ test('summaryByCategoryLabel', async () => {
     })
 })
 
-// @ts-expect-error TS(2582): Cannot find name 'test'. Do you need to install ty... Remove this comment to see the full error message
 test('summaryBySection', async () => {
     const { client, user } = await TestUtils.createTestUserAndClient()
     const chartKey = TestUtils.getChartKey()
@@ -228,7 +218,6 @@ test('summaryBySection', async () => {
     await client.events.book(event.key, (new ObjectProperties('A-1')))
 
     const report = await client.eventReports.summaryBySection(event.key)
-    // @ts-expect-error TS(2304): Cannot find name 'expect'.
     expect(report).toEqual({
         NO_SECTION: {
             count: 232,
@@ -247,7 +236,6 @@ test('summaryBySection', async () => {
     })
 })
 
-// @ts-expect-error TS(2582): Cannot find name 'test'. Do you need to install ty... Remove this comment to see the full error message
 test('summaryByAvailability', async () => {
     const { client, user } = await TestUtils.createTestUserAndClient()
     const chartKey = TestUtils.getChartKey()
@@ -257,7 +245,6 @@ test('summaryByAvailability', async () => {
 
     const report = await client.eventReports.summaryByAvailability(event.key)
 
-    // @ts-expect-error TS(2304): Cannot find name 'expect'.
     expect(report).toEqual({
         available: {
             bySection: { NO_SECTION: 231 },
@@ -289,7 +276,6 @@ test('summaryByAvailability', async () => {
     })
 })
 
-// @ts-expect-error TS(2582): Cannot find name 'test'. Do you need to install ty... Remove this comment to see the full error message
 test('summaryByAvailabilityReason', async () => {
     const { client, user } = await TestUtils.createTestUserAndClient()
     const chartKey = TestUtils.getChartKey()
@@ -299,7 +285,6 @@ test('summaryByAvailabilityReason', async () => {
 
     const report = await client.eventReports.summaryByAvailabilityReason(event.key)
 
-    // @ts-expect-error TS(2304): Cannot find name 'expect'.
     expect(report).toEqual({
         available: {
             bySection: { NO_SECTION: 231 },
@@ -364,7 +349,6 @@ test('summaryByAvailabilityReason', async () => {
     })
 })
 
-// @ts-expect-error TS(2582): Cannot find name 'test'. Do you need to install ty... Remove this comment to see the full error message
 test('summaryByChannel', async () => {
     const { client, user } = await TestUtils.createTestUserAndClient()
     const chartKey = TestUtils.getChartKey()
@@ -377,7 +361,6 @@ test('summaryByChannel', async () => {
 
     const report = await client.eventReports.summaryByChannel(event.key)
 
-    // @ts-expect-error TS(2304): Cannot find name 'expect'.
     expect(report).toEqual({
         NO_CHANNEL: {
             bySection: { NO_SECTION: 230 },

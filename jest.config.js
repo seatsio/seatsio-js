@@ -3,6 +3,6 @@ module.exports = {
     transform: {},
     testEnvironment: 'node',
     setupFilesAfterEnv: [
-        '<rootDir>/tests/setupTests.js'
+        '<rootDir>/tests/setupTests.ts'
     ]
 }

@@ -143,7 +143,6 @@ export class AsyncIterator {
             });
     }
 
-    // @ts-expect-error TS(2339): Property 'asyncIterator' does not exist on type 'S... Remove this comment to see the full error message
     [Symbol.asyncIterator] () {
         const _this = this
 

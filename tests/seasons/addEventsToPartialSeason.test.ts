@@ -2,7 +2,6 @@
 import { TestUtils } from '../testUtils'
 import { SeasonParams } from '../../src/Seasons/SeasonParams'
 
-// @ts-expect-error TS(2582): Cannot find name 'test'. Do you need to install ty... Remove this comment to see the full error message
 test('add events to partial season', async () => {
     const { client } = await TestUtils.createTestUserAndClient()
     const chart = await client.charts.create()
@@ -11,6 +10,5 @@ test('add events to partial season', async () => {
 
     const updatedPartialSeason = await client.seasons.addEventsToPartialSeason(season.key, partialSeason.key, ['event1', 'event2'])
 
-    // @ts-expect-error TS(2304): Cannot find name 'expect'.
-    expect(updatedPartialSeason.events.map((e: any) => e.key)).toEqual(['event1', 'event2'])
+        expect(updatedPartialSeason.events.map((e: any) => e.key)).toEqual(['event1', 'event2'])
 })

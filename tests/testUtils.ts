@@ -2,6 +2,7 @@ import axios from 'axios'
 import { v4 as uuidv4 } from 'uuid'
 import { Region, SeatsioClient } from '../index'
 import * as fs from 'fs'
+// @ts-ignore
 import path from 'path'
 import * as LabelClasses from '../src/Common/Labels'
 import { Category } from '../src/Charts/Category'

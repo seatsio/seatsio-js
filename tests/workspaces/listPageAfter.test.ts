@@ -1,7 +1,6 @@
 // @ts-expect-error TS(1149): File name '/Users/bver/Development/work/seatsio/se... Remove this comment to see the full error message
 import { TestUtils } from '../testUtils'
 
-// @ts-expect-error TS(2582): Cannot find name 'test'. Do you need to install ty... Remove this comment to see the full error message
 test('should list workspaces after an id', async () => {
     const { client } = await TestUtils.createTestUserAndClient()
     const ws1 = await client.workspaces.create('w1')
@@ -10,11 +9,9 @@ test('should list workspaces after an id', async () => {
 
     const page = await client.workspaces.listPageAfter(ws3.id, null, 2)
 
-    // @ts-expect-error TS(2304): Cannot find name 'expect'.
-    expect(page.items.map((workspace: any) => workspace.id)).toEqual([ws2.id, ws1.id])
+        expect(page.items.map((workspace: any) => workspace.id)).toEqual([ws2.id, ws1.id])
 })
 
-// @ts-expect-error TS(2582): Cannot find name 'test'. Do you need to install ty... Remove this comment to see the full error message
 test('should filter workspaces after an id', async () => {
     const { client } = await TestUtils.createTestUserAndClient()
     const ws1 = await client.workspaces.create('workspace1')
@@ -24,6 +21,5 @@ test('should filter workspaces after an id', async () => {
 
     const page = await client.workspaces.listPageAfter(ws4.id, 'wo', 2)
 
-    // @ts-expect-error TS(2304): Cannot find name 'expect'.
-    expect(page.items.map((workspace: any) => workspace.id)).toEqual([ws3.id, ws1.id])
+        expect(page.items.map((workspace: any) => workspace.id)).toEqual([ws3.id, ws1.id])
 })

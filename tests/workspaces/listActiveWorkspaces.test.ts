@@ -1,7 +1,6 @@
 // @ts-expect-error TS(1149): File name '/Users/bver/Development/work/seatsio/se... Remove this comment to see the full error message
 import { TestUtils } from '../testUtils'
 
-// @ts-expect-error TS(2582): Cannot find name 'test'. Do you need to install ty... Remove this comment to see the full error message
 test('should list active workspaces', async () => {
     const { client, workspace } = await TestUtils.createTestUserAndClient()
     const ws1 = await client.workspaces.create('w1')
@@ -14,11 +13,9 @@ test('should list active workspaces', async () => {
         workspaces.push(workspace)
     }
 
-    // @ts-expect-error TS(2304): Cannot find name 'expect'.
     expect(workspaces.map(workspace => workspace.id)).toEqual([ws3.id, ws1.id, workspace.id])
 })
 
-// @ts-expect-error TS(2582): Cannot find name 'test'. Do you need to install ty... Remove this comment to see the full error message
 test('should filter active workspaces', async () => {
     const { client } = await TestUtils.createTestUserAndClient()
     const ws1 = await client.workspaces.create('foo1')
@@ -32,6 +29,5 @@ test('should filter active workspaces', async () => {
         workspaces.push(workspace)
     }
 
-    // @ts-expect-error TS(2304): Cannot find name 'expect'.
     expect(workspaces.map(workspace => workspace.id)).toEqual([ws3.id, ws1.id])
 })

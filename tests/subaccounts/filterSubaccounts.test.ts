@@ -1,7 +1,6 @@
 // @ts-expect-error TS(1149): File name '/Users/bver/Development/work/seatsio/se... Remove this comment to see the full error message
 import { TestUtils } from '../testUtils'
 
-// @ts-expect-error TS(2582): Cannot find name 'test'. Do you need to install ty... Remove this comment to see the full error message
 test('should filter subaccounts ', async () => {
     const { client } = await TestUtils.createTestUserAndClient()
     const retrievedSubaccountKeys = []
@@ -17,11 +16,9 @@ test('should filter subaccounts ', async () => {
         retrievedSubaccountKeys.push(subaccount.secretKey)
     }
 
-    // @ts-expect-error TS(2304): Cannot find name 'expect'.
-    expect(retrievedSubaccountKeys).toEqual([subaccount1.secretKey])
+        expect(retrievedSubaccountKeys).toEqual([subaccount1.secretKey])
 })
 
-// @ts-expect-error TS(2582): Cannot find name 'test'. Do you need to install ty... Remove this comment to see the full error message
 test('should filter subaccounts with special characters', async () => {
     const { client } = await TestUtils.createTestUserAndClient()
     let i = 0
@@ -31,11 +28,9 @@ test('should filter subaccounts with special characters', async () => {
         retrievedSubaccountKeys.push(subaccount.secretKey)
     }
 
-    // @ts-expect-error TS(2304): Cannot find name 'expect'.
-    expect(retrievedSubaccountKeys.length).toEqual(1)
+        expect(retrievedSubaccountKeys.length).toEqual(1)
 })
 
-// @ts-expect-error TS(2582): Cannot find name 'test'. Do you need to install ty... Remove this comment to see the full error message
 test('should filter with no results ', async () => {
     const { client } = await TestUtils.createTestUserAndClient()
     const retrievedSubaccountKeys = []
@@ -44,11 +39,9 @@ test('should filter with no results ', async () => {
         retrievedSubaccountKeys.push(subaccount.secretKey)
     }
 
-    // @ts-expect-error TS(2304): Cannot find name 'expect'.
-    expect(retrievedSubaccountKeys).toEqual([])
+        expect(retrievedSubaccountKeys).toEqual([])
 })
 
-// @ts-expect-error TS(2582): Cannot find name 'test'. Do you need to install ty... Remove this comment to see the full error message
 test('should retrieve first page of subaccounts with filter', async () => {
     const { client } = await TestUtils.createTestUserAndClient()
     const promises = [
@@ -62,11 +55,9 @@ test('should retrieve first page of subaccounts with filter', async () => {
     const page = await client.subaccounts.listFirstPage('account')
     const retrievedSubaccountKeys = page.items.map((subaccount: any) => subaccount.secretKey)
 
-    // @ts-expect-error TS(2304): Cannot find name 'expect'.
-    expect(retrievedSubaccountKeys.sort).toEqual([subaccounts[0].secretKey, subaccounts[1].secretKey, subaccounts[2].secretKey].sort)
+        expect(retrievedSubaccountKeys.sort).toEqual([subaccounts[0].secretKey, subaccounts[1].secretKey, subaccounts[2].secretKey].sort)
 })
 
-// @ts-expect-error TS(2582): Cannot find name 'test'. Do you need to install ty... Remove this comment to see the full error message
 test('should retrieve page after given subaccount id with filter', async () => {
     const { client } = await TestUtils.createTestUserAndClient()
     const subaccount1 = await client.subaccounts.create('test-/@/11')
@@ -84,15 +75,11 @@ test('should retrieve page after given subaccount id with filter', async () => {
     const page = await client.subaccounts.listPageAfter(subaccount3.id, 'test-/@/1')
     const retrievedSubaccountKeys = page.items.map((subaccount: any) => subaccount.secretKey)
 
-    // @ts-expect-error TS(2304): Cannot find name 'expect'.
-    expect(retrievedSubaccountKeys.sort).toEqual([subaccount1.secretKey, subaccount2.secretKey].sort)
-    // @ts-expect-error TS(2304): Cannot find name 'expect'.
-    expect(page.previousPageEndsBefore).toEqual(subaccount2.id + '')
-    // @ts-expect-error TS(2304): Cannot find name 'expect'.
-    expect(page.nextPageStartsAfter).toBeNull()
+        expect(retrievedSubaccountKeys.sort).toEqual([subaccount1.secretKey, subaccount2.secretKey].sort)
+        expect(page.previousPageEndsBefore).toEqual(subaccount2.id + '')
+        expect(page.nextPageStartsAfter).toBeNull()
 })
 
-// @ts-expect-error TS(2582): Cannot find name 'test'. Do you need to install ty... Remove this comment to see the full error message
 test('should should retrieve page before given subaccount id with filter', async () => {
     const { client } = await TestUtils.createTestUserAndClient()
     const subaccount1 = await client.subaccounts.create('test-/@/11')
@@ -110,10 +97,7 @@ test('should should retrieve page before given subaccount id with filter', async
     const page = await client.subaccounts.listPageBefore(subaccount1.id, 'test-/@/1')
     const retrievedSubaccountKeys = page.items.map((subaccount: any) => subaccount.secretKey)
 
-    // @ts-expect-error TS(2304): Cannot find name 'expect'.
-    expect(retrievedSubaccountKeys.sort).toEqual([subaccount2.secretKey, subaccount3.secretKey].sort)
-    // @ts-expect-error TS(2304): Cannot find name 'expect'.
-    expect(page.previousPageEndsBefore).toBeNull()
-    // @ts-expect-error TS(2304): Cannot find name 'expect'.
-    expect(page.nextPageStartsAfter).toEqual(subaccount2.id + '')
+        expect(retrievedSubaccountKeys.sort).toEqual([subaccount2.secretKey, subaccount3.secretKey].sort)
+        expect(page.previousPageEndsBefore).toBeNull()
+        expect(page.nextPageStartsAfter).toEqual(subaccount2.id + '')
 })

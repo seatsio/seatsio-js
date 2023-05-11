@@ -1,9 +1,8 @@
-import { TestUtils } from '../TestUtils'
+import { TestUtils } from '../testUtils'
 import { SocialDistancingRuleset } from '../../src/Charts/SocialDistancingRuleset.js'
 import { TableBookingConfig } from '../../src/Events/TableBookingConfig'
 import { Category } from '../../src/Charts/Category'
 
-// @ts-expect-error TS(2582): Cannot find name 'test'. Do you need to install ty... Remove this comment to see the full error message
 test('should check that only chart key is required', async () => {
     const { client, user } = await TestUtils.createTestUserAndClient()
     const chartKey = TestUtils.getChartKey()
@@ -11,38 +10,26 @@ test('should check that only chart key is required', async () => {
 
     const event = await client.events.create(chartKey)
 
-    // @ts-expect-error TS(2304): Cannot find name 'expect'.
-    expect(event.key).toBeTruthy()
-    // @ts-expect-error TS(2304): Cannot find name 'expect'.
-    expect(event.id).toBeTruthy()
-    // @ts-expect-error TS(2304): Cannot find name 'expect'.
-    expect(event.chartKey).toBe(chartKey)
-    // @ts-expect-error TS(2304): Cannot find name 'expect'.
-    expect(event.tableBookingConfig).toEqual(TableBookingConfig.inherit())
-    // @ts-expect-error TS(2304): Cannot find name 'expect'.
-    expect(event.supportsBestAvailable).toBe(true)
-    // @ts-expect-error TS(2304): Cannot find name 'expect'.
-    expect(event.createdOn).toBeInstanceOf(Date)
-    // @ts-expect-error TS(2304): Cannot find name 'expect'.
-    expect(event.forSaleConfig).toBeFalsy()
-    // @ts-expect-error TS(2304): Cannot find name 'expect'.
-    expect(event.updatedOn).toBeFalsy()
-    // @ts-expect-error TS(2304): Cannot find name 'expect'.
-    expect(event.categories).toEqual(TestUtils.testChartCategories)
+        expect(event.key).toBeTruthy()
+        expect(event.id).toBeTruthy()
+        expect(event.chartKey).toBe(chartKey)
+        expect(event.tableBookingConfig).toEqual(TableBookingConfig.inherit())
+        expect(event.supportsBestAvailable).toBe(true)
+        expect(event.createdOn).toBeInstanceOf(Date)
+        expect(event.forSaleConfig).toBeFalsy()
+        expect(event.updatedOn).toBeFalsy()
+        expect(event.categories).toEqual(TestUtils.testChartCategories)
 })
 
-// @ts-expect-error TS(2582): Cannot find name 'test'. Do you need to install ty... Remove this comment to see the full error message
 test('should pass in event key as a create() param', async () => {
     const { client } = await TestUtils.createTestUserAndClient()
     const chart = await client.charts.create()
 
     const event = await client.events.create(chart.key, 'eventKey')
 
-    // @ts-expect-error TS(2304): Cannot find name 'expect'.
-    expect(event.key).toBe('eventKey')
+        expect(event.key).toBe('eventKey')
 })
 
-// @ts-expect-error TS(2582): Cannot find name 'test'. Do you need to install ty... Remove this comment to see the full error message
 test('supports tableBookingConfig custom', async () => {
     const { client, user } = await TestUtils.createTestUserAndClient()
     const chartKey = TestUtils.getChartKey()
@@ -51,13 +38,10 @@ test('supports tableBookingConfig custom', async () => {
 
     const event = await client.events.create(chartKey, null, tableBookingConfig)
 
-    // @ts-expect-error TS(2304): Cannot find name 'expect'.
-    expect(event.key).toBeTruthy()
-    // @ts-expect-error TS(2304): Cannot find name 'expect'.
-    expect(event.tableBookingConfig).toEqual(tableBookingConfig)
+        expect(event.key).toBeTruthy()
+        expect(event.tableBookingConfig).toEqual(tableBookingConfig)
 })
 
-// @ts-expect-error TS(2582): Cannot find name 'test'. Do you need to install ty... Remove this comment to see the full error message
 test('supports tableBookingConfig inherit', async () => {
     const { client, user } = await TestUtils.createTestUserAndClient()
     const chartKey = TestUtils.getChartKey()
@@ -65,13 +49,10 @@ test('supports tableBookingConfig inherit', async () => {
 
     const event = await client.events.create(chartKey, null, TableBookingConfig.inherit())
 
-    // @ts-expect-error TS(2304): Cannot find name 'expect'.
-    expect(event.key).toBeTruthy()
-    // @ts-expect-error TS(2304): Cannot find name 'expect'.
-    expect(event.tableBookingConfig).toEqual(TableBookingConfig.inherit())
+        expect(event.key).toBeTruthy()
+        expect(event.tableBookingConfig).toEqual(TableBookingConfig.inherit())
 })
 
-// @ts-expect-error TS(2582): Cannot find name 'test'. Do you need to install ty... Remove this comment to see the full error message
 test('it supports a social distancing ruleset key', async () => {
     const { client } = await TestUtils.createTestUserAndClient()
     const chart = await client.charts.create()
@@ -80,11 +61,9 @@ test('it supports a social distancing ruleset key', async () => {
 
     const event = await client.events.create(chart.key, null, null, 'ruleset1')
 
-    // @ts-expect-error TS(2304): Cannot find name 'expect'.
-    expect(event.socialDistancingRulesetKey).toBe('ruleset1')
+        expect(event.socialDistancingRulesetKey).toBe('ruleset1')
 })
 
-// @ts-expect-error TS(2582): Cannot find name 'test'. Do you need to install ty... Remove this comment to see the full error message
 test('it supports object categories', async () => {
     const { client, user } = await TestUtils.createTestUserAndClient()
     const chartKey = TestUtils.getChartKey()
@@ -92,11 +71,9 @@ test('it supports object categories', async () => {
 
     const event = await client.events.create(chartKey, null, null, null, { 'A-1': 10 })
 
-    // @ts-expect-error TS(2304): Cannot find name 'expect'.
-    expect(event.objectCategories).toEqual({ 'A-1': 10 })
+        expect(event.objectCategories).toEqual({ 'A-1': 10 })
 })
 
-// @ts-expect-error TS(2582): Cannot find name 'test'. Do you need to install ty... Remove this comment to see the full error message
 test('it supports categories', async () => {
     const { client, user } = await TestUtils.createTestUserAndClient()
     const chartKey = TestUtils.getChartKey()
@@ -106,12 +83,8 @@ test('it supports categories', async () => {
 
     const event = await client.events.create(chartKey, null, null, null, null, [eventCategory])
 
-    // @ts-expect-error TS(2304): Cannot find name 'expect'.
-    expect(event.categories.length).toEqual(4) // 3 from sampleChart.json, 1 event level category
-    // @ts-expect-error TS(2304): Cannot find name 'expect'.
-    expect(event.categories.filter((cat: any) => cat.key === 'eventCat1').length).toEqual(1)
-    // @ts-expect-error TS(2304): Cannot find name 'expect'.
-    expect(event.categories.filter((cat: any) => cat.key === 'eventCat1')[0].label).toEqual('Event Level Category')
-    // @ts-expect-error TS(2304): Cannot find name 'expect'.
-    expect(event.categories.filter((cat: any) => cat.key === 'eventCat1')[0].color).toEqual('#AAABBB')
+        expect(event.categories.length).toEqual(4) // 3 from sampleChart.json, 1 event level category
+        expect(event.categories.filter((cat: any) => cat.key === 'eventCat1').length).toEqual(1)
+        expect(event.categories.filter((cat: any) => cat.key === 'eventCat1')[0].label).toEqual('Event Level Category')
+        expect(event.categories.filter((cat: any) => cat.key === 'eventCat1')[0].color).toEqual('#AAABBB')
 })

@@ -1,6 +1,5 @@
 import { TestUtils } from '../TestUtils'
 
-// @ts-expect-error TS(2582): Cannot find name 'test'. Do you need to install ty... Remove this comment to see the full error message
 test('should list events in first page', async () => {
     const { client } = await TestUtils.createTestUserAndClient()
     const chart = await client.charts.create()
@@ -9,11 +8,9 @@ test('should list events in first page', async () => {
     const page = await client.events.listFirstPage()
 
     const retrievedEventKeys = page.items.map((event: any) => event.key)
-    // @ts-expect-error TS(2304): Cannot find name 'expect'.
-    expect(retrievedEventKeys.sort()).toEqual(events.map(e => e.key).sort())
+        expect(retrievedEventKeys.sort()).toEqual(events.map(e => e.key).sort())
 })
 
-// @ts-expect-error TS(2582): Cannot find name 'test'. Do you need to install ty... Remove this comment to see the full error message
 test('should list events in first page with page size', async () => {
     const { client } = await TestUtils.createTestUserAndClient()
     const chart = await client.charts.create()
@@ -25,8 +22,6 @@ test('should list events in first page with page size', async () => {
     const page = await client.events.listFirstPage(3)
 
     const retrievedEventKeys = page.items.map((event: any) => event.key)
-    // @ts-expect-error TS(2304): Cannot find name 'expect'.
-    expect(retrievedEventKeys.length).toBe(3)
-    // @ts-expect-error TS(2304): Cannot find name 'expect'.
-    expect(retrievedEventKeys).toEqual([event10.key, event9.key, event8.key])
+        expect(retrievedEventKeys.length).toBe(3)
+        expect(retrievedEventKeys).toEqual([event10.key, event9.key, event8.key])
 })

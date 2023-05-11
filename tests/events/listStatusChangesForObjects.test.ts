@@ -1,7 +1,6 @@
 import { TestUtils } from '../TestUtils'
 import { StatusChangeRequest } from '../../src/Events/StatusChangeRequest.js'
 
-// @ts-expect-error TS(2582): Cannot find name 'test'. Do you need to install ty... Remove this comment to see the full error message
 test('should list status changes for objects', async () => {
     const { client, user } = await TestUtils.createTestUserAndClient()
     const chartKey = TestUtils.getChartKey()
@@ -24,6 +23,5 @@ test('should list status changes for objects', async () => {
         statuses.push(statusChange.status)
     }
 
-    // @ts-expect-error TS(2304): Cannot find name 'expect'.
     expect(statuses.sort()).toEqual(['s1', 's2', 's3'])
 })

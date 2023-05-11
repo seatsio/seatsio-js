@@ -2,6 +2,12 @@ import { HelperFunctions } from '../utilities/helperFunctions'
 import { IDs } from '../Common/IDs'
 
 export class EventObjectInfo {
+
+    static FREE = 'free'
+    static BOOKED = 'booked'
+    static HELD = 'reservedByToken'
+
+
     availabilityReason: any;
     bookAsAWhole: any;
     capacity: any;
@@ -34,9 +40,7 @@ export class EventObjectInfo {
     section: any;
     status: any;
     ticketType: any;
-    /**
-     * @param {object} report
-     */
+
     constructor (report: any) {
         this.label = report.label
         this.labels = HelperFunctions.labelCreator(report)
@@ -73,9 +77,3 @@ export class EventObjectInfo {
     }
 }
 
-// @ts-expect-error TS(2339): Property 'FREE' does not exist on type 'typeof Eve... Remove this comment to see the full error message
-EventObjectInfo.FREE = 'free'
-// @ts-expect-error TS(2339): Property 'BOOKED' does not exist on type 'typeof E... Remove this comment to see the full error message
-EventObjectInfo.BOOKED = 'booked'
-// @ts-expect-error TS(2339): Property 'HELD' does not exist on type 'typeof Eve... Remove this comment to see the full error message
-EventObjectInfo.HELD = 'reservedByToken'

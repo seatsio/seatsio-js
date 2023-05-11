@@ -2,7 +2,6 @@
 import { TestUtils } from '../testUtils'
 import { EventObjectInfo } from '../../src/Events/EventObjectInfo'
 
-// @ts-expect-error TS(2582): Cannot find name 'test'. Do you need to install ty... Remove this comment to see the full error message
 test('should change object status for multiple events', async () => {
     const { client, user } = await TestUtils.createTestUserAndClient()
     const chartKey = TestUtils.getChartKey()
@@ -14,13 +13,10 @@ test('should change object status for multiple events', async () => {
 
     const objectInfo1 = await client.events.retrieveObjectInfo(event1.key, 'A-1')
     const objectInfo2 = await client.events.retrieveObjectInfo(event2.key, 'A-1')
-    // @ts-expect-error TS(2304): Cannot find name 'expect'.
     expect(objectInfo1.status).toBe('lolzor')
-    // @ts-expect-error TS(2304): Cannot find name 'expect'.
     expect(objectInfo2.status).toBe('lolzor')
 })
 
-// @ts-expect-error TS(2582): Cannot find name 'test'. Do you need to install ty... Remove this comment to see the full error message
 test('should book multiple events', async () => {
     const { client, user } = await TestUtils.createTestUserAndClient()
     const chartKey = TestUtils.getChartKey()
@@ -32,13 +28,10 @@ test('should book multiple events', async () => {
 
     const objectInfo1 = await client.events.retrieveObjectInfo(event1.key, 'A-1')
     const objectInfo2 = await client.events.retrieveObjectInfo(event2.key, 'A-1')
-    // @ts-expect-error TS(2304): Cannot find name 'expect'.
     expect(objectInfo1.status).toBe(EventObjectInfo.BOOKED)
-    // @ts-expect-error TS(2304): Cannot find name 'expect'.
     expect(objectInfo2.status).toBe(EventObjectInfo.BOOKED)
 })
 
-// @ts-expect-error TS(2582): Cannot find name 'test'. Do you need to install ty... Remove this comment to see the full error message
 test('should release multiple events', async () => {
     const { client, user } = await TestUtils.createTestUserAndClient()
     const chartKey = TestUtils.getChartKey()
@@ -51,13 +44,10 @@ test('should release multiple events', async () => {
 
     const objectInfo1 = await client.events.retrieveObjectInfo(event1.key, 'A-1')
     const objectInfo2 = await client.events.retrieveObjectInfo(event2.key, 'A-1')
-    // @ts-expect-error TS(2304): Cannot find name 'expect'.
     expect(objectInfo1.status).toBe(EventObjectInfo.FREE)
-    // @ts-expect-error TS(2304): Cannot find name 'expect'.
     expect(objectInfo2.status).toBe(EventObjectInfo.FREE)
 })
 
-// @ts-expect-error TS(2582): Cannot find name 'test'. Do you need to install ty... Remove this comment to see the full error message
 test('should hold multiple events', async () => {
     const { client, user } = await TestUtils.createTestUserAndClient()
     const chartKey = TestUtils.getChartKey()
@@ -70,8 +60,6 @@ test('should hold multiple events', async () => {
 
     const objectInfo1 = await client.events.retrieveObjectInfo(event1.key, 'A-1')
     const objectInfo2 = await client.events.retrieveObjectInfo(event2.key, 'A-1')
-    // @ts-expect-error TS(2304): Cannot find name 'expect'.
     expect(objectInfo1.status).toBe(EventObjectInfo.HELD)
-    // @ts-expect-error TS(2304): Cannot find name 'expect'.
     expect(objectInfo2.status).toBe(EventObjectInfo.HELD)
 })

@@ -598,8 +598,7 @@ export class Events {
             .then((res: any) => new BestAvailableObjects(res.data));
     }
 
-    // @ts-expect-error TS(7023): 'normalizeObjects' implicitly has return type 'any... Remove this comment to see the full error message
-    normalizeObjects (objectOrObjects: any) {
+    normalizeObjects (objectOrObjects: any): any {
         if (Array.isArray(objectOrObjects)) {
             if (objectOrObjects.length === 0) {
                 return []

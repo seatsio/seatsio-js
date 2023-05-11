@@ -1,8 +1,6 @@
 import { ChartListParams } from '../../src/Charts/ChartListParams.js'
-// @ts-expect-error TS(1149): File name '/Users/bver/Development/work/seatsio/se... Remove this comment to see the full error message
 import { TestUtils } from '../testUtils'
 
-// @ts-expect-error TS(2582): Cannot find name 'test'. Do you need to install ty... Remove this comment to see the full error message
 test('listAll when there are many charts', async () => {
     const { client } = await TestUtils.createTestUserAndClient()
     const charts = await TestUtils.createArray(15, () => client.charts.create())
@@ -12,11 +10,9 @@ test('listAll when there are many charts', async () => {
         retrievedKeys.push(chart.key)
     }
 
-    // @ts-expect-error TS(2304): Cannot find name 'expect'.
     expect(retrievedKeys.sort()).toEqual(charts.map(c => c.key).sort())
 })
 
-// @ts-expect-error TS(2582): Cannot find name 'test'. Do you need to install ty... Remove this comment to see the full error message
 test('listAll when there are no charts', async () => {
     const { client } = await TestUtils.createTestUserAndClient()
     const retrievedKeys = []
@@ -25,11 +21,9 @@ test('listAll when there are no charts', async () => {
         retrievedKeys.push(chart.key)
     }
 
-    // @ts-expect-error TS(2304): Cannot find name 'expect'.
     expect(retrievedKeys).toEqual([])
 })
 
-// @ts-expect-error TS(2582): Cannot find name 'test'. Do you need to install ty... Remove this comment to see the full error message
 test('listAll Charts with filter', async () => {
     const { client } = await TestUtils.createTestUserAndClient()
     const fooCharts = await TestUtils.createArray(3, () => client.charts.create('foo'))
@@ -41,11 +35,9 @@ test('listAll Charts with filter', async () => {
         retrievedKeys.push(chart.key)
     }
 
-    // @ts-expect-error TS(2304): Cannot find name 'expect'.
     expect(retrievedKeys.sort()).toEqual(fooCharts.map(c => c.key).sort())
 })
 
-// @ts-expect-error TS(2582): Cannot find name 'test'. Do you need to install ty... Remove this comment to see the full error message
 test('listAll Charts with tag', async () => {
     const { client } = await TestUtils.createTestUserAndClient()
     const fooCharts = await TestUtils.createArray(3, async () => {
@@ -62,11 +54,9 @@ test('listAll Charts with tag', async () => {
         retrievedChartKeys.push(chart.key)
     }
 
-    // @ts-expect-error TS(2304): Cannot find name 'expect'.
     expect(retrievedChartKeys.sort()).toEqual(fooCharts.map(c => c.key).sort())
 })
 
-// @ts-expect-error TS(2582): Cannot find name 'test'. Do you need to install ty... Remove this comment to see the full error message
 test('listAll Charts with tag and filter parameters', async () => {
     const { client } = await TestUtils.createTestUserAndClient()
     const chart1 = await client.charts.create('bar')
@@ -83,11 +73,9 @@ test('listAll Charts with tag and filter parameters', async () => {
         retrievedKeys.push(chart.key)
     }
 
-    // @ts-expect-error TS(2304): Cannot find name 'expect'.
     expect(retrievedKeys.sort()).toEqual([chart1.key, chart3.key].sort())
 })
 
-// @ts-expect-error TS(2582): Cannot find name 'test'. Do you need to install ty... Remove this comment to see the full error message
 test('listAll Charts with expandEvents parameters', async () => {
     const { client } = await TestUtils.createTestUserAndClient()
     const chart1 = await client.charts.create()
@@ -109,11 +97,9 @@ test('listAll Charts with expandEvents parameters', async () => {
         }
     }
 
-    // @ts-expect-error TS(2304): Cannot find name 'expect'.
     expect(retrievedKeys.sort()).toEqual(generatedEventKeys.sort())
 })
 
-// @ts-expect-error TS(2582): Cannot find name 'test'. Do you need to install ty... Remove this comment to see the full error message
 test('listAll Charts with expandEvents parameters and eventsLimit', async () => {
     const { client } = await TestUtils.createTestUserAndClient()
     const chart1 = await client.charts.create()
@@ -129,31 +115,25 @@ test('listAll Charts with expandEvents parameters and eventsLimit', async () => 
         }
     }
 
-    // @ts-expect-error TS(2304): Cannot find name 'expect'.
     expect(retrievedKeys).toEqual([event3.key, event2.key])
 })
 
-// @ts-expect-error TS(2582): Cannot find name 'test'. Do you need to install ty... Remove this comment to see the full error message
 test('list all charts with validation', async () => {
     const { client } = await TestUtils.createTestUserAndClient()
     await TestUtils.createArray(3, () => client.charts.create())
-    // @ts-expect-error TS(2345): Argument of type 'true' is not assignable to param... Remove this comment to see the full error message
     const params = new ChartListParams(...Array(3), true)
 
     for await (const chart of client.charts.listAll(params)) {
-        // @ts-expect-error TS(2304): Cannot find name 'expect'.
         expect(chart).toHaveProperty('validation')
     }
 })
 
-// @ts-expect-error TS(2582): Cannot find name 'test'. Do you need to install ty... Remove this comment to see the full error message
 test('list all charts without validation', async () => {
     const { client } = await TestUtils.createTestUserAndClient()
     await TestUtils.createArray(3, () => client.charts.create())
     const params = new ChartListParams()
 
     for await (const chart of client.charts.listAll(params)) {
-        // @ts-expect-error TS(2304): Cannot find name 'expect'.
         expect(chart).not.toHaveProperty('validation')
     }
 })
