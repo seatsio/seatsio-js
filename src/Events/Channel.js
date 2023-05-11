@@ -9,4 +9,4 @@ export class Channel {
         this.index = channel.index
         this.objects = channel.objects
     }
-}<
+}
