@@ -1,8 +1,8 @@
-import { TestUtils } from '../TestUtils'
-import { EventObjectInfo } from '../../src/Events/EventObjectInfo.js'
-import { ObjectProperties } from '../../src/Events/ObjectProperties.js'
 import { TableBookingConfig } from '../../src/Events/TableBookingConfig'
 import { SocialDistancingRuleset } from '../../src/Charts/SocialDistancingRuleset'
+import { TestUtils } from '../testUtils'
+import { ObjectProperties } from '../../src/Events/ObjectProperties'
+import { EventObjectInfo } from '../../src/Events/EventObjectInfo'
 
 test('should change object status', async () => {
     const { client, user } = await TestUtils.createTestUserAndClient()
@@ -115,7 +115,6 @@ test('should change object status with hold token', async () => {
     const event = await client.events.create(chartKey)
     const holdToken = await client.holdTokens.create()
 
-    // @ts-expect-error TS(2339): Property 'HELD' does not exist on type 'typeof Eve... Remove this comment to see the full error message
     await client.events.changeObjectStatus(event.key, 'A-1', EventObjectInfo.HELD, holdToken.holdToken)
 
     const objectInfo = await client.events.retrieveObjectInfo(event.key, 'A-1')
@@ -225,7 +224,6 @@ test('should accept ignoreSocialDistancing', async () => {
     await client.charts.saveSocialDistancingRulesets(chartKey, { ruleset })
     await client.events.update(event.key, null, null, null, 'ruleset')
 
-    // @ts-expect-error TS(2339): Property 'BOOKED' does not exist on type 'typeof E... Remove this comment to see the full error message
     await client.events.changeObjectStatus(event.key, ['A-1'], EventObjectInfo.BOOKED, null, null, null, null, null, true)
 
     const objectInfo = await client.events.retrieveObjectInfo(event.key, 'A-1')
@@ -239,10 +237,9 @@ test('should accept allowedPreviousStatuses', async () => {
     const event = await client.events.create(chartKey)
 
     try {
-        // @ts-expect-error TS(2339): Property 'BOOKED' does not exist on type 'typeof E... Remove this comment to see the full error message
         await client.events.changeObjectStatus(event.key, ['A-1'], EventObjectInfo.BOOKED, null, null, null, null, null, true, ['MustBeThisStatus'], null)
         throw new Error('Should have failed')
-    } catch (e) {
+    } catch (e: any) {
         expect(e.errors.length).toEqual(1)
         expect(e.errors[0].code).toBe('ILLEGAL_STATUS_CHANGE')
     }
@@ -255,10 +252,9 @@ test('should accept rejectedPreviousStatuses', async () => {
     const event = await client.events.create(chartKey)
 
     try {
-        // @ts-expect-error TS(2339): Property 'BOOKED' does not exist on type 'typeof E... Remove this comment to see the full error message
         await client.events.changeObjectStatus(event.key, ['A-1'], EventObjectInfo.BOOKED, null, null, null, null, null, true, null, ['free'])
         throw new Error('Should have failed')
-    } catch (e) {
+    } catch (e: any) {
         expect(e.errors.length).toEqual(1)
         expect(e.errors[0].code).toBe('ILLEGAL_STATUS_CHANGE')
     }

@@ -1,12 +1,13 @@
 import axios from 'axios'
 import { v4 as uuidv4 } from 'uuid'
-import { Region, SeatsioClient } from '../index'
 import * as fs from 'fs'
 // @ts-ignore
 import path from 'path'
 import * as LabelClasses from '../src/Common/Labels'
 import { Category } from '../src/Charts/Category'
 import { fileURLToPath } from 'url'
+import { SeatsioClient } from '../src/SeatsioClient'
+import { Region } from '../src/Region'
 
 const baseUrl = 'https://api-staging-eu.seatsio.net/'
 
@@ -33,27 +34,27 @@ export class TestUtils {
         return uuidv4()
     }
 
-    static createClient (secretKey, workspaceKey = null) {
+    static createClient (secretKey: string, workspaceKey = null) {
         return new SeatsioClient(new Region(baseUrl), secretKey, workspaceKey)
     }
 
-    static async createTestChart (chartKey, secretKey) {
+    static async createTestChart (chartKey: string, secretKey: string) {
         await this.createTestChartFromFile('/sampleChart.json', chartKey, secretKey)
     }
 
-    static async createErroneousTestChart (chartKey, secretKey) {
+    static async createErroneousTestChart (chartKey: string, secretKey: string) {
         await this.createTestChartFromFile('/sampleChartWithErrors.json', chartKey, secretKey)
     }
 
-    static async createTestChartWithTables (chartKey, secretKey) {
+    static async createTestChartWithTables (chartKey: string, secretKey: string) {
         await this.createTestChartFromFile('/sampleChartWithTables.json', chartKey, secretKey)
     }
 
-    static async createTestChartWithSections (chartKey, secretKey) {
+    static async createTestChartWithSections (chartKey: string, secretKey: string) {
         await this.createTestChartFromFile('/sampleChartWithSections.json', chartKey, secretKey)
     }
 
-    static async createTestChartFromFile (filePath, chartKey, secretKey) {
+    static async createTestChartFromFile (filePath: string, chartKey: string, secretKey: string) {
         const __dirname = fileURLToPath(new URL('.', import.meta.url))
         const requestBody = fs.readFileSync(path.join(__dirname, filePath), 'utf-8')
         const client = axios.create({
@@ -66,7 +67,7 @@ export class TestUtils {
         return client.post(url, requestBody)
     }
 
-    static someLabels (ownLabel, ownType, parentLabel = null, parentType = null, section = null) {
+    static someLabels (ownLabel: string, ownType: string, parentLabel = null, parentType = null, section = null) {
         let labels
         if (parentLabel) {
             labels = new LabelClasses.Labels(new LabelClasses.LabelAndType(ownLabel, ownType), new LabelClasses.LabelAndType(parentLabel, parentType))
@@ -83,7 +84,7 @@ export class TestUtils {
         return uuidv4() + '@mailinator.com'
     }
 
-    static async createArray (length, fn) {
+    static async createArray (length: number, fn: Function) {
         const array = []
 
         for (let i = 0; i < length; ++i) {
@@ -94,22 +95,22 @@ export class TestUtils {
     }
 
     static deferred () {
-        let res
-        let rej
+        let res: Function
+        let rej: Function
 
-        const promise = new Promise((resolve, reject) => {
+        const promise = new Promise((resolve: Function, reject: Function) => {
             res = resolve
             rej = reject
         })
 
         return {
             promise,
-            reject: rej,
-            resolve: res
+            reject: rej!,
+            resolve: res!
         }
     }
 
-    static async statusChangesPresent (client, eventKey, numStatusChanges) {
+    static async statusChangesPresent (client: any, eventKey: any, numStatusChanges: any) {
         const deferred = this.deferred()
         const start = new Date()
 

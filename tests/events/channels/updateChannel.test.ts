@@ -1,5 +1,4 @@
 import { Channel } from '../../../src/Events/Channel'
-// @ts-expect-error TS(1149): File name '/Users/bver/Development/work/seatsio/se... Remove this comment to see the full error message
 import { TestUtils } from '../../testUtils'
 
 test('update name', async () => {

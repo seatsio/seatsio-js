@@ -1,5 +1,5 @@
-import { TestUtils } from '../TestUtils'
 import { EventObjectInfo } from '../../src/Events/EventObjectInfo'
+import { TestUtils } from '../testUtils'
 
 test('should change best available object status', async () => {
     const { client, user } = await TestUtils.createTestUserAndClient()

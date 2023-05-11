@@ -1,4 +1,5 @@
 export class SocialDistancingRuleset {
+
     static fixed (name: any) {
         return new FixedSocialDistancingRulesetBuilder(name)
     }

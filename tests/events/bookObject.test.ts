@@ -1,5 +1,5 @@
-import { EventObjectInfo } from '../../src/Events/EventObjectInfo.js'
-import { TestUtils } from '../TestUtils'
+import { EventObjectInfo } from '../../src/Events/EventObjectInfo'
+import { TestUtils } from '../testUtils'
 import { SocialDistancingRuleset } from '../../src/Charts/SocialDistancingRuleset'
 import { IDs } from '../../src/Common/IDs'
 

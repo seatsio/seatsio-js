@@ -29,7 +29,6 @@ export class Lister {
      * @returns {Page}
      */
     firstPage (queryParams = null, pageSize = null) {
-        // @ts-expect-error TS(2339): Property 'serialize' does not exist on type 'never... Remove this comment to see the full error message
         const params = queryParams && queryParams.serialize ? queryParams.serialize() : queryParams
         return this.pageFetcher.fetchAfter(null, params, pageSize)
     }
@@ -41,7 +40,6 @@ export class Lister {
      * @returns {Page}
      */
     pageAfter (afterId: any, queryParams = null, pageSize = null) {
-        // @ts-expect-error TS(2339): Property 'serialize' does not exist on type 'never... Remove this comment to see the full error message
         const params = queryParams && queryParams.serialize ? queryParams.serialize() : queryParams
         return this.pageFetcher.fetchAfter(afterId, params, pageSize)
     }
@@ -53,7 +51,6 @@ export class Lister {
      * @returns {Page}
      */
     pageBefore (beforeId: any, queryParams = null, pageSize = null) {
-        // @ts-expect-error TS(2339): Property 'serialize' does not exist on type 'never... Remove this comment to see the full error message
         const params = queryParams && queryParams.serialize ? queryParams.serialize() : queryParams
         return this.pageFetcher.fetchBefore(beforeId, params, pageSize)
     }
