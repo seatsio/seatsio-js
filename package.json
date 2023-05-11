@@ -7,7 +7,7 @@
   "type": "module",
   "scripts": {
     "lint": "eslint ./src ./tests",
-    "test": "jest --maxWorkers=8 --verbose"
+    "test": "yarn node --experimental-vm-modules $(yarn bin jest) --maxWorkers=8 --verbose"
   },
   "repository": {
     "type": "git",
