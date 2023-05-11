@@ -4,6 +4,7 @@ import { TableBookingConfig } from '../../src/Events/TableBookingConfig'
 import { Category } from '../../src/Charts/Category'
 import { Events } from '../../src/Events/Events'
 
+// @ts-expect-error TS(2582): Cannot find name 'test'. Do you need to install ty... Remove this comment to see the full error message
 test('should check that a minimum of one event is required', async () => {
     const { client, user } = await TestUtils.createTestUserAndClient()
     const chartKey = TestUtils.getChartKey()
@@ -12,12 +13,16 @@ test('should check that a minimum of one event is required', async () => {
     try {
         await client.events.createMultiple(chartKey)
     } catch (e) {
+        // @ts-expect-error TS(2304): Cannot find name 'expect'.
         expect(e.errors.length).toEqual(1)
+        // @ts-expect-error TS(2304): Cannot find name 'expect'.
         expect(e.errors[0].code).toBe('GENERAL_ERROR')
+        // @ts-expect-error TS(2304): Cannot find name 'expect'.
         expect(e.errors[0].message).toBe('#/events: expected minimum item count: 1, found: 0')
     }
 })
 
+// @ts-expect-error TS(2582): Cannot find name 'test'. Do you need to install ty... Remove this comment to see the full error message
 test('should check that an empty object is a valid event definition', async () => {
     const { client, user } = await TestUtils.createTestUserAndClient()
     const chartKey = TestUtils.getChartKey()
@@ -25,45 +30,61 @@ test('should check that an empty object is a valid event definition', async () =
 
     const events = await client.events.createMultiple(chartKey, [{}])
 
+    // @ts-expect-error TS(2304): Cannot find name 'expect'.
     expect(events).toHaveLength(1)
+    // @ts-expect-error TS(2304): Cannot find name 'expect'.
     expect(events[0].key).toBeTruthy()
 })
 
+// @ts-expect-error TS(2582): Cannot find name 'test'. Do you need to install ty... Remove this comment to see the full error message
 test('should create a single event', async () => {
     const { client } = await TestUtils.createTestUserAndClient()
     const chart = await client.charts.create()
 
     const events = await client.events.createMultiple(chart.key, [
+        // @ts-expect-error TS(2345): Argument of type '"eventKey"' is not assignable to... Remove this comment to see the full error message
         Events.eventCreationParams('eventKey')
     ])
 
+    // @ts-expect-error TS(2304): Cannot find name 'expect'.
     expect(events).toHaveLength(1)
+    // @ts-expect-error TS(2304): Cannot find name 'expect'.
     expect(events[0].key).toEqual('eventKey')
 
     const retrievedEvent = await client.events.retrieve('eventKey')
+    // @ts-expect-error TS(2304): Cannot find name 'expect'.
     expect(retrievedEvent.key).toEqual('eventKey')
 })
 
+// @ts-expect-error TS(2582): Cannot find name 'test'. Do you need to install ty... Remove this comment to see the full error message
 test('should create multiple events', async () => {
     const { client } = await TestUtils.createTestUserAndClient()
     const chart = await client.charts.create()
 
     const events = [
+        // @ts-expect-error TS(2345): Argument of type '"eventKey1"' is not assignable t... Remove this comment to see the full error message
         Events.eventCreationParams('eventKey1'),
+        // @ts-expect-error TS(2345): Argument of type '"eventKey2"' is not assignable t... Remove this comment to see the full error message
         Events.eventCreationParams('eventKey2')
     ]
     const createdEvents = await client.events.createMultiple(chart.key, events)
 
+    // @ts-expect-error TS(2304): Cannot find name 'expect'.
     expect(createdEvents).toHaveLength(2)
+    // @ts-expect-error TS(2304): Cannot find name 'expect'.
     expect(createdEvents[0].key).toEqual('eventKey1')
+    // @ts-expect-error TS(2304): Cannot find name 'expect'.
     expect(createdEvents[1].key).toEqual('eventKey2')
 
     for (const event of events) {
+        // @ts-expect-error TS(2339): Property 'eventKey' does not exist on type '{}'.
         const retrievedEvent = await client.events.retrieve(event.eventKey)
+        // @ts-expect-error TS(2304): Cannot find name 'expect'.
         expect(retrievedEvent.key).toEqual(event.eventKey)
     }
 })
 
+// @ts-expect-error TS(2582): Cannot find name 'test'. Do you need to install ty... Remove this comment to see the full error message
 test('supports tableBookingConfig custom', async () => {
     const { client, user } = await TestUtils.createTestUserAndClient()
     const chartKey = TestUtils.getChartKey()
@@ -71,26 +92,34 @@ test('supports tableBookingConfig custom', async () => {
     const tableBookingConfig = TableBookingConfig.custom({ T1: 'BY_TABLE', T2: 'BY_SEAT' })
 
     const events = await client.events.createMultiple(chartKey, [
+        // @ts-expect-error TS(2345): Argument of type 'TableBookingConfig' is not assig... Remove this comment to see the full error message
         Events.eventCreationParams(null, tableBookingConfig)
     ])
 
+    // @ts-expect-error TS(2304): Cannot find name 'expect'.
     expect(events[0].key).toBeTruthy()
+    // @ts-expect-error TS(2304): Cannot find name 'expect'.
     expect(events[0].tableBookingConfig).toEqual(tableBookingConfig)
 })
 
+// @ts-expect-error TS(2582): Cannot find name 'test'. Do you need to install ty... Remove this comment to see the full error message
 test('supports tableBookingConfig inherit', async () => {
     const { client, user } = await TestUtils.createTestUserAndClient()
     const chartKey = TestUtils.getChartKey()
     await TestUtils.createTestChartWithTables(chartKey, user.secretKey)
 
     const events = await client.events.createMultiple(chartKey, [
+        // @ts-expect-error TS(2345): Argument of type 'TableBookingConfig' is not assig... Remove this comment to see the full error message
         Events.eventCreationParams(null, TableBookingConfig.inherit())
     ])
 
+    // @ts-expect-error TS(2304): Cannot find name 'expect'.
     expect(events[0].key).toBeTruthy()
+    // @ts-expect-error TS(2304): Cannot find name 'expect'.
     expect(events[0].tableBookingConfig).toEqual(TableBookingConfig.inherit())
 })
 
+// @ts-expect-error TS(2582): Cannot find name 'test'. Do you need to install ty... Remove this comment to see the full error message
 test('it supports a social distancing ruleset key', async () => {
     const { client } = await TestUtils.createTestUserAndClient()
     const chart = await client.charts.create()
@@ -98,24 +127,30 @@ test('it supports a social distancing ruleset key', async () => {
     await client.charts.saveSocialDistancingRulesets(chart.key, rulesets)
 
     const events = await client.events.createMultiple(chart.key, [
+        // @ts-expect-error TS(2345): Argument of type '"ruleset1"' is not assignable to... Remove this comment to see the full error message
         Events.eventCreationParams(null, null, 'ruleset1')
     ])
 
+    // @ts-expect-error TS(2304): Cannot find name 'expect'.
     expect(events[0].socialDistancingRulesetKey).toBe('ruleset1')
 })
 
+// @ts-expect-error TS(2582): Cannot find name 'test'. Do you need to install ty... Remove this comment to see the full error message
 test('it supports object categories', async () => {
     const { client, user } = await TestUtils.createTestUserAndClient()
     const chartKey = TestUtils.getChartKey()
     await TestUtils.createTestChart(chartKey, user.secretKey)
 
     const events = await client.events.createMultiple(chartKey, [
+        // @ts-expect-error TS(2345): Argument of type '{ 'A-1': number; }' is not assig... Remove this comment to see the full error message
         Events.eventCreationParams(null, null, null, { 'A-1': 10 })
     ])
 
+    // @ts-expect-error TS(2304): Cannot find name 'expect'.
     expect(events[0].objectCategories).toEqual({ 'A-1': 10 })
 })
 
+// @ts-expect-error TS(2582): Cannot find name 'test'. Do you need to install ty... Remove this comment to see the full error message
 test('it supports categories', async () => {
     const { client, user } = await TestUtils.createTestUserAndClient()
     const chartKey = TestUtils.getChartKey()
@@ -124,11 +159,16 @@ test('it supports categories', async () => {
     const eventCategory = new Category('eventCat1', 'Event Level Category', '#AAABBB')
 
     const events = await client.events.createMultiple(chartKey, [
+        // @ts-expect-error TS(2345): Argument of type 'Category[]' is not assignable to... Remove this comment to see the full error message
         Events.eventCreationParams(null, null, null, null, [eventCategory])
     ])
 
+    // @ts-expect-error TS(2304): Cannot find name 'expect'.
     expect(events[0].categories.length).toEqual(4) // 3 from sampleChart.json, 1 event level category
-    expect(events[0].categories.filter(cat => cat.key === 'eventCat1').length).toEqual(1)
-    expect(events[0].categories.filter(cat => cat.key === 'eventCat1')[0].label).toEqual('Event Level Category')
-    expect(events[0].categories.filter(cat => cat.key === 'eventCat1')[0].color).toEqual('#AAABBB')
+    // @ts-expect-error TS(2304): Cannot find name 'expect'.
+    expect(events[0].categories.filter((cat: any) => cat.key === 'eventCat1').length).toEqual(1)
+    // @ts-expect-error TS(2304): Cannot find name 'expect'.
+    expect(events[0].categories.filter((cat: any) => cat.key === 'eventCat1')[0].label).toEqual('Event Level Category')
+    // @ts-expect-error TS(2304): Cannot find name 'expect'.
+    expect(events[0].categories.filter((cat: any) => cat.key === 'eventCat1')[0].color).toEqual('#AAABBB')
 })

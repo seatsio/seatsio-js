@@ -1,5 +1,6 @@
 import { TestUtils } from '../TestUtils'
 
+// @ts-expect-error TS(2582): Cannot find name 'test'. Do you need to install ty... Remove this comment to see the full error message
 test('should update extra datas of an event', async () => {
     const { client, user } = await TestUtils.createTestUserAndClient()
     const chartKey = TestUtils.getChartKey()
@@ -11,6 +12,8 @@ test('should update extra datas of an event', async () => {
 
     const objectInfo1 = await client.events.retrieveObjectInfo(event.key, 'A-1')
     const objectInfo2 = await client.events.retrieveObjectInfo(event.key, 'A-2')
+    // @ts-expect-error TS(2304): Cannot find name 'expect'.
     expect(objectInfo1.extraData).toEqual(extraData1)
+    // @ts-expect-error TS(2304): Cannot find name 'expect'.
     expect(objectInfo2.extraData).toEqual(extraData2)
 })

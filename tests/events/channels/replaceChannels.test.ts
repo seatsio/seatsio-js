@@ -1,6 +1,8 @@
+// @ts-expect-error TS(1149): File name '/Users/bver/Development/work/seatsio/se... Remove this comment to see the full error message
 import { TestUtils } from '../../testUtils'
 import { Channel } from '../../../src/Events/Channel'
 
+// @ts-expect-error TS(2582): Cannot find name 'test'. Do you need to install ty... Remove this comment to see the full error message
 test('should assign objects to channels', async () => {
     const { client, user } = await TestUtils.createTestUserAndClient()
     const chartKey = TestUtils.getChartKey()
@@ -17,6 +19,7 @@ test('should assign objects to channels', async () => {
     })
 
     const retrievedEvent = await client.events.retrieve(event.key)
+    // @ts-expect-error TS(2304): Cannot find name 'expect'.
     expect(retrievedEvent.channels).toEqual([
         new Channel({
             key: 'channelKey1',

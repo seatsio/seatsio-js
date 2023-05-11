@@ -1,6 +1,8 @@
+// @ts-expect-error TS(1149): File name '/Users/bver/Development/work/seatsio/se... Remove this comment to see the full error message
 import { TestUtils } from '../../testUtils'
 import { Channel } from '../../../src/Events/Channel'
 
+// @ts-expect-error TS(2582): Cannot find name 'test'. Do you need to install ty... Remove this comment to see the full error message
 test('can remove objects from channels', async () => {
     const {
         client,
@@ -14,6 +16,7 @@ test('can remove objects from channels', async () => {
     await client.events.channels.removeObjects(event.key, 'channelKey1', ['A-3', 'A-4'])
 
     const retrievedEvent = await client.events.retrieve(event.key)
+    // @ts-expect-error TS(2304): Cannot find name 'expect'.
     expect(retrievedEvent.channels).toEqual([
         new Channel({
             key: 'channelKey1',

@@ -1,6 +1,7 @@
 import { TestUtils } from '../TestUtils'
 import { EventObjectInfo } from '../../src/Events/EventObjectInfo'
 
+// @ts-expect-error TS(2582): Cannot find name 'test'. Do you need to install ty... Remove this comment to see the full error message
 test('should change best available object status', async () => {
     const { client, user } = await TestUtils.createTestUserAndClient()
     const chartKey = TestUtils.getChartKey()
@@ -9,10 +10,13 @@ test('should change best available object status', async () => {
 
     const bestAvailableObjs = await client.events.changeBestAvailableObjectStatus(event.key, 2, 'lolzor')
 
+    // @ts-expect-error TS(2304): Cannot find name 'expect'.
     expect(bestAvailableObjs.nextToEachOther).toBe(true)
+    // @ts-expect-error TS(2304): Cannot find name 'expect'.
     expect(bestAvailableObjs.objects.sort()).toEqual(['B-4', 'B-5'])
 })
 
+// @ts-expect-error TS(2582): Cannot find name 'test'. Do you need to install ty... Remove this comment to see the full error message
 test('should change best available object status with categories', async () => {
     const { client, user } = await TestUtils.createTestUserAndClient()
     const chartKey = TestUtils.getChartKey()
@@ -20,9 +24,11 @@ test('should change best available object status with categories', async () => {
     const event = await client.events.create(chartKey)
     const bestAvailableObjs = await client.events.changeBestAvailableObjectStatus(event.key, 3, 'lolzor', ['cat2'])
 
+    // @ts-expect-error TS(2304): Cannot find name 'expect'.
     expect(bestAvailableObjs.objects.sort()).toEqual(['C-4', 'C-5', 'C-6'])
 })
 
+// @ts-expect-error TS(2582): Cannot find name 'test'. Do you need to install ty... Remove this comment to see the full error message
 test('should change best available object status with extra data', async () => {
     const { client, user } = await TestUtils.createTestUserAndClient()
     const chartKey = TestUtils.getChartKey()
@@ -34,11 +40,15 @@ test('should change best available object status with extra data', async () => {
 
     const objectInfo4 = await client.events.retrieveObjectInfo(event.key, 'B-4')
     const objectInfo5 = await client.events.retrieveObjectInfo(event.key, 'B-5')
+    // @ts-expect-error TS(2304): Cannot find name 'expect'.
     expect(bestAvailableObjs.objects.sort()).toEqual(['B-4', 'B-5'])
+    // @ts-expect-error TS(2304): Cannot find name 'expect'.
     expect(objectInfo4.extraData).toEqual(extraData[0])
+    // @ts-expect-error TS(2304): Cannot find name 'expect'.
     expect(objectInfo5.extraData).toEqual(extraData[1])
 })
 
+// @ts-expect-error TS(2582): Cannot find name 'test'. Do you need to install ty... Remove this comment to see the full error message
 test('should change best available object status with hold token', async () => {
     const { client, user } = await TestUtils.createTestUserAndClient()
     const chartKey = TestUtils.getChartKey()
@@ -46,13 +56,17 @@ test('should change best available object status with hold token', async () => {
     const event = await client.events.create(chartKey)
     const holdToken = await client.holdTokens.create()
 
+    // @ts-expect-error TS(2339): Property 'HELD' does not exist on type 'typeof Eve... Remove this comment to see the full error message
     const bestAvailableObjs = await client.events.changeBestAvailableObjectStatus(event.key, 1, EventObjectInfo.HELD, null, holdToken.holdToken)
 
     const objectInfo = await client.events.retrieveObjectInfo(event.key, bestAvailableObjs.objects[0])
+    // @ts-expect-error TS(2304): Cannot find name 'expect'.
     expect(objectInfo.status).toBe(EventObjectInfo.HELD)
+    // @ts-expect-error TS(2304): Cannot find name 'expect'.
     expect(objectInfo.holdToken).toBe(holdToken.holdToken)
 })
 
+// @ts-expect-error TS(2582): Cannot find name 'test'. Do you need to install ty... Remove this comment to see the full error message
 test('should change best available object status with orderId', async () => {
     const { client, user } = await TestUtils.createTestUserAndClient()
     const chartKey = TestUtils.getChartKey()
@@ -62,9 +76,11 @@ test('should change best available object status with orderId', async () => {
     const bestAvailableObjs = await client.events.changeBestAvailableObjectStatus(event.key, 1, 'lolzor', null, null, null, null, 'anOrder')
 
     const objectInfo = await client.events.retrieveObjectInfo(event.key, bestAvailableObjs.objects[0])
+    // @ts-expect-error TS(2304): Cannot find name 'expect'.
     expect(objectInfo.orderId).toBe('anOrder')
 })
 
+// @ts-expect-error TS(2582): Cannot find name 'test'. Do you need to install ty... Remove this comment to see the full error message
 test('should book best available object with extra data', async () => {
     const { client, user } = await TestUtils.createTestUserAndClient()
     const chartKey = TestUtils.getChartKey()
@@ -74,10 +90,13 @@ test('should book best available object with extra data', async () => {
 
     const bestAvailableObjs = await client.events.bookBestAvailable(event.key, 3, null, null, extraData)
 
+    // @ts-expect-error TS(2304): Cannot find name 'expect'.
     expect(bestAvailableObjs.nextToEachOther).toBe(true)
+    // @ts-expect-error TS(2304): Cannot find name 'expect'.
     expect(bestAvailableObjs.objects).toEqual(['B-4', 'B-5', 'B-6'])
 })
 
+// @ts-expect-error TS(2582): Cannot find name 'test'. Do you need to install ty... Remove this comment to see the full error message
 test('should book best available object', async () => {
     const { client, user } = await TestUtils.createTestUserAndClient()
     const chartKey = TestUtils.getChartKey()
@@ -86,10 +105,13 @@ test('should book best available object', async () => {
 
     const bestAvailableObjs = await client.events.bookBestAvailable(event.key, 3)
 
+    // @ts-expect-error TS(2304): Cannot find name 'expect'.
     expect(bestAvailableObjs.nextToEachOther).toBe(true)
+    // @ts-expect-error TS(2304): Cannot find name 'expect'.
     expect(bestAvailableObjs.objects).toEqual(['B-4', 'B-5', 'B-6'])
 })
 
+// @ts-expect-error TS(2582): Cannot find name 'test'. Do you need to install ty... Remove this comment to see the full error message
 test('should hold best available object ', async () => {
     const { client, user } = await TestUtils.createTestUserAndClient()
     const chartKey = TestUtils.getChartKey()
@@ -100,10 +122,13 @@ test('should hold best available object ', async () => {
     const bestAvailableObjs = await client.events.holdBestAvailable(event.key, 1, holdToken.holdToken)
 
     const objectInfo = await client.events.retrieveObjectInfo(event.key, bestAvailableObjs.objects[0])
+    // @ts-expect-error TS(2304): Cannot find name 'expect'.
     expect(objectInfo.status).toBe(EventObjectInfo.HELD)
+    // @ts-expect-error TS(2304): Cannot find name 'expect'.
     expect(objectInfo.holdToken).toBe(holdToken.holdToken)
 })
 
+// @ts-expect-error TS(2582): Cannot find name 'test'. Do you need to install ty... Remove this comment to see the full error message
 test('should hold best available object with extra data ', async () => {
     const { client, user } = await TestUtils.createTestUserAndClient()
     const chartKey = TestUtils.getChartKey()
@@ -115,10 +140,13 @@ test('should hold best available object with extra data ', async () => {
     const bestAvailableObjs = await client.events.holdBestAvailable(event.key, 1, holdToken.holdToken, null, extraData)
 
     const objectInfo = await client.events.retrieveObjectInfo(event.key, bestAvailableObjs.objects[0])
+    // @ts-expect-error TS(2304): Cannot find name 'expect'.
     expect(objectInfo.status).toBe(EventObjectInfo.HELD)
+    // @ts-expect-error TS(2304): Cannot find name 'expect'.
     expect(objectInfo.holdToken).toBe(holdToken.holdToken)
 })
 
+// @ts-expect-error TS(2582): Cannot find name 'test'. Do you need to install ty... Remove this comment to see the full error message
 test('should hold best available object with ticket types ', async () => {
     const { client, user } = await TestUtils.createTestUserAndClient()
     const chartKey = TestUtils.getChartKey()
@@ -129,11 +157,14 @@ test('should hold best available object with ticket types ', async () => {
     const bestAvailableObjs = await client.events.holdBestAvailable(event.key, 2, holdToken.holdToken, null, null, ['adult', 'child'])
 
     const objectInfo1 = await client.events.retrieveObjectInfo(event.key, bestAvailableObjs.objects[0])
+    // @ts-expect-error TS(2304): Cannot find name 'expect'.
     expect(objectInfo1.ticketType).toBe('adult')
     const objectInfo2 = await client.events.retrieveObjectInfo(event.key, bestAvailableObjs.objects[1])
+    // @ts-expect-error TS(2304): Cannot find name 'expect'.
     expect(objectInfo2.ticketType).toBe('child')
 })
 
+// @ts-expect-error TS(2582): Cannot find name 'test'. Do you need to install ty... Remove this comment to see the full error message
 test('should respect keepExtraData=true', async () => {
     const { client, user } = await TestUtils.createTestUserAndClient()
     const chartKey = TestUtils.getChartKey()
@@ -144,9 +175,11 @@ test('should respect keepExtraData=true', async () => {
     await client.events.changeBestAvailableObjectStatus(event.key, 1, 'someStatus', null, null, null, null, null, true)
 
     const status = await client.events.retrieveObjectInfo(event.key, 'B-5')
+    // @ts-expect-error TS(2304): Cannot find name 'expect'.
     expect(status.extraData).toEqual({ foo: 'bar' })
 })
 
+// @ts-expect-error TS(2582): Cannot find name 'test'. Do you need to install ty... Remove this comment to see the full error message
 test('should respect keepExtraData=false', async () => {
     const { client, user } = await TestUtils.createTestUserAndClient()
     const chartKey = TestUtils.getChartKey()
@@ -157,9 +190,11 @@ test('should respect keepExtraData=false', async () => {
     await client.events.changeBestAvailableObjectStatus(event.key, 1, 'someStatus', null, null, null, null, null, false)
 
     const status = await client.events.retrieveObjectInfo(event.key, 'B-5')
+    // @ts-expect-error TS(2304): Cannot find name 'expect'.
     expect(status.extraData).toBeFalsy()
 })
 
+// @ts-expect-error TS(2582): Cannot find name 'test'. Do you need to install ty... Remove this comment to see the full error message
 test('should respect no keepExtraData', async () => {
     const { client, user } = await TestUtils.createTestUserAndClient()
     const chartKey = TestUtils.getChartKey()
@@ -170,9 +205,11 @@ test('should respect no keepExtraData', async () => {
     await client.events.changeBestAvailableObjectStatus(event.key, 1, 'someStatus')
 
     const status = await client.events.retrieveObjectInfo(event.key, 'B-5')
+    // @ts-expect-error TS(2304): Cannot find name 'expect'.
     expect(status.extraData).toBeFalsy()
 })
 
+// @ts-expect-error TS(2582): Cannot find name 'test'. Do you need to install ty... Remove this comment to see the full error message
 test('should accept channel keys', async () => {
     const { client, user } = await TestUtils.createTestUserAndClient()
     const chartKey = TestUtils.getChartKey()
@@ -185,9 +222,11 @@ test('should accept channel keys', async () => {
 
     const bestAvailableObjs = await client.events.changeBestAvailableObjectStatus(event.key, 1, 'lolzor', null, null, null, null, null, null, null, ['channelKey1'])
 
+    // @ts-expect-error TS(2304): Cannot find name 'expect'.
     expect(bestAvailableObjs.objects).toEqual(['B-6'])
 })
 
+// @ts-expect-error TS(2582): Cannot find name 'test'. Do you need to install ty... Remove this comment to see the full error message
 test('should accept ignoreChannels', async () => {
     const { client, user } = await TestUtils.createTestUserAndClient()
     const chartKey = TestUtils.getChartKey()
@@ -200,5 +239,6 @@ test('should accept ignoreChannels', async () => {
 
     const bestAvailableObjs = await client.events.changeBestAvailableObjectStatus(event.key, 1, 'lolzor', null, null, null, null, null, null, true)
 
+    // @ts-expect-error TS(2304): Cannot find name 'expect'.
     expect(bestAvailableObjs.objects).toEqual(['B-5'])
 })

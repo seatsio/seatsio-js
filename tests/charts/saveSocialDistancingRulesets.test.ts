@@ -1,6 +1,8 @@
+// @ts-expect-error TS(1149): File name '/Users/bver/Development/work/seatsio/se... Remove this comment to see the full error message
 import { TestUtils } from '../testUtils'
 import { SocialDistancingRuleset } from '../../src/Charts/SocialDistancingRuleset.js'
 
+// @ts-expect-error TS(2582): Cannot find name 'test'. Do you need to install ty... Remove this comment to see the full error message
 test('should save rulesets', async () => {
     const { client } = await TestUtils.createTestUserAndClient()
     const chart = await client.charts.create()
@@ -26,6 +28,7 @@ test('should save rulesets', async () => {
     await client.charts.saveSocialDistancingRulesets(chart.key, { ruleset1, ruleset2 })
 
     const retrievedChart = await client.charts.retrieve(chart.key)
+    // @ts-expect-error TS(2304): Cannot find name 'expect'.
     expect(retrievedChart.socialDistancingRulesets).toEqual({
         ruleset1: {
             index: 0,

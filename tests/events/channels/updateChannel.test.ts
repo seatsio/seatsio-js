@@ -1,6 +1,8 @@
 import { Channel } from '../../../src/Events/Channel'
+// @ts-expect-error TS(1149): File name '/Users/bver/Development/work/seatsio/se... Remove this comment to see the full error message
 import { TestUtils } from '../../testUtils'
 
+// @ts-expect-error TS(2582): Cannot find name 'test'. Do you need to install ty... Remove this comment to see the full error message
 test('update name', async () => {
     const { client, user } = await TestUtils.createTestUserAndClient()
     const chartKey = TestUtils.getChartKey()
@@ -11,6 +13,7 @@ test('update name', async () => {
     await client.events.channels.update(event.key, 'channelKey1', 'new channel name', undefined, undefined)
 
     const retrievedEvent = await client.events.retrieve(event.key)
+    // @ts-expect-error TS(2304): Cannot find name 'expect'.
     expect(retrievedEvent.channels).toEqual([
         new Channel({
             key: 'channelKey1',
@@ -22,6 +25,7 @@ test('update name', async () => {
     ])
 })
 
+// @ts-expect-error TS(2582): Cannot find name 'test'. Do you need to install ty... Remove this comment to see the full error message
 test('update color', async () => {
     const { client, user } = await TestUtils.createTestUserAndClient()
     const chartKey = TestUtils.getChartKey()
@@ -32,6 +36,7 @@ test('update color', async () => {
     await client.events.channels.update(event.key, 'channelKey1', undefined, 'red', undefined)
 
     const retrievedEvent = await client.events.retrieve(event.key)
+    // @ts-expect-error TS(2304): Cannot find name 'expect'.
     expect(retrievedEvent.channels).toEqual([
         new Channel({
             key: 'channelKey1',
@@ -43,6 +48,7 @@ test('update color', async () => {
     ])
 })
 
+// @ts-expect-error TS(2582): Cannot find name 'test'. Do you need to install ty... Remove this comment to see the full error message
 test('update objects', async () => {
     const { client, user } = await TestUtils.createTestUserAndClient()
     const chartKey = TestUtils.getChartKey()
@@ -53,6 +59,7 @@ test('update objects', async () => {
     await client.events.channels.update(event.key, 'channelKey1', undefined, undefined, ['B-1'])
 
     const retrievedEvent = await client.events.retrieve(event.key)
+    // @ts-expect-error TS(2304): Cannot find name 'expect'.
     expect(retrievedEvent.channels).toEqual([
         new Channel({
             key: 'channelKey1',
