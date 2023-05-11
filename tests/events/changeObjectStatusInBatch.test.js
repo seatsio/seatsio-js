@@ -1,5 +1,5 @@
 import { TestUtils } from '../TestUtils.js'
-import StatusChangeRequest from '../../src/Events/StatusChangeRequest.js'
+import { StatusChangeRequest } from '../../src/Events/StatusChangeRequest.js'
 
 test('should change object status in batch', async () => {
     const { client, user } = await TestUtils.createTestUserAndClient()

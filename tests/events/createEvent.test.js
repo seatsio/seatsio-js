@@ -1,7 +1,7 @@
 import { TestUtils } from '../TestUtils.js'
-import SocialDistancingRuleset from '../../src/Charts/SocialDistancingRuleset.js'
-import TableBookingConfig from '../../src/Events/TableBookingConfig'
-import Category from '../../src/Charts/Category'
+import { SocialDistancingRuleset } from '../../src/Charts/SocialDistancingRuleset.js'
+import { TableBookingConfig } from '../../src/Events/TableBookingConfig'
+import { Category } from '../../src/Charts/Category'
 
 test('should check that only chart key is required', async () => {
     const { client, user } = await TestUtils.createTestUserAndClient()
