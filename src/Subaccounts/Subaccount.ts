@@ -1,5 +1,11 @@
 export class Subaccount {
-    constructor (subaccount) {
+    active: any;
+    designerKey: any;
+    id: any;
+    name: any;
+    publicKey: any;
+    secretKey: any;
+    constructor (subaccount: any) {
         this.id = subaccount.id
         this.secretKey = subaccount.secretKey
         this.designerKey = subaccount.designerKey

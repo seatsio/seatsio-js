@@ -2,9 +2,10 @@ import { ChartObjectInfo } from '../Charts/ChartObjectInfo'
 import { EventObjectInfo } from '../Events/EventObjectInfo'
 
 export class Utilities {
-    static createChangeObjectStatusDetails (data) {
+    static createChangeObjectStatusDetails (data: any) {
         const objectDetails = {}
         for (const key in data) {
+            // @ts-expect-error TS(7053): Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
             objectDetails[key] = new EventObjectInfo(data[key])
         }
         return objectDetails
@@ -14,10 +15,11 @@ export class Utilities {
      * @param {object} reportsData
      * @returns {Object.<string, ObjectInfo>}
      */
-    static createEventReport (reportsData) {
+    static createEventReport (reportsData: any) {
         const reportObjects = {}
         for (const key of Object.keys(reportsData)) {
-            reportObjects[key] = reportsData[key].map(data => new EventObjectInfo(data))
+            // @ts-expect-error TS(7053): Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
+            reportObjects[key] = reportsData[key].map((data: any) => new EventObjectInfo(data))
         }
         return reportObjects
     }
@@ -26,10 +28,11 @@ export class Utilities {
      * @param {object} reportsData
      * @returns {Object.<string, ChartObjectInfo>}
      */
-    static createChartReport (reportsData) {
+    static createChartReport (reportsData: any) {
         const reportObjects = {}
         for (const key of Object.keys(reportsData)) {
-            reportObjects[key] = reportsData[key].map(data => new ChartObjectInfo(data))
+            // @ts-expect-error TS(7053): Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
+            reportObjects[key] = reportsData[key].map((data: any) => new ChartObjectInfo(data))
         }
         return reportObjects
     }

@@ -3,10 +3,11 @@ import { User } from './User.js'
 import { Invitation } from '../Invitations/Invitation'
 
 export class Users {
+    client: any;
     /**
      * @param {Axios} client
      */
-    constructor (client) {
+    constructor (client: any) {
         this.client = client
     }
 
@@ -16,27 +17,27 @@ export class Users {
      * @param {?string[]} workspaces
      * @returns {Promise<User>}
      */
-    invite (email, role, workspaces = undefined) {
+    invite (email: any, role: any, workspaces = undefined) {
         const requestParameters = { email, role, workspaces }
 
         return this.client.post('/users/actions/invite', requestParameters)
-            .then(res => new Invitation(res.data))
+            .then((res: any) => new Invitation(res.data));
     }
 
     /**
      * @param {number} id
      * @returns {Promise<User>}
      */
-    retrieve (id) {
+    retrieve (id: any) {
         return this.client.get(`/users/${id}`)
-            .then((res) => new User(res.data))
+            .then((res: any) => new User(res.data));
     }
 
     /**
      * @param {number} id
      * @returns {Promise}
      */
-    activate (id) {
+    activate (id: any) {
         return this.client.post(`/users/${id}/actions/activate`)
     }
 
@@ -44,7 +45,7 @@ export class Users {
      * @param {number} id
      * @returns {Promise}
      */
-    deactivate (id) {
+    deactivate (id: any) {
         return this.client.post(`/users/${id}/actions/deactivate`)
     }
 
@@ -61,22 +62,25 @@ export class Users {
      */
     listFirstPage (role = null, pageSize = null) {
         const requestParameters = role !== null ? { role } : {}
+        // @ts-expect-error TS(2345): Argument of type '{ role: never; } | { role?: unde... Remove this comment to see the full error message
         return this.iterator().firstPage(requestParameters, pageSize)
     }
 
     /**
      * @returns {Page}
      */
-    listPageAfter (afterId, role = null, pageSize = null) {
+    listPageAfter (afterId: any, role = null, pageSize = null) {
         const requestParameters = role !== null ? { role } : {}
+        // @ts-expect-error TS(2345): Argument of type '{ role: never; } | { role?: unde... Remove this comment to see the full error message
         return this.iterator().pageAfter(afterId, requestParameters, pageSize)
     }
 
     /**
      * @returns {Page}
      */
-    listPageBefore (beforeId, role = null, pageSize = null) {
+    listPageBefore (beforeId: any, role = null, pageSize = null) {
         const requestParameters = role !== null ? { role } : {}
+        // @ts-expect-error TS(2345): Argument of type '{ role: never; } | { role?: unde... Remove this comment to see the full error message
         return this.iterator().pageBefore(beforeId, requestParameters, pageSize)
     }
 
@@ -84,9 +88,10 @@ export class Users {
      * @returns {Lister}
      */
     iterator () {
-        return new Lister('/users', this.client, 'users', (data) => {
-            const users = data.items.map((usersData) => new User(usersData))
+        return new Lister('/users', this.client, 'users', (data: any) => {
+            const users = data.items.map((usersData: any) => new User(usersData))
+            // @ts-expect-error TS(2304): Cannot find name 'Page'.
             return new Page(users, data.next_page_starts_after, data.previous_page_ends_before)
-        })
+        });
     }
 }

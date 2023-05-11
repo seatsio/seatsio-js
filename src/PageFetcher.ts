@@ -1,11 +1,14 @@
 export class PageFetcher {
-    constructor (url, client, pageCreator) {
+    client: any;
+    pageCreator: any;
+    url: any;
+    constructor (url: any, client: any, pageCreator: any) {
         this.url = url
         this.client = client
         this.pageCreator = pageCreator
     }
 
-    fetchAfter (afterId, queryParameters, pageSize) {
+    fetchAfter (afterId: any, queryParameters: any, pageSize: any) {
         const parameters = queryParameters || {}
 
         if (afterId !== null) {
@@ -14,7 +17,7 @@ export class PageFetcher {
         return this.fetch(parameters, pageSize)
     }
 
-    fetchBefore (beforeId, queryParameters, pageSize) {
+    fetchBefore (beforeId: any, queryParameters: any, pageSize: any) {
         const parameters = queryParameters || {}
 
         if (beforeId) {
@@ -24,14 +27,14 @@ export class PageFetcher {
         return this.fetch(parameters, pageSize)
     }
 
-    async fetch (queryParameters, pageSize) {
+    async fetch (queryParameters: any, pageSize: any) {
         const parameters = queryParameters || {}
 
         if (pageSize) {
             parameters.limit = pageSize
         }
 
-        const res = await this.client.get(this.url, { params: parameters }).then((res) => res.data)
+        const res = await this.client.get(this.url, { params: parameters }).then((res: any) => res.data)
         return this.pageCreator(res)
     }
 }

@@ -1,5 +1,13 @@
 export class Workspace {
-    constructor (workspace) {
+    id: any;
+    isActive: any;
+    isDefault: any;
+    isTest: any;
+    key: any;
+    name: any;
+    secretKey: any;
+    settings: any;
+    constructor (workspace: any) {
         this.id = workspace.id
         this.key = workspace.key
         this.secretKey = workspace.secretKey

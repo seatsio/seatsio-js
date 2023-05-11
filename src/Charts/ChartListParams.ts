@@ -1,4 +1,9 @@
 export class ChartListParams {
+    eventsLimit: any;
+    expand: any;
+    filter: any;
+    tag: any;
+    validation: any;
     /**
      * @param {?string} filter
      * @param {?string} tag
@@ -20,7 +25,7 @@ export class ChartListParams {
      * @param {string} filter
      * @returns {ChartListParams}
      */
-    withFilter (filter) {
+    withFilter (filter: any) {
         this.filter = filter
         return this
     }
@@ -29,7 +34,7 @@ export class ChartListParams {
      * @param {string} tag
      * @returns {ChartListParams}
      */
-    withTag (tag) {
+    withTag (tag: any) {
         this.tag = tag
         return this
     }
@@ -38,7 +43,7 @@ export class ChartListParams {
      * @param {boolean} expandEvents
      * @returns {ChartListParams}
      */
-    withExpandEvents (expandEvents) {
+    withExpandEvents (expandEvents: any) {
         if (expandEvents === true) {
             this.expand = 'events'
         }
@@ -49,7 +54,7 @@ export class ChartListParams {
      * @param {number} eventsLimit
      * @returns {ChartListParams}
      */
-    withEventsLimit (eventsLimit) {
+    withEventsLimit (eventsLimit: any) {
         this.eventsLimit = eventsLimit
         return this
     }
@@ -59,7 +64,7 @@ export class ChartListParams {
      * @param {boolean} validation
      * @returns {ChartListParams}
      */
-    withValidation (validation) {
+    withValidation (validation: any) {
         this.validation = validation
         return this
     }

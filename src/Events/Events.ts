@@ -8,38 +8,46 @@ import { ChangeObjectStatusResult } from './ChangeObjectStatusResult'
 import { BestAvailableObjects } from './BestAvailableObjects'
 
 export class Events {
-    constructor (client) {
+    channels: any;
+    client: any;
+    constructor (client: any) {
         this.client = client
         this.channels = new Channels(this.client)
     }
 
-    create (chartKey, eventKey = null, tableBookingConfig = null, socialDistancingRulesetKey = null, objectCategories = null, categories = null) {
+    create (chartKey: any, eventKey = null, tableBookingConfig = null, socialDistancingRulesetKey = null, objectCategories = null, categories = null) {
         const requestParameters = {}
 
+        // @ts-expect-error TS(2339): Property 'chartKey' does not exist on type '{}'.
         requestParameters.chartKey = chartKey
 
         if (eventKey !== null) {
+            // @ts-expect-error TS(2339): Property 'eventKey' does not exist on type '{}'.
             requestParameters.eventKey = eventKey
         }
 
         if (tableBookingConfig !== null) {
+            // @ts-expect-error TS(2339): Property 'tableBookingConfig' does not exist on ty... Remove this comment to see the full error message
             requestParameters.tableBookingConfig = tableBookingConfig
         }
 
         if (socialDistancingRulesetKey !== null) {
+            // @ts-expect-error TS(2339): Property 'socialDistancingRulesetKey' does not exi... Remove this comment to see the full error message
             requestParameters.socialDistancingRulesetKey = socialDistancingRulesetKey
         }
 
         if (objectCategories !== null) {
+            // @ts-expect-error TS(2339): Property 'objectCategories' does not exist on type... Remove this comment to see the full error message
             requestParameters.objectCategories = objectCategories
         }
 
         if (categories != null) {
+            // @ts-expect-error TS(2339): Property 'categories' does not exist on type '{}'.
             requestParameters.categories = categories
         }
 
         return this.client.post('/events', requestParameters)
-            .then((res) => new EventDeserializer().fromJson(res.data))
+            .then((res: any) => new EventDeserializer().fromJson(res.data));
     }
 
     /**
@@ -53,10 +61,15 @@ export class Events {
      */
     static eventCreationParams (eventKey = null, tableBookingConfig = null, socialDistancingRulesetKey = null, objectCategories = null, categories = null) {
         const eventDefinition = {}
+        // @ts-expect-error TS(2339): Property 'eventKey' does not exist on type '{}'.
         eventDefinition.eventKey = eventKey
+        // @ts-expect-error TS(2339): Property 'tableBookingConfig' does not exist on ty... Remove this comment to see the full error message
         eventDefinition.tableBookingConfig = tableBookingConfig
+        // @ts-expect-error TS(2339): Property 'socialDistancingRulesetKey' does not exi... Remove this comment to see the full error message
         eventDefinition.socialDistancingRulesetKey = socialDistancingRulesetKey
+        // @ts-expect-error TS(2339): Property 'objectCategories' does not exist on type... Remove this comment to see the full error message
         eventDefinition.objectCategories = objectCategories
+        // @ts-expect-error TS(2339): Property 'categories' does not exist on type '{}'.
         eventDefinition.categories = categories
         return eventDefinition
     }
@@ -66,82 +79,96 @@ export class Events {
      * @param {object[]} events use {@link Events.eventCreationParams()} as a convenience function to create these objects
      * @returns {Promise<Event[]>}
      */
-    createMultiple (chartKey, events) {
+    createMultiple (chartKey: any, events: any) {
         const requestParameters = {}
 
+        // @ts-expect-error TS(2339): Property 'chartKey' does not exist on type '{}'.
         requestParameters.chartKey = chartKey
+        // @ts-expect-error TS(2339): Property 'events' does not exist on type '{}'.
         requestParameters.events = []
 
         if (events) {
             for (let i = 0; i < events.length; i++) {
                 const event = {}
                 if (events[i].eventKey !== null) {
+                    // @ts-expect-error TS(2339): Property 'eventKey' does not exist on type '{}'.
                     event.eventKey = events[i].eventKey
                 }
 
                 if (events[i].tableBookingConfig !== null) {
+                    // @ts-expect-error TS(2339): Property 'tableBookingConfig' does not exist on ty... Remove this comment to see the full error message
                     event.tableBookingConfig = events[i].tableBookingConfig
                 }
 
                 if (events[i].socialDistancingRulesetKey !== null) {
+                    // @ts-expect-error TS(2339): Property 'socialDistancingRulesetKey' does not exi... Remove this comment to see the full error message
                     event.socialDistancingRulesetKey = events[i].socialDistancingRulesetKey
                 }
 
                 if (events[i].objectCategories !== null) {
+                    // @ts-expect-error TS(2339): Property 'objectCategories' does not exist on type... Remove this comment to see the full error message
                     event.objectCategories = events[i].objectCategories
                 }
 
                 if (events[i].categories != null) {
+                    // @ts-expect-error TS(2339): Property 'categories' does not exist on type '{}'.
                     event.categories = events[i].categories
                 }
+                // @ts-expect-error TS(2339): Property 'events' does not exist on type '{}'.
                 requestParameters.events.push(event)
             }
         }
 
         return this.client.post('/events/actions/create-multiple', requestParameters)
-            .then((res) => {
+            .then((res: any) => {
                 const result = []
                 const deserializer = new EventDeserializer()
                 for (const event of res.data.events) {
                     result.push(deserializer.fromJson(event))
                 }
                 return result
-            })
+            });
     }
 
     /**
      * @param {string} eventKey
      * @returns {Promise<Event>}
      */
-    retrieve (eventKey) {
+    retrieve (eventKey: any) {
         return this.client.get(`/events/${encodeURIComponent(eventKey)}`)
-            .then((res) => new EventDeserializer().fromJson(res.data))
+            .then((res: any) => new EventDeserializer().fromJson(res.data));
     }
 
-    update (eventKey, chartKey = null, newEventKey = null, tableBookingConfig = null, socialDistancingRulesetKey = null, objectCategories = null, categories = null) {
+    update (eventKey: any, chartKey = null, newEventKey = null, tableBookingConfig = null, socialDistancingRulesetKey = null, objectCategories = null, categories = null) {
         const requestParameters = {}
 
         if (chartKey !== null) {
+            // @ts-expect-error TS(2339): Property 'chartKey' does not exist on type '{}'.
             requestParameters.chartKey = chartKey
         }
 
         if (newEventKey !== null) {
+            // @ts-expect-error TS(2339): Property 'eventKey' does not exist on type '{}'.
             requestParameters.eventKey = newEventKey
         }
 
         if (tableBookingConfig !== null) {
+            // @ts-expect-error TS(2339): Property 'tableBookingConfig' does not exist on ty... Remove this comment to see the full error message
             requestParameters.tableBookingConfig = tableBookingConfig
         }
 
         if (socialDistancingRulesetKey !== null) {
+            // @ts-expect-error TS(2339): Property 'socialDistancingRulesetKey' does not exi... Remove this comment to see the full error message
             requestParameters.socialDistancingRulesetKey = socialDistancingRulesetKey
         }
 
         if (objectCategories !== null) {
+            // @ts-expect-error TS(2339): Property 'objectCategories' does not exist on type... Remove this comment to see the full error message
             requestParameters.objectCategories = objectCategories
         }
 
         if (categories != null) {
+            // @ts-expect-error TS(2339): Property 'categories' does not exist on type '{}'.
             requestParameters.categories = categories
         }
 
@@ -152,7 +179,7 @@ export class Events {
      * @param {string} eventKey
      * @returns {Promise}
      */
-    delete (eventKey) {
+    delete (eventKey: any) {
         return this.client.delete(`/events/${encodeURIComponent(eventKey)}`)
     }
 
@@ -177,7 +204,7 @@ export class Events {
      * @param {?number} pageSize
      * @returns {Page}
      */
-    listPageAfter (afterId, pageSize = null) {
+    listPageAfter (afterId: any, pageSize = null) {
         return this.iterator().pageAfter(afterId, null, pageSize)
     }
 
@@ -186,7 +213,7 @@ export class Events {
      * @param {?number} pageSize
      * @returns {Page}
      */
-    listPageBefore (beforeId, pageSize = null) {
+    listPageBefore (beforeId: any, pageSize = null) {
         return this.iterator().pageBefore(beforeId, null, pageSize)
     }
 
@@ -194,31 +221,32 @@ export class Events {
      * @returns {Lister}
      */
     iterator () {
-        return new Lister('/events', this.client, 'events', (data) => {
-            const events = data.items.map(eventData => new EventDeserializer().fromJson(eventData))
+        return new Lister('/events', this.client, 'events', (data: any) => {
+            const events = data.items.map((eventData: any) => new EventDeserializer().fromJson(eventData))
             return new Page(events, data.next_page_starts_after, data.previous_page_ends_before)
-        })
+        });
     }
 
     /**
      * @param {string} eventKey
      * @returns {Lister}
      */
-    statusChanges (eventKey) {
-        return new Lister(`/events/${encodeURIComponent(eventKey)}/status-changes`, this.client, 'statusChanges', (data) => {
-            const statusChanges = data.items.map(statusChangesData => new StatusChange(statusChangesData))
+    statusChanges (eventKey: any) {
+        return new Lister(`/events/${encodeURIComponent(eventKey)}/status-changes`, this.client, 'statusChanges', (data: any) => {
+            const statusChanges = data.items.map((statusChangesData: any) => new StatusChange(statusChangesData))
             return new Page(statusChanges, data.next_page_starts_after, data.previous_page_ends_before)
-        })
+        });
     }
 
     /**
      * @returns {Lister}
      */
-    statusChangesForObject (eventKey, objectId = null) {
-        return new Lister(`/events/${encodeURIComponent(eventKey)}/objects/${encodeURIComponent(objectId)}/status-changes`, this.client, 'statusChanges', (data) => {
-            const statusChanges = data.items.map(statusChangesData => new StatusChange(statusChangesData))
+    statusChangesForObject (eventKey: any, objectId = null) {
+        // @ts-expect-error TS(2345): Argument of type 'null' is not assignable to param... Remove this comment to see the full error message
+        return new Lister(`/events/${encodeURIComponent(eventKey)}/objects/${encodeURIComponent(objectId)}/status-changes`, this.client, 'statusChanges', (data: any) => {
+            const statusChanges = data.items.map((statusChangesData: any) => new StatusChange(statusChangesData))
             return new Page(statusChanges, data.next_page_starts_after, data.previous_page_ends_before)
-        })
+        });
     }
 
     /**
@@ -228,15 +256,18 @@ export class Events {
      * @param {?string[]} categories
      * @returns {Promise}
      */
-    markAsForSale (eventKey, objects = null, areaPlaces = null, categories = null) {
+    markAsForSale (eventKey: any, objects = null, areaPlaces = null, categories = null) {
         const requestParameters = {}
         if (objects !== null) {
+            // @ts-expect-error TS(2339): Property 'objects' does not exist on type '{}'.
             requestParameters.objects = objects
         }
         if (areaPlaces !== null) {
+            // @ts-expect-error TS(2339): Property 'areaPlaces' does not exist on type '{}'.
             requestParameters.areaPlaces = areaPlaces
         }
         if (categories !== null) {
+            // @ts-expect-error TS(2339): Property 'categories' does not exist on type '{}'.
             requestParameters.categories = categories
         }
 
@@ -250,15 +281,18 @@ export class Events {
      * @param {?string[]} categories
      * @returns {Promise}
      */
-    markAsNotForSale (eventKey, objects = null, areaPlaces = null, categories = null) {
+    markAsNotForSale (eventKey: any, objects = null, areaPlaces = null, categories = null) {
         const requestParameters = {}
         if (objects !== null) {
+            // @ts-expect-error TS(2339): Property 'objects' does not exist on type '{}'.
             requestParameters.objects = objects
         }
         if (areaPlaces !== null) {
+            // @ts-expect-error TS(2339): Property 'areaPlaces' does not exist on type '{}'.
             requestParameters.areaPlaces = areaPlaces
         }
         if (categories !== null) {
+            // @ts-expect-error TS(2339): Property 'categories' does not exist on type '{}'.
             requestParameters.categories = categories
         }
 
@@ -269,7 +303,7 @@ export class Events {
      * @param {string} eventKey
      * @returns {Promise}
      */
-    markEverythingAsForSale (eventKey) {
+    markEverythingAsForSale (eventKey: any) {
         return this.client.post(`events/${encodeURIComponent(eventKey)}/actions/mark-everything-as-for-sale`)
     }
 
@@ -279,8 +313,9 @@ export class Events {
      * @param {object} extraData
      * @returns {Promise}
      */
-    updateExtraData (eventKey, obj, extraData) {
+    updateExtraData (eventKey: any, obj: any, extraData: any) {
         const requestParameters = {}
+        // @ts-expect-error TS(2339): Property 'extraData' does not exist on type '{}'.
         requestParameters.extraData = extraData
         return this.client.post(`/events/${encodeURIComponent(eventKey)}/objects/${encodeURIComponent(obj)}/actions/update-extra-data`, requestParameters)
     }
@@ -290,8 +325,9 @@ export class Events {
      * @param {object} extraData
      * @returns {Promise}
      */
-    updateExtraDatas (eventKey, extraData) {
+    updateExtraDatas (eventKey: any, extraData: any) {
         const requestParameters = {}
+        // @ts-expect-error TS(2339): Property 'extraData' does not exist on type '{}'.
         requestParameters.extraData = extraData
         return this.client.post(`/events/${encodeURIComponent(eventKey)}/actions/update-extra-data`, requestParameters)
     }
@@ -301,7 +337,7 @@ export class Events {
      * @param {string} label
      * @returns {Promise<EventObjectInfo>}
      */
-    async retrieveObjectInfo (eventKey, label) {
+    async retrieveObjectInfo (eventKey: any, label: any) {
         const result = await this.retrieveObjectInfos(eventKey, [label])
         return result[label]
     }
@@ -311,19 +347,19 @@ export class Events {
      * @param {string[]} labels
      * @returns {Promise<Map<String, EventObjectInfo>>}
      */
-    retrieveObjectInfos (eventKey, labels) {
+    retrieveObjectInfos (eventKey: any, labels: any) {
         const params = new URLSearchParams()
-        labels.forEach(label => {
+        labels.forEach((label: any) => {
             params.append('label', label)
         })
         return this.client.get(`events/${encodeURIComponent(eventKey)}/objects`, { params })
-            .then((res) => {
+            .then((res: any) => {
                 const objectInfos = res.data
                 for (const key of Object.keys(objectInfos)) {
                     objectInfos[key] = new EventObjectInfo(objectInfos[key])
                 }
                 return objectInfos
-            })
+            });
     }
 
     /**
@@ -340,20 +376,21 @@ export class Events {
      * @param {?string[]} allowedPreviousStatuses
      * @param {?string[]} rejectedPreviousStatuses
      */
-    changeObjectStatus (eventKeyOrKeys, objectOrObjects, status, holdToken = null, orderId = null, keepExtraData = null, ignoreChannels = null, channelKeys = null, ignoreSocialDistancing = null, allowedPreviousStatuses = null, rejectedPreviousStatuses = null) {
+    changeObjectStatus (eventKeyOrKeys: any, objectOrObjects: any, status: any, holdToken = null, orderId = null, keepExtraData = null, ignoreChannels = null, channelKeys = null, ignoreSocialDistancing = null, allowedPreviousStatuses = null, rejectedPreviousStatuses = null) {
         const request = this.changeObjectStatusRequest(objectOrObjects, status, holdToken, orderId, keepExtraData, ignoreChannels, channelKeys, ignoreSocialDistancing, allowedPreviousStatuses, rejectedPreviousStatuses)
+        // @ts-expect-error TS(2339): Property 'events' does not exist on type '{}'.
         request.events = Array.isArray(eventKeyOrKeys) ? eventKeyOrKeys : [eventKeyOrKeys]
 
         return this.client.post('/events/groups/actions/change-object-status?expand=objects', request)
-            .then((res) => new ChangeObjectStatusResult(res.data.objects))
+            .then((res: any) => new ChangeObjectStatusResult(res.data.objects));
     }
 
     /**
      * @param {StatusChangeRequest[]} statusChangeRequests
      * @returns {Promise<ChangeObjectStatusResult[]>}
      */
-    changeObjectStatusInBatch (statusChangeRequests) {
-        const requests = statusChangeRequests.map(r => {
+    changeObjectStatusInBatch (statusChangeRequests: any) {
+        const requests = statusChangeRequests.map((r: any) => {
             const json = this.changeObjectStatusRequest(
                 r.objectOrObjects,
                 r.status,
@@ -366,41 +403,52 @@ export class Events {
                 r.allowedPreviousStatuses,
                 r.rejectedPreviousStatuses
             )
+            // @ts-expect-error TS(2339): Property 'event' does not exist on type '{}'.
             json.event = r.eventKey
             return json
         })
         const request = { statusChanges: requests }
 
         return this.client.post('/events/actions/change-object-status?expand=objects', request)
-            .then((res) => res.data.results.map(r => new ChangeObjectStatusResult(r.objects)))
+            .then((res: any) => res.data.results.map((r: any) => new ChangeObjectStatusResult(r.objects)));
     }
 
-    changeObjectStatusRequest (objectOrObjects, status, holdToken, orderId, keepExtraData, ignoreChannels, channelKeys, ignoreSocialDistancing, allowedPreviousStatuses, rejectedPreviousStatuses) {
+    changeObjectStatusRequest (objectOrObjects: any, status: any, holdToken: any, orderId: any, keepExtraData: any, ignoreChannels: any, channelKeys: any, ignoreSocialDistancing: any, allowedPreviousStatuses: any, rejectedPreviousStatuses: any) {
         const request = {}
+        // @ts-expect-error TS(2339): Property 'objects' does not exist on type '{}'.
         request.objects = this.normalizeObjects(objectOrObjects)
+        // @ts-expect-error TS(2339): Property 'status' does not exist on type '{}'.
         request.status = status
         if (holdToken !== null) {
+            // @ts-expect-error TS(2339): Property 'holdToken' does not exist on type '{}'.
             request.holdToken = holdToken
         }
         if (orderId !== null) {
+            // @ts-expect-error TS(2339): Property 'orderId' does not exist on type '{}'.
             request.orderId = orderId
         }
         if (keepExtraData !== null) {
+            // @ts-expect-error TS(2339): Property 'keepExtraData' does not exist on type '{... Remove this comment to see the full error message
             request.keepExtraData = keepExtraData
         }
         if (ignoreChannels !== null) {
+            // @ts-expect-error TS(2339): Property 'ignoreChannels' does not exist on type '... Remove this comment to see the full error message
             request.ignoreChannels = ignoreChannels
         }
         if (channelKeys !== null) {
+            // @ts-expect-error TS(2339): Property 'channelKeys' does not exist on type '{}'... Remove this comment to see the full error message
             request.channelKeys = channelKeys
         }
         if (ignoreSocialDistancing !== null) {
+            // @ts-expect-error TS(2339): Property 'ignoreSocialDistancing' does not exist o... Remove this comment to see the full error message
             request.ignoreSocialDistancing = ignoreSocialDistancing
         }
         if (allowedPreviousStatuses !== null) {
+            // @ts-expect-error TS(2339): Property 'allowedPreviousStatuses' does not exist ... Remove this comment to see the full error message
             request.allowedPreviousStatuses = allowedPreviousStatuses
         }
         if (rejectedPreviousStatuses !== null) {
+            // @ts-expect-error TS(2339): Property 'rejectedPreviousStatuses' does not exist... Remove this comment to see the full error message
             request.rejectedPreviousStatuses = rejectedPreviousStatuses
         }
         return request
@@ -417,7 +465,8 @@ export class Events {
      * @param {?boolean} ignoreSocialDistancing
      * @returns {Promise<ChangeObjectStatusResult>}
      */
-    book (eventKeyOrKeys, objectOrObjects, holdToken = null, orderId = null, keepExtraData = null, ignoreChannels = null, channelKeys = null, ignoreSocialDistancing = null) {
+    book (eventKeyOrKeys: any, objectOrObjects: any, holdToken = null, orderId = null, keepExtraData = null, ignoreChannels = null, channelKeys = null, ignoreSocialDistancing = null) {
+        // @ts-expect-error TS(2339): Property 'BOOKED' does not exist on type 'typeof E... Remove this comment to see the full error message
         return this.changeObjectStatus(eventKeyOrKeys, objectOrObjects, EventObjectInfo.BOOKED, holdToken, orderId, keepExtraData, ignoreChannels, channelKeys, ignoreSocialDistancing)
     }
 
@@ -434,7 +483,8 @@ export class Events {
      * @param {?string[]} channelKeys
      * @returns {Promise<BestAvailableObjects>}
      */
-    bookBestAvailable (eventKey, number, categories = null, holdToken = null, extraData = null, ticketTypes = null, orderId = null, keepExtraData = null, ignoreChannels = null, channelKeys = null) {
+    bookBestAvailable (eventKey: any, number: any, categories = null, holdToken = null, extraData = null, ticketTypes = null, orderId = null, keepExtraData = null, ignoreChannels = null, channelKeys = null) {
+        // @ts-expect-error TS(2339): Property 'BOOKED' does not exist on type 'typeof E... Remove this comment to see the full error message
         return this.changeBestAvailableObjectStatus(encodeURIComponent(eventKey), number, EventObjectInfo.BOOKED, categories, holdToken, extraData, ticketTypes, orderId, keepExtraData, ignoreChannels, channelKeys)
     }
 
@@ -448,7 +498,8 @@ export class Events {
      * @param {?string[]} channelKeys
      * @returns {Promise<ChangeObjectStatusResult>}
      */
-    release (eventKeyOrKeys, objectOrObjects, holdToken = null, orderId = null, keepExtraData = null, ignoreChannels = null, channelKeys = null) {
+    release (eventKeyOrKeys: any, objectOrObjects: any, holdToken = null, orderId = null, keepExtraData = null, ignoreChannels = null, channelKeys = null) {
+        // @ts-expect-error TS(2339): Property 'FREE' does not exist on type 'typeof Eve... Remove this comment to see the full error message
         return this.changeObjectStatus(eventKeyOrKeys, objectOrObjects, EventObjectInfo.FREE, holdToken, orderId, keepExtraData, ignoreChannels, channelKeys)
     }
 
@@ -463,7 +514,8 @@ export class Events {
      * @param {?boolean} ignoreSocialDistancing
      * @returns {Promise<ChangeObjectStatusResult>}
      */
-    hold (eventKeyOrKeys, objectOrObjects, holdToken, orderId = null, keepExtraData = null, ignoreChannels = null, channelKeys = null, ignoreSocialDistancing = null) {
+    hold (eventKeyOrKeys: any, objectOrObjects: any, holdToken: any, orderId = null, keepExtraData = null, ignoreChannels = null, channelKeys = null, ignoreSocialDistancing = null) {
+        // @ts-expect-error TS(2339): Property 'HELD' does not exist on type 'typeof Eve... Remove this comment to see the full error message
         return this.changeObjectStatus(eventKeyOrKeys, objectOrObjects, EventObjectInfo.HELD, holdToken, orderId, keepExtraData, ignoreChannels, channelKeys, ignoreSocialDistancing)
     }
 
@@ -481,7 +533,8 @@ export class Events {
      * @param {?string[]} ticketTypes
      * @returns {Promise<BestAvailableObjects>}
      */
-    holdBestAvailable (eventKey, number, holdToken, categories = null, extraData = null, ticketTypes = null, orderId = null, keepExtraData = null, ignoreChannels = null, channelKeys = null) {
+    holdBestAvailable (eventKey: any, number: any, holdToken: any, categories = null, extraData = null, ticketTypes = null, orderId = null, keepExtraData = null, ignoreChannels = null, channelKeys = null) {
+        // @ts-expect-error TS(2339): Property 'HELD' does not exist on type 'typeof Eve... Remove this comment to see the full error message
         return this.changeBestAvailableObjectStatus(encodeURIComponent(eventKey), number, EventObjectInfo.HELD, categories, holdToken, extraData, ticketTypes, orderId, keepExtraData, ignoreChannels, channelKeys)
     }
 
@@ -499,42 +552,54 @@ export class Events {
      * @param {?string[]} channelKeys
      * @returns {Promise<BestAvailableObjects>}
      */
-    changeBestAvailableObjectStatus (eventKey, number, status, categories = null, holdToken = null, extraData = null, ticketTypes = null, orderId = null, keepExtraData = null, ignoreChannels = null, channelKeys = null) {
+    changeBestAvailableObjectStatus (eventKey: any, number: any, status: any, categories = null, holdToken = null, extraData = null, ticketTypes = null, orderId = null, keepExtraData = null, ignoreChannels = null, channelKeys = null) {
         const requestParameters = {}
         const bestAvailable = {}
+        // @ts-expect-error TS(2339): Property 'status' does not exist on type '{}'.
         requestParameters.status = status
+        // @ts-expect-error TS(2339): Property 'number' does not exist on type '{}'.
         bestAvailable.number = number
         if (holdToken !== null) {
+            // @ts-expect-error TS(2339): Property 'holdToken' does not exist on type '{}'.
             requestParameters.holdToken = holdToken
         }
         if (orderId !== null) {
+            // @ts-expect-error TS(2339): Property 'orderId' does not exist on type '{}'.
             requestParameters.orderId = orderId
         }
         if (categories !== null) {
+            // @ts-expect-error TS(2339): Property 'categories' does not exist on type '{}'.
             bestAvailable.categories = categories
         }
         if (extraData !== null) {
+            // @ts-expect-error TS(2339): Property 'extraData' does not exist on type '{}'.
             bestAvailable.extraData = extraData
         }
         if (ticketTypes !== null) {
+            // @ts-expect-error TS(2339): Property 'ticketTypes' does not exist on type '{}'... Remove this comment to see the full error message
             bestAvailable.ticketTypes = ticketTypes
         }
         if (keepExtraData !== null) {
+            // @ts-expect-error TS(2339): Property 'keepExtraData' does not exist on type '{... Remove this comment to see the full error message
             requestParameters.keepExtraData = keepExtraData
         }
         if (ignoreChannels !== null) {
+            // @ts-expect-error TS(2339): Property 'ignoreChannels' does not exist on type '... Remove this comment to see the full error message
             requestParameters.ignoreChannels = ignoreChannels
         }
         if (channelKeys !== null) {
+            // @ts-expect-error TS(2339): Property 'channelKeys' does not exist on type '{}'... Remove this comment to see the full error message
             requestParameters.channelKeys = channelKeys
         }
+        // @ts-expect-error TS(2339): Property 'bestAvailable' does not exist on type '{... Remove this comment to see the full error message
         requestParameters.bestAvailable = bestAvailable
 
         return this.client.post(`/events/${encodeURIComponent(eventKey)}/actions/change-object-status`, requestParameters)
-            .then((res) => new BestAvailableObjects(res.data))
+            .then((res: any) => new BestAvailableObjects(res.data));
     }
 
-    normalizeObjects (objectOrObjects) {
+    // @ts-expect-error TS(7023): 'normalizeObjects' implicitly has return type 'any... Remove this comment to see the full error message
+    normalizeObjects (objectOrObjects: any) {
         if (Array.isArray(objectOrObjects)) {
             if (objectOrObjects.length === 0) {
                 return []

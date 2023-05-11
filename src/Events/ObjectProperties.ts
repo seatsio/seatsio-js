@@ -1,8 +1,12 @@
 export class ObjectProperties {
+    extraData: any;
+    objectId: any;
+    quantity: any;
+    ticketType: any;
     /**
      * @param {string} objectId
      */
-    constructor (objectId) {
+    constructor (objectId: any) {
     /* string */
         this.objectId = objectId
     }
@@ -10,7 +14,7 @@ export class ObjectProperties {
     /**
      * @param {string} ticketType
      */
-    setTicketType (ticketType) {
+    setTicketType (ticketType: any) {
         this.ticketType = ticketType
         return this
     }
@@ -18,7 +22,7 @@ export class ObjectProperties {
     /**
      * @param {number} quantity
      */
-    setQuantity (quantity) {
+    setQuantity (quantity: any) {
         this.quantity = quantity
         return this
     }
@@ -26,7 +30,7 @@ export class ObjectProperties {
     /**
      * @param {object} extraData
      */
-    setExtraData (extraData) {
+    setExtraData (extraData: any) {
         this.extraData = extraData
         return this
     }

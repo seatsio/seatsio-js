@@ -1,6 +1,19 @@
 export class StatusChange {
+    date: any;
+    displayedLabel: any;
+    eventId: any;
+    extraData: any;
+    holdToken: any;
+    id: any;
+    isPresentOnChart: any;
+    notPresentOnChartReason: any;
+    objectLabel: any;
+    orderId: any;
+    origin: any;
+    quantity: any;
+    status: any;
 
-    constructor (statusChange) {
+    constructor (statusChange: any) {
         this.id = statusChange.id
         this.eventId = statusChange.eventId
         this.status = statusChange.status

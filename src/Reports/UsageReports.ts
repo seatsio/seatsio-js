@@ -1,30 +1,31 @@
 export class UsageReports {
-    constructor (client) {
+    client: any;
+    constructor (client: any) {
         this.client = client
     }
 
     summaryForAllMonths () {
         return this.client.get('/reports/usage')
-            .then((res) => res.data)
+            .then((res: any) => res.data);
     }
 
-    detailsForMonth (month) {
+    detailsForMonth (month: any) {
         return this.client.get(`/reports/usage/month/${month}`)
-            .then((res) => res.data)
+            .then((res: any) => res.data);
     }
 
-    detailsForEventInMonth (eventKey, month) {
+    detailsForEventInMonth (eventKey: any, month: any) {
         return this.client.get(`/reports/usage/month/${month}/event/${encodeURIComponent(eventKey)}`)
-            .then((res) => res.data)
+            .then((res: any) => res.data);
     }
 
-    detailsForObjectInEventInMonth (objectLabel, eventKey, month) {
+    detailsForObjectInEventInMonth (objectLabel: any, eventKey: any, month: any) {
         return this.client.get(`/reports/usage/month/${month}/event/${encodeURIComponent(eventKey)}/object/${encodeURIComponent(objectLabel)}`)
-            .then((res) => res.data)
+            .then((res: any) => res.data);
     }
 
     subscription () {
         return this.client.get('/reports/subscription')
-            .then((res) => res.data)
+            .then((res: any) => res.data);
     }
 }

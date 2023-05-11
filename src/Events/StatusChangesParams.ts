@@ -1,4 +1,8 @@
 export class StatusChangesParams {
+    filter: any;
+    filterType: any;
+    sortDirection: any;
+    sortField: any;
     /**
      * @param {?string} filter
      * @param {?string} filterType
@@ -55,7 +59,7 @@ export class StatusChangesParams {
      * @param {?string} filterType: CONTAINS, MATCHES, BEGINS_WITH or ENDS_WITH
      * @returns {StatusChangesParams}
      */
-    withFilter (filter, filterType = 'CONTAINS') {
+    withFilter (filter: any, filterType = 'CONTAINS') {
         this.filter = filter
         this.filterType = filterType
         return this

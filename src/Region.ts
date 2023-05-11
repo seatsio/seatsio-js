@@ -1,4 +1,5 @@
 export class Region {
+    url: any;
     static EU () {
         return new Region(Region.urlForId('eu'))
     }
@@ -15,11 +16,11 @@ export class Region {
         return new Region(Region.urlForId('oc'))
     }
 
-    constructor (url) {
+    constructor (url: any) {
         this.url = url
     }
 
-    static urlForId (id) {
+    static urlForId (id: any) {
         return 'https://api-{region}.seatsio.net'.replace('{region}', id)
     }
 }

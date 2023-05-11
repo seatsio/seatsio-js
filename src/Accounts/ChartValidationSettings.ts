@@ -1,8 +1,14 @@
 export class ChartValidationSettings {
+    VALIDATE_DUPLICATE_LABELS: any;
+    VALIDATE_EMPTY_FLOOR: any;
+    VALIDATE_FOCAL_POINT: any;
+    VALIDATE_OBJECTS_WITHOUT_CATEGORIES: any;
+    VALIDATE_OBJECT_TYPES_PER_CATEGORY: any;
+    VALIDATE_UNLABELED_OBJECTS: any;
     /**
      * @param {object} chartValidations
      */
-    constructor (chartValidations) {
+    constructor (chartValidations: any) {
         this.VALIDATE_DUPLICATE_LABELS = chartValidations.VALIDATE_DUPLICATE_LABELS
         this.VALIDATE_OBJECTS_WITHOUT_CATEGORIES = chartValidations.VALIDATE_OBJECTS_WITHOUT_CATEGORIES
         this.VALIDATE_UNLABELED_OBJECTS = chartValidations.VALIDATE_UNLABELED_OBJECTS

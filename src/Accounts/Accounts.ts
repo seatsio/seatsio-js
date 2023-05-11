@@ -3,7 +3,8 @@ import { Account } from './Account'
 const baseUrl = '/accounts/me'
 
 export class Accounts {
-    constructor (client) {
+    client: any;
+    constructor (client: any) {
         this.client = client
     }
 
@@ -11,21 +12,21 @@ export class Accounts {
      * @returns {Promise<Account>}
      */
     retrieveMyAccount () {
-        return this.client.get(baseUrl).then((res) => new Account(res.data))
+        return this.client.get(baseUrl).then((res: any) => new Account(res.data));
     }
 
     /**
      * @returns {Promise<string>}
      */
     regenerateSecretKey () {
-        return this.client.post(baseUrl + '/secret-key/actions/regenerate').then((res) => res.data.secretKey)
+        return this.client.post(baseUrl + '/secret-key/actions/regenerate').then((res: any) => res.data.secretKey);
     }
 
     /**
      * @returns {Promise<string>}
      */
     regenerateDesignerKey () {
-        return this.client.post(baseUrl + '/designer-key/actions/regenerate').then((res) => res.data.designerKey)
+        return this.client.post(baseUrl + '/designer-key/actions/regenerate').then((res: any) => res.data.designerKey);
     }
 
     /**
@@ -46,7 +47,7 @@ export class Accounts {
      * @param {string} password
      * @returns {Promise} Promise
      */
-    changePassword (password) {
+    changePassword (password: any) {
         return this.client.post(baseUrl + '/actions/change-password', { password })
     }
 
@@ -54,7 +55,7 @@ export class Accounts {
      * @param {number} holdPeriodInMinutes
      * @returns {Promise} Promise
      */
-    changeHoldPeriod (holdPeriodInMinutes) {
+    changeHoldPeriod (holdPeriodInMinutes: any) {
         return this.client.post(baseUrl + '/actions/change-hold-period', { holdPeriodInMinutes })
     }
 
@@ -63,7 +64,7 @@ export class Accounts {
      * @param {string} value
      * @returns {Promise} Promise
      */
-    updateSetting (key, value) {
+    updateSetting (key: any, value: any) {
         return this.client.post(baseUrl + '/settings', { key, value })
     }
 }

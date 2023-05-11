@@ -14,15 +14,32 @@ import Axios from 'axios'
 import { Seasons } from './Seasons/Seasons'
 
 export class SeatsioClient {
-    constructor (region, secretKey, workspaceKey = null, extraHeaders = {}) {
+    accounts: any;
+    chartReports: any;
+    charts: any;
+    client: any;
+    errInterceptor: any;
+    eventReports: any;
+    events: any;
+    holdTokens: any;
+    invitations: any;
+    requestListener: any;
+    seasons: any;
+    subaccounts: any;
+    usageReports: any;
+    users: any;
+    workspaces: any;
+    constructor (region: any, secretKey: any, workspaceKey = null, extraHeaders = {}) {
+        // @ts-expect-error TS(2345): Argument of type '{ baseURL: any; auth: { username... Remove this comment to see the full error message
         this.client = Axios.create(this._axiosConfig(region.url, secretKey, workspaceKey, extraHeaders))
 
         this._setupRequestListenerInterceptors()
         this.client.maxRetries = 5
-        this.client.interceptors.response.use(response => response, exponentialBackoffInterceptor(this.client))
-        this.errInterceptor = this.client.interceptors.response.use(response => response, errorResponseHandler)
+        this.client.interceptors.response.use((response: any) => response, exponentialBackoffInterceptor(this.client))
+        this.errInterceptor = this.client.interceptors.response.use((response: any) => response, errorResponseHandler)
 
         this.charts = new Charts(this.client)
+        // @ts-expect-error TS(2554): Expected 1 arguments, but got 2.
         this.events = new Events(this.client, this)
         this.subaccounts = new Subaccounts(this.client)
         this.workspaces = new Workspaces(this.client)
@@ -36,7 +53,7 @@ export class SeatsioClient {
         this.seasons = new Seasons(this.client, this)
     }
 
-    _axiosConfig (baseUrl, secretKey, workspaceKey, extraHeaders) {
+    _axiosConfig (baseUrl: any, secretKey: any, workspaceKey: any, extraHeaders: any) {
         const config = {
             baseURL: baseUrl,
             auth: {
@@ -56,7 +73,7 @@ export class SeatsioClient {
     }
 
     _setupRequestListenerInterceptors () {
-        this.client.interceptors.request.use(config => {
+        this.client.interceptors.request.use((config: any) => {
             if (this.requestListener) {
                 config.listener = this.requestListener()
                 config.listener.onRequestStarted()
@@ -65,13 +82,13 @@ export class SeatsioClient {
         })
 
         this.client.interceptors.response.use(
-            response => {
+            (response: any) => {
                 if (response.config.listener) {
                     response.config.listener.onRequestEnded()
                 }
                 return response
             },
-            response => {
+            (response: any) => {
                 if (response.config.listener) {
                     response.config.listener.onRequestEnded()
                 }
@@ -80,19 +97,19 @@ export class SeatsioClient {
         )
     }
 
-    setRequestListener (requestListener) {
+    setRequestListener (requestListener: any) {
         this.requestListener = requestListener
         return this
     }
 
-    setMaxRetries (maxRetries) {
+    setMaxRetries (maxRetries: any) {
         this.client.maxRetries = maxRetries
         return this
     }
 }
 
-function exponentialBackoffInterceptor (axios) {
-    return response => {
+function exponentialBackoffInterceptor (axios: any) {
+    return (response: any) => {
         if (response.response.status !== 429) {
             return Promise.reject(response)
         }
@@ -110,9 +127,10 @@ function exponentialBackoffInterceptor (axios) {
         const backoff = new Promise(resolve => {
             const waitTime = Math.pow(2, config.__retryCount + 2) * 100
             config.__retryCount++
+            // @ts-expect-error TS(2794): Expected 1 arguments, but got 0. Did you forget to... Remove this comment to see the full error message
             setTimeout(() => resolve(), waitTime)
         })
 
         return backoff.then(() => axios(config))
-    }
+    };
 }

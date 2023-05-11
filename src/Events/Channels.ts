@@ -1,12 +1,13 @@
 export class Channels {
+    client: any;
     /**
      * @param {Axios} client
      */
-    constructor (client) {
+    constructor (client: any) {
         this.client = client
     }
 
-    add (eventKey, channelKey, name, color, index, objects) {
+    add (eventKey: any, channelKey: any, name: any, color: any, index: any, objects: any) {
         return this.client.post(`/events/${encodeURIComponent(eventKey)}/channels`, {
             key: channelKey,
             name,
@@ -16,15 +17,15 @@ export class Channels {
         })
     }
 
-    addMultiple (eventKey, channelCreationParams) {
+    addMultiple (eventKey: any, channelCreationParams: any) {
         return this.client.post(`/events/${encodeURIComponent(eventKey)}/channels`, channelCreationParams)
     }
 
-    remove (eventKey, channelKey) {
+    remove (eventKey: any, channelKey: any) {
         return this.client.delete(`/events/${encodeURIComponent(eventKey)}/channels/${encodeURIComponent(channelKey)}`)
     }
 
-    update (eventKey, channelKey, newChannelName, newColor, newObjects) {
+    update (eventKey: any, channelKey: any, newChannelName: any, newColor: any, newObjects: any) {
         return this.client.post(`/events/${encodeURIComponent(eventKey)}/channels/${encodeURIComponent(channelKey)}`, {
             name: newChannelName,
             color: newColor,
@@ -32,23 +33,23 @@ export class Channels {
         })
     }
 
-    addObjects (eventKey, channelKey, objects) {
+    addObjects (eventKey: any, channelKey: any, objects: any) {
         return this.client.post(`/events/${encodeURIComponent(eventKey)}/channels/${encodeURIComponent(channelKey)}/objects`, {
             objects
         })
     }
 
-    removeObjects (eventKey, channelKey, objects) {
+    removeObjects (eventKey: any, channelKey: any, objects: any) {
         return this.client.delete(`/events/${encodeURIComponent(eventKey)}/channels/${encodeURIComponent(channelKey)}/objects`, {
             data: { objects }
         })
     }
 
-    replace (eventKey, channels) {
+    replace (eventKey: any, channels: any) {
         return this.client.post(`/events/${encodeURIComponent(eventKey)}/channels/update`, { channels })
     }
 
-    setObjects (eventKey, channelConfig) {
+    setObjects (eventKey: any, channelConfig: any) {
         return this.client.post(`/events/${encodeURIComponent(eventKey)}/channels/assign-objects`, { channelConfig })
     }
 }

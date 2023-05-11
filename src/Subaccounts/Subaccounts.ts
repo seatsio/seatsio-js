@@ -4,17 +4,20 @@ import { Subaccount } from './Subaccount.js'
 import { Chart } from '../Charts/Chart.js'
 
 export class Subaccounts {
+    active: any;
+    client: any;
+    inactive: any;
     /**
      * @param {Axios} client
      */
-    constructor (client) {
+    constructor (client: any) {
         this.client = client
-        this.active = new Lister('/subaccounts/active', this.client, 'subaccounts', (data) => {
-            const subaccounts = data.items.map((subaccountsData) => new Subaccount(subaccountsData))
+        this.active = new Lister('/subaccounts/active', this.client, 'subaccounts', (data: any) => {
+            const subaccounts = data.items.map((subaccountsData: any) => new Subaccount(subaccountsData))
             return new Page(subaccounts, data.next_page_starts_after, data.previous_page_ends_before)
         })
-        this.inactive = new Lister('/subaccounts/inactive', this.client, 'subaccounts', (data) => {
-            const subaccounts = data.items.map((subaccountsData) => new Subaccount(subaccountsData))
+        this.inactive = new Lister('/subaccounts/inactive', this.client, 'subaccounts', (data: any) => {
+            const subaccounts = data.items.map((subaccountsData: any) => new Subaccount(subaccountsData))
             return new Page(subaccounts, data.next_page_starts_after, data.previous_page_ends_before)
         })
     }
@@ -23,8 +26,8 @@ export class Subaccounts {
      * @param {string} id
      * @returns {Promise<Subaccount>} Promise object that will resolve to a Subaccount object
      */
-    retrieve (id) {
-        return this.client.get(`/subaccounts/${id}`).then((res) => new Subaccount(res.data))
+    retrieve (id: any) {
+        return this.client.get(`/subaccounts/${id}`).then((res: any) => new Subaccount(res.data));
     }
 
     /**
@@ -35,11 +38,12 @@ export class Subaccounts {
         const requestParameters = {}
 
         if (name !== null) {
+            // @ts-expect-error TS(2339): Property 'name' does not exist on type '{}'.
             requestParameters.name = name
         }
 
         return this.client.post('/subaccounts', requestParameters)
-            .then((res) => new Subaccount(res.data))
+            .then((res: any) => new Subaccount(res.data));
     }
 
     /**
@@ -47,21 +51,22 @@ export class Subaccounts {
      * @param {?string} name
      * @returns {Promise}
      */
-    update (id, name = null) {
+    update (id: any, name = null) {
         const requestParameters = {}
 
         if (name !== null) {
+            // @ts-expect-error TS(2339): Property 'name' does not exist on type '{}'.
             requestParameters.name = name
         }
 
         return this.client.post(`/subaccounts/${id}`, requestParameters)
     }
 
-    activate (id) {
+    activate (id: any) {
         return this.client.post(`/subaccounts/${id}/actions/activate`)
     }
 
-    deactivate (id) {
+    deactivate (id: any) {
         return this.client.post(`/subaccounts/${id}/actions/deactivate`)
     }
 
@@ -69,16 +74,16 @@ export class Subaccounts {
      * @param {string} id
      * @returns {Promise<string>} Promise object that will resolve to a string
      */
-    regenerateSecretKey (id) {
-        return this.client.post(`/subaccounts/${id}/secret-key/actions/regenerate`).then((res) => res.data)
+    regenerateSecretKey (id: any) {
+        return this.client.post(`/subaccounts/${id}/secret-key/actions/regenerate`).then((res: any) => res.data);
     }
 
     /**
      * @param {string} id
      * @returns {Promise<string>} Promise object that will resolve to a string
      */
-    regenerateDesignerKey (id) {
-        return this.client.post(`/subaccounts/${id}/designer-key/actions/regenerate`).then((res) => res.data)
+    regenerateDesignerKey (id: any) {
+        return this.client.post(`/subaccounts/${id}/designer-key/actions/regenerate`).then((res: any) => res.data);
     }
 
     /**
@@ -86,9 +91,9 @@ export class Subaccounts {
      * @param {string} chartKey
      * @returns {Promise<Chart>} Promise object that will resolve to a Chart object
      */
-    copyChartToParent (id, chartKey) {
+    copyChartToParent (id: any, chartKey: any) {
         return this.client.post(`/subaccounts/${id}/charts/${chartKey}/actions/copy-to/parent`)
-            .then((res) => new Chart(res.data))
+            .then((res: any) => new Chart(res.data));
     }
 
     /**
@@ -97,9 +102,9 @@ export class Subaccounts {
      * @param {string} chartKey
      * @returns {Promise<Chart>} Promise object that will resolve to a Chart object
      */
-    copyChartToSubaccount (fromId, toId, chartKey) {
+    copyChartToSubaccount (fromId: any, toId: any, chartKey: any) {
         return this.client.post(`/subaccounts/${fromId}/charts/${chartKey}/actions/copy-to/${toId}`)
-            .then((res) => new Chart(res.data))
+            .then((res: any) => new Chart(res.data));
     }
 
     /**
@@ -115,22 +120,25 @@ export class Subaccounts {
      */
     listFirstPage (filter = null, pageSize = null) {
         const requestParameters = filter !== null ? { filter } : null
+        // @ts-expect-error TS(2345): Argument of type '{ filter: never; } | null' is no... Remove this comment to see the full error message
         return this.iterator().firstPage(requestParameters, pageSize)
     }
 
     /**
      * @returns {Page}
      */
-    listPageAfter (afterId, filter = null, pageSize = null) {
+    listPageAfter (afterId: any, filter = null, pageSize = null) {
         const requestParameters = filter !== null ? { filter } : null
+        // @ts-expect-error TS(2345): Argument of type '{ filter: never; } | null' is no... Remove this comment to see the full error message
         return this.iterator().pageAfter(afterId, requestParameters, pageSize)
     }
 
     /**
      * @returns {Page}
      */
-    listPageBefore (beforeId, filter = null, pageSize = null) {
+    listPageBefore (beforeId: any, filter = null, pageSize = null) {
         const requestParameters = filter !== null ? { filter } : null
+        // @ts-expect-error TS(2345): Argument of type '{ filter: never; } | null' is no... Remove this comment to see the full error message
         return this.iterator().pageBefore(beforeId, requestParameters, pageSize)
     }
 
@@ -138,9 +146,9 @@ export class Subaccounts {
      * @returns {Lister}
      */
     iterator () {
-        return new Lister('/subaccounts', this.client, 'subaccounts', (data) => {
-            const subaccounts = data.items.map((subaccountsData) => new Subaccount(subaccountsData))
+        return new Lister('/subaccounts', this.client, 'subaccounts', (data: any) => {
+            const subaccounts = data.items.map((subaccountsData: any) => new Subaccount(subaccountsData))
             return new Page(subaccounts, data.next_page_starts_after, data.previous_page_ends_before)
-        })
+        });
     }
 }

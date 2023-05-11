@@ -8,13 +8,22 @@ import { Page } from './Page.js'
 import { StatusChange } from './Events/StatusChange.js'
 
 export class AsyncIterator {
+    client: any;
+    index: any;
+    items: any;
+    nextPageMustBeFetched: any;
+    nextPageStartsAfter: any;
+    objType: any;
+    pages: any;
+    params: any;
+    url: any;
     /**
      * @param {string} url
      * @param {Axios} client
      * @param {string} objType
      * @param {object} params
      */
-    constructor (url, client, objType, params = {}) {
+    constructor (url: any, client: any, objType: any, params = {}) {
         this.url = url
         this.client = client
         this.objType = objType
@@ -25,9 +34,9 @@ export class AsyncIterator {
         this.nextPageMustBeFetched = true
     }
 
-    charts (data) {
-        const charts = []
-        data.items.forEach((chartData) => {
+    charts (data: any) {
+        const charts: any = []
+        data.items.forEach((chartData: any) => {
             const chart = new Chart(chartData)
             this.items.push(chart)
             charts.push(chart)
@@ -36,9 +45,9 @@ export class AsyncIterator {
         this.pages.push(new Page(charts, data.next_page_starts_after, data.previous_page_ends_before))
     }
 
-    events (data) {
-        const events = []
-        data.items.forEach(eventData => {
+    events (data: any) {
+        const events: any = []
+        data.items.forEach((eventData: any) => {
             const event = new EventDeserializer().fromJson(eventData)
             this.items.push(event)
             events.push(event)
@@ -46,9 +55,9 @@ export class AsyncIterator {
         this.pages.push(new Page(events, data.next_page_starts_after, data.previous_page_ends_before))
     }
 
-    seasons (data) {
-        const seasons = []
-        data.items.forEach(seasonData => {
+    seasons (data: any) {
+        const seasons: any = []
+        data.items.forEach((seasonData: any) => {
             const season = new Season(seasonData)
             this.items.push(season)
             seasons.push(season)
@@ -56,9 +65,9 @@ export class AsyncIterator {
         this.pages.push(new Page(seasons, data.next_page_starts_after, data.previous_page_ends_before))
     }
 
-    statusChanges (data) {
-        const statusChanges = []
-        data.items.forEach((statusData) => {
+    statusChanges (data: any) {
+        const statusChanges: any = []
+        data.items.forEach((statusData: any) => {
             const status = new StatusChange(statusData)
             this.items.push(status)
             statusChanges.push(status)
@@ -66,9 +75,9 @@ export class AsyncIterator {
         this.pages.push(new Page(statusChanges, data.next_page_starts_after, data.previous_page_ends_before))
     }
 
-    subaccounts (data) {
-        const subaccounts = []
-        data.items.forEach((subaccountData) => {
+    subaccounts (data: any) {
+        const subaccounts: any = []
+        data.items.forEach((subaccountData: any) => {
             const subaccount = new Subaccount(subaccountData)
             this.items.push(subaccount)
             subaccounts.push(subaccount)
@@ -76,9 +85,9 @@ export class AsyncIterator {
         this.pages.push(new Page(subaccounts, data.next_page_starts_after, data.previous_page_ends_before))
     }
 
-    workspaces (data) {
-        const workspaces = []
-        data.items.forEach((json) => {
+    workspaces (data: any) {
+        const workspaces: any = []
+        data.items.forEach((json: any) => {
             const workspace = new Workspace(json)
             this.items.push(workspace)
             workspaces.push(workspace)
@@ -86,9 +95,9 @@ export class AsyncIterator {
         this.pages.push(new Page(workspaces, data.next_page_starts_after, data.previous_page_ends_before))
     }
 
-    users (data) {
-        const users = []
-        data.items.forEach((userData) => {
+    users (data: any) {
+        const users: any = []
+        data.items.forEach((userData: any) => {
             const user = new User(userData)
             this.items.push(user)
             users.push(user)
@@ -98,7 +107,7 @@ export class AsyncIterator {
 
     fetch (fetchParams = {}) {
         return this.client.get(this.url, { params: fetchParams })
-            .then((res) => {
+            .then((res: any) => {
                 if (res.data.next_page_starts_after) {
                     this.nextPageStartsAfter = res.data.next_page_starts_after
                     this.nextPageMustBeFetched = true
@@ -131,9 +140,10 @@ export class AsyncIterator {
                 default:
                     throw new Error(`Unknown object type '${this.objType}'`)
                 }
-            })
+            });
     }
 
+    // @ts-expect-error TS(2339): Property 'asyncIterator' does not exist on type 'S... Remove this comment to see the full error message
     [Symbol.asyncIterator] () {
         const _this = this
 

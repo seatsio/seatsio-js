@@ -2,10 +2,42 @@ import { HelperFunctions } from '../utilities/helperFunctions'
 import { IDs } from '../Common/IDs'
 
 export class EventObjectInfo {
+    availabilityReason: any;
+    bookAsAWhole: any;
+    capacity: any;
+    categoryKey: any;
+    categoryLabel: any;
+    channel: any;
+    displayedObjectType: any;
+    distanceToFocalPoint: any;
+    entrance: any;
+    extraData: any;
+    forSale: any;
+    hasRestrictedView: any;
+    holdToken: any;
+    holds: any;
+    ids: any;
+    isAccessible: any;
+    isAvailable: any;
+    isCompanionSeat: any;
+    isDisabledBySocialDistancing: any;
+    label: any;
+    labels: any;
+    leftNeighbour: any;
+    numBooked: any;
+    numFree: any;
+    numHeld: any;
+    numSeats: any;
+    objectType: any;
+    orderId: any;
+    rightNeighbour: any;
+    section: any;
+    status: any;
+    ticketType: any;
     /**
      * @param {object} report
      */
-    constructor (report) {
+    constructor (report: any) {
         this.label = report.label
         this.labels = HelperFunctions.labelCreator(report)
         this.ids = new IDs(report.ids.own, report.ids.parent, report.ids.section)
@@ -41,6 +73,9 @@ export class EventObjectInfo {
     }
 }
 
+// @ts-expect-error TS(2339): Property 'FREE' does not exist on type 'typeof Eve... Remove this comment to see the full error message
 EventObjectInfo.FREE = 'free'
+// @ts-expect-error TS(2339): Property 'BOOKED' does not exist on type 'typeof E... Remove this comment to see the full error message
 EventObjectInfo.BOOKED = 'booked'
+// @ts-expect-error TS(2339): Property 'HELD' does not exist on type 'typeof Eve... Remove this comment to see the full error message
 EventObjectInfo.HELD = 'reservedByToken'

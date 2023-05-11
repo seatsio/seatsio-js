@@ -2,7 +2,11 @@ import { PageFetcher } from './PageFetcher'
 import { AsyncIterator } from './AsyncIterator'
 
 export class Lister {
-    constructor (url, client, type, pageCreatorFunction) {
+    client: any;
+    pageFetcher: any;
+    type: any;
+    url: any;
+    constructor (url: any, client: any, type: any, pageCreatorFunction: any) {
         this.pageFetcher = new PageFetcher(url, client, pageCreatorFunction)
         this.url = url
         this.client = client
@@ -14,6 +18,7 @@ export class Lister {
      * @returns {AsyncIterator}
      */
     all (parameters = {}) {
+        // @ts-expect-error TS(2339): Property 'serialize' does not exist on type '{}'.
         const params = parameters.serialize ? parameters.serialize() : parameters
         return new AsyncIterator(this.url, this.client, this.type, params)
     }
@@ -24,6 +29,7 @@ export class Lister {
      * @returns {Page}
      */
     firstPage (queryParams = null, pageSize = null) {
+        // @ts-expect-error TS(2339): Property 'serialize' does not exist on type 'never... Remove this comment to see the full error message
         const params = queryParams && queryParams.serialize ? queryParams.serialize() : queryParams
         return this.pageFetcher.fetchAfter(null, params, pageSize)
     }
@@ -34,7 +40,8 @@ export class Lister {
      * @param {?number} pageSize
      * @returns {Page}
      */
-    pageAfter (afterId, queryParams = null, pageSize = null) {
+    pageAfter (afterId: any, queryParams = null, pageSize = null) {
+        // @ts-expect-error TS(2339): Property 'serialize' does not exist on type 'never... Remove this comment to see the full error message
         const params = queryParams && queryParams.serialize ? queryParams.serialize() : queryParams
         return this.pageFetcher.fetchAfter(afterId, params, pageSize)
     }
@@ -45,7 +52,8 @@ export class Lister {
      * @param {?number} pageSize
      * @returns {Page}
      */
-    pageBefore (beforeId, queryParams = null, pageSize = null) {
+    pageBefore (beforeId: any, queryParams = null, pageSize = null) {
+        // @ts-expect-error TS(2339): Property 'serialize' does not exist on type 'never... Remove this comment to see the full error message
         const params = queryParams && queryParams.serialize ? queryParams.serialize() : queryParams
         return this.pageFetcher.fetchBefore(beforeId, params, pageSize)
     }

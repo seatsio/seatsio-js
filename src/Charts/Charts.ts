@@ -3,13 +3,15 @@ import { Chart } from './Chart.js'
 import { Page } from '../Page.js'
 
 export class Charts {
+    archive: any;
+    client: any;
     /**
      * @param {Axios} client
      */
-    constructor (client) {
+    constructor (client: any) {
         this.client = client
-        this.archive = new Lister('/charts/archive', this.client, 'charts', (data) => {
-            const charts = data.items.map((chartData) => new Chart(chartData))
+        this.archive = new Lister('/charts/archive', this.client, 'charts', (data: any) => {
+            const charts = data.items.map((chartData: any) => new Chart(chartData))
             return new Page(charts, data.next_page_starts_after, data.previous_page_ends_before)
         })
     }
@@ -25,19 +27,22 @@ export class Charts {
         const requestParameters = {}
 
         if (name !== null) {
+            // @ts-expect-error TS(2339): Property 'name' does not exist on type '{}'.
             requestParameters.name = name
         }
 
         if (venueType !== null) {
+            // @ts-expect-error TS(2339): Property 'venueType' does not exist on type '{}'.
             requestParameters.venueType = venueType
         }
 
         if (categories !== null) {
+            // @ts-expect-error TS(2339): Property 'categories' does not exist on type '{}'.
             requestParameters.categories = categories
         }
 
         return this.client.post('charts', requestParameters)
-            .then((res) => new Chart(res.data))
+            .then((res: any) => new Chart(res.data));
     }
 
     /**
@@ -46,92 +51,94 @@ export class Charts {
      * @param {Object[]} categories
      * @returns {Promise}
      */
-    update (key, name = null, categories = null) {
+    update (key: any, name = null, categories = null) {
         const requestParameters = {}
 
         if (name !== null) {
+            // @ts-expect-error TS(2339): Property 'name' does not exist on type '{}'.
             requestParameters.name = name
         }
 
         if (categories !== null) {
+            // @ts-expect-error TS(2339): Property 'categories' does not exist on type '{}'.
             requestParameters.categories = categories
         }
 
         return this.client.post(`/charts/${key}`, requestParameters)
     }
 
-    addCategory (key, category) {
+    addCategory (key: any, category: any) {
         return this.client.post(`/charts/${key}/categories`, category)
     }
 
-    removeCategory (chartKey, categoryKey) {
+    removeCategory (chartKey: any, categoryKey: any) {
         return this.client.delete(`/charts/${chartKey}/categories/${categoryKey}`)
     }
 
-    listCategories (key) {
+    listCategories (key: any) {
         return this.client.get(`/charts/${key}/categories`)
-            .then((res) => res.data.categories)
+            .then((res: any) => res.data.categories);
     }
 
     /**
      * @param {string} key
      * @returns {object}
      */
-    validatePublishedVersion (key) {
+    validatePublishedVersion (key: any) {
         return this.client.post(`/charts/${key}/version/published/actions/validate`)
-            .then(res => res.data)
+            .then((res: any) => res.data);
     }
 
     /**
      * @param {string} key
      * @returns {object}
      */
-    validateDraftVersion (key) {
+    validateDraftVersion (key: any) {
         return this.client.post(`/charts/${key}/version/draft/actions/validate`)
-            .then(res => res.data)
+            .then((res: any) => res.data);
     }
 
     /**
      * @param {string} key
      * @returns {Promise<Chart>}
      */
-    retrieve (key) {
+    retrieve (key: any) {
         return this.client.get(`charts/${key}`)
-            .then((res) => new Chart(res.data))
+            .then((res: any) => new Chart(res.data));
     }
 
     /**
      * @param {string} key
      * @returns {Promise<Chart>}
      */
-    retrieveWithEvents (key) {
+    retrieveWithEvents (key: any) {
         return this.client.get(`charts/${key}?expand=events`)
-            .then((res) => new Chart(res.data))
+            .then((res: any) => new Chart(res.data));
     }
 
     /**
      * @param {string} key
      * @returns {Promise}
      */
-    retrievePublishedVersion (key) {
+    retrievePublishedVersion (key: any) {
         return this.client.get(`charts/${key}/version/published`)
-            .then((res) => res.data)
+            .then((res: any) => res.data);
     }
 
     /**
      * @param {string} key
      * @returns {Promise}
      */
-    retrieveDraftVersion (key) {
+    retrieveDraftVersion (key: any) {
         return this.client.get(`charts/${key}/version/draft`)
-            .then((res) => res.data)
+            .then((res: any) => res.data);
     }
 
     /**
      * @param {string} key
      * @returns {Promise}
      */
-    publishDraftVersion (key) {
+    publishDraftVersion (key: any) {
         return this.client.post(`charts/${key}/version/draft/actions/publish`)
     }
 
@@ -139,7 +146,7 @@ export class Charts {
      * @param {string} key
      * @returns {Promise}
      */
-    discardDraftVersion (key) {
+    discardDraftVersion (key: any) {
         return this.client.post(`/charts/${key}/version/draft/actions/discard`)
     }
 
@@ -147,7 +154,7 @@ export class Charts {
      * @param {string} key
      * @returns {Promise}
      */
-    moveToArchive (key) {
+    moveToArchive (key: any) {
         return this.client.post(`charts/${key}/actions/move-to-archive`)
     }
 
@@ -155,7 +162,7 @@ export class Charts {
      * @param {string} key
      * @returns {Promise}
      */
-    moveOutOfArchive (key) {
+    moveOutOfArchive (key: any) {
         return this.client.post(`charts/${key}/actions/move-out-of-archive`)
     }
 
@@ -163,27 +170,27 @@ export class Charts {
      * @param {string} key
      * @returns {Promise<Chart>}
      */
-    copy (key) {
+    copy (key: any) {
         return this.client.post(`charts/${key}/version/published/actions/copy`)
-            .then((res) => new Chart(res.data))
+            .then((res: any) => new Chart(res.data));
     }
 
     /**
      * @param {string} key
      * @returns {Promise<Chart>}
      */
-    copyDraftVersion (key) {
+    copyDraftVersion (key: any) {
         return this.client.post(`charts/${key}/version/draft/actions/copy`)
-            .then((res) => new Chart(res.data))
+            .then((res: any) => new Chart(res.data));
     }
 
     /**
      * @param {string} key
      * @returns {Promise<Chart>}
      */
-    copyToSubaccount (key, subaccountId) {
+    copyToSubaccount (key: any, subaccountId: any) {
         return this.client.post(`charts/${key}/version/published/actions/copy-to/${subaccountId}`)
-            .then((res) => new Chart(res.data))
+            .then((res: any) => new Chart(res.data));
     }
 
     /**
@@ -191,16 +198,16 @@ export class Charts {
      * @params {string} workspaceKey
      * @returns {Promise<Chart>}
      */
-    copyToWorkspace (key, workspaceKey) {
+    copyToWorkspace (key: any, workspaceKey: any) {
         return this.client.post(`charts/${key}/version/published/actions/copy-to-workspace/${workspaceKey}`)
-            .then((res) => new Chart(res.data))
+            .then((res: any) => new Chart(res.data));
     }
 
     /**
      * @param {string} key
      * @param {object} socialDistancingRulesets
      */
-    saveSocialDistancingRulesets (key, socialDistancingRulesets) {
+    saveSocialDistancingRulesets (key: any, socialDistancingRulesets: any) {
         return this.client.post(`/charts/${key}/social-distancing-rulesets`, { socialDistancingRulesets })
     }
 
@@ -208,18 +215,18 @@ export class Charts {
      * @param {string} key
      * @returns {Promise}
      */
-    retrievePublishedVersionThumbnail (key) {
+    retrievePublishedVersionThumbnail (key: any) {
         return this.client.get(`/charts/${key}/version/published/thumbnail`, { responseType: 'arraybuffer' })
-            .then((res) => res.data)
+            .then((res: any) => res.data);
     }
 
     /**
      * @param {string} key
      * @returns {Promise}
      */
-    retrieveDraftVersionThumbnail (key) {
+    retrieveDraftVersionThumbnail (key: any) {
         return this.client.get(`/charts/${key}/version/draft/thumbnail`, { responseType: 'arraybuffer' })
-            .then((res) => res.data)
+            .then((res: any) => res.data);
     }
 
     /**
@@ -227,7 +234,7 @@ export class Charts {
      */
     listAllTags () {
         return this.client.get('/charts/tags')
-            .then((res) => res.data.tags)
+            .then((res: any) => res.data.tags);
     }
 
     /**
@@ -235,7 +242,7 @@ export class Charts {
      * @param {string} tag
      * @returns {Promise}
      */
-    addTag (key, tag) {
+    addTag (key: any, tag: any) {
         const url = `charts/${key}/tags/${encodeURIComponent(tag)}`
         return this.client.post(url)
     }
@@ -245,7 +252,7 @@ export class Charts {
      * @param {string} tag
      * @returns {Promise}
      */
-    removeTag (key, tag) {
+    removeTag (key: any, tag: any) {
         const url = `charts/${key}/tags/${encodeURIComponent(tag)}`
         return this.client.delete(url)
     }
@@ -273,7 +280,7 @@ export class Charts {
      * @param {?number} pageSize
      * @returns {Page}
      */
-    listPageAfter (afterId, chartListParameters = null, pageSize = null) {
+    listPageAfter (afterId: any, chartListParameters = null, pageSize = null) {
         return this.iterator().pageAfter(afterId, chartListParameters, pageSize)
     }
 
@@ -283,7 +290,7 @@ export class Charts {
      * @param {?number} pageSize
      * @returns {Page}
      */
-    listPageBefore (beforeId, chartListParameters = null, pageSize = null) {
+    listPageBefore (beforeId: any, chartListParameters = null, pageSize = null) {
         return this.iterator().pageBefore(beforeId, chartListParameters, pageSize)
     }
 
@@ -291,9 +298,9 @@ export class Charts {
      * @returns {Lister}
      */
     iterator () {
-        return new Lister('/charts', this.client, 'charts', (data) => {
-            const charts = data.items.map((chartData) => new Chart(chartData))
+        return new Lister('/charts', this.client, 'charts', (data: any) => {
+            const charts = data.items.map((chartData: any) => new Chart(chartData))
             return new Page(charts, data.next_page_starts_after, data.previous_page_ends_before)
-        })
+        });
     }
 }

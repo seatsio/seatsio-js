@@ -1,10 +1,17 @@
 import { AccountSettings } from './AccountSettings'
 
 export class Account {
+    company: any;
+    designerKey: any;
+    email: any;
+    publicKey: any;
+    role: any;
+    secretKey: any;
+    settings: any;
     /**
      * @param {object} account
      */
-    constructor (account) {
+    constructor (account: any) {
         this.secretKey = account.secretKey
         this.designerKey = account.designerKey
         this.publicKey = account.publicKey

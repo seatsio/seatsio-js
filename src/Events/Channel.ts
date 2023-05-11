@@ -1,8 +1,13 @@
 export class Channel {
+    color: any;
+    index: any;
+    key: any;
+    name: any;
+    objects: any;
     /**
      * @param {object} Channel
      */
-    constructor (channel) {
+    constructor (channel: any) {
         this.key = channel.key
         this.name = channel.name
         this.color = channel.color

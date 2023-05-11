@@ -1,10 +1,13 @@
 import { Utilities } from '../utilities/reportUtility'
 
 export class BestAvailableObjects {
+    nextToEachOther: any;
+    objectDetails: any;
+    objects: any;
     /**
      * @param {object} data
      */
-    constructor (data) {
+    constructor (data: any) {
         this.objects = data.objects
         this.objectDetails = Utilities.createChangeObjectStatusDetails(data.objectDetails)
         this.nextToEachOther = data.nextToEachOther
