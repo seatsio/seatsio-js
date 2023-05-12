@@ -1,11 +1,9 @@
 import axios from 'axios'
 import { v4 as uuidv4 } from 'uuid'
 import * as fs from 'fs'
-// @ts-ignore
 import path from 'path'
 import { Labels, LabelAndType } from '../src/Common/Labels'
 import { Category } from '../src/Charts/Category'
-import { fileURLToPath } from 'url'
 import { SeatsioClient } from '../src/SeatsioClient'
 import { Region } from '../src/Region'
 
@@ -55,7 +53,6 @@ export class TestUtils {
     }
 
     static async createTestChartFromFile (filePath: string, chartKey: string, secretKey: string) {
-        const __dirname = fileURLToPath(new URL('.', import.meta.url))
         const requestBody = fs.readFileSync(path.join(__dirname, filePath), 'utf-8')
         const client = axios.create({
             auth: {

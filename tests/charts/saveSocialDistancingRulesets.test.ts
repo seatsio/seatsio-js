@@ -1,5 +1,5 @@
 import { TestUtils } from '../testUtils'
-import { SocialDistancingRuleset } from '../../src/Charts/SocialDistancingRuleset.js'
+import { SocialDistancingRuleset } from '../../src/Charts/SocialDistancingRuleset'
 
 test('should save rulesets', async () => {
     const { client } = await TestUtils.createTestUserAndClient()
