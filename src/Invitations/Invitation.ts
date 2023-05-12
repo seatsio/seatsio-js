@@ -1,8 +1,8 @@
 export class Invitation {
-    date: any;
-    email: any;
-    id: any;
-    status: any;
+    date: any
+    email: any
+    id: any
+    status: any
     constructor (json: any) {
         this.id = json.id
         this.status = json.status

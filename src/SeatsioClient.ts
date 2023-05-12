@@ -12,24 +12,24 @@ import { UsageReports } from './Reports/UsageReports'
 import { errorResponseHandler } from './errorInterceptor'
 import Axios from 'axios'
 import { Seasons } from './Seasons/Seasons'
-import {Region} from "./Region";
+import { Region } from './Region'
 
 export class SeatsioClient {
-    accounts: any;
-    chartReports: any;
-    charts: any;
-    client: any;
-    errInterceptor: any;
-    eventReports: any;
-    events: any;
-    holdTokens: any;
-    invitations: any;
-    requestListener: any;
-    seasons: any;
-    subaccounts: any;
-    usageReports: any;
-    users: any;
-    workspaces: any;
+    accounts: any
+    chartReports: any
+    charts: any
+    client: any
+    errInterceptor: any
+    eventReports: any
+    events: any
+    holdTokens: any
+    invitations: any
+    requestListener: any
+    seasons: any
+    subaccounts: any
+    usageReports: any
+    users: any
+    workspaces: any
     constructor (region: Region, secretKey?: any, workspaceKey = null, extraHeaders = {}) {
         // @ts-expect-error TS(2345): Argument of type '{ baseURL: any; auth: { username... Remove this comment to see the full error message
         this.client = Axios.create(this._axiosConfig(region.url, secretKey, workspaceKey, extraHeaders))
@@ -133,5 +133,5 @@ function exponentialBackoffInterceptor (axios: any) {
         })
 
         return backoff.then(() => axios(config))
-    };
+    }
 }

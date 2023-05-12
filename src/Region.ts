@@ -1,5 +1,5 @@
 export class Region {
-    url: any;
+    url: any
     static EU () {
         return new Region(Region.urlForId('eu'))
     }

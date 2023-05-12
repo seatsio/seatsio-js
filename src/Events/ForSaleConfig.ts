@@ -1,8 +1,8 @@
 export class ForSaleConfig {
-    areaPlaces: any;
-    categories: any;
-    forSale: any;
-    objects: any;
+    areaPlaces: any
+    categories: any
+    forSale: any
+    objects: any
     /**
      * @param {boolean} forSale
      * @param {string[]} objects

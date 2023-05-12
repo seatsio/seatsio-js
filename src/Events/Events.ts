@@ -8,8 +8,8 @@ import { ChangeObjectStatusResult } from './ChangeObjectStatusResult'
 import { BestAvailableObjects } from './BestAvailableObjects'
 
 export class Events {
-    channels: any;
-    client: any;
+    channels: any
+    client: any
     constructor (client: any) {
         this.client = client
         this.channels = new Channels(this.client)
@@ -47,7 +47,7 @@ export class Events {
         }
 
         return this.client.post('/events', requestParameters)
-            .then((res: any) => new EventDeserializer().fromJson(res.data));
+            .then((res: any) => new EventDeserializer().fromJson(res.data))
     }
 
     /**
@@ -127,7 +127,7 @@ export class Events {
                     result.push(deserializer.fromJson(event))
                 }
                 return result
-            });
+            })
     }
 
     /**
@@ -136,7 +136,7 @@ export class Events {
      */
     retrieve (eventKey: any) {
         return this.client.get(`/events/${encodeURIComponent(eventKey)}`)
-            .then((res: any) => new EventDeserializer().fromJson(res.data));
+            .then((res: any) => new EventDeserializer().fromJson(res.data))
     }
 
     update (eventKey: any, chartKey = null, newEventKey = null, tableBookingConfig = null, socialDistancingRulesetKey = null, objectCategories = null, categories = null) {
@@ -224,7 +224,7 @@ export class Events {
         return new Lister('/events', this.client, 'events', (data: any) => {
             const events = data.items.map((eventData: any) => new EventDeserializer().fromJson(eventData))
             return new Page(events, data.next_page_starts_after, data.previous_page_ends_before)
-        });
+        })
     }
 
     /**
@@ -235,7 +235,7 @@ export class Events {
         return new Lister(`/events/${encodeURIComponent(eventKey)}/status-changes`, this.client, 'statusChanges', (data: any) => {
             const statusChanges = data.items.map((statusChangesData: any) => new StatusChange(statusChangesData))
             return new Page(statusChanges, data.next_page_starts_after, data.previous_page_ends_before)
-        });
+        })
     }
 
     /**
@@ -246,7 +246,7 @@ export class Events {
         return new Lister(`/events/${encodeURIComponent(eventKey)}/objects/${encodeURIComponent(objectId)}/status-changes`, this.client, 'statusChanges', (data: any) => {
             const statusChanges = data.items.map((statusChangesData: any) => new StatusChange(statusChangesData))
             return new Page(statusChanges, data.next_page_starts_after, data.previous_page_ends_before)
-        });
+        })
     }
 
     /**
@@ -359,7 +359,7 @@ export class Events {
                     objectInfos[key] = new EventObjectInfo(objectInfos[key])
                 }
                 return objectInfos
-            });
+            })
     }
 
     /**
@@ -382,7 +382,7 @@ export class Events {
         request.events = Array.isArray(eventKeyOrKeys) ? eventKeyOrKeys : [eventKeyOrKeys]
 
         return this.client.post('/events/groups/actions/change-object-status?expand=objects', request)
-            .then((res: any) => new ChangeObjectStatusResult(res.data.objects));
+            .then((res: any) => new ChangeObjectStatusResult(res.data.objects))
     }
 
     /**
@@ -410,7 +410,7 @@ export class Events {
         const request = { statusChanges: requests }
 
         return this.client.post('/events/actions/change-object-status?expand=objects', request)
-            .then((res: any) => res.data.results.map((r: any) => new ChangeObjectStatusResult(r.objects)));
+            .then((res: any) => res.data.results.map((r: any) => new ChangeObjectStatusResult(r.objects)))
     }
 
     changeObjectStatusRequest (objectOrObjects: any, status: any, holdToken: any, orderId: any, keepExtraData: any, ignoreChannels: any, channelKeys: any, ignoreSocialDistancing: any, allowedPreviousStatuses: any, rejectedPreviousStatuses: any) {
@@ -595,7 +595,7 @@ export class Events {
         requestParameters.bestAvailable = bestAvailable
 
         return this.client.post(`/events/${encodeURIComponent(eventKey)}/actions/change-object-status`, requestParameters)
-            .then((res: any) => new BestAvailableObjects(res.data));
+            .then((res: any) => new BestAvailableObjects(res.data))
     }
 
     normalizeObjects (objectOrObjects: any): any {

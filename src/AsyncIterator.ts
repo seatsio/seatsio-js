@@ -8,15 +8,15 @@ import { Page } from './Page.js'
 import { StatusChange } from './Events/StatusChange.js'
 
 export class AsyncIterator {
-    client: any;
-    index: any;
-    items: any;
-    nextPageMustBeFetched: any;
-    nextPageStartsAfter: any;
-    objType: any;
-    pages: any;
-    params: any;
-    url: any;
+    client: any
+    index: any
+    items: any
+    nextPageMustBeFetched: any
+    nextPageStartsAfter: any
+    objType: any
+    pages: any
+    params: any
+    url: any
     /**
      * @param {string} url
      * @param {Axios} client
@@ -140,7 +140,7 @@ export class AsyncIterator {
                 default:
                     throw new Error(`Unknown object type '${this.objType}'`)
                 }
-            });
+            })
     }
 
     [Symbol.asyncIterator] () {

@@ -2,8 +2,8 @@ import { Season } from './Season'
 import { EventDeserializer } from '../Events/EventDeserializer'
 
 export class Seasons {
-    client: any;
-    seatsioClient: any;
+    client: any
+    seatsioClient: any
     constructor (client: any, seatsioClient: any) {
         this.client = client
         this.seatsioClient = seatsioClient
@@ -48,7 +48,7 @@ export class Seasons {
         }
 
         return this.client.post('/seasons', requestParameters)
-            .then((res: any) => new Season(res.data));
+            .then((res: any) => new Season(res.data))
     }
 
     /**
@@ -70,7 +70,7 @@ export class Seasons {
             requestParameters.eventKeys = eventKeys
         }
         return this.client.post(`/seasons/${encodeURIComponent(topLevelSeasonKey)}/partial-seasons`, requestParameters)
-            .then((res: any) => new Season(res.data));
+            .then((res: any) => new Season(res.data))
     }
 
     /**
@@ -93,7 +93,7 @@ export class Seasons {
         }
 
         return this.client.post(`/seasons/${encodeURIComponent(key)}/actions/create-events`, requestParameters)
-            .then((res: any) => res.data.events.map((e: any) => new EventDeserializer().fromJson(e)));
+            .then((res: any) => res.data.events.map((e: any) => new EventDeserializer().fromJson(e)))
     }
 
     /**
@@ -105,7 +105,7 @@ export class Seasons {
     addEventsToPartialSeason (topLevelSeasonKey: any, partialSeasonKey: any, eventKeys: any) {
         const requestParameters = { eventKeys }
         return this.client.post(`/seasons/${encodeURIComponent(topLevelSeasonKey)}/partial-seasons/${encodeURIComponent(partialSeasonKey)}/actions/add-events`, requestParameters)
-            .then((res: any) => new Season(res.data));
+            .then((res: any) => new Season(res.data))
     }
 
     /**
@@ -116,7 +116,7 @@ export class Seasons {
      */
     async removeEventFromPartialSeason (topLevelSeasonKey: any, partialSeasonKey: any, eventKey: any) {
         return this.client.delete(`/seasons/${encodeURIComponent(topLevelSeasonKey)}/partial-seasons/${encodeURIComponent(partialSeasonKey)}/events/${encodeURIComponent(eventKey)}`)
-            .then((res: any) => new Season(res.data));
+            .then((res: any) => new Season(res.data))
     }
 
     /**

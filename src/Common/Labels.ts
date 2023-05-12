@@ -1,6 +1,6 @@
 export class Labels {
-    own: any;
-    parent: any;
+    own: any
+    parent: any
     /**
      * @param {LabelAndType} own
      * @param {?LabelAndType} parent
@@ -12,8 +12,8 @@ export class Labels {
 }
 
 export class LabelAndType {
-    label: any;
-    type: any;
+    label: any
+    type: any
     /**
      * @param {string} label
      * @param {string} type

@@ -1,14 +1,14 @@
 export class StatusChangeRequest {
-    allowedPreviousStatuses: any;
-    channelKeys: any;
-    eventKey: any;
-    holdToken: any;
-    ignoreChannels: any;
-    keepExtraData: any;
-    objectOrObjects: any;
-    orderId: any;
-    rejectedPreviousStatuses: any;
-    status: any;
+    allowedPreviousStatuses: any
+    channelKeys: any
+    eventKey: any
+    holdToken: any
+    ignoreChannels: any
+    keepExtraData: any
+    objectOrObjects: any
+    orderId: any
+    rejectedPreviousStatuses: any
+    status: any
     /**
      * @param {string} eventKey
      * @param {object|object[]} objectOrObjects

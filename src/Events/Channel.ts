@@ -1,9 +1,9 @@
 export class Channel {
-    color: any;
-    index: any;
-    key: any;
-    name: any;
-    objects: any;
+    color: any
+    index: any
+    key: any
+    name: any
+    objects: any
     /**
      * @param {object} Channel
      */

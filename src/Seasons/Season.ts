@@ -1,8 +1,8 @@
 import { Event } from '../Events/Event'
 
 export class Season extends Event {
-    events: any;
-    partialSeasonKeys: any;
+    events: any
+    partialSeasonKeys: any
     /**
      * @param {object} season
      */

@@ -1,14 +1,14 @@
 export class User {
-    createdOn: any;
-    designerKey: any;
-    email: any;
-    id: any;
-    isActive: any;
-    name: any;
-    role: any;
-    secretKey: any;
-    status: any;
-    workspaces: any;
+    createdOn: any
+    designerKey: any
+    email: any
+    id: any
+    isActive: any
+    name: any
+    role: any
+    secretKey: any
+    status: any
+    workspaces: any
     constructor (userJson: any) {
         this.id = userJson.id
         this.email = userJson.email

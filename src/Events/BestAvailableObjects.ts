@@ -1,9 +1,9 @@
 import { Utilities } from '../utilities/reportUtility'
 
 export class BestAvailableObjects {
-    nextToEachOther: any;
-    objectDetails: any;
-    objects: any;
+    nextToEachOther: any
+    objectDetails: any
+    objects: any
     /**
      * @param {object} data
      */

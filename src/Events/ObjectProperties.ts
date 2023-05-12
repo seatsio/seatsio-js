@@ -1,8 +1,8 @@
 export class ObjectProperties {
-    extraData: any;
-    objectId: any;
-    quantity: any;
-    ticketType: any;
+    extraData: any
+    objectId: any
+    quantity: any
+    ticketType: any
     /**
      * @param {string} objectId
      */

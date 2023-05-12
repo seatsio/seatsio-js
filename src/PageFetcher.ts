@@ -1,7 +1,7 @@
 export class PageFetcher {
-    client: any;
-    pageCreator: any;
-    url: any;
+    client: any
+    pageCreator: any
+    url: any
     constructor (url: any, client: any, pageCreator: any) {
         this.url = url
         this.client = client

@@ -3,22 +3,22 @@ import { Channel } from './Channel'
 import { Category } from '../Charts/Category'
 
 export class Event {
-    categories: any;
-    channels: any;
-    chartKey: any;
-    createdOn: any;
-    forSaleConfig: any;
-    id: any;
-    isEventInSeason: any;
-    isPartialSeason: any;
-    isTopLevelSeason: any;
-    key: any;
-    objectCategories: any;
-    socialDistancingRulesetKey: any;
-    supportsBestAvailable: any;
-    tableBookingConfig: any;
-    topLevelSeasonKey: any;
-    updatedOn: any;
+    categories: any
+    channels: any
+    chartKey: any
+    createdOn: any
+    forSaleConfig: any
+    id: any
+    isEventInSeason: any
+    isPartialSeason: any
+    isTopLevelSeason: any
+    key: any
+    objectCategories: any
+    socialDistancingRulesetKey: any
+    supportsBestAvailable: any
+    tableBookingConfig: any
+    topLevelSeasonKey: any
+    updatedOn: any
     /**
      * @param {object} json
      */

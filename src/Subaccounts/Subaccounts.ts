@@ -4,9 +4,9 @@ import { Subaccount } from './Subaccount.js'
 import { Chart } from '../Charts/Chart.js'
 
 export class Subaccounts {
-    active: any;
-    client: any;
-    inactive: any;
+    active: any
+    client: any
+    inactive: any
     /**
      * @param {Axios} client
      */
@@ -27,7 +27,7 @@ export class Subaccounts {
      * @returns {Promise<Subaccount>} Promise object that will resolve to a Subaccount object
      */
     retrieve (id: any) {
-        return this.client.get(`/subaccounts/${id}`).then((res: any) => new Subaccount(res.data));
+        return this.client.get(`/subaccounts/${id}`).then((res: any) => new Subaccount(res.data))
     }
 
     /**
@@ -43,7 +43,7 @@ export class Subaccounts {
         }
 
         return this.client.post('/subaccounts', requestParameters)
-            .then((res: any) => new Subaccount(res.data));
+            .then((res: any) => new Subaccount(res.data))
     }
 
     /**
@@ -75,7 +75,7 @@ export class Subaccounts {
      * @returns {Promise<string>} Promise object that will resolve to a string
      */
     regenerateSecretKey (id: any) {
-        return this.client.post(`/subaccounts/${id}/secret-key/actions/regenerate`).then((res: any) => res.data);
+        return this.client.post(`/subaccounts/${id}/secret-key/actions/regenerate`).then((res: any) => res.data)
     }
 
     /**
@@ -83,7 +83,7 @@ export class Subaccounts {
      * @returns {Promise<string>} Promise object that will resolve to a string
      */
     regenerateDesignerKey (id: any) {
-        return this.client.post(`/subaccounts/${id}/designer-key/actions/regenerate`).then((res: any) => res.data);
+        return this.client.post(`/subaccounts/${id}/designer-key/actions/regenerate`).then((res: any) => res.data)
     }
 
     /**
@@ -93,7 +93,7 @@ export class Subaccounts {
      */
     copyChartToParent (id: any, chartKey: any) {
         return this.client.post(`/subaccounts/${id}/charts/${chartKey}/actions/copy-to/parent`)
-            .then((res: any) => new Chart(res.data));
+            .then((res: any) => new Chart(res.data))
     }
 
     /**
@@ -104,7 +104,7 @@ export class Subaccounts {
      */
     copyChartToSubaccount (fromId: any, toId: any, chartKey: any) {
         return this.client.post(`/subaccounts/${fromId}/charts/${chartKey}/actions/copy-to/${toId}`)
-            .then((res: any) => new Chart(res.data));
+            .then((res: any) => new Chart(res.data))
     }
 
     /**
@@ -149,6 +149,6 @@ export class Subaccounts {
         return new Lister('/subaccounts', this.client, 'subaccounts', (data: any) => {
             const subaccounts = data.items.map((subaccountsData: any) => new Subaccount(subaccountsData))
             return new Page(subaccounts, data.next_page_starts_after, data.previous_page_ends_before)
-        });
+        })
     }
 }

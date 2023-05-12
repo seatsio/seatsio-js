@@ -9,4 +9,3 @@ export class EventDeserializer {
         return new Event(event)
     }
 }
-

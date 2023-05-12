@@ -3,7 +3,7 @@ import { Lister } from '../Lister.js'
 import { Workspace } from './Workspace.js'
 
 export class Workspaces {
-    client: any;
+    client: any
     /**
      * @param {Axios} client
      */
@@ -20,7 +20,7 @@ export class Workspaces {
         const requestParameters = { name, isTest }
 
         return this.client.post('/workspaces', requestParameters)
-            .then((res: any) => new Workspace(res.data));
+            .then((res: any) => new Workspace(res.data))
     }
 
     /**
@@ -46,7 +46,7 @@ export class Workspaces {
      */
     regenerateSecretKey (key: any) {
         return this.client.post(`/workspaces/${key}/actions/regenerate-secret-key`)
-            .then((res: any) => res.data.secretKey);
+            .then((res: any) => res.data.secretKey)
     }
 
     /**
@@ -68,7 +68,7 @@ export class Workspaces {
      * @returns {Promise<Workspace>} Promise object that will resolve to a Workspace object
      */
     retrieve (key: any) {
-        return this.client.get(`/workspaces/${key}`).then((res: any) => new Workspace(res.data));
+        return this.client.get(`/workspaces/${key}`).then((res: any) => new Workspace(res.data))
     }
 
     /**
@@ -183,7 +183,7 @@ export class Workspaces {
         return new Lister('/workspaces', this.client, 'workspaces', (data: any) => {
             const workspaces = data.items.map((json: any) => new Workspace(json))
             return new Page(workspaces, data.next_page_starts_after, data.previous_page_ends_before)
-        });
+        })
     }
 
     /**
@@ -193,7 +193,7 @@ export class Workspaces {
         return new Lister('/workspaces/active', this.client, 'workspaces', (data: any) => {
             const workspaces = data.items.map((json: any) => new Workspace(json))
             return new Page(workspaces, data.next_page_starts_after, data.previous_page_ends_before)
-        });
+        })
     }
 
     /**
@@ -203,6 +203,6 @@ export class Workspaces {
         return new Lister('/workspaces/inactive', this.client, 'workspaces', (data: any) => {
             const workspaces = data.items.map((json: any) => new Workspace(json))
             return new Page(workspaces, data.next_page_starts_after, data.previous_page_ends_before)
-        });
+        })
     }
 }

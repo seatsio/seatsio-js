@@ -2,10 +2,10 @@ import { PageFetcher } from './PageFetcher'
 import { AsyncIterator } from './AsyncIterator'
 
 export class Lister {
-    client: any;
-    pageFetcher: any;
-    type: any;
-    url: any;
+    client: any
+    pageFetcher: any
+    type: any
+    url: any
     constructor (url: any, client: any, type: any, pageCreatorFunction: any) {
         this.pageFetcher = new PageFetcher(url, client, pageCreatorFunction)
         this.url = url

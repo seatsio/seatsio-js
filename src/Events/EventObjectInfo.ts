@@ -2,44 +2,42 @@ import { HelperFunctions } from '../utilities/helperFunctions'
 import { IDs } from '../Common/IDs'
 
 export class EventObjectInfo {
-
     static FREE = 'free'
     static BOOKED = 'booked'
     static HELD = 'reservedByToken'
 
-
-    availabilityReason: any;
-    bookAsAWhole: any;
-    capacity: any;
-    categoryKey: any;
-    categoryLabel: any;
-    channel: any;
-    displayedObjectType: any;
-    distanceToFocalPoint: any;
-    entrance: any;
-    extraData: any;
-    forSale: any;
-    hasRestrictedView: any;
-    holdToken: any;
-    holds: any;
-    ids: any;
-    isAccessible: any;
-    isAvailable: any;
-    isCompanionSeat: any;
-    isDisabledBySocialDistancing: any;
-    label: any;
-    labels: any;
-    leftNeighbour: any;
-    numBooked: any;
-    numFree: any;
-    numHeld: any;
-    numSeats: any;
-    objectType: any;
-    orderId: any;
-    rightNeighbour: any;
-    section: any;
-    status: any;
-    ticketType: any;
+    availabilityReason: any
+    bookAsAWhole: any
+    capacity: any
+    categoryKey: any
+    categoryLabel: any
+    channel: any
+    displayedObjectType: any
+    distanceToFocalPoint: any
+    entrance: any
+    extraData: any
+    forSale: any
+    hasRestrictedView: any
+    holdToken: any
+    holds: any
+    ids: any
+    isAccessible: any
+    isAvailable: any
+    isCompanionSeat: any
+    isDisabledBySocialDistancing: any
+    label: any
+    labels: any
+    leftNeighbour: any
+    numBooked: any
+    numFree: any
+    numHeld: any
+    numSeats: any
+    objectType: any
+    orderId: any
+    rightNeighbour: any
+    section: any
+    status: any
+    ticketType: any
 
     constructor (report: any) {
         this.label = report.label
@@ -76,4 +74,3 @@ export class EventObjectInfo {
         this.numSeats = report.numSeats
     }
 }
-

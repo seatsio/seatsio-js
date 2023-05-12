@@ -1,7 +1,7 @@
 import { Utilities } from '../utilities/reportUtility'
 
 export class ChangeObjectStatusResult {
-    objects: any;
+    objects: any
     /**
      * @param {Object.<string, {ObjectInfo}>} objects
      */

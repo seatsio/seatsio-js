@@ -1,6 +1,6 @@
 export class TableBookingConfig {
-    mode: any;
-    tables: any;
+    mode: any
+    tables: any
     /**
      * @param {string} mode
      * @param {object} tables

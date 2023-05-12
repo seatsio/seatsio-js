@@ -1,8 +1,8 @@
 export class StatusChangesParams {
-    filter: any;
-    filterType: any;
-    sortDirection: any;
-    sortField: any;
+    filter: any
+    filterType: any
+    sortDirection: any
+    sortField: any
     /**
      * @param {?string} filter
      * @param {?string} filterType

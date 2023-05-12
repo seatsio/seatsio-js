@@ -1,7 +1,7 @@
 import { Utilities } from '../utilities/reportUtility'
 
 export class ChartReports {
-    client: any;
+    client: any
     constructor (client: any) {
         this.client = client
     }
@@ -89,11 +89,11 @@ export class ChartReports {
 
     fetchReport (reportType: any, chartKey: any, bookWholeTables: any) {
         return this.client.get(`/reports/charts/${encodeURIComponent(chartKey)}/${reportType}`, { params: { bookWholeTables } })
-            .then((res: any) => Utilities.createChartReport(res.data));
+            .then((res: any) => Utilities.createChartReport(res.data))
     }
 
     fetchSummaryReport (reportType: any, chartKey: any, bookWholeTables: any) {
         return this.client.get(`/reports/charts/${encodeURIComponent(chartKey)}/${reportType}/summary`, { params: { bookWholeTables } })
-            .then((res: any) => res.data);
+            .then((res: any) => res.data)
     }
 }

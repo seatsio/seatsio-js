@@ -1,7 +1,7 @@
 import { Invitation } from './Invitation'
 
 export class Invitations {
-    client: any;
+    client: any
     /**
      * @param {Axios} client
      */
@@ -14,6 +14,6 @@ export class Invitations {
      */
     listAll () {
         return this.client.get('/invitations')
-            .then((res: any) => res.data.map((json: any) => new Invitation(json)));
+            .then((res: any) => res.data.map((json: any) => new Invitation(json)))
     }
 }

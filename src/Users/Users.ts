@@ -3,7 +3,7 @@ import { User } from './User.js'
 import { Invitation } from '../Invitations/Invitation'
 
 export class Users {
-    client: any;
+    client: any
     /**
      * @param {Axios} client
      */
@@ -21,7 +21,7 @@ export class Users {
         const requestParameters = { email, role, workspaces }
 
         return this.client.post('/users/actions/invite', requestParameters)
-            .then((res: any) => new Invitation(res.data));
+            .then((res: any) => new Invitation(res.data))
     }
 
     /**
@@ -30,7 +30,7 @@ export class Users {
      */
     retrieve (id: any) {
         return this.client.get(`/users/${id}`)
-            .then((res: any) => new User(res.data));
+            .then((res: any) => new User(res.data))
     }
 
     /**
@@ -92,6 +92,6 @@ export class Users {
             const users = data.items.map((usersData: any) => new User(usersData))
             // @ts-expect-error TS(2304): Cannot find name 'Page'.
             return new Page(users, data.next_page_starts_after, data.previous_page_ends_before)
-        });
+        })
     }
 }

@@ -1,9 +1,9 @@
 export class SeasonParams {
-    _eventKeys: any;
-    _key: any;
-    _numberOfEvents: any;
-    _socialDistancingRulesetKey: any;
-    _tableBookingConfig: any;
+    _eventKeys: any
+    _key: any
+    _numberOfEvents: any
+    _socialDistancingRulesetKey: any
+    _tableBookingConfig: any
     key (key: any) {
         this._key = key
         return this

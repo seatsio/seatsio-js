@@ -1,8 +1,8 @@
 export class HoldToken {
-    expiresAt: any;
-    expiresInSeconds: any;
-    holdToken: any;
-    workspaceKey: any;
+    expiresAt: any
+    expiresInSeconds: any
+    holdToken: any
+    workspaceKey: any
     /**
      * @param {object} holdToken
      */

@@ -1,5 +1,5 @@
 export class Channels {
-    client: any;
+    client: any
     /**
      * @param {Axios} client
      */

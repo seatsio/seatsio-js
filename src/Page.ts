@@ -1,7 +1,7 @@
 export class Page {
-    items: any;
-    nextPageStartsAfter: any;
-    previousPageEndsBefore: any;
+    items: any
+    nextPageStartsAfter: any
+    previousPageEndsBefore: any
     constructor (items: any, afterId = null, beforeId = null) {
         this.items = items
         this.nextPageStartsAfter = afterId
