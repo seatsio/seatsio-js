@@ -1,8 +1,8 @@
 import { TestUtils } from '../testUtils'
-import { SocialDistancingRuleset } from '../../src/Charts/SocialDistancingRuleset.js'
 import { TableBookingConfig } from '../../src/Events/TableBookingConfig'
 import { Category } from '../../src/Charts/Category'
 import { Events } from '../../src/Events/Events'
+import { SocialDistancingRuleset } from '../../src/Charts/SocialDistancingRuleset'
 
 test('should check that a minimum of one event is required', async () => {
     const { client, user } = await TestUtils.createTestUserAndClient()
@@ -11,10 +11,10 @@ test('should check that a minimum of one event is required', async () => {
 
     try {
         await client.events.createMultiple(chartKey)
-    } catch (e) {
-                expect(e.errors.length).toEqual(1)
-                expect(e.errors[0].code).toBe('GENERAL_ERROR')
-                expect(e.errors[0].message).toBe('#/events: expected minimum item count: 1, found: 0')
+    } catch (e: any) {
+        expect(e.errors.length).toEqual(1)
+        expect(e.errors[0].code).toBe('GENERAL_ERROR')
+        expect(e.errors[0].message).toBe('#/events: expected minimum item count: 1, found: 0')
     }
 })
 
@@ -25,8 +25,8 @@ test('should check that an empty object is a valid event definition', async () =
 
     const events = await client.events.createMultiple(chartKey, [{}])
 
-        expect(events).toHaveLength(1)
-        expect(events[0].key).toBeTruthy()
+    expect(events).toHaveLength(1)
+    expect(events[0].key).toBeTruthy()
 })
 
 test('should create a single event', async () => {
@@ -38,11 +38,11 @@ test('should create a single event', async () => {
         Events.eventCreationParams('eventKey')
     ])
 
-        expect(events).toHaveLength(1)
-        expect(events[0].key).toEqual('eventKey')
+    expect(events).toHaveLength(1)
+    expect(events[0].key).toEqual('eventKey')
 
     const retrievedEvent = await client.events.retrieve('eventKey')
-        expect(retrievedEvent.key).toEqual('eventKey')
+    expect(retrievedEvent.key).toEqual('eventKey')
 })
 
 test('should create multiple events', async () => {
@@ -57,14 +57,15 @@ test('should create multiple events', async () => {
     ]
     const createdEvents = await client.events.createMultiple(chart.key, events)
 
-        expect(createdEvents).toHaveLength(2)
-        expect(createdEvents[0].key).toEqual('eventKey1')
-        expect(createdEvents[1].key).toEqual('eventKey2')
+    expect(createdEvents).toHaveLength(2)
+    expect(createdEvents[0].key).toEqual('eventKey1')
+    expect(createdEvents[1].key).toEqual('eventKey2')
 
     for (const event of events) {
         // @ts-expect-error TS(2339): Property 'eventKey' does not exist on type '{}'.
         const retrievedEvent = await client.events.retrieve(event.eventKey)
-                expect(retrievedEvent.key).toEqual(event.eventKey)
+        // @ts-expect-error TS(2339): Property 'eventKey' does not exist on type '{}'.
+        expect(retrievedEvent.key).toEqual(event.eventKey)
     }
 })
 
@@ -79,8 +80,8 @@ test('supports tableBookingConfig custom', async () => {
         Events.eventCreationParams(null, tableBookingConfig)
     ])
 
-        expect(events[0].key).toBeTruthy()
-        expect(events[0].tableBookingConfig).toEqual(tableBookingConfig)
+    expect(events[0].key).toBeTruthy()
+    expect(events[0].tableBookingConfig).toEqual(tableBookingConfig)
 })
 
 test('supports tableBookingConfig inherit', async () => {
@@ -93,8 +94,8 @@ test('supports tableBookingConfig inherit', async () => {
         Events.eventCreationParams(null, TableBookingConfig.inherit())
     ])
 
-        expect(events[0].key).toBeTruthy()
-        expect(events[0].tableBookingConfig).toEqual(TableBookingConfig.inherit())
+    expect(events[0].key).toBeTruthy()
+    expect(events[0].tableBookingConfig).toEqual(TableBookingConfig.inherit())
 })
 
 test('it supports a social distancing ruleset key', async () => {
@@ -108,7 +109,7 @@ test('it supports a social distancing ruleset key', async () => {
         Events.eventCreationParams(null, null, 'ruleset1')
     ])
 
-        expect(events[0].socialDistancingRulesetKey).toBe('ruleset1')
+    expect(events[0].socialDistancingRulesetKey).toBe('ruleset1')
 })
 
 test('it supports object categories', async () => {
@@ -121,7 +122,7 @@ test('it supports object categories', async () => {
         Events.eventCreationParams(null, null, null, { 'A-1': 10 })
     ])
 
-        expect(events[0].objectCategories).toEqual({ 'A-1': 10 })
+    expect(events[0].objectCategories).toEqual({ 'A-1': 10 })
 })
 
 test('it supports categories', async () => {
@@ -136,8 +137,8 @@ test('it supports categories', async () => {
         Events.eventCreationParams(null, null, null, null, [eventCategory])
     ])
 
-        expect(events[0].categories.length).toEqual(4) // 3 from sampleChart.json, 1 event level category
-        expect(events[0].categories.filter((cat: any) => cat.key === 'eventCat1').length).toEqual(1)
-        expect(events[0].categories.filter((cat: any) => cat.key === 'eventCat1')[0].label).toEqual('Event Level Category')
-        expect(events[0].categories.filter((cat: any) => cat.key === 'eventCat1')[0].color).toEqual('#AAABBB')
+    expect(events[0].categories.length).toEqual(4) // 3 from sampleChart.json, 1 event level category
+    expect(events[0].categories.filter((cat: any) => cat.key === 'eventCat1').length).toEqual(1)
+    expect(events[0].categories.filter((cat: any) => cat.key === 'eventCat1')[0].label).toEqual('Event Level Category')
+    expect(events[0].categories.filter((cat: any) => cat.key === 'eventCat1')[0].color).toEqual('#AAABBB')
 })

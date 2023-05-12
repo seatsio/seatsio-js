@@ -1,5 +1,5 @@
-import { ChartListParams } from '../../src/Charts/ChartListParams.js'
 import { TestUtils } from '../testUtils'
+import { ChartListParams } from '../../src/Charts/ChartListParams'
 
 test('listAll when there are many charts', async () => {
     const { client } = await TestUtils.createTestUserAndClient()
@@ -121,7 +121,7 @@ test('listAll Charts with expandEvents parameters and eventsLimit', async () => 
 test('list all charts with validation', async () => {
     const { client } = await TestUtils.createTestUserAndClient()
     await TestUtils.createArray(3, () => client.charts.create())
-    const params = new ChartListParams(...Array(3), true)
+    const params = new ChartListParams(...Array(3), null, null, true)
 
     for await (const chart of client.charts.listAll(params)) {
         expect(chart).toHaveProperty('validation')

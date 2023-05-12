@@ -2,6 +2,7 @@ import { TestUtils } from '../testUtils'
 import { IDs } from '../../src/Common/IDs'
 import { ObjectProperties } from '../../src/Events/ObjectProperties'
 import { EventObjectInfo } from '../../src/Events/EventObjectInfo'
+import { TableBookingConfig } from '../../src/Events/TableBookingConfig'
 
 test('report properties', async () => {
     const { client, user } = await TestUtils.createTestUserAndClient()

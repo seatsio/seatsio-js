@@ -466,7 +466,6 @@ export class Events {
      * @returns {Promise<ChangeObjectStatusResult>}
      */
     book (eventKeyOrKeys: any, objectOrObjects: any, holdToken = null, orderId = null, keepExtraData = null, ignoreChannels = null, channelKeys = null, ignoreSocialDistancing = null) {
-        // @ts-expect-error TS(2339): Property 'BOOKED' does not exist on type 'typeof E... Remove this comment to see the full error message
         return this.changeObjectStatus(eventKeyOrKeys, objectOrObjects, EventObjectInfo.BOOKED, holdToken, orderId, keepExtraData, ignoreChannels, channelKeys, ignoreSocialDistancing)
     }
 
@@ -484,7 +483,6 @@ export class Events {
      * @returns {Promise<BestAvailableObjects>}
      */
     bookBestAvailable (eventKey: any, number: any, categories = null, holdToken = null, extraData = null, ticketTypes = null, orderId = null, keepExtraData = null, ignoreChannels = null, channelKeys = null) {
-        // @ts-expect-error TS(2339): Property 'BOOKED' does not exist on type 'typeof E... Remove this comment to see the full error message
         return this.changeBestAvailableObjectStatus(encodeURIComponent(eventKey), number, EventObjectInfo.BOOKED, categories, holdToken, extraData, ticketTypes, orderId, keepExtraData, ignoreChannels, channelKeys)
     }
 
@@ -499,7 +497,6 @@ export class Events {
      * @returns {Promise<ChangeObjectStatusResult>}
      */
     release (eventKeyOrKeys: any, objectOrObjects: any, holdToken = null, orderId = null, keepExtraData = null, ignoreChannels = null, channelKeys = null) {
-        // @ts-expect-error TS(2339): Property 'FREE' does not exist on type 'typeof Eve... Remove this comment to see the full error message
         return this.changeObjectStatus(eventKeyOrKeys, objectOrObjects, EventObjectInfo.FREE, holdToken, orderId, keepExtraData, ignoreChannels, channelKeys)
     }
 
@@ -515,7 +512,6 @@ export class Events {
      * @returns {Promise<ChangeObjectStatusResult>}
      */
     hold (eventKeyOrKeys: any, objectOrObjects: any, holdToken: any, orderId = null, keepExtraData = null, ignoreChannels = null, channelKeys = null, ignoreSocialDistancing = null) {
-        // @ts-expect-error TS(2339): Property 'HELD' does not exist on type 'typeof Eve... Remove this comment to see the full error message
         return this.changeObjectStatus(eventKeyOrKeys, objectOrObjects, EventObjectInfo.HELD, holdToken, orderId, keepExtraData, ignoreChannels, channelKeys, ignoreSocialDistancing)
     }
 
@@ -534,7 +530,6 @@ export class Events {
      * @returns {Promise<BestAvailableObjects>}
      */
     holdBestAvailable (eventKey: any, number: any, holdToken: any, categories = null, extraData = null, ticketTypes = null, orderId = null, keepExtraData = null, ignoreChannels = null, channelKeys = null) {
-        // @ts-expect-error TS(2339): Property 'HELD' does not exist on type 'typeof Eve... Remove this comment to see the full error message
         return this.changeBestAvailableObjectStatus(encodeURIComponent(eventKey), number, EventObjectInfo.HELD, categories, holdToken, extraData, ticketTypes, orderId, keepExtraData, ignoreChannels, channelKeys)
     }
 

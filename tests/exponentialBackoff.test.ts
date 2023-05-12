@@ -1,5 +1,5 @@
 import { Region } from '../src/Region'
-import { SeatsioClient } from '../index.js'
+import { SeatsioClient } from '../src/SeatsioClient'
 
 test('aborts eventually if server keeps returning 429', async () => {
     const client = new SeatsioClient(new Region('https://httpbin.seatsio.net'), 'someSecretKey')
