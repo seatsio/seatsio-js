@@ -1,4 +1,4 @@
-import { TestUtils } from '../TestUtils'
+import { TestUtils } from '../testUtils'
 
 test('should mark objects as not for sale', async () => {
     const { client, user } = await TestUtils.createTestUserAndClient()

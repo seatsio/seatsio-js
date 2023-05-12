@@ -1,5 +1,5 @@
-import { TestUtils } from '../TestUtils'
-import { StatusChangeRequest } from '../../src/Events/StatusChangeRequest.js'
+import { TestUtils } from '../testUtils'
+import { StatusChangeRequest } from '../../src/Events/StatusChangeRequest'
 
 test('should list status changes for objects', async () => {
     const { client, user } = await TestUtils.createTestUserAndClient()

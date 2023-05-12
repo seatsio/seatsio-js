@@ -1,4 +1,4 @@
-import { TestUtils } from '../TestUtils'
+import { TestUtils } from '../testUtils'
 
 test('should change the holdPeriod', async () => {
     const { client } = await TestUtils.createTestUserAndClient()

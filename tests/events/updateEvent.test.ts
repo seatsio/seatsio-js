@@ -1,7 +1,7 @@
-import { TestUtils } from '../TestUtils'
-import { SocialDistancingRuleset } from '../../src/Charts/SocialDistancingRuleset.js'
 import { TableBookingConfig } from '../../src/Events/TableBookingConfig'
 import { Category } from '../../src/Charts/Category'
+import { TestUtils } from '../testUtils'
+import { SocialDistancingRuleset } from '../../src/Charts/SocialDistancingRuleset'
 
 test('should update event\'s chart key', async () => {
     const { client } = await TestUtils.createTestUserAndClient()
@@ -13,10 +13,10 @@ test('should update event\'s chart key', async () => {
 
     const retrievedEvent = await client.events.retrieve(event.key)
     const now = new Date()
-        expect(retrievedEvent.chartKey).toBe(chart2.key)
-        expect(retrievedEvent.updatedOn).toBeInstanceOf(Date)
-        expect(retrievedEvent.updatedOn.getTime()).toBeLessThanOrEqual(now.getTime() + 5000)
-        expect(retrievedEvent.updatedOn.getTime()).toBeGreaterThanOrEqual((now.getTime() - 5000))
+    expect(retrievedEvent.chartKey).toBe(chart2.key)
+    expect(retrievedEvent.updatedOn).toBeInstanceOf(Date)
+    expect(retrievedEvent.updatedOn.getTime()).toBeLessThanOrEqual(now.getTime() + 5000)
+    expect(retrievedEvent.updatedOn.getTime()).toBeGreaterThanOrEqual((now.getTime() - 5000))
 })
 
 test('should update event key', async () => {
@@ -27,8 +27,8 @@ test('should update event key', async () => {
     await client.events.update(event.key, null, 'newKey')
 
     const retrievedEvent = await client.events.retrieve('newKey')
-        expect(retrievedEvent.chartKey).toBe(chart.key)
-        expect(retrievedEvent.key).toBe('newKey')
+    expect(retrievedEvent.chartKey).toBe(chart.key)
+    expect(retrievedEvent.key).toBe('newKey')
 })
 
 test('should update tableBookingConfig parameter of an event', async () => {
@@ -40,9 +40,9 @@ test('should update tableBookingConfig parameter of an event', async () => {
     await client.events.update(event.key, null, null, TableBookingConfig.custom({ T1: 'BY_TABLE', T2: 'BY_SEAT' }))
 
     const retrievedEvent = await client.events.retrieve(event.key)
-        expect(retrievedEvent.chartKey).toBe(chartKey)
-        expect(retrievedEvent.key).toBe(event.key)
-        expect(retrievedEvent.tableBookingConfig).toEqual(TableBookingConfig.custom({ T1: 'BY_TABLE', T2: 'BY_SEAT' }))
+    expect(retrievedEvent.chartKey).toBe(chartKey)
+    expect(retrievedEvent.key).toBe(event.key)
+    expect(retrievedEvent.tableBookingConfig).toEqual(TableBookingConfig.custom({ T1: 'BY_TABLE', T2: 'BY_SEAT' }))
 })
 
 test('it supports a social distancing ruleset key', async () => {
@@ -58,7 +58,7 @@ test('it supports a social distancing ruleset key', async () => {
     await client.events.update(event.key, null, null, null, 'ruleset2')
 
     const retrievedEvent = await client.events.retrieve(event.key)
-        expect(retrievedEvent.socialDistancingRulesetKey).toBe('ruleset2')
+    expect(retrievedEvent.socialDistancingRulesetKey).toBe('ruleset2')
 })
 
 test('it supports removing the social distancing ruleset key', async () => {
@@ -73,7 +73,7 @@ test('it supports removing the social distancing ruleset key', async () => {
     await client.events.update(event.key, null, null, null, '')
 
     const retrievedEvent = await client.events.retrieve(event.key)
-        expect(retrievedEvent.socialDistancingRulesetKey).toBe(undefined)
+    expect(retrievedEvent.socialDistancingRulesetKey).toBe(undefined)
 })
 
 test('it supports object categories', async () => {
@@ -86,7 +86,7 @@ test('it supports object categories', async () => {
     await client.events.update(event.key, null, null, null, null, { 'A-1': 10 })
 
     const retrievedEvent = await client.events.retrieve(event.key)
-        expect(retrievedEvent.objectCategories).toEqual({ 'A-1': 10 })
+    expect(retrievedEvent.objectCategories).toEqual({ 'A-1': 10 })
 })
 
 test('it supports removing the object categories', async () => {
@@ -99,7 +99,7 @@ test('it supports removing the object categories', async () => {
     await client.events.update(event.key, null, null, null, null, { })
 
     const retrievedEvent = await client.events.retrieve(event.key)
-        expect(retrievedEvent.objectCategories).toBeFalsy()
+    expect(retrievedEvent.objectCategories).toBeFalsy()
 })
 
 test('it supports updating the categories', async () => {
@@ -113,11 +113,11 @@ test('it supports updating the categories', async () => {
     await client.events.update(event.key, null, null, null, null, null, [newEventCategory])
 
     const retrievedEvent = await client.events.retrieve(event.key)
-        expect(retrievedEvent.categories.length).toEqual(4) // 3 from sampleChart.json, 1 event level category
-        expect(retrievedEvent.categories.filter((cat: any) => cat.key === 'eventCat1').length).toEqual(0)
-        expect(retrievedEvent.categories.filter((cat: any) => cat.key === 'eventCat2').length).toEqual(1)
-        expect(retrievedEvent.categories.filter((cat: any) => cat.key === 'eventCat2')[0].label).toEqual('Event Level Category 2')
-        expect(retrievedEvent.categories.filter((cat: any) => cat.key === 'eventCat2')[0].color).toEqual('#BBBCCC')
+    expect(retrievedEvent.categories.length).toEqual(4) // 3 from sampleChart.json, 1 event level category
+    expect(retrievedEvent.categories.filter((cat: any) => cat.key === 'eventCat1').length).toEqual(0)
+    expect(retrievedEvent.categories.filter((cat: any) => cat.key === 'eventCat2').length).toEqual(1)
+    expect(retrievedEvent.categories.filter((cat: any) => cat.key === 'eventCat2')[0].label).toEqual('Event Level Category 2')
+    expect(retrievedEvent.categories.filter((cat: any) => cat.key === 'eventCat2')[0].color).toEqual('#BBBCCC')
 })
 
 test('it supports removing categoreis', async () => {
@@ -130,5 +130,5 @@ test('it supports removing categoreis', async () => {
     await client.events.update(event.key, null, null, null, null, null, [])
 
     const retrievedEvent = await client.events.retrieve(event.key)
-        expect(retrievedEvent.categories.length).toEqual(3) // 3 from sampleChart.json, event level category was removed
+    expect(retrievedEvent.categories.length).toEqual(3) // 3 from sampleChart.json, event level category was removed
 })

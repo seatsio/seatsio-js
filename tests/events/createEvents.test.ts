@@ -1,4 +1,4 @@
-import { TestUtils } from '../TestUtils'
+import { TestUtils } from '../testUtils'
 import { SocialDistancingRuleset } from '../../src/Charts/SocialDistancingRuleset.js'
 import { TableBookingConfig } from '../../src/Events/TableBookingConfig'
 import { Category } from '../../src/Charts/Category'

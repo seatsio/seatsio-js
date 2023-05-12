@@ -1,6 +1,6 @@
-import { TestUtils } from '../TestUtils'
-import { EventObjectInfo } from '../../src/Events/EventObjectInfo.js'
+import { TestUtils } from '../testUtils'
 import { SocialDistancingRuleset } from '../../src/Charts/SocialDistancingRuleset'
+import { EventObjectInfo } from '../../src/Events/EventObjectInfo'
 
 test('should hold objects', async () => {
     const { client, user } = await TestUtils.createTestUserAndClient()

@@ -46,7 +46,6 @@ test('should change best available object status with hold token', async () => {
     const event = await client.events.create(chartKey)
     const holdToken = await client.holdTokens.create()
 
-    // @ts-expect-error TS(2339): Property 'HELD' does not exist on type 'typeof Eve... Remove this comment to see the full error message
     const bestAvailableObjs = await client.events.changeBestAvailableObjectStatus(event.key, 1, EventObjectInfo.HELD, null, holdToken.holdToken)
 
     const objectInfo = await client.events.retrieveObjectInfo(event.key, bestAvailableObjs.objects[0])

@@ -1,4 +1,4 @@
-import { TestUtils } from '../TestUtils'
+import { TestUtils } from '../testUtils'
 
 test('should update extra data of an event', async () => {
     const { client, user } = await TestUtils.createTestUserAndClient()

@@ -1,6 +1,6 @@
-import { TestUtils } from '../TestUtils'
-import { EventObjectInfo } from '../../src/Events/EventObjectInfo.js'
-import { ObjectProperties } from '../../src/Events/ObjectProperties.js'
+import { TestUtils } from '../testUtils'
+import { EventObjectInfo } from '../../src/Events/EventObjectInfo'
+import { ObjectProperties } from '../../src/Events/ObjectProperties'
 
 test('should release objects', async () => {
     const { client, user } = await TestUtils.createTestUserAndClient()

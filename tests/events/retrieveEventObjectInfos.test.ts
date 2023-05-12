@@ -1,5 +1,5 @@
-import { TestUtils } from '../TestUtils'
-import { EventObjectInfo } from '../../src/Events/EventObjectInfo.js'
+import { TestUtils } from '../testUtils'
+import { EventObjectInfo } from '../../src/Events/EventObjectInfo'
 
 test('should retrieve event object infos', async () => {
     const { client, user } = await TestUtils.createTestUserAndClient()

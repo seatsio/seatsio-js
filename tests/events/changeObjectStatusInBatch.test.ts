@@ -1,5 +1,5 @@
-import { TestUtils } from '../TestUtils'
-import { StatusChangeRequest } from '../../src/Events/StatusChangeRequest.js'
+import { TestUtils } from '../testUtils'
+import { StatusChangeRequest } from '../../src/Events/StatusChangeRequest'
 
 test('should change object status in batch', async () => {
     const { client, user } = await TestUtils.createTestUserAndClient()
@@ -87,7 +87,7 @@ test('should accept allowedPreviousStatuses', async () => {
             new StatusChangeRequest(event.key, ['A-1'], 'lolzor', null, null, null, null, null, ['MustBeThisStatus'], null)
         ])
         throw new Error('Should have failed')
-    } catch (e) {
+    } catch (e: any) {
         expect(e.errors.length).toEqual(1)
         expect(e.errors[0].code).toBe('ILLEGAL_STATUS_CHANGE')
     }
@@ -104,7 +104,7 @@ test('should accept rejectedPreviousStatuses', async () => {
             new StatusChangeRequest(event.key, ['A-1'], 'lolzor', null, null, null, true, null, null, ['free'])
         ])
         throw new Error('Should have failed')
-    } catch (e) {
+    } catch (e: any) {
         expect(e.errors.length).toEqual(1)
         expect(e.errors[0].code).toBe('ILLEGAL_STATUS_CHANGE')
     }
