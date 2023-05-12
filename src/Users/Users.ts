@@ -1,6 +1,7 @@
-import { Lister } from '../Lister.js'
-import { User } from './User.js'
 import { Invitation } from '../Invitations/Invitation'
+import { Page } from '../Page'
+import { User } from './User'
+import { Lister } from '../Lister'
 
 export class Users {
     client: any
@@ -24,19 +25,10 @@ export class Users {
             .then((res: any) => new Invitation(res.data))
     }
 
-    /**
-     * @param {number} id
-     * @returns {Promise<User>}
-     */
     retrieve (id: any) {
-        return this.client.get(`/users/${id}`)
-            .then((res: any) => new User(res.data))
+        return this.client.get(`/users/${id}`).then((res: any) => new User(res.data))
     }
 
-    /**
-     * @param {number} id
-     * @returns {Promise}
-     */
     activate (id: any) {
         return this.client.post(`/users/${id}/actions/activate`)
     }
@@ -57,12 +49,8 @@ export class Users {
         return this.iterator().all(requestParameters)
     }
 
-    /**
-     * @returns {Page}
-     */
     listFirstPage (role = null, pageSize = null) {
         const requestParameters = role !== null ? { role } : {}
-        // @ts-expect-error TS(2345): Argument of type '{ role: never; } | { role?: unde... Remove this comment to see the full error message
         return this.iterator().firstPage(requestParameters, pageSize)
     }
 
@@ -71,7 +59,6 @@ export class Users {
      */
     listPageAfter (afterId: any, role = null, pageSize = null) {
         const requestParameters = role !== null ? { role } : {}
-        // @ts-expect-error TS(2345): Argument of type '{ role: never; } | { role?: unde... Remove this comment to see the full error message
         return this.iterator().pageAfter(afterId, requestParameters, pageSize)
     }
 
@@ -80,7 +67,6 @@ export class Users {
      */
     listPageBefore (beforeId: any, role = null, pageSize = null) {
         const requestParameters = role !== null ? { role } : {}
-        // @ts-expect-error TS(2345): Argument of type '{ role: never; } | { role?: unde... Remove this comment to see the full error message
         return this.iterator().pageBefore(beforeId, requestParameters, pageSize)
     }
 
@@ -90,7 +76,6 @@ export class Users {
     iterator () {
         return new Lister('/users', this.client, 'users', (data: any) => {
             const users = data.items.map((usersData: any) => new User(usersData))
-            // @ts-expect-error TS(2304): Cannot find name 'Page'.
             return new Page(users, data.next_page_starts_after, data.previous_page_ends_before)
         })
     }

@@ -19,17 +19,17 @@ export class Lister {
         return new AsyncIterator(this.url, this.client, this.type, params)
     }
 
-    firstPage (queryParams = null, pageSize = null) {
+    firstPage (queryParams: any = null, pageSize = null) {
         const params = queryParams && queryParams.serialize ? queryParams.serialize() : queryParams
         return this.pageFetcher.fetchAfter(null, params, pageSize)
     }
 
-    pageAfter (afterId: any, queryParams = null, pageSize = null) {
+    pageAfter (afterId: any, queryParams: any = null, pageSize = null) {
         const params = queryParams && queryParams.serialize ? queryParams.serialize() : queryParams
         return this.pageFetcher.fetchAfter(afterId, params, pageSize)
     }
 
-    pageBefore (beforeId: any, queryParams = null, pageSize = null) {
+    pageBefore (beforeId: any, queryParams: any = null, pageSize = null) {
         const params = queryParams && queryParams.serialize ? queryParams.serialize() : queryParams
         return this.pageFetcher.fetchBefore(beforeId, params, pageSize)
     }
