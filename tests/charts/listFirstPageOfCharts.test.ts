@@ -1,5 +1,5 @@
 import { TestUtils } from '../testUtils'
-import { ChartListParams } from '../../src/Charts/ChartListParams.js'
+import { ChartListParams } from '../../src/Charts/ChartListParams'
 
 test('should list first page of charts', async () => {
     const { client } = await TestUtils.createTestUserAndClient()
@@ -13,7 +13,7 @@ test('should list first page of charts', async () => {
     const page = await client.charts.listFirstPage()
     const chartKeys = page.items.map((chart: any) => chart.key)
 
-        expect(chartKeys.sort()).toEqual([charts[0].key, charts[1].key, charts[2].key].sort())
+    expect(chartKeys.sort()).toEqual([charts[0].key, charts[1].key, charts[2].key].sort())
 })
 
 test('should list first page of charts with filter', async () => {
@@ -30,7 +30,7 @@ test('should list first page of charts with filter', async () => {
     const page = await client.charts.listFirstPage(params)
     const chartKeys = page.items.map((chart: any) => chart.key)
 
-        expect(chartKeys.sort()).toEqual([charts[0].key, charts[1].key, charts[3].key].sort())
+    expect(chartKeys.sort()).toEqual([charts[0].key, charts[1].key, charts[3].key].sort())
 })
 
 test('should list first page of charts with tag', async () => {
@@ -46,7 +46,7 @@ test('should list first page of charts with tag', async () => {
 
     const page = await client.charts.listFirstPage(params)
 
-        expect(page.items[0].key).toEqual(charts[2].key)
+    expect(page.items[0].key).toEqual(charts[2].key)
 })
 
 test('pageSize of list first page of charts with page size', async () => {
@@ -59,7 +59,7 @@ test('pageSize of list first page of charts with page size', async () => {
     const page = await client.charts.listFirstPage(null, 2)
     const chartKeys = page.items.map((chart: any) => chart.key)
 
-        expect(chartKeys.sort()).toEqual([chart3.key, chart4.key].sort())
+    expect(chartKeys.sort()).toEqual([chart3.key, chart4.key].sort())
 })
 
 test('should list first page of charts with expanded events', async () => {
@@ -75,5 +75,5 @@ test('should list first page of charts with expanded events', async () => {
     const page = await client.charts.listFirstPage(params)
     const eventKeys = page.items.map((chart: any) => chart.events[0].key)
 
-        expect(eventKeys.sort()).toEqual(generatedKeys.sort())
+    expect(eventKeys.sort()).toEqual(generatedKeys.sort())
 })

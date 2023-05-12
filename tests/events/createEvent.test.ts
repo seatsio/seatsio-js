@@ -1,7 +1,7 @@
 import { TestUtils } from '../testUtils'
-import { SocialDistancingRuleset } from '../../src/Charts/SocialDistancingRuleset.js'
 import { TableBookingConfig } from '../../src/Events/TableBookingConfig'
 import { Category } from '../../src/Charts/Category'
+import { SocialDistancingRuleset } from '../../src/Charts/SocialDistancingRuleset'
 
 test('should check that only chart key is required', async () => {
     const { client, user } = await TestUtils.createTestUserAndClient()
@@ -10,15 +10,15 @@ test('should check that only chart key is required', async () => {
 
     const event = await client.events.create(chartKey)
 
-        expect(event.key).toBeTruthy()
-        expect(event.id).toBeTruthy()
-        expect(event.chartKey).toBe(chartKey)
-        expect(event.tableBookingConfig).toEqual(TableBookingConfig.inherit())
-        expect(event.supportsBestAvailable).toBe(true)
-        expect(event.createdOn).toBeInstanceOf(Date)
-        expect(event.forSaleConfig).toBeFalsy()
-        expect(event.updatedOn).toBeFalsy()
-        expect(event.categories).toEqual(TestUtils.testChartCategories)
+    expect(event.key).toBeTruthy()
+    expect(event.id).toBeTruthy()
+    expect(event.chartKey).toBe(chartKey)
+    expect(event.tableBookingConfig).toEqual(TableBookingConfig.inherit())
+    expect(event.supportsBestAvailable).toBe(true)
+    expect(event.createdOn).toBeInstanceOf(Date)
+    expect(event.forSaleConfig).toBeFalsy()
+    expect(event.updatedOn).toBeFalsy()
+    expect(event.categories).toEqual(TestUtils.testChartCategories)
 })
 
 test('should pass in event key as a create() param', async () => {
@@ -27,7 +27,7 @@ test('should pass in event key as a create() param', async () => {
 
     const event = await client.events.create(chart.key, 'eventKey')
 
-        expect(event.key).toBe('eventKey')
+    expect(event.key).toBe('eventKey')
 })
 
 test('supports tableBookingConfig custom', async () => {
@@ -38,8 +38,8 @@ test('supports tableBookingConfig custom', async () => {
 
     const event = await client.events.create(chartKey, null, tableBookingConfig)
 
-        expect(event.key).toBeTruthy()
-        expect(event.tableBookingConfig).toEqual(tableBookingConfig)
+    expect(event.key).toBeTruthy()
+    expect(event.tableBookingConfig).toEqual(tableBookingConfig)
 })
 
 test('supports tableBookingConfig inherit', async () => {
@@ -49,8 +49,8 @@ test('supports tableBookingConfig inherit', async () => {
 
     const event = await client.events.create(chartKey, null, TableBookingConfig.inherit())
 
-        expect(event.key).toBeTruthy()
-        expect(event.tableBookingConfig).toEqual(TableBookingConfig.inherit())
+    expect(event.key).toBeTruthy()
+    expect(event.tableBookingConfig).toEqual(TableBookingConfig.inherit())
 })
 
 test('it supports a social distancing ruleset key', async () => {
@@ -61,7 +61,7 @@ test('it supports a social distancing ruleset key', async () => {
 
     const event = await client.events.create(chart.key, null, null, 'ruleset1')
 
-        expect(event.socialDistancingRulesetKey).toBe('ruleset1')
+    expect(event.socialDistancingRulesetKey).toBe('ruleset1')
 })
 
 test('it supports object categories', async () => {
@@ -71,7 +71,7 @@ test('it supports object categories', async () => {
 
     const event = await client.events.create(chartKey, null, null, null, { 'A-1': 10 })
 
-        expect(event.objectCategories).toEqual({ 'A-1': 10 })
+    expect(event.objectCategories).toEqual({ 'A-1': 10 })
 })
 
 test('it supports categories', async () => {
@@ -83,8 +83,8 @@ test('it supports categories', async () => {
 
     const event = await client.events.create(chartKey, null, null, null, null, [eventCategory])
 
-        expect(event.categories.length).toEqual(4) // 3 from sampleChart.json, 1 event level category
-        expect(event.categories.filter((cat: any) => cat.key === 'eventCat1').length).toEqual(1)
-        expect(event.categories.filter((cat: any) => cat.key === 'eventCat1')[0].label).toEqual('Event Level Category')
-        expect(event.categories.filter((cat: any) => cat.key === 'eventCat1')[0].color).toEqual('#AAABBB')
+    expect(event.categories.length).toEqual(4) // 3 from sampleChart.json, 1 event level category
+    expect(event.categories.filter((cat: any) => cat.key === 'eventCat1').length).toEqual(1)
+    expect(event.categories.filter((cat: any) => cat.key === 'eventCat1')[0].label).toEqual('Event Level Category')
+    expect(event.categories.filter((cat: any) => cat.key === 'eventCat1')[0].color).toEqual('#AAABBB')
 })
