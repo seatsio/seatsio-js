@@ -51,12 +51,6 @@ export class Seasons {
             .then((res: any) => new Season(res.data))
     }
 
-    /**
-     * @param {string} topLevelSeasonKey
-     * @param {?string} partialSeasonKey
-     * @param {?string[]} eventKeys
-     * @returns {Promise<Season>}
-     */
     createPartialSeason (topLevelSeasonKey: any, partialSeasonKey = null, eventKeys = null) {
         const requestParameters = {}
 
@@ -73,12 +67,6 @@ export class Seasons {
             .then((res: any) => new Season(res.data))
     }
 
-    /**
-     * @param {string} key
-     * @param {?number} numberOfEvents
-     * @param {?string[]} eventKeys
-     * @returns {Promise<Season>}
-     */
     createEvents (key: any, numberOfEvents = null, eventKeys = null) {
         const requestParameters = { }
 
@@ -96,33 +84,17 @@ export class Seasons {
             .then((res: any) => res.data.events.map((e: any) => new EventDeserializer().fromJson(e)))
     }
 
-    /**
-     * @param {string} topLevelSeasonKey
-     * @param {string} partialSeasonKey
-     * @param {string[]} eventKeys
-     * @returns {Promise<Season>}
-     */
     addEventsToPartialSeason (topLevelSeasonKey: any, partialSeasonKey: any, eventKeys: any) {
         const requestParameters = { eventKeys }
         return this.client.post(`/seasons/${encodeURIComponent(topLevelSeasonKey)}/partial-seasons/${encodeURIComponent(partialSeasonKey)}/actions/add-events`, requestParameters)
             .then((res: any) => new Season(res.data))
     }
 
-    /**
-     * @param {string} topLevelSeasonKey
-     * @param {string} partialSeasonKey
-     * @param {string} eventKey
-     * @returns {Promise<Season>}
-     */
     async removeEventFromPartialSeason (topLevelSeasonKey: any, partialSeasonKey: any, eventKey: any) {
         return this.client.delete(`/seasons/${encodeURIComponent(topLevelSeasonKey)}/partial-seasons/${encodeURIComponent(partialSeasonKey)}/events/${encodeURIComponent(eventKey)}`)
             .then((res: any) => new Season(res.data))
     }
 
-    /**
-     * @param {string} key
-     * @returns {Promise<Season>}
-     */
     retrieve (key: any) {
         return this.seatsioClient.events.retrieve(key)
     }

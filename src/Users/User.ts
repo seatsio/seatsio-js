@@ -9,6 +9,7 @@ export class User {
     secretKey: any
     status: any
     workspaces: any
+
     constructor (userJson: any) {
         this.id = userJson.id
         this.email = userJson.email

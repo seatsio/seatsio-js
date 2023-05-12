@@ -3,10 +3,7 @@ export class StatusChangesParams {
     filterType: any
     sortDirection: any
     sortField: any
-    /**
-     * @param {?string} filter
-     * @param {?string} filterType
-     */
+
     constructor (filter = null, filterType = 'CONTAINS') {
         this.filter = filter
         this.filterType = filterType
@@ -14,51 +11,31 @@ export class StatusChangesParams {
         this.sortDirection = null
     }
 
-    /**
-     * @returns {StatusChangesParams}
-     */
     sortByObjectLabel () {
         this.sortField = 'objectLabel'
         return this
     }
 
-    /**
-     * @returns {StatusChangesParams}
-     */
     sortByStatus () {
         this.sortField = 'status'
         return this
     }
 
-    /**
-     * @returns {StatusChangesParams}
-     */
     sortByDate () {
         this.sortField = 'date'
         return this
     }
 
-    /**
-     * @returns {StatusChangesParams}
-     */
     sortAscending () {
         this.sortDirection = 'asc'
         return this
     }
 
-    /**
-     * @returns {StatusChangesParams}
-     */
     sortDescending () {
         this.sortDirection = 'desc'
         return this
     }
 
-    /**
-     * @param {string} filter
-     * @param {?string} filterType: CONTAINS, MATCHES, BEGINS_WITH or ENDS_WITH
-     * @returns {StatusChangesParams}
-     */
     withFilter (filter: any, filterType = 'CONTAINS') {
         this.filter = filter
         this.filterType = filterType

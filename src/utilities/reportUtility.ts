@@ -11,10 +11,6 @@ export class Utilities {
         return objectDetails
     }
 
-    /**
-     * @param {object} reportsData
-     * @returns {Object.<string, ObjectInfo>}
-     */
     static createEventReport (reportsData: any) {
         const reportObjects = {}
         for (const key of Object.keys(reportsData)) {
@@ -24,10 +20,6 @@ export class Utilities {
         return reportObjects
     }
 
-    /**
-     * @param {object} reportsData
-     * @returns {Object.<string, ChartObjectInfo>}
-     */
     static createChartReport (reportsData: any) {
         const reportObjects = {}
         for (const key of Object.keys(reportsData)) {

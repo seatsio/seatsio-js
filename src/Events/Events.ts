@@ -50,15 +50,6 @@ export class Events {
             .then((res: any) => new EventDeserializer().fromJson(res.data))
     }
 
-    /**
-     * @param {?string} eventKey
-     * @param {?TableBookingConfig} tableBookingConfig
-     * @param {?string} socialDistancingRulesetKey
-     * @param {?object} objectCategories
-     * @param {?array} categories
-     * @returns an object containing the necessary data for event creation
-     * @static
-     */
     static eventCreationParams (eventKey = null, tableBookingConfig = null, socialDistancingRulesetKey = null, objectCategories = null, categories = null) {
         const eventDefinition = {}
         // @ts-expect-error TS(2339): Property 'eventKey' does not exist on type '{}'.
@@ -74,11 +65,6 @@ export class Events {
         return eventDefinition
     }
 
-    /**
-     * @param {string} chartKey
-     * @param {object[]} events use {@link Events.eventCreationParams()} as a convenience function to create these objects
-     * @returns {Promise<Event[]>}
-     */
     createMultiple (chartKey: any, events: any) {
         const requestParameters = {}
 
@@ -130,10 +116,6 @@ export class Events {
             })
     }
 
-    /**
-     * @param {string} eventKey
-     * @returns {Promise<Event>}
-     */
     retrieve (eventKey: any) {
         return this.client.get(`/events/${encodeURIComponent(eventKey)}`)
             .then((res: any) => new EventDeserializer().fromJson(res.data))
@@ -175,51 +157,26 @@ export class Events {
         return this.client.post(`events/${encodeURIComponent(eventKey)}`, requestParameters)
     }
 
-    /**
-     * @param {string} eventKey
-     * @returns {Promise}
-     */
     delete (eventKey: any) {
         return this.client.delete(`/events/${encodeURIComponent(eventKey)}`)
     }
 
-    /**
-     * @param {?object} requestParameters
-     * @returns {AsyncIterator}
-     */
     listAll (requestParameters = {}) {
         return this.iterator().all(requestParameters)
     }
 
-    /**
-     * @param {?number} pageSize
-     * @returns {Page}
-     */
     listFirstPage (pageSize = null) {
         return this.iterator().firstPage(null, pageSize)
     }
 
-    /**
-     * @param {?string} afterId
-     * @param {?number} pageSize
-     * @returns {Page}
-     */
     listPageAfter (afterId: any, pageSize = null) {
         return this.iterator().pageAfter(afterId, null, pageSize)
     }
 
-    /**
-     * @param {?string} beforeId
-     * @param {?number} pageSize
-     * @returns {Page}
-     */
     listPageBefore (beforeId: any, pageSize = null) {
         return this.iterator().pageBefore(beforeId, null, pageSize)
     }
 
-    /**
-     * @returns {Lister}
-     */
     iterator () {
         return new Lister('/events', this.client, 'events', (data: any) => {
             const events = data.items.map((eventData: any) => new EventDeserializer().fromJson(eventData))
@@ -227,10 +184,6 @@ export class Events {
         })
     }
 
-    /**
-     * @param {string} eventKey
-     * @returns {Lister}
-     */
     statusChanges (eventKey: any) {
         return new Lister(`/events/${encodeURIComponent(eventKey)}/status-changes`, this.client, 'statusChanges', (data: any) => {
             const statusChanges = data.items.map((statusChangesData: any) => new StatusChange(statusChangesData))
@@ -238,9 +191,6 @@ export class Events {
         })
     }
 
-    /**
-     * @returns {Lister}
-     */
     statusChangesForObject (eventKey: any, objectId = null) {
         // @ts-expect-error TS(2345): Argument of type 'null' is not assignable to param... Remove this comment to see the full error message
         return new Lister(`/events/${encodeURIComponent(eventKey)}/objects/${encodeURIComponent(objectId)}/status-changes`, this.client, 'statusChanges', (data: any) => {
@@ -249,13 +199,6 @@ export class Events {
         })
     }
 
-    /**
-     * @param {string} eventKey
-     * @param {?string[]} objects
-     * @param {?object} areaPlaces
-     * @param {?string[]} categories
-     * @returns {Promise}
-     */
     markAsForSale (eventKey: any, objects = null, areaPlaces = null, categories = null) {
         const requestParameters = {}
         if (objects !== null) {
@@ -274,13 +217,6 @@ export class Events {
         return this.client.post(`events/${encodeURIComponent(eventKey)}/actions/mark-as-for-sale`, requestParameters)
     }
 
-    /**
-     * @param {string} eventKey
-     * @param {?string[]} objects
-     * @param {?object} areaPlaces
-     * @param {?string[]} categories
-     * @returns {Promise}
-     */
     markAsNotForSale (eventKey: any, objects = null, areaPlaces = null, categories = null) {
         const requestParameters = {}
         if (objects !== null) {
@@ -299,20 +235,10 @@ export class Events {
         return this.client.post(`events/${encodeURIComponent(eventKey)}/actions/mark-as-not-for-sale`, requestParameters)
     }
 
-    /**
-     * @param {string} eventKey
-     * @returns {Promise}
-     */
     markEverythingAsForSale (eventKey: any) {
         return this.client.post(`events/${encodeURIComponent(eventKey)}/actions/mark-everything-as-for-sale`)
     }
 
-    /**
-     * @param {string} eventKey
-     * @param {string} obj
-     * @param {object} extraData
-     * @returns {Promise}
-     */
     updateExtraData (eventKey: any, obj: any, extraData: any) {
         const requestParameters = {}
         // @ts-expect-error TS(2339): Property 'extraData' does not exist on type '{}'.
@@ -320,11 +246,6 @@ export class Events {
         return this.client.post(`/events/${encodeURIComponent(eventKey)}/objects/${encodeURIComponent(obj)}/actions/update-extra-data`, requestParameters)
     }
 
-    /**
-     * @param {string} eventKey
-     * @param {object} extraData
-     * @returns {Promise}
-     */
     updateExtraDatas (eventKey: any, extraData: any) {
         const requestParameters = {}
         // @ts-expect-error TS(2339): Property 'extraData' does not exist on type '{}'.
@@ -332,21 +253,11 @@ export class Events {
         return this.client.post(`/events/${encodeURIComponent(eventKey)}/actions/update-extra-data`, requestParameters)
     }
 
-    /**
-     * @param {string} eventKey
-     * @param {string} label
-     * @returns {Promise<EventObjectInfo>}
-     */
     async retrieveObjectInfo (eventKey: any, label: any) {
         const result = await this.retrieveObjectInfos(eventKey, [label])
         return result[label]
     }
 
-    /**
-     * @param {string} eventKey
-     * @param {string[]} labels
-     * @returns {Promise<Map<String, EventObjectInfo>>}
-     */
     retrieveObjectInfos (eventKey: any, labels: any) {
         const params = new URLSearchParams()
         labels.forEach((label: any) => {
@@ -362,20 +273,6 @@ export class Events {
             })
     }
 
-    /**
-     * @param {(string|string[])} eventKeyOrKeys
-     * @param {object|object[]} objectOrObjects
-     * @param {string} status
-     * @param {?string} holdToken
-     * @param {?string} orderId
-     * @param {?boolean} keepExtraData
-     * @param {?boolean} ignoreChannels
-     * @param {?string[]} channelKeys
-     * @param {?boolean} ignoreSocialDistancing
-     * @returns {Promise<ChangeObjectStatusResult>}
-     * @param {?string[]} allowedPreviousStatuses
-     * @param {?string[]} rejectedPreviousStatuses
-     */
     changeObjectStatus (eventKeyOrKeys: any, objectOrObjects: any, status: any, holdToken = null, orderId = null, keepExtraData = null, ignoreChannels = null, channelKeys = null, ignoreSocialDistancing = null, allowedPreviousStatuses = null, rejectedPreviousStatuses = null) {
         const request = this.changeObjectStatusRequest(objectOrObjects, status, holdToken, orderId, keepExtraData, ignoreChannels, channelKeys, ignoreSocialDistancing, allowedPreviousStatuses, rejectedPreviousStatuses)
         // @ts-expect-error TS(2339): Property 'events' does not exist on type '{}'.
@@ -385,10 +282,6 @@ export class Events {
             .then((res: any) => new ChangeObjectStatusResult(res.data.objects))
     }
 
-    /**
-     * @param {StatusChangeRequest[]} statusChangeRequests
-     * @returns {Promise<ChangeObjectStatusResult[]>}
-     */
     changeObjectStatusInBatch (statusChangeRequests: any) {
         const requests = statusChangeRequests.map((r: any) => {
             const json = this.changeObjectStatusRequest(
@@ -454,99 +347,26 @@ export class Events {
         return request
     }
 
-    /**
-     * @param {(string|string[])} eventKeyOrKeys
-     * @param {object|object[]} objectOrObjects
-     * @param {?string} holdToken
-     * @param {?string} orderId
-     * @param {?boolean} keepExtraData
-     * @param {?boolean} ignoreChannels
-     * @param {?string[]} channelKeys
-     * @param {?boolean} ignoreSocialDistancing
-     * @returns {Promise<ChangeObjectStatusResult>}
-     */
     book (eventKeyOrKeys: any, objectOrObjects: any, holdToken = null, orderId = null, keepExtraData = null, ignoreChannels = null, channelKeys = null, ignoreSocialDistancing = null) {
         return this.changeObjectStatus(eventKeyOrKeys, objectOrObjects, EventObjectInfo.BOOKED, holdToken, orderId, keepExtraData, ignoreChannels, channelKeys, ignoreSocialDistancing)
     }
 
-    /**
-     * @param {string} eventKey
-     * @param {number} number
-     * @param {?string[]} categories
-     * @param {?string} holdToken
-     * @param {?object} extraData
-     * @param {?string[]} ticketTypes
-     * @param {?string} orderId
-     * @param {?boolean} keepExtraData
-     * @param {?boolean} ignoreChannels
-     * @param {?string[]} channelKeys
-     * @returns {Promise<BestAvailableObjects>}
-     */
     bookBestAvailable (eventKey: any, number: any, categories = null, holdToken = null, extraData = null, ticketTypes = null, orderId = null, keepExtraData = null, ignoreChannels = null, channelKeys = null) {
         return this.changeBestAvailableObjectStatus(encodeURIComponent(eventKey), number, EventObjectInfo.BOOKED, categories, holdToken, extraData, ticketTypes, orderId, keepExtraData, ignoreChannels, channelKeys)
     }
 
-    /**
-     * @param {(string|string[])} eventKeyOrKeys
-     * @param {(object|object[])} objectOrObjects
-     * @param {?string} holdToken
-     * @param {?string} orderId
-     * @param {?boolean} keepExtraData
-     * @param {?boolean} ignoreChannels
-     * @param {?string[]} channelKeys
-     * @returns {Promise<ChangeObjectStatusResult>}
-     */
     release (eventKeyOrKeys: any, objectOrObjects: any, holdToken = null, orderId = null, keepExtraData = null, ignoreChannels = null, channelKeys = null) {
         return this.changeObjectStatus(eventKeyOrKeys, objectOrObjects, EventObjectInfo.FREE, holdToken, orderId, keepExtraData, ignoreChannels, channelKeys)
     }
 
-    /**
-     * @param {(string|string[])} eventKeyOrKeys
-     * @param {(object|object[])} objectOrObjects
-     * @param {string} holdToken
-     * @param {?string} orderId
-     * @param {?boolean} keepExtraData
-     * @param {?boolean} ignoreChannels
-     * @param {?string[]} channelKeys
-     * @param {?boolean} ignoreSocialDistancing
-     * @returns {Promise<ChangeObjectStatusResult>}
-     */
     hold (eventKeyOrKeys: any, objectOrObjects: any, holdToken: any, orderId = null, keepExtraData = null, ignoreChannels = null, channelKeys = null, ignoreSocialDistancing = null) {
         return this.changeObjectStatus(eventKeyOrKeys, objectOrObjects, EventObjectInfo.HELD, holdToken, orderId, keepExtraData, ignoreChannels, channelKeys, ignoreSocialDistancing)
     }
 
-    /**
-     * @param {string} eventKey
-     * @param {number} number
-     * @param {string} holdToken
-     * @param {?string[]} categories
-     * @param {?object} extraData
-     * @param {?string[]} ticketTypes
-     * @param {?string} orderId
-     * @param {?boolean} keepExtraData
-     * @param {?boolean} ignoreChannels
-     * @param {?string[]} channelKeys
-     * @param {?string[]} ticketTypes
-     * @returns {Promise<BestAvailableObjects>}
-     */
     holdBestAvailable (eventKey: any, number: any, holdToken: any, categories = null, extraData = null, ticketTypes = null, orderId = null, keepExtraData = null, ignoreChannels = null, channelKeys = null) {
         return this.changeBestAvailableObjectStatus(encodeURIComponent(eventKey), number, EventObjectInfo.HELD, categories, holdToken, extraData, ticketTypes, orderId, keepExtraData, ignoreChannels, channelKeys)
     }
 
-    /**
-     * @param {string} eventKey
-     * @param {number} number
-     * @param {string} status
-     * @param {string[]} categories
-     * @param {?string} holdToken
-     * @param {?object} extraData
-     * @param {?string[]} ticketTypes
-     * @param {?string} orderId
-     * @param {?boolean} keepExtraData
-     * @param {?boolean} ignoreChannels
-     * @param {?string[]} channelKeys
-     * @returns {Promise<BestAvailableObjects>}
-     */
     changeBestAvailableObjectStatus (eventKey: any, number: any, status: any, categories = null, holdToken = null, extraData = null, ticketTypes = null, orderId = null, keepExtraData = null, ignoreChannels = null, channelKeys = null) {
         const requestParameters = {}
         const bestAvailable = {}

@@ -3,9 +3,7 @@ import { Event } from '../Events/Event'
 export class Season extends Event {
     events: any
     partialSeasonKeys: any
-    /**
-     * @param {object} season
-     */
+
     constructor (season: any) {
         super(season)
         this.partialSeasonKeys = season.partialSeasonKeys

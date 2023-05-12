@@ -6,83 +6,38 @@ export class ChartReports {
         this.client = client
     }
 
-    /**
-     * @param {string} chartKey
-     * @param {string} bookWholeTables
-     * @returns {Object.<string, ChartObjectInfo[]>}
-     */
     byLabel (chartKey: any, bookWholeTables = undefined) {
         return this.fetchReport('byLabel', chartKey, bookWholeTables)
     }
 
-    /**
-     * @param {string} chartKey
-     * @param {string} bookWholeTables
-     * @returns {Object.<string, ChartObjectInfo[]>}
-     */
     byObjectType (chartKey: any, bookWholeTables = undefined) {
         return this.fetchReport('byObjectType', chartKey, bookWholeTables)
     }
 
-    /**
-     * @param {string} chartKey
-     * @param {string} bookWholeTables
-     * @returns {object} JSON response from the server
-     */
     summaryByObjectType (chartKey: any, bookWholeTables = undefined) {
         return this.fetchSummaryReport('byObjectType', chartKey, bookWholeTables)
     }
 
-    /**
-     * @param {string} chartKey
-     * @param {string} bookWholeTables
-     * @returns {Object.<string, ChartObjectInfo[]>}
-     */
     byCategoryLabel (chartKey: any, bookWholeTables = undefined) {
         return this.fetchReport('byCategoryLabel', chartKey, bookWholeTables)
     }
 
-    /**
-     * @param {string} chartKey
-     * @param {string} bookWholeTables
-     * @returns {object} JSON response from the server
-     */
     summaryByCategoryLabel (chartKey: any, bookWholeTables = undefined) {
         return this.fetchSummaryReport('byCategoryLabel', chartKey, bookWholeTables)
     }
 
-    /**
-     * @param {string} chartKey
-     * @param {string} bookWholeTables
-     * @returns {Object.<string, ChartObjectInfo[]>}
-     */
     byCategoryKey (chartKey: any, bookWholeTables = undefined) {
         return this.fetchReport('byCategoryKey', chartKey, bookWholeTables)
     }
 
-    /**
-     * @param {string} chartKey
-     * @param {string} bookWholeTables
-     * @returns {object} JSON response from the server
-     */
     summaryByCategoryKey (chartKey: any, bookWholeTables = undefined) {
         return this.fetchSummaryReport('byCategoryKey', chartKey, bookWholeTables)
     }
 
-    /**
-     * @param {string} chartKey
-     * @param {string} bookWholeTables
-     * @returns {Object.<string, ChartObjectInfo[]>}
-     */
     bySection (chartKey: any, bookWholeTables = undefined) {
         return this.fetchReport('bySection', chartKey, bookWholeTables)
     }
 
-    /**
-     * @param {string} chartKey
-     * @param {string} bookWholeTables
-     * @returns {object} JSON response from the server
-     */
     summaryBySection (chartKey: any, bookWholeTables = undefined) {
         return this.fetchSummaryReport('bySection', chartKey, bookWholeTables)
     }

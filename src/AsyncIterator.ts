@@ -17,12 +17,7 @@ export class AsyncIterator {
     pages: any
     params: any
     url: any
-    /**
-     * @param {string} url
-     * @param {Axios} client
-     * @param {string} objType
-     * @param {object} params
-     */
+
     constructor (url: any, client: any, objType: any, params = {}) {
         this.url = url
         this.client = client

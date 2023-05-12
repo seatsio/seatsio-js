@@ -4,9 +4,7 @@ export class Channel {
     key: any
     name: any
     objects: any
-    /**
-     * @param {object} Channel
-     */
+
     constructor (channel: any) {
         this.key = channel.key
         this.name = channel.name

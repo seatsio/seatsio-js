@@ -1,8 +1,6 @@
 export class Channels {
     client: any
-    /**
-     * @param {Axios} client
-     */
+
     constructor (client: any) {
         this.client = client
     }

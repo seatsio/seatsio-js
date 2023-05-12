@@ -19,9 +19,7 @@ export class Event {
     tableBookingConfig: any
     topLevelSeasonKey: any
     updatedOn: any
-    /**
-     * @param {object} json
-     */
+
     constructor (json: any) {
         this.id = json.id
         this.key = json.key
