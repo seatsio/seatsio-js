@@ -1,24 +1,21 @@
-import {EventDeserializer} from '../Events/EventDeserializer'
-import {ChartValidation} from './ChartValidation'
-import {SocialDistancingRuleset} from './SocialDistancingRuleset.js'
+import { EventDeserializer } from '../Events/EventDeserializer'
+import { ChartValidation } from './ChartValidation'
+import { SocialDistancingRuleset } from './SocialDistancingRuleset'
 
 export class Chart {
-    archived: any;
-    draftVersionThumbnailUrl: any;
-    events: any;
-    id: any;
-    key: any;
-    name: any;
-    publishedVersionThumbnailUrl: any;
-    socialDistancingRulesets: any;
-    status: any;
-    tags: any;
-    validation: any;
+    archived: any
+    draftVersionThumbnailUrl: any
+    events: any
+    id: any
+    key: any
+    name: any
+    publishedVersionThumbnailUrl: any
+    socialDistancingRulesets: any
+    status: any
+    tags: any
+    validation: any
 
-    /**
-     * @param {object} chart
-     */
-    constructor(chart: any) {
+    constructor (chart: any) {
         this.name = chart.name
         this.id = chart.id
         this.key = chart.key
@@ -32,7 +29,7 @@ export class Chart {
         this.socialDistancingRulesets = Chart.socialDistancingRulesetsFromJson(chart.socialDistancingRulesets)
     }
 
-    static socialDistancingRulesetsFromJson(json: any) {
+    static socialDistancingRulesetsFromJson (json: any) {
         if (json === undefined) {
             return undefined
         }

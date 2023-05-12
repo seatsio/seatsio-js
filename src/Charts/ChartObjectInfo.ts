@@ -2,23 +2,21 @@ import { HelperFunctions } from '../utilities/helperFunctions'
 import { IDs } from '../Common/IDs'
 
 export class ChartObjectInfo {
-    bookAsAWhole: any;
-    capacity: any;
-    categoryKey: any;
-    categoryLabel: any;
-    distanceToFocalPoint: any;
-    entrance: any;
-    ids: any;
-    label: any;
-    labels: any;
-    leftNeighbour: any;
-    numSeats: any;
-    objectType: any;
-    rightNeighbour: any;
-    section: any;
-    /**
-     * @param {object} chartReport
-     */
+    bookAsAWhole: any
+    capacity: any
+    categoryKey: any
+    categoryLabel: any
+    distanceToFocalPoint: any
+    entrance: any
+    ids: any
+    label: any
+    labels: any
+    leftNeighbour: any
+    numSeats: any
+    objectType: any
+    rightNeighbour: any
+    section: any
+
     constructor (chartReport: any) {
         this.label = chartReport.label
         this.labels = HelperFunctions.labelCreator(chartReport)

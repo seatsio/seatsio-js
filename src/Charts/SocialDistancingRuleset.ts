@@ -1,5 +1,4 @@
 export class SocialDistancingRuleset {
-
     static fixed (name: any) {
         return new FixedSocialDistancingRulesetBuilder(name)
     }
@@ -41,9 +40,9 @@ export class SocialDistancingRuleset {
 }
 
 class FixedSocialDistancingRulesetBuilder {
-    disabledSeats: any;
-    index: any;
-    name: any;
+    disabledSeats: any
+    index: any
+    name: any
     constructor (name: any) {
         this.name = name
     }
@@ -73,18 +72,18 @@ class FixedSocialDistancingRulesetBuilder {
 }
 
 class RuleBasedSocialDistancingRulesetBuilder {
-    disableDiagonalSeatsInFrontAndBehind: any;
-    disableSeatsInFrontAndBehind: any;
-    disabledSeats: any;
-    enabledSeats: any;
-    index: any;
-    maxGroupSize: any;
-    maxOccupancyAbsolute: any;
-    maxOccupancyPercentage: any;
-    name: any;
-    numberOfDisabledAisleSeats: any;
-    numberOfDisabledSeatsToTheSides: any;
-    oneGroupPerTable: any;
+    disableDiagonalSeatsInFrontAndBehind: any
+    disableSeatsInFrontAndBehind: any
+    disabledSeats: any
+    enabledSeats: any
+    index: any
+    maxGroupSize: any
+    maxOccupancyAbsolute: any
+    maxOccupancyPercentage: any
+    name: any
+    numberOfDisabledAisleSeats: any
+    numberOfDisabledSeatsToTheSides: any
+    oneGroupPerTable: any
     constructor (name: any) {
         this.name = name
     }
