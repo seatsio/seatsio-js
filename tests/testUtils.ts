@@ -3,7 +3,7 @@ import { v4 as uuidv4 } from 'uuid'
 import * as fs from 'fs'
 // @ts-ignore
 import path from 'path'
-import * as LabelClasses from '../src/Common/Labels'
+import { Labels, LabelAndType } from '../src/Common/Labels'
 import { Category } from '../src/Charts/Category'
 import { fileURLToPath } from 'url'
 import { SeatsioClient } from '../src/SeatsioClient'
@@ -60,22 +60,22 @@ export class TestUtils {
         const client = axios.create({
             auth: {
                 username: secretKey,
-                password: null
+                password: '' // TODO bver check this! Was null in js, is not nullable in ts
             }
         })
         const url = `${baseUrl}system/public/charts/${chartKey}`
         return client.post(url, requestBody)
     }
 
-    static someLabels (ownLabel: string, ownType: string, parentLabel = null, parentType = null, section = null) {
+    static someLabels (ownLabel: string, ownType: string, parentLabel: any = null, parentType: any = null, section: any = null): Labels {
         let labels
         if (parentLabel) {
-            labels = new LabelClasses.Labels(new LabelClasses.LabelAndType(ownLabel, ownType), new LabelClasses.LabelAndType(parentLabel, parentType))
+            labels = new Labels(new LabelAndType(ownLabel, ownType), new LabelAndType(parentLabel, parentType))
         } else {
-            labels = new LabelClasses.Labels(new LabelClasses.LabelAndType(ownLabel, ownType))
+            labels = new Labels(new LabelAndType(ownLabel, ownType))
         }
         if (section) {
-            labels.section = section
+            labels.setSection(section)
         }
         return labels
     }
