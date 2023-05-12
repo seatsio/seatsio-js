@@ -121,7 +121,7 @@ test('listAll Charts with expandEvents parameters and eventsLimit', async () => 
 test('list all charts with validation', async () => {
     const { client } = await TestUtils.createTestUserAndClient()
     await TestUtils.createArray(3, () => client.charts.create())
-    const params = new ChartListParams(...Array(3), null, null, true)
+    const params = new ChartListParams().withValidation(true)
 
     for await (const chart of client.charts.listAll(params)) {
         expect(chart).toHaveProperty('validation')
