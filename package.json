@@ -6,7 +6,8 @@
   "license": "MIT",
   "scripts": {
     "lint": "eslint ./src ./tests",
-    "test": "yarn node --experimental-vm-modules $(yarn bin jest) --maxWorkers=8 --verbose"
+    "test": "yarn node --experimental-vm-modules $(yarn bin jest) --maxWorkers=8 --verbose",
+    "build": "tsc --outDir build"
   },
   "repository": {
     "type": "git",
