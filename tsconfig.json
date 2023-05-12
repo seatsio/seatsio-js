@@ -14,8 +14,7 @@
     "skipLibCheck": true
   },
   "include": [
-    "src/main/js/**/*",
-    "src/test/**/*"
-  ],
-  "exclude": ["node_modules", "dist"]
+    "src/**/*",
+    "tests/**/*"
+  ]
 }
