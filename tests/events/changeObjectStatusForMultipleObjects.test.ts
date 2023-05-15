@@ -101,13 +101,13 @@ test('should change object status for multiple objects with quantity', async () 
     const event = await client.events.create(chartKey)
     const objects = [
         (new ObjectProperties('GA1')).setQuantity(5),
-        (new ObjectProperties('34')).setQuantity(10)
+        (new ObjectProperties('GA2')).setQuantity(10)
     ]
 
     await client.events.changeObjectStatus(event.key, objects, 'lolzor')
 
     const status1 = await client.events.retrieveObjectInfo(event.key, 'GA1')
-    const status2 = await client.events.retrieveObjectInfo(event.key, '34')
+    const status2 = await client.events.retrieveObjectInfo(event.key, 'GA2')
     expect(status1.numBooked).toBe(5)
     expect(status2.numBooked).toBe(10)
 })

@@ -351,8 +351,8 @@ export class Events {
         return this.changeObjectStatus(eventKeyOrKeys, objectOrObjects, EventObjectInfo.BOOKED, holdToken, orderId, keepExtraData, ignoreChannels, channelKeys, ignoreSocialDistancing)
     }
 
-    bookBestAvailable (eventKey: any, number: any, categories = null, holdToken = null, extraData = null, ticketTypes = null, orderId = null, keepExtraData = null, ignoreChannels = null, channelKeys = null) {
-        return this.changeBestAvailableObjectStatus(encodeURIComponent(eventKey), number, EventObjectInfo.BOOKED, categories, holdToken, extraData, ticketTypes, orderId, keepExtraData, ignoreChannels, channelKeys)
+    bookBestAvailable (eventKey: any, number: any, categories = null, holdToken = null, extraData = null, ticketTypes = null, orderId = null, keepExtraData = null, ignoreChannels = null, channelKeys = null, tryToPreventOrphanSeats = null) {
+        return this.changeBestAvailableObjectStatus(encodeURIComponent(eventKey), number, EventObjectInfo.BOOKED, categories, holdToken, extraData, ticketTypes, orderId, keepExtraData, ignoreChannels, channelKeys, tryToPreventOrphanSeats)
     }
 
     release (eventKeyOrKeys: any, objectOrObjects: any, holdToken = null, orderId = null, keepExtraData = null, ignoreChannels = null, channelKeys = null) {
@@ -363,11 +363,11 @@ export class Events {
         return this.changeObjectStatus(eventKeyOrKeys, objectOrObjects, EventObjectInfo.HELD, holdToken, orderId, keepExtraData, ignoreChannels, channelKeys, ignoreSocialDistancing)
     }
 
-    holdBestAvailable (eventKey: any, number: any, holdToken: any, categories = null, extraData = null, ticketTypes = null, orderId = null, keepExtraData = null, ignoreChannels = null, channelKeys = null) {
-        return this.changeBestAvailableObjectStatus(encodeURIComponent(eventKey), number, EventObjectInfo.HELD, categories, holdToken, extraData, ticketTypes, orderId, keepExtraData, ignoreChannels, channelKeys)
+    holdBestAvailable (eventKey: any, number: any, holdToken: any, categories = null, extraData = null, ticketTypes = null, orderId = null, keepExtraData = null, ignoreChannels = null, channelKeys = null, tryToPreventOrphanSeats = null) {
+        return this.changeBestAvailableObjectStatus(encodeURIComponent(eventKey), number, EventObjectInfo.HELD, categories, holdToken, extraData, ticketTypes, orderId, keepExtraData, ignoreChannels, channelKeys, tryToPreventOrphanSeats)
     }
 
-    changeBestAvailableObjectStatus (eventKey: any, number: any, status: any, categories = null, holdToken = null, extraData = null, ticketTypes = null, orderId = null, keepExtraData = null, ignoreChannels = null, channelKeys = null) {
+    changeBestAvailableObjectStatus (eventKey: any, number: any, status: any, categories = null, holdToken = null, extraData = null, ticketTypes = null, orderId = null, keepExtraData = null, ignoreChannels = null, channelKeys = null, tryToPreventOrphanSeats = null) {
         const requestParameters = {}
         const bestAvailable = {}
         // @ts-expect-error TS(2339): Property 'status' does not exist on type '{}'.
@@ -393,6 +393,9 @@ export class Events {
         if (ticketTypes !== null) {
             // @ts-expect-error TS(2339): Property 'ticketTypes' does not exist on type '{}'... Remove this comment to see the full error message
             bestAvailable.ticketTypes = ticketTypes
+        }
+        if (tryToPreventOrphanSeats !== null) {
+            bestAvailable.tryToPreventOrphanSeats = tryToPreventOrphanSeats
         }
         if (keepExtraData !== null) {
             // @ts-expect-error TS(2339): Property 'keepExtraData' does not exist on type '{... Remove this comment to see the full error message
