@@ -10,7 +10,7 @@
   "license": "MIT",
   "scripts": {
     "lint": "eslint ./src ./tests",
-    "test": "yarn node --experimental-vm-modules $(yarn bin jest) --maxWorkers=8 --verbose",
+    "test": "jest --maxWorkers=8 --verbose",
     "build": "tsc --outDir dist"
   },
   "repository": {
