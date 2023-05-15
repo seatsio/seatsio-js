@@ -394,7 +394,9 @@ export class Events {
             // @ts-expect-error TS(2339): Property 'ticketTypes' does not exist on type '{}'... Remove this comment to see the full error message
             bestAvailable.ticketTypes = ticketTypes
         }
+
         if (tryToPreventOrphanSeats !== null) {
+            // @ts-expect-error TS(2339): Property 'tryToPreventOrphanSeats' does not exist on type '{}'... Remove this comment to see the full error message
             bestAvailable.tryToPreventOrphanSeats = tryToPreventOrphanSeats
         }
         if (keepExtraData !== null) {
