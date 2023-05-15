@@ -1,13 +1,17 @@
 {
   "name": "seatsio",
   "version": "72.6.0",
-  "main": "index.js",
+  "main": "dist/src/index.js",
+  "types": "dist/src/index.d.ts",
+  "files": [
+    "/dist/src"
+  ],
   "description": "Official JavaScript and Node.JS client library for the Seats.io REST API",
   "license": "MIT",
   "scripts": {
     "lint": "eslint ./src ./tests",
     "test": "yarn node --experimental-vm-modules $(yarn bin jest) --maxWorkers=8 --verbose",
-    "build": "tsc --outDir build"
+    "build": "tsc --outDir dist"
   },
   "repository": {
     "type": "git",

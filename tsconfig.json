@@ -10,7 +10,7 @@
       "dom",
       "es2017"
     ],
-    "outDir": "tmp/ts-cache",
+    "outDir": "./dist",
     "skipLibCheck": true
   },
   "include": [
