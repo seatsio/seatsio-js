@@ -6,9 +6,8 @@ test('listens to successful requests', async () => {
     const requestEndedDeferred = TestUtils.deferred()
 
     client.setRequestListener(() => {
-        const resolve = requestStartedDeferred.resolve()
         return {
-            onRequestStarted: () => resolve,
+            onRequestStarted: () => requestStartedDeferred.resolve(),
             onRequestEnded: () => requestEndedDeferred.resolve()
         }
     })
