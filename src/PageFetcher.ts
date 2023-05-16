@@ -1,11 +1,14 @@
+import { Page } from './Page'
+
 export class PageFetcher {
-    client: any
-    pageCreator: any
-    url: any
-    constructor (url: any, client: any, pageCreator: any) {
+    private readonly client: any
+    private readonly pageCreator: (data: any) => Page
+    private readonly url: string
+
+    constructor (url: string, client: any, pageCreatorFunction: (data: any) => Page) {
         this.url = url
         this.client = client
-        this.pageCreator = pageCreator
+        this.pageCreator = pageCreatorFunction
     }
 
     fetchAfter (afterId: any, queryParameters: any, pageSize: any) {
@@ -27,7 +30,7 @@ export class PageFetcher {
         return this.fetch(parameters, pageSize)
     }
 
-    async fetch (queryParameters: any, pageSize: any) {
+    private async fetch (queryParameters: any, pageSize: any) {
         const parameters = queryParameters || {}
 
         if (pageSize) {

@@ -1,12 +1,14 @@
 import { PageFetcher } from './PageFetcher'
 import { AsyncIterator } from './AsyncIterator'
+import { Page } from './Page'
 
 export class Lister {
-    client: any
-    pageFetcher: any
-    type: any
-    url: any
-    constructor (url: any, client: any, type: any, pageCreatorFunction: any) {
+    private readonly url: string
+    private readonly client: any
+    private readonly type: string
+    private readonly pageFetcher: PageFetcher
+
+    constructor (url: string, client: any, type: string, pageCreatorFunction: (data: any) => Page) {
         this.pageFetcher = new PageFetcher(url, client, pageCreatorFunction)
         this.url = url
         this.client = client
