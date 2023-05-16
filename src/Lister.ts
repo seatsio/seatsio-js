@@ -15,8 +15,7 @@ export class Lister {
         this.type = type
     }
 
-    all (parameters = {}) {
-        // @ts-expect-error TS(2339): Property 'serialize' does not exist on type '{}'.
+    all (parameters: { serialize?: Function }) {
         const params = parameters.serialize ? parameters.serialize() : parameters
         return new AsyncIterator(this.url, this.client, this.type, params)
     }
