@@ -1,9 +1,9 @@
-var gulp = require('gulp')
-var jest = require('gulp-jest').default
-var browserify = require('browserify')
-var tap = require('gulp-tap')
-var buffer = require('gulp-buffer')
-var uglify = require('gulp-uglify-es').default
+import gulp from 'gulp'
+import uglify from 'gulp-uglify-es'
+import buffer from 'gulp-buffer'
+import tap from 'gulp-tap'
+import browserify from 'browserify'
+import jest from 'gulp-jest'
 
 gulp.task('jest', function () {
     return gulp.src('tests')

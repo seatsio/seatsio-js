@@ -1,12 +1,17 @@
 {
   "name": "seatsio",
   "version": "72.7.0",
-  "main": "index.js",
+  "main": "dist/src/index.js",
+  "types": "dist/src/index.d.ts",
+  "files": [
+    "/dist/src"
+  ],
   "description": "Official JavaScript and Node.JS client library for the Seats.io REST API",
   "license": "MIT",
   "scripts": {
-    "lint": "eslint ./src ./tests",
-    "test": "jest --maxWorkers=8 --verbose"
+    "lint": "eslint './src/**/*.ts' './tests/**/*.ts'",
+    "test": "jest --maxWorkers=8 --verbose",
+    "build": "tsc --outDir dist"
   },
   "repository": {
     "type": "git",
@@ -16,13 +21,21 @@
     "axios": "1.4.0"
   },
   "devDependencies": {
-    "eslint": "8.39.0",
+    "@jest/globals": "29.5.0",
+    "@types/jest": "29.5.1",
+    "@types/node": "20.1.5",
+    "@types/uuid": "9.0.1",
+    "@typescript-eslint/eslint-plugin": "5.59.6",
+    "@typescript-eslint/parser": "5.59.6",
+    "eslint": "8.40.0",
     "eslint-config-standard": "17.0.0",
     "eslint-plugin-import": "2.27.5",
-    "eslint-plugin-n": "15.7.0",
+    "eslint-plugin-n": "16.0.0",
     "eslint-plugin-promise": "6.1.1",
     "jest": "29.5.0",
     "jest-cli": "29.5.0",
+    "ts-jest": "29.1.0",
+    "typescript": "5.0.4",
     "uuid": "9.0.0"
   }
 }
