@@ -7,10 +7,10 @@ test('listens to successful requests', async () => {
 
     client.setRequestListener(() => {
         const resolve = requestStartedDeferred.resolve()
-        return ({
+        return {
             onRequestStarted: () => resolve,
             onRequestEnded: () => requestEndedDeferred.resolve()
-        })
+        }
     })
 
     await client.charts.create()
