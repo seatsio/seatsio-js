@@ -275,7 +275,7 @@ console.log(`Created a chart with key ${chart.key} and an event with key: ${even
 import { SeatsioClient, Region } from 'seatsio'
 
 let client = new SeatsioClient(Region.EU(), <COMPANY ADMIN KEY>, <WORKSPACE PUBLIC KEY>)
-let categories = await client.charts.listCategories("the chart key")
+let categoryList = await client.charts.listCategories("the chart key")
 for (const category of categoryList) {
     console.log(category.label)
 }
