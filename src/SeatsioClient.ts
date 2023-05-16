@@ -35,7 +35,7 @@ export class SeatsioClient {
 
     constructor (region: Region, secretKey?: any, workspaceKey = null, extraHeaders = {}) {
         // @ts-expect-error TS(2345): Argument of type '{ baseURL: any; auth: { username... Remove this comment to see the full error message
-        this.client = Axios.create(this._axiosConfig(region.url, secretKey, workspaceKey, extraHeaders))
+        this.client = Axios.create(this.axiosConfig(region.url, secretKey, workspaceKey, extraHeaders))
 
         this.setupRequestListenerInterceptors()
         this.client.maxRetries = 5
@@ -57,7 +57,7 @@ export class SeatsioClient {
         this.seasons = new Seasons(this.client, this)
     }
 
-    _axiosConfig (baseUrl: any, secretKey: any, workspaceKey: any, extraHeaders: any) {
+    private axiosConfig (baseUrl: any, secretKey: any, workspaceKey: any, extraHeaders: any) {
         const config = {
             baseURL: baseUrl,
             auth: {
