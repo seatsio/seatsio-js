@@ -12,7 +12,7 @@ test('should list all active subaccounts', async () => {
         activeSubaccountIds.push(subaccount.id)
     }
 
-        expect(activeSubaccountIds.sort()).toEqual([subaccount2.id, subaccount1.id, subaccount.id].sort())
+    expect(activeSubaccountIds.sort()).toEqual([subaccount2.id, subaccount1.id, subaccount.id].sort())
 })
 
 test('should list first page of active subaccounts', async () => {
@@ -23,8 +23,8 @@ test('should list first page of active subaccounts', async () => {
 
     const firstPage = await client.subaccounts.active.firstPage()
 
-        expect(firstPage.items.map((item: any) => item.id).sort()).toEqual([subaccount1.id, subaccount2.id, subaccount3.id, subaccount.id].sort())
-        expect(firstPage.items.length).toBe(4)
+    expect(firstPage.items.map((item: any) => item.id).sort()).toEqual([subaccount1.id, subaccount2.id, subaccount3.id, subaccount.id].sort())
+    expect(firstPage.items.length).toBe(4)
 })
 
 test('should list first page of active subaccounts with page size', async () => {
@@ -35,8 +35,8 @@ test('should list first page of active subaccounts with page size', async () => 
 
     const firstPage = await client.subaccounts.active.firstPage(null, 1)
 
-        expect(firstPage.items[0].id).toEqual(subaccount.id)
-        expect(firstPage.items.length).toBe(1)
+    expect(firstPage.items[0].id).toEqual(subaccount.id)
+    expect(firstPage.items.length).toBe(1)
 })
 
 test('should list page after of active subaccounts', async () => {
@@ -47,8 +47,8 @@ test('should list page after of active subaccounts', async () => {
 
     const pageAfter = await client.subaccounts.active.pageAfter(subaccount3.id)
 
-        expect([pageAfter.items[0].id, pageAfter.items[1].id, pageAfter.items[2].id].sort()).toEqual([subaccount1.id, subaccount2.id, subaccount.id].sort())
-        expect(pageAfter.items.length).toBe(3)
+    expect([pageAfter.items[0].id, pageAfter.items[1].id, pageAfter.items[2].id].sort()).toEqual([subaccount1.id, subaccount2.id, subaccount.id].sort())
+    expect(pageAfter.items.length).toBe(3)
 })
 
 test('should list page after of active subaccounts with page size', async () => {
@@ -59,8 +59,8 @@ test('should list page after of active subaccounts with page size', async () => 
 
     const pageAfter = await client.subaccounts.active.pageAfter(subaccount3.id, null, 1)
 
-        expect(pageAfter.items[0].id).toEqual(subaccount2.id)
-        expect(pageAfter.items.length).toBe(1)
+    expect(pageAfter.items[0].id).toEqual(subaccount2.id)
+    expect(pageAfter.items.length).toBe(1)
 })
 
 test('should list page before of active subaccounts', async () => {
@@ -71,8 +71,8 @@ test('should list page before of active subaccounts', async () => {
 
     const pageAfter = await client.subaccounts.active.pageBefore(subaccount1.id)
 
-        expect([pageAfter.items[0].id, pageAfter.items[1].id].sort()).toEqual([subaccount2.id, subaccount3.id].sort())
-        expect(pageAfter.items.length).toBe(2)
+    expect([pageAfter.items[0].id, pageAfter.items[1].id].sort()).toEqual([subaccount2.id, subaccount3.id].sort())
+    expect(pageAfter.items.length).toBe(2)
 })
 
 test('should list page before of active subaccounts with page size', async () => {
@@ -83,6 +83,6 @@ test('should list page before of active subaccounts with page size', async () =>
 
     const pageAfter = await client.subaccounts.active.pageBefore(subaccount1.id, null, 1)
 
-        expect(pageAfter.items[0].id).toEqual(subaccount2.id)
-        expect(pageAfter.items.length).toBe(1)
+    expect(pageAfter.items[0].id).toEqual(subaccount2.id)
+    expect(pageAfter.items.length).toBe(1)
 })

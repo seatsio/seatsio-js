@@ -7,7 +7,7 @@ test('create events in season by event keys', async () => {
 
     const events = await client.seasons.createEvents(season.key, null, ['event1', 'event2'])
 
-        expect(events.map((e: any) => e.key)).toEqual(['event2', 'event1'])
+    expect(events.map((e: any) => e.key)).toEqual(['event2', 'event1'])
 })
 
 test('create events in season by number of events', async () => {
@@ -17,5 +17,5 @@ test('create events in season by number of events', async () => {
 
     const events = await client.seasons.createEvents(season.key, 2)
 
-        expect(events.length).toBe(2)
+    expect(events.length).toBe(2)
 })

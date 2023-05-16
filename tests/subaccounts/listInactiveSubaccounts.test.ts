@@ -16,7 +16,7 @@ test('should list all inactive subaccounts', async () => {
         inactiveSubaccountIds.push(subaccount.id)
     }
 
-        expect(inactiveSubaccountIds.sort()).toEqual([subaccount1.id, subaccount2.id].sort())
+    expect(inactiveSubaccountIds.sort()).toEqual([subaccount1.id, subaccount2.id].sort())
 })
 
 test('should list first page of inactive subaccounts', async () => {
@@ -34,8 +34,8 @@ test('should list first page of inactive subaccounts', async () => {
 
     const firstPage = await client.subaccounts.inactive.firstPage()
 
-        expect(firstPage.items.map((item: any) => item.id).sort()).toEqual([subaccount1.id, subaccount2.id, subaccount3.id].sort())
-        expect(firstPage.items.length).toBe(3)
+    expect(firstPage.items.map((item: any) => item.id).sort()).toEqual([subaccount1.id, subaccount2.id, subaccount3.id].sort())
+    expect(firstPage.items.length).toBe(3)
 })
 
 test('should list first page of inactive subaccounts with page size', async () => {
@@ -52,7 +52,7 @@ test('should list first page of inactive subaccounts with page size', async () =
     await Promise.all(promises)
     const firstPage = await client.subaccounts.inactive.firstPage(null, 2)
 
-        expect(firstPage.items.map((item: any) => item.id).sort()).toEqual([subaccount2.id, subaccount3.id].sort())
+    expect(firstPage.items.map((item: any) => item.id).sort()).toEqual([subaccount2.id, subaccount3.id].sort())
 })
 
 test('should list page after of inactive subaccounts', async () => {
@@ -68,7 +68,7 @@ test('should list page after of inactive subaccounts', async () => {
     await Promise.all(promises)
     const pageAfter = await client.subaccounts.inactive.pageAfter(subaccount3.id)
 
-        expect([pageAfter.items[0].id, pageAfter.items[1].id].sort()).toEqual([subaccount1.id, subaccount2.id].sort())
+    expect([pageAfter.items[0].id, pageAfter.items[1].id].sort()).toEqual([subaccount1.id, subaccount2.id].sort())
 })
 
 test('should list page after of inactive subaccounts with page size', async () => {
@@ -83,7 +83,7 @@ test('should list page after of inactive subaccounts with page size', async () =
     await Promise.all(promises)
     const pageAfter = await client.subaccounts.inactive.pageAfter(subaccount3.id, null, 1)
 
-        expect(pageAfter.items[0].id).toEqual(subaccount2.id)
+    expect(pageAfter.items[0].id).toEqual(subaccount2.id)
 })
 
 test('should list page before of inactive subaccounts', async () => {
@@ -99,7 +99,7 @@ test('should list page before of inactive subaccounts', async () => {
     await Promise.all(promises)
     const pageAfter = await client.subaccounts.inactive.pageBefore(subaccount1.id)
 
-        expect([pageAfter.items[0].id, pageAfter.items[1].id].sort()).toEqual([subaccount2.id, subaccount3.id].sort())
+    expect([pageAfter.items[0].id, pageAfter.items[1].id].sort()).toEqual([subaccount2.id, subaccount3.id].sort())
 })
 
 test('should list page before of inactive subaccounts with page size', async () => {
@@ -114,5 +114,5 @@ test('should list page before of inactive subaccounts with page size', async () 
     await Promise.all(promises)
     const pageAfter = await client.subaccounts.inactive.pageBefore(subaccount1.id, null, 1)
 
-        expect(pageAfter.items[0].id).toEqual(subaccount2.id)
+    expect(pageAfter.items[0].id).toEqual(subaccount2.id)
 })

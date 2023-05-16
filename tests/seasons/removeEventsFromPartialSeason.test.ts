@@ -9,5 +9,5 @@ test('add events to partial season', async () => {
 
     const updatedPartialSeason = await client.seasons.removeEventFromPartialSeason(season.key, partialSeason.key, 'event2')
 
-        expect(updatedPartialSeason.events.map((e: any) => e.key)).toEqual(['event1'])
+    expect(updatedPartialSeason.events.map((e: any) => e.key)).toEqual(['event1'])
 })

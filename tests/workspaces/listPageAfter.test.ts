@@ -8,7 +8,7 @@ test('should list workspaces after an id', async () => {
 
     const page = await client.workspaces.listPageAfter(ws3.id, null, 2)
 
-        expect(page.items.map((workspace: any) => workspace.id)).toEqual([ws2.id, ws1.id])
+    expect(page.items.map((workspace: any) => workspace.id)).toEqual([ws2.id, ws1.id])
 })
 
 test('should filter workspaces after an id', async () => {
@@ -20,5 +20,5 @@ test('should filter workspaces after an id', async () => {
 
     const page = await client.workspaces.listPageAfter(ws4.id, 'wo', 2)
 
-        expect(page.items.map((workspace: any) => workspace.id)).toEqual([ws3.id, ws1.id])
+    expect(page.items.map((workspace: any) => workspace.id)).toEqual([ws3.id, ws1.id])
 })

@@ -1,4 +1,5 @@
 import { TestUtils } from '../testUtils'
+// eslint-disable-next-line import/no-named-as-default
 import Axios from 'axios'
 
 test('should delete an event', async () => {
@@ -10,5 +11,5 @@ test('should delete an event', async () => {
 
     const retrieveFail = await client.events.retrieve(event.key).catch((err: any) => err)
     Axios.interceptors.request.eject(client.errInterceptor)
-        expect(retrieveFail.status).toBe(404)
+    expect(retrieveFail.status).toBe(404)
 })

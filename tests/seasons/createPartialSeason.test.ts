@@ -8,7 +8,7 @@ test('key can be passed in', async () => {
 
     const partialSeason = await client.seasons.createPartialSeason(season.key, 'aPartialSeason')
 
-        expect(partialSeason.key).toBe('aPartialSeason')
+    expect(partialSeason.key).toBe('aPartialSeason')
 })
 
 test('event keys can be passed in', async () => {
@@ -18,5 +18,5 @@ test('event keys can be passed in', async () => {
 
     const partialSeason = await client.seasons.createPartialSeason(season.key, null, ['event1', 'event2'])
 
-        expect(partialSeason.events.map((event: any) => event.key)).toEqual(['event1', 'event2'])
+    expect(partialSeason.events.map((event: any) => event.key)).toEqual(['event1', 'event2'])
 })

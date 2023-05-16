@@ -10,7 +10,7 @@ import { ChartReports } from './Reports/ChartReports'
 import { EventReports } from './Reports/EventReports'
 import { UsageReports } from './Reports/UsageReports'
 import { errorResponseHandler } from './errorInterceptor'
-import Axios from 'axios'
+import { Axios } from 'axios'
 import { Seasons } from './Seasons/Seasons'
 import { Region } from './Region'
 
