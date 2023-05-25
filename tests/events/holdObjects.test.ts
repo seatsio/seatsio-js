@@ -41,10 +41,9 @@ test('should accept channel keys', async () => {
     await TestUtils.createTestChart(chartKey, user.secretKey)
     const event = await client.events.create(chartKey)
     const holdToken = await client.holdTokens.create()
-    await client.events.channels.replace(event.key, {
-        channelKey1: { name: 'channel 1', color: '#FFAABB', index: 1 }
-    })
-    await client.events.channels.setObjects(event.key, { channelKey1: ['A-1'] })
+    await client.events.channels.replace(event.key, [
+        { key: 'channelKey1', name: 'channel 1', color: 'blue', index: 1, objects: ['A-1'] }
+    ])
     await client.events.hold(event.key, ['A-1'], holdToken.holdToken, null, null, null, ['channelKey1'])
 
     const objectInfo = await client.events.retrieveObjectInfo(event.key, 'A-1')
@@ -57,10 +56,9 @@ test('should accept ignoreChannels', async () => {
     await TestUtils.createTestChart(chartKey, user.secretKey)
     const event = await client.events.create(chartKey)
     const holdToken = await client.holdTokens.create()
-    await client.events.channels.replace(event.key, {
-        channelKey1: { name: 'channel 1', color: '#FFAABB', index: 1 }
-    })
-    await client.events.channels.setObjects(event.key, { channelKey1: ['A-1'] })
+    await client.events.channels.replace(event.key, [
+        { key: 'channel1', name: 'channel 1', color: 'blue', index: 1, objects: ['A-1'] }
+    ])
 
     await client.events.hold(event.key, ['A-1'], holdToken.holdToken, null, null, true)
 

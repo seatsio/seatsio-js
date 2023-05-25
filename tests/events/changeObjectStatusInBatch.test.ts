@@ -33,16 +33,9 @@ test('should accept channel keys', async () => {
     const chartKey = TestUtils.getChartKey()
     await TestUtils.createTestChart(chartKey, user.secretKey)
     const event = await client.events.create(chartKey)
-    await client.events.channels.replace(event.key, {
-        channelKey1: {
-            name: 'channel 1',
-            color: '#FFAABB',
-            index: 1
-        }
-    })
-    await client.events.channels.setObjects(event.key, {
-        channelKey1: ['A-1']
-    })
+    await client.events.channels.replace(event.key, [
+        { key: 'channelKey1', name: 'channel 1', color: 'blue', index: 1, objects: ['A-1'] }
+    ])
 
     const result = await client.events.changeObjectStatusInBatch([
         // @ts-expect-error TS(2554): Expected 10 arguments, but got 8.
@@ -57,16 +50,9 @@ test('should accept ignoreChannels', async () => {
     const chartKey = TestUtils.getChartKey()
     await TestUtils.createTestChart(chartKey, user.secretKey)
     const event = await client.events.create(chartKey)
-    await client.events.channels.replace(event.key, {
-        channelKey1: {
-            name: 'channel 1',
-            color: '#FFAABB',
-            index: 1
-        }
-    })
-    await client.events.channels.setObjects(event.key, {
-        channelKey1: ['A-1', 'A-2']
-    })
+    await client.events.channels.replace(event.key, [
+        { key: 'channel1', name: 'channel 1', color: 'blue', index: 1, objects: ['A-1', 'A-2'] }
+    ])
 
     const result = await client.events.changeObjectStatusInBatch([
         // @ts-expect-error TS(2554): Expected 10 arguments, but got 7.
