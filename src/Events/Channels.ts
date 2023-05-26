@@ -44,10 +44,6 @@ export class Channels {
     }
 
     replace (eventKey: any, channels: any) {
-        return this.client.post(`/events/${encodeURIComponent(eventKey)}/channels/update`, { channels })
-    }
-
-    setObjects (eventKey: any, channelConfig: any) {
-        return this.client.post(`/events/${encodeURIComponent(eventKey)}/channels/assign-objects`, { channelConfig })
+        return this.client.post(`/events/${encodeURIComponent(eventKey)}/channels/replace`, { channels })
     }
 }
