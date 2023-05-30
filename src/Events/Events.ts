@@ -239,7 +239,7 @@ export class Events {
         return result[label]
     }
 
-    retrieveObjectInfos (eventKey: string, labels: string[]) {
+    retrieveObjectInfos (eventKey: string, labels: string[]): Promise<Dict<EventObjectInfo>> {
         const params = new URLSearchParams()
         labels.forEach((label: string) => {
             params.append('label', label)

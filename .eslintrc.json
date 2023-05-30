@@ -17,16 +17,12 @@
   "settings": {
     "import/resolver": {
       "node": {
-        "extensions": [".js", ".ts"]
+        "extensions": [".ts"]
       },
       "typescript": {
         "directory": "./tsconfig.json"
       }
     }
-  },
-  "globals": {
-    "client": "readonly",
-    "user": "readonly"
   },
   "rules": {
     "indent": [

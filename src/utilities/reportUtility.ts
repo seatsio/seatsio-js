@@ -12,7 +12,7 @@ export class Utilities {
     }
 
     static createEventReport (reportsData: Dict<EventObjectInfoJson[]>) {
-        const reportObjects: Dict<EventObjectInfoJson> = {}
+        const reportObjects: Dict<EventObjectInfo[]> = {}
         for (const key of Object.keys(reportsData)) {
             reportObjects[key] = reportsData[key].map(data => new EventObjectInfo(data))
         }
@@ -20,7 +20,7 @@ export class Utilities {
     }
 
     static createChartReport (reportsData: Dict<ChartObjectInfoJson[]>) {
-        const reportObjects: Dict<ChartObjectInfoJson> = {}
+        const reportObjects: Dict<ChartObjectInfo[]> = {}
         for (const key of Object.keys(reportsData)) {
             reportObjects[key] = reportsData[key].map((data: any) => new ChartObjectInfo(data))
         }

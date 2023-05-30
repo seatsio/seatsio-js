@@ -10,7 +10,7 @@ test('should create a chart with default parameters', async () => {
     expect(chart.status).toBe('NOT_USED')
     expect(chart.name).toBe('Untitled chart')
     expect(chart.publishedVersionThumbnailUrl).toBeTruthy()
-    expect(chart.draftVersionThumbnailUrl).toBeFalsy()
+    expect(chart.draftVersionThumbnailUrl).toBeNull()
     expect(chart.tags).toEqual([])
     expect(chart.archived).toBe(false)
 

@@ -19,7 +19,7 @@ export class ChartObjectInfo {
     numSeats?: number
     objectType: string
     rightNeighbour?: string
-    section: string
+    section?: string
 
     constructor (json: ChartObjectInfoJson) {
         this.label = json.label
