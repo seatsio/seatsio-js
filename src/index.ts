@@ -1,7 +1,0 @@
-export { SeatsioClient } from './SeatsioClient'
-export { StatusChangesParams } from './Events/StatusChangesParams'
-export { StatusChangeRequest } from './Events/StatusChangeRequest'
-export { TableBookingConfig } from './Events/TableBookingConfig'
-export { ChartListParams } from './Charts/ChartListParams'
-export { SocialDistancingRuleset } from './Charts/SocialDistancingRuleset'
-export { Region } from './Region'

@@ -1,7 +1,8 @@
 import { TestUtils } from '../testUtils'
 import { SeasonParams } from '../../src/Seasons/SeasonParams'
-import { TableBookingConfig, SocialDistancingRuleset } from '../../src'
 import { Event } from '../../src/Events/Event'
+import { TableBookingConfig } from '../../src/Events/TableBookingConfig'
+import { SocialDistancingRuleset } from '../../src/Charts/SocialDistancingRuleset'
 
 test('chart key is required', async () => {
     const { client, user } = await TestUtils.createTestUserAndClient()
