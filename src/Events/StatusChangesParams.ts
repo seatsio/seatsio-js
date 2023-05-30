@@ -4,9 +4,9 @@ export class StatusChangesParams {
     sortDirection?: string
     sortField?: string
 
-    constructor (filter?: string) {
+    constructor (filter?: string, filterType: string = 'CONTAINS') {
         this.filter = filter
-        this.filterType = 'CONTAINS'
+        this.filterType = filterType
     }
 
     sortByObjectLabel () {
