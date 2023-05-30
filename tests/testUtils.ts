@@ -2,10 +2,11 @@ import axios from 'axios'
 import { v4 as uuidv4 } from 'uuid'
 import * as fs from 'fs'
 import path from 'path'
-import { Labels, LabelAndType } from '../src/Common/Labels'
+import { Labels } from '../src/Common/Labels'
 import { Category } from '../src/Charts/Category'
 import { SeatsioClient } from '../src/SeatsioClient'
 import { Region } from '../src/Region'
+import { LabelAndType } from '../src/Common/LabelAndType'
 
 const baseUrl = 'https://api-staging-eu.seatsio.net/'
 
@@ -32,7 +33,7 @@ export class TestUtils {
         return uuidv4()
     }
 
-    static createClient (secretKey: string, workspaceKey = null) {
+    static createClient (secretKey: string, workspaceKey?: string) {
         return new SeatsioClient(new Region(baseUrl), secretKey, workspaceKey)
     }
 
@@ -64,7 +65,7 @@ export class TestUtils {
         return client.post(url, requestBody)
     }
 
-    static someLabels (ownLabel: string, ownType: string, parentLabel: any = null, parentType: any = null, section: any = null): Labels {
+    static someLabels (ownLabel: string, ownType: string, parentLabel: string | null = null, parentType: string, section: string | null = null): Labels {
         let labels
         if (parentLabel) {
             labels = new Labels(new LabelAndType(ownLabel, ownType), new LabelAndType(parentLabel, parentType))
@@ -107,7 +108,7 @@ export class TestUtils {
         }
     }
 
-    static async statusChangesPresent (client: any, eventKey: any, numStatusChanges: any) {
+    static async statusChangesPresent (client: SeatsioClient, eventKey: string, numStatusChanges: number) {
         const deferred = this.deferred()
         const start = new Date()
 

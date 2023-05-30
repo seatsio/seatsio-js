@@ -1,36 +1,42 @@
 import { PageFetcher } from './PageFetcher'
-import { AsyncIterator } from './AsyncIterator'
+import { AsyncIterator, PaginatedJson } from './AsyncIterator'
+import { Axios } from 'axios'
+import { Page } from './Page'
 
-export class Lister {
-    client: any
-    pageFetcher: any
-    type: any
-    url: any
-    constructor (url: any, client: any, type: any, pageCreatorFunction: any) {
-        this.pageFetcher = new PageFetcher(url, client, pageCreatorFunction)
+export class Lister<T, Y> {
+    client: Axios
+    pageFetcher: PageFetcher<T, Y>
+    type: string
+    url: string
+    constructor (url: string, client: Axios, type: string, pageCreatorFunction: (data: PaginatedJson<Y>) => Page<T>) {
+        this.pageFetcher = new PageFetcher<T, Y>(url, client, pageCreatorFunction)
         this.url = url
         this.client = client
         this.type = type
     }
 
-    all (parameters = {}) {
-        // @ts-expect-error TS(2339): Property 'serialize' does not exist on type '{}'.
-        const params = parameters.serialize ? parameters.serialize() : parameters
-        return new AsyncIterator(this.url, this.client, this.type, params)
+    all (queryParams: object | null = null) {
+        return new AsyncIterator<T>(this.url, this.client, this.type, Lister.serialize(queryParams) || {})
     }
 
-    firstPage (queryParams: any = null, pageSize = null) {
-        const params = queryParams && queryParams.serialize ? queryParams.serialize() : queryParams
-        return this.pageFetcher.fetchAfter(null, params, pageSize)
+    firstPage (queryParams: object | null = null, pageSize: number | null = null) {
+        return this.pageFetcher.fetchAfter(null, Lister.serialize(queryParams), pageSize)
     }
 
-    pageAfter (afterId: any, queryParams: any = null, pageSize = null) {
-        const params = queryParams && queryParams.serialize ? queryParams.serialize() : queryParams
-        return this.pageFetcher.fetchAfter(afterId, params, pageSize)
+    pageAfter (afterId: number, queryParams: object | null = null, pageSize: number | null = null) {
+        return this.pageFetcher.fetchAfter(afterId, Lister.serialize(queryParams), pageSize)
     }
 
-    pageBefore (beforeId: any, queryParams: any = null, pageSize = null) {
-        const params = queryParams && queryParams.serialize ? queryParams.serialize() : queryParams
-        return this.pageFetcher.fetchBefore(beforeId, params, pageSize)
+    pageBefore (beforeId: number, queryParams: object | null = null, pageSize: number | null = null) {
+        return this.pageFetcher.fetchBefore(beforeId, Lister.serialize(queryParams), pageSize)
+    }
+
+    private static serialize (queryParams: object | null) {
+        // @ts-ignore
+        if (queryParams?.serialize) {
+            // @ts-ignore
+            return queryParams.serialize()
+        }
+        return queryParams
     }
 }

@@ -1,5 +1,5 @@
 import { TestUtils } from '../testUtils'
-import { ChartListParams } from '../../src/Charts/ChartListParams'
+import { ChartListParams } from '../../src'
 
 test('listAll when there are many charts', async () => {
     const { client } = await TestUtils.createTestUserAndClient()

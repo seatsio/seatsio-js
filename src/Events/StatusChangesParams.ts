@@ -1,14 +1,12 @@
 export class StatusChangesParams {
-    filter: any
-    filterType: any
-    sortDirection: any
-    sortField: any
+    filter?: string
+    filterType?: string
+    sortDirection?: string
+    sortField?: string
 
-    constructor (filter = null, filterType = 'CONTAINS') {
+    constructor (filter?: string) {
         this.filter = filter
-        this.filterType = filterType
-        this.sortField = null
-        this.sortDirection = null
+        this.filterType = 'CONTAINS'
     }
 
     sortByObjectLabel () {
@@ -36,7 +34,7 @@ export class StatusChangesParams {
         return this
     }
 
-    withFilter (filter: any, filterType = 'CONTAINS') {
+    withFilter (filter: string, filterType = 'CONTAINS') {
         this.filter = filter
         this.filterType = filterType
         return this

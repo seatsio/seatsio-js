@@ -1,4 +1,5 @@
 import { TestUtils } from '../testUtils'
+import { Chart } from '../../src/Charts/Chart'
 
 test('should list all charts in archive', async () => {
     const { client } = await TestUtils.createTestUserAndClient()
@@ -46,7 +47,7 @@ test('get first page of archived charts', async () => {
     const firstPage = await client.charts.archive.firstPage()
 
     expect(firstPage.items.length).toBe(3)
-    expect(firstPage.items.map((c: any) => c.key).sort()).toEqual(charts.map(c => c.key).sort())
+    expect(firstPage.items.map((c: Chart) => c.key).sort()).toEqual(charts.map(c => c.key).sort())
 })
 
 test('get first page of archived charts with page size', async () => {
@@ -64,7 +65,7 @@ test('get first page of archived charts with page size', async () => {
     const firstPage = await client.charts.archive.firstPage(null, 2)
 
     expect(firstPage.items.length).toBe(2)
-    expect(firstPage.items.map((c: any) => c.key).sort()).toEqual([chart2.key, chart3.key].sort())
+    expect(firstPage.items.map((c: Chart) => c.key).sort()).toEqual([chart2.key, chart3.key].sort())
 })
 
 test('get page after given archived charts id', async () => {
@@ -83,7 +84,7 @@ test('get page after given archived charts id', async () => {
 
     expect(page.items.length).toBe(2)
     expect(page.previousPageEndsBefore).toEqual(chart2.id + '')
-    expect(page.items.map((c: any) => c.key).sort()).toEqual([chart1.key, chart2.key].sort())
+    expect(page.items.map((c: Chart) => c.key).sort()).toEqual([chart1.key, chart2.key].sort())
 })
 
 test('get page after given archived charts id with page size', async () => {
@@ -121,7 +122,7 @@ test('get page before given archived charts id', async () => {
 
     expect(page.items.length).toBe(2)
     expect(page.nextPageStartsAfter).toEqual(chart2.id + '')
-    expect(page.items.map((c: any) => c.key).sort()).toEqual([chart2.key, chart3.key].sort())
+    expect(page.items.map((c: Chart) => c.key).sort()).toEqual([chart2.key, chart3.key].sort())
 })
 
 test('get page after given archived charts id with page size', async () => {

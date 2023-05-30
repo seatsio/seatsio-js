@@ -1,6 +1,8 @@
 import { TestUtils } from '../testUtils'
 import { TableBookingConfig } from '../../src/Events/TableBookingConfig'
 import { SeasonParams } from '../../src/Seasons/SeasonParams'
+import { Season } from '../../src/Seasons/Season'
+import { Event } from '../../src/Events/Event'
 
 test('should retrieve event', async () => {
     const { client, user } = await TestUtils.createTestUserAndClient()
@@ -17,8 +19,8 @@ test('should retrieve event', async () => {
     expect(retrievedEvent.tableBookingConfig).toEqual(TableBookingConfig.inherit())
     expect(retrievedEvent.supportsBestAvailable).toBe(true)
     expect(retrievedEvent.createdOn).toBeInstanceOf(Date)
-    expect(retrievedEvent.createdOn.getTime()).toBeLessThanOrEqual(now.getTime() + 5000)
-    expect(retrievedEvent.forSaleConfig).toBeFalsy()
+    expect(retrievedEvent.createdOn!.getTime()).toBeLessThanOrEqual(now.getTime() + 5000)
+    expect(retrievedEvent.forSaleConfig).toBeNull()
     expect(retrievedEvent.updatedOn).toBeNull()
     expect(retrievedEvent.topLevelSeasonKey).toBe(undefined)
     expect(retrievedEvent.categories).toEqual(TestUtils.testChartCategories)
@@ -32,7 +34,7 @@ test('retrieve season', async () => {
     const partialSeason1 = await client.seasons.createPartialSeason(season.key)
     const partialSeason2 = await client.seasons.createPartialSeason(season.key)
 
-    const retrievedSeason = await client.events.retrieve(season.key)
+    const retrievedSeason = <Season> await client.events.retrieve(season.key)
 
     expect(retrievedSeason.isSeason()).toBe(true)
     expect(retrievedSeason.isTopLevelSeason).toBe(true)
@@ -41,13 +43,13 @@ test('retrieve season', async () => {
     expect(retrievedSeason.key).toBeTruthy()
     expect(retrievedSeason.id).toBeTruthy()
     expect(retrievedSeason.partialSeasonKeys).toEqual([partialSeason1.key, partialSeason2.key])
-    expect(retrievedSeason.events.map((e: any) => e.key)).toEqual(['event1', 'event2'])
+    expect(retrievedSeason.events!.map((e: Event) => e.key)).toEqual(['event1', 'event2'])
     expect(retrievedSeason.chartKey).toBe(chartKey)
     expect(retrievedSeason.tableBookingConfig).toEqual(TableBookingConfig.inherit())
     expect(retrievedSeason.supportsBestAvailable).toBe(true)
     expect(retrievedSeason.createdOn).toBeInstanceOf(Date)
-    expect(retrievedSeason.forSaleConfig).toBeFalsy()
-    expect(retrievedSeason.updatedOn).toBeFalsy()
+    expect(retrievedSeason.forSaleConfig).toBeNull()
+    expect(retrievedSeason.updatedOn).toBeNull()
     expect(retrievedSeason.topLevelSeasonKey).toBe(undefined)
     expect(retrievedSeason.categories).toEqual(TestUtils.testChartCategories)
 })
@@ -60,7 +62,7 @@ test('retrieve partial season', async () => {
     const partialSeason1 = await client.seasons.createPartialSeason(season.key, null, ['event1', 'event2'])
     await client.seasons.createPartialSeason(season.key)
 
-    const retrievedSeason = await client.events.retrieve(partialSeason1.key)
+    const retrievedSeason = <Season> await client.events.retrieve(partialSeason1.key)
 
     expect(retrievedSeason.isSeason()).toBe(true)
     expect(retrievedSeason.isTopLevelSeason).toBe(false)
@@ -69,13 +71,13 @@ test('retrieve partial season', async () => {
     expect(retrievedSeason.key).toBeTruthy()
     expect(retrievedSeason.id).toBeTruthy()
     expect(retrievedSeason.partialSeasonKeys).toBe(undefined)
-    expect(retrievedSeason.events.map((e: any) => e.key)).toEqual(['event1', 'event2'])
+    expect(retrievedSeason.events!.map((e: Event) => e.key)).toEqual(['event1', 'event2'])
     expect(retrievedSeason.chartKey).toBe(chartKey)
     expect(retrievedSeason.tableBookingConfig).toEqual(TableBookingConfig.inherit())
     expect(retrievedSeason.supportsBestAvailable).toBe(true)
     expect(retrievedSeason.createdOn).toBeInstanceOf(Date)
-    expect(retrievedSeason.forSaleConfig).toBeFalsy()
-    expect(retrievedSeason.updatedOn).toBeFalsy()
+    expect(retrievedSeason.forSaleConfig).toBeNull()
+    expect(retrievedSeason.updatedOn).toBeNull()
     expect(retrievedSeason.topLevelSeasonKey).toBe(season.key)
 })
 

@@ -1,31 +1,36 @@
-export class StatusChange {
-    date: any
-    displayedLabel: any
-    eventId: any
-    extraData: any
-    holdToken: any
-    id: any
-    isPresentOnChart: any
-    notPresentOnChartReason: any
-    objectLabel: any
-    orderId: any
-    origin: any
-    quantity: any
-    status: any
+import { StatusChangeOrigin } from './StatusChangeOrigin'
+import { Dict } from '../Dict'
 
-    constructor (statusChange: any) {
-        this.id = statusChange.id
-        this.eventId = statusChange.eventId
-        this.status = statusChange.status
-        this.quantity = statusChange.quantity
-        this.objectLabel = statusChange.objectLabel
-        this.date = new Date(statusChange.date)
-        this.orderId = statusChange.orderId ? statusChange.orderId : null
-        this.extraData = statusChange.extraData ? statusChange.extraData : null
-        this.holdToken = statusChange.holdToken ? statusChange.holdToken : null
-        this.origin = statusChange.origin
-        this.isPresentOnChart = statusChange.isPresentOnChart
-        this.notPresentOnChartReason = statusChange.notPresentOnChartReason
-        this.displayedLabel = statusChange.displayedLabel ? statusChange.displayedLabel : null
+export type StatusChangeJson = Dict<any>
+
+export class StatusChange {
+    date: Date
+    displayedLabel: string | null
+    eventId: number
+    extraData: object | null
+    holdToken: string | null
+    id: string
+    isPresentOnChart: boolean
+    notPresentOnChartReason?: string
+    objectLabel: string
+    orderId: string | null
+    origin: StatusChangeOrigin
+    quantity: number | undefined
+    status: string
+
+    constructor (json: StatusChangeJson) {
+        this.id = json.id
+        this.eventId = json.eventId
+        this.status = json.status
+        this.quantity = json.quantity
+        this.objectLabel = json.objectLabel
+        this.date = new Date(json.date)
+        this.orderId = json.orderId ? json.orderId : null
+        this.extraData = json.extraData ? json.extraData : null
+        this.holdToken = json.holdToken ? json.holdToken : null
+        this.origin = json.origin
+        this.isPresentOnChart = json.isPresentOnChart
+        this.notPresentOnChartReason = json.notPresentOnChartReason
+        this.displayedLabel = json.displayedLabel ? json.displayedLabel : null
     }
 }

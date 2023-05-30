@@ -1,4 +1,5 @@
 import { TestUtils } from '../testUtils'
+import { Subaccount } from '../../src/Subaccounts/Subaccount'
 
 test('should list all inactive subaccounts', async () => {
     const { client } = await TestUtils.createTestUserAndClient()
@@ -34,7 +35,7 @@ test('should list first page of inactive subaccounts', async () => {
 
     const firstPage = await client.subaccounts.inactive.firstPage()
 
-    expect(firstPage.items.map((item: any) => item.id).sort()).toEqual([subaccount1.id, subaccount2.id, subaccount3.id].sort())
+    expect(firstPage.items.map((item: Subaccount) => item.id).sort()).toEqual([subaccount1.id, subaccount2.id, subaccount3.id].sort())
     expect(firstPage.items.length).toBe(3)
 })
 
@@ -52,7 +53,7 @@ test('should list first page of inactive subaccounts with page size', async () =
     await Promise.all(promises)
     const firstPage = await client.subaccounts.inactive.firstPage(null, 2)
 
-    expect(firstPage.items.map((item: any) => item.id).sort()).toEqual([subaccount2.id, subaccount3.id].sort())
+    expect(firstPage.items.map((item: Subaccount) => item.id).sort()).toEqual([subaccount2.id, subaccount3.id].sort())
 })
 
 test('should list page after of inactive subaccounts', async () => {

@@ -16,7 +16,7 @@ test('should create a chart with default parameters', async () => {
 
     const retrievedChart = await client.charts.retrievePublishedVersion(chart.key)
     expect(retrievedChart.venueType).toEqual('MIXED')
-    expect(retrievedChart.categories.list).toEqual([])
+    expect(retrievedChart.categories!.list).toEqual([])
 })
 
 test('should create chart with name', async () => {
@@ -26,7 +26,7 @@ test('should create chart with name', async () => {
     const retrievedChart = await client.charts.retrievePublishedVersion(chart.key)
     expect(retrievedChart.name).toEqual('aChart')
     expect(retrievedChart.venueType).toEqual('MIXED')
-    expect(retrievedChart.categories.list).toEqual([])
+    expect(retrievedChart.categories!.list).toEqual([])
 })
 
 test('should create chart with venue type', async () => {
@@ -36,7 +36,7 @@ test('should create chart with venue type', async () => {
     const retrievedChart = await client.charts.retrievePublishedVersion(chart.key)
     expect(retrievedChart.name).toEqual('Untitled chart')
     expect(retrievedChart.venueType).toEqual('BOOTHS')
-    expect(retrievedChart.categories.list).toEqual([])
+    expect(retrievedChart.categories!.list).toEqual([])
 })
 
 test('should create chart with categories as class', async () => {
@@ -49,12 +49,12 @@ test('should create chart with categories as class', async () => {
     const retrievedChart = await client.charts.retrievePublishedVersion(chart.key)
     expect(retrievedChart.name).toEqual('Untitled chart')
     expect(retrievedChart.venueType).toEqual('MIXED')
-    expect(retrievedChart.categories.list).toEqual([cat1, cat2])
+    expect(retrievedChart.categories!.list).toEqual([cat1, cat2])
 })
 
 test('should create chart with categories as instance of Category class', async () => {
     const { client } = await TestUtils.createTestUserAndClient()
-    const cat1 = new Category(1, 'Category 1', '#aaaaaa')
+    const cat1 = new Category(1, 'Category 1', '#aaaaaa', false)
     const cat2 = new Category(2, 'Category 2', '#bbbbbb', true)
     const expectedCategories = [
         { key: 1, label: 'Category 1', color: '#aaaaaa', accessible: false },
@@ -65,5 +65,5 @@ test('should create chart with categories as instance of Category class', async 
     const retrievedChart = await client.charts.retrievePublishedVersion(chart.key)
     expect(retrievedChart.name).toEqual('Untitled chart')
     expect(retrievedChart.venueType).toEqual('MIXED')
-    expect(retrievedChart.categories.list).toEqual(expectedCategories)
+    expect(retrievedChart.categories!.list).toEqual(expectedCategories)
 })

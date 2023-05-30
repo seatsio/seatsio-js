@@ -1,24 +1,24 @@
 export class ObjectProperties {
-    extraData: any
-    objectId: any
-    quantity: any
-    ticketType: any
+    extraData?: object
+    objectId: string
+    quantity?: number
+    ticketType?: string
 
-    constructor (objectId: any) {
+    constructor (objectId: string) {
         this.objectId = objectId
     }
 
-    setTicketType (ticketType: any) {
+    setTicketType (ticketType: string) {
         this.ticketType = ticketType
         return this
     }
 
-    setQuantity (quantity: any) {
+    setQuantity (quantity: number) {
         this.quantity = quantity
         return this
     }
 
-    setExtraData (extraData: any) {
+    setExtraData (extraData: object) {
         this.extraData = extraData
         return this
     }

@@ -1,13 +1,14 @@
 import { Utilities } from '../utilities/reportUtility'
+import { Dict } from '../Dict'
 
 export class BestAvailableObjects {
-    nextToEachOther: any
-    objectDetails: any
-    objects: any
+    nextToEachOther: boolean
+    objectDetails: object
+    objects: string[]
 
-    constructor (data: any) {
-        this.objects = data.objects
-        this.objectDetails = Utilities.createChangeObjectStatusDetails(data.objectDetails)
-        this.nextToEachOther = data.nextToEachOther
+    constructor (json: Dict<any>) {
+        this.objects = json.objects
+        this.objectDetails = Utilities.createChangeObjectStatusDetails(json.objectDetails)
+        this.nextToEachOther = json.nextToEachOther
     }
 }

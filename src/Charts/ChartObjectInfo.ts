@@ -1,36 +1,40 @@
 import { HelperFunctions } from '../utilities/helperFunctions'
 import { IDs } from '../Common/IDs'
+import { Labels } from '../Common/Labels'
+import { Dict } from '../Dict'
+
+export type ChartObjectInfoJson = Dict<any>
 
 export class ChartObjectInfo {
-    bookAsAWhole: any
-    capacity: any
-    categoryKey: any
-    categoryLabel: any
-    distanceToFocalPoint: any
-    entrance: any
-    ids: any
-    label: any
-    labels: any
-    leftNeighbour: any
-    numSeats: any
-    objectType: any
-    rightNeighbour: any
-    section: any
+    bookAsAWhole?: boolean
+    capacity?: number
+    categoryKey?: string
+    categoryLabel: string
+    distanceToFocalPoint?: number
+    entrance?: string
+    ids: IDs
+    label: string
+    labels: Labels
+    leftNeighbour?: string
+    numSeats?: number
+    objectType: string
+    rightNeighbour?: string
+    section: string
 
-    constructor (chartReport: any) {
-        this.label = chartReport.label
-        this.labels = HelperFunctions.labelCreator(chartReport)
-        this.ids = new IDs(chartReport.ids.own, chartReport.ids.parent, chartReport.ids.section)
-        this.categoryLabel = chartReport.categoryLabel
-        this.categoryKey = chartReport.categoryKey
-        this.entrance = chartReport.entrance
-        this.objectType = chartReport.objectType
-        this.section = chartReport.section
-        this.capacity = chartReport.capacity
-        this.bookAsAWhole = chartReport.bookAsAWhole
-        this.leftNeighbour = chartReport.leftNeighbour
-        this.rightNeighbour = chartReport.rightNeighbour
-        this.distanceToFocalPoint = chartReport.distanceToFocalPoint
-        this.numSeats = chartReport.numSeats
+    constructor (json: ChartObjectInfoJson) {
+        this.label = json.label
+        this.labels = HelperFunctions.labelCreator(json)
+        this.ids = new IDs(json.ids.own, json.ids.parent, json.ids.section)
+        this.categoryLabel = json.categoryLabel
+        this.categoryKey = json.categoryKey
+        this.entrance = json.entrance
+        this.objectType = json.objectType
+        this.section = json.section
+        this.capacity = json.capacity
+        this.bookAsAWhole = json.bookAsAWhole
+        this.leftNeighbour = json.leftNeighbour
+        this.rightNeighbour = json.rightNeighbour
+        this.distanceToFocalPoint = json.distanceToFocalPoint
+        this.numSeats = json.numSeats
     }
 }

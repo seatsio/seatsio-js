@@ -1,37 +1,42 @@
+import { Dict } from '../Dict'
+
+export type CategoryJson = Dict<any>
+export type CategoryKey = string | number
+
 export class Category {
-    accessible: any
-    color: any
-    key: any
-    label: any
+    accessible: boolean
+    color: string
+    key: CategoryKey
+    label: string
 
-    constructor (key: any, label: any, color: any, accessible = false) {
+    constructor (key: string | number, label: string, color: string, accessible: boolean) {
         this.key = key
         this.label = label
         this.color = color
         this.accessible = accessible
     }
 
-    setKey (key: any) {
+    setKey (key: string | number) {
         this.key = key
         return this
     }
 
-    setLabel (label: any) {
+    setLabel (label: string) {
         this.label = label
         return this
     }
 
-    setColor (color: any) {
+    setColor (color: string) {
         this.color = color
         return this
     }
 
-    setAccessible (accessible: any) {
+    setAccessible (accessible: boolean) {
         this.accessible = accessible
         return this
     }
 
-    static fromJson (json: any) {
+    static fromJson (json: CategoryJson) {
         return new Category(json.key, json.label, json.color, json.accessible)
     }
 }

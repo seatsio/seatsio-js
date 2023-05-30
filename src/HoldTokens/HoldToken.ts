@@ -1,13 +1,17 @@
-export class HoldToken {
-    expiresAt: any
-    expiresInSeconds: any
-    holdToken: any
-    workspaceKey: any
+import { Dict } from '../Dict'
 
-    constructor (holdToken: any) {
-        this.holdToken = holdToken.holdToken
-        this.expiresAt = new Date(holdToken.expiresAt)
-        this.expiresInSeconds = holdToken.expiresInSeconds
-        this.workspaceKey = holdToken.workspaceKey
+type HoldTokenJson = Dict<any>
+
+export class HoldToken {
+    expiresAt: Date
+    expiresInSeconds: number
+    holdToken: string
+    workspaceKey: string
+
+    constructor (json: HoldTokenJson) {
+        this.holdToken = json.holdToken
+        this.expiresAt = new Date(json.expiresAt)
+        this.expiresInSeconds = json.expiresInSeconds
+        this.workspaceKey = json.workspaceKey
     }
 }

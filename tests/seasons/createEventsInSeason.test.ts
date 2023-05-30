@@ -1,4 +1,5 @@
 import { TestUtils } from '../testUtils'
+import { Event } from '../../src/Events/Event'
 
 test('create events in season by event keys', async () => {
     const { client } = await TestUtils.createTestUserAndClient()
@@ -7,7 +8,7 @@ test('create events in season by event keys', async () => {
 
     const events = await client.seasons.createEvents(season.key, null, ['event1', 'event2'])
 
-    expect(events.map((e: any) => e.key)).toEqual(['event2', 'event1'])
+    expect(events.map((e: Event) => e.key)).toEqual(['event2', 'event1'])
 })
 
 test('create events in season by number of events', async () => {

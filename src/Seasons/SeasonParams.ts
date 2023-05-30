@@ -1,30 +1,33 @@
+import { TableBookingConfig } from '../Events/TableBookingConfig'
+
 export class SeasonParams {
-    _eventKeys: any
-    _key: any
-    _numberOfEvents: any
-    _socialDistancingRulesetKey: any
-    _tableBookingConfig: any
-    key (key: any) {
+    _eventKeys?: string[]
+    _key?: string
+    _numberOfEvents?: number
+    _socialDistancingRulesetKey?: string
+    _tableBookingConfig?: TableBookingConfig
+
+    key (key: string) {
         this._key = key
         return this
     }
 
-    numberOfEvents (numberOfEvents: any) {
+    numberOfEvents (numberOfEvents: number) {
         this._numberOfEvents = numberOfEvents
         return this
     }
 
-    eventKeys (eventKeys: any) {
+    eventKeys (eventKeys: string[]) {
         this._eventKeys = eventKeys
         return this
     }
 
-    tableBookingConfig (tableBookingConfig: any) {
+    tableBookingConfig (tableBookingConfig: TableBookingConfig) {
         this._tableBookingConfig = tableBookingConfig
         return this
     }
 
-    socialDistancingRulesetKey (socialDistancingRulesetKey: any) {
+    socialDistancingRulesetKey (socialDistancingRulesetKey: string) {
         this._socialDistancingRulesetKey = socialDistancingRulesetKey
         return this
     }

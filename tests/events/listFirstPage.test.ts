@@ -1,4 +1,5 @@
 import { TestUtils } from '../testUtils'
+import { Event } from '../../src/Events/Event'
 
 test('should list events in first page', async () => {
     const { client } = await TestUtils.createTestUserAndClient()
@@ -7,7 +8,7 @@ test('should list events in first page', async () => {
 
     const page = await client.events.listFirstPage()
 
-    const retrievedEventKeys = page.items.map((event: any) => event.key)
+    const retrievedEventKeys = page.items.map((event: Event) => event.key)
     expect(retrievedEventKeys.sort()).toEqual(events.map(e => e.key).sort())
 })
 
@@ -21,7 +22,7 @@ test('should list events in first page with page size', async () => {
 
     const page = await client.events.listFirstPage(3)
 
-    const retrievedEventKeys = page.items.map((event: any) => event.key)
+    const retrievedEventKeys = page.items.map((event: Event) => event.key)
     expect(retrievedEventKeys.length).toBe(3)
     expect(retrievedEventKeys).toEqual([event10.key, event9.key, event8.key])
 })

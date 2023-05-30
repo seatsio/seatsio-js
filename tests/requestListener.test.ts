@@ -28,7 +28,7 @@ test('listens to unsuccessful requests', async () => {
     }))
 
     try {
-        await client.events.create()
+        await client.events.create('unexisting chart')
     } catch (e) {
         await Promise.all([requestStartedDeferred.promise, requestEndedDeferred.promise])
     }

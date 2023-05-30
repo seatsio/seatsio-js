@@ -1,4 +1,5 @@
 import { TestUtils } from '../testUtils'
+import { Workspace } from '../../src/Workspaces/Workspace'
 
 test('should list workspaces in first page', async () => {
     const { client } = await TestUtils.createTestUserAndClient()
@@ -8,7 +9,7 @@ test('should list workspaces in first page', async () => {
 
     const page = await client.workspaces.listFirstPage(null, 2)
 
-    expect(page.items.map((workspace: any) => workspace.id)).toEqual([ws3.id, ws2.id])
+    expect(page.items.map((workspace: Workspace) => workspace.id)).toEqual([ws3.id, ws2.id])
 })
 
 test('should filter workspaces in first page', async () => {
@@ -19,5 +20,5 @@ test('should filter workspaces in first page', async () => {
 
     const page = await client.workspaces.listFirstPage('fo', 2)
 
-    expect(page.items.map((workspace: any) => workspace.id)).toEqual([ws3.id, ws1.id])
+    expect(page.items.map((workspace: Workspace) => workspace.id)).toEqual([ws3.id, ws1.id])
 })

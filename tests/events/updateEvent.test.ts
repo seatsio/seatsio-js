@@ -15,8 +15,8 @@ test('should update event\'s chart key', async () => {
     const now = new Date()
     expect(retrievedEvent.chartKey).toBe(chart2.key)
     expect(retrievedEvent.updatedOn).toBeInstanceOf(Date)
-    expect(retrievedEvent.updatedOn.getTime()).toBeLessThanOrEqual(now.getTime() + 5000)
-    expect(retrievedEvent.updatedOn.getTime()).toBeGreaterThanOrEqual((now.getTime() - 5000))
+    expect(retrievedEvent.updatedOn!.getTime()).toBeLessThanOrEqual(now.getTime() + 5000)
+    expect(retrievedEvent.updatedOn!.getTime()).toBeGreaterThanOrEqual((now.getTime() - 5000))
 })
 
 test('should update event key', async () => {
@@ -99,36 +99,36 @@ test('it supports removing the object categories', async () => {
     await client.events.update(event.key, null, null, null, null, { })
 
     const retrievedEvent = await client.events.retrieve(event.key)
-    expect(retrievedEvent.objectCategories).toBeFalsy()
+    expect(retrievedEvent.objectCategories).toBeUndefined()
 })
 
 test('it supports updating the categories', async () => {
     const { client, user } = await TestUtils.createTestUserAndClient()
     const chartKey = TestUtils.getChartKey()
     await TestUtils.createTestChart(chartKey, user.secretKey)
-    const eventCategory = new Category('eventCat1', 'Event Level Category', '#AAABBB')
-    const newEventCategory = new Category('eventCat2', 'Event Level Category 2', '#BBBCCC')
+    const eventCategory = new Category('eventCat1', 'Event Level Category', '#AAABBB', false)
+    const newEventCategory = new Category('eventCat2', 'Event Level Category 2', '#BBBCCC', false)
     const event = await client.events.create(chartKey, null, null, null, null, [eventCategory])
 
     await client.events.update(event.key, null, null, null, null, null, [newEventCategory])
 
     const retrievedEvent = await client.events.retrieve(event.key)
-    expect(retrievedEvent.categories.length).toEqual(4) // 3 from sampleChart.json, 1 event level category
-    expect(retrievedEvent.categories.filter((cat: any) => cat.key === 'eventCat1').length).toEqual(0)
-    expect(retrievedEvent.categories.filter((cat: any) => cat.key === 'eventCat2').length).toEqual(1)
-    expect(retrievedEvent.categories.filter((cat: any) => cat.key === 'eventCat2')[0].label).toEqual('Event Level Category 2')
-    expect(retrievedEvent.categories.filter((cat: any) => cat.key === 'eventCat2')[0].color).toEqual('#BBBCCC')
+    expect(retrievedEvent.categories!.length).toEqual(4) // 3 from sampleChart.json, 1 event level category
+    expect(retrievedEvent.categories!.filter((cat: Category) => cat.key === 'eventCat1').length).toEqual(0)
+    expect(retrievedEvent.categories!.filter((cat: Category) => cat.key === 'eventCat2').length).toEqual(1)
+    expect(retrievedEvent.categories!.filter((cat: Category) => cat.key === 'eventCat2')[0].label).toEqual('Event Level Category 2')
+    expect(retrievedEvent.categories!.filter((cat: Category) => cat.key === 'eventCat2')[0].color).toEqual('#BBBCCC')
 })
 
 test('it supports removing categoreis', async () => {
     const { client, user } = await TestUtils.createTestUserAndClient()
     const chartKey = TestUtils.getChartKey()
     await TestUtils.createTestChart(chartKey, user.secretKey)
-    const eventCategory = new Category('eventCat1', 'Event Level Category', '#AAABBB')
+    const eventCategory = new Category('eventCat1', 'Event Level Category', '#AAABBB', false)
     const event = await client.events.create(chartKey, null, null, null, null, [eventCategory])
 
     await client.events.update(event.key, null, null, null, null, null, [])
 
     const retrievedEvent = await client.events.retrieve(event.key)
-    expect(retrievedEvent.categories.length).toEqual(3) // 3 from sampleChart.json, event level category was removed
+    expect(retrievedEvent.categories!.length).toEqual(3) // 3 from sampleChart.json, event level category was removed
 })

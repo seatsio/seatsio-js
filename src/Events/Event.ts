@@ -1,42 +1,46 @@
 import { ForSaleConfig } from './ForSaleConfig'
-import { Channel } from './Channel'
+import { Channel, ChannelJson } from './Channel'
 import { Category } from '../Charts/Category'
+import { TableBookingConfig } from './TableBookingConfig'
+import { Dict } from '../Dict'
+
+export type EventJson = Dict<any>
 
 export class Event {
-    categories: any
-    channels: any
-    chartKey: any
-    createdOn: any
-    forSaleConfig: any
-    id: any
-    isEventInSeason: any
-    isPartialSeason: any
-    isTopLevelSeason: any
-    key: any
-    objectCategories: any
-    socialDistancingRulesetKey: any
-    supportsBestAvailable: any
-    tableBookingConfig: any
-    topLevelSeasonKey: any
-    updatedOn: any
+    categories: Category[] | null
+    channels: Channel[] | null
+    chartKey: string
+    createdOn: Date | null
+    forSaleConfig: null | ForSaleConfig
+    id: number
+    isEventInSeason: boolean
+    isPartialSeason: boolean
+    isTopLevelSeason: boolean
+    key: string
+    objectCategories?: Map<string, any>
+    socialDistancingRulesetKey?: string
+    supportsBestAvailable: boolean
+    tableBookingConfig: TableBookingConfig
+    topLevelSeasonKey?: string
+    updatedOn: Date | null
 
-    constructor (json: any) {
+    constructor (json: EventJson) {
         this.id = json.id
         this.key = json.key
         this.tableBookingConfig = json.tableBookingConfig
         this.supportsBestAvailable = json.supportsBestAvailable
-        this.forSaleConfig = json.forSaleConfig ? new ForSaleConfig(json.forSaleConfig.forSale, json.forSaleConfig.objects, json.forSaleConfig.areaPlaces, json.forSaleConfig.categories) : null
+        this.forSaleConfig = json.forSaleConfig ? new ForSaleConfig(json.forSaleConfig!.forSale, json.forSaleConfig!.objects, json.forSaleConfig!.areaPlaces, json.forSaleConfig!.categories) : null
         this.chartKey = json.chartKey
         this.createdOn = json.createdOn ? new Date(json.createdOn) : null
         this.updatedOn = json.updatedOn ? new Date(json.updatedOn) : null
-        this.channels = json.channels ? json.channels.map((c: any) => new Channel(c)) : null
+        this.channels = json.channels ? json.channels.map((c: ChannelJson) => new Channel(c)) : null
         this.socialDistancingRulesetKey = json.socialDistancingRulesetKey
         this.topLevelSeasonKey = json.topLevelSeasonKey
         this.isTopLevelSeason = json.isTopLevelSeason
         this.isPartialSeason = json.isPartialSeason
         this.isEventInSeason = json.isEventInSeason
         this.objectCategories = json.objectCategories
-        this.categories = json.categories ? json.categories.map((c: any) => Category.fromJson(c)) : null
+        this.categories = json.categories ? json.categories!.map((c: ChannelJson) => Category.fromJson(c)) : null
     }
 
     isSeason () {

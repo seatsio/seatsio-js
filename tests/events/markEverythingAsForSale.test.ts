@@ -9,5 +9,5 @@ test('should mark everything as for sale', async () => {
     await client.events.markEverythingAsForSale(event.key)
 
     const retrievedEvent = await client.events.retrieve(event.key)
-    expect(retrievedEvent.forSaleConfig).toBeFalsy()
+    expect(retrievedEvent.forSaleConfig).toBeNull()
 })

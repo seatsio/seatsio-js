@@ -1,15 +1,19 @@
-export class Channel {
-    color: any
-    index: any
-    key: any
-    name: any
-    objects: any
+import { Dict } from '../Dict'
 
-    constructor (channel: any) {
-        this.key = channel.key
-        this.name = channel.name
-        this.color = channel.color
-        this.index = channel.index
-        this.objects = channel.objects
+export type ChannelJson = Dict<any>
+
+export class Channel {
+    color: string
+    index: number
+    key: string
+    name: string
+    objects: string[]
+
+    constructor (json: ChannelJson) {
+        this.key = json.key
+        this.name = json.name
+        this.color = json.color
+        this.index = json.index
+        this.objects = json.objects
     }
 }

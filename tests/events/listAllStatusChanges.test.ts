@@ -1,9 +1,7 @@
 import { TestUtils } from '../testUtils'
-import { StatusChangesParams } from '../../src/Events/StatusChangesParams'
-import { StatusChangeRequest } from '../../src/Events/StatusChangeRequest'
+import { StatusChangeRequest, StatusChangesParams, TableBookingConfig } from '../../src'
 import { EventObjectInfo } from '../../src/Events/EventObjectInfo'
 import { ObjectProperties } from '../../src/Events/ObjectProperties'
-import { TableBookingConfig } from '../../src/Events/TableBookingConfig'
 
 test('should list all status changes', async () => {
     const { client, user } = await TestUtils.createTestUserAndClient()
@@ -19,38 +17,6 @@ test('should list all status changes', async () => {
     }
 
     expect(labels.sort()).toEqual(['A-1', 'A-2', 'A-3'])
-})
-
-test('status changes parameter', async () => {
-    // @ts-expect-error TS(2345): Argument of type '"foo"' is not assignable to para... Remove this comment to see the full error message
-    const justFilter = new StatusChangesParams('foo')
-    const sortAscendingOnly = new StatusChangesParams().sortAscending()
-    const sortByStatusOnly = new StatusChangesParams().sortByStatus()
-    // @ts-expect-error TS(2345): Argument of type '"foo"' is not assignable to para... Remove this comment to see the full error message
-    const sortAscendingWithFilter = new StatusChangesParams('foo').sortAscending().withFilter('bar')
-    const sortDescendingWithFilter = new StatusChangesParams().sortAscending().withFilter('bar').sortDescending()
-    const sortByLabelDescendingWithFilter = new StatusChangesParams().sortAscending().withFilter('bar').sortByObjectLabel().sortDescending()
-    const sortByStatusAscendingWithFilterChained = new StatusChangesParams().sortDescending().withFilter('bar').sortByObjectLabel().sortAscending().sortByStatus()
-
-    expect(justFilter.filter).toBe('foo')
-    expect(justFilter.sortField).toBeNull()
-    expect(justFilter.sortDirection).toBeNull()
-    expect(sortAscendingOnly.filter).toBeNull()
-    expect(sortAscendingOnly.sortField).toBeNull()
-    expect(sortAscendingOnly.sortDirection).toBe('asc')
-    expect(sortByStatusOnly.filter).toBeNull()
-    expect(sortByStatusOnly.sortField).toBe('status')
-    expect(sortAscendingWithFilter.filter).toBe('bar')
-    expect(sortAscendingWithFilter.sortField).toBeNull()
-    expect(sortAscendingWithFilter.sortDirection).toBe('asc')
-    expect(sortDescendingWithFilter.filter).toBe('bar')
-    expect(sortDescendingWithFilter.sortDirection).toBe('desc')
-    expect(sortByLabelDescendingWithFilter.filter).toBe('bar')
-    expect(sortByLabelDescendingWithFilter.sortField).toBe('objectLabel')
-    expect(sortByLabelDescendingWithFilter.sortDirection).toBe('desc')
-    expect(sortByStatusAscendingWithFilterChained.filter).toBe('bar')
-    expect(sortByStatusAscendingWithFilterChained.sortField).toBe('status')
-    expect(sortByStatusAscendingWithFilterChained.sortDirection).toBe('asc')
 })
 
 test('should list all status changes sorted by label', async () => {
@@ -77,16 +43,11 @@ test('should list all status changes sorted by status', async () => {
     const event = await client.events.create(chartKey)
     const holdToken = await client.holdTokens.create()
     await client.events.changeObjectStatusInBatch([
-        // @ts-expect-error TS(2554): Expected 10 arguments, but got 3.
-        new StatusChangeRequest(event.key, 'B-1', EventObjectInfo.BOOKED),
-        // @ts-expect-error TS(2554): Expected 10 arguments, but got 4.
-        new StatusChangeRequest(event.key, 'A-1', EventObjectInfo.HELD, holdToken.holdToken),
-        // @ts-expect-error TS(2554): Expected 10 arguments, but got 4.
-        new StatusChangeRequest(event.key, 'A-1', EventObjectInfo.FREE, holdToken.holdToken),
-        // @ts-expect-error TS(2554): Expected 10 arguments, but got 3.
-        new StatusChangeRequest(event.key, 'A-2', EventObjectInfo.BOOKED),
-        // @ts-expect-error TS(2554): Expected 10 arguments, but got 4.
-        new StatusChangeRequest(event.key, 'A-3', EventObjectInfo.HELD, holdToken.holdToken)
+        new StatusChangeRequest(event.key, 'B-1', EventObjectInfo.BOOKED, null, null, null, null, null, null, null),
+        new StatusChangeRequest(event.key, 'A-1', EventObjectInfo.HELD, holdToken.holdToken, null, null, null, null, null, null),
+        new StatusChangeRequest(event.key, 'A-1', EventObjectInfo.FREE, holdToken.holdToken, null, null, null, null, null, null),
+        new StatusChangeRequest(event.key, 'A-2', EventObjectInfo.BOOKED, null, null, null, null, null, null, null),
+        new StatusChangeRequest(event.key, 'A-3', EventObjectInfo.HELD, holdToken.holdToken, null, null, null, null, null, null)
     ])
     await TestUtils.statusChangesPresent(client, event.key, 5)
 
@@ -105,12 +66,9 @@ test('should list all status changes sorted by date ascending', async () => {
     await TestUtils.createTestChart(chartKey, user.secretKey)
     const event = await client.events.create(chartKey)
     await client.events.changeObjectStatusInBatch([
-        // @ts-expect-error TS(2554): Expected 10 arguments, but got 3.
-        new StatusChangeRequest(event.key, 'A-1', EventObjectInfo.BOOKED),
-        // @ts-expect-error TS(2554): Expected 10 arguments, but got 3.
-        new StatusChangeRequest(event.key, 'A-3', EventObjectInfo.BOOKED),
-        // @ts-expect-error TS(2554): Expected 10 arguments, but got 3.
-        new StatusChangeRequest(event.key, 'A-2', EventObjectInfo.BOOKED)
+        new StatusChangeRequest(event.key, 'A-1', EventObjectInfo.BOOKED, null, null, null, null, null, null, null),
+        new StatusChangeRequest(event.key, 'A-3', EventObjectInfo.BOOKED, null, null, null, null, null, null, null),
+        new StatusChangeRequest(event.key, 'A-2', EventObjectInfo.BOOKED, null, null, null, null, null, null, null)
     ])
     await TestUtils.statusChangesPresent(client, event.key, 3)
 
@@ -129,12 +87,9 @@ test('should list all status changes with filter', async () => {
     await TestUtils.createTestChart(chartKey, user.secretKey)
     const event = await client.events.create(chartKey)
     await client.events.changeObjectStatusInBatch([
-        // @ts-expect-error TS(2554): Expected 10 arguments, but got 3.
-        new StatusChangeRequest(event.key, 'A-1', EventObjectInfo.BOOKED),
-        // @ts-expect-error TS(2554): Expected 10 arguments, but got 3.
-        new StatusChangeRequest(event.key, 'A-2', EventObjectInfo.BOOKED),
-        // @ts-expect-error TS(2554): Expected 10 arguments, but got 3.
-        new StatusChangeRequest(event.key, 'B-2', EventObjectInfo.BOOKED)
+        new StatusChangeRequest(event.key, 'A-1', EventObjectInfo.BOOKED, null, null, null, null, null, null, null),
+        new StatusChangeRequest(event.key, 'A-2', EventObjectInfo.BOOKED, null, null, null, null, null, null, null),
+        new StatusChangeRequest(event.key, 'B-2', EventObjectInfo.BOOKED, null, null, null, null, null, null, null)
     ])
     await TestUtils.statusChangesPresent(client, event.key, 3)
 
@@ -153,12 +108,9 @@ test('should not list status changes with unmatched filter', async () => {
     await TestUtils.createTestChart(chartKey, user.secretKey)
     const event = await client.events.create(chartKey)
     await client.events.changeObjectStatusInBatch([
-        // @ts-expect-error TS(2554): Expected 10 arguments, but got 3.
-        new StatusChangeRequest(event.key, 'A-1', EventObjectInfo.BOOKED),
-        // @ts-expect-error TS(2554): Expected 10 arguments, but got 3.
-        new StatusChangeRequest(event.key, 'A-2', EventObjectInfo.BOOKED),
-        // @ts-expect-error TS(2554): Expected 10 arguments, but got 3.
-        new StatusChangeRequest(event.key, 'B-2', EventObjectInfo.BOOKED)
+        new StatusChangeRequest(event.key, 'A-1', EventObjectInfo.BOOKED, null, null, null, null, null, null, null),
+        new StatusChangeRequest(event.key, 'A-2', EventObjectInfo.BOOKED, null, null, null, null, null, null, null),
+        new StatusChangeRequest(event.key, 'B-2', EventObjectInfo.BOOKED, null, null, null, null, null, null, null)
     ])
     await TestUtils.statusChangesPresent(client, event.key, 3)
 

@@ -1,9 +1,11 @@
 import { Utilities } from '../utilities/reportUtility'
+import { EventObjectInfo, EventObjectInfoJson } from './EventObjectInfo'
+import { Dict } from '../Dict'
 
 export class ChangeObjectStatusResult {
-    objects: any
+    objects: Dict<EventObjectInfo>
 
-    constructor (objects: any) {
+    constructor (objects: Dict<EventObjectInfoJson>) {
         this.objects = Utilities.createChangeObjectStatusDetails(objects)
     }
 }

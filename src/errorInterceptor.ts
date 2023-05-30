@@ -1,13 +1,13 @@
-export function errorResponseHandler (error: any) {
+export function errorResponseHandler (e: any) {
     return new Promise(function (resolve, reject) {
-        if (typeof error.response !== 'undefined') {
-            if (typeof error.response.data !== 'undefined' && error.response.data) {
-                reject(error.response.data)
-            } else if (typeof error.response.statusText !== 'undefined' && error.response.statusText) {
-        reject(`${error.config.method} ${error.config.url} resulted in ${error.response.status} ${error.response.statusText} error`) // eslint-disable-line
+        if (typeof e.response !== 'undefined') {
+            if (typeof e.response.data !== 'undefined' && e.response.data) {
+                reject(e.response.data)
+            } else if (typeof e.response.statusText !== 'undefined' && e.response.statusText) {
+        reject(`${e.config.method} ${e.config.url} resulted in ${e.response.status} ${e.response.statusText} error`) // eslint-disable-line
             }
         } else {
-            reject(error)
+            reject(e)
         }
     })
 }

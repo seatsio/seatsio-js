@@ -1,15 +1,16 @@
-import { LabelAndType, Labels } from '../Common/Labels'
+import { Labels } from '../Common/Labels'
+import { LabelAndType } from '../Common/LabelAndType'
 
 export class HelperFunctions {
-    static labelCreator (data: any) {
+    static labelCreator (json: any) {
         let labels
-        if (data.labels.parent) {
-            labels = new Labels(new LabelAndType(data.labels.own.label, data.labels.own.type), new LabelAndType(data.labels.parent.label, data.labels.parent.type))
+        if (json.labels.parent) {
+            labels = new Labels(new LabelAndType(json.labels.own.label, json.labels.own.type), new LabelAndType(json.labels.parent.label, json.labels.parent.type))
         } else {
-            labels = new Labels(new LabelAndType(data.labels.own.label, data.labels.own.type))
+            labels = new Labels(new LabelAndType(json.labels.own.label, json.labels.own.type))
         }
-        if (data.labels.section) {
-            labels.setSection(data.labels.section)
+        if (json.labels.section) {
+            labels.setSection(json.labels.section)
         }
 
         return labels

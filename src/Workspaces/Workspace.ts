@@ -1,20 +1,25 @@
+import { Dict } from '../Dict'
+
+export type WorkspaceJson = Dict<any>
+
 export class Workspace {
-    id: any
-    isActive: any
-    isDefault: any
-    isTest: any
-    key: any
-    name: any
-    secretKey: any
+    id: number
+    isActive: boolean
+    isDefault: boolean
+    isTest: boolean
+    key: string
+    name: string
+    secretKey: string
     settings: any
-    constructor (workspace: any) {
-        this.id = workspace.id
-        this.key = workspace.key
-        this.secretKey = workspace.secretKey
-        this.name = workspace.name
-        this.settings = workspace.settings
-        this.isDefault = workspace.isDefault
-        this.isTest = workspace.isTest
-        this.isActive = workspace.isActive
+
+    constructor (json: WorkspaceJson) {
+        this.id = json.id
+        this.key = json.key
+        this.secretKey = json.secretKey
+        this.name = json.name
+        this.settings = json.settings
+        this.isDefault = json.isDefault
+        this.isTest = json.isTest
+        this.isActive = json.isActive
     }
 }

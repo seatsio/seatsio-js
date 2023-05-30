@@ -1,43 +1,33 @@
 export class ChartListParams {
-    eventsLimit: any
-    expand: any
-    filter: any
-    tag: any
-    validation: any
+    eventsLimit?: number
+    expand?: string
+    filter?: string
+    tag?: string
+    validation?: boolean
 
-    constructor (filter = null, tag = null, expandEvents = null, withValidation = false, eventsLimit = null) {
-        this.filter = filter
-        this.tag = tag
-        this.validation = withValidation
-        this.eventsLimit = eventsLimit
-        if (expandEvents === true) {
-            this.expand = 'events'
-        }
-    }
-
-    withFilter (filter: any) {
+    withFilter (filter: string) {
         this.filter = filter
         return this
     }
 
-    withTag (tag: any) {
+    withTag (tag: string) {
         this.tag = tag
         return this
     }
 
-    withExpandEvents (expandEvents: any) {
-        if (expandEvents === true) {
+    withExpandEvents (expandEvents: boolean) {
+        if (expandEvents) {
             this.expand = 'events'
         }
         return this
     }
 
-    withEventsLimit (eventsLimit: any) {
+    withEventsLimit (eventsLimit: number) {
         this.eventsLimit = eventsLimit
         return this
     }
 
-    withValidation (validation: any) {
+    withValidation (validation: boolean) {
         this.validation = validation
         return this
     }

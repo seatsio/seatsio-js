@@ -10,39 +10,39 @@ import { ChartReports } from './Reports/ChartReports'
 import { EventReports } from './Reports/EventReports'
 import { UsageReports } from './Reports/UsageReports'
 import { errorResponseHandler } from './errorInterceptor'
-// eslint-disable-next-line import/no-named-as-default
-import Axios from 'axios'
 import { Seasons } from './Seasons/Seasons'
 import { Region } from './Region'
+import axios, { Axios } from 'axios'
 
 export class SeatsioClient {
-    accounts: any
-    chartReports: any
-    charts: any
-    client: any
-    errInterceptor: any
-    eventReports: any
-    events: any
-    holdTokens: any
-    invitations: any
+    accounts: Accounts
+    chartReports: ChartReports
+    charts: Charts
+    client: Axios
+    errInterceptor: number
+    eventReports: EventReports
+    events: Events
+    holdTokens: HoldTokens
+    invitations: Invitations
     requestListener: any
-    seasons: any
-    subaccounts: any
-    usageReports: any
-    users: any
-    workspaces: any
-    constructor (region: Region, secretKey?: any, workspaceKey = null, extraHeaders = {}) {
-        // @ts-expect-error TS(2345): Argument of type '{ baseURL: any; auth: { username... Remove this comment to see the full error message
-        this.client = Axios.create(this._axiosConfig(region.url, secretKey, workspaceKey, extraHeaders))
+    seasons: Seasons
+    subaccounts: Subaccounts
+    usageReports: UsageReports
+    users: Users
+    workspaces: Workspaces
+
+    constructor (region: Region, secretKey?: string, workspaceKey: string | undefined = undefined, extraHeaders: object = {}) {
+        // @ts-expect-error TS(2345): Argument of type '{ baseURL: string; auth: { username... Remove this comment to see the full error message
+        this.client = axios.create(this._axiosConfig(region.url, secretKey, workspaceKey, extraHeaders))
 
         this._setupRequestListenerInterceptors()
+        // @ts-ignore
         this.client.maxRetries = 5
         this.client.interceptors.response.use((response: any) => response, exponentialBackoffInterceptor(this.client))
         this.errInterceptor = this.client.interceptors.response.use((response: any) => response, errorResponseHandler)
 
         this.charts = new Charts(this.client)
-        // @ts-expect-error TS(2554): Expected 1 arguments, but got 2.
-        this.events = new Events(this.client, this)
+        this.events = new Events(this.client)
         this.subaccounts = new Subaccounts(this.client)
         this.workspaces = new Workspaces(this.client)
         this.users = new Users(this.client)
@@ -55,7 +55,7 @@ export class SeatsioClient {
         this.seasons = new Seasons(this.client, this)
     }
 
-    _axiosConfig (baseUrl: any, secretKey: any, workspaceKey: any, extraHeaders: any) {
+    _axiosConfig (baseUrl: string, secretKey: string, workspaceKey: string, extraHeaders: any) {
         const config = {
             baseURL: baseUrl,
             auth: {
@@ -104,7 +104,8 @@ export class SeatsioClient {
         return this
     }
 
-    setMaxRetries (maxRetries: any) {
+    setMaxRetries (maxRetries: number) {
+        // @ts-ignore
         this.client.maxRetries = maxRetries
         return this
     }

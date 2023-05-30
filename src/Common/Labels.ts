@@ -1,28 +1,20 @@
-export class Labels {
-    own: any
-    parent: any
-    private section?: any
+import { LabelAndType } from './LabelAndType'
 
-    constructor (own: any, parent: any = null) {
+export class Labels {
+    own: LabelAndType
+    parent: LabelAndType | null
+    private section?: string
+
+    constructor (own: LabelAndType, parent?: LabelAndType) {
         this.own = own
-        this.parent = parent || {}
+        this.parent = parent || null
     }
 
-    setSection (value: any) {
+    setSection (value: string) {
         this.section = value
     }
 
     getSection () {
         return this.section
-    }
-}
-
-export class LabelAndType {
-    label: any
-    type: any
-
-    constructor (label: any, type: any) {
-        this.label = label
-        this.type = type
     }
 }

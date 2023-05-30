@@ -1,31 +1,33 @@
+import { Axios } from 'axios'
+
 export class UsageReports {
-    client: any
-    constructor (client: any) {
+    client: Axios
+    constructor (client: Axios) {
         this.client = client
     }
 
     summaryForAllMonths () {
         return this.client.get('/reports/usage')
-            .then((res: any) => res.data)
+            .then(res => res.data)
     }
 
-    detailsForMonth (month: any) {
+    detailsForMonth (month: string) {
         return this.client.get(`/reports/usage/month/${month}`)
-            .then((res: any) => res.data)
+            .then(res => res.data)
     }
 
-    detailsForEventInMonth (eventKey: any, month: any) {
+    detailsForEventInMonth (eventKey: string, month: string) {
         return this.client.get(`/reports/usage/month/${month}/event/${encodeURIComponent(eventKey)}`)
-            .then((res: any) => res.data)
+            .then(res => res.data)
     }
 
-    detailsForObjectInEventInMonth (objectLabel: any, eventKey: any, month: any) {
+    detailsForObjectInEventInMonth (objectLabel: string, eventKey: string, month: string) {
         return this.client.get(`/reports/usage/month/${month}/event/${encodeURIComponent(eventKey)}/object/${encodeURIComponent(objectLabel)}`)
-            .then((res: any) => res.data)
+            .then(res => res.data)
     }
 
     subscription () {
         return this.client.get('/reports/subscription')
-            .then((res: any) => res.data)
+            .then(res => res.data)
     }
 }

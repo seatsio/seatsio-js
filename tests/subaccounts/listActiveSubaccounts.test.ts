@@ -1,4 +1,5 @@
 import { TestUtils } from '../testUtils'
+import { Subaccount } from '../../src/Subaccounts/Subaccount'
 
 test('should list all active subaccounts', async () => {
     const { client, subaccount } = await TestUtils.createTestUserAndClient()
@@ -23,7 +24,7 @@ test('should list first page of active subaccounts', async () => {
 
     const firstPage = await client.subaccounts.active.firstPage()
 
-    expect(firstPage.items.map((item: any) => item.id).sort()).toEqual([subaccount1.id, subaccount2.id, subaccount3.id, subaccount.id].sort())
+    expect(firstPage.items.map((item: Subaccount) => item.id).sort()).toEqual([subaccount1.id, subaccount2.id, subaccount3.id, subaccount.id].sort())
     expect(firstPage.items.length).toBe(4)
 })
 

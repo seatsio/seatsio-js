@@ -1,54 +1,55 @@
 import { Utilities } from '../utilities/reportUtility'
+import { Axios } from 'axios'
 
 export class ChartReports {
-    client: any
-    constructor (client: any) {
+    client: Axios
+    constructor (client: Axios) {
         this.client = client
     }
 
-    byLabel (chartKey: any, bookWholeTables = undefined) {
+    byLabel (chartKey: string, bookWholeTables?: string) {
         return this.fetchReport('byLabel', chartKey, bookWholeTables)
     }
 
-    byObjectType (chartKey: any, bookWholeTables = undefined) {
+    byObjectType (chartKey: string, bookWholeTables?: string) {
         return this.fetchReport('byObjectType', chartKey, bookWholeTables)
     }
 
-    summaryByObjectType (chartKey: any, bookWholeTables = undefined) {
+    summaryByObjectType (chartKey: string, bookWholeTables?: string) {
         return this.fetchSummaryReport('byObjectType', chartKey, bookWholeTables)
     }
 
-    byCategoryLabel (chartKey: any, bookWholeTables = undefined) {
+    byCategoryLabel (chartKey: string, bookWholeTables?: string) {
         return this.fetchReport('byCategoryLabel', chartKey, bookWholeTables)
     }
 
-    summaryByCategoryLabel (chartKey: any, bookWholeTables = undefined) {
+    summaryByCategoryLabel (chartKey: string, bookWholeTables?: string) {
         return this.fetchSummaryReport('byCategoryLabel', chartKey, bookWholeTables)
     }
 
-    byCategoryKey (chartKey: any, bookWholeTables = undefined) {
+    byCategoryKey (chartKey: string, bookWholeTables?: string) {
         return this.fetchReport('byCategoryKey', chartKey, bookWholeTables)
     }
 
-    summaryByCategoryKey (chartKey: any, bookWholeTables = undefined) {
+    summaryByCategoryKey (chartKey: string, bookWholeTables?: string) {
         return this.fetchSummaryReport('byCategoryKey', chartKey, bookWholeTables)
     }
 
-    bySection (chartKey: any, bookWholeTables = undefined) {
+    bySection (chartKey: string, bookWholeTables?: string) {
         return this.fetchReport('bySection', chartKey, bookWholeTables)
     }
 
-    summaryBySection (chartKey: any, bookWholeTables = undefined) {
+    summaryBySection (chartKey: string, bookWholeTables?: string) {
         return this.fetchSummaryReport('bySection', chartKey, bookWholeTables)
     }
 
-    fetchReport (reportType: any, chartKey: any, bookWholeTables: any) {
+    fetchReport (reportType: string, chartKey: string, bookWholeTables?: string) {
         return this.client.get(`/reports/charts/${encodeURIComponent(chartKey)}/${reportType}`, { params: { bookWholeTables } })
-            .then((res: any) => Utilities.createChartReport(res.data))
+            .then(res => Utilities.createChartReport(res.data))
     }
 
-    fetchSummaryReport (reportType: any, chartKey: any, bookWholeTables: any) {
+    fetchSummaryReport (reportType: string, chartKey: string, bookWholeTables?: string) {
         return this.client.get(`/reports/charts/${encodeURIComponent(chartKey)}/${reportType}/summary`, { params: { bookWholeTables } })
-            .then((res: any) => res.data)
+            .then(res => res.data)
     }
 }

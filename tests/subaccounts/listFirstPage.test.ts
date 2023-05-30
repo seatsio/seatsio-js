@@ -1,4 +1,5 @@
 import { TestUtils } from '../testUtils'
+import { Subaccount } from '../../src/Subaccounts/Subaccount'
 
 test('should list subaccounts in first page', async () => {
     const { client, subaccount } = await TestUtils.createTestUserAndClient()
@@ -6,7 +7,7 @@ test('should list subaccounts in first page', async () => {
 
     const page = await client.subaccounts.listFirstPage()
 
-    const retrievedSubaccountIds = page.items.map((subaccount: any) => subaccount.id)
+    const retrievedSubaccountIds = page.items.map((subaccount: Subaccount) => subaccount.id)
     const subaccountIds = subaccounts.map(s => s.id).concat(subaccount.id)
     expect(retrievedSubaccountIds.sort()).toEqual(subaccountIds.sort())
 })
@@ -20,7 +21,7 @@ test('should list subaccounts in first page with page size', async () => {
 
     const page = await client.subaccounts.listFirstPage(null, 3)
 
-    const retrievedSubaccountIds = page.items.map((subaccount: any) => subaccount.id)
+    const retrievedSubaccountIds = page.items.map((subaccount: Subaccount) => subaccount.id)
     expect(retrievedSubaccountIds).toEqual([subaccount10.id, subaccount9.id, subaccount8.id])
     expect(page.nextPageStartsAfter).toEqual(subaccount8.id + '')
     expect(page.previousPageEndsBefore).toBeNull()

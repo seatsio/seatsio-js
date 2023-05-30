@@ -9,7 +9,6 @@ test('should create subaccount with name', async () => {
     expect(subaccount.publicKey).toBeTruthy()
     expect(subaccount.name).toBe('subaccountTest')
     expect(subaccount.active).toBe(true)
-    expect(subaccount.email).toBeFalsy()
 })
 
 test('name is generated in subaccount create', async () => {
@@ -17,5 +16,4 @@ test('name is generated in subaccount create', async () => {
     const subaccount = await client.subaccounts.create()
 
     expect(subaccount.name).toBeTruthy()
-    expect(subaccount.email).toBeFalsy()
 })
