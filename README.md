@@ -15,10 +15,12 @@ This is the official JavaScript client library for the [Seats.io V2 REST API](ht
 > **Only use this in browser code if you know what you're doing (e.g. if you're building a password-protected backoffice application for admins)**. You have been warned :) 
 
 ## Installing
-For Node, you can install using npm:
+For Node, you can install using yarn or npm:
 
 ```sh
-npm install seatsio
+yarn add seatsio
+# or
+npm install seatsio --save
 ```
 
 ## Usage
@@ -309,3 +311,7 @@ let client = new SeatsioClient(Region.EU(), <WORKSPACE SECRET KEY>).setMaxRetrie
 ```
 
 Passing in 0 disables exponential backoff completely. In that case, the client will never retry a failed request.
+
+## TypeScript
+
+Since v76, this package contains TypeScript definitions.
