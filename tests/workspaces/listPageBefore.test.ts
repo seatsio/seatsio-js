@@ -1,4 +1,5 @@
 import { TestUtils } from '../testUtils'
+import { Workspace } from '../../src/Workspaces/Workspace'
 
 test('should list workspaces before an id', async () => {
     const { client } = await TestUtils.createTestUserAndClient()
@@ -8,7 +9,7 @@ test('should list workspaces before an id', async () => {
 
     const page = await client.workspaces.listPageBefore(ws1.id, null, 2)
 
-    expect(page.items.map((workspace: any) => workspace.id)).toEqual([ws3.id, ws2.id])
+    expect(page.items.map((workspace: Workspace) => workspace.id)).toEqual([ws3.id, ws2.id])
 })
 
 test('should filter workspaces before an id', async () => {
@@ -20,5 +21,5 @@ test('should filter workspaces before an id', async () => {
 
     const page = await client.workspaces.listPageBefore(ws1.id, 'fo', 2)
 
-    expect(page.items.map((workspace: any) => workspace.id)).toEqual([ws4.id, ws3.id])
+    expect(page.items.map((workspace: Workspace) => workspace.id)).toEqual([ws4.id, ws3.id])
 })

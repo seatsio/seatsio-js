@@ -1,25 +1,29 @@
+import { Dict } from '../Dict'
+
+export type UserJson = Dict<any>
+
 export class User {
-    createdOn: any
-    designerKey: any
-    email: any
-    id: any
-    isActive: any
-    name: any
-    role: any
-    secretKey: any
-    status: any
+    createdOn: Date | null
+    designerKey: string
+    email: string
+    id: number
+    isActive: boolean
+    name: string
+    role: string
+    secretKey: string
+    status: string
     workspaces: any
 
-    constructor (userJson: any) {
-        this.id = userJson.id
-        this.email = userJson.email
-        this.name = userJson.name
-        this.secretKey = userJson.secretKey
-        this.designerKey = userJson.designerKey
-        this.role = userJson.role
-        this.createdOn = userJson.createdOn ? new Date(userJson.createdOn) : null
-        this.isActive = userJson.isActive
-        this.status = userJson.status
-        this.workspaces = userJson.workspaces
+    constructor (json: UserJson) {
+        this.id = json.id
+        this.email = json.email
+        this.name = json.name
+        this.secretKey = json.secretKey
+        this.designerKey = json.designerKey
+        this.role = json.role
+        this.createdOn = json.createdOn ? new Date(json.createdOn) : null
+        this.isActive = json.isActive
+        this.status = json.status
+        this.workspaces = json.workspaces
     }
 }

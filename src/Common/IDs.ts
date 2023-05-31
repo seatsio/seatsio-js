@@ -1,9 +1,9 @@
 export class IDs {
-    own: any
-    parent: any
-    section: any
+    own: string
+    parent: string | null
+    section: string | null
 
-    constructor (own: any, parent: any = null, section: any = null) {
+    constructor (own: string, parent: string | null = null, section: string | null = null) {
         this.own = own
         this.parent = parent
         this.section = section

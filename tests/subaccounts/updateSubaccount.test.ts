@@ -18,5 +18,4 @@ test('name is not changed when updating with name=null', async () => {
 
     const retrievedSubaccount = await client.subaccounts.retrieve(subaccount.id)
     expect(retrievedSubaccount.name).toBe('joske')
-    expect(retrievedSubaccount.email).toBeFalsy()
 })

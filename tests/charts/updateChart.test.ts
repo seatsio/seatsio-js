@@ -9,7 +9,7 @@ test('should update chart name', async () => {
 
     const retrievedChart = await client.charts.retrievePublishedVersion(chart.key)
     expect(retrievedChart.name).toBe('aChart')
-    expect(retrievedChart.categories.list).toEqual(categories)
+    expect(retrievedChart.categories!.list).toEqual(categories)
 })
 
 test('should update chart categories', async () => {
@@ -21,5 +21,5 @@ test('should update chart categories', async () => {
 
     const retrievedChart = await client.charts.retrievePublishedVersion(chart.key)
     expect(retrievedChart.name).toBe('aChart')
-    expect(retrievedChart.categories.list).toEqual(categories)
+    expect(retrievedChart.categories!.list).toEqual(categories)
 })

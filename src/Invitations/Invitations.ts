@@ -1,14 +1,15 @@
-import { Invitation } from './Invitation'
+import { Invitation, InvitationJson } from './Invitation'
+import { Axios } from 'axios'
 
 export class Invitations {
-    client: any
+    client: Axios
 
-    constructor (client: any) {
+    constructor (client: Axios) {
         this.client = client
     }
 
     listAll () {
         return this.client.get('/invitations')
-            .then((res: any) => res.data.map((json: any) => new Invitation(json)))
+            .then(res => res.data.map((json: InvitationJson) => new Invitation(json)))
     }
 }

@@ -1,9 +1,14 @@
+import { Dict } from '../Dict'
+
+export type InvitationJson = Dict<any>
+
 export class Invitation {
-    date: any
-    email: any
-    id: any
-    status: any
-    constructor (json: any) {
+    date: Date
+    email: string
+    id: number
+    status: string
+
+    constructor (json: InvitationJson) {
         this.id = json.id
         this.status = json.status
         this.email = json.email

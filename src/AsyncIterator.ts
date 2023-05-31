@@ -1,24 +1,37 @@
-import { Season } from './Seasons/Season'
-import { Chart } from './Charts/Chart'
+import { Season, SeasonJson } from './Seasons/Season'
+import { Chart, ChartJson } from './Charts/Chart'
 import { Page } from './Page'
 import { EventDeserializer } from './Events/EventDeserializer'
-import { StatusChange } from './Events/StatusChange'
-import { Subaccount } from './Subaccounts/Subaccount'
-import { Workspace } from './Workspaces/Workspace'
-import { User } from './Users/User'
+import { StatusChange, StatusChangeJson } from './Events/StatusChange'
+import { Subaccount, SubaccountJson } from './Subaccounts/Subaccount'
+import { Workspace, WorkspaceJson } from './Workspaces/Workspace'
+import { User, UserJson } from './Users/User'
+import { Event, EventJson } from './Events/Event'
+import { Axios } from 'axios'
 
-export class AsyncIterator {
-    client: any
-    index: any
-    items: any
-    nextPageMustBeFetched: any
-    nextPageStartsAfter: any
-    objType: any
-    pages: any
-    params: any
-    url: any
+export interface PaginatedJson<T> {
+    items: T[]
+    next_page_starts_after?: number
+    previous_page_ends_before?: number
+}
 
-    constructor (url: any, client: any, objType: any, params = {}) {
+interface PaginationParams {
+    start_after_id?: number
+    end_before_id?: number
+}
+
+export class AsyncIterator<T> {
+    client: Axios
+    index: number
+    items: T[]
+    nextPageMustBeFetched: boolean
+    nextPageStartsAfter?: number
+    objType: string
+    pages: Page<T>[]
+    params: PaginationParams
+    url: string
+
+    constructor (url: string, client: Axios, objType: string, params = {}) {
         this.url = url
         this.client = client
         this.objType = objType
@@ -29,80 +42,94 @@ export class AsyncIterator {
         this.nextPageMustBeFetched = true
     }
 
-    charts (data: any) {
-        const charts: any = []
-        data.items.forEach((chartData: any) => {
+    charts (json: PaginatedJson<ChartJson>) {
+        const charts: Chart[] = []
+        json.items.forEach((chartData: ChartJson) => {
             const chart = new Chart(chartData)
+            // @ts-ignore
             this.items.push(chart)
             charts.push(chart)
         })
 
-        this.pages.push(new Page(charts, data.next_page_starts_after, data.previous_page_ends_before))
+        // @ts-ignore
+        this.pages.push(new Page(charts, json.next_page_starts_after, json.previous_page_ends_before))
     }
 
-    events (data: any) {
-        const events: any = []
-        data.items.forEach((eventData: any) => {
+    events (data: PaginatedJson<EventJson>) {
+        const events: Event[] = []
+        data.items.forEach((eventData: EventJson) => {
             const event = new EventDeserializer().fromJson(eventData)
+            // @ts-ignore
             this.items.push(event)
             events.push(event)
         })
+        // @ts-ignore
         this.pages.push(new Page(events, data.next_page_starts_after, data.previous_page_ends_before))
     }
 
-    seasons (data: any) {
-        const seasons: any = []
-        data.items.forEach((seasonData: any) => {
+    seasons (data: PaginatedJson<SeasonJson>) {
+        const seasons: Season[] = []
+        data.items.forEach((seasonData: SeasonJson) => {
             const season = new Season(seasonData)
+            // @ts-ignore
             this.items.push(season)
             seasons.push(season)
         })
+        // @ts-ignore
         this.pages.push(new Page(seasons, data.next_page_starts_after, data.previous_page_ends_before))
     }
 
-    statusChanges (data: any) {
-        const statusChanges: any = []
-        data.items.forEach((statusData: any) => {
-            const status = new StatusChange(statusData)
-            this.items.push(status)
-            statusChanges.push(status)
+    statusChanges (data: PaginatedJson<StatusChangeJson>) {
+        const statusChanges: StatusChange[] = []
+        data.items.forEach((statusData: StatusChangeJson) => {
+            const statusChange = new StatusChange(statusData)
+            // @ts-ignore
+            this.items.push(statusChange)
+            statusChanges.push(statusChange)
         })
+        // @ts-ignore
         this.pages.push(new Page(statusChanges, data.next_page_starts_after, data.previous_page_ends_before))
     }
 
-    subaccounts (data: any) {
-        const subaccounts: any = []
-        data.items.forEach((subaccountData: any) => {
+    subaccounts (data: PaginatedJson<SubaccountJson>) {
+        const subaccounts: Subaccount[] = []
+        data.items.forEach((subaccountData: SubaccountJson) => {
             const subaccount = new Subaccount(subaccountData)
+            // @ts-ignore
             this.items.push(subaccount)
             subaccounts.push(subaccount)
         })
+        // @ts-ignore
         this.pages.push(new Page(subaccounts, data.next_page_starts_after, data.previous_page_ends_before))
     }
 
-    workspaces (data: any) {
-        const workspaces: any = []
-        data.items.forEach((json: any) => {
+    workspaces (data: PaginatedJson<WorkspaceJson>) {
+        const workspaces: Workspace[] = []
+        data.items.forEach((json: WorkspaceJson) => {
             const workspace = new Workspace(json)
+            // @ts-ignore
             this.items.push(workspace)
             workspaces.push(workspace)
         })
+        // @ts-ignore
         this.pages.push(new Page(workspaces, data.next_page_starts_after, data.previous_page_ends_before))
     }
 
-    users (data: any) {
-        const users: any = []
-        data.items.forEach((userData: any) => {
+    users (data: PaginatedJson<UserJson>) {
+        const users: User[] = []
+        data.items.forEach((userData: UserJson) => {
             const user = new User(userData)
+            // @ts-ignore
             this.items.push(user)
             users.push(user)
         })
+        // @ts-ignore
         this.pages.push(new Page(users, data.next_page_starts_after, data.previous_page_ends_before))
     }
 
     fetch (fetchParams = {}) {
         return this.client.get(this.url, { params: fetchParams })
-            .then((res: any) => {
+            .then(res => {
                 if (res.data.next_page_starts_after) {
                     this.nextPageStartsAfter = res.data.next_page_starts_after
                     this.nextPageMustBeFetched = true
@@ -142,7 +169,7 @@ export class AsyncIterator {
         const _this = this
 
         return {
-            async next () {
+            async next (): Promise<any> {
                 if (_this.nextPageMustBeFetched && _this.items.length === 0) {
                     await _this.fetch(_this.params)
                 } else if (_this.nextPageMustBeFetched && !_this.items[_this.index]) {

@@ -1,16 +1,18 @@
-export class StatusChangeRequest {
-    allowedPreviousStatuses: any
-    channelKeys: any
-    eventKey: any
-    holdToken: any
-    ignoreChannels: any
-    keepExtraData: any
-    objectOrObjects: any
-    orderId: any
-    rejectedPreviousStatuses: any
-    status: any
+import { ObjectOrObjects } from './Events'
 
-    constructor (eventKey: any, objectOrObjects: any, status: any, holdToken: any, orderId: any, keepExtraData: any, ignoreChannels: any, channelKeys: any, allowedPreviousStatuses: any, rejectedPreviousStatuses: any) {
+export class StatusChangeRequest {
+    eventKey: string
+    objectOrObjects: ObjectOrObjects
+    status: string
+    holdToken: string | null
+    orderId: string | null
+    keepExtraData: boolean | null
+    ignoreChannels: boolean | null
+    channelKeys: string[] | null
+    allowedPreviousStatuses: string[] | null
+    rejectedPreviousStatuses: string[] | null
+
+    constructor (eventKey: string, objectOrObjects: ObjectOrObjects, status: string, holdToken: string | null, orderId: string | null, keepExtraData: boolean | null, ignoreChannels: boolean | null, channelKeys: string[] | null, allowedPreviousStatuses: string[] | null, rejectedPreviousStatuses: string[] | null) {
         this.eventKey = eventKey
         this.objectOrObjects = objectOrObjects
         this.status = status

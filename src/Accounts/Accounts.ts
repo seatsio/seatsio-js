@@ -1,24 +1,25 @@
 import { Account } from './Account'
+import { Axios } from 'axios'
 
 const baseUrl = '/accounts/me'
 
 export class Accounts {
-    private client: any
+    private client: Axios
 
-    constructor (client: any) {
+    constructor (client: Axios) {
         this.client = client
     }
 
     retrieveMyAccount () {
-        return this.client.get(baseUrl).then((res: any) => new Account(res.data))
+        return this.client.get(baseUrl).then(res => new Account(res.data))
     }
 
     regenerateSecretKey () {
-        return this.client.post(baseUrl + '/secret-key/actions/regenerate').then((res: any) => res.data.secretKey)
+        return this.client.post(baseUrl + '/secret-key/actions/regenerate').then(res => res.data.secretKey)
     }
 
     regenerateDesignerKey () {
-        return this.client.post(baseUrl + '/designer-key/actions/regenerate').then((res: any) => res.data.designerKey)
+        return this.client.post(baseUrl + '/designer-key/actions/regenerate').then(res => res.data.designerKey)
     }
 
     enableDraftChartDrawings () {
@@ -29,15 +30,15 @@ export class Accounts {
         return this.client.post(baseUrl + '/draft-chart-drawings/actions/disable')
     }
 
-    changePassword (password: any) {
+    changePassword (password: string) {
         return this.client.post(baseUrl + '/actions/change-password', { password })
     }
 
-    changeHoldPeriod (holdPeriodInMinutes: any) {
+    changeHoldPeriod (holdPeriodInMinutes: number) {
         return this.client.post(baseUrl + '/actions/change-hold-period', { holdPeriodInMinutes })
     }
 
-    updateSetting (key: any, value: any) {
+    updateSetting (key: string, value: string) {
         return this.client.post(baseUrl + '/settings', { key, value })
     }
 }

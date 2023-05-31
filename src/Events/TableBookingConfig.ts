@@ -1,28 +1,25 @@
 export class TableBookingConfig {
-    mode: any
-    tables: any
+    mode: string
+    tables?: { [key: string]: string }
 
-    constructor (mode: any, tables: any) {
+    constructor (mode: string, tables?: { [key: string]: string }) {
         this.mode = mode
         this.tables = tables
     }
 
     static inherit () {
-        // @ts-expect-error TS(2554): Expected 2 arguments, but got 1.
         return new TableBookingConfig('INHERIT')
     }
 
     static allByTable () {
-        // @ts-expect-error TS(2554): Expected 2 arguments, but got 1.
         return new TableBookingConfig('ALL_BY_TABLE')
     }
 
     static allBySeat () {
-        // @ts-expect-error TS(2554): Expected 2 arguments, but got 1.
         return new TableBookingConfig('ALL_BY_SEAT')
     }
 
-    static custom (tables: any) {
+    static custom (tables: { [key: string]: string }) {
         return new TableBookingConfig('CUSTOM', tables)
     }
 }

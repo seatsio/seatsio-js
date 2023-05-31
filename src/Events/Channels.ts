@@ -1,11 +1,13 @@
-export class Channels {
-    client: any
+import { Axios } from 'axios'
 
-    constructor (client: any) {
+export class Channels {
+    client: Axios
+
+    constructor (client: Axios) {
         this.client = client
     }
 
-    add (eventKey: any, channelKey: any, name: any, color: any, index: any, objects: any) {
+    add (eventKey: string, channelKey: string, name: string, color: string | undefined, index: number | undefined, objects: string[] | undefined) {
         return this.client.post(`/events/${encodeURIComponent(eventKey)}/channels`, {
             key: channelKey,
             name,
@@ -15,15 +17,15 @@ export class Channels {
         })
     }
 
-    addMultiple (eventKey: any, channelCreationParams: any) {
+    addMultiple (eventKey: string, channelCreationParams: any) {
         return this.client.post(`/events/${encodeURIComponent(eventKey)}/channels`, channelCreationParams)
     }
 
-    remove (eventKey: any, channelKey: any) {
+    remove (eventKey: string, channelKey: string) {
         return this.client.delete(`/events/${encodeURIComponent(eventKey)}/channels/${encodeURIComponent(channelKey)}`)
     }
 
-    update (eventKey: any, channelKey: any, newChannelName: any, newColor: any, newObjects: any) {
+    update (eventKey: string, channelKey: string, newChannelName: any, newColor: any, newObjects: any) {
         return this.client.post(`/events/${encodeURIComponent(eventKey)}/channels/${encodeURIComponent(channelKey)}`, {
             name: newChannelName,
             color: newColor,
@@ -31,19 +33,19 @@ export class Channels {
         })
     }
 
-    addObjects (eventKey: any, channelKey: any, objects: any) {
+    addObjects (eventKey: string, channelKey: string, objects: string[]) {
         return this.client.post(`/events/${encodeURIComponent(eventKey)}/channels/${encodeURIComponent(channelKey)}/objects`, {
             objects
         })
     }
 
-    removeObjects (eventKey: any, channelKey: any, objects: any) {
+    removeObjects (eventKey: string, channelKey: string, objects: string[]) {
         return this.client.delete(`/events/${encodeURIComponent(eventKey)}/channels/${encodeURIComponent(channelKey)}/objects`, {
             data: { objects }
         })
     }
 
-    replace (eventKey: any, channels: any) {
+    replace (eventKey: string, channels: any) {
         return this.client.post(`/events/${encodeURIComponent(eventKey)}/channels/replace`, { channels })
     }
 }

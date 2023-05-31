@@ -1,16 +1,21 @@
+import { Dict } from '../Dict'
+
+export type SubaccountJson = Dict<any>
+
 export class Subaccount {
-    active: any
-    designerKey: any
-    id: any
-    name: any
-    publicKey: any
-    secretKey: any
-    constructor (subaccount: any) {
-        this.id = subaccount.id
-        this.secretKey = subaccount.secretKey
-        this.designerKey = subaccount.designerKey
-        this.publicKey = subaccount.publicKey
-        this.name = subaccount.name
-        this.active = subaccount.active
+    active: boolean
+    designerKey: string
+    id: number
+    name: string
+    publicKey: string
+    secretKey: string
+
+    constructor (json: SubaccountJson) {
+        this.id = json.id
+        this.secretKey = json.secretKey
+        this.designerKey = json.designerKey
+        this.publicKey = json.publicKey
+        this.name = json.name
+        this.active = json.active
     }
 }

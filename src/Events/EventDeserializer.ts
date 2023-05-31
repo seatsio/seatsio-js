@@ -1,11 +1,11 @@
 import { Season } from '../Seasons/Season'
-import { Event } from './Event'
+import { Event, EventJson } from './Event'
 
 export class EventDeserializer {
-    fromJson (event: any) {
-        if (event.isSeason) {
-            return new Season(event)
+    fromJson (json: EventJson) {
+        if (json.isSeason) {
+            return new Season(json)
         }
-        return new Event(event)
+        return new Event(json)
     }
 }

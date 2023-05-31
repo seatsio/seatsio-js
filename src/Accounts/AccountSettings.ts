@@ -1,14 +1,17 @@
 import { ChartValidationSettings } from './ChartValidationSettings'
 import { DefaultRendererSettings } from './DefaultRendererSettings'
+import { Dict } from '../Dict'
+
+type AccountSettingsJson = Dict<any>
 
 export class AccountSettings {
-    chartValidation: any
-    defaultRendererSettings: any
-    draftChartDrawingsEnabled: any
-    holdOnSelectForGAs: any
-    holdPeriodInMinutes: any
+    chartValidation: ChartValidationSettings
+    defaultRendererSettings: DefaultRendererSettings
+    draftChartDrawingsEnabled: boolean
+    holdOnSelectForGAs: boolean
+    holdPeriodInMinutes: number
 
-    constructor (settings: any) {
+    constructor (settings: AccountSettingsJson) {
         this.draftChartDrawingsEnabled = settings.draftChartDrawingsEnabled
         this.holdOnSelectForGAs = settings.holdOnSelectForGAs
         this.holdPeriodInMinutes = settings.holdPeriodInMinutes

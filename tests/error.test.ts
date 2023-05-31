@@ -4,15 +4,15 @@ test('check error handling', async () => {
     const { client } = await TestUtils.createTestUserAndClient()
     expect.assertions(1)
     const errorSnapshot = {
-        status: 400,
-        messages: ['#: required key [chartKey] not found'],
+        status: 404,
+        messages: ['Chart not found: unexisting chart'],
         errors:
         [{
-            code: 'GENERAL_ERROR',
-            message: '#: required key [chartKey] not found'
+            code: 'CHART_NOT_FOUND',
+            message: 'Chart not found: unexisting chart'
         }],
         warnings: []
     }
 
-    await expect(client.events.create()).rejects.toMatchObject(errorSnapshot)
+    await expect(client.events.create('unexisting chart')).rejects.toMatchObject(errorSnapshot)
 })

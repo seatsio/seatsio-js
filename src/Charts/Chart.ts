@@ -1,21 +1,25 @@
 import { EventDeserializer } from '../Events/EventDeserializer'
 import { ChartValidation } from './ChartValidation'
-import { SocialDistancingRuleset } from './SocialDistancingRuleset'
+import { SocialDistancingRuleset, SocialDistancingRulesetJson } from './SocialDistancingRuleset'
+import { Event, EventJson } from '../Events/Event'
+import { Dict } from '../Dict'
+
+export type ChartJson = Dict<any>
 
 export class Chart {
-    archived: any
-    draftVersionThumbnailUrl: any
-    events: any
-    id: any
-    key: any
-    name: any
-    publishedVersionThumbnailUrl: any
-    socialDistancingRulesets: any
-    status: any
-    tags: any
-    validation: any
+    archived: boolean
+    draftVersionThumbnailUrl: string | null
+    events: Event[]
+    id: number
+    key: string
+    name: string
+    publishedVersionThumbnailUrl: string
+    socialDistancingRulesets?: Dict<SocialDistancingRuleset>
+    status: string
+    tags: string[]
+    validation?: ChartValidation
 
-    constructor (chart: any) {
+    constructor (chart: ChartJson) {
         this.name = chart.name
         this.id = chart.id
         this.key = chart.key
@@ -23,20 +27,19 @@ export class Chart {
         this.tags = chart.tags
         this.publishedVersionThumbnailUrl = chart.publishedVersionThumbnailUrl
         this.draftVersionThumbnailUrl = chart.draftVersionThumbnailUrl || null
-        this.events = chart.events ? chart.events.map((event: any) => new EventDeserializer().fromJson(event)) : []
+        this.events = chart.events ? chart.events.map((event: EventJson) => new EventDeserializer().fromJson(event)) : []
         this.archived = chart.archived
         if (chart.validation) this.validation = new ChartValidation(chart.validation)
         this.socialDistancingRulesets = Chart.socialDistancingRulesetsFromJson(chart.socialDistancingRulesets)
     }
 
-    static socialDistancingRulesetsFromJson (json: any) {
+    static socialDistancingRulesetsFromJson (json: SocialDistancingRulesetJson) {
         if (json === undefined) {
             return undefined
         }
 
-        const result = {}
+        const result: Dict<SocialDistancingRuleset> = {}
         for (const key in json) {
-            // @ts-expect-error TS(7053): Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
             result[key] = SocialDistancingRuleset.fromJson(json[key])
         }
         return result

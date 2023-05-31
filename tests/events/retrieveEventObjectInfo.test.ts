@@ -10,7 +10,7 @@ test('should retrieve event object info', async () => {
     const objectInfo = await client.events.retrieveObjectInfo(event.key, 'A-1')
 
     expect(objectInfo.status).toEqual(EventObjectInfo.FREE)
-    expect(objectInfo.ticketType).toBeFalsy()
-    expect(objectInfo.extraData).toBeFalsy()
+    expect(objectInfo.ticketType).toBeUndefined()
+    expect(objectInfo.extraData).toBeUndefined()
     expect(objectInfo.forSale).toBe(true)
 })

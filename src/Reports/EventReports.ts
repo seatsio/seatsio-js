@@ -1,153 +1,155 @@
 import { Utilities } from '../utilities/reportUtility'
+import { Axios } from 'axios'
+import { CategoryKey } from '../Charts/Category'
 
 export class EventReports {
-    client: any
-    constructor (client: any) {
+    client: Axios
+    constructor (client: Axios) {
         this.client = client
     }
 
-    byStatus (eventKey: any, status = null) {
+    byStatus (eventKey: string, status: string | null = null) {
         return this.client.get(EventReports.reportUrl('byStatus', eventKey, status))
-            .then((res: any) => Utilities.createEventReport(res.data))
+            .then(res => Utilities.createEventReport(res.data))
     }
 
-    summaryByStatus (eventKey: any) {
+    summaryByStatus (eventKey: string) {
         return this.client.get(EventReports.summaryReportUrl('byStatus', eventKey))
-            .then((res: any) => res.data)
+            .then(res => res.data)
     }
 
-    deepSummaryByStatus (eventKey: any) {
+    deepSummaryByStatus (eventKey: string) {
         return this.client.get(EventReports.deepSummaryReportUrl('byStatus', eventKey))
-            .then((res: any) => res.data)
+            .then(res => res.data)
     }
 
-    byObjectType (eventKey: any, objectType = null) {
+    byObjectType (eventKey: string, objectType: string | null = null) {
         return this.client.get(EventReports.reportUrl('byObjectType', eventKey, objectType))
-            .then((res: any) => Utilities.createEventReport(res.data))
+            .then(res => Utilities.createEventReport(res.data))
     }
 
-    summaryByObjectType (eventKey: any) {
+    summaryByObjectType (eventKey: string) {
         return this.client.get(EventReports.summaryReportUrl('byObjectType', eventKey))
-            .then((res: any) => res.data)
+            .then(res => res.data)
     }
 
-    deepSummaryByObjectType (eventKey: any) {
+    deepSummaryByObjectType (eventKey: string) {
         return this.client.get(EventReports.deepSummaryReportUrl('byObjectType', eventKey))
-            .then((res: any) => res.data)
+            .then(res => res.data)
     }
 
-    byCategoryLabel (eventKey: any, categoryLabel = null) {
+    byCategoryLabel (eventKey: string, categoryLabel: string | null = null) {
         return this.client.get(EventReports.reportUrl('byCategoryLabel', eventKey, categoryLabel))
-            .then((res: any) => Utilities.createEventReport(res.data))
+            .then(res => Utilities.createEventReport(res.data))
     }
 
-    summaryByCategoryLabel (eventKey: any) {
+    summaryByCategoryLabel (eventKey: string) {
         return this.client.get(EventReports.summaryReportUrl('byCategoryLabel', eventKey))
-            .then((res: any) => res.data)
+            .then(res => res.data)
     }
 
-    deepSummaryByCategoryLabel (eventKey: any) {
+    deepSummaryByCategoryLabel (eventKey: string) {
         return this.client.get(EventReports.deepSummaryReportUrl('byCategoryLabel', eventKey))
-            .then((res: any) => res.data)
+            .then(res => res.data)
     }
 
-    byCategoryKey (eventKey: any, categoryKey = null) {
+    byCategoryKey (eventKey: string, categoryKey: CategoryKey | null = null) {
         return this.client.get(EventReports.reportUrl('byCategoryKey', eventKey, categoryKey))
-            .then((res: any) => Utilities.createEventReport(res.data))
+            .then(res => Utilities.createEventReport(res.data))
     }
 
-    summaryByCategoryKey (eventKey: any) {
+    summaryByCategoryKey (eventKey: string) {
         return this.client.get(EventReports.summaryReportUrl('byCategoryKey', eventKey))
-            .then((res: any) => res.data)
+            .then(res => res.data)
     }
 
-    deepSummaryByCategoryKey (eventKey: any) {
+    deepSummaryByCategoryKey (eventKey: string) {
         return this.client.get(EventReports.deepSummaryReportUrl('byCategoryKey', eventKey))
-            .then((res: any) => res.data)
+            .then(res => res.data)
     }
 
-    byLabel (eventKey: any, label = null) {
+    byLabel (eventKey: string, label: string | null = null) {
         return this.client.get(EventReports.reportUrl('byLabel', eventKey, label))
-            .then((res: any) => Utilities.createEventReport(res.data))
+            .then(res => Utilities.createEventReport(res.data))
     }
 
-    byOrderId (eventKey: any, orderId = null) {
+    byOrderId (eventKey: string, orderId: string | null = null) {
         return this.client.get(EventReports.reportUrl('byOrderId', eventKey, orderId))
-            .then((res: any) => Utilities.createEventReport(res.data))
+            .then(res => Utilities.createEventReport(res.data))
     }
 
-    bySection (eventKey: any, section = null) {
+    bySection (eventKey: string, section: string | null = null) {
         return this.client.get(EventReports.reportUrl('bySection', eventKey, section))
-            .then((res: any) => Utilities.createEventReport(res.data))
+            .then(res => Utilities.createEventReport(res.data))
     }
 
-    summaryBySection (eventKey: any) {
+    summaryBySection (eventKey: string) {
         return this.client.get(EventReports.summaryReportUrl('bySection', eventKey))
-            .then((res: any) => res.data)
+            .then(res => res.data)
     }
 
-    deepSummaryBySection (eventKey: any) {
+    deepSummaryBySection (eventKey: string) {
         return this.client.get(EventReports.deepSummaryReportUrl('bySection', eventKey))
-            .then((res: any) => res.data)
+            .then(res => res.data)
     }
 
-    byAvailability (eventKey: any, availability = null) {
+    byAvailability (eventKey: string, availability: string | null = null) {
         return this.client.get(EventReports.reportUrl('byAvailability', eventKey, availability))
-            .then((res: any) => Utilities.createEventReport(res.data))
+            .then(res => Utilities.createEventReport(res.data))
     }
 
-    byAvailabilityReason (eventKey: any, availabilityReason = null) {
+    byAvailabilityReason (eventKey: string, availabilityReason: string | null = null) {
         return this.client.get(EventReports.reportUrl('byAvailabilityReason', eventKey, availabilityReason))
-            .then((res: any) => Utilities.createEventReport(res.data))
+            .then(res => Utilities.createEventReport(res.data))
     }
 
-    summaryByAvailability (eventKey: any) {
+    summaryByAvailability (eventKey: string) {
         return this.client.get(EventReports.summaryReportUrl('byAvailability', eventKey))
-            .then((res: any) => res.data)
+            .then(res => res.data)
     }
 
-    summaryByAvailabilityReason (eventKey: any) {
+    summaryByAvailabilityReason (eventKey: string) {
         return this.client.get(EventReports.summaryReportUrl('byAvailabilityReason', eventKey))
-            .then((res: any) => res.data)
+            .then(res => res.data)
     }
 
-    deepSummaryByAvailability (eventKey: any) {
+    deepSummaryByAvailability (eventKey: string) {
         return this.client.get(EventReports.deepSummaryReportUrl('byAvailability', eventKey))
-            .then((res: any) => res.data)
+            .then(res => res.data)
     }
 
-    deepSummaryByAvailabilityReason (eventKey: any) {
+    deepSummaryByAvailabilityReason (eventKey: string) {
         return this.client.get(EventReports.deepSummaryReportUrl('byAvailabilityReason', eventKey))
-            .then((res: any) => res.data)
+            .then(res => res.data)
     }
 
-    byChannel (eventKey: any, channel = null) {
+    byChannel (eventKey: string, channel: string | null = null) {
         return this.client.get(EventReports.reportUrl('byChannel', eventKey, channel))
-            .then((res: any) => Utilities.createEventReport(res.data))
+            .then(res => Utilities.createEventReport(res.data))
     }
 
-    summaryByChannel (eventKey: any) {
+    summaryByChannel (eventKey: string) {
         return this.client.get(EventReports.summaryReportUrl('byChannel', eventKey))
-            .then((res: any) => res.data)
+            .then(res => res.data)
     }
 
-    deepSummaryByChannel (eventKey: any) {
+    deepSummaryByChannel (eventKey: string) {
         return this.client.get(EventReports.deepSummaryReportUrl('byChannel', eventKey))
-            .then((res: any) => res.data)
+            .then(res => res.data)
     }
 
-    static reportUrl (reportType: any, eventKey: any, filter: any) {
+    static reportUrl (reportType: string, eventKey: string, filter: string | number | null) {
         if (filter === null || typeof filter === 'undefined') {
             return `/reports/events/${encodeURIComponent(eventKey)}/${reportType}`
         }
         return `/reports/events/${encodeURIComponent(eventKey)}/${reportType}/${encodeURIComponent(filter)}`
     }
 
-    static summaryReportUrl (reportType: any, eventKey: any) {
+    static summaryReportUrl (reportType: string, eventKey: string) {
         return `/reports/events/${encodeURIComponent(eventKey)}/${reportType}/summary`
     }
 
-    static deepSummaryReportUrl (reportType: any, eventKey: any) {
+    static deepSummaryReportUrl (reportType: string, eventKey: string) {
         return `/reports/events/${encodeURIComponent(eventKey)}/${reportType}/summary/deep`
     }
 }

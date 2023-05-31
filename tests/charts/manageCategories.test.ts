@@ -14,7 +14,7 @@ test('should add a category', async () => {
         { key: 2, label: 'Category 2', color: '#bbbbbb', accessible: true }
     ]
     const retrievedChart = await client.charts.retrievePublishedVersion(chart.key)
-    expect(retrievedChart.categories.list).toEqual(expectedCategories)
+    expect(retrievedChart.categories!.list).toEqual(expectedCategories)
 })
 
 test('should remove a category', async () => {
@@ -28,7 +28,7 @@ test('should remove a category', async () => {
     await client.charts.removeCategory(chart.key, 'cat2')
 
     const retrievedChart = await client.charts.retrievePublishedVersion(chart.key)
-    expect(retrievedChart.categories.list).toEqual([{ key: 1, label: 'Category 1', color: '#aaaaaa', accessible: false }])
+    expect(retrievedChart.categories!.list).toEqual([{ key: 1, label: 'Category 1', color: '#aaaaaa', accessible: false }])
 })
 
 test('should retrieve the categories of a chart', async () => {

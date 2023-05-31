@@ -1,5 +1,6 @@
 import { Channel } from '../../../src/Events/Channel'
 import { TestUtils } from '../../testUtils'
+
 test('can remove a channel', async () => {
     const {
         client,

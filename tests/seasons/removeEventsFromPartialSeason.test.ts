@@ -1,5 +1,6 @@
 import { TestUtils } from '../testUtils'
 import { SeasonParams } from '../../src/Seasons/SeasonParams'
+import { Event } from '../../src/Events/Event'
 
 test('add events to partial season', async () => {
     const { client } = await TestUtils.createTestUserAndClient()
@@ -9,5 +10,5 @@ test('add events to partial season', async () => {
 
     const updatedPartialSeason = await client.seasons.removeEventFromPartialSeason(season.key, partialSeason.key, 'event2')
 
-    expect(updatedPartialSeason.events.map((e: any) => e.key)).toEqual(['event1'])
+    expect(updatedPartialSeason.events!.map((e: Event) => e.key)).toEqual(['event1'])
 })

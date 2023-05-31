@@ -1,9 +1,13 @@
-export class DefaultRendererSettings {
-    multiSelectEnabled: any
-    showFullScreenButton: any
+import { Dict } from '../Dict'
 
-    constructor (defaultRendererSettings: any) {
-        this.showFullScreenButton = defaultRendererSettings.showFullScreenButton
-        this.multiSelectEnabled = defaultRendererSettings.multiSelectEnabled
+type DefaultRendererSettingsJson = Dict<any>
+
+export class DefaultRendererSettings {
+    multiSelectEnabled: boolean
+    showFullScreenButton: boolean
+
+    constructor (json: DefaultRendererSettingsJson) {
+        this.showFullScreenButton = json.showFullScreenButton
+        this.multiSelectEnabled = json.multiSelectEnabled
     }
 }

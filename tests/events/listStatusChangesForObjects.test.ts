@@ -7,14 +7,10 @@ test('should list status changes for objects', async () => {
     await TestUtils.createTestChart(chartKey, user.secretKey)
     const event = await client.events.create(chartKey)
     await client.events.changeObjectStatusInBatch([
-        // @ts-expect-error TS(2554): Expected 10 arguments, but got 3.
-        new StatusChangeRequest(event.key, 'A-1', 's1'),
-        // @ts-expect-error TS(2554): Expected 10 arguments, but got 3.
-        new StatusChangeRequest(event.key, 'A-1', 's2'),
-        // @ts-expect-error TS(2554): Expected 10 arguments, but got 3.
-        new StatusChangeRequest(event.key, 'A-2', 's4'),
-        // @ts-expect-error TS(2554): Expected 10 arguments, but got 3.
-        new StatusChangeRequest(event.key, 'A-1', 's3')
+        new StatusChangeRequest(event.key, 'A-1', 's1', null, null, null, null, null, null, null),
+        new StatusChangeRequest(event.key, 'A-1', 's2', null, null, null, null, null, null, null),
+        new StatusChangeRequest(event.key, 'A-2', 's4', null, null, null, null, null, null, null),
+        new StatusChangeRequest(event.key, 'A-1', 's3', null, null, null, null, null, null, null)
     ])
     await TestUtils.statusChangesPresent(client, event.key, 4)
 

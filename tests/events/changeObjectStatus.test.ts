@@ -157,7 +157,7 @@ test('should respect keepExtraData=false', async () => {
     await client.events.changeObjectStatus(event.key, ['A-1'], 'someStatus', null, null, false)
 
     const status = await client.events.retrieveObjectInfo(event.key, 'A-1')
-    expect(status.extraData).toBeFalsy()
+    expect(status.extraData).toBeUndefined()
 })
 
 test('should respect no keepExtraData', async () => {
@@ -170,7 +170,7 @@ test('should respect no keepExtraData', async () => {
     await client.events.changeObjectStatus(event.key, ['A-1'], 'someStatus', null, null, false)
 
     const status = await client.events.retrieveObjectInfo(event.key, 'A-1')
-    expect(status.extraData).toBeFalsy()
+    expect(status.extraData).toBeUndefined()
 })
 
 test('should accept channel keys', async () => {

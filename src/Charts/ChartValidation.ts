@@ -1,8 +1,11 @@
+import { Dict } from '../Dict'
+
 export class ChartValidation {
-    errors: any
-    warnings: any
-    constructor (validation: any) {
-        this.errors = validation.errors
-        this.warnings = validation.warnings
+    errors: string[]
+    warnings: string[]
+
+    constructor (json: Dict<any>) {
+        this.errors = json.errors
+        this.warnings = json.warnings
     }
 }

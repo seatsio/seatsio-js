@@ -59,21 +59,6 @@ test('should change object status for multiple objects as an array of classes wi
     expect(objectInfoGA1.numBooked).toBe(5)
 })
 
-test('should change object status for multiple objects as an array of classes and strings', async () => {
-    const { client, user } = await TestUtils.createTestUserAndClient()
-    const chartKey = TestUtils.getChartKey()
-    await TestUtils.createTestChart(chartKey, user.secretKey)
-    const event = await client.events.create(chartKey)
-    const objects = ['A-1', { objectId: 'GA1', quantity: 5 }]
-
-    await client.events.changeObjectStatus(event.key, objects, 'lolzor')
-
-    const objectInfo1 = await client.events.retrieveObjectInfo(event.key, 'A-1')
-    const objectInfoGA1 = await client.events.retrieveObjectInfo(event.key, 'GA1')
-    expect(objectInfo1.status).toBe('lolzor')
-    expect(objectInfoGA1.numBooked).toBe(5)
-})
-
 test('should change object status for multiple objects with ticket types', async () => {
     const { client, user } = await TestUtils.createTestUserAndClient()
     const chartKey = TestUtils.getChartKey()

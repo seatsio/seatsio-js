@@ -1,8 +1,8 @@
-export class Page {
-    items: any
-    nextPageStartsAfter: any
-    previousPageEndsBefore: any
-    constructor (items: any, afterId = null, beforeId = null) {
+export class Page<T> {
+    items: T[]
+    nextPageStartsAfter: number | null
+    previousPageEndsBefore: number | null
+    constructor (items: T[], afterId: number | null = null, beforeId: number | null = null) {
         this.items = items
         this.nextPageStartsAfter = afterId
         this.previousPageEndsBefore = beforeId

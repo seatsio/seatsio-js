@@ -1,29 +1,27 @@
-import { ChartObjectInfo } from '../Charts/ChartObjectInfo'
-import { EventObjectInfo } from '../Events/EventObjectInfo'
+import { ChartObjectInfo, ChartObjectInfoJson } from '../Charts/ChartObjectInfo'
+import { EventObjectInfo, EventObjectInfoJson } from '../Events/EventObjectInfo'
+import { Dict } from '../Dict'
 
 export class Utilities {
-    static createChangeObjectStatusDetails (data: any) {
-        const objectDetails = {}
+    static createChangeObjectStatusDetails (data: Dict<EventObjectInfoJson>) {
+        const objectDetails: Dict<EventObjectInfo> = {}
         for (const key in data) {
-            // @ts-expect-error TS(7053): Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
             objectDetails[key] = new EventObjectInfo(data[key])
         }
         return objectDetails
     }
 
-    static createEventReport (reportsData: any) {
-        const reportObjects = {}
+    static createEventReport (reportsData: Dict<EventObjectInfoJson[]>) {
+        const reportObjects: Dict<EventObjectInfo[]> = {}
         for (const key of Object.keys(reportsData)) {
-            // @ts-expect-error TS(7053): Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-            reportObjects[key] = reportsData[key].map((data: any) => new EventObjectInfo(data))
+            reportObjects[key] = reportsData[key].map(data => new EventObjectInfo(data))
         }
         return reportObjects
     }
 
-    static createChartReport (reportsData: any) {
-        const reportObjects = {}
+    static createChartReport (reportsData: Dict<ChartObjectInfoJson[]>) {
+        const reportObjects: Dict<ChartObjectInfo[]> = {}
         for (const key of Object.keys(reportsData)) {
-            // @ts-expect-error TS(7053): Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
             reportObjects[key] = reportsData[key].map((data: any) => new ChartObjectInfo(data))
         }
         return reportObjects

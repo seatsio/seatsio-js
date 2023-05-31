@@ -1,21 +1,24 @@
 import { AccountSettings } from './AccountSettings'
+import { Dict } from '../Dict'
+
+type AccountJson = Dict<any>
 
 export class Account {
     company: any
-    designerKey: any
-    email: any
-    publicKey: any
-    role: any
-    secretKey: any
-    settings: any
+    designerKey: string
+    email: string
+    publicKey: string
+    role: string
+    secretKey: string
+    settings: AccountSettings
 
-    constructor (account: any) {
-        this.secretKey = account.secretKey
-        this.designerKey = account.designerKey
-        this.publicKey = account.publicKey
-        this.settings = new AccountSettings(account.settings)
-        this.company = account.company
-        this.email = account.email
-        this.role = account.role
+    constructor (json: AccountJson) {
+        this.secretKey = json.secretKey
+        this.designerKey = json.designerKey
+        this.publicKey = json.publicKey
+        this.settings = new AccountSettings(json.settings)
+        this.company = json.company
+        this.email = json.email
+        this.role = json.role
     }
 }

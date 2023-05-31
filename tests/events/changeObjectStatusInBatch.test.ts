@@ -13,10 +13,8 @@ test('should change object status in batch', async () => {
     const event2 = await client.events.create(chartKey2)
 
     const result = await client.events.changeObjectStatusInBatch([
-        // @ts-expect-error TS(2554): Expected 10 arguments, but got 3.
-        new StatusChangeRequest(event1.key, ['A-1'], 'lolzor'),
-        // @ts-expect-error TS(2554): Expected 10 arguments, but got 3.
-        new StatusChangeRequest(event2.key, ['A-2'], 'lolzor')
+        new StatusChangeRequest(event1.key, ['A-1'], 'lolzor', null, null, null, null, null, null, null),
+        new StatusChangeRequest(event2.key, ['A-2'], 'lolzor', null, null, null, null, null, null, null)
     ])
 
     expect(result[0].objects['A-1'].status).toBe('lolzor')
@@ -38,8 +36,7 @@ test('should accept channel keys', async () => {
     ])
 
     const result = await client.events.changeObjectStatusInBatch([
-        // @ts-expect-error TS(2554): Expected 10 arguments, but got 8.
-        new StatusChangeRequest(event.key, ['A-1'], 'lolzor', null, null, null, null, ['channelKey1'])
+        new StatusChangeRequest(event.key, ['A-1'], 'lolzor', null, null, null, null, ['channelKey1'], null, null)
     ])
 
     expect(result[0].objects['A-1'].status).toBe('lolzor')
@@ -55,8 +52,7 @@ test('should accept ignoreChannels', async () => {
     ])
 
     const result = await client.events.changeObjectStatusInBatch([
-        // @ts-expect-error TS(2554): Expected 10 arguments, but got 7.
-        new StatusChangeRequest(event.key, ['A-1'], 'lolzor', null, null, null, true)
+        new StatusChangeRequest(event.key, ['A-1'], 'lolzor', null, null, null, true, null, null, null)
     ])
 
     expect(result[0].objects['A-1'].status).toBe('lolzor')

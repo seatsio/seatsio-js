@@ -67,7 +67,7 @@ test('should hold and then book, check hold token exists', async () => {
 
     const objectInfo = await client.events.retrieveObjectInfo(event.key, 'A-1')
     expect(objectInfo.status).toBe(EventObjectInfo.BOOKED)
-    expect(objectInfo.holdToken).toBeFalsy()
+    expect(objectInfo.holdToken).toBeUndefined()
 })
 
 test('should check booking with orderId', async () => {

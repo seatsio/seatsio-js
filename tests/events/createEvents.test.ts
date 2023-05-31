@@ -34,7 +34,6 @@ test('should create a single event', async () => {
     const chart = await client.charts.create()
 
     const events = await client.events.createMultiple(chart.key, [
-        // @ts-expect-error TS(2345): Argument of type '"eventKey"' is not assignable to... Remove this comment to see the full error message
         Events.eventCreationParams('eventKey')
     ])
 
@@ -50,9 +49,7 @@ test('should create multiple events', async () => {
     const chart = await client.charts.create()
 
     const events = [
-        // @ts-expect-error TS(2345): Argument of type '"eventKey1"' is not assignable t... Remove this comment to see the full error message
         Events.eventCreationParams('eventKey1'),
-        // @ts-expect-error TS(2345): Argument of type '"eventKey2"' is not assignable t... Remove this comment to see the full error message
         Events.eventCreationParams('eventKey2')
     ]
     const createdEvents = await client.events.createMultiple(chart.key, events)
@@ -62,9 +59,7 @@ test('should create multiple events', async () => {
     expect(createdEvents[1].key).toEqual('eventKey2')
 
     for (const event of events) {
-        // @ts-expect-error TS(2339): Property 'eventKey' does not exist on type '{}'.
         const retrievedEvent = await client.events.retrieve(event.eventKey)
-        // @ts-expect-error TS(2339): Property 'eventKey' does not exist on type '{}'.
         expect(retrievedEvent.key).toEqual(event.eventKey)
     }
 })
@@ -76,7 +71,6 @@ test('supports tableBookingConfig custom', async () => {
     const tableBookingConfig = TableBookingConfig.custom({ T1: 'BY_TABLE', T2: 'BY_SEAT' })
 
     const events = await client.events.createMultiple(chartKey, [
-        // @ts-expect-error TS(2345): Argument of type 'TableBookingConfig' is not assig... Remove this comment to see the full error message
         Events.eventCreationParams(null, tableBookingConfig)
     ])
 
@@ -90,7 +84,6 @@ test('supports tableBookingConfig inherit', async () => {
     await TestUtils.createTestChartWithTables(chartKey, user.secretKey)
 
     const events = await client.events.createMultiple(chartKey, [
-        // @ts-expect-error TS(2345): Argument of type 'TableBookingConfig' is not assig... Remove this comment to see the full error message
         Events.eventCreationParams(null, TableBookingConfig.inherit())
     ])
 
@@ -105,7 +98,6 @@ test('it supports a social distancing ruleset key', async () => {
     await client.charts.saveSocialDistancingRulesets(chart.key, rulesets)
 
     const events = await client.events.createMultiple(chart.key, [
-        // @ts-expect-error TS(2345): Argument of type '"ruleset1"' is not assignable to... Remove this comment to see the full error message
         Events.eventCreationParams(null, null, 'ruleset1')
     ])
 
@@ -118,7 +110,6 @@ test('it supports object categories', async () => {
     await TestUtils.createTestChart(chartKey, user.secretKey)
 
     const events = await client.events.createMultiple(chartKey, [
-        // @ts-expect-error TS(2345): Argument of type '{ 'A-1': number; }' is not assig... Remove this comment to see the full error message
         Events.eventCreationParams(null, null, null, { 'A-1': 10 })
     ])
 
@@ -130,15 +121,14 @@ test('it supports categories', async () => {
     const chartKey = TestUtils.getChartKey()
     await TestUtils.createTestChart(chartKey, user.secretKey)
 
-    const eventCategory = new Category('eventCat1', 'Event Level Category', '#AAABBB')
+    const eventCategory = new Category('eventCat1', 'Event Level Category', '#AAABBB', false)
 
     const events = await client.events.createMultiple(chartKey, [
-        // @ts-expect-error TS(2345): Argument of type 'Category[]' is not assignable to... Remove this comment to see the full error message
         Events.eventCreationParams(null, null, null, null, [eventCategory])
     ])
 
-    expect(events[0].categories.length).toEqual(4) // 3 from sampleChart.json, 1 event level category
-    expect(events[0].categories.filter((cat: any) => cat.key === 'eventCat1').length).toEqual(1)
-    expect(events[0].categories.filter((cat: any) => cat.key === 'eventCat1')[0].label).toEqual('Event Level Category')
-    expect(events[0].categories.filter((cat: any) => cat.key === 'eventCat1')[0].color).toEqual('#AAABBB')
+    expect(events[0].categories!.length).toEqual(4) // 3 from sampleChart.json, 1 event level category
+    expect(events[0].categories!.filter((cat: Category) => cat.key === 'eventCat1').length).toEqual(1)
+    expect(events[0].categories!.filter((cat: Category) => cat.key === 'eventCat1')[0].label).toEqual('Event Level Category')
+    expect(events[0].categories!.filter((cat: Category) => cat.key === 'eventCat1')[0].color).toEqual('#AAABBB')
 })

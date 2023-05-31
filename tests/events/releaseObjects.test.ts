@@ -30,7 +30,7 @@ test('should release objects with hold tokens', async () => {
 
     const objectInfo = await client.events.retrieveObjectInfo(event.key, 'A-1')
     expect(objectInfo.status).toBe(EventObjectInfo.FREE)
-    expect(objectInfo.holdToken).toBeFalsy()
+    expect(objectInfo.holdToken).toBeUndefined()
 })
 
 test('should release objects with order id', async () => {
