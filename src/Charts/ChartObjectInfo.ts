@@ -20,6 +20,9 @@ export class ChartObjectInfo {
     objectType: string
     rightNeighbour?: string
     section?: string
+    isAccessible?: boolean
+    isCompanionSeat?: boolean
+    hasRestrictedView?: boolean
 
     constructor (json: ChartObjectInfoJson) {
         this.label = json.label
@@ -36,5 +39,8 @@ export class ChartObjectInfo {
         this.rightNeighbour = json.rightNeighbour
         this.distanceToFocalPoint = json.distanceToFocalPoint
         this.numSeats = json.numSeats
+        this.isAccessible = json.isAccessible
+        this.isCompanionSeat = json.isCompanionSeat
+        this.hasRestrictedView = json.hasRestrictedView
     }
 }
