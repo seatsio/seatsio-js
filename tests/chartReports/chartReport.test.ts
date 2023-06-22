@@ -21,6 +21,9 @@ test('chart report properties', async () => {
     expect(reportItem.rightNeighbour).toBe('A-2')
     expect(reportItem.bookAsAWhole).toBe(undefined)
     expect(reportItem.distanceToFocalPoint).toBeTruthy()
+    expect(reportItem.isAccessible).toBeDefined()
+    expect(reportItem.isCompanionSeat).toBeDefined()
+    expect(reportItem.hasRestrictedView).toBeDefined()
 })
 
 test('chart report properties for GA', async () => {
