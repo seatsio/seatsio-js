@@ -2,6 +2,7 @@ import { TestUtils } from '../testUtils'
 import { TableBookingConfig } from '../../src/Events/TableBookingConfig'
 import { Category } from '../../src/Charts/Category'
 import { SocialDistancingRuleset } from '../../src/Charts/SocialDistancingRuleset'
+import { LocalDate } from '../../src/LocalDate'
 
 test('should check that only chart key is required', async () => {
     const { client, user } = await TestUtils.createTestUserAndClient()
@@ -18,6 +19,8 @@ test('should check that only chart key is required', async () => {
     expect(event.createdOn).toBeInstanceOf(Date)
     expect(event.forSaleConfig).toBeNull()
     expect(event.updatedOn).toBeNull()
+    expect(event.name).toBeNull()
+    expect(event.date).toBeNull()
     expect(event.categories).toEqual(TestUtils.testChartCategories)
 })
 
@@ -87,4 +90,31 @@ test('it supports categories', async () => {
     expect(event.categories!.filter((cat: Category) => cat.key === 'eventCat1').length).toEqual(1)
     expect(event.categories!.filter((cat: Category) => cat.key === 'eventCat1')[0].label).toEqual('Event Level Category')
     expect(event.categories!.filter((cat: Category) => cat.key === 'eventCat1')[0].color).toEqual('#AAABBB')
+})
+
+test('it supports a name', async () => {
+    const { client } = await TestUtils.createTestUserAndClient()
+    const chart = await client.charts.create()
+
+    const event = await client.events.create(chart.key, null, null, null, null, null, 'My event')
+
+    expect(event.name).toBe('My event')
+})
+
+test('it supports a name', async () => {
+    const { client } = await TestUtils.createTestUserAndClient()
+    const chart = await client.charts.create()
+
+    const event = await client.events.create(chart.key, null, null, null, null, null, 'My event')
+
+    expect(event.name).toBe('My event')
+})
+
+test('it supports a date', async () => {
+    const { client } = await TestUtils.createTestUserAndClient()
+    const chart = await client.charts.create()
+
+    const event = await client.events.create(chart.key, null, null, null, null, null, null, new LocalDate(2020, 1, 5))
+
+    expect(event.date).toEqual(new LocalDate(2020, 1, 5))
 })

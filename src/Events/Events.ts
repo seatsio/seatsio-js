@@ -12,6 +12,7 @@ import { Axios } from 'axios'
 import { Category } from '../Charts/Category'
 import { Dict } from '../Dict'
 import { StatusChangeRequest } from './StatusChangeRequest'
+import { LocalDate } from '../LocalDate'
 
 export interface ObjectIdAndTicketType {
     objectId: string
@@ -30,7 +31,9 @@ export class Events {
         this.channels = new Channels(this.client)
     }
 
-    create (chartKey: string, eventKey: string | null = null, tableBookingConfig: TableBookingConfig | null = null, socialDistancingRulesetKey: string | null = null, objectCategories: object | null = null, categories: Category[] | null = null) {
+    create (chartKey: string, eventKey: string | null = null, tableBookingConfig: TableBookingConfig | null = null,
+        socialDistancingRulesetKey: string | null = null, objectCategories: object | null = null, categories: Category[] | null = null,
+        name: string | null = null, date: LocalDate | null = null) {
         const requestParameters: Dict<any> = {}
 
         requestParameters.chartKey = chartKey
@@ -55,17 +58,29 @@ export class Events {
             requestParameters.categories = categories
         }
 
+        if (name != null) {
+            requestParameters.name = name
+        }
+
+        if (date != null) {
+            requestParameters.date = date.toString()
+        }
+
         return this.client.post('/events', requestParameters)
             .then(res => new EventDeserializer().fromJson(res.data))
     }
 
-    static eventCreationParams (eventKey: string | null = null, tableBookingConfig: TableBookingConfig | null = null, socialDistancingRulesetKey: string | null = null, objectCategories: object | null = null, categories: Category[] | null = null) {
+    static eventCreationParams (eventKey: string | null = null, tableBookingConfig: TableBookingConfig | null = null, socialDistancingRulesetKey: string | null = null,
+        objectCategories: object | null = null, categories: Category[] | null = null,
+        name: string | null = null, date: LocalDate | null = null) {
         const eventDefinition: Dict<any> = {}
         eventDefinition.eventKey = eventKey
         eventDefinition.tableBookingConfig = tableBookingConfig
         eventDefinition.socialDistancingRulesetKey = socialDistancingRulesetKey
         eventDefinition.objectCategories = objectCategories
         eventDefinition.categories = categories
+        eventDefinition.name = name
+        eventDefinition.date = date
         return eventDefinition
     }
 
@@ -97,6 +112,15 @@ export class Events {
                 if (events[i].categories != null) {
                     event.categories = events[i].categories
                 }
+
+                if (events[i].name != null) {
+                    event.name = events[i].name
+                }
+
+                if (events[i].date != null) {
+                    event.date = events[i].date.toString()
+                }
+
                 requestParameters.events.push(event)
             }
         }
@@ -117,7 +141,9 @@ export class Events {
             .then(res => new EventDeserializer().fromJson(res.data))
     }
 
-    update (eventKey: string, chartKey: string | null = null, newEventKey: string | null = null, tableBookingConfig: TableBookingConfig | null = null, socialDistancingRulesetKey: string | null = null, objectCategories: object | null = null, categories: Category[] | null = null) {
+    update (eventKey: string, chartKey: string | null = null, newEventKey: string | null = null, tableBookingConfig: TableBookingConfig | null = null,
+        socialDistancingRulesetKey: string | null = null, objectCategories: object | null = null, categories: Category[] | null = null,
+        name: string | null = null, date: LocalDate | null = null) {
         const requestParameters: Dict<any> = {}
 
         if (chartKey !== null) {
@@ -142,6 +168,14 @@ export class Events {
 
         if (categories != null) {
             requestParameters.categories = categories
+        }
+
+        if (name != null) {
+            requestParameters.name = name
+        }
+
+        if (date != null) {
+            requestParameters.date = date.toString()
         }
 
         return this.client.post(`events/${encodeURIComponent(eventKey)}`, requestParameters)

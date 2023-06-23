@@ -3,6 +3,7 @@ import { TableBookingConfig } from '../../src/Events/TableBookingConfig'
 import { Category } from '../../src/Charts/Category'
 import { Events } from '../../src/Events/Events'
 import { SocialDistancingRuleset } from '../../src/Charts/SocialDistancingRuleset'
+import { LocalDate } from '../../src/LocalDate'
 
 test('should check that a minimum of one event is required', async () => {
     const { client, user } = await TestUtils.createTestUserAndClient()
@@ -131,4 +132,28 @@ test('it supports categories', async () => {
     expect(events[0].categories!.filter((cat: Category) => cat.key === 'eventCat1').length).toEqual(1)
     expect(events[0].categories!.filter((cat: Category) => cat.key === 'eventCat1')[0].label).toEqual('Event Level Category')
     expect(events[0].categories!.filter((cat: Category) => cat.key === 'eventCat1')[0].color).toEqual('#AAABBB')
+})
+
+test('it supports name', async () => {
+    const { client, user } = await TestUtils.createTestUserAndClient()
+    const chartKey = TestUtils.getChartKey()
+    await TestUtils.createTestChart(chartKey, user.secretKey)
+
+    const events = await client.events.createMultiple(chartKey, [
+        Events.eventCreationParams(null, null, null, null, null, 'My event')
+    ])
+
+    expect(events[0].name).toBe('My event')
+})
+
+test('it supports date', async () => {
+    const { client, user } = await TestUtils.createTestUserAndClient()
+    const chartKey = TestUtils.getChartKey()
+    await TestUtils.createTestChart(chartKey, user.secretKey)
+
+    const events = await client.events.createMultiple(chartKey, [
+        Events.eventCreationParams(null, null, null, null, null, null, new LocalDate(2020, 1, 8))
+    ])
+
+    expect(events[0].date).toEqual(new LocalDate(2020, 1, 8))
 })

@@ -3,6 +3,7 @@ import { Channel, ChannelJson } from './Channel'
 import { Category } from '../Charts/Category'
 import { TableBookingConfig } from './TableBookingConfig'
 import { Dict } from '../Dict'
+import { LocalDate } from '../LocalDate'
 
 export type EventJson = Dict<any>
 
@@ -23,6 +24,8 @@ export class Event {
     tableBookingConfig: TableBookingConfig
     topLevelSeasonKey?: string
     updatedOn: Date | null
+    name: string | null
+    date: LocalDate | null
 
     constructor (json: EventJson) {
         this.id = json.id
@@ -41,6 +44,8 @@ export class Event {
         this.isEventInSeason = json.isEventInSeason
         this.objectCategories = json.objectCategories
         this.categories = json.categories ? json.categories!.map((c: ChannelJson) => Category.fromJson(c)) : null
+        this.name = json.name || null
+        this.date = json.date ? LocalDate.parse(json.date) : null
     }
 
     isSeason () {
