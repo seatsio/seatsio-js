@@ -24,7 +24,7 @@ export class Event {
     tableBookingConfig: TableBookingConfig
     topLevelSeasonKey?: string
     updatedOn: Date | null
-    name?: string
+    name: string | null
     date: LocalDate | null
 
     constructor (json: EventJson) {
