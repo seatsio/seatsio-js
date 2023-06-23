@@ -2,6 +2,7 @@ import { TableBookingConfig } from '../../src/Events/TableBookingConfig'
 import { Category } from '../../src/Charts/Category'
 import { TestUtils } from '../testUtils'
 import { SocialDistancingRuleset } from '../../src/Charts/SocialDistancingRuleset'
+import { LocalDate } from '../../src/LocalDate'
 
 test('should update event\'s chart key', async () => {
     const { client } = await TestUtils.createTestUserAndClient()
@@ -120,7 +121,7 @@ test('it supports updating the categories', async () => {
     expect(retrievedEvent.categories!.filter((cat: Category) => cat.key === 'eventCat2')[0].color).toEqual('#BBBCCC')
 })
 
-test('it supports removing categoreis', async () => {
+test('it supports removing categories', async () => {
     const { client, user } = await TestUtils.createTestUserAndClient()
     const chartKey = TestUtils.getChartKey()
     await TestUtils.createTestChart(chartKey, user.secretKey)
@@ -131,4 +132,26 @@ test('it supports removing categoreis', async () => {
 
     const retrievedEvent = await client.events.retrieve(event.key)
     expect(retrievedEvent.categories!.length).toEqual(3) // 3 from sampleChart.json, event level category was removed
+})
+
+test('should update name', async () => {
+    const { client } = await TestUtils.createTestUserAndClient()
+    const chart = await client.charts.create()
+    const event = await client.events.create(chart.key)
+
+    await client.events.update(event.key, null, null, null, null, null, null, 'My event')
+
+    const retrievedEvent = await client.events.retrieve(event.key)
+    expect(retrievedEvent.name).toBe('My event')
+})
+
+test('should update date', async () => {
+    const { client } = await TestUtils.createTestUserAndClient()
+    const chart = await client.charts.create()
+    const event = await client.events.create(chart.key)
+
+    await client.events.update(event.key, null, null, null, null, null, null, null, new LocalDate(2020, 10, 2))
+
+    const retrievedEvent = await client.events.retrieve(event.key)
+    expect(retrievedEvent.date).toEqual(new LocalDate(2020, 10, 2))
 })
