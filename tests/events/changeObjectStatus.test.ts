@@ -2,7 +2,7 @@ import { TableBookingConfig } from '../../src/Events/TableBookingConfig'
 import { TestUtils } from '../testUtils'
 import { ObjectProperties } from '../../src/Events/ObjectProperties'
 import { EventObjectInfo } from '../../src/Events/EventObjectInfo'
-import {CreateEventParams} from "../../src/Events/CreateEventParams";
+import { CreateEventParams } from '../../src/Events/CreateEventParams'
 
 test('should change object status', async () => {
     const { client, user } = await TestUtils.createTestUserAndClient()

@@ -5,7 +5,7 @@ import { StatusChangesParams } from '../../src/Events/StatusChangesParams'
 import { StatusChangeRequest } from '../../src/Events/StatusChangeRequest'
 import { TableBookingConfig } from '../../src/Events/TableBookingConfig'
 import { CreateEventParams } from '../../src/Events/CreateEventParams'
-import {UpdateEventParams} from "../../src/Events/UpdateEventParams";
+import { UpdateEventParams } from '../../src/Events/UpdateEventParams'
 
 test('should list all status changes', async () => {
     const { client, user } = await TestUtils.createTestUserAndClient()
