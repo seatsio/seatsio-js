@@ -2,6 +2,7 @@ import { TableBookingConfig } from '../../src/Events/TableBookingConfig'
 import { TestUtils } from '../testUtils'
 import { ObjectProperties } from '../../src/Events/ObjectProperties'
 import { EventObjectInfo } from '../../src/Events/EventObjectInfo'
+import {CreateEventParams} from "../../src/Events/CreateEventParams";
 
 test('should change object status', async () => {
     const { client, user } = await TestUtils.createTestUserAndClient()
@@ -47,7 +48,7 @@ test('should change object status for table', async () => {
     const { client, user } = await TestUtils.createTestUserAndClient()
     const chartKey = TestUtils.getChartKey()
     await TestUtils.createTestChartWithTables(chartKey, user.secretKey)
-    const event = await client.events.create(chartKey, null, TableBookingConfig.allByTable())
+    const event = await client.events.create(chartKey, new CreateEventParams().withTableBookingConfig(TableBookingConfig.allByTable()))
 
     const result = await client.events.changeObjectStatus(event.key, 'T1', 'lolzor')
 

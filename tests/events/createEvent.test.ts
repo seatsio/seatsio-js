@@ -2,6 +2,7 @@ import { TestUtils } from '../testUtils'
 import { TableBookingConfig } from '../../src/Events/TableBookingConfig'
 import { Category } from '../../src/Charts/Category'
 import { LocalDate } from '../../src/LocalDate'
+import { CreateEventParams } from '../../src/Events/CreateEventParams'
 
 test('should check that only chart key is required', async () => {
     const { client, user } = await TestUtils.createTestUserAndClient()
@@ -27,7 +28,7 @@ test('should pass in event key as a create() param', async () => {
     const { client } = await TestUtils.createTestUserAndClient()
     const chart = await client.charts.create()
 
-    const event = await client.events.create(chart.key, 'eventKey')
+    const event = await client.events.create(chart.key, new CreateEventParams().withKey('eventKey'))
 
     expect(event.key).toBe('eventKey')
 })
@@ -38,7 +39,7 @@ test('supports tableBookingConfig custom', async () => {
     await TestUtils.createTestChartWithTables(chartKey, user.secretKey)
     const tableBookingConfig = TableBookingConfig.custom({ T1: 'BY_TABLE', T2: 'BY_SEAT' })
 
-    const event = await client.events.create(chartKey, null, tableBookingConfig)
+    const event = await client.events.create(chartKey, new CreateEventParams().withTableBookingConfig(tableBookingConfig))
 
     expect(event.key).toBeTruthy()
     expect(event.tableBookingConfig).toEqual(tableBookingConfig)
@@ -49,7 +50,7 @@ test('supports tableBookingConfig inherit', async () => {
     const chartKey = TestUtils.getChartKey()
     await TestUtils.createTestChartWithTables(chartKey, user.secretKey)
 
-    const event = await client.events.create(chartKey, null, TableBookingConfig.inherit())
+    const event = await client.events.create(chartKey, new CreateEventParams().withTableBookingConfig(TableBookingConfig.inherit()))
 
     expect(event.key).toBeTruthy()
     expect(event.tableBookingConfig).toEqual(TableBookingConfig.inherit())
@@ -60,7 +61,7 @@ test('it supports object categories', async () => {
     const chartKey = TestUtils.getChartKey()
     await TestUtils.createTestChart(chartKey, user.secretKey)
 
-    const event = await client.events.create(chartKey, null, null, { 'A-1': 10 })
+    const event = await client.events.create(chartKey, new CreateEventParams().withObjectCategories({ 'A-1': 10 }))
 
     expect(event.objectCategories).toEqual({ 'A-1': 10 })
 })
@@ -72,7 +73,7 @@ test('it supports categories', async () => {
 
     const eventCategory = new Category('eventCat1', 'Event Level Category', '#AAABBB', false)
 
-    const event = await client.events.create(chartKey, null, null, null, [eventCategory])
+    const event = await client.events.create(chartKey, new CreateEventParams().withCategories([eventCategory]))
 
     expect(event.categories!.length).toEqual(4) // 3 from sampleChart.json, 1 event level category
     expect(event.categories!.filter((cat: Category) => cat.key === 'eventCat1').length).toEqual(1)
@@ -84,16 +85,7 @@ test('it supports a name', async () => {
     const { client } = await TestUtils.createTestUserAndClient()
     const chart = await client.charts.create()
 
-    const event = await client.events.create(chart.key, null, null, null, null, 'My event')
-
-    expect(event.name).toBe('My event')
-})
-
-test('it supports a name', async () => {
-    const { client } = await TestUtils.createTestUserAndClient()
-    const chart = await client.charts.create()
-
-    const event = await client.events.create(chart.key, null, null, null, null, 'My event')
+    const event = await client.events.create(chart.key, new CreateEventParams().withName('My event'))
 
     expect(event.name).toBe('My event')
 })
@@ -102,7 +94,7 @@ test('it supports a date', async () => {
     const { client } = await TestUtils.createTestUserAndClient()
     const chart = await client.charts.create()
 
-    const event = await client.events.create(chart.key, null, null, null, null, null, new LocalDate(2020, 1, 5))
+    const event = await client.events.create(chart.key, new CreateEventParams().withDate(new LocalDate(2020, 1, 5)))
 
     expect(event.date).toEqual(new LocalDate(2020, 1, 5))
 })
