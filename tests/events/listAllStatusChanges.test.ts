@@ -4,6 +4,8 @@ import { ObjectProperties } from '../../src/Events/ObjectProperties'
 import { StatusChangesParams } from '../../src/Events/StatusChangesParams'
 import { StatusChangeRequest } from '../../src/Events/StatusChangeRequest'
 import { TableBookingConfig } from '../../src/Events/TableBookingConfig'
+import { CreateEventParams } from '../../src/Events/CreateEventParams'
+import {UpdateEventParams} from "../../src/Events/UpdateEventParams";
 
 test('should list all status changes', async () => {
     const { client, user } = await TestUtils.createTestUserAndClient()
@@ -157,9 +159,9 @@ test('not present on chart anymore', async () => {
     const { client, user } = await TestUtils.createTestUserAndClient()
     const chartKey = TestUtils.getChartKey()
     await TestUtils.createTestChartWithTables(chartKey, user.secretKey)
-    const event = await client.events.create(chartKey, null, TableBookingConfig.allByTable())
+    const event = await client.events.create(chartKey, new CreateEventParams().withTableBookingConfig(TableBookingConfig.allByTable()))
     await client.events.book(event.key, 'T1')
-    await client.events.update(event.key, null, null, TableBookingConfig.allBySeat())
+    await client.events.update(event.key, new UpdateEventParams().withTableBookingConfig(TableBookingConfig.allBySeat()))
     await TestUtils.statusChangesPresent(client, event.key, 1)
 
     const statusChanges = client.events.statusChanges(event.key).all()

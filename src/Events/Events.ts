@@ -6,13 +6,12 @@ import { StatusChange, StatusChangeJson } from './StatusChange'
 import { EventDeserializer } from './EventDeserializer'
 import { ChangeObjectStatusResult } from './ChangeObjectStatusResult'
 import { BestAvailableObjects } from './BestAvailableObjects'
-import { TableBookingConfig } from './TableBookingConfig'
 import { Event, EventJson } from './Event'
 import { Axios } from 'axios'
-import { Category } from '../Charts/Category'
 import { Dict } from '../Dict'
 import { StatusChangeRequest } from './StatusChangeRequest'
-import { LocalDate } from '../LocalDate'
+import { CreateEventParams } from './CreateEventParams'
+import { UpdateEventParams } from './UpdateEventParams'
 
 export interface ObjectIdAndTicketType {
     objectId: string
@@ -31,55 +30,42 @@ export class Events {
         this.channels = new Channels(this.client)
     }
 
-    create (chartKey: string, eventKey: string | null = null, tableBookingConfig: TableBookingConfig | null = null,
-        objectCategories: object | null = null, categories: Category[] | null = null,
-        name: string | null = null, date: LocalDate | null = null) {
+    create (chartKey: string, params?: CreateEventParams) {
         const requestParameters: Dict<any> = {}
 
         requestParameters.chartKey = chartKey
 
-        if (eventKey !== null) {
-            requestParameters.eventKey = eventKey
-        }
+        if (params !== undefined) {
+            if (params.key !== undefined) {
+                requestParameters.eventKey = params.key
+            }
 
-        if (tableBookingConfig !== null) {
-            requestParameters.tableBookingConfig = tableBookingConfig
-        }
+            if (params.tableBookingConfig !== undefined) {
+                requestParameters.tableBookingConfig = params.tableBookingConfig
+            }
 
-        if (objectCategories !== null) {
-            requestParameters.objectCategories = objectCategories
-        }
+            if (params.objectCategories !== undefined) {
+                requestParameters.objectCategories = params.objectCategories
+            }
 
-        if (categories != null) {
-            requestParameters.categories = categories
-        }
+            if (params.categories !== undefined) {
+                requestParameters.categories = params.categories
+            }
 
-        if (name != null) {
-            requestParameters.name = name
-        }
+            if (params.name !== undefined) {
+                requestParameters.name = params.name
+            }
 
-        if (date != null) {
-            requestParameters.date = date.toString()
+            if (params.date !== undefined) {
+                requestParameters.date = params.date.toString()
+            }
         }
 
         return this.client.post('/events', requestParameters)
             .then(res => new EventDeserializer().fromJson(res.data))
     }
 
-    static eventCreationParams (eventKey: string | null = null, tableBookingConfig: TableBookingConfig | null = null,
-        objectCategories: object | null = null, categories: Category[] | null = null,
-        name: string | null = null, date: LocalDate | null = null) {
-        const eventDefinition: Dict<any> = {}
-        eventDefinition.eventKey = eventKey
-        eventDefinition.tableBookingConfig = tableBookingConfig
-        eventDefinition.objectCategories = objectCategories
-        eventDefinition.categories = categories
-        eventDefinition.name = name
-        eventDefinition.date = date
-        return eventDefinition
-    }
-
-    createMultiple (chartKey: string, events?: any[]) {
+    createMultiple (chartKey: string, events?: CreateEventParams[]) {
         const requestParameters: Dict<any> = {}
 
         requestParameters.chartKey = chartKey
@@ -87,32 +73,33 @@ export class Events {
 
         if (events) {
             for (let i = 0; i < events.length; i++) {
-                const event: Dict<any> = {}
-                if (events[i].eventKey !== null) {
-                    event.eventKey = events[i].eventKey
+                const eventRequest: Dict<any> = {}
+                const eventParams = events[i]
+                if (eventParams.key !== undefined) {
+                    eventRequest.eventKey = eventParams.key
                 }
 
-                if (events[i].tableBookingConfig !== null) {
-                    event.tableBookingConfig = events[i].tableBookingConfig
+                if (eventParams.tableBookingConfig !== undefined) {
+                    eventRequest.tableBookingConfig = eventParams.tableBookingConfig
                 }
 
-                if (events[i].objectCategories !== null) {
-                    event.objectCategories = events[i].objectCategories
+                if (eventParams.objectCategories !== undefined) {
+                    eventRequest.objectCategories = eventParams.objectCategories
                 }
 
-                if (events[i].categories != null) {
-                    event.categories = events[i].categories
+                if (eventParams.categories !== undefined) {
+                    eventRequest.categories = eventParams.categories
                 }
 
-                if (events[i].name != null) {
-                    event.name = events[i].name
+                if (eventParams.name !== undefined) {
+                    eventRequest.name = eventParams.name
                 }
 
-                if (events[i].date != null) {
-                    event.date = events[i].date.toString()
+                if (eventParams.date !== undefined) {
+                    eventRequest.date = eventParams.date.toString()
                 }
 
-                requestParameters.events.push(event)
+                requestParameters.events.push(eventRequest)
             }
         }
 
@@ -132,37 +119,35 @@ export class Events {
             .then(res => new EventDeserializer().fromJson(res.data))
     }
 
-    update (eventKey: string, chartKey: string | null = null, newEventKey: string | null = null, tableBookingConfig: TableBookingConfig | null = null,
-        objectCategories: object | null = null, categories: Category[] | null = null,
-        name: string | null = null, date: LocalDate | null = null) {
+    update (eventKey: string, params: UpdateEventParams) {
         const requestParameters: Dict<any> = {}
 
-        if (chartKey !== null) {
-            requestParameters.chartKey = chartKey
+        if (params.chartKey !== undefined) {
+            requestParameters.chartKey = params.chartKey
         }
 
-        if (newEventKey !== null) {
-            requestParameters.eventKey = newEventKey
+        if (params.key !== undefined) {
+            requestParameters.eventKey = params.key
         }
 
-        if (tableBookingConfig !== null) {
-            requestParameters.tableBookingConfig = tableBookingConfig
+        if (params.tableBookingConfig !== undefined) {
+            requestParameters.tableBookingConfig = params.tableBookingConfig
         }
 
-        if (objectCategories !== null) {
-            requestParameters.objectCategories = objectCategories
+        if (params.objectCategories !== undefined) {
+            requestParameters.objectCategories = params.objectCategories
         }
 
-        if (categories != null) {
-            requestParameters.categories = categories
+        if (params.categories !== undefined) {
+            requestParameters.categories = params.categories
         }
 
-        if (name != null) {
-            requestParameters.name = name
+        if (params.name !== undefined) {
+            requestParameters.name = params.name
         }
 
-        if (date != null) {
-            requestParameters.date = date.toString()
+        if (params.date !== undefined) {
+            requestParameters.date = params.date.toString()
         }
 
         return this.client.post(`events/${encodeURIComponent(eventKey)}`, requestParameters)

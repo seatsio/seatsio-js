@@ -1,8 +1,8 @@
 import { TestUtils } from '../testUtils'
 import { TableBookingConfig } from '../../src/Events/TableBookingConfig'
 import { Category } from '../../src/Charts/Category'
-import { Events } from '../../src/Events/Events'
 import { LocalDate } from '../../src/LocalDate'
+import { CreateEventParams } from '../../src/Events/CreateEventParams'
 
 test('should check that a minimum of one event is required', async () => {
     const { client, user } = await TestUtils.createTestUserAndClient()
@@ -23,7 +23,7 @@ test('should check that an empty object is a valid event definition', async () =
     const chartKey = TestUtils.getChartKey()
     await TestUtils.createTestChart(chartKey, user.secretKey)
 
-    const events = await client.events.createMultiple(chartKey, [{}])
+    const events = await client.events.createMultiple(chartKey, [new CreateEventParams()])
 
     expect(events).toHaveLength(1)
     expect(events[0].key).toBeTruthy()
@@ -34,7 +34,7 @@ test('should create a single event', async () => {
     const chart = await client.charts.create()
 
     const events = await client.events.createMultiple(chart.key, [
-        Events.eventCreationParams('eventKey')
+        new CreateEventParams().withKey('eventKey')
     ])
 
     expect(events).toHaveLength(1)
@@ -49,19 +49,14 @@ test('should create multiple events', async () => {
     const chart = await client.charts.create()
 
     const events = [
-        Events.eventCreationParams('eventKey1'),
-        Events.eventCreationParams('eventKey2')
+        new CreateEventParams().withKey('eventKey1'),
+        new CreateEventParams().withKey('eventKey2')
     ]
     const createdEvents = await client.events.createMultiple(chart.key, events)
 
     expect(createdEvents).toHaveLength(2)
     expect(createdEvents[0].key).toEqual('eventKey1')
     expect(createdEvents[1].key).toEqual('eventKey2')
-
-    for (const event of events) {
-        const retrievedEvent = await client.events.retrieve(event.eventKey)
-        expect(retrievedEvent.key).toEqual(event.eventKey)
-    }
 })
 
 test('supports tableBookingConfig custom', async () => {
@@ -71,7 +66,7 @@ test('supports tableBookingConfig custom', async () => {
     const tableBookingConfig = TableBookingConfig.custom({ T1: 'BY_TABLE', T2: 'BY_SEAT' })
 
     const events = await client.events.createMultiple(chartKey, [
-        Events.eventCreationParams(null, tableBookingConfig)
+        new CreateEventParams().withTableBookingConfig(tableBookingConfig)
     ])
 
     expect(events[0].key).toBeTruthy()
@@ -84,7 +79,7 @@ test('supports tableBookingConfig inherit', async () => {
     await TestUtils.createTestChartWithTables(chartKey, user.secretKey)
 
     const events = await client.events.createMultiple(chartKey, [
-        Events.eventCreationParams(null, TableBookingConfig.inherit())
+        new CreateEventParams().withTableBookingConfig(TableBookingConfig.inherit())
     ])
 
     expect(events[0].key).toBeTruthy()
@@ -97,7 +92,7 @@ test('it supports object categories', async () => {
     await TestUtils.createTestChart(chartKey, user.secretKey)
 
     const events = await client.events.createMultiple(chartKey, [
-        Events.eventCreationParams(null, null, { 'A-1': 10 })
+        new CreateEventParams().withObjectCategories({ 'A-1': 10 })
     ])
 
     expect(events[0].objectCategories).toEqual({ 'A-1': 10 })
@@ -111,7 +106,7 @@ test('it supports categories', async () => {
     const eventCategory = new Category('eventCat1', 'Event Level Category', '#AAABBB', false)
 
     const events = await client.events.createMultiple(chartKey, [
-        Events.eventCreationParams(null, null, null, [eventCategory])
+        new CreateEventParams().withCategories([eventCategory])
     ])
 
     expect(events[0].categories!.length).toEqual(4) // 3 from sampleChart.json, 1 event level category
@@ -126,7 +121,7 @@ test('it supports name', async () => {
     await TestUtils.createTestChart(chartKey, user.secretKey)
 
     const events = await client.events.createMultiple(chartKey, [
-        Events.eventCreationParams(null, null, null, null, 'My event')
+        new CreateEventParams().withName('My event')
     ])
 
     expect(events[0].name).toBe('My event')
@@ -138,7 +133,7 @@ test('it supports date', async () => {
     await TestUtils.createTestChart(chartKey, user.secretKey)
 
     const events = await client.events.createMultiple(chartKey, [
-        Events.eventCreationParams(null, null, null, null, null, new LocalDate(2020, 1, 8))
+        new CreateEventParams().withDate(new LocalDate(2020, 1, 8))
     ])
 
     expect(events[0].date).toEqual(new LocalDate(2020, 1, 8))

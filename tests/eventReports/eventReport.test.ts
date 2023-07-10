@@ -3,6 +3,7 @@ import { IDs } from '../../src/Common/IDs'
 import { ObjectProperties } from '../../src/Events/ObjectProperties'
 import { EventObjectInfo } from '../../src/Events/EventObjectInfo'
 import { TableBookingConfig } from '../../src/Events/TableBookingConfig'
+import { CreateEventParams } from '../../src/Events/CreateEventParams'
 
 test('report properties', async () => {
     const { client, user } = await TestUtils.createTestUserAndClient()
@@ -85,7 +86,7 @@ test('report properties for table', async () => {
     const { client, user } = await TestUtils.createTestUserAndClient()
     const chartKey = TestUtils.getChartKey()
     await TestUtils.createTestChartWithTables(chartKey, user.secretKey)
-    const event = await client.events.create(chartKey, null, TableBookingConfig.allByTable())
+    const event = await client.events.create(chartKey, new CreateEventParams().withTableBookingConfig(TableBookingConfig.allByTable()))
 
     const report = await client.eventReports.byLabel(event.key)
 
