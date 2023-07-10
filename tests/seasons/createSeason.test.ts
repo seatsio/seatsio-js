@@ -2,7 +2,6 @@ import { TestUtils } from '../testUtils'
 import { SeasonParams } from '../../src/Seasons/SeasonParams'
 import { Event } from '../../src/Events/Event'
 import { TableBookingConfig } from '../../src/Events/TableBookingConfig'
-import { SocialDistancingRuleset } from '../../src/Charts/SocialDistancingRuleset'
 
 test('chart key is required', async () => {
     const { client, user } = await TestUtils.createTestUserAndClient()
@@ -59,15 +58,4 @@ test('table booking config can be passed in', async () => {
     const season = await client.seasons.create(chartKey, new SeasonParams().tableBookingConfig(tableBookingConfig))
 
     expect(season.tableBookingConfig).toEqual(tableBookingConfig)
-})
-
-test('social distancing ruleset key can be passed in', async () => {
-    const { client } = await TestUtils.createTestUserAndClient()
-    const chart = await client.charts.create()
-    const rulesets = { ruleset1: SocialDistancingRuleset.ruleBased('My ruleset').build() }
-    await client.charts.saveSocialDistancingRulesets(chart.key, rulesets)
-
-    const season = await client.seasons.create(chart.key, new SeasonParams().socialDistancingRulesetKey('ruleset1'))
-
-    expect(season.socialDistancingRulesetKey).toBe('ruleset1')
 })

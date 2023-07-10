@@ -36,10 +36,6 @@ export class Seasons {
             if (seasonParams._tableBookingConfig !== null) {
                 requestParameters.tableBookingConfig = seasonParams._tableBookingConfig
             }
-
-            if (seasonParams._socialDistancingRulesetKey !== null) {
-                requestParameters.socialDistancingRulesetKey = seasonParams._socialDistancingRulesetKey
-            }
         }
 
         return this.client.post('/seasons', requestParameters)

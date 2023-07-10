@@ -2,7 +2,6 @@ import { TestUtils } from '../testUtils'
 import { TableBookingConfig } from '../../src/Events/TableBookingConfig'
 import { Category } from '../../src/Charts/Category'
 import { Events } from '../../src/Events/Events'
-import { SocialDistancingRuleset } from '../../src/Charts/SocialDistancingRuleset'
 import { LocalDate } from '../../src/LocalDate'
 
 test('should check that a minimum of one event is required', async () => {
@@ -92,26 +91,13 @@ test('supports tableBookingConfig inherit', async () => {
     expect(events[0].tableBookingConfig).toEqual(TableBookingConfig.inherit())
 })
 
-test('it supports a social distancing ruleset key', async () => {
-    const { client } = await TestUtils.createTestUserAndClient()
-    const chart = await client.charts.create()
-    const rulesets = { ruleset1: SocialDistancingRuleset.ruleBased('My ruleset').build() }
-    await client.charts.saveSocialDistancingRulesets(chart.key, rulesets)
-
-    const events = await client.events.createMultiple(chart.key, [
-        Events.eventCreationParams(null, null, 'ruleset1')
-    ])
-
-    expect(events[0].socialDistancingRulesetKey).toBe('ruleset1')
-})
-
 test('it supports object categories', async () => {
     const { client, user } = await TestUtils.createTestUserAndClient()
     const chartKey = TestUtils.getChartKey()
     await TestUtils.createTestChart(chartKey, user.secretKey)
 
     const events = await client.events.createMultiple(chartKey, [
-        Events.eventCreationParams(null, null, null, { 'A-1': 10 })
+        Events.eventCreationParams(null, null, { 'A-1': 10 })
     ])
 
     expect(events[0].objectCategories).toEqual({ 'A-1': 10 })
@@ -125,7 +111,7 @@ test('it supports categories', async () => {
     const eventCategory = new Category('eventCat1', 'Event Level Category', '#AAABBB', false)
 
     const events = await client.events.createMultiple(chartKey, [
-        Events.eventCreationParams(null, null, null, null, [eventCategory])
+        Events.eventCreationParams(null, null, null, [eventCategory])
     ])
 
     expect(events[0].categories!.length).toEqual(4) // 3 from sampleChart.json, 1 event level category
@@ -140,7 +126,7 @@ test('it supports name', async () => {
     await TestUtils.createTestChart(chartKey, user.secretKey)
 
     const events = await client.events.createMultiple(chartKey, [
-        Events.eventCreationParams(null, null, null, null, null, 'My event')
+        Events.eventCreationParams(null, null, null, null, 'My event')
     ])
 
     expect(events[0].name).toBe('My event')
@@ -152,7 +138,7 @@ test('it supports date', async () => {
     await TestUtils.createTestChart(chartKey, user.secretKey)
 
     const events = await client.events.createMultiple(chartKey, [
-        Events.eventCreationParams(null, null, null, null, null, null, new LocalDate(2020, 1, 8))
+        Events.eventCreationParams(null, null, null, null, null, new LocalDate(2020, 1, 8))
     ])
 
     expect(events[0].date).toEqual(new LocalDate(2020, 1, 8))

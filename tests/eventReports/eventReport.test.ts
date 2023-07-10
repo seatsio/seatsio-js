@@ -39,7 +39,6 @@ test('report properties', async () => {
     expect(reportItem.rightNeighbour).toBe('A-2')
     expect(reportItem.isAvailable).toBe(false)
     expect(reportItem.availabilityReason).toBe('booked')
-    expect(reportItem.isDisabledBySocialDistancing).toBe(false)
     expect(reportItem.bookAsAWhole).toBe(undefined)
     expect(reportItem.distanceToFocalPoint).toBeTruthy()
 })

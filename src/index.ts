@@ -16,7 +16,6 @@ export { Chart } from './Charts/Chart'
 export { ChartListParams } from './Charts/ChartListParams'
 export { ChartObjectInfo } from './Charts/ChartObjectInfo'
 export { ChartValidation } from './Charts/ChartValidation'
-export { SocialDistancingRuleset } from './Charts/SocialDistancingRuleset'
 
 export { IDs } from './Common/IDs'
 export { LabelAndType } from './Common/LabelAndType'

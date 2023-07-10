@@ -1,5 +1,4 @@
 import { TableBookingConfig } from '../../src/Events/TableBookingConfig'
-import { SocialDistancingRuleset } from '../../src/Charts/SocialDistancingRuleset'
 import { TestUtils } from '../testUtils'
 import { ObjectProperties } from '../../src/Events/ObjectProperties'
 import { EventObjectInfo } from '../../src/Events/EventObjectInfo'
@@ -28,7 +27,6 @@ test('should change object status', async () => {
             rightNeighbour: 'A-2',
             isAvailable: false,
             availabilityReason: 'lolzor',
-            isDisabledBySocialDistancing: false,
             distanceToFocalPoint: 98.67842540608864
         }
     })
@@ -201,21 +199,6 @@ test('should accept ignoreChannels', async () => {
     expect(objectInfo.status).toBe('someStatus')
 })
 
-test('should accept ignoreSocialDistancing', async () => {
-    const { client, user } = await TestUtils.createTestUserAndClient()
-    const chartKey = TestUtils.getChartKey()
-    await TestUtils.createTestChart(chartKey, user.secretKey)
-    const event = await client.events.create(chartKey)
-    const ruleset = SocialDistancingRuleset.fixed('ruleset').setDisabledSeats(['A-1']).build()
-    await client.charts.saveSocialDistancingRulesets(chartKey, { ruleset })
-    await client.events.update(event.key, null, null, null, 'ruleset')
-
-    await client.events.changeObjectStatus(event.key, ['A-1'], EventObjectInfo.BOOKED, null, null, null, null, null, true)
-
-    const objectInfo = await client.events.retrieveObjectInfo(event.key, 'A-1')
-    expect(objectInfo.status).toBe(EventObjectInfo.BOOKED)
-})
-
 test('should accept allowedPreviousStatuses', async () => {
     const { client, user } = await TestUtils.createTestUserAndClient()
     const chartKey = TestUtils.getChartKey()
@@ -223,7 +206,7 @@ test('should accept allowedPreviousStatuses', async () => {
     const event = await client.events.create(chartKey)
 
     try {
-        await client.events.changeObjectStatus(event.key, ['A-1'], EventObjectInfo.BOOKED, null, null, null, null, null, true, ['MustBeThisStatus'], null)
+        await client.events.changeObjectStatus(event.key, ['A-1'], EventObjectInfo.BOOKED, null, null, null, null, null, ['MustBeThisStatus'], null)
         throw new Error('Should have failed')
     } catch (e: any) {
         expect(e.errors.length).toEqual(1)
@@ -238,7 +221,7 @@ test('should accept rejectedPreviousStatuses', async () => {
     const event = await client.events.create(chartKey)
 
     try {
-        await client.events.changeObjectStatus(event.key, ['A-1'], EventObjectInfo.BOOKED, null, null, null, null, null, true, null, ['free'])
+        await client.events.changeObjectStatus(event.key, ['A-1'], EventObjectInfo.BOOKED, null, null, null, null, null, null, ['free'])
         throw new Error('Should have failed')
     } catch (e: any) {
         expect(e.errors.length).toEqual(1)

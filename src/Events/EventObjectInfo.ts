@@ -28,7 +28,6 @@ export class EventObjectInfo {
     isAccessible?: boolean
     isAvailable: boolean
     isCompanionSeat?: boolean
-    isDisabledBySocialDistancing: boolean
     label: string
     labels: Labels
     leftNeighbour?: string
@@ -71,7 +70,6 @@ export class EventObjectInfo {
         this.rightNeighbour = json.rightNeighbour
         this.isAvailable = json.isAvailable
         this.availabilityReason = json.availabilityReason
-        this.isDisabledBySocialDistancing = json.isDisabledBySocialDistancing
         this.channel = json.channel
         this.distanceToFocalPoint = json.distanceToFocalPoint
         this.holds = json.holds
