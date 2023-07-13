@@ -35,6 +35,8 @@ export { StatusChangeOrigin } from './Events/StatusChangeOrigin'
 export { StatusChangeRequest } from './Events/StatusChangeRequest'
 export { StatusChangesParams } from './Events/StatusChangesParams'
 export { TableBookingConfig } from './Events/TableBookingConfig'
+export { CreateEventParams } from './Events/CreateEventParams'
+export { UpdateEventParams } from './Events/UpdateEventParams'
 
 export { HoldToken } from './HoldTokens/HoldToken'
 export { HoldTokens } from './HoldTokens/HoldTokens'
