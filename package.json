@@ -11,7 +11,7 @@
   "scripts": {
     "lint": "eslint './src/**/*.ts' './tests/**/*.ts'",
     "test": "jest --maxWorkers=8 --verbose",
-    "build": "tsc --outDir dist --declaration && ctix single --overwrite --noBackup --output ./src --useSemicolon false"
+    "build": "ctix single --overwrite --noBackup --output ./src --useSemicolon false && tsc --outDir dist --declaration"
   },
   "repository": {
     "type": "git",
