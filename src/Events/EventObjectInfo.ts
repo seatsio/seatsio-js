@@ -41,6 +41,9 @@ export class EventObjectInfo {
     section?: string
     status: string
     ticketType?: string
+    variableOccupancy?: boolean
+    minOccupancy?: number
+    maxOccupancy?: number
 
     constructor (json: EventObjectInfoJson) {
         this.label = json.label
@@ -74,5 +77,8 @@ export class EventObjectInfo {
         this.distanceToFocalPoint = json.distanceToFocalPoint
         this.holds = json.holds
         this.numSeats = json.numSeats
+        this.variableOccupancy = json.variableOccupancy
+        this.minOccupancy = json.minOccupancy
+        this.maxOccupancy = json.maxOccupancy
     }
 }
