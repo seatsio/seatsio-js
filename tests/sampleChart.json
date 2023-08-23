@@ -657,7 +657,7 @@
         "uuid": "uuid368",
         "translucent": false,
         "bookAsAWhole": false,
-        "variableOccupancy": false,
+        "variableOccupancy": true,
         "minOccupancy": 1,
         "published": true,
         "type": "circle",

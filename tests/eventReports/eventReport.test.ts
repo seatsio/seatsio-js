@@ -42,6 +42,11 @@ test('report properties', async () => {
     expect(reportItem.availabilityReason).toBe('booked')
     expect(reportItem.bookAsAWhole).toBe(undefined)
     expect(reportItem.distanceToFocalPoint).toBeTruthy()
+
+    const gaItem = report.GA1[0]
+    expect(gaItem.variableOccupancy).toBe(true)
+    expect(gaItem.minOccupancy).toBe(1)
+    expect(gaItem.maxOccupancy).toBe(100)
 })
 
 test('report has hold token', async () => {
