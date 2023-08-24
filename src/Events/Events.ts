@@ -59,6 +59,10 @@ export class Events {
             if (params.date !== undefined) {
                 requestParameters.date = params.date.toString()
             }
+
+            if (params.channels !== undefined) {
+                requestParameters.channels = params.channels
+            }
         }
 
         return this.client.post('/events', requestParameters)
@@ -97,6 +101,10 @@ export class Events {
 
                 if (eventParams.date !== undefined) {
                     eventRequest.date = eventParams.date.toString()
+                }
+
+                if (eventParams.channels !== undefined) {
+                    eventRequest.channels = eventParams.channels
                 }
 
                 requestParameters.events.push(eventRequest)

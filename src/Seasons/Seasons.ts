@@ -21,20 +21,24 @@ export class Seasons {
         requestParameters.chartKey = chartKey
 
         if (seasonParams !== null) {
-            if (seasonParams._key !== null) {
+            if (seasonParams._key !== undefined) {
                 requestParameters.key = seasonParams._key
             }
 
-            if (seasonParams._numberOfEvents !== null) {
+            if (seasonParams._numberOfEvents !== undefined) {
                 requestParameters.numberOfEvents = seasonParams._numberOfEvents
             }
 
-            if (seasonParams._eventKeys !== null) {
+            if (seasonParams._eventKeys !== undefined) {
                 requestParameters.eventKeys = seasonParams._eventKeys
             }
 
-            if (seasonParams._tableBookingConfig !== null) {
+            if (seasonParams._tableBookingConfig !== undefined) {
                 requestParameters.tableBookingConfig = seasonParams._tableBookingConfig
+            }
+
+            if (seasonParams._channels !== undefined) {
+                requestParameters.channels = seasonParams._channels
             }
         }
 
