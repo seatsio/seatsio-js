@@ -4,17 +4,17 @@ import { ObjectProperties } from '../../src/Events/ObjectProperties'
 import { EventObjectInfo } from '../../src/Events/EventObjectInfo'
 import { TableBookingConfig } from '../../src/Events/TableBookingConfig'
 import { CreateEventParams } from '../../src/Events/CreateEventParams'
+import { Channel } from '../../src/Events/Channel'
 
 test('report properties', async () => {
     const { client, user } = await TestUtils.createTestUserAndClient()
     const chartKey = TestUtils.getChartKey()
     await TestUtils.createTestChart(chartKey, user.secretKey)
-    const event = await client.events.create(chartKey)
+    const event = await client.events.create(chartKey, new CreateEventParams().withChannels([
+        new Channel({ key: 'channel1', name: 'channel 1', color: 'blue', index: 1, objects: ['A-1'] })
+    ]))
     const extraData = { foo: 'bar' }
-    await client.events.book(event.key, (new ObjectProperties('A-1')).setTicketType('ticketType1').setExtraData(extraData), null, 'order1')
-    await client.events.channels.replace(event.key, [
-        { key: 'channel1', name: 'channel 1', color: 'blue', index: 1, objects: ['A-1'] }
-    ])
+    await client.events.book(event.key, (new ObjectProperties('A-1')).setTicketType('ticketType1').setExtraData(extraData), null, 'order1', null, true)
 
     const report = await client.eventReports.byLabel(event.key)
 
@@ -333,10 +333,9 @@ test('report by channel', async () => {
     const { client, user } = await TestUtils.createTestUserAndClient()
     const chartKey = TestUtils.getChartKey()
     await TestUtils.createTestChart(chartKey, user.secretKey)
-    const event = await client.events.create(chartKey)
-    await client.events.channels.replace(event.key, [
-        { key: 'channel1', name: 'channel 1', color: 'blue', index: 1, objects: ['A-1', 'A-2'] }
-    ])
+    const event = await client.events.create(chartKey, new CreateEventParams().withChannels([
+        new Channel({ key: 'channel1', name: 'channel 1', color: 'blue', index: 1, objects: ['A-1', 'A-2'] })
+    ]))
 
     const report = await client.eventReports.byChannel(event.key)
 
@@ -348,10 +347,9 @@ test('report by specific channel', async () => {
     const { client, user } = await TestUtils.createTestUserAndClient()
     const chartKey = TestUtils.getChartKey()
     await TestUtils.createTestChart(chartKey, user.secretKey)
-    const event = await client.events.create(chartKey)
-    await client.events.channels.replace(event.key, [
-        { key: 'channel1', name: 'channel 1', color: 'blue', index: 1, objects: ['A-1', 'A-2'] }
-    ])
+    const event = await client.events.create(chartKey, new CreateEventParams().withChannels([
+        new Channel({ key: 'channel1', name: 'channel 1', color: 'blue', index: 1, objects: ['A-1', 'A-2'] })
+    ]))
 
     const report = await client.eventReports.byChannel(event.key, 'channel1')
 
