@@ -2,7 +2,6 @@ import { TestUtils } from '../testUtils'
 import { SeasonParams } from '../../src/Seasons/SeasonParams'
 import { Event } from '../../src/Events/Event'
 import { TableBookingConfig } from '../../src/Events/TableBookingConfig'
-import { Channel } from '../../src/Events/Channel'
 
 test('chart key is required', async () => {
     const { client, user } = await TestUtils.createTestUserAndClient()
@@ -59,18 +58,4 @@ test('table booking config can be passed in', async () => {
     const season = await client.seasons.create(chartKey, new SeasonParams().tableBookingConfig(tableBookingConfig))
 
     expect(season.tableBookingConfig).toEqual(tableBookingConfig)
-})
-
-test('channels can be passed in', async () => {
-    const { client, user } = await TestUtils.createTestUserAndClient()
-    const chartKey = TestUtils.getChartKey()
-    await TestUtils.createTestChart(chartKey, user.secretKey)
-    const channels = [
-        new Channel({ key: 'channelKey1', name: 'channel 1', color: 'blue', index: 1, objects: ['A-1', 'A-2'] }),
-        new Channel({ key: 'channelKey2', name: 'channel 2', color: 'red', index: 2, objects: ['A-3'] })
-    ]
-
-    const season = await client.seasons.create(chartKey, new SeasonParams().channels(channels))
-
-    expect(season.channels).toEqual(channels)
 })

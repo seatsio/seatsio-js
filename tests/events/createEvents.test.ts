@@ -3,7 +3,6 @@ import { TableBookingConfig } from '../../src/Events/TableBookingConfig'
 import { Category } from '../../src/Charts/Category'
 import { LocalDate } from '../../src/LocalDate'
 import { CreateEventParams } from '../../src/Events/CreateEventParams'
-import { Channel } from '../../src/Events/Channel'
 
 test('should check that a minimum of one event is required', async () => {
     const { client, user } = await TestUtils.createTestUserAndClient()
@@ -138,20 +137,4 @@ test('it supports date', async () => {
     ])
 
     expect(events[0].date).toEqual(new LocalDate(2020, 1, 8))
-})
-
-test('it supports channels', async () => {
-    const { client, user } = await TestUtils.createTestUserAndClient()
-    const chartKey = TestUtils.getChartKey()
-    await TestUtils.createTestChart(chartKey, user.secretKey)
-    const channels = [
-        new Channel({ key: 'channelKey1', name: 'channel 1', color: 'blue', index: 1, objects: ['A-1', 'A-2'] }),
-        new Channel({ key: 'channelKey2', name: 'channel 2', color: 'red', index: 2, objects: ['A-3'] })
-    ]
-
-    const events = await client.events.createMultiple(chartKey, [
-        new CreateEventParams().withChannels(channels)
-    ])
-
-    expect(events[0].channels).toEqual(channels)
 })
