@@ -1,8 +1,8 @@
 import { EventObjectInfo } from '../../src/Events/EventObjectInfo'
 import { TestUtils } from '../testUtils'
 import { IDs } from '../../src/Common/IDs'
-import {CreateEventParams} from "../../src/Events/CreateEventParams";
-import {Channel} from "../../src/Events/Channel";
+import { CreateEventParams } from '../../src/Events/CreateEventParams'
+import { Channel } from '../../src/Events/Channel'
 
 test('should book an object', async () => {
     const { client, user } = await TestUtils.createTestUserAndClient()

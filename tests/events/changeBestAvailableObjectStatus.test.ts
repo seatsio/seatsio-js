@@ -1,7 +1,7 @@
 import { EventObjectInfo } from '../../src/Events/EventObjectInfo'
 import { TestUtils } from '../testUtils'
-import {CreateEventParams} from "../../src/Events/CreateEventParams";
-import {Channel} from "../../src/Events/Channel";
+import { CreateEventParams } from '../../src/Events/CreateEventParams'
+import { Channel } from '../../src/Events/Channel'
 
 test('should change best available object status', async () => {
     const { client, user } = await TestUtils.createTestUserAndClient()

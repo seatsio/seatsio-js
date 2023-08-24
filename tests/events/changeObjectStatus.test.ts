@@ -3,7 +3,7 @@ import { TestUtils } from '../testUtils'
 import { ObjectProperties } from '../../src/Events/ObjectProperties'
 import { EventObjectInfo } from '../../src/Events/EventObjectInfo'
 import { CreateEventParams } from '../../src/Events/CreateEventParams'
-import {Channel} from "../../src/Events/Channel";
+import { Channel } from '../../src/Events/Channel'
 
 test('should change object status', async () => {
     const { client, user } = await TestUtils.createTestUserAndClient()

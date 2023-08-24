@@ -1,8 +1,8 @@
 import { TestUtils } from '../testUtils'
 import { EventObjectInfo } from '../../src/Events/EventObjectInfo'
 import { ObjectProperties } from '../../src/Events/ObjectProperties'
-import {CreateEventParams} from "../../src/Events/CreateEventParams";
-import {Channel} from "../../src/Events/Channel";
+import { CreateEventParams } from '../../src/Events/CreateEventParams'
+import { Channel } from '../../src/Events/Channel'
 
 test('should release objects', async () => {
     const { client, user } = await TestUtils.createTestUserAndClient()
