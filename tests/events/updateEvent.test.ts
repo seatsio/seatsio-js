@@ -31,6 +31,19 @@ test('should update event key', async () => {
     const retrievedEvent = await client.events.retrieve('newKey')
     expect(retrievedEvent.chartKey).toBe(chart.key)
     expect(retrievedEvent.key).toBe('newKey')
+    expect(retrievedEvent.isInThePast).toBe(false)
+})
+
+test('should mark the event as in the past', async () => {
+    const { client } = await TestUtils.createTestUserAndClient()
+    const chart = await client.charts.create()
+    const event = await client.events.create(chart.key)
+
+    await client.events.update(event.key, new UpdateEventParams().withIsInThePast(true))
+
+    const retrievedEvent = await client.events.retrieve(event.key)
+    expect(retrievedEvent.chartKey).toBe(chart.key)
+    expect(retrievedEvent.isInThePast).toBe(true)
 })
 
 test('should update tableBookingConfig parameter of an event', async () => {
