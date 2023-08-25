@@ -1,6 +1,8 @@
 import { TestUtils } from '../testUtils'
 import { EventObjectInfo } from '../../src/Events/EventObjectInfo'
 import { ObjectProperties } from '../../src/Events/ObjectProperties'
+import { CreateEventParams } from '../../src/Events/CreateEventParams'
+import { Channel } from '../../src/Events/Channel'
 
 test('should release objects', async () => {
     const { client, user } = await TestUtils.createTestUserAndClient()
@@ -64,10 +66,9 @@ test('should accept channel keys', async () => {
     const { client, user } = await TestUtils.createTestUserAndClient()
     const chartKey = TestUtils.getChartKey()
     await TestUtils.createTestChart(chartKey, user.secretKey)
-    const event = await client.events.create(chartKey)
-    await client.events.channels.replace(event.key, [
-        { key: 'channelKey1', name: 'channel 1', color: 'blue', index: 1, objects: ['A-1'] }
-    ])
+    const event = await client.events.create(chartKey, new CreateEventParams().withChannels([
+        new Channel({ key: 'channelKey1', name: 'channel 1', color: 'blue', index: 1, objects: ['A-1'] })
+    ]))
     await client.events.book(event.key, ['A-1'], null, null, null, null, ['channelKey1'])
 
     await client.events.release(event.key, ['A-1'], null, null, null, null, ['channelKey1'])
@@ -80,10 +81,9 @@ test('should accept ignoreChannels', async () => {
     const { client, user } = await TestUtils.createTestUserAndClient()
     const chartKey = TestUtils.getChartKey()
     await TestUtils.createTestChart(chartKey, user.secretKey)
-    const event = await client.events.create(chartKey)
-    await client.events.channels.replace(event.key, [
-        { key: 'channelKey1', name: 'channel 1', color: 'blue', index: 1, objects: ['A-1'] }
-    ])
+    const event = await client.events.create(chartKey, new CreateEventParams().withChannels([
+        new Channel({ key: 'channelKey1', name: 'channel 1', color: 'blue', index: 1, objects: ['A-1'] })
+    ]))
     await client.events.book(event.key, ['A-1'], null, null, null, null, ['channelKey1'])
 
     await client.events.release(event.key, ['A-1'], null, null, null, true)

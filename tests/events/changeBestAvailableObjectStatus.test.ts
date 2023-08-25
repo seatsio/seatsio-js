@@ -1,5 +1,7 @@
 import { EventObjectInfo } from '../../src/Events/EventObjectInfo'
 import { TestUtils } from '../testUtils'
+import { CreateEventParams } from '../../src/Events/CreateEventParams'
+import { Channel } from '../../src/Events/Channel'
 
 test('should change best available object status', async () => {
     const { client, user } = await TestUtils.createTestUserAndClient()
@@ -189,10 +191,9 @@ test('should accept channel keys', async () => {
     const { client, user } = await TestUtils.createTestUserAndClient()
     const chartKey = TestUtils.getChartKey()
     await TestUtils.createTestChart(chartKey, user.secretKey)
-    const event = await client.events.create(chartKey)
-    await client.events.channels.replace(event.key, [
-        { key: 'channelKey1', name: 'channel 1', color: 'blue', index: 1, objects: ['A-6'] }
-    ])
+    const event = await client.events.create(chartKey, new CreateEventParams().withChannels([
+        new Channel({ key: 'channelKey1', name: 'channel 1', color: 'blue', index: 1, objects: ['A-6'] })
+    ]))
 
     const bestAvailableObjs = await client.events.changeBestAvailableObjectStatus(event.key, 1, 'lolzor', null, null, null, null, null, null, null, ['channelKey1'])
 
@@ -203,10 +204,9 @@ test('should accept ignoreChannels', async () => {
     const { client, user } = await TestUtils.createTestUserAndClient()
     const chartKey = TestUtils.getChartKey()
     await TestUtils.createTestChart(chartKey, user.secretKey)
-    const event = await client.events.create(chartKey)
-    await client.events.channels.replace(event.key, [
-        { key: 'channel1', name: 'channel 1', color: 'blue', index: 1, objects: ['A-1'] }
-    ])
+    const event = await client.events.create(chartKey, new CreateEventParams().withChannels([
+        new Channel({ key: 'channel1', name: 'channel 1', color: 'blue', index: 1, objects: ['A-1'] })
+    ]))
 
     const bestAvailableObjs = await client.events.changeBestAvailableObjectStatus(event.key, 1, 'lolzor', null, null, null, null, null, null, true)
 

@@ -1,4 +1,5 @@
 import { Axios } from 'axios'
+import { Channel } from './Channel'
 
 export class Channels {
     client: Axios
@@ -45,7 +46,7 @@ export class Channels {
         })
     }
 
-    replace (eventKey: string, channels: any) {
+    replace (eventKey: string, channels: Channel[]) {
         return this.client.post(`/events/${encodeURIComponent(eventKey)}/channels/replace`, { channels })
     }
 }
