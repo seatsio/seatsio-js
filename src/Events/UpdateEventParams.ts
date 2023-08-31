@@ -9,7 +9,7 @@ export class UpdateEventParams extends AbstractEventParams {
         return this
     }
 
-    withIsInThePast(isInThePast: boolean) {
+    withIsInThePast (isInThePast: boolean) {
         this.isInThePast = isInThePast
         return this
     }
