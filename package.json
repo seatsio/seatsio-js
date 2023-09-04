@@ -21,7 +21,7 @@
     "axios": "1.5.0"
   },
   "devDependencies": {
-    "@jest/globals": "29.6.2",
+    "@jest/globals": "29.6.4",
     "@types/jest": "29.5.4",
     "@types/node": "20.5.9",
     "@types/uuid": "9.0.2",
