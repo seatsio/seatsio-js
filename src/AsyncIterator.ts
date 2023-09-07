@@ -3,7 +3,6 @@ import { Chart, ChartJson } from './Charts/Chart'
 import { Page } from './Page'
 import { EventDeserializer } from './Events/EventDeserializer'
 import { StatusChange, StatusChangeJson } from './Events/StatusChange'
-import { Subaccount, SubaccountJson } from './Subaccounts/Subaccount'
 import { Workspace, WorkspaceJson } from './Workspaces/Workspace'
 import { User, UserJson } from './Users/User'
 import { Event, EventJson } from './Events/Event'
@@ -91,18 +90,6 @@ export class AsyncIterator<T> {
         this.pages.push(new Page(statusChanges, data.next_page_starts_after, data.previous_page_ends_before))
     }
 
-    subaccounts (data: PaginatedJson<SubaccountJson>) {
-        const subaccounts: Subaccount[] = []
-        data.items.forEach((subaccountData: SubaccountJson) => {
-            const subaccount = new Subaccount(subaccountData)
-            // @ts-ignore
-            this.items.push(subaccount)
-            subaccounts.push(subaccount)
-        })
-        // @ts-ignore
-        this.pages.push(new Page(subaccounts, data.next_page_starts_after, data.previous_page_ends_before))
-    }
-
     workspaces (data: PaginatedJson<WorkspaceJson>) {
         const workspaces: Workspace[] = []
         data.items.forEach((json: WorkspaceJson) => {
@@ -149,9 +136,6 @@ export class AsyncIterator<T> {
                     break
                 case 'statusChanges':
                     this.statusChanges(res.data)
-                    break
-                case 'subaccounts':
-                    this.subaccounts(res.data)
                     break
                 case 'users':
                     this.users(res.data)

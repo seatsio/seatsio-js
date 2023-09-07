@@ -2,10 +2,10 @@ import { TestUtils } from './testUtils'
 
 test('workspace key can be passed in', async () => {
     const { client, user } = await TestUtils.createTestUserAndClient()
-    const subaccount = await client.subaccounts.create()
+    const workspace = await client.workspaces.create('some workspace')
 
-    const subaccountClient = TestUtils.createClient(user.secretKey, subaccount.publicKey)
-    const holdToken = await subaccountClient.holdTokens.create()
+    const workspaceClient = TestUtils.createClient(user.secretKey, workspace.key)
+    const holdToken = await workspaceClient.holdTokens.create()
 
-    expect(holdToken.workspaceKey).toBe(subaccount.publicKey)
+    expect(holdToken.workspaceKey).toBe(workspace.key)
 })
