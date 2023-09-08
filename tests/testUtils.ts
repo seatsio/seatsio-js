@@ -132,6 +132,11 @@ export class TestUtils {
         return deferred.promise
     }
 
+    static async makeDraftChart (client: SeatsioClient, chartKey: string) {
+        await client.events.create(chartKey)
+        await client.charts.update(chartKey, 'foo')
+    }
+
     static testChartCategories = [
         new Category(9, 'Cat1', '#87A9CD', false),
         new Category(10, 'Cat2', '#5E42ED', false),
