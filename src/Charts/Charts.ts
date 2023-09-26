@@ -119,11 +119,6 @@ export class Charts {
             .then(res => new Chart(res.data))
     }
 
-    copyToSubaccount (key: string, subaccountId: number) {
-        return this.client.post(`charts/${key}/version/published/actions/copy-to/${subaccountId}`)
-            .then(res => new Chart(res.data))
-    }
-
     copyToWorkspace (key: string, workspaceKey: string) {
         return this.client.post(`charts/${key}/version/published/actions/copy-to-workspace/${workspaceKey}`)
             .then(res => new Chart(res.data))

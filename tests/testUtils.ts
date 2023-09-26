@@ -14,10 +14,9 @@ export class TestUtils {
     static async createTestUserAndClient () {
         const company = await TestUtils.createTestCompany()
         const user = company.admin
-        const subaccount = company.subaccount
         const workspace = company.workspace
         const client = this.createClient(user.secretKey)
-        return { user, subaccount, workspace, client }
+        return { user, workspace, client }
     }
 
     static createTestCompany () {
@@ -131,6 +130,11 @@ export class TestUtils {
         fetchStatusChanges()
 
         return deferred.promise
+    }
+
+    static async makeDraftChart (client: SeatsioClient, chartKey: string) {
+        await client.events.create(chartKey)
+        await client.charts.update(chartKey, 'foo')
     }
 
     static testChartCategories = [

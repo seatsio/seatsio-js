@@ -3,7 +3,6 @@ import { Users } from './Users/Users'
 import { Invitations } from './Invitations/Invitations'
 import { Charts } from './Charts/Charts'
 import { Events } from './Events/Events'
-import { Subaccounts } from './Subaccounts/Subaccounts'
 import { Workspaces } from './Workspaces/Workspaces'
 import { HoldTokens } from './HoldTokens/HoldTokens'
 import { ChartReports } from './Reports/ChartReports'
@@ -26,7 +25,6 @@ export class SeatsioClient {
     invitations: Invitations
     requestListener: any
     seasons: Seasons
-    subaccounts: Subaccounts
     usageReports: UsageReports
     users: Users
     workspaces: Workspaces
@@ -43,7 +41,6 @@ export class SeatsioClient {
 
         this.charts = new Charts(this.client)
         this.events = new Events(this.client)
-        this.subaccounts = new Subaccounts(this.client)
         this.workspaces = new Workspaces(this.client)
         this.users = new Users(this.client)
         this.invitations = new Invitations(this.client)
