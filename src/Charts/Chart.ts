@@ -1,5 +1,6 @@
 import { EventDeserializer } from '../Events/EventDeserializer'
 import { ChartValidation } from './ChartValidation'
+import { SocialDistancingRuleset, SocialDistancingRulesetJson } from './SocialDistancingRuleset'
 import { Event, EventJson } from '../Events/Event'
 import { Dict } from '../Dict'
 
@@ -13,6 +14,7 @@ export class Chart {
     key: string
     name: string
     publishedVersionThumbnailUrl: string
+    socialDistancingRulesets?: Dict<SocialDistancingRuleset>
     status: string
     tags: string[]
     validation?: ChartValidation
@@ -28,5 +30,18 @@ export class Chart {
         this.events = chart.events ? chart.events.map((event: EventJson) => new EventDeserializer().fromJson(event)) : []
         this.archived = chart.archived
         if (chart.validation) this.validation = new ChartValidation(chart.validation)
+        this.socialDistancingRulesets = Chart.socialDistancingRulesetsFromJson(chart.socialDistancingRulesets)
+    }
+
+    static socialDistancingRulesetsFromJson (json: SocialDistancingRulesetJson) {
+        if (json === undefined) {
+            return undefined
+        }
+
+        const result: Dict<SocialDistancingRuleset> = {}
+        for (const key in json) {
+            result[key] = SocialDistancingRuleset.fromJson(json[key])
+        }
+        return result
     }
 }

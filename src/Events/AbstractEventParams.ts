@@ -9,6 +9,7 @@ export abstract class AbstractEventParams {
     categories?: Category[]
     name?: string
     date?: LocalDate
+    socialDistancingRulesetKey?: string
 
     withKey (key: string) {
         this.key = key
@@ -37,6 +38,11 @@ export abstract class AbstractEventParams {
 
     withDate (date: LocalDate) {
         this.date = date
+        return this
+    }
+
+    withSocialDistancingRulesetKey(socialDistancingRulesetKey: string) {
+        this.socialDistancingRulesetKey = socialDistancingRulesetKey
         return this
     }
 }
