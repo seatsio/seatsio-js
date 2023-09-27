@@ -63,6 +63,10 @@ export class Events {
             if (params.channels !== undefined) {
                 requestParameters.channels = params.channels
             }
+
+            if (params.socialDistancingRulesetKey !== undefined) {
+                requestParameters.socialDistancingRulesetKey = params.socialDistancingRulesetKey
+            }
         }
 
         return this.client.post('/events', requestParameters)
@@ -105,6 +109,10 @@ export class Events {
 
                 if (eventParams.channels !== undefined) {
                     eventRequest.channels = eventParams.channels
+                }
+
+                if (eventParams.socialDistancingRulesetKey !== undefined) {
+                    eventRequest.socialDistancingRulesetKey = eventParams.socialDistancingRulesetKey
                 }
 
                 requestParameters.events.push(eventRequest)
@@ -160,6 +168,10 @@ export class Events {
 
         if (params.isInThePast !== undefined) {
             requestParameters.isInThePast = params.isInThePast
+        }
+
+        if (params.socialDistancingRulesetKey !== undefined) {
+            requestParameters.socialDistancingRulesetKey = params.socialDistancingRulesetKey
         }
 
         return this.client.post(`events/${encodeURIComponent(eventKey)}`, requestParameters)
@@ -272,8 +284,8 @@ export class Events {
             })
     }
 
-    changeObjectStatus (eventKeyOrKeys: string | string[], objectOrObjects: ObjectOrObjects, status: string, holdToken: string | null = null, orderId: string | null = null, keepExtraData: boolean | null = null, ignoreChannels: boolean | null = null, channelKeys: string[] | null = null, allowedPreviousStatuses: string[] | null = null, rejectedPreviousStatuses: string[] | null = null) {
-        const request = this.changeObjectStatusRequest(objectOrObjects, status, holdToken, orderId, keepExtraData, ignoreChannels, channelKeys, allowedPreviousStatuses, rejectedPreviousStatuses)
+    changeObjectStatus (eventKeyOrKeys: string | string[], objectOrObjects: ObjectOrObjects, status: string, holdToken: string | null = null, orderId: string | null = null, keepExtraData: boolean | null = null, ignoreChannels: boolean | null = null, channelKeys: string[] | null = null, ignoreSocialDistancing: boolean | null = null, allowedPreviousStatuses: string[] | null = null, rejectedPreviousStatuses: string[] | null = null) {
+        const request = this.changeObjectStatusRequest(objectOrObjects, status, holdToken, orderId, keepExtraData, ignoreChannels, channelKeys, ignoreSocialDistancing, allowedPreviousStatuses, rejectedPreviousStatuses)
         request.events = Array.isArray(eventKeyOrKeys) ? eventKeyOrKeys : [eventKeyOrKeys]
 
         return this.client.post('/events/groups/actions/change-object-status?expand=objects', request)
@@ -290,6 +302,7 @@ export class Events {
                 r.keepExtraData,
                 r.ignoreChannels,
                 r.channelKeys,
+                null,
                 r.allowedPreviousStatuses,
                 r.rejectedPreviousStatuses
             )
@@ -302,7 +315,7 @@ export class Events {
             .then(res => res.data.results.map((r: Dict<EventObjectInfoJson>) => new ChangeObjectStatusResult(r.objects)))
     }
 
-    changeObjectStatusRequest (objectOrObjects: ObjectOrObjects, status: string, holdToken: string | null, orderId: string | null, keepExtraData: boolean | null, ignoreChannels: boolean | null, channelKeys: string[] | null = null, allowedPreviousStatuses: string[] | null = null, rejectedPreviousStatuses: string[] | null = null) {
+    changeObjectStatusRequest (objectOrObjects: ObjectOrObjects, status: string, holdToken: string | null, orderId: string | null, keepExtraData: boolean | null, ignoreChannels: boolean | null, channelKeys: string[] | null = null, ignoreSocialDistancing: boolean | null = null, allowedPreviousStatuses: string[] | null = null, rejectedPreviousStatuses: string[] | null = null) {
         const request: Dict<any> = {}
         request.objects = this.normalizeObjects(objectOrObjects)
         request.status = status
@@ -327,11 +340,14 @@ export class Events {
         if (rejectedPreviousStatuses !== null) {
             request.rejectedPreviousStatuses = rejectedPreviousStatuses
         }
+        if (ignoreSocialDistancing !== null) {
+            request.ignoreSocialDistancing = ignoreSocialDistancing
+        }
         return request
     }
 
-    book (eventKeyOrKeys: string | string[], objectOrObjects: ObjectOrObjects, holdToken: string | null = null, orderId: string | null = null, keepExtraData: boolean | null = null, ignoreChannels: boolean | null = null, channelKeys: string[] | null = null) {
-        return this.changeObjectStatus(eventKeyOrKeys, objectOrObjects, EventObjectInfo.BOOKED, holdToken, orderId, keepExtraData, ignoreChannels, channelKeys)
+    book (eventKeyOrKeys: string | string[], objectOrObjects: ObjectOrObjects, holdToken: string | null = null, orderId: string | null = null, keepExtraData: boolean | null = null, ignoreChannels: boolean | null = null, channelKeys: string[] | null = null, ignoreSocialDistancing: boolean | null = null) {
+        return this.changeObjectStatus(eventKeyOrKeys, objectOrObjects, EventObjectInfo.BOOKED, holdToken, orderId, keepExtraData, ignoreChannels, channelKeys, ignoreSocialDistancing)
     }
 
     bookBestAvailable (eventKey: string, number: number, categories: string[] | null = null, holdToken: string | null = null, extraData: Dict<any> | null = null, ticketTypes: string[] | null = null, orderId: string | null = null, keepExtraData: boolean | null = null, ignoreChannels: boolean | null = null, channelKeys: string[] | null = null, tryToPreventOrphanSeats: boolean | null = null) {
@@ -342,8 +358,8 @@ export class Events {
         return this.changeObjectStatus(eventKeyOrKeys, objectOrObjects, EventObjectInfo.FREE, holdToken, orderId, keepExtraData, ignoreChannels, channelKeys)
     }
 
-    hold (eventKeyOrKeys: string | string[], objectOrObjects: ObjectOrObjects, holdToken: string, orderId: string | null = null, keepExtraData: boolean | null = null, ignoreChannels: boolean | null = null, channelKeys: string[] | null = null) {
-        return this.changeObjectStatus(eventKeyOrKeys, objectOrObjects, EventObjectInfo.HELD, holdToken, orderId, keepExtraData, ignoreChannels, channelKeys)
+    hold (eventKeyOrKeys: string | string[], objectOrObjects: ObjectOrObjects, holdToken: string, orderId: string | null = null, keepExtraData: boolean | null = null, ignoreChannels: boolean | null = null, channelKeys: string[] | null = null, ignoreSocialDistancing: boolean | null = null) {
+        return this.changeObjectStatus(eventKeyOrKeys, objectOrObjects, EventObjectInfo.HELD, holdToken, orderId, keepExtraData, ignoreChannels, channelKeys, ignoreSocialDistancing)
     }
 
     holdBestAvailable (eventKey: string, number: number, holdToken: string, categories: string[] | null = null, extraData: Dict<any> | null = null, ticketTypes: string[] | null = null, orderId: string | null = null, keepExtraData: boolean | null = null, ignoreChannels: boolean | null = null, channelKeys: string[] | null = null, tryToPreventOrphanSeats: boolean | null = null) {

@@ -40,6 +40,10 @@ export class Seasons {
             if (seasonParams._channels !== undefined) {
                 requestParameters.channels = seasonParams._channels
             }
+
+            if (seasonParams._socialDistancingRulesetKey !== undefined) {
+                requestParameters.socialDistancingRulesetKey = seasonParams._socialDistancingRulesetKey
+            }
         }
 
         return this.client.post('/seasons', requestParameters)

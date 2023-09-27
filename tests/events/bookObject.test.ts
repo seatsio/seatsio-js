@@ -1,8 +1,10 @@
 import { EventObjectInfo } from '../../src/Events/EventObjectInfo'
 import { TestUtils } from '../testUtils'
+import { SocialDistancingRuleset } from '../../src/Charts/SocialDistancingRuleset'
 import { IDs } from '../../src/Common/IDs'
 import { CreateEventParams } from '../../src/Events/CreateEventParams'
 import { Channel } from '../../src/Events/Channel'
+import { UpdateEventParams } from '../../src/Events/UpdateEventParams'
 
 test('should book an object', async () => {
     const { client, user } = await TestUtils.createTestUserAndClient()
@@ -119,6 +121,21 @@ test('should accept ignoreChannels', async () => {
     ]))
 
     await client.events.book(event.key, ['A-1'], null, null, null, true)
+
+    const objectInfo = await client.events.retrieveObjectInfo(event.key, 'A-1')
+    expect(objectInfo.status).toBe(EventObjectInfo.BOOKED)
+})
+
+test('should accept ignoreSocialDistancing', async () => {
+    const { client, user } = await TestUtils.createTestUserAndClient()
+    const chartKey = TestUtils.getChartKey()
+    await TestUtils.createTestChart(chartKey, user.secretKey)
+    const event = await client.events.create(chartKey)
+    const ruleset = SocialDistancingRuleset.fixed('ruleset').setDisabledSeats(['A-1']).build()
+    await client.charts.saveSocialDistancingRulesets(chartKey, { ruleset })
+    await client.events.update(event.key, new UpdateEventParams().withSocialDistancingRulesetKey('ruleset'))
+
+    await client.events.book(event.key, ['A-1'], null, null, null, null, null, true)
 
     const objectInfo = await client.events.retrieveObjectInfo(event.key, 'A-1')
     expect(objectInfo.status).toBe(EventObjectInfo.BOOKED)
