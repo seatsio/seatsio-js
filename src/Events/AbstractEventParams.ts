@@ -41,7 +41,7 @@ export abstract class AbstractEventParams {
         return this
     }
 
-    withSocialDistancingRulesetKey(socialDistancingRulesetKey: string) {
+    withSocialDistancingRulesetKey (socialDistancingRulesetKey: string) {
         this.socialDistancingRulesetKey = socialDistancingRulesetKey
         return this
     }

@@ -4,7 +4,7 @@ import { SocialDistancingRuleset } from '../../src/Charts/SocialDistancingRulese
 import { IDs } from '../../src/Common/IDs'
 import { CreateEventParams } from '../../src/Events/CreateEventParams'
 import { Channel } from '../../src/Events/Channel'
-import {UpdateEventParams} from "../../src/Events/UpdateEventParams";
+import { UpdateEventParams } from '../../src/Events/UpdateEventParams'
 
 test('should book an object', async () => {
     const { client, user } = await TestUtils.createTestUserAndClient()
