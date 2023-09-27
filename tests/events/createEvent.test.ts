@@ -1,6 +1,7 @@
 import { TestUtils } from '../testUtils'
 import { TableBookingConfig } from '../../src/Events/TableBookingConfig'
 import { Category } from '../../src/Charts/Category'
+import { SocialDistancingRuleset } from '../../src/Charts/SocialDistancingRuleset'
 import { LocalDate } from '../../src/LocalDate'
 import { CreateEventParams } from '../../src/Events/CreateEventParams'
 import { Channel } from '../../src/Events/Channel'
@@ -55,6 +56,17 @@ test('supports tableBookingConfig inherit', async () => {
 
     expect(event.key).toBeTruthy()
     expect(event.tableBookingConfig).toEqual(TableBookingConfig.inherit())
+})
+
+test('it supports a social distancing ruleset key', async () => {
+    const { client } = await TestUtils.createTestUserAndClient()
+    const chart = await client.charts.create()
+    const rulesets = { ruleset1: SocialDistancingRuleset.ruleBased('My ruleset').build() }
+    await client.charts.saveSocialDistancingRulesets(chart.key, rulesets)
+
+    const event = await client.events.create(chart.key, new CreateEventParams().withSocialDistancingRulesetKey('ruleset1'))
+
+    expect(event.socialDistancingRulesetKey).toBe('ruleset1')
 })
 
 test('it supports object categories', async () => {
