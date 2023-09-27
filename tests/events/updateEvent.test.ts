@@ -5,6 +5,7 @@ import { SocialDistancingRuleset } from '../../src/Charts/SocialDistancingRulese
 import { LocalDate } from '../../src/LocalDate'
 import { CreateEventParams } from '../../src/Events/CreateEventParams'
 import { UpdateEventParams } from '../../src/Events/UpdateEventParams'
+import { SeasonParams } from '../../src/Seasons/SeasonParams'
 
 test('should update event\'s chart key', async () => {
     const { client } = await TestUtils.createTestUserAndClient()
@@ -38,11 +39,11 @@ test('should update event key', async () => {
 test('should mark the event as in the past', async () => {
     const { client } = await TestUtils.createTestUserAndClient()
     const chart = await client.charts.create()
-    const event = await client.events.create(chart.key)
+    await client.seasons.create(chart.key, new SeasonParams().eventKeys(['event1', 'event2']))
 
-    await client.events.update(event.key, new UpdateEventParams().withIsInThePast(true))
+    await client.events.update('event1', new UpdateEventParams().withIsInThePast(true))
 
-    const retrievedEvent = await client.events.retrieve(event.key)
+    const retrievedEvent = await client.events.retrieve('event1')
     expect(retrievedEvent.chartKey).toBe(chart.key)
     expect(retrievedEvent.isInThePast).toBe(true)
 })
