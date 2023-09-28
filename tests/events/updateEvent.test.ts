@@ -1,7 +1,6 @@
 import { TableBookingConfig } from '../../src/Events/TableBookingConfig'
 import { Category } from '../../src/Charts/Category'
 import { TestUtils } from '../testUtils'
-import { SocialDistancingRuleset } from '../../src/Charts/SocialDistancingRuleset'
 import { LocalDate } from '../../src/LocalDate'
 import { CreateEventParams } from '../../src/Events/CreateEventParams'
 import { UpdateEventParams } from '../../src/Events/UpdateEventParams'
@@ -46,37 +45,6 @@ test('should update tableBookingConfig parameter of an event', async () => {
     expect(retrievedEvent.chartKey).toBe(chartKey)
     expect(retrievedEvent.key).toBe(event.key)
     expect(retrievedEvent.tableBookingConfig).toEqual(TableBookingConfig.custom({ T1: 'BY_TABLE', T2: 'BY_SEAT' }))
-})
-
-test('it supports a social distancing ruleset key', async () => {
-    const { client } = await TestUtils.createTestUserAndClient()
-    const chart = await client.charts.create()
-    const rulesets = {
-        ruleset1: SocialDistancingRuleset.ruleBased('My ruleset').build(),
-        ruleset2: SocialDistancingRuleset.ruleBased('Another ruleset').build()
-    }
-    await client.charts.saveSocialDistancingRulesets(chart.key, rulesets)
-    const event = await client.events.create(chart.key, new CreateEventParams().withSocialDistancingRulesetKey('ruleset1'))
-
-    await client.events.update(event.key, new UpdateEventParams().withSocialDistancingRulesetKey('ruleset2'))
-
-    const retrievedEvent = await client.events.retrieve(event.key)
-    expect(retrievedEvent.socialDistancingRulesetKey).toBe('ruleset2')
-})
-
-test('it supports removing the social distancing ruleset key', async () => {
-    const { client } = await TestUtils.createTestUserAndClient()
-    const chart = await client.charts.create()
-    const rulesets = {
-        ruleset1: SocialDistancingRuleset.ruleBased('My ruleset').build()
-    }
-    await client.charts.saveSocialDistancingRulesets(chart.key, rulesets)
-    const event = await client.events.create(chart.key, new CreateEventParams().withSocialDistancingRulesetKey('ruleset1'))
-
-    await client.events.update(event.key, new UpdateEventParams().withSocialDistancingRulesetKey(''))
-
-    const retrievedEvent = await client.events.retrieve(event.key)
-    expect(retrievedEvent.socialDistancingRulesetKey).toBe(undefined)
 })
 
 test('it supports object categories', async () => {

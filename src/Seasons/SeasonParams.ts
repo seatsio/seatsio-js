@@ -5,7 +5,6 @@ export class SeasonParams {
     _eventKeys?: string[]
     _key?: string
     _numberOfEvents?: number
-    _socialDistancingRulesetKey?: string
     _tableBookingConfig?: TableBookingConfig
     _channels?: Channel[]
 
@@ -31,11 +30,6 @@ export class SeasonParams {
 
     channels (channels: Channel[]) {
         this._channels = channels
-        return this
-    }
-
-    socialDistancingRulesetKey (socialDistancingRulesetKey: string) {
-        this._socialDistancingRulesetKey = socialDistancingRulesetKey
         return this
     }
 }
