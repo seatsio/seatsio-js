@@ -124,10 +124,6 @@ export class Charts {
             .then(res => new Chart(res.data))
     }
 
-    saveSocialDistancingRulesets (key: string, socialDistancingRulesets: object) {
-        return this.client.post(`/charts/${key}/social-distancing-rulesets`, { socialDistancingRulesets })
-    }
-
     retrievePublishedVersionThumbnail (key: string) {
         return this.client.get(`/charts/${key}/version/published/thumbnail`, { responseType: 'arraybuffer' })
             .then(res => res.data)

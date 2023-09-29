@@ -17,7 +17,6 @@ test('should retrieve chart', async () => {
     expect(retrievedChart.tags).toEqual(['tag1'])
     expect(retrievedChart.archived).toBe(false)
     expect(retrievedChart.events).toEqual([])
-    expect(retrievedChart.socialDistancingRulesets).toEqual({})
 })
 
 test('should retrieve chart with events', async () => {
