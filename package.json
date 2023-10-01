@@ -24,7 +24,7 @@
     "@jest/globals": "29.6.4",
     "@types/jest": "29.5.4",
     "@types/node": "20.5.9",
-    "@types/uuid": "9.0.3",
+    "@types/uuid": "9.0.4",
     "@typescript-eslint/eslint-plugin": "5.62.0",
     "@typescript-eslint/parser": "5.62.0",
     "eslint": "8.48.0",
@@ -37,6 +37,6 @@
     "ts-jest": "29.1.1",
     "typescript": "5.2.2",
     "ctix": "1.8.2",
-    "uuid": "9.0.0"
+    "uuid": "9.0.1"
   }
 }
