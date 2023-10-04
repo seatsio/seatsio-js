@@ -19,7 +19,6 @@ export class Event {
     isTopLevelSeason: boolean
     key: string
     objectCategories?: Map<string, any>
-    socialDistancingRulesetKey?: string
     supportsBestAvailable: boolean
     tableBookingConfig: TableBookingConfig
     topLevelSeasonKey?: string
@@ -38,7 +37,6 @@ export class Event {
         this.createdOn = json.createdOn ? new Date(json.createdOn) : null
         this.updatedOn = json.updatedOn ? new Date(json.updatedOn) : null
         this.channels = json.channels ? json.channels.map((c: ChannelJson) => new Channel(c)) : null
-        this.socialDistancingRulesetKey = json.socialDistancingRulesetKey
         this.topLevelSeasonKey = json.topLevelSeasonKey
         this.isTopLevelSeason = json.isTopLevelSeason
         this.isPartialSeason = json.isPartialSeason

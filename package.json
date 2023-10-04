@@ -1,6 +1,6 @@
 {
   "name": "seatsio",
-  "version": "78.1.0",
+  "version": "79.0.0",
   "main": "dist/src/index.js",
   "types": "dist/src/index.d.ts",
   "files": [
@@ -18,25 +18,25 @@
     "url": "https://github.com/seatsio/seatsio-js"
   },
   "dependencies": {
-    "axios": "1.5.0"
+    "axios": "1.5.1"
   },
   "devDependencies": {
-    "@jest/globals": "29.6.4",
-    "@types/jest": "29.5.4",
-    "@types/node": "20.5.9",
-    "@types/uuid": "9.0.3",
+    "@jest/globals": "29.7.0",
+    "@types/jest": "29.5.5",
+    "@types/node": "20.8.2",
+    "@types/uuid": "9.0.4",
     "@typescript-eslint/eslint-plugin": "5.62.0",
     "@typescript-eslint/parser": "5.62.0",
-    "eslint": "8.48.0",
+    "eslint": "8.50.0",
     "eslint-config-standard": "17.1.0",
     "eslint-plugin-import": "2.28.1",
-    "eslint-plugin-n": "16.0.2",
+    "eslint-plugin-n": "16.1.0",
     "eslint-plugin-promise": "6.1.1",
-    "jest": "29.6.4",
-    "jest-cli": "29.6.4",
+    "jest": "29.7.0",
+    "jest-cli": "29.7.0",
     "ts-jest": "29.1.1",
     "typescript": "5.2.2",
     "ctix": "1.8.2",
-    "uuid": "9.0.0"
+    "uuid": "9.0.1"
   }
 }
