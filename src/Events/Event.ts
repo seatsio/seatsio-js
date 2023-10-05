@@ -25,6 +25,7 @@ export class Event {
     updatedOn: Date | null
     name: string | null
     date: LocalDate | null
+    isInThePast: boolean
 
     constructor (json: EventJson) {
         this.id = json.id
@@ -44,6 +45,7 @@ export class Event {
         this.categories = json.categories ? json.categories!.map((c: ChannelJson) => Category.fromJson(c)) : null
         this.name = json.name || null
         this.date = json.date ? LocalDate.parse(json.date) : null
+        this.isInThePast = json.isInThePast
     }
 
     isSeason () {

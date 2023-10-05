@@ -158,6 +158,10 @@ export class Events {
             requestParameters.date = params.date.toString()
         }
 
+        if (params.isInThePast !== undefined) {
+            requestParameters.isInThePast = params.isInThePast
+        }
+
         return this.client.post(`events/${encodeURIComponent(eventKey)}`, requestParameters)
     }
 
