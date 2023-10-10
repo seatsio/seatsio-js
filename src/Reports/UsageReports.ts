@@ -8,7 +8,12 @@ export class UsageReports {
 
     summaryForAllMonths () {
         return this.client.get('/reports/usage')
-            .then(res => res.data)
+            .then(res => {
+                return {
+                    usageCutoffDate: new Date(res.headers['x-usage-report-cutoff-date']),
+                    usage: res.data
+                }
+            })
     }
 
     detailsForMonth (month: string) {
