@@ -142,4 +142,12 @@ export class TestUtils {
         new Category(10, 'Cat2', '#5E42ED', false),
         new Category('string11', 'Cat3', '#5E42BB', false)
     ]
+
+    static demoCompanySecretKey () {
+        const demoCompanySecretKey = process.env.DEMO_COMPANY_SECRET_KEY
+        if (demoCompanySecretKey === undefined) {
+            throw new Error('DEMO_COMPANY_SECRET_KEY must be set')
+        }
+        return demoCompanySecretKey!
+    }
 }

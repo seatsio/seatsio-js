@@ -1,5 +1,5 @@
-import { TestUtils } from '../testUtils'
-import { ObjectProperties } from '../../src/Events/ObjectProperties'
+import { TestUtils } from '../../testUtils'
+import { ObjectProperties } from '../../../src/Events/ObjectProperties'
 
 test('deepSummaryByStatus', async () => {
     const { client, user } = await TestUtils.createTestUserAndClient()

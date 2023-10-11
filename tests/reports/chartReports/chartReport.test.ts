@@ -1,9 +1,9 @@
-import { TestUtils } from '../testUtils'
-import { IDs } from '../../src/Common/IDs'
-import { ChartObjectInfo } from '../../src/Charts/ChartObjectInfo'
-import { Dict } from '../../src/Dict'
-import { SeatsioClient } from '../../src/SeatsioClient'
-import { Versions } from '../../src/Reports/ChartReports'
+import { TestUtils } from '../../testUtils'
+import { IDs } from '../../../src/Common/IDs'
+import { ChartObjectInfo } from '../../../src/Charts/ChartObjectInfo'
+import { Dict } from '../../../src/Dict'
+import { SeatsioClient } from '../../../src/SeatsioClient'
+import { Versions } from '../../../src/Reports/ChartReports'
 
 describe('chart report properties', () => {
     it.each([
