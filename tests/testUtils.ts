@@ -150,4 +150,8 @@ export class TestUtils {
         }
         return demoCompanySecretKey!
     }
+
+    static isDemoCompanySecretKeySet () {
+        return process.env.DEMO_COMPANY_SECRET_KEY !== undefined
+    }
 }

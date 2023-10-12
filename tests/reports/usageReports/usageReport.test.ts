@@ -1,6 +1,10 @@
 import { TestUtils } from '../../testUtils'
 
 test('usage report for all months', async () => {
+    if (!TestUtils.isDemoCompanySecretKeySet()) {
+        return warnAboutDemoCompanySecretKeyNotSet()
+    }
+
     const client = TestUtils.createClient(TestUtils.demoCompanySecretKey())
 
     const report = await client.usageReports.summaryForAllMonths()
@@ -11,6 +15,10 @@ test('usage report for all months', async () => {
 })
 
 test('usage report for month', async () => {
+    if (!TestUtils.isDemoCompanySecretKeySet()) {
+        return warnAboutDemoCompanySecretKeyNotSet()
+    }
+
     const client = TestUtils.createClient(TestUtils.demoCompanySecretKey())
 
     const report = await client.usageReports.detailsForMonth('2021-11')
@@ -26,6 +34,10 @@ test('usage report for month', async () => {
 })
 
 test('usage report for event in month', async () => {
+    if (!TestUtils.isDemoCompanySecretKeySet()) {
+        return warnAboutDemoCompanySecretKeyNotSet()
+    }
+
     const client = TestUtils.createClient(TestUtils.demoCompanySecretKey())
 
     const report = await client.usageReports.detailsForEventInMonth(580293, '2021-11')
@@ -38,3 +50,7 @@ test('usage report for event in month', async () => {
         object: '102-9-14'
     })
 })
+
+function warnAboutDemoCompanySecretKeyNotSet () {
+    console.warn('DEMO_COMPANY_SECRET_KEY environment variable not set, skipping test')
+}

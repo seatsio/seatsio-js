@@ -24,11 +24,6 @@ export class UsageReports {
             .then(res => res.data)
     }
 
-    detailsForObjectInEventInMonth (objectLabel: string, eventKey: string, month: string) {
-        return this.client.get(`/reports/usage/month/${month}/event/${encodeURIComponent(eventKey)}/object/${encodeURIComponent(objectLabel)}`)
-            .then(res => res.data)
-    }
-
     subscription () {
         return this.client.get('/reports/subscription')
             .then(res => res.data)
