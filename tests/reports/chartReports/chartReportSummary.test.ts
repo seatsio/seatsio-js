@@ -1,6 +1,6 @@
-import { TestUtils } from '../testUtils'
-import { SeatsioClient } from '../../src/SeatsioClient'
-import { Versions } from '../../src/Reports/ChartReports'
+import { TestUtils } from '../../testUtils'
+import { SeatsioClient } from '../../../src/SeatsioClient'
+import { Versions } from '../../../src/Reports/ChartReports'
 
 describe('summaryByObjectType', () => {
     it.each([
