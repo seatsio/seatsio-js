@@ -23,3 +23,5 @@ jobs:
         with:
           timezone: Europe/Brussels
       - run: yarn test
+        env:
+          DEMO_COMPANY_SECRET_KEY: ${{ secrets.DEMO_COMPANY_SECRET_KEY }}
