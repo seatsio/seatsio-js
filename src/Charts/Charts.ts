@@ -124,6 +124,11 @@ export class Charts {
             .then(res => new Chart(res.data))
     }
 
+    copyFromWorkspaceTo (key: string, fromWorkspaceKey: string, toWorkspaceKey: string) {
+        return this.client.post(`charts/${key}/version/published/actions/copy/from/${fromWorkspaceKey}/to/${toWorkspaceKey}`)
+            .then(res => new Chart(res.data))
+    }
+
     retrievePublishedVersionThumbnail (key: string) {
         return this.client.get(`/charts/${key}/version/published/thumbnail`, { responseType: 'arraybuffer' })
             .then(res => res.data)
