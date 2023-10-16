@@ -4,6 +4,7 @@ import { Category } from '../../src/Charts/Category'
 import { LocalDate } from '../../src/LocalDate'
 import { CreateEventParams } from '../../src/Events/CreateEventParams'
 import { Channel } from '../../src/Events/Channel'
+import { ForSaleConfig } from '../../src'
 
 test('should check that a minimum of one event is required', async () => {
     const { client, user } = await TestUtils.createTestUserAndClient()
@@ -154,4 +155,20 @@ test('it supports channels', async () => {
     ])
 
     expect(events[0].channels).toEqual(channels)
+})
+
+test('it supports for-sale config', async () => {
+    const { client, user } = await TestUtils.createTestUserAndClient()
+    const chartKey = TestUtils.getChartKey()
+    await TestUtils.createTestChart(chartKey, user.secretKey)
+    const forSaleConfig1 = new ForSaleConfig(false, ['A-1'], { GA1: 5 }, ['Cat1'])
+    const forSaleConfig2 = new ForSaleConfig(false, ['A-2'], { GA1: 7 }, ['Cat1'])
+
+    const events = await client.events.createMultiple(chartKey, [
+        new CreateEventParams().withForSaleConfig(forSaleConfig1),
+        new CreateEventParams().withForSaleConfig(forSaleConfig2)
+    ])
+
+    expect(events[0].forSaleConfig).toEqual(forSaleConfig1)
+    expect(events[1].forSaleConfig).toEqual(forSaleConfig2)
 })

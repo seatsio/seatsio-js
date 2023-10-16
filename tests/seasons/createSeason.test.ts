@@ -3,6 +3,7 @@ import { SeasonParams } from '../../src/Seasons/SeasonParams'
 import { Event } from '../../src/Events/Event'
 import { TableBookingConfig } from '../../src/Events/TableBookingConfig'
 import { Channel } from '../../src/Events/Channel'
+import { ForSaleConfig } from '../../src'
 
 test('chart key is required', async () => {
     const { client, user } = await TestUtils.createTestUserAndClient()
@@ -73,4 +74,15 @@ test('channels can be passed in', async () => {
     const season = await client.seasons.create(chartKey, new SeasonParams().channels(channels))
 
     expect(season.channels).toEqual(channels)
+})
+
+test('for-sale config can be passed in', async () => {
+    const { client, user } = await TestUtils.createTestUserAndClient()
+    const chartKey = TestUtils.getChartKey()
+    await TestUtils.createTestChart(chartKey, user.secretKey)
+    const forSaleConfig = new ForSaleConfig(false, ['A-1'], { GA1: 5 }, ['Cat1'])
+
+    const season = await client.seasons.create(chartKey, new SeasonParams().forSaleConfig(forSaleConfig))
+
+    expect(season.forSaleConfig).toEqual(forSaleConfig)
 })

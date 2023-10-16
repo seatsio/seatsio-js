@@ -40,6 +40,10 @@ export class Seasons {
             if (seasonParams._channels !== undefined) {
                 requestParameters.channels = seasonParams._channels
             }
+
+            if (seasonParams._forSaleConfig !== undefined) {
+                requestParameters.forSaleConfig = seasonParams._forSaleConfig
+            }
         }
 
         return this.client.post('/seasons', requestParameters)

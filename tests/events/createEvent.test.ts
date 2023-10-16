@@ -4,6 +4,7 @@ import { Category } from '../../src/Charts/Category'
 import { LocalDate } from '../../src/LocalDate'
 import { CreateEventParams } from '../../src/Events/CreateEventParams'
 import { Channel } from '../../src/Events/Channel'
+import { ForSaleConfig } from '../../src'
 
 test('should check that only chart key is required', async () => {
     const { client, user } = await TestUtils.createTestUserAndClient()
@@ -112,4 +113,15 @@ test('it supports channels', async () => {
     const event = await client.events.create(chartKey, new CreateEventParams().withChannels(channels))
 
     expect(event.channels).toEqual(channels)
+})
+
+test('it supports for-sale config', async () => {
+    const { client, user } = await TestUtils.createTestUserAndClient()
+    const chartKey = TestUtils.getChartKey()
+    await TestUtils.createTestChart(chartKey, user.secretKey)
+    const forSaleConfig = new ForSaleConfig(false, ['A-1'], { GA1: 5 }, ['Cat1'])
+
+    const event = await client.events.create(chartKey, new CreateEventParams().withForSaleConfig(forSaleConfig))
+
+    expect(event.forSaleConfig).toEqual(forSaleConfig)
 })
