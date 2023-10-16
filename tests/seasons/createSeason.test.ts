@@ -3,7 +3,7 @@ import { SeasonParams } from '../../src/Seasons/SeasonParams'
 import { Event } from '../../src/Events/Event'
 import { TableBookingConfig } from '../../src/Events/TableBookingConfig'
 import { Channel } from '../../src/Events/Channel'
-import { ForSaleConfig } from '../../src'
+import { ForSaleConfig } from '../../src/Events/ForSaleConfig'
 
 test('chart key is required', async () => {
     const { client, user } = await TestUtils.createTestUserAndClient()

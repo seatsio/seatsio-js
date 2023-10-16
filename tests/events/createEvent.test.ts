@@ -4,7 +4,7 @@ import { Category } from '../../src/Charts/Category'
 import { LocalDate } from '../../src/LocalDate'
 import { CreateEventParams } from '../../src/Events/CreateEventParams'
 import { Channel } from '../../src/Events/Channel'
-import { ForSaleConfig } from '../../src'
+import { ForSaleConfig } from '../../src/Events/ForSaleConfig'
 
 test('should check that only chart key is required', async () => {
     const { client, user } = await TestUtils.createTestUserAndClient()
