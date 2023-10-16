@@ -63,6 +63,10 @@ export class Events {
             if (params.channels !== undefined) {
                 requestParameters.channels = params.channels
             }
+
+            if (params.forSaleConfig !== undefined) {
+                requestParameters.forSaleConfig = params.forSaleConfig
+            }
         }
 
         return this.client.post('/events', requestParameters)
@@ -105,6 +109,10 @@ export class Events {
 
                 if (eventParams.channels !== undefined) {
                     eventRequest.channels = eventParams.channels
+                }
+
+                if (eventParams.forSaleConfig !== undefined) {
+                    eventRequest.forSaleConfig = eventParams.forSaleConfig
                 }
 
                 requestParameters.events.push(eventRequest)
