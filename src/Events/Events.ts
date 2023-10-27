@@ -248,6 +248,14 @@ export class Events {
         return this.client.post(`events/${encodeURIComponent(eventKey)}/actions/mark-everything-as-for-sale`)
     }
 
+    overrideSeasonObjectStatus (eventKey: string, objects: string[]) {
+        return this.client.post(`/events/${encodeURIComponent(eventKey)}/actions/override-season-status`, { objects })
+    }
+
+    useSeasonObjectStatus (eventKey: string, objects: string[]) {
+        return this.client.post(`/events/${encodeURIComponent(eventKey)}/actions/use-season-status`, { objects })
+    }
+
     updateExtraData (eventKey: string, obj: string, extraData: object) {
         const requestParameters: Dict<any> = {}
         requestParameters.extraData = extraData
