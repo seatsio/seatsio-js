@@ -20,4 +20,5 @@ test('event keys can be passed in', async () => {
     const partialSeason = await client.seasons.createPartialSeason(season.key, null, ['event1', 'event2'])
 
     expect(partialSeason.events!.map((event: Event) => event.key)).toEqual(['event1', 'event2'])
+    expect(partialSeason.events![0].partialSeasonKeysForEvent).toEqual([partialSeason.key])
 })
