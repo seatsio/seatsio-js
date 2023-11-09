@@ -26,6 +26,7 @@ export class Event {
     name: string | null
     date: LocalDate | null
     isInThePast: boolean
+    partialSeasonKeysForEvent: string[]
 
     constructor (json: EventJson) {
         this.id = json.id
@@ -46,6 +47,7 @@ export class Event {
         this.name = json.name || null
         this.date = json.date ? LocalDate.parse(json.date) : null
         this.isInThePast = json.isInThePast
+        this.partialSeasonKeysForEvent = json.partialSeasonKeysForEvent
     }
 
     isSeason () {
