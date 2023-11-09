@@ -24,7 +24,7 @@ test('should retrieve event', async () => {
     expect(retrievedEvent.updatedOn).toBeNull()
     expect(retrievedEvent.topLevelSeasonKey).toBe(undefined)
     expect(retrievedEvent.categories).toEqual(TestUtils.testChartCategories)
-    expect(retrievedEvent.partialSeasonKeysForEvent).toBeNull()
+    expect(retrievedEvent.partialSeasonKeysForEvent).toBeUndefined()
 })
 
 test('retrieve season', async () => {
@@ -53,7 +53,7 @@ test('retrieve season', async () => {
     expect(retrievedSeason.updatedOn).toBeNull()
     expect(retrievedSeason.topLevelSeasonKey).toBe(undefined)
     expect(retrievedSeason.categories).toEqual(TestUtils.testChartCategories)
-    expect(retrievedSeason.partialSeasonKeysForEvent).toBeNull()
+    expect(retrievedSeason.partialSeasonKeysForEvent).toBeUndefined()
 })
 
 test('retrieve partial season', async () => {
@@ -81,7 +81,7 @@ test('retrieve partial season', async () => {
     expect(retrievedSeason.forSaleConfig).toBeNull()
     expect(retrievedSeason.updatedOn).toBeNull()
     expect(retrievedSeason.topLevelSeasonKey).toBe(season.key)
-    expect(retrievedSeason.partialSeasonKeysForEvent).toBeNull()
+    expect(retrievedSeason.partialSeasonKeysForEvent).toBeUndefined()
 })
 
 test('retrieve event in season', async () => {
