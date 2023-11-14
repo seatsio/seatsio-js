@@ -5,14 +5,15 @@
 
 This is the official JavaScript client library for the [Seats.io V2 REST API](https://docs.seats.io/docs/api-overview).
 
+> [!IMPORTANT]
 > **❗️ Read This First!**
 >
 > `seatsio-js` requires your seats.io secret key. This key carries many privileges, including creating events, booking and releasing seats, and more. If you use this lib in a browser, you are exposing your secret key to your user.
 >   
 > This means you can **only** use `seatsio-js`:
 >
-> - on the server (Node), just like any other seats.io API client library
-> - in the browser, in a secure, password-protected backoffice application for administrators. Never, ever on pages that are accessible by your customers or ticket buyers. 
+> * on the server (Node), just like any other seats.io API client library
+> * in the browser, in a secure, password-protected backoffice application for administrators. Never, ever on pages that are accessible by your customers or ticket buyers. 
 >
 > **👉 Only use this in browser code if you know what you're doing. You have been warned :)** 
 
