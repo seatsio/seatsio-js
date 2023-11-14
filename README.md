@@ -15,7 +15,7 @@ This is the official JavaScript client library for the [Seats.io V2 REST API](ht
 >     - on the server (Node), just like any other seats.io API client library
 >     - in the browser, in a secure, password-protected backoffice application for administrators. Never, ever on pages that are accessible by your customers or ticket buyers. 
 >
-> ** 👉 Only use this in browser code if you know what you're doing. You have been warned :) 
+> **👉 Only use this in browser code if you know what you're doing. You have been warned :)** 
 
 ## Installing
 For Node, you can install using yarn or npm:
