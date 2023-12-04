@@ -1,5 +1,0 @@
-{
-  "tests/**": "*",
-  "src/utilities/**": "*"
-  "src/errorInterceptor.ts": "*"
-}

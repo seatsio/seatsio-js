@@ -1,0 +1,16 @@
+{
+  "options": [
+      {
+        "mode": "bundle",
+        "exclude": [
+          "tests/**",
+          "src/utilities/**",
+          "src/errorInterceptor.ts"
+        ],
+        "project": "./tsconfig.json",
+        "overwrite": true,
+        "backup": false,
+        "output": "src"
+      }
+  ]
+}
