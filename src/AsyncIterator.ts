@@ -7,6 +7,7 @@ import { Workspace, WorkspaceJson } from './Workspaces/Workspace'
 import { User, UserJson } from './Users/User'
 import { Event, EventJson } from './Events/Event'
 import { Axios } from 'axios'
+import { EventLogItem, EventLogItemJson } from './EventLog/EventLogItem'
 
 export interface PaginatedJson<T> {
     items: T[]
@@ -102,6 +103,18 @@ export class AsyncIterator<T> {
         this.pages.push(new Page(workspaces, data.next_page_starts_after, data.previous_page_ends_before))
     }
 
+    eventLogItems (data: PaginatedJson<EventLogItemJson>) {
+        const eventLogItems: EventLogItem[] = []
+        data.items.forEach((json: EventLogItemJson) => {
+            const eventLogItem = new EventLogItem(json)
+            // @ts-ignore
+            this.items.push(eventLogItem)
+            eventLogItems.push(eventLogItem)
+        })
+        // @ts-ignore
+        this.pages.push(new Page(eventLogItems, data.next_page_starts_after, data.previous_page_ends_before))
+    }
+
     users (data: PaginatedJson<UserJson>) {
         const users: User[] = []
         data.items.forEach((userData: UserJson) => {
@@ -142,6 +155,9 @@ export class AsyncIterator<T> {
                     break
                 case 'workspaces':
                     this.workspaces(res.data)
+                    break
+                case 'eventLogItems':
+                    this.eventLogItems(res.data)
                     break
                 default:
                     throw new Error(`Unknown object type '${this.objType}'`)
