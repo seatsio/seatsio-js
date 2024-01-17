@@ -107,6 +107,10 @@ export class TestUtils {
         }
     }
 
+    static async sleep (ms: number) {
+        await new Promise(resolve => setTimeout(resolve, ms))
+    }
+
     static async statusChangesPresent (client: SeatsioClient, eventKey: string, numStatusChanges: number) {
         const deferred = this.deferred()
         const start = new Date()
