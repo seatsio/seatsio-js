@@ -1426,10 +1426,10 @@ cross-spawn@^7.0.0, cross-spawn@^7.0.2, cross-spawn@^7.0.3:
     shebang-command "^2.0.0"
     which "^2.0.1"
 
-ctix@2.3.0:
-  version "2.3.0"
-  resolved "https://registry.yarnpkg.com/ctix/-/ctix-2.3.0.tgz#35907d484d4198b9374efc90a808f06a710d634d"
-  integrity sha512-hDIlQuQTmhYwCq7XL52zkGQ/GJStvUHyuSymEFFI5a5PdOJ+b0+TOGzxgDEM8mRr6uhxDqBThXEq5eAdeYaf2Q==
+ctix@2.4.0:
+  version "2.4.0"
+  resolved "https://registry.yarnpkg.com/ctix/-/ctix-2.4.0.tgz#636b981b0ef22b08bd0fd824478f5ac6f48feeb2"
+  integrity sha512-qjFLR5/9SLoifKmYAO1ecxuE557iWEcXv0N3+OU7rhfHDOiE5xWOKkwFXptDZ8oM4UR4dZiRBtZzlaOctI+g9g==
   dependencies:
     chalk "^4.1.2"
     change-case "^4.1.2"
@@ -1449,7 +1449,7 @@ ctix@2.3.0:
     mathjs "^12.0.0"
     minimist "^1.2.8"
     my-easy-fp "^0.21.0"
-    my-node-fp "^0.9.0"
+    my-node-fp "^0.10.0"
     my-only-either "^1.3.0"
     ora "^5.4.1"
     prettier "^3.0.3"
@@ -3257,22 +3257,22 @@ mute-stream@0.0.8:
   resolved "https://registry.yarnpkg.com/mute-stream/-/mute-stream-0.0.8.tgz#1630c42b2251ff81e2a283de96a5497ea92e5e0d"
   integrity sha512-nnbWWOkoWyUsTjKrhgD0dcz22mdkSnpYqbEjIm2nhwhuxlSkpywJmBo8h0ZqJdkp73mb90SssHkN4rsRaBAfAA==
 
-my-easy-fp@^0.14.0:
-  version "0.14.0"
-  resolved "https://registry.yarnpkg.com/my-easy-fp/-/my-easy-fp-0.14.0.tgz#7a348f1f41f87975f04b53a9fe9f3ae85f2e1f1d"
-  integrity sha512-y1olfATc31Akn7MzWy+he1JNqkJa8UWyDupe533GmG9q+fX1imiVpYiPmVhJnp9Bs/OsF/pPGG1p9DXzgiRAzA==
-
 my-easy-fp@^0.21.0:
   version "0.21.0"
   resolved "https://registry.yarnpkg.com/my-easy-fp/-/my-easy-fp-0.21.0.tgz#5d03c5f78dd4032c74734d17afd06820dde40c08"
   integrity sha512-oQy/Ec4WsBAf337BuOZNTRHRnuWaDax54BtHQKOL41zfFy2BEyLovOEbSH/i3k8uU5UcagijosPMQvyrMNeeJQ==
 
-my-node-fp@^0.9.0:
-  version "0.9.0"
-  resolved "https://registry.yarnpkg.com/my-node-fp/-/my-node-fp-0.9.0.tgz#cf822374f0e516d500ab03dbbcab1212fa3c81af"
-  integrity sha512-uRJMuk6nWivhjhffxzlPL7gjHcggMOR+I4TzEiy80dsuk7O45aBWZao2sHpChgUr17yvBKAkPo1PvIVMqXJa0Q==
+my-easy-fp@^0.22.0:
+  version "0.22.0"
+  resolved "https://registry.yarnpkg.com/my-easy-fp/-/my-easy-fp-0.22.0.tgz#dbcbc0907472f0476aafc5a6adf92153103b58d0"
+  integrity sha512-fWM/HrbfUiBt8GcwMXad5r8s2urQezRqNiaa5GispeXGKptpaz5m+NUwBazkow5oxktZGWyQj1bSx40xtq00zg==
+
+my-node-fp@^0.10.0:
+  version "0.10.3"
+  resolved "https://registry.yarnpkg.com/my-node-fp/-/my-node-fp-0.10.3.tgz#cb21d3308943762d4a8e3575e6d7686d07fc72c3"
+  integrity sha512-LXTord8vAfBCP4nX1Ct/d7jXuWxeiFvDwmX+HCiLHIoNhzxg7CaippiPZV8MQ/nfX9pXSf6jpJLr/fs5QHjwKw==
   dependencies:
-    my-easy-fp "^0.14.0"
+    my-easy-fp "^0.22.0"
 
 my-only-either@^1.3.0:
   version "1.3.0"
