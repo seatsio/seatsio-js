@@ -29,7 +29,8 @@ test('should change object status', async () => {
             rightNeighbour: 'A-2',
             isAvailable: false,
             availabilityReason: 'lolzor',
-            distanceToFocalPoint: 98.67842540608864
+            distanceToFocalPoint: 98.67842540608864,
+            seasonStatusOverriddenQuantity: 0
         }
     })
 })
