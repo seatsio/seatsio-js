@@ -5,7 +5,7 @@ import { EventObjectInfo } from '../../../src/Events/EventObjectInfo'
 import { TableBookingConfig } from '../../../src/Events/TableBookingConfig'
 import { CreateEventParams } from '../../../src/Events/CreateEventParams'
 import { Channel } from '../../../src/Events/Channel'
-import { SeasonParams } from '../../../src'
+import { SeasonParams } from '../../../src/Seasons/SeasonParams'
 
 test('report properties', async () => {
     const { client, user } = await TestUtils.createTestUserAndClient()
