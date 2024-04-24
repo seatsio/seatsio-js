@@ -5,6 +5,7 @@ import { EventObjectInfo } from '../../../src/Events/EventObjectInfo'
 import { TableBookingConfig } from '../../../src/Events/TableBookingConfig'
 import { CreateEventParams } from '../../../src/Events/CreateEventParams'
 import { Channel } from '../../../src/Events/Channel'
+import { SeasonParams } from '../../../src'
 
 test('report properties', async () => {
     const { client, user } = await TestUtils.createTestUserAndClient()
@@ -42,6 +43,7 @@ test('report properties', async () => {
     expect(reportItem.availabilityReason).toBe('booked')
     expect(reportItem.bookAsAWhole).toBe(undefined)
     expect(reportItem.distanceToFocalPoint).toBeTruthy()
+    expect(reportItem.seasonStatusOverriddenQuantity).toBe(0)
 
     const gaItem = report.GA1[0]
     expect(gaItem.variableOccupancy).toBe(true)
@@ -61,6 +63,20 @@ test('report has hold token', async () => {
 
     const reportItem = report['A-1'][0]
     expect(reportItem.holdToken).toBe(holdToken.holdToken)
+})
+
+test('report has seasonStatusOverriddenQuantity', async () => {
+    const { client, user } = await TestUtils.createTestUserAndClient()
+    const chartKey = TestUtils.getChartKey()
+    await TestUtils.createTestChart(chartKey, user.secretKey)
+    const season = await client.seasons.create(chartKey, new SeasonParams().numberOfEvents(1))
+    const event = season.events![0]
+    await client.events.overrideSeasonObjectStatus(event.key, ['A-1'])
+
+    const report = await client.eventReports.byLabel(event.key)
+
+    const reportItem = report['A-1'][0]
+    expect(reportItem.seasonStatusOverriddenQuantity).toBe(1)
 })
 
 test('report properties for GA', async () => {

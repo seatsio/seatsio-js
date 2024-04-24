@@ -13,6 +13,7 @@ export class User {
     secretKey: string
     status: string
     workspaces: any
+    nonAdminHasAccessToAllWorkspaces?: boolean
 
     constructor (json: UserJson) {
         this.id = json.id
@@ -25,5 +26,6 @@ export class User {
         this.isActive = json.isActive
         this.status = json.status
         this.workspaces = json.workspaces
+        this.nonAdminHasAccessToAllWorkspaces = json.nonAdminHasAccessToAllWorkspaces
     }
 }
