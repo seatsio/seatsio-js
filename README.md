@@ -286,6 +286,16 @@ for (const category of categoryList) {
 }
 ```
 
+### Updating a category
+
+```js
+import { SeatsioClient, Region } from 'seatsio'
+
+let client = new SeatsioClient(Region.EU(), <COMPANY ADMIN KEY>, <WORKSPACE PUBLIC KEY>)
+await client.charts.updateCategory(chart.key, 1, new CategoryUpdateParams()
+    .withLabel('New label').withColor('#bbbbbb').withAccessible(true))```
+```
+
 ## Error Handling
 When an API call results in an error, a rejected promise is returned with a value that looks like
 
