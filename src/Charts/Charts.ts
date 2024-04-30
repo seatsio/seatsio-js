@@ -4,6 +4,7 @@ import { Chart, ChartJson } from './Chart'
 import { Axios } from 'axios'
 import { ChartListParams } from './ChartListParams'
 import { CategoryJson, CategoryKey } from './Category'
+import { CategoryUpdateParams } from './CategoryUpdateParams'
 
 export class Charts {
     archive: Lister<Chart, ChartJson>
@@ -61,6 +62,10 @@ export class Charts {
     listCategories (key: string) {
         return this.client.get(`/charts/${key}/categories`)
             .then(res => res.data.categories)
+    }
+
+    updateCategory (chartKey: string, categoryKey: CategoryKey, params: CategoryUpdateParams) {
+        return this.client.post(`/charts/${chartKey}/categories/${categoryKey}`, params)
     }
 
     validatePublishedVersion (key: string) {
