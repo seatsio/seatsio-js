@@ -2,17 +2,13 @@ import { TestUtils } from './testUtils'
 
 test('check error handling', async () => {
     const { client } = await TestUtils.createTestUserAndClient()
-    expect.assertions(1)
-    const errorSnapshot = {
-        status: 404,
-        messages: ['Chart not found: unexisting chart'],
-        errors:
-        [{
-            code: 'CHART_NOT_FOUND',
-            message: 'Chart not found: unexisting chart'
-        }],
-        warnings: []
+    expect.assertions(4)
+    try {
+        await client.events.create('unexisting chart')
+    } catch (e: any) {
+        expect(e.errors.length).toEqual(1)
+        expect(e.errors[0].code).toBe('CHART_NOT_FOUND')
+        expect(e.errors[0].message).toContain('Chart not found: unexisting chart was not found in workspace')
+        expect(e.messages[0]).toContain('Chart not found: unexisting chart was not found in workspace')
     }
-
-    await expect(client.events.create('unexisting chart')).rejects.toMatchObject(errorSnapshot)
 })
