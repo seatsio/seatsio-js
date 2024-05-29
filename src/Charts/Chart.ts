@@ -16,6 +16,7 @@ export class Chart {
     status: string
     tags: string[]
     validation?: ChartValidation
+    venueType?: string
 
     constructor (chart: ChartJson) {
         this.name = chart.name
@@ -28,5 +29,6 @@ export class Chart {
         this.events = chart.events ? chart.events.map((event: EventJson) => new EventDeserializer().fromJson(event)) : []
         this.archived = chart.archived
         if (chart.validation) this.validation = new ChartValidation(chart.validation)
+        this.venueType = chart.venueType
     }
 }

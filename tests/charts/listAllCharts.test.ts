@@ -125,6 +125,7 @@ test('list all charts with validation', async () => {
 
     for await (const chart of client.charts.listAll(params)) {
         expect(chart).toHaveProperty('validation')
+        expect(chart.venueType).toBe('MIXED')
     }
 })
 
