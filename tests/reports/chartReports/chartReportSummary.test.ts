@@ -27,25 +27,29 @@ describe('summaryByObjectType', () => {
                 count: 32,
                 bySection: { NO_SECTION: 32 },
                 byCategoryKey: { 9: 16, 10: 16 },
-                byCategoryLabel: { Cat1: 16, Cat2: 16 }
+                byCategoryLabel: { Cat1: 16, Cat2: 16 },
+                byZone: { NO_ZONE: 32 }
             },
             generalAdmission: {
                 count: 200,
                 bySection: { NO_SECTION: 200 },
                 byCategoryKey: { 9: 100, 10: 100 },
-                byCategoryLabel: { Cat2: 100, Cat1: 100 }
+                byCategoryLabel: { Cat2: 100, Cat1: 100 },
+                byZone: { NO_ZONE: 200 }
             },
             table: {
                 count: 0,
                 bySection: {},
                 byCategoryKey: {},
-                byCategoryLabel: {}
+                byCategoryLabel: {},
+                byZone: {}
             },
             booth: {
                 count: 0,
                 bySection: {},
                 byCategoryKey: {},
-                byCategoryLabel: {}
+                byCategoryLabel: {},
+                byZone: {}
             }
         })
     })
@@ -76,25 +80,29 @@ describe('summaryByObjectType_bookWholeTablesTrue', () => {
                 count: 0,
                 bySection: {},
                 byCategoryKey: {},
-                byCategoryLabel: {}
+                byCategoryLabel: {},
+                byZone: {}
             },
             generalAdmission: {
                 count: 0,
                 bySection: {},
                 byCategoryKey: {},
-                byCategoryLabel: {}
+                byCategoryLabel: {},
+                byZone: {}
             },
             table: {
                 count: 2,
                 bySection: { NO_SECTION: 2 },
                 byCategoryKey: { 9: 2 },
-                byCategoryLabel: { Cat1: 2 }
+                byCategoryLabel: { Cat1: 2 },
+                byZone: { NO_ZONE: 2 }
             },
             booth: {
                 count: 0,
                 bySection: {},
                 byCategoryKey: {},
-                byCategoryLabel: {}
+                byCategoryLabel: {},
+                byZone: {}
             }
         })
     })
@@ -127,7 +135,8 @@ describe('summaryByCategoryKey', () => {
                 byObjectType: {
                     generalAdmission: 100,
                     seat: 16
-                }
+                },
+                byZone: { NO_ZONE: 116 }
             },
             10: {
                 count: 116,
@@ -135,17 +144,20 @@ describe('summaryByCategoryKey', () => {
                 byObjectType: {
                     generalAdmission: 100,
                     seat: 16
-                }
+                },
+                byZone: { NO_ZONE: 116 }
             },
             string11: {
                 count: 0,
                 bySection: {},
-                byObjectType: {}
+                byObjectType: {},
+                byZone: {}
             },
             NO_CATEGORY: {
                 count: 0,
                 bySection: {},
-                byObjectType: {}
+                byObjectType: {},
+                byZone: {}
             }
         })
     })
@@ -178,7 +190,8 @@ describe('summaryByCategoryLabel', () => {
                 byObjectType: {
                     generalAdmission: 100,
                     seat: 16
-                }
+                },
+                byZone: { NO_ZONE: 116 }
             },
             Cat1: {
                 count: 116,
@@ -186,17 +199,20 @@ describe('summaryByCategoryLabel', () => {
                 byObjectType: {
                     generalAdmission: 100,
                     seat: 16
-                }
+                },
+                byZone: { NO_ZONE: 116 }
             },
             Cat3: {
                 count: 0,
                 bySection: {},
-                byObjectType: {}
+                byObjectType: {},
+                byZone: {}
             },
             NO_CATEGORY: {
                 count: 0,
                 bySection: {},
-                byObjectType: {}
+                byObjectType: {},
+                byZone: {}
             }
         })
     })
@@ -230,7 +246,8 @@ describe('summaryBySection', () => {
                 byObjectType: {
                     generalAdmission: 200,
                     seat: 32
-                }
+                },
+                byZone: { NO_ZONE: 232 }
             }
         })
     })
