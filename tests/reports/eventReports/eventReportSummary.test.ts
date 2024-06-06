@@ -22,7 +22,8 @@ test('summaryByStatus', async () => {
             byAvailability: { not_available: 1 },
             byAvailabilityReason: { booked: 1 },
             byCategoryLabel: { Cat1: 1 },
-            byChannel: { NO_CHANNEL: 1 }
+            byChannel: { NO_CHANNEL: 1 },
+            byZone: { NO_ZONE: 1 }
         },
         free: {
             bySection: { NO_SECTION: 231 },
@@ -33,7 +34,8 @@ test('summaryByStatus', async () => {
             byAvailability: { available: 231 },
             byAvailabilityReason: { available: 231 },
             byCategoryLabel: { Cat2: 116, Cat1: 115 },
-            byChannel: { NO_CHANNEL: 231 }
+            byChannel: { NO_CHANNEL: 231 },
+            byZone: { NO_ZONE: 231 }
         }
     })
 })
@@ -56,7 +58,8 @@ test('summaryByObjectType', async () => {
             byAvailability: { available: 32 },
             byAvailabilityReason: { available: 32 },
             byCategoryLabel: { Cat1: 16, Cat2: 16 },
-            byChannel: { NO_CHANNEL: 32 }
+            byChannel: { NO_CHANNEL: 32 },
+            byZone: { NO_ZONE: 32 }
         },
         generalAdmission: {
             count: 200,
@@ -67,29 +70,32 @@ test('summaryByObjectType', async () => {
             byAvailability: { available: 200 },
             byAvailabilityReason: { available: 200 },
             byCategoryLabel: { Cat2: 100, Cat1: 100 },
-            byChannel: { NO_CHANNEL: 200 }
+            byChannel: { NO_CHANNEL: 200 },
+            byZone: { NO_ZONE: 200 }
         },
         table: {
             count: 0,
-            bySection: {},
-            byStatus: {},
-            byCategoryKey: {},
-            bySelectability: {},
-            byAvailability: {},
-            byAvailabilityReason: {},
-            byCategoryLabel: {},
-            byChannel: {}
+            bySection: { },
+            byStatus: { },
+            byCategoryKey: { },
+            bySelectability: { },
+            byAvailability: { },
+            byAvailabilityReason: { },
+            byCategoryLabel: { },
+            byChannel: { },
+            byZone: { }
         },
         booth: {
             count: 0,
-            bySection: {},
-            byStatus: {},
-            byCategoryKey: {},
-            bySelectability: {},
-            byAvailability: {},
-            byAvailabilityReason: {},
-            byCategoryLabel: {},
-            byChannel: {}
+            bySection: { },
+            byStatus: { },
+            byCategoryKey: { },
+            bySelectability: { },
+            byAvailability: { },
+            byAvailabilityReason: { },
+            byCategoryLabel: { },
+            byChannel: { },
+            byZone: { }
         }
     })
 })
@@ -115,7 +121,8 @@ test('summaryByCategoryKey', async () => {
             byObjectType: {
                 generalAdmission: 100,
                 seat: 16
-            }
+            },
+            byZone: { NO_ZONE: 116 }
         },
         10: {
             count: 116,
@@ -128,27 +135,30 @@ test('summaryByCategoryKey', async () => {
             byObjectType: {
                 generalAdmission: 100,
                 seat: 16
-            }
+            },
+            byZone: { NO_ZONE: 116 }
         },
         string11: {
             count: 0,
-            bySection: {},
-            bySelectability: {},
-            byAvailability: {},
+            bySection: { },
+            bySelectability: { },
+            byAvailability: { },
             byAvailabilityReason: { },
-            byStatus: {},
-            byChannel: {},
-            byObjectType: {}
+            byStatus: { },
+            byChannel: { },
+            byObjectType: { },
+            byZone: { }
         },
         NO_CATEGORY: {
             count: 0,
-            bySection: {},
-            bySelectability: {},
-            byAvailability: {},
+            bySection: { },
+            bySelectability: { },
+            byAvailability: { },
             byAvailabilityReason: { },
-            byStatus: {},
-            byChannel: {},
-            byObjectType: {}
+            byStatus: { },
+            byChannel: { },
+            byObjectType: { },
+            byZone: { }
         }
     })
 })
@@ -174,7 +184,8 @@ test('summaryByCategoryLabel', async () => {
             byObjectType: {
                 generalAdmission: 100,
                 seat: 16
-            }
+            },
+            byZone: { NO_ZONE: 116 }
         },
         Cat1: {
             count: 116,
@@ -187,27 +198,30 @@ test('summaryByCategoryLabel', async () => {
             byObjectType: {
                 generalAdmission: 100,
                 seat: 16
-            }
+            },
+            byZone: { NO_ZONE: 116 }
         },
         Cat3: {
             count: 0,
-            bySection: {},
-            bySelectability: {},
-            byAvailability: {},
+            bySection: { },
+            bySelectability: { },
+            byAvailability: { },
             byAvailabilityReason: { },
-            byStatus: {},
-            byChannel: {},
-            byObjectType: {}
+            byStatus: { },
+            byChannel: { },
+            byObjectType: { },
+            byZone: { }
         },
         NO_CATEGORY: {
             count: 0,
-            bySection: {},
-            bySelectability: {},
-            byAvailability: {},
+            bySection: { },
+            bySelectability: { },
+            byAvailability: { },
             byAvailabilityReason: { },
-            byStatus: {},
-            byChannel: {},
-            byObjectType: {}
+            byStatus: { },
+            byChannel: { },
+            byObjectType: { },
+            byZone: { }
         }
     })
 })
@@ -233,7 +247,8 @@ test('summaryBySection', async () => {
             byObjectType: {
                 generalAdmission: 200,
                 seat: 32
-            }
+            },
+            byZone: { NO_ZONE: 232 }
         }
     })
 })
@@ -260,7 +275,8 @@ test('summaryByAvailability', async () => {
             byObjectType: {
                 generalAdmission: 200,
                 seat: 31
-            }
+            },
+            byZone: { NO_ZONE: 231 }
         },
         not_available: {
             bySection: { NO_SECTION: 1 },
@@ -273,7 +289,8 @@ test('summaryByAvailability', async () => {
             byChannel: { NO_CHANNEL: 1 },
             byObjectType: {
                 seat: 1
-            }
+            },
+            byZone: { NO_ZONE: 1 }
         }
     })
 })
@@ -300,7 +317,8 @@ test('summaryByAvailabilityReason', async () => {
             byObjectType: {
                 generalAdmission: 200,
                 seat: 31
-            }
+            },
+            byZone: { NO_ZONE: 231 }
         },
         booked: {
             bySection: { NO_SECTION: 1 },
@@ -313,7 +331,8 @@ test('summaryByAvailabilityReason', async () => {
             byChannel: { NO_CHANNEL: 1 },
             byObjectType: {
                 seat: 1
-            }
+            },
+            byZone: { NO_ZONE: 1 }
         },
         disabled_by_social_distancing: {
             count: 0,
@@ -324,7 +343,8 @@ test('summaryByAvailabilityReason', async () => {
             byStatus: { },
             byCategoryLabel: { },
             byChannel: { },
-            byObjectType: {}
+            byObjectType: { },
+            byZone: { }
         },
         not_for_sale: {
             count: 0,
@@ -335,7 +355,8 @@ test('summaryByAvailabilityReason', async () => {
             byStatus: { },
             byCategoryLabel: { },
             byChannel: { },
-            byObjectType: {}
+            byObjectType: { },
+            byZone: { }
         },
         reservedByToken: {
             count: 0,
@@ -346,7 +367,8 @@ test('summaryByAvailabilityReason', async () => {
             byStatus: { },
             byCategoryLabel: { },
             byChannel: { },
-            byObjectType: {}
+            byObjectType: { },
+            byZone: { }
         }
     })
 })
@@ -374,7 +396,8 @@ test('summaryByChannel', async () => {
             byObjectType: {
                 generalAdmission: 200,
                 seat: 30
-            }
+            },
+            byZone: { NO_ZONE: 230 }
         },
         channel1: {
             bySection: { NO_SECTION: 2 },
@@ -387,7 +410,8 @@ test('summaryByChannel', async () => {
             byAvailabilityReason: { available: 2 },
             byObjectType: {
                 seat: 2
-            }
+            },
+            byZone: { NO_ZONE: 2 }
         }
     })
 })

@@ -95,6 +95,7 @@ test('report properties for GA', async () => {
     expect(reportItem.numBooked).toBe(5)
     expect(reportItem.numFree).toBe(92)
     expect(reportItem.numHeld).toBe(3)
+    expect(reportItem.numNotForSale).toBe(0)
     expect(reportItem.objectType).toBe('generalAdmission')
     expect(reportItem.isAccessible).toBe(undefined)
     expect(reportItem.isCompanionSeat).toBe(undefined)
