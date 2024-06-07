@@ -40,3 +40,15 @@ test('that objects are optional for mark as not for sale', async () => {
     expect(retrievedEvent.forSaleConfig!.areaPlaces).toEqual({})
     expect(retrievedEvent.forSaleConfig!.objects.length).toBe(0)
 })
+
+test('numNotForSale should be correctly exposed', async () => {
+    const { client, user } = await TestUtils.createTestUserAndClient()
+    const chartKey = TestUtils.getChartKey()
+    await TestUtils.createTestChart(chartKey, user.secretKey)
+    const event = await client.events.create(chartKey)
+
+    await client.events.markAsNotForSale(event.key, [], { GA1: 5 }, [])
+
+    const eventObjectInfo = await client.events.retrieveObjectInfo(event.key, 'GA1')
+    expect(eventObjectInfo.numNotForSale!).toEqual(5)
+})

@@ -45,6 +45,7 @@ export class EventObjectInfo {
     minOccupancy?: number
     maxOccupancy?: number
     seasonStatusOverriddenQuantity: number
+    numNotForSale?: number
 
     constructor (json: EventObjectInfoJson) {
         this.label = json.label
@@ -65,6 +66,7 @@ export class EventObjectInfo {
         this.numBooked = json.numBooked
         this.numFree = json.numFree
         this.numHeld = json.numHeld
+        this.numNotForSale = json.numNotForSale
         this.extraData = json.extraData
         this.isAccessible = json.isAccessible
         this.isCompanionSeat = json.isCompanionSeat
