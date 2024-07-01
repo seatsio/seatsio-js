@@ -657,13 +657,13 @@
   dependencies:
     "@sinonjs/commons" "^3.0.0"
 
-"@ts-morph/common@~0.23.0":
-  version "0.23.0"
-  resolved "https://registry.yarnpkg.com/@ts-morph/common/-/common-0.23.0.tgz#bd4ddbd3f484f29476c8bd985491592ae5fc147e"
-  integrity sha512-m7Lllj9n/S6sOkCkRftpM7L24uvmfXQFedlW/4hENcuJH1HHm9u5EgxZb9uVjQSCGrbBWBkOGgcTxNg36r6ywA==
+"@ts-morph/common@~0.24.0":
+  version "0.24.0"
+  resolved "https://registry.yarnpkg.com/@ts-morph/common/-/common-0.24.0.tgz#9125b3d5ef9e2633cd6a54296b420b89366599c1"
+  integrity sha512-c1xMmNHWpNselmpIqursHeOHHBTIsJLbB+NuovbTTRCNiTLEr/U9dbJ8qy0jd/O2x5pc3seWuOUN5R2IoOTp8A==
   dependencies:
     fast-glob "^3.3.2"
-    minimatch "^9.0.3"
+    minimatch "^9.0.4"
     mkdirp "^3.0.1"
     path-browserify "^1.0.1"
 
@@ -744,10 +744,10 @@
   resolved "https://registry.yarnpkg.com/@types/json5/-/json5-0.0.29.tgz#ee28707ae94e11d2b827bcbe5270bcea7f3e71ee"
   integrity sha512-dRLjCWHYg4oaA77cxO64oO+7JwCwnIzkZPdrrC71jQmQtlhM556pwKo5bUzqvZndkVbeFLIIi+9TC40JNF5hNQ==
 
-"@types/node@*", "@types/node@20.13.0":
-  version "20.13.0"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-20.13.0.tgz#011a76bc1e71ae9a026dddcfd7039084f752c4b6"
-  integrity sha512-FM6AOb3khNkNIXPnHFDYaHerSv8uN22C91z098AnGccVu+Pcdhi+pNUFDi0iLmPIsVE0JBD0KVS7mzUYt4nRzQ==
+"@types/node@*", "@types/node@20.14.9":
+  version "20.14.9"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-20.14.9.tgz#12e8e765ab27f8c421a1820c99f5f313a933b420"
+  integrity sha512-06OCtnTXtWOZBJlRApleWndH4JsRVs1pDCc8dLSQp+7PpUpX3ePdHyeNSFTeSe7FtKyQkrlPvHwJOW3SLd8Oyg==
   dependencies:
     undici-types "~5.26.4"
 
@@ -1426,10 +1426,10 @@ cross-spawn@^7.0.0, cross-spawn@^7.0.2, cross-spawn@^7.0.3:
     shebang-command "^2.0.0"
     which "^2.0.1"
 
-ctix@2.4.4:
-  version "2.4.4"
-  resolved "https://registry.yarnpkg.com/ctix/-/ctix-2.4.4.tgz#fbf82f78dc38a68924057de4337d50ce94359346"
-  integrity sha512-IXLSnT08b+DClhnEKJxWmdq5Km4TY/UoAvLxsUHNa1XcjzzH0c4CHP7VkKr4l9JLY6doKDZn8JZXYJCTu+mHLw==
+ctix@2.5.1:
+  version "2.5.1"
+  resolved "https://registry.yarnpkg.com/ctix/-/ctix-2.5.1.tgz#82d56c209ec12290d4b6dd78345bf82f81a7fb55"
+  integrity sha512-9Wty1chzE3RUIjtfj8U9wm61P2NROYG5e9wZouE+JqapeA6TV6p/hqXvv2NXmpKaBYGDgGjLlsJZlYP57PuBLw==
   dependencies:
     chalk "^4.1.2"
     change-case "^4.1.2"
@@ -1455,11 +1455,10 @@ ctix@2.4.4:
     pathe "^1.1.2"
     prettier "^3.2.5"
     source-map-support "^0.5.21"
-    ts-morph "^22.0.0"
+    ts-morph "^23.0.0"
     ts-pattern "^5.0.5"
     tslib "^2.6.2"
     type-fest "^4.15.0"
-    typescript "^5.4.5"
     yaml "^2.4.1"
     yargs "^17.7.2"
 
@@ -1773,10 +1772,10 @@ eslint-plugin-n@16.6.2:
     resolve "^1.22.2"
     semver "^7.5.3"
 
-eslint-plugin-promise@6.2.0:
-  version "6.2.0"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-promise/-/eslint-plugin-promise-6.2.0.tgz#e24ab0e3c0a25fa227d98d9ff612156b5af15945"
-  integrity sha512-QmAqwizauvnKOlifxyDj2ObfULpHQawlg/zQdgEixur9vl0CvZGv/LCJV2rtj3210QCoeGBzVMfMXqGAOr/4fA==
+eslint-plugin-promise@6.4.0:
+  version "6.4.0"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-promise/-/eslint-plugin-promise-6.4.0.tgz#54926d53c79541efe9cea6ac1d823a58bbed1106"
+  integrity sha512-/KWWRaD3fGkVCZsdR0RU53PSthFmoHVhZl+y9+6DqeDLSikLdlUVpVEAmI6iCRR5QyOjBYBqHZV/bdv4DJ4Gtw==
 
 eslint-scope@^5.1.1:
   version "5.1.1"
@@ -3221,10 +3220,10 @@ minimatch@^9.0.1:
   dependencies:
     brace-expansion "^2.0.1"
 
-minimatch@^9.0.3:
-  version "9.0.4"
-  resolved "https://registry.yarnpkg.com/minimatch/-/minimatch-9.0.4.tgz#8e49c731d1749cbec05050ee5145147b32496a51"
-  integrity sha512-KqWh+VchfxcMNRAJjj2tnsSJdNbHsVgnkBhTNrW7AjVo6OvLtxw8zfT9oLw1JSohlFzJ8jCoTgaoXvJ+kHt6fw==
+minimatch@^9.0.4:
+  version "9.0.5"
+  resolved "https://registry.yarnpkg.com/minimatch/-/minimatch-9.0.5.tgz#d74f9dd6b57d83d8e98cfb82133b03978bc929e5"
+  integrity sha512-G6T0ZX48xgozx7587koeX9Ys2NYy6Gmv//P89sEte9V9whIapMNF4idKxnW2QtCcLiTWlb/wfCabAtAFWhhBow==
   dependencies:
     brace-expansion "^2.0.1"
 
@@ -4058,10 +4057,10 @@ trim-repeated@^1.0.0:
   dependencies:
     escape-string-regexp "^1.0.2"
 
-ts-jest@29.1.4:
-  version "29.1.4"
-  resolved "https://registry.yarnpkg.com/ts-jest/-/ts-jest-29.1.4.tgz#26f8a55ce31e4d2ef7a1fd47dc7fa127e92793ef"
-  integrity sha512-YiHwDhSvCiItoAgsKtoLFCuakDzDsJ1DLDnSouTaTmdOcOwIkSzbLXduaQ6M5DRVhuZC/NYaaZ/mtHbWMv/S6Q==
+ts-jest@29.1.5:
+  version "29.1.5"
+  resolved "https://registry.yarnpkg.com/ts-jest/-/ts-jest-29.1.5.tgz#d6c0471cc78bffa2cb4664a0a6741ef36cfe8f69"
+  integrity sha512-UuClSYxM7byvvYfyWdFI+/2UxMmwNyJb0NPkZPQE2hew3RurV7l7zURgOHAd/1I1ZdPpe3GUsXNXAcN8TFKSIg==
   dependencies:
     bs-logger "0.x"
     fast-json-stable-stringify "2.x"
@@ -4072,12 +4071,12 @@ ts-jest@29.1.4:
     semver "^7.5.3"
     yargs-parser "^21.0.1"
 
-ts-morph@^22.0.0:
-  version "22.0.0"
-  resolved "https://registry.yarnpkg.com/ts-morph/-/ts-morph-22.0.0.tgz#5532c592fb6dddae08846f12c9ab0fc590b1d42e"
-  integrity sha512-M9MqFGZREyeb5fTl6gNHKZLqBQA0TjA1lea+CR48R8EBTDuWrNqW6ccC5QvjNR4s6wDumD3LTCjOFSp9iwlzaw==
+ts-morph@^23.0.0:
+  version "23.0.0"
+  resolved "https://registry.yarnpkg.com/ts-morph/-/ts-morph-23.0.0.tgz#601d74edd1d24247e312b9fa5d147bdc659bff15"
+  integrity sha512-FcvFx7a9E8TUe6T3ShihXJLiJOiqyafzFKUO4aqIHDUCIvADdGNShcbc2W5PMr3LerXRv7mafvFZ9lRENxJmug==
   dependencies:
-    "@ts-morph/common" "~0.23.0"
+    "@ts-morph/common" "~0.24.0"
     code-block-writer "^13.0.1"
 
 ts-pattern@^5.0.5:
@@ -4183,10 +4182,10 @@ typed-function@^4.1.1:
   resolved "https://registry.yarnpkg.com/typed-function/-/typed-function-4.1.1.tgz#38ce3cae31f4f513bcb263563fdad27b2afa73e8"
   integrity sha512-Pq1DVubcvibmm8bYcMowjVnnMwPVMeh0DIdA8ad8NZY2sJgapANJmiigSUwlt+EgXxpfIv8MWrQXTIzkfYZLYQ==
 
-typescript@5.4.5, typescript@^5.4.5:
-  version "5.4.5"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-5.4.5.tgz#42ccef2c571fdbd0f6718b1d1f5e6e5ef006f611"
-  integrity sha512-vcI4UpRgg81oIRUFwR0WSIHKt11nJ7SAVlYNIu+QpqeyXP+gpQJy/Z4+F0aGxSE4MqwjyXvW/TzgkLAx2AGHwQ==
+typescript@5.5.2:
+  version "5.5.2"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-5.5.2.tgz#c26f023cb0054e657ce04f72583ea2d85f8d0507"
+  integrity sha512-NcRtPEOsPFFWjobJEtfihkLCZCXZt/os3zf8nTxjVH3RvTSxjrCamJpbExGvYOF+tFHc3pA65qpdwPbzjohhew==
 
 unbox-primitive@^1.0.2:
   version "1.0.2"
