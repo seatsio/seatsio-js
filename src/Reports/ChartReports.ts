@@ -44,8 +44,16 @@ export class ChartReports {
         return this.fetchReport('bySection', chartKey, bookWholeTables, version)
     }
 
+    byZone (chartKey: string, bookWholeTables?: string, version?: string) {
+        return this.fetchReport('byZone', chartKey, bookWholeTables, version)
+    }
+
     summaryBySection (chartKey: string, bookWholeTables?: string, version?: string) {
         return this.fetchSummaryReport('bySection', chartKey, bookWholeTables, version)
+    }
+
+    summaryByZone (chartKey: string, bookWholeTables?: string, version?: string) {
+        return this.fetchSummaryReport('byZone', chartKey, bookWholeTables, version)
     }
 
     fetchReport (reportType: string, chartKey: string, bookWholeTables?: string, version?: string) {

@@ -317,3 +317,28 @@ describe('get report bySection', () => {
         expect(report['Section B'].length).toBe(35)
     })
 })
+
+describe('get report byZone', () => {
+    it.each([
+        [
+            'published',
+            () => { return Promise },
+            (client: SeatsioClient, chartKey: string) => client.chartReports.byZone(chartKey)
+        ],
+        [
+            'draft',
+            (client: SeatsioClient, chartKey: string) => { return TestUtils.makeDraftChart(client, chartKey) },
+            (client: SeatsioClient, chartKey: string) => client.chartReports.byZone(chartKey, undefined, Versions.draftVersion)
+        ]
+    ])(' for %s chart', async (version, updateChart, getReport) => {
+        const { client, user } = await TestUtils.createTestUserAndClient()
+        const chartKey = TestUtils.getChartKey()
+        await TestUtils.createTestChartWithZones(chartKey, user.secretKey)
+        await updateChart(client, chartKey)
+
+        const report = await getReport(client, chartKey)
+
+        expect(report.midtrack.length).toBe(6032)
+        expect(report.finishline.length).toBe(2865)
+    })
+})
