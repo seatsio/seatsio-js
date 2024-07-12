@@ -252,3 +252,53 @@ describe('summaryBySection', () => {
         })
     })
 })
+
+describe('summaryByZone', () => {
+    it.each([
+        [
+            'published',
+            () => { return Promise },
+            (client: SeatsioClient, chartKey: string) => client.chartReports.summaryByZone(chartKey)
+        ],
+        [
+            'draft',
+            (client: SeatsioClient, chartKey: string) => { return TestUtils.makeDraftChart(client, chartKey) },
+            (client: SeatsioClient, chartKey: string) => client.chartReports.summaryByZone(chartKey, 'true', Versions.draftVersion)
+        ]
+    ])(' for %s chart', async (version, updateChart, getReport) => {
+        const { client, user } = await TestUtils.createTestUserAndClient()
+        const chartKey = TestUtils.getChartKey()
+        await TestUtils.createTestChartWithZones(chartKey, user.secretKey)
+        await updateChart(client, chartKey)
+
+        const report = await getReport(client, chartKey)
+
+        expect(report).toEqual({
+            midtrack: {
+                count: 6032,
+                byCategoryKey: { 2: 6032 },
+                byCategoryLabel: { 'Mid Track Stand': 6032 },
+                byObjectType: {
+                    seat: 6032
+                },
+                bySection: { MT1: 2418, MT3: 3614 }
+            },
+            finishline: {
+                count: 2865,
+                byCategoryKey: { 1: 2865 },
+                byCategoryLabel: { 'Goal Stands': 2865 },
+                byObjectType: {
+                    seat: 2865
+                },
+                bySection: { 'Goal Stand 3': 2215, 'Goal Stand 4': 650 }
+            },
+            NO_ZONE: {
+                count: 0,
+                byCategoryKey: {},
+                byCategoryLabel: {},
+                byObjectType: {},
+                bySection: {}
+            }
+        })
+    })
+})

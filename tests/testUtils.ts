@@ -36,20 +36,24 @@ export class TestUtils {
         return new SeatsioClient(new Region(baseUrl), secretKey, workspaceKey)
     }
 
-    static async createTestChart (chartKey: string, secretKey: string) {
-        await this.createTestChartFromFile('/sampleChart.json', chartKey, secretKey)
+    static createTestChart (chartKey: string, secretKey: string) {
+        return this.createTestChartFromFile('/sampleChart.json', chartKey, secretKey)
     }
 
-    static async createErroneousTestChart (chartKey: string, secretKey: string) {
-        await this.createTestChartFromFile('/sampleChartWithErrors.json', chartKey, secretKey)
+    static createErroneousTestChart (chartKey: string, secretKey: string) {
+        return this.createTestChartFromFile('/sampleChartWithErrors.json', chartKey, secretKey)
     }
 
-    static async createTestChartWithTables (chartKey: string, secretKey: string) {
-        await this.createTestChartFromFile('/sampleChartWithTables.json', chartKey, secretKey)
+    static createTestChartWithTables (chartKey: string, secretKey: string) {
+        return this.createTestChartFromFile('/sampleChartWithTables.json', chartKey, secretKey)
     }
 
-    static async createTestChartWithSections (chartKey: string, secretKey: string) {
-        await this.createTestChartFromFile('/sampleChartWithSections.json', chartKey, secretKey)
+    static createTestChartWithSections (chartKey: string, secretKey: string) {
+        return this.createTestChartFromFile('/sampleChartWithSections.json', chartKey, secretKey)
+    }
+
+    static createTestChartWithZones (chartKey: string, secretKey: string) {
+        return this.createTestChartFromFile('/sampleChartWithZones.json', chartKey, secretKey)
     }
 
     static async createTestChartFromFile (filePath: string, chartKey: string, secretKey: string) {
