@@ -293,7 +293,7 @@ test('report by specific zone', async () => {
 
     const report = await client.eventReports.byZone(event.key, 'midtrack')
 
-    expect(report.NO_SECTION.length).toBe(6032)
+    expect(report.midtrack.length).toBe(6032)
 })
 
 test('report by object type', async () => {
