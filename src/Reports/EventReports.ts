@@ -93,6 +93,21 @@ export class EventReports {
             .then(res => res.data)
     }
 
+    byZone (eventKey: string, zone: string | null = null) {
+        return this.client.get(EventReports.reportUrl('byZone', eventKey, zone))
+            .then(res => Utilities.createEventReport(res.data))
+    }
+
+    summaryByZone (eventKey: string) {
+        return this.client.get(EventReports.summaryReportUrl('byZone', eventKey))
+            .then(res => res.data)
+    }
+
+    deepSummaryByZone (eventKey: string) {
+        return this.client.get(EventReports.deepSummaryReportUrl('byZone', eventKey))
+            .then(res => res.data)
+    }
+
     byAvailability (eventKey: string, availability: string | null = null) {
         return this.client.get(EventReports.reportUrl('byAvailability', eventKey, availability))
             .then(res => Utilities.createEventReport(res.data))

@@ -339,6 +339,7 @@ describe('get report byZone', () => {
         const report = await getReport(client, chartKey)
 
         expect(report.midtrack.length).toBe(6032)
+        expect(report.midtrack[0].zone).toBe('midtrack')
         expect(report.finishline.length).toBe(2865)
     })
 })

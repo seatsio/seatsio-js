@@ -23,6 +23,7 @@ export class ChartObjectInfo {
     isAccessible?: boolean
     isCompanionSeat?: boolean
     hasRestrictedView?: boolean
+    zone?: string
 
     constructor (json: ChartObjectInfoJson) {
         this.label = json.label
@@ -42,5 +43,6 @@ export class ChartObjectInfo {
         this.isAccessible = json.isAccessible
         this.isCompanionSeat = json.isCompanionSeat
         this.hasRestrictedView = json.hasRestrictedView
+        this.zone = json.zone
     }
 }
