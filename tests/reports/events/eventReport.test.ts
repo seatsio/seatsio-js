@@ -117,7 +117,7 @@ test('report properties for table', async () => {
     expect(reportItem.bookAsAWhole).toBe(false)
 })
 
-test('report with object status', async () => {
+test('report by object status', async () => {
     const { client, user } = await TestUtils.createTestUserAndClient()
     const chartKey = TestUtils.getChartKey()
     await TestUtils.createTestChart(chartKey, user.secretKey)
@@ -133,7 +133,7 @@ test('report with object status', async () => {
     expect(report[EventObjectInfo.FREE].length).toBe(31)
 })
 
-test('report with specific object status', async () => {
+test('report by specific object status', async () => {
     const { client, user } = await TestUtils.createTestUserAndClient()
     const chartKey = TestUtils.getChartKey()
     await TestUtils.createTestChart(chartKey, user.secretKey)
@@ -147,7 +147,7 @@ test('report with specific object status', async () => {
     expect(report.lolzor.length).toBe(2)
 })
 
-test('report with category label', async () => {
+test('report by category label', async () => {
     const { client, user } = await TestUtils.createTestUserAndClient()
     const chartKey = TestUtils.getChartKey()
     await TestUtils.createTestChart(chartKey, user.secretKey)
@@ -159,7 +159,7 @@ test('report with category label', async () => {
     expect(report.Cat2.length).toBe(17)
 })
 
-test('report with specific category label', async () => {
+test('report by specific category label', async () => {
     const { client, user } = await TestUtils.createTestUserAndClient()
     const chartKey = TestUtils.getChartKey()
     await TestUtils.createTestChart(chartKey, user.secretKey)
@@ -170,7 +170,7 @@ test('report with specific category label', async () => {
     expect(report.Cat1.length).toBe(17)
 })
 
-test('report with category key', async () => {
+test('report by category key', async () => {
     const { client, user } = await TestUtils.createTestUserAndClient()
     const chartKey = TestUtils.getChartKey()
     await TestUtils.createTestChart(chartKey, user.secretKey)
@@ -182,7 +182,7 @@ test('report with category key', async () => {
     expect(report[10].length).toBe(17)
 })
 
-test('report with specific category key', async () => {
+test('report by specific category key', async () => {
     const { client, user } = await TestUtils.createTestUserAndClient()
     const chartKey = TestUtils.getChartKey()
     await TestUtils.createTestChart(chartKey, user.secretKey)
@@ -193,7 +193,7 @@ test('report with specific category key', async () => {
     expect(report[9].length).toBe(17)
 })
 
-test('report with label', async () => {
+test('report by label', async () => {
     const { client, user } = await TestUtils.createTestUserAndClient()
     const chartKey = TestUtils.getChartKey()
     await TestUtils.createTestChart(chartKey, user.secretKey)
@@ -205,7 +205,7 @@ test('report with label', async () => {
     expect(report['A-2'].length).toBe(1)
 })
 
-test('report with specific label', async () => {
+test('report by specific label', async () => {
     const { client, user } = await TestUtils.createTestUserAndClient()
     const chartKey = TestUtils.getChartKey()
     await TestUtils.createTestChart(chartKey, user.secretKey)
@@ -216,7 +216,7 @@ test('report with specific label', async () => {
     expect(report['A-1'].length).toBe(1)
 })
 
-test('report with orderId', async () => {
+test('report by orderId', async () => {
     const { client, user } = await TestUtils.createTestUserAndClient()
     const chartKey = TestUtils.getChartKey()
     await TestUtils.createTestChart(chartKey, user.secretKey)
@@ -232,7 +232,7 @@ test('report with orderId', async () => {
     expect(report.NO_ORDER_ID.length).toBe(31)
 })
 
-test('report with specific orderId', async () => {
+test('report by specific orderId', async () => {
     const { client, user } = await TestUtils.createTestUserAndClient()
     const chartKey = TestUtils.getChartKey()
     await TestUtils.createTestChart(chartKey, user.secretKey)
@@ -246,7 +246,7 @@ test('report with specific orderId', async () => {
     expect(report.order1.length).toBe(2)
 })
 
-test('report with section', async () => {
+test('report by section', async () => {
     const { client, user } = await TestUtils.createTestUserAndClient()
     const chartKey = TestUtils.getChartKey()
     await TestUtils.createTestChart(chartKey, user.secretKey)
@@ -260,7 +260,7 @@ test('report with section', async () => {
     expect(report.NO_SECTION.length).toBe(34)
 })
 
-test('report with specific section', async () => {
+test('report by specific section', async () => {
     const { client, user } = await TestUtils.createTestUserAndClient()
     const chartKey = TestUtils.getChartKey()
     await TestUtils.createTestChart(chartKey, user.secretKey)
@@ -272,6 +272,28 @@ test('report with specific section', async () => {
     const report = await client.eventReports.bySection(event.key, 'NO_SECTION')
 
     expect(report.NO_SECTION.length).toBe(34)
+})
+
+test('report by zone', async () => {
+    const { client, user } = await TestUtils.createTestUserAndClient()
+    const chartKey = TestUtils.getChartKey()
+    await TestUtils.createTestChartWithZones(chartKey, user.secretKey)
+    const event = await client.events.create(chartKey)
+
+    const report = await client.eventReports.byZone(event.key)
+
+    expect(report.midtrack.length).toBe(6032)
+})
+
+test('report by specific zone', async () => {
+    const { client, user } = await TestUtils.createTestUserAndClient()
+    const chartKey = TestUtils.getChartKey()
+    await TestUtils.createTestChartWithZones(chartKey, user.secretKey)
+    const event = await client.events.create(chartKey)
+
+    const report = await client.eventReports.byZone(event.key, 'midtrack')
+
+    expect(report.NO_SECTION.length).toBe(6032)
 })
 
 test('report by object type', async () => {

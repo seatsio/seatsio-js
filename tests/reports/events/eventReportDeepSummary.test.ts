@@ -70,6 +70,18 @@ test('deepSummaryBySection', async () => {
     expect(report.NO_SECTION.byCategoryLabel.Cat1.bySelectability.not_selectable).toEqual(1)
 })
 
+test('deepSummaryByZone', async () => {
+    const { client, user } = await TestUtils.createTestUserAndClient()
+    const chartKey = TestUtils.getChartKey()
+    await TestUtils.createTestChartWithZones(chartKey, user.secretKey)
+    const event = await client.events.create(chartKey)
+
+    const report = await client.eventReports.deepSummaryByZone(event.key)
+
+    expect(report.midtrack.count).toEqual(6032)
+    expect(report.midtrack.byCategoryLabel['Mid Track Stand'].count).toEqual(6032)
+})
+
 test('deepSummaryByAvailability', async () => {
     const { client, user } = await TestUtils.createTestUserAndClient()
     const chartKey = TestUtils.getChartKey()
