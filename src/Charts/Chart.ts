@@ -2,6 +2,7 @@ import { EventDeserializer } from '../Events/EventDeserializer'
 import { ChartValidation } from './ChartValidation'
 import { Event, EventJson } from '../Events/Event'
 import { Dict } from '../Dict'
+import { Zone, ZoneJson } from './Zone'
 
 export type ChartJson = Dict<any>
 
@@ -17,6 +18,7 @@ export class Chart {
     tags: string[]
     validation?: ChartValidation
     venueType?: string
+    zones?: Zone[]
 
     constructor (chart: ChartJson) {
         this.name = chart.name
@@ -30,5 +32,6 @@ export class Chart {
         this.archived = chart.archived
         if (chart.validation) this.validation = new ChartValidation(chart.validation)
         this.venueType = chart.venueType
+        this.zones = chart.zones ? chart.zones.map((zone: ZoneJson) => Zone.fromJson(zone)) : []
     }
 }

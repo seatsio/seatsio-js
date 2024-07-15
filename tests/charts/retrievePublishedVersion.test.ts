@@ -7,7 +7,7 @@ test('should retrieve published version of a chart', async () => {
     const retrievedChart = await client.charts.retrievePublishedVersion(chart.key)
 
     expect(retrievedChart.name).toEqual('Untitled chart')
-    expect(retrievedChart.venueType).toEqual('MIXED')
+    expect(retrievedChart.venueType).toEqual('SIMPLE')
     expect(retrievedChart.categories!.list).toEqual([])
     expect(retrievedChart.subChart).toBeTruthy()
 })
