@@ -5,6 +5,7 @@ export class ChartListParams {
     expandEvents: boolean = false
     expandValidation: boolean = false
     expandVenueType: boolean = false
+    expandZones: boolean = false
 
     withFilter (filter: string) {
         this.filter = filter
@@ -41,6 +42,11 @@ export class ChartListParams {
         return this
     }
 
+    withExpandZones (expandZones: boolean) {
+        this.expandZones = expandZones
+        return this
+    }
+
     serialize () {
         return {
             tag: this.tag,
@@ -60,6 +66,9 @@ export class ChartListParams {
         }
         if (this.expandVenueType) {
             expandParams.push('venueType')
+        }
+        if (this.expandZones) {
+            expandParams.push('zones')
         }
         return expandParams
     }

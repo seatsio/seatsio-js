@@ -15,7 +15,7 @@ test('should create a chart with default parameters', async () => {
     expect(chart.archived).toBe(false)
 
     const retrievedChart = await client.charts.retrievePublishedVersion(chart.key)
-    expect(retrievedChart.venueType).toEqual('MIXED')
+    expect(retrievedChart.venueType).toEqual('SIMPLE')
     expect(retrievedChart.categories!.list).toEqual([])
 })
 
@@ -25,17 +25,17 @@ test('should create chart with name', async () => {
 
     const retrievedChart = await client.charts.retrievePublishedVersion(chart.key)
     expect(retrievedChart.name).toEqual('aChart')
-    expect(retrievedChart.venueType).toEqual('MIXED')
+    expect(retrievedChart.venueType).toEqual('SIMPLE')
     expect(retrievedChart.categories!.list).toEqual([])
 })
 
 test('should create chart with venue type', async () => {
     const { client } = await TestUtils.createTestUserAndClient()
-    const chart = await client.charts.create(null, 'BOOTHS')
+    const chart = await client.charts.create(null, 'SIMPLE')
 
     const retrievedChart = await client.charts.retrievePublishedVersion(chart.key)
     expect(retrievedChart.name).toEqual('Untitled chart')
-    expect(retrievedChart.venueType).toEqual('BOOTHS')
+    expect(retrievedChart.venueType).toEqual('SIMPLE')
     expect(retrievedChart.categories!.list).toEqual([])
 })
 
@@ -48,7 +48,7 @@ test('should create chart with categories as class', async () => {
 
     const retrievedChart = await client.charts.retrievePublishedVersion(chart.key)
     expect(retrievedChart.name).toEqual('Untitled chart')
-    expect(retrievedChart.venueType).toEqual('MIXED')
+    expect(retrievedChart.venueType).toEqual('SIMPLE')
     expect(retrievedChart.categories!.list).toEqual([cat1, cat2])
 })
 
@@ -64,6 +64,6 @@ test('should create chart with categories as instance of Category class', async 
 
     const retrievedChart = await client.charts.retrievePublishedVersion(chart.key)
     expect(retrievedChart.name).toEqual('Untitled chart')
-    expect(retrievedChart.venueType).toEqual('MIXED')
+    expect(retrievedChart.venueType).toEqual('SIMPLE')
     expect(retrievedChart.categories!.list).toEqual(expectedCategories)
 })

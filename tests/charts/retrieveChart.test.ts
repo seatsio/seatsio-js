@@ -1,4 +1,5 @@
 import { TestUtils } from '../testUtils'
+import { Zone } from '../../src/Charts/Zone'
 
 test('should retrieve chart', async () => {
     const { client } = await TestUtils.createTestUserAndClient()
@@ -17,7 +18,21 @@ test('should retrieve chart', async () => {
     expect(retrievedChart.tags).toEqual(['tag1'])
     expect(retrievedChart.archived).toBe(false)
     expect(retrievedChart.events).toEqual([])
-    expect(retrievedChart.venueType).toBe('MIXED')
+    expect(retrievedChart.venueType).toBe('SIMPLE')
+    expect(retrievedChart.zones).toEqual([])
+})
+
+test('should retrieve chart with zones', async () => {
+    const { client, user } = await TestUtils.createTestUserAndClient()
+    const chartKey = TestUtils.getChartKey()
+    await TestUtils.createTestChartWithZones(chartKey, user.secretKey)
+
+    const retrievedChart = await client.charts.retrieve(chartKey)
+
+    expect(retrievedChart.zones).toEqual([
+        new Zone('finishline', 'Finish Line'),
+        new Zone('midtrack', 'Mid Track')
+    ])
 })
 
 test('should retrieve chart with events', async () => {
