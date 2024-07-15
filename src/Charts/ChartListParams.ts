@@ -1,9 +1,10 @@
 export class ChartListParams {
     eventsLimit?: number
-    expand?: string
     filter?: string
     tag?: string
-    validation?: boolean
+    expandEvents: boolean = false
+    expandValidation: boolean = false
+    expandVenueType: boolean = false
 
     withFilter (filter: string) {
         this.filter = filter
@@ -16,9 +17,7 @@ export class ChartListParams {
     }
 
     withExpandEvents (expandEvents: boolean) {
-        if (expandEvents) {
-            this.expand = 'events'
-        }
+        this.expandEvents = expandEvents
         return this
     }
 
@@ -27,18 +26,41 @@ export class ChartListParams {
         return this
     }
 
+    // @deprecated use withExpandValidation instead
     withValidation (validation: boolean) {
-        this.validation = validation
+        return this.withExpandValidation(validation)
+    }
+
+    withExpandValidation (expandValidation: boolean) {
+        this.expandValidation = expandValidation
+        return this
+    }
+
+    withExpandVenueType (expandVenueType: boolean) {
+        this.expandVenueType = expandVenueType
         return this
     }
 
     serialize () {
         return {
             tag: this.tag,
-            expand: this.expand,
+            expand: this.expandParams(),
             filter: this.filter,
-            validation: this.validation,
             eventsLimit: this.eventsLimit
         }
+    }
+
+    private expandParams () {
+        const expandParams = []
+        if (this.expandEvents) {
+            expandParams.push('events')
+        }
+        if (this.expandValidation) {
+            expandParams.push('validation')
+        }
+        if (this.expandVenueType) {
+            expandParams.push('venueType')
+        }
+        return expandParams
     }
 }

@@ -118,22 +118,29 @@ test('listAll Charts with expandEvents parameters and eventsLimit', async () => 
     expect(retrievedKeys).toEqual([event3.key, event2.key])
 })
 
-test('list all charts with validation', async () => {
+test('list all charts with no expanded fields', async () => {
     const { client } = await TestUtils.createTestUserAndClient()
     await TestUtils.createArray(3, () => client.charts.create())
     const params = new ChartListParams().withValidation(true)
 
     for await (const chart of client.charts.listAll(params)) {
-        expect(chart).toHaveProperty('validation')
+        expect(chart.venueType).toBe(undefined)
+        expect(chart.validation).toEqual({ errors: [], warnings: [] })
+        expect(chart.events).toEqual([])
     }
 })
 
-test('list all charts without validation', async () => {
+test('list all charts with all expanded fields', async () => {
     const { client } = await TestUtils.createTestUserAndClient()
     await TestUtils.createArray(3, () => client.charts.create())
     const params = new ChartListParams()
+        .withExpandVenueType(true)
+        .withExpandValidation(true)
+        .withExpandEvents(true)
 
     for await (const chart of client.charts.listAll(params)) {
-        expect(chart).not.toHaveProperty('validation')
+        expect(chart).toHaveProperty('venueType')
+        expect(chart).toHaveProperty('validation')
+        expect(chart).toHaveProperty('events')
     }
 })

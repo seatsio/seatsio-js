@@ -63,7 +63,10 @@ export class SeatsioClient {
                 password: null
             },
             headers: extraHeaders,
-            errorHandle: false
+            errorHandle: false,
+            paramsSerializer: {
+                indexes: null
+            }
         }
 
         config.headers['X-Client-Lib'] = 'js'
