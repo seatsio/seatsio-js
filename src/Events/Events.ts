@@ -12,6 +12,7 @@ import { Dict } from '../Dict'
 import { StatusChangeRequest } from './StatusChangeRequest'
 import { CreateEventParams } from './CreateEventParams'
 import { UpdateEventParams } from './UpdateEventParams'
+import { BestAvailableParams } from './BestAvailableParams'
 
 export interface ObjectIdAndTicketType {
     objectId: string
@@ -350,8 +351,8 @@ export class Events {
         return this.changeObjectStatus(eventKeyOrKeys, objectOrObjects, EventObjectInfo.BOOKED, holdToken, orderId, keepExtraData, ignoreChannels, channelKeys)
     }
 
-    bookBestAvailable (eventKey: string, number: number, categories: string[] | null = null, holdToken: string | null = null, extraData: Dict<any> | null = null, ticketTypes: string[] | null = null, orderId: string | null = null, keepExtraData: boolean | null = null, ignoreChannels: boolean | null = null, channelKeys: string[] | null = null, tryToPreventOrphanSeats: boolean | null = null) {
-        return this.changeBestAvailableObjectStatus(encodeURIComponent(eventKey), number, EventObjectInfo.BOOKED, categories, holdToken, extraData, ticketTypes, orderId, keepExtraData, ignoreChannels, channelKeys, tryToPreventOrphanSeats)
+    bookBestAvailable (eventKey: string, bestAvailableParams: BestAvailableParams, holdToken: string | null = null, orderId: string | null = null, keepExtraData: boolean | null = null, ignoreChannels: boolean | null = null, channelKeys: string[] | null = null) {
+        return this.changeBestAvailableObjectStatus(encodeURIComponent(eventKey), bestAvailableParams, EventObjectInfo.BOOKED, holdToken, orderId, keepExtraData, ignoreChannels, channelKeys)
     }
 
     release (eventKeyOrKeys: string | string[], objectOrObjects: ObjectOrObjects, holdToken: string | null = null, orderId: string | null = null, keepExtraData: boolean | null = null, ignoreChannels: boolean | null = null, channelKeys: string[] | null = null) {
@@ -362,33 +363,18 @@ export class Events {
         return this.changeObjectStatus(eventKeyOrKeys, objectOrObjects, EventObjectInfo.HELD, holdToken, orderId, keepExtraData, ignoreChannels, channelKeys)
     }
 
-    holdBestAvailable (eventKey: string, number: number, holdToken: string, categories: string[] | null = null, extraData: Dict<any> | null = null, ticketTypes: string[] | null = null, orderId: string | null = null, keepExtraData: boolean | null = null, ignoreChannels: boolean | null = null, channelKeys: string[] | null = null, tryToPreventOrphanSeats: boolean | null = null) {
-        return this.changeBestAvailableObjectStatus(encodeURIComponent(eventKey), number, EventObjectInfo.HELD, categories, holdToken, extraData, ticketTypes, orderId, keepExtraData, ignoreChannels, channelKeys, tryToPreventOrphanSeats)
+    holdBestAvailable (eventKey: string, bestAvailableParams: BestAvailableParams, holdToken: string, orderId: string | null = null, keepExtraData: boolean | null = null, ignoreChannels: boolean | null = null, channelKeys: string[] | null = null) {
+        return this.changeBestAvailableObjectStatus(encodeURIComponent(eventKey), bestAvailableParams, EventObjectInfo.HELD, holdToken, orderId, keepExtraData, ignoreChannels, channelKeys)
     }
 
-    changeBestAvailableObjectStatus (eventKey: string, number: number, status: string, categories: string[] | null = null, holdToken: string | null = null, extraData: Dict<any> | null = null, ticketTypes: string[] | null = null, orderId: string | null = null, keepExtraData: boolean | null = null, ignoreChannels: boolean | null = null, channelKeys: string[] | null = null, tryToPreventOrphanSeats: boolean | null = null) {
+    changeBestAvailableObjectStatus (eventKey: string, bestAvailableParams: BestAvailableParams, status: string, holdToken: string | null = null, orderId: string | null = null, keepExtraData: boolean | null = null, ignoreChannels: boolean | null = null, channelKeys: string[] | null = null) {
         const requestParameters: Dict<any> = {}
-        const bestAvailable: Dict<any> = {}
         requestParameters.status = status
-        bestAvailable.number = number
         if (holdToken !== null) {
             requestParameters.holdToken = holdToken
         }
         if (orderId !== null) {
             requestParameters.orderId = orderId
-        }
-        if (categories !== null) {
-            bestAvailable.categories = categories
-        }
-        if (extraData !== null) {
-            bestAvailable.extraData = extraData
-        }
-        if (ticketTypes !== null) {
-            bestAvailable.ticketTypes = ticketTypes
-        }
-
-        if (tryToPreventOrphanSeats !== null) {
-            bestAvailable.tryToPreventOrphanSeats = tryToPreventOrphanSeats
         }
         if (keepExtraData !== null) {
             requestParameters.keepExtraData = keepExtraData
@@ -399,7 +385,7 @@ export class Events {
         if (channelKeys !== null) {
             requestParameters.channelKeys = channelKeys
         }
-        requestParameters.bestAvailable = bestAvailable
+        requestParameters.bestAvailable = bestAvailableParams
 
         return this.client.post(`/events/${encodeURIComponent(eventKey)}/actions/change-object-status`, requestParameters)
             .then(res => new BestAvailableObjects(res.data))
