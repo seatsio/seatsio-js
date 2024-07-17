@@ -3,6 +3,7 @@ import { Dict } from '../Dict'
 export class BestAvailableParams {
     number?: number
     categories?: string[]
+    zone?: string
     extraData?: Dict<any>
     ticketTypes?: string[]
     tryToPreventOrphanSeats?: boolean
@@ -14,6 +15,11 @@ export class BestAvailableParams {
 
     withCategories (categories: string[]) {
         this.categories = categories
+        return this
+    }
+
+    withZone (zone: string) {
+        this.zone = zone
         return this
     }
 
