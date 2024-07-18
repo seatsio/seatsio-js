@@ -1,7 +1,7 @@
 #!/usr/bin/env zx
 
 /*
-* Script to release the seats.io java lib.
+* Script to release the seats.io node lib.
 *   - changes the version number in README.md
 *   - changes the version number in build.gradle
 *   - creates the release in Gihub (using gh cli)
