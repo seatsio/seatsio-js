@@ -27,6 +27,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20
+      - run: yarn install
       - run: yarn zx ./release.mjs -v $VERSION_TO_BUMP
         env:
           VERSION_TO_BUMP: ${{ inputs.versionToBump }}
@@ -35,7 +36,6 @@ jobs:
         with:
           node-version: 18
           registry-url: https://registry.npmjs.org/
-      - run: yarn install
       - run: yarn build
       - run: yarn publish
         env:
