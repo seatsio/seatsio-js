@@ -1,6 +1,6 @@
 {
   "name": "seatsio",
-  "version": "81.16.0",
+  "version": "81.15.0",
   "main": "dist/src/index.js",
   "types": "dist/src/index.d.ts",
   "files": [
