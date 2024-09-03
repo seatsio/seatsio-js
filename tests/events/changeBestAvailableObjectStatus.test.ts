@@ -226,3 +226,15 @@ test('should accept ignoreChannels', async () => {
 
     expect(bestAvailableObjs.objects).toEqual(['A-5'])
 })
+
+test('accessible seats', async () => {
+    const { client, user } = await TestUtils.createTestUserAndClient()
+    const chartKey = TestUtils.getChartKey()
+    await TestUtils.createTestChart(chartKey, user.secretKey)
+    const event = await client.events.create(chartKey)
+
+    const bestAvailableObjs = await client.events.changeBestAvailableObjectStatus(event.key, new BestAvailableParams().withNumber(3).withAccessibleSeats(1), 'lolzor')
+
+    expect(bestAvailableObjs.nextToEachOther).toBe(true)
+    expect(bestAvailableObjs.objects.sort()).toEqual(['A-6', 'A-7', 'A-8'])
+})
