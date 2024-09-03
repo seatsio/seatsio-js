@@ -52,6 +52,10 @@ export class TestUtils {
         return this.createTestChartFromFile('/sampleChartWithSections.json', chartKey, secretKey)
     }
 
+    static createTestChartWithFloors (chartKey: string, secretKey: string) {
+        return this.createTestChartFromFile('/sampleChartWithFloors.json', chartKey, secretKey)
+    }
+
     static createTestChartWithZones (chartKey: string, secretKey: string) {
         return this.createTestChartFromFile('/sampleChartWithZones.json', chartKey, secretKey)
     }

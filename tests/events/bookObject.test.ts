@@ -35,6 +35,25 @@ test('should book an object with quantity', async () => {
     expect(objectInfo.numBooked).toEqual(100)
 })
 
+test('should book an object with floor', async () => {
+    const { client, user } = await TestUtils.createTestUserAndClient()
+    const chartKey = TestUtils.getChartKey()
+    await TestUtils.createTestChartWithFloors(chartKey, user.secretKey)
+    const event = await client.events.create(chartKey)
+
+    const bookRes = await client.events.book(event.key, ['S1-A-1'])
+
+    const promises = [
+        client.events.retrieveObjectInfo(event.key, 'S1-A-1'),
+        client.events.retrieveObjectInfo(event.key, 'S1-A-2')
+    ]
+    const retrievedObjectStatuses = await Promise.all(promises)
+    expect(retrievedObjectStatuses[0].status).toEqual(EventObjectInfo.BOOKED)
+    expect(retrievedObjectStatuses[1].status).toEqual(EventObjectInfo.FREE)
+
+    expect(bookRes.objects['S1-A-1'].floor).toEqual({ name: '1', displayName: 'Floor 1' })
+})
+
 test('should book an object with sections', async () => {
     const { client, user } = await TestUtils.createTestUserAndClient()
     const chartKey = TestUtils.getChartKey()
@@ -52,6 +71,7 @@ test('should book an object with sections', async () => {
     expect(retrievedObjectStatuses[1].status).toEqual(EventObjectInfo.BOOKED)
     expect(bookRes.objects['Section A-A-1'].entrance).toBe('Entrance 1')
     expect(bookRes.objects['Section A-A-1'].section).toBe('Section A')
+    expect(bookRes.objects['Section A-A-1'].floor).toBeUndefined()
     expect(bookRes.objects['Section A-A-1'].labels).toEqual(TestUtils.someLabels('1', 'seat', 'A', 'row', 'Section A'))
     expect(bookRes.objects['Section A-A-1'].ids).toEqual(new IDs('1', 'A', 'Section A'))
 })
