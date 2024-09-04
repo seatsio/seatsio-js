@@ -7,6 +7,7 @@ export class BestAvailableParams {
     extraData?: Dict<any>
     ticketTypes?: string[]
     tryToPreventOrphanSeats?: boolean
+    accessibleSeats?: number
 
     withNumber (number: number) {
         this.number = number
@@ -35,6 +36,11 @@ export class BestAvailableParams {
 
     withTryToPreventOrphanSeats (tryToPreventOrphanSeats: boolean) {
         this.tryToPreventOrphanSeats = tryToPreventOrphanSeats
+        return this
+    }
+
+    withAccessibleSeats (accessibleSeats: number) {
+        this.accessibleSeats = accessibleSeats
         return this
     }
 }
