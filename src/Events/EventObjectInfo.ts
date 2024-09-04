@@ -2,6 +2,7 @@ import { HelperFunctions } from '../utilities/helperFunctions'
 import { IDs } from '../Common/IDs'
 import { Labels } from '../Common/Labels'
 import { Dict } from '../Dict'
+import { Floor } from '../Common/Floor'
 
 export type EventObjectInfoJson = Dict<any>
 
@@ -47,6 +48,7 @@ export class EventObjectInfo {
     seasonStatusOverriddenQuantity: number
     numNotForSale?: number
     zone?: string
+    floor?: Floor
 
     constructor (json: EventObjectInfoJson) {
         this.label = json.label
@@ -86,5 +88,6 @@ export class EventObjectInfo {
         this.maxOccupancy = json.maxOccupancy
         this.seasonStatusOverriddenQuantity = json.seasonStatusOverriddenQuantity
         this.zone = json.zone
+        this.floor = json.floor ? new Floor(json.floor.name, json.floor.displayName) : undefined
     }
 }
