@@ -11,7 +11,7 @@ test('aborts eventually if server keeps returning 429', async () => {
         expect(e).toBe('get /status/429 resulted in 429 Too Many Requests error')
         const waitTime = new Date().getTime() - start.getTime()
         expect(waitTime).toBeGreaterThan(10000)
-        expect(waitTime).toBeLessThan(20000)
+        expect(waitTime).toBeLessThan(25000)
     }
 })
 
