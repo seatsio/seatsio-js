@@ -289,8 +289,8 @@ export class Events {
             })
     }
 
-    changeObjectStatus (eventKeyOrKeys: string | string[], objectOrObjects: ObjectOrObjects, status: string, holdToken: string | null = null, orderId: string | null = null, keepExtraData: boolean | null = null, ignoreChannels: boolean | null = null, channelKeys: string[] | null = null, allowedPreviousStatuses: string[] | null = null, rejectedPreviousStatuses: string[] | null = null) {
-        const request = this.changeObjectStatusRequest(objectOrObjects, status, holdToken, orderId, keepExtraData, ignoreChannels, channelKeys, allowedPreviousStatuses, rejectedPreviousStatuses)
+    changeObjectStatus (eventKeyOrKeys: string | string[], objectOrObjects: ObjectOrObjects, statusChangeCommandType: string, status: string | null, holdToken: string | null = null, orderId: string | null = null, keepExtraData: boolean | null = null, ignoreChannels: boolean | null = null, channelKeys: string[] | null = null, allowedPreviousStatuses: string[] | null = null, rejectedPreviousStatuses: string[] | null = null) {
+        const request = this.changeObjectStatusRequest(objectOrObjects, statusChangeCommandType, status, holdToken, orderId, keepExtraData, ignoreChannels, channelKeys, allowedPreviousStatuses, rejectedPreviousStatuses)
         request.events = Array.isArray(eventKeyOrKeys) ? eventKeyOrKeys : [eventKeyOrKeys]
 
         return this.client.post('/events/groups/actions/change-object-status?expand=objects', request)
@@ -301,6 +301,7 @@ export class Events {
         const requests = statusChangeRequests.map(r => {
             const json = this.changeObjectStatusRequest(
                 r.objectOrObjects,
+                r.statusChangeCommandType,
                 r.status,
                 r.holdToken,
                 r.orderId,
@@ -319,10 +320,15 @@ export class Events {
             .then(res => res.data.results.map((r: Dict<EventObjectInfoJson>) => new ChangeObjectStatusResult(r.objects)))
     }
 
-    changeObjectStatusRequest (objectOrObjects: ObjectOrObjects, status: string, holdToken: string | null, orderId: string | null, keepExtraData: boolean | null, ignoreChannels: boolean | null, channelKeys: string[] | null = null, allowedPreviousStatuses: string[] | null = null, rejectedPreviousStatuses: string[] | null = null) {
+    changeObjectStatusRequest (objectOrObjects: ObjectOrObjects, statusChangeCommandType: string | null, status: string | null, holdToken: string | null, orderId: string | null, keepExtraData: boolean | null, ignoreChannels: boolean | null, channelKeys: string[] | null = null, allowedPreviousStatuses: string[] | null = null, rejectedPreviousStatuses: string[] | null = null) {
         const request: Dict<any> = {}
         request.objects = this.normalizeObjects(objectOrObjects)
-        request.status = status
+        if (statusChangeCommandType !== null) {
+            request.type = statusChangeCommandType
+        }
+        if (status !== null) {
+            request.status = status
+        }
         if (holdToken !== null) {
             request.holdToken = holdToken
         }
@@ -348,7 +354,7 @@ export class Events {
     }
 
     book (eventKeyOrKeys: string | string[], objectOrObjects: ObjectOrObjects, holdToken: string | null = null, orderId: string | null = null, keepExtraData: boolean | null = null, ignoreChannels: boolean | null = null, channelKeys: string[] | null = null) {
-        return this.changeObjectStatus(eventKeyOrKeys, objectOrObjects, EventObjectInfo.BOOKED, holdToken, orderId, keepExtraData, ignoreChannels, channelKeys)
+        return this.changeObjectStatus(eventKeyOrKeys, objectOrObjects, 'CHANGE_STATUS_TO', EventObjectInfo.BOOKED, holdToken, orderId, keepExtraData, ignoreChannels, channelKeys)
     }
 
     bookBestAvailable (eventKey: string, bestAvailableParams: BestAvailableParams, holdToken: string | null = null, orderId: string | null = null, keepExtraData: boolean | null = null, ignoreChannels: boolean | null = null, channelKeys: string[] | null = null) {
@@ -356,11 +362,11 @@ export class Events {
     }
 
     release (eventKeyOrKeys: string | string[], objectOrObjects: ObjectOrObjects, holdToken: string | null = null, orderId: string | null = null, keepExtraData: boolean | null = null, ignoreChannels: boolean | null = null, channelKeys: string[] | null = null) {
-        return this.changeObjectStatus(eventKeyOrKeys, objectOrObjects, EventObjectInfo.FREE, holdToken, orderId, keepExtraData, ignoreChannels, channelKeys)
+        return this.changeObjectStatus(eventKeyOrKeys, objectOrObjects, 'RELEASE', null, holdToken, orderId, keepExtraData, ignoreChannels, channelKeys)
     }
 
     hold (eventKeyOrKeys: string | string[], objectOrObjects: ObjectOrObjects, holdToken: string, orderId: string | null = null, keepExtraData: boolean | null = null, ignoreChannels: boolean | null = null, channelKeys: string[] | null = null) {
-        return this.changeObjectStatus(eventKeyOrKeys, objectOrObjects, EventObjectInfo.HELD, holdToken, orderId, keepExtraData, ignoreChannels, channelKeys)
+        return this.changeObjectStatus(eventKeyOrKeys, objectOrObjects, 'CHANGE_STATUS_TO', EventObjectInfo.HELD, holdToken, orderId, keepExtraData, ignoreChannels, channelKeys)
     }
 
     holdBestAvailable (eventKey: string, bestAvailableParams: BestAvailableParams, holdToken: string, orderId: string | null = null, keepExtraData: boolean | null = null, ignoreChannels: boolean | null = null, channelKeys: string[] | null = null) {
