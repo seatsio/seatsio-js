@@ -2,6 +2,7 @@ import { HelperFunctions } from '../utilities/helperFunctions'
 import { IDs } from '../Common/IDs'
 import { Labels } from '../Common/Labels'
 import { Dict } from '../Dict'
+import { FloorInfo } from './FloorInfo'
 
 export type ChartObjectInfoJson = Dict<any>
 
@@ -24,6 +25,7 @@ export class ChartObjectInfo {
     isCompanionSeat?: boolean
     hasRestrictedView?: boolean
     zone?: string
+    floor?: FloorInfo
 
     constructor (json: ChartObjectInfoJson) {
         this.label = json.label
@@ -44,5 +46,6 @@ export class ChartObjectInfo {
         this.isCompanionSeat = json.isCompanionSeat
         this.hasRestrictedView = json.hasRestrictedView
         this.zone = json.zone
+        this.floor = FloorInfo.fromJson(json.floor)
     }
 }
