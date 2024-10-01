@@ -4,7 +4,7 @@ import { ChartObjectInfo } from '../../../src/Charts/ChartObjectInfo'
 import { Dict } from '../../../src/Dict'
 import { SeatsioClient } from '../../../src/SeatsioClient'
 import { Versions } from '../../../src/Reports/ChartReports'
-import { FloorInfo } from '../../../src/Charts/FloorInfo'
+import { Floor } from '../../../src/Common/Floor'
 
 describe('chart report properties', () => {
     it.each([
@@ -144,10 +144,10 @@ describe('get report byLabel for multi-floor chart', () => {
 
         const report = await getReport(client, chartKey)
 
-        expect(report['S1-A-1'][0].floor).toStrictEqual(new FloorInfo('1', 'Floor 1'))
-        expect(report['S1-A-2'][0].floor).toStrictEqual(new FloorInfo('1', 'Floor 1'))
-        expect(report['S2-B-1'][0].floor).toStrictEqual(new FloorInfo('2', 'Floor 2'))
-        expect(report['S2-B-2'][0].floor).toStrictEqual(new FloorInfo('2', 'Floor 2'))
+        expect(report['S1-A-1'][0].floor).toStrictEqual(new Floor('1', 'Floor 1'))
+        expect(report['S1-A-2'][0].floor).toStrictEqual(new Floor('1', 'Floor 1'))
+        expect(report['S2-B-1'][0].floor).toStrictEqual(new Floor('2', 'Floor 2'))
+        expect(report['S2-B-2'][0].floor).toStrictEqual(new Floor('2', 'Floor 2'))
     })
 })
 
@@ -197,10 +197,10 @@ describe('get report byObjectType for multi-floor chart', () => {
         const report = await getReport(client, chartKey)
 
         expect(report.seat.length).toBe(4)
-        expect(report.seat[0].floor).toStrictEqual(new FloorInfo('1', 'Floor 1'))
-        expect(report.seat[1].floor).toStrictEqual(new FloorInfo('1', 'Floor 1'))
-        expect(report.seat[2].floor).toStrictEqual(new FloorInfo('2', 'Floor 2'))
-        expect(report.seat[3].floor).toStrictEqual(new FloorInfo('2', 'Floor 2'))
+        expect(report.seat[0].floor).toStrictEqual(new Floor('1', 'Floor 1'))
+        expect(report.seat[1].floor).toStrictEqual(new Floor('1', 'Floor 1'))
+        expect(report.seat[2].floor).toStrictEqual(new Floor('2', 'Floor 2'))
+        expect(report.seat[3].floor).toStrictEqual(new Floor('2', 'Floor 2'))
     })
 })
 
@@ -346,11 +346,11 @@ describe('get report byCategoryKey for multi-floor chart', () => {
         const report = await getReport(client, chartKey)
 
         expect(report['1'].length).toBe(2)
-        expect(report['1'][0].floor).toStrictEqual(new FloorInfo('1', 'Floor 1'))
-        expect(report['1'][1].floor).toStrictEqual(new FloorInfo('1', 'Floor 1'))
+        expect(report['1'][0].floor).toStrictEqual(new Floor('1', 'Floor 1'))
+        expect(report['1'][1].floor).toStrictEqual(new Floor('1', 'Floor 1'))
         expect(report['2'].length).toBe(2)
-        expect(report['2'][0].floor).toStrictEqual(new FloorInfo('2', 'Floor 2'))
-        expect(report['2'][1].floor).toStrictEqual(new FloorInfo('2', 'Floor 2'))
+        expect(report['2'][0].floor).toStrictEqual(new Floor('2', 'Floor 2'))
+        expect(report['2'][1].floor).toStrictEqual(new Floor('2', 'Floor 2'))
     })
 })
 
@@ -400,11 +400,11 @@ describe('get report byCategoryLabel for multi-floor chart', () => {
         const report = await getReport(client, chartKey)
 
         expect(report.CatA.length).toBe(2)
-        expect(report.CatA[0].floor).toStrictEqual(new FloorInfo('1', 'Floor 1'))
-        expect(report.CatA[1].floor).toStrictEqual(new FloorInfo('1', 'Floor 1'))
+        expect(report.CatA[0].floor).toStrictEqual(new Floor('1', 'Floor 1'))
+        expect(report.CatA[1].floor).toStrictEqual(new Floor('1', 'Floor 1'))
         expect(report.CatB.length).toBe(2)
-        expect(report.CatB[0].floor).toStrictEqual(new FloorInfo('2', 'Floor 2'))
-        expect(report.CatB[1].floor).toStrictEqual(new FloorInfo('2', 'Floor 2'))
+        expect(report.CatB[0].floor).toStrictEqual(new Floor('2', 'Floor 2'))
+        expect(report.CatB[1].floor).toStrictEqual(new Floor('2', 'Floor 2'))
     })
 })
 
@@ -454,11 +454,11 @@ describe('get report bySection for multi-floor chart', () => {
         const report = await getReport(client, chartKey)
 
         expect(report.S1.length).toBe(2)
-        expect(report.S1[0].floor).toStrictEqual(new FloorInfo('1', 'Floor 1'))
-        expect(report.S1[1].floor).toStrictEqual(new FloorInfo('1', 'Floor 1'))
+        expect(report.S1[0].floor).toStrictEqual(new Floor('1', 'Floor 1'))
+        expect(report.S1[1].floor).toStrictEqual(new Floor('1', 'Floor 1'))
         expect(report.S2.length).toBe(2)
-        expect(report.S2[0].floor).toStrictEqual(new FloorInfo('2', 'Floor 2'))
-        expect(report.S2[1].floor).toStrictEqual(new FloorInfo('2', 'Floor 2'))
+        expect(report.S2[0].floor).toStrictEqual(new Floor('2', 'Floor 2'))
+        expect(report.S2[1].floor).toStrictEqual(new Floor('2', 'Floor 2'))
     })
 })
 
