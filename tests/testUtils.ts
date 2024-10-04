@@ -60,6 +60,10 @@ export class TestUtils {
         return this.createTestChartFromFile('/sampleChartWithZones.json', chartKey, secretKey)
     }
 
+    static createTestChartWithNullCategoryAccessible (chartKey: string, secretKey: string) {
+        return this.createTestChartFromFile('/sampleChartWithNullCategoryAccessible.json', chartKey, secretKey)
+    }
+
     static async createTestChartFromFile (filePath: string, chartKey: string, secretKey: string) {
         const requestBody = fs.readFileSync(path.join(__dirname, filePath), 'utf-8')
         const client = axios.create({

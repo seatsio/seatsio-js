@@ -57,3 +57,14 @@ test('should update a category', async () => {
     const categoryList = await client.charts.listCategories(chart.key)
     expect(categoryList).toEqual([{ key: 1, label: 'New label', color: '#bbbbbb', accessible: true }])
 })
+
+test('should guard against categories with a null accessible value', async () => {
+    const { client, user } = await TestUtils.createTestUserAndClient()
+    const chartKey = TestUtils.getChartKey()
+    await TestUtils.createTestChartWithNullCategoryAccessible(chartKey, user.secretKey)
+
+    const categories = await client.charts.listCategories(chartKey)
+    expect(categories[0].accessible).toBe(false)
+    expect(categories[1].accessible).toBe(true)
+    expect(categories[2].accessible).toBe(false)
+})

@@ -3,7 +3,7 @@ import { Page } from '../Page'
 import { Chart, ChartJson } from './Chart'
 import { Axios } from 'axios'
 import { ChartListParams } from './ChartListParams'
-import { CategoryJson, CategoryKey } from './Category'
+import { Category, CategoryJson, CategoryKey } from './Category'
 import { CategoryUpdateParams } from './CategoryUpdateParams'
 
 export class Charts {
@@ -62,6 +62,12 @@ export class Charts {
     listCategories (key: string) {
         return this.client.get(`/charts/${key}/categories`)
             .then(res => res.data.categories)
+            .then(categories => categories.map(function (category: Category) {
+                if (category.accessible === undefined) {
+                    category.accessible = false
+                }
+                return category
+            }))
     }
 
     updateCategory (chartKey: string, categoryKey: CategoryKey, params: CategoryUpdateParams) {
