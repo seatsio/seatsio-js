@@ -370,6 +370,10 @@ export class Events {
         return this.changeBestAvailableObjectStatus(encodeURIComponent(eventKey), bestAvailableParams, EventObjectInfo.BOOKED, holdToken, orderId, keepExtraData, ignoreChannels, channelKeys)
     }
 
+    putUpForResale (eventKeyOrKeys: string | string[], objectOrObjects: ObjectOrObjects) {
+        return this.changeObjectStatus(eventKeyOrKeys, objectOrObjects, EventObjectInfo.RESALE)
+    }
+
     release (eventKeyOrKeys: string | string[], objectOrObjects: ObjectOrObjects, holdToken: string | null = null, orderId: string | null = null, keepExtraData: boolean | null = null, ignoreChannels: boolean | null = null, channelKeys: string[] | null = null) {
         const request = this.releaseObjectsRequest(objectOrObjects, holdToken, orderId, keepExtraData, ignoreChannels, channelKeys)
         return this.doChangeStatus(request, eventKeyOrKeys)

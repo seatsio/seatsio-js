@@ -10,6 +10,7 @@ export class EventObjectInfo {
     static FREE = 'free'
     static BOOKED = 'booked'
     static HELD = 'reservedByToken'
+    static RESALE = 'resale'
 
     availabilityReason: string
     bookAsAWhole?: boolean
