@@ -178,6 +178,11 @@ export class Events {
         return this.client.delete(`/events/${encodeURIComponent(eventKey)}`)
     }
 
+    moveEventToChartCopy (eventKey: string) {
+        return this.client.post(`events/${encodeURIComponent(eventKey)}/actions/move-to-new-chart-copy`)
+            .then(res => new EventDeserializer().fromJson(res.data))
+    }
+
     listAll (requestParameters = {}) {
         return this.iterator().all(requestParameters)
     }
