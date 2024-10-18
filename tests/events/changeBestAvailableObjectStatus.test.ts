@@ -75,7 +75,7 @@ test('should change best available object status with orderId', async () => {
     await TestUtils.createTestChart(chartKey, user.secretKey)
     const event = await client.events.create(chartKey)
 
-    const bestAvailableObjs = await client.events.changeBestAvailableObjectStatus(event.key, new BestAvailableParams().withNumber(1), 'lolzor', null, 'anOrder')
+    const bestAvailableObjs = await client.events.changeBestAvailableObjectStatus(event.key, new BestAvailableParams().withNumber(1), 'lolzor', undefined, 'anOrder')
 
     const objectInfo = await client.events.retrieveObjectInfo(event.key, bestAvailableObjs.objects[0])
     expect(objectInfo.orderId).toBe('anOrder')
@@ -169,7 +169,7 @@ test('should respect keepExtraData=true', async () => {
     const event = await client.events.create(chartKey)
     await client.events.updateExtraData(event.key, 'A-5', { foo: 'bar' })
 
-    await client.events.changeBestAvailableObjectStatus(event.key, new BestAvailableParams().withNumber(1), 'someStatus', null, null, true)
+    await client.events.changeBestAvailableObjectStatus(event.key, new BestAvailableParams().withNumber(1), 'someStatus', undefined, undefined, true)
 
     const status = await client.events.retrieveObjectInfo(event.key, 'A-5')
     expect(status.extraData).toEqual({ foo: 'bar' })
@@ -182,7 +182,7 @@ test('should respect keepExtraData=false', async () => {
     const event = await client.events.create(chartKey)
     await client.events.updateExtraData(event.key, 'A-5', { foo: 'bar' })
 
-    await client.events.changeBestAvailableObjectStatus(event.key, new BestAvailableParams().withNumber(1), 'someStatus', null, null, false)
+    await client.events.changeBestAvailableObjectStatus(event.key, new BestAvailableParams().withNumber(1), 'someStatus', undefined, undefined, false)
 
     const status = await client.events.retrieveObjectInfo(event.key, 'A-5')
     expect(status.extraData).toBeUndefined()
@@ -209,7 +209,7 @@ test('should accept channel keys', async () => {
         new Channel({ key: 'channelKey1', name: 'channel 1', color: 'blue', index: 1, objects: ['A-6'] })
     ]))
 
-    const bestAvailableObjs = await client.events.changeBestAvailableObjectStatus(event.key, new BestAvailableParams().withNumber(1), 'lolzor', null, null, null, null, ['channelKey1'])
+    const bestAvailableObjs = await client.events.changeBestAvailableObjectStatus(event.key, new BestAvailableParams().withNumber(1), 'lolzor', undefined, undefined, undefined, undefined, ['channelKey1'])
 
     expect(bestAvailableObjs.objects).toEqual(['A-6'])
 })
@@ -222,7 +222,7 @@ test('should accept ignoreChannels', async () => {
         new Channel({ key: 'channel1', name: 'channel 1', color: 'blue', index: 1, objects: ['A-1'] })
     ]))
 
-    const bestAvailableObjs = await client.events.changeBestAvailableObjectStatus(event.key, new BestAvailableParams().withNumber(1), 'lolzor', null, null, null, true)
+    const bestAvailableObjs = await client.events.changeBestAvailableObjectStatus(event.key, new BestAvailableParams().withNumber(1), 'lolzor', undefined, undefined, undefined, true)
 
     expect(bestAvailableObjs.objects).toEqual(['A-5'])
 })
