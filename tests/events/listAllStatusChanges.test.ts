@@ -47,11 +47,11 @@ test('should list all status changes sorted by status', async () => {
     const event = await client.events.create(chartKey)
     const holdToken = await client.holdTokens.create()
     await client.events.changeObjectStatusInBatch([
-        new StatusChangeRequest(event.key, 'B-1', EventObjectInfo.BOOKED, null, null, null, null, null, null, null),
-        new StatusChangeRequest(event.key, 'A-1', EventObjectInfo.HELD, holdToken.holdToken, null, null, null, null, null, null),
-        new StatusChangeRequest(event.key, 'A-1', EventObjectInfo.FREE, holdToken.holdToken, null, null, null, null, null, null),
-        new StatusChangeRequest(event.key, 'A-2', EventObjectInfo.BOOKED, null, null, null, null, null, null, null),
-        new StatusChangeRequest(event.key, 'A-3', EventObjectInfo.HELD, holdToken.holdToken, null, null, null, null, null, null)
+        new StatusChangeRequest().withEventKey(event.key).withObjects('B-1').withStatus(EventObjectInfo.BOOKED),
+        new StatusChangeRequest().withEventKey(event.key).withObjects('A-1').withStatus(EventObjectInfo.HELD).withHoldToken(holdToken.holdToken),
+        new StatusChangeRequest().withEventKey(event.key).withObjects('A-1').withStatus(EventObjectInfo.FREE).withHoldToken(holdToken.holdToken),
+        new StatusChangeRequest().withEventKey(event.key).withObjects('A-2').withStatus(EventObjectInfo.BOOKED),
+        new StatusChangeRequest().withEventKey(event.key).withObjects('A-3').withStatus(EventObjectInfo.HELD).withHoldToken(holdToken.holdToken)
     ])
     await TestUtils.statusChangesPresent(client, event.key, 5)
 
@@ -70,9 +70,9 @@ test('should list all status changes sorted by date ascending', async () => {
     await TestUtils.createTestChart(chartKey, user.secretKey)
     const event = await client.events.create(chartKey)
     await client.events.changeObjectStatusInBatch([
-        new StatusChangeRequest(event.key, 'A-1', EventObjectInfo.BOOKED, null, null, null, null, null, null, null),
-        new StatusChangeRequest(event.key, 'A-3', EventObjectInfo.BOOKED, null, null, null, null, null, null, null),
-        new StatusChangeRequest(event.key, 'A-2', EventObjectInfo.BOOKED, null, null, null, null, null, null, null)
+        new StatusChangeRequest().withEventKey(event.key).withObjects('A-1').withStatus(EventObjectInfo.BOOKED),
+        new StatusChangeRequest().withEventKey(event.key).withObjects('A-3').withStatus(EventObjectInfo.BOOKED),
+        new StatusChangeRequest().withEventKey(event.key).withObjects('A-2').withStatus(EventObjectInfo.BOOKED)
     ])
     await TestUtils.statusChangesPresent(client, event.key, 3)
 
@@ -91,9 +91,9 @@ test('should list all status changes with filter', async () => {
     await TestUtils.createTestChart(chartKey, user.secretKey)
     const event = await client.events.create(chartKey)
     await client.events.changeObjectStatusInBatch([
-        new StatusChangeRequest(event.key, 'A-1', EventObjectInfo.BOOKED, null, null, null, null, null, null, null),
-        new StatusChangeRequest(event.key, 'A-2', EventObjectInfo.BOOKED, null, null, null, null, null, null, null),
-        new StatusChangeRequest(event.key, 'B-2', EventObjectInfo.BOOKED, null, null, null, null, null, null, null)
+        new StatusChangeRequest().withEventKey(event.key).withObjects('A-1').withStatus(EventObjectInfo.BOOKED),
+        new StatusChangeRequest().withEventKey(event.key).withObjects('A-2').withStatus(EventObjectInfo.BOOKED),
+        new StatusChangeRequest().withEventKey(event.key).withObjects('B-2').withStatus(EventObjectInfo.BOOKED)
     ])
     await TestUtils.statusChangesPresent(client, event.key, 3)
 
@@ -112,9 +112,9 @@ test('should not list status changes with unmatched filter', async () => {
     await TestUtils.createTestChart(chartKey, user.secretKey)
     const event = await client.events.create(chartKey)
     await client.events.changeObjectStatusInBatch([
-        new StatusChangeRequest(event.key, 'A-1', EventObjectInfo.BOOKED, null, null, null, null, null, null, null),
-        new StatusChangeRequest(event.key, 'A-2', EventObjectInfo.BOOKED, null, null, null, null, null, null, null),
-        new StatusChangeRequest(event.key, 'B-2', EventObjectInfo.BOOKED, null, null, null, null, null, null, null)
+        new StatusChangeRequest().withEventKey(event.key).withObjects('A-1').withStatus(EventObjectInfo.BOOKED),
+        new StatusChangeRequest().withEventKey(event.key).withObjects('A-2').withStatus(EventObjectInfo.BOOKED),
+        new StatusChangeRequest().withEventKey(event.key).withObjects('B-2').withStatus(EventObjectInfo.BOOKED)
     ])
     await TestUtils.statusChangesPresent(client, event.key, 3)
 

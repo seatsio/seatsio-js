@@ -7,10 +7,10 @@ test('should list status changes for objects', async () => {
     await TestUtils.createTestChart(chartKey, user.secretKey)
     const event = await client.events.create(chartKey)
     await client.events.changeObjectStatusInBatch([
-        new StatusChangeRequest(event.key, 'A-1', 's1', null, null, null, null, null, null, null),
-        new StatusChangeRequest(event.key, 'A-1', 's2', null, null, null, null, null, null, null),
-        new StatusChangeRequest(event.key, 'A-2', 's4', null, null, null, null, null, null, null),
-        new StatusChangeRequest(event.key, 'A-1', 's3', null, null, null, null, null, null, null)
+        new StatusChangeRequest().withEventKey(event.key).withObjects('A-1').withStatus('s1'),
+        new StatusChangeRequest().withEventKey(event.key).withObjects('A-1').withStatus('s2'),
+        new StatusChangeRequest().withEventKey(event.key).withObjects('A-2').withStatus('s4'),
+        new StatusChangeRequest().withEventKey(event.key).withObjects('A-1').withStatus('s3')
     ])
     await TestUtils.statusChangesPresent(client, event.key, 4)
 
