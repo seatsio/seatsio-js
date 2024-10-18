@@ -2,7 +2,6 @@ import { TestUtils } from '../testUtils'
 import { StatusChangeRequest } from '../../src/Events/StatusChangeRequest'
 import { CreateEventParams } from '../../src/Events/CreateEventParams'
 import { Channel } from '../../src/Events/Channel'
-import { StatusChangeType } from '../../src/Events/StatusChangeType'
 import { EventObjectInfo } from '../../src'
 
 test('should change object status in batch', async () => {
@@ -17,8 +16,8 @@ test('should change object status in batch', async () => {
     const event2 = await client.events.create(chartKey2)
 
     const result = await client.events.changeObjectStatusInBatch([
-        new StatusChangeRequest().withEventKey(event1.key).withObjects(['A-1']).withStatus('lolzor'),
-        new StatusChangeRequest().withEventKey(event2.key).withObjects(['A-2']).withStatus('lolzor')
+        new StatusChangeRequest().withType(StatusChangeRequest.TYPE_CHANGE_STATUS_TO).withEventKey(event1.key).withObjects(['A-1']).withStatus('lolzor'),
+        new StatusChangeRequest().withType(StatusChangeRequest.TYPE_CHANGE_STATUS_TO).withEventKey(event2.key).withObjects(['A-2']).withStatus('lolzor')
     ])
 
     expect(result[0].objects['A-1'].status).toBe('lolzor')
@@ -104,7 +103,7 @@ test('release in batch', async () => {
     await client.events.book(event.key, 'A-1')
 
     const result = await client.events.changeObjectStatusInBatch([
-        new StatusChangeRequest().withType(StatusChangeType.RELEASE).withEventKey(event.key).withObjects(['A-1'])
+        new StatusChangeRequest().withType(StatusChangeRequest.TYPE_RELEASE).withEventKey(event.key).withObjects(['A-1'])
     ])
 
     expect(result[0].objects['A-1'].status).toBe(EventObjectInfo.FREE)

@@ -1,8 +1,10 @@
 import { ObjectOrObjects } from './Events'
-import { StatusChangeType } from './StatusChangeType'
 
 export class StatusChangeRequest {
-    type: StatusChangeType = StatusChangeType.CHANGE_STATUS_TO
+    static TYPE_RELEASE = 'RELEASE'
+    static TYPE_CHANGE_STATUS_TO = 'CHANGE_STATUS_TO'
+
+    type = StatusChangeRequest.TYPE_CHANGE_STATUS_TO
     eventKey: string | null = null
     objectOrObjects: ObjectOrObjects | null = null
     status: string | null = null
@@ -14,7 +16,7 @@ export class StatusChangeRequest {
     allowedPreviousStatuses: string[] | null = null
     rejectedPreviousStatuses: string[] | null = null
 
-    withType (type: StatusChangeType) {
+    withType (type: string) {
         this.type = type
         return this
     }
