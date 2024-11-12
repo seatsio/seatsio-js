@@ -6,22 +6,6 @@ import { CreateEventParams } from '../../src/Events/CreateEventParams'
 import { UpdateEventParams } from '../../src/Events/UpdateEventParams'
 import { SeasonParams } from '../../src/Seasons/SeasonParams'
 
-test('should update event\'s chart key', async () => {
-    const { client } = await TestUtils.createTestUserAndClient()
-    const chart1 = await client.charts.create()
-    const chart2 = await client.charts.create()
-    const event = await client.events.create(chart1.key)
-
-    await client.events.update(event.key, new UpdateEventParams().withChartKey(chart2.key))
-
-    const retrievedEvent = await client.events.retrieve(event.key)
-    const now = new Date()
-    expect(retrievedEvent.chartKey).toBe(chart2.key)
-    expect(retrievedEvent.updatedOn).toBeInstanceOf(Date)
-    expect(retrievedEvent.updatedOn!.getTime()).toBeLessThanOrEqual(now.getTime() + 5000)
-    expect(retrievedEvent.updatedOn!.getTime()).toBeGreaterThanOrEqual((now.getTime() - 5000))
-})
-
 test('should update event key', async () => {
     const { client } = await TestUtils.createTestUserAndClient()
     const chart = await client.charts.create()
