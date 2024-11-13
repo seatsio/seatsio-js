@@ -139,10 +139,6 @@ export class Events {
     update (eventKey: string, params: UpdateEventParams) {
         const requestParameters: Dict<any> = {}
 
-        if (params.chartKey !== undefined) {
-            requestParameters.chartKey = params.chartKey
-        }
-
         if (params.key !== undefined) {
             requestParameters.eventKey = params.key
         }
