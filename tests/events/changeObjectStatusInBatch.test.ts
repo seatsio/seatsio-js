@@ -3,7 +3,7 @@ import { EventObjectInfo } from '../../src/Events/EventObjectInfo'
 import { StatusChangeRequest } from '../../src/Events/StatusChangeRequest'
 import { CreateEventParams } from '../../src/Events/CreateEventParams'
 import { Channel } from '../../src/Events/Channel'
-import { SeasonParams } from '../../src'
+import { SeasonParams } from '../../src/Seasons/SeasonParams'
 
 test('should change object status in batch', async () => {
     const { client, user } = await TestUtils.createTestUserAndClient()
