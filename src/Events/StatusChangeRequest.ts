@@ -3,6 +3,8 @@ import { ObjectOrObjects } from './Events'
 export class StatusChangeRequest {
     static TYPE_RELEASE = 'RELEASE'
     static TYPE_CHANGE_STATUS_TO = 'CHANGE_STATUS_TO'
+    static TYPE_OVERRIDE_SEASON_STATUS = 'OVERRIDE_SEASON_STATUS'
+    static TYPE_USE_SEASON_STATUS = 'USE_SEASON_STATUS'
 
     type = StatusChangeRequest.TYPE_CHANGE_STATUS_TO
     eventKey: string | null = null

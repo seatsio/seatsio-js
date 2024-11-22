@@ -3,6 +3,7 @@ import { EventObjectInfo } from '../../src/Events/EventObjectInfo'
 import { StatusChangeRequest } from '../../src/Events/StatusChangeRequest'
 import { CreateEventParams } from '../../src/Events/CreateEventParams'
 import { Channel } from '../../src/Events/Channel'
+import { SeasonParams } from '../../src/Seasons/SeasonParams'
 
 test('should change object status in batch', async () => {
     const { client, user } = await TestUtils.createTestUserAndClient()
@@ -109,4 +110,37 @@ test('release in batch', async () => {
     expect(result[0].objects['A-1'].status).toBe(EventObjectInfo.FREE)
     const status = await client.events.retrieveObjectInfo(event.key, 'A-1')
     expect(status.status).toBe(EventObjectInfo.FREE)
+})
+
+test('override season status in batch', async () => {
+    const { client, user } = await TestUtils.createTestUserAndClient()
+    const chartKey = TestUtils.getChartKey()
+    await TestUtils.createTestChart(chartKey, user.secretKey)
+    const season = await client.seasons.create(chartKey, new SeasonParams().eventKeys(['event1']))
+    await client.events.book(season.key, ['A-1'])
+
+    const result = await client.events.changeObjectStatusInBatch([
+        new StatusChangeRequest().withType(StatusChangeRequest.TYPE_OVERRIDE_SEASON_STATUS).withEventKey('event1').withObjects(['A-1'])
+    ])
+
+    expect(result[0].objects['A-1'].status).toBe(EventObjectInfo.FREE)
+    const retrievedObjectStatuses = await client.events.retrieveObjectInfos('event1', ['A-1'])
+    expect(retrievedObjectStatuses['A-1'].status).toEqual(EventObjectInfo.FREE)
+})
+
+test('use season status in batch', async () => {
+    const { client, user } = await TestUtils.createTestUserAndClient()
+    const chartKey = TestUtils.getChartKey()
+    await TestUtils.createTestChart(chartKey, user.secretKey)
+    const season = await client.seasons.create(chartKey, new SeasonParams().eventKeys(['event1']))
+    await client.events.book(season.key, ['A-1'])
+    await client.events.overrideSeasonObjectStatus('event1', ['A-1'])
+
+    const result = await client.events.changeObjectStatusInBatch([
+        new StatusChangeRequest().withType(StatusChangeRequest.TYPE_USE_SEASON_STATUS).withEventKey('event1').withObjects(['A-1'])
+    ])
+
+    expect(result[0].objects['A-1'].status).toBe(EventObjectInfo.BOOKED)
+    const retrievedObjectStatuses = await client.events.retrieveObjectInfos('event1', ['A-1'])
+    expect(retrievedObjectStatuses['A-1'].status).toEqual(EventObjectInfo.BOOKED)
 })
