@@ -25,6 +25,10 @@ export class Seasons {
                 requestParameters.key = seasonParams._key
             }
 
+            if (seasonParams.name !== undefined) {
+                requestParameters.name = seasonParams._name
+            }
+
             if (seasonParams._numberOfEvents !== undefined) {
                 requestParameters.numberOfEvents = seasonParams._numberOfEvents
             }
@@ -50,11 +54,15 @@ export class Seasons {
             .then(res => new Season(res.data))
     }
 
-    createPartialSeason (topLevelSeasonKey: string, partialSeasonKey: string | null = null, eventKeys: string[] | null = null) {
+    createPartialSeason (topLevelSeasonKey: string, partialSeasonKey: string | null = null, name: string | null = null, eventKeys: string[] | null = null) {
         const requestParameters: Dict<any> = {}
 
         if (partialSeasonKey !== null) {
             requestParameters.key = partialSeasonKey
+        }
+
+        if (name !== null) {
+            requestParameters.name = name
         }
 
         if (eventKeys !== null) {
