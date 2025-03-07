@@ -33,6 +33,15 @@ test('key can be passed in', async () => {
     expect(season.key).toBe('aSeason')
 })
 
+test('name can be passed in', async () => {
+    const { client } = await TestUtils.createTestUserAndClient()
+    const chart = await client.charts.create()
+
+    const season = await client.seasons.create(chart.key, new SeasonParams().name('aSeason'))
+
+    expect(season.name).toBe('aSeason')
+})
+
 test('number of events can be passed in', async () => {
     const { client } = await TestUtils.createTestUserAndClient()
     const chart = await client.charts.create()

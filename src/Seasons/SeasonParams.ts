@@ -5,6 +5,7 @@ import { ForSaleConfig } from '../Events/ForSaleConfig'
 export class SeasonParams {
     _eventKeys?: string[]
     _key?: string
+    _name?: string
     _numberOfEvents?: number
     _tableBookingConfig?: TableBookingConfig
     _channels?: Channel[]
@@ -12,6 +13,11 @@ export class SeasonParams {
 
     key (key: string) {
         this._key = key
+        return this
+    }
+
+    name (name: string) {
+        this._name = name
         return this
     }
 

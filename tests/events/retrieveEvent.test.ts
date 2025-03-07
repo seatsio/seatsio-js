@@ -61,7 +61,7 @@ test('retrieve partial season', async () => {
     const chartKey = TestUtils.getChartKey()
     await TestUtils.createTestChart(chartKey, user.secretKey)
     const season = await client.seasons.create(chartKey, new SeasonParams().eventKeys(['event1', 'event2']))
-    const partialSeason1 = await client.seasons.createPartialSeason(season.key, null, ['event1', 'event2'])
+    const partialSeason1 = await client.seasons.createPartialSeason(season.key, null, null, ['event1', 'event2'])
     await client.seasons.createPartialSeason(season.key)
 
     const retrievedSeason = <Season> await client.events.retrieve(partialSeason1.key)
