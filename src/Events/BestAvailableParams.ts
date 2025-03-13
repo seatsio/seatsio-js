@@ -4,6 +4,7 @@ export class BestAvailableParams {
     number?: number
     categories?: string[]
     zone?: string
+    sections?: string[]
     extraData?: Dict<any>
     ticketTypes?: string[]
     tryToPreventOrphanSeats?: boolean
@@ -21,6 +22,11 @@ export class BestAvailableParams {
 
     withZone (zone: string) {
         this.zone = zone
+        return this
+    }
+
+    withSections (sections: string[]) {
+        this.sections = sections
         return this
     }
 
