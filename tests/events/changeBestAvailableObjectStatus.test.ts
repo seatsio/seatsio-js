@@ -39,6 +39,19 @@ test('should change best available object status with zone', async () => {
     expect(bestAvailableObjsMidtrack.objects.sort()).toEqual(['MT3-A-139'])
 })
 
+test('should change best available object status with sections', async () => {
+    const { client, user } = await TestUtils.createTestUserAndClient()
+    const chartKey = TestUtils.getChartKey()
+    await TestUtils.createTestChartWithSections(chartKey, user.secretKey)
+    const event = await client.events.create(chartKey)
+
+    const bestAvailableObjectsSectionA = await client.events.changeBestAvailableObjectStatus(event.key, new BestAvailableParams().withNumber(1).withSections(['Section A']), 'lolzor')
+    expect(bestAvailableObjectsSectionA.objects.sort()).toEqual(['Section A-A-1'])
+
+    const bestAvailableObjectsSectionB = await client.events.changeBestAvailableObjectStatus(event.key, new BestAvailableParams().withNumber(1).withSections(['Section B']), 'lolzor')
+    expect(bestAvailableObjectsSectionB.objects.sort()).toEqual(['Section B-A-1'])
+})
+
 test('should change best available object status with extra data', async () => {
     const { client, user } = await TestUtils.createTestUserAndClient()
     const chartKey = TestUtils.getChartKey()
