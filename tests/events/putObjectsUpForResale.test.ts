@@ -7,7 +7,7 @@ test('should put objects up for resale', async () => {
     await TestUtils.createTestChart(chartKey, user.secretKey)
     const event = await client.events.create(chartKey)
 
-    const bookRes = await client.events.putUpForResale(event.key, ['A-1', 'A-2'])
+    const bookRes = await client.events.putUpForResale(event.key, ['A-1', 'A-2'], 'listing1')
 
     const promises = [
         client.events.retrieveObjectInfo(event.key, 'A-1'),
@@ -15,6 +15,8 @@ test('should put objects up for resale', async () => {
     ]
     const retrievedObjectStatuses = await Promise.all(promises)
     expect(retrievedObjectStatuses[0].status).toEqual(EventObjectInfo.RESALE)
+    expect(retrievedObjectStatuses[0].resaleListingId).toEqual('listing1')
     expect(retrievedObjectStatuses[1].status).toEqual(EventObjectInfo.RESALE)
+    expect(retrievedObjectStatuses[1].resaleListingId).toEqual('listing1')
     expect(Object.keys(bookRes.objects).sort()).toEqual(['A-1', 'A-2'])
 })

@@ -17,6 +17,7 @@ export class StatusChangeRequest {
     channelKeys: string[] | null = null
     allowedPreviousStatuses: string[] | null = null
     rejectedPreviousStatuses: string[] | null = null
+    resaleListingId: string | null = null
 
     withType (type: string) {
         this.type = type
@@ -70,6 +71,11 @@ export class StatusChangeRequest {
 
     withRejectedPreviousStatuses (rejectedPreviousStatuses: string[]) {
         this.rejectedPreviousStatuses = rejectedPreviousStatuses
+        return this
+    }
+
+    withResaleListingId (resaleListingId: string) {
+        this.resaleListingId = resaleListingId
         return this
     }
 }

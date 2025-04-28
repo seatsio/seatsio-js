@@ -290,8 +290,10 @@ export class Events {
             })
     }
 
-    changeObjectStatus (eventKeyOrKeys: string | string[], objectOrObjects: ObjectOrObjects, status: string, holdToken: string | null = null, orderId: string | null = null, keepExtraData: boolean | null = null, ignoreChannels: boolean | null = null, channelKeys: string[] | null = null, allowedPreviousStatuses: string[] | null = null, rejectedPreviousStatuses: string[] | null = null) {
-        const request = this.changeStatusToRequest(StatusChangeRequest.TYPE_CHANGE_STATUS_TO, objectOrObjects, status, holdToken, orderId, keepExtraData, ignoreChannels, channelKeys, allowedPreviousStatuses, rejectedPreviousStatuses)
+    changeObjectStatus (eventKeyOrKeys: string | string[], objectOrObjects: ObjectOrObjects, status: string, holdToken: string | null = null, orderId: string | null = null,
+        keepExtraData: boolean | null = null, ignoreChannels: boolean | null = null, channelKeys: string[] | null = null,
+        allowedPreviousStatuses: string[] | null = null, rejectedPreviousStatuses: string[] | null = null, resaleListingId: string | null = null) {
+        const request = this.changeStatusToRequest(StatusChangeRequest.TYPE_CHANGE_STATUS_TO, objectOrObjects, status, holdToken, orderId, keepExtraData, ignoreChannels, channelKeys, allowedPreviousStatuses, rejectedPreviousStatuses, resaleListingId)
         return this.doChangeStatus(request, eventKeyOrKeys)
     }
 
@@ -313,7 +315,8 @@ export class Events {
                 r.ignoreChannels,
                 r.channelKeys,
                 r.allowedPreviousStatuses,
-                r.rejectedPreviousStatuses
+                r.rejectedPreviousStatuses,
+                r.resaleListingId
             )
             json.event = r.eventKey
             return json
@@ -324,19 +327,23 @@ export class Events {
             .then(res => res.data.results.map((r: Dict<EventObjectInfoJson>) => new ChangeObjectStatusResult(r.objects)))
     }
 
-    changeStatusToRequest (type: string, objectOrObjects: ObjectOrObjects, status: string | null, holdToken: string | null, orderId: string | null, keepExtraData: boolean | null, ignoreChannels: boolean | null, channelKeys: string[] | null = null, allowedPreviousStatuses: string[] | null = null, rejectedPreviousStatuses: string[] | null = null) {
-        const request = this.buildChangeObjectStatusRequest(objectOrObjects, status, holdToken, orderId, keepExtraData, ignoreChannels, channelKeys, allowedPreviousStatuses, rejectedPreviousStatuses)
+    changeStatusToRequest (type: string, objectOrObjects: ObjectOrObjects, status: string | null, holdToken: string | null, orderId: string | null,
+        keepExtraData: boolean | null, ignoreChannels: boolean | null, channelKeys: string[] | null = null,
+        allowedPreviousStatuses: string[] | null = null, rejectedPreviousStatuses: string[] | null = null, resaleListingId: string | null = null) {
+        const request = this.buildChangeObjectStatusRequest(objectOrObjects, status, holdToken, orderId, keepExtraData, ignoreChannels, channelKeys, allowedPreviousStatuses, rejectedPreviousStatuses, resaleListingId)
         request.type = type
         return request
     }
 
     private releaseObjectsRequest (objectOrObjects: ObjectOrObjects, holdToken: string | null, orderId: string | null, keepExtraData: boolean | null, ignoreChannels: boolean | null, channelKeys: string[] | null = null, allowedPreviousStatuses: string[] | null = null, rejectedPreviousStatuses: string[] | null = null) {
-        const request = this.buildChangeObjectStatusRequest(objectOrObjects, null, holdToken, orderId, keepExtraData, ignoreChannels, channelKeys, allowedPreviousStatuses, rejectedPreviousStatuses)
+        const request = this.buildChangeObjectStatusRequest(objectOrObjects, null, holdToken, orderId, keepExtraData, ignoreChannels, channelKeys, allowedPreviousStatuses, rejectedPreviousStatuses, null)
         request.type = 'RELEASE'
         return request
     }
 
-    private buildChangeObjectStatusRequest (objectOrObjects: ObjectOrObjects, status: string | null, holdToken: string | null, orderId: string | null, keepExtraData: boolean | null, ignoreChannels: boolean | null, channelKeys: string[] | null, allowedPreviousStatuses: string[] | null, rejectedPreviousStatuses: string[] | null) {
+    private buildChangeObjectStatusRequest (objectOrObjects: ObjectOrObjects, status: string | null, holdToken: string | null, orderId: string | null,
+        keepExtraData: boolean | null, ignoreChannels: boolean | null, channelKeys: string[] | null,
+        allowedPreviousStatuses: string[] | null, rejectedPreviousStatuses: string[] | null, resaleListingId: string | null) {
         const request: Dict<any> = {}
         request.objects = this.normalizeObjects(objectOrObjects)
         if (status != null) {
@@ -363,6 +370,9 @@ export class Events {
         if (rejectedPreviousStatuses !== null) {
             request.rejectedPreviousStatuses = rejectedPreviousStatuses
         }
+        if (resaleListingId !== null) {
+            request.resaleListingId = resaleListingId
+        }
         return request
     }
 
@@ -374,8 +384,8 @@ export class Events {
         return this.changeBestAvailableObjectStatus(encodeURIComponent(eventKey), bestAvailableParams, EventObjectInfo.BOOKED, holdToken, orderId, keepExtraData, ignoreChannels, channelKeys)
     }
 
-    putUpForResale (eventKeyOrKeys: string | string[], objectOrObjects: ObjectOrObjects) {
-        return this.changeObjectStatus(eventKeyOrKeys, objectOrObjects, EventObjectInfo.RESALE)
+    putUpForResale (eventKeyOrKeys: string | string[], objectOrObjects: ObjectOrObjects, resaleListingId: string | null = null) {
+        return this.changeObjectStatus(eventKeyOrKeys, objectOrObjects, EventObjectInfo.RESALE, null, null, null, null, null, null, null, resaleListingId)
     }
 
     release (eventKeyOrKeys: string | string[], objectOrObjects: ObjectOrObjects, holdToken: string | null = null, orderId: string | null = null, keepExtraData: boolean | null = null, ignoreChannels: boolean | null = null, channelKeys: string[] | null = null) {
