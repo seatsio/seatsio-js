@@ -50,6 +50,7 @@ export class EventObjectInfo {
     numNotForSale?: number
     zone?: string
     floor?: Floor
+    resaleListingId?: string
 
     constructor (json: EventObjectInfoJson) {
         this.label = json.label
@@ -90,5 +91,6 @@ export class EventObjectInfo {
         this.seasonStatusOverriddenQuantity = json.seasonStatusOverriddenQuantity
         this.zone = json.zone
         this.floor = json.floor ? new Floor(json.floor.name, json.floor.displayName) : undefined
+        this.resaleListingId = json.resaleListingId
     }
 }

@@ -44,6 +44,7 @@ test('report properties', async () => {
     expect(reportItem.bookAsAWhole).toBe(undefined)
     expect(reportItem.distanceToFocalPoint).toBeTruthy()
     expect(reportItem.seasonStatusOverriddenQuantity).toBe(0)
+    expect(reportItem.resaleListingId).toBe(undefined)
 
     const gaItem = report.GA1[0]
     expect(gaItem.variableOccupancy).toBe(true)
@@ -394,4 +395,17 @@ test('report by specific channel', async () => {
     const report = await client.eventReports.byChannel(event.key, 'channel1')
 
     expect(report.channel1.length).toBe(2)
+})
+
+test('report has resale listing ID', async () => {
+    const { client, user } = await TestUtils.createTestUserAndClient()
+    const chartKey = TestUtils.getChartKey()
+    await TestUtils.createTestChart(chartKey, user.secretKey)
+    const event = await client.events.create(chartKey)
+    await client.events.putUpForResale(event.key, 'A-1', 'listing1')
+
+    const report = await client.eventReports.byLabel(event.key)
+
+    const reportItem = report['A-1'][0]
+    expect(reportItem.resaleListingId).toBe('listing1')
 })

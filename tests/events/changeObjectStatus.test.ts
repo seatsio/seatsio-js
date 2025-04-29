@@ -229,3 +229,15 @@ test('should accept rejectedPreviousStatuses', async () => {
         expect(e.errors[0].code).toBe('ILLEGAL_STATUS_CHANGE')
     }
 })
+
+test('resale listingID', async () => {
+    const { client, user } = await TestUtils.createTestUserAndClient()
+    const chartKey = TestUtils.getChartKey()
+    await TestUtils.createTestChart(chartKey, user.secretKey)
+    const event = await client.events.create(chartKey)
+
+    await client.events.changeObjectStatus(event.key, 'A-1', EventObjectInfo.RESALE, null, null, null, null, null, null, null, 'listing1')
+
+    const objectInfo = await client.events.retrieveObjectInfo(event.key, 'A-1')
+    expect(objectInfo.resaleListingId).toBe('listing1')
+})

@@ -144,3 +144,28 @@ test('use season status in batch', async () => {
     const retrievedObjectStatuses = await client.events.retrieveObjectInfos('event1', ['A-1'])
     expect(retrievedObjectStatuses['A-1'].status).toEqual(EventObjectInfo.BOOKED)
 })
+
+test('resale listingID', async () => {
+    const { client, user } = await TestUtils.createTestUserAndClient()
+
+    const chartKey1 = TestUtils.getChartKey()
+    await TestUtils.createTestChart(chartKey1, user.secretKey)
+    const event1 = await client.events.create(chartKey1)
+
+    const chartKey2 = TestUtils.getChartKey()
+    await TestUtils.createTestChart(chartKey2, user.secretKey)
+    const event2 = await client.events.create(chartKey2)
+
+    const result = await client.events.changeObjectStatusInBatch([
+        new StatusChangeRequest().withType(StatusChangeRequest.TYPE_CHANGE_STATUS_TO).withEventKey(event1.key).withObjects(['A-1']).withStatus(EventObjectInfo.RESALE).withResaleListingId('listing1'),
+        new StatusChangeRequest().withType(StatusChangeRequest.TYPE_CHANGE_STATUS_TO).withEventKey(event2.key).withObjects(['A-2']).withStatus(EventObjectInfo.RESALE).withResaleListingId('listing1')
+    ])
+
+    expect(result[0].objects['A-1'].resaleListingId).toBe('listing1')
+    const status1 = await client.events.retrieveObjectInfo(event1.key, 'A-1')
+    expect(status1.resaleListingId).toBe('listing1')
+
+    expect(result[1].objects['A-2'].resaleListingId).toBe('listing1')
+    const status2 = await client.events.retrieveObjectInfo(event2.key, 'A-2')
+    expect(status2.resaleListingId).toBe('listing1')
+})
