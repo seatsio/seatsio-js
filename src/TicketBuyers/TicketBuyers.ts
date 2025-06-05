@@ -3,6 +3,8 @@ import { SeatsioClient } from '../SeatsioClient'
 import { Dict } from '../Dict'
 import { AddTicketBuyerIdsResponse } from './AddTicketBuyerIdsResponse'
 import { RemoveTicketBuyerIdsResponse } from './RemoveTicketBuyerIdsResponse'
+import { Lister } from '../Lister'
+import { Page } from '../Page'
 
 export class TicketBuyers {
     client: Axios
@@ -29,5 +31,15 @@ export class TicketBuyers {
             '/ticket-buyers',
             { data: request }
         ).then(response => new RemoveTicketBuyerIdsResponse(response.data))
+    }
+
+    listAll () {
+        return this.iterator().all()
+    }
+
+    iterator (): Lister<string, string> {
+        return new Lister<string, string>('/ticket-buyers', this.client, 'ticketBuyerIds', data => {
+            return new Page<string>(data.items, data.next_page_starts_after, data.previous_page_ends_before)
+        })
     }
 }

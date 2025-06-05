@@ -115,6 +115,13 @@ export class AsyncIterator<T> {
         this.pages.push(new Page(eventLogItems, data.next_page_starts_after, data.previous_page_ends_before))
     }
 
+    ticketBuyerIds (data: PaginatedJson<string>) {
+        // @ts-ignore
+        this.items = data.items
+        // @ts-ignore
+        this.pages.push(new Page(data.items, data.next_page_starts_after, data.previous_page_ends_before))
+    }
+
     users (data: PaginatedJson<UserJson>) {
         const users: User[] = []
         data.items.forEach((userData: UserJson) => {
@@ -158,6 +165,9 @@ export class AsyncIterator<T> {
                     break
                 case 'eventLogItems':
                     this.eventLogItems(res.data)
+                    break
+                case 'ticketBuyerIds':
+                    this.ticketBuyerIds(res.data)
                     break
                 default:
                     throw new Error(`Unknown object type '${this.objType}'`)
