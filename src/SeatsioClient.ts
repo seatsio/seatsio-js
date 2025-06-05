@@ -13,6 +13,7 @@ import { Seasons } from './Seasons/Seasons'
 import { Region } from './Region'
 import axios, { Axios } from 'axios'
 import { EventLog } from './EventLog/EventLog'
+import { TicketBuyers } from './TicketBuyers/TicketBuyers'
 
 export class SeatsioClient {
     accounts: Accounts
@@ -30,6 +31,7 @@ export class SeatsioClient {
     users: Users
     workspaces: Workspaces
     eventLog: EventLog
+    ticketBuyers: TicketBuyers
 
     constructor (region: Region, secretKey?: string, workspaceKey: string | undefined = undefined, extraHeaders: object = {}) {
         // @ts-expect-error TS(2345): Argument of type '{ baseURL: string; auth: { username... Remove this comment to see the full error message
@@ -53,6 +55,7 @@ export class SeatsioClient {
         this.usageReports = new UsageReports(this.client)
         this.seasons = new Seasons(this.client, this)
         this.eventLog = new EventLog(this.client, this)
+        this.ticketBuyers = new TicketBuyers(this.client, this)
     }
 
     _axiosConfig (baseUrl: string, secretKey: string, workspaceKey: string, extraHeaders: any) {
