@@ -41,6 +41,10 @@ export class Workspaces {
         return this.client.post(`/workspaces/${key}/actions/deactivate`)
     }
 
+    delete (key: string) {
+        return this.client.delete(`/workspaces/${key}`)
+    }
+
     retrieve (key: string) {
         return this.client.get(`/workspaces/${key}`).then(res => new Workspace(res.data))
     }
