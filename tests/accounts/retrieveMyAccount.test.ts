@@ -17,6 +17,6 @@ test('should retrieve my account', async () => {
     expect(myAccount.settings.chartValidation.VALIDATE_FOCAL_POINT).toBe('OFF')
     expect(myAccount.settings.chartValidation.VALIDATE_OBJECT_TYPES_PER_CATEGORY).toBe('OFF')
     expect(myAccount.settings.chartValidation.VALIDATE_EMPTY_FLOOR).toBe('OFF')
-    expect(myAccount.settings.defaultRendererSettings.showFullScreenButton).toBe(true)
+    expect(myAccount.settings.defaultRendererSettings.showFullScreenButton).toBe(false)
     expect(myAccount.settings.defaultRendererSettings.multiSelectEnabled).toBe(false)
 })
