@@ -728,16 +728,6 @@
   resolved "https://registry.yarnpkg.com/@jest/get-type/-/get-type-30.0.1.tgz#0d32f1bbfba511948ad247ab01b9007724fc9f52"
   integrity sha512-AyYdemXCptSRFirI5EPazNxyPwAL0jXt3zceFjaj8NFiKP9pOi0bfXonf6qkf82z2t3QWPeLCWWw4stPBzctLw==
 
-"@jest/globals@29.7.0", "@jest/globals@^29.7.0":
-  version "29.7.0"
-  resolved "https://registry.yarnpkg.com/@jest/globals/-/globals-29.7.0.tgz#8d9290f9ec47ff772607fa864ca1d5a2efae1d4d"
-  integrity sha512-mpiz3dutLbkW2MNFubUGUEVLkTGiqW6yLVTA+JbP6fI6J5iL9Y0Nlg8k95pcF8ctKwCS7WVxteBs29hhfAotzQ==
-  dependencies:
-    "@jest/environment" "^29.7.0"
-    "@jest/expect" "^29.7.0"
-    "@jest/types" "^29.6.3"
-    jest-mock "^29.7.0"
-
 "@jest/globals@30.0.3":
   version "30.0.3"
   resolved "https://registry.yarnpkg.com/@jest/globals/-/globals-30.0.3.tgz#9c9ef55e6f5e6b7e946244bdbf2af85044b7bb04"
@@ -747,6 +737,16 @@
     "@jest/expect" "30.0.3"
     "@jest/types" "30.0.1"
     jest-mock "30.0.2"
+
+"@jest/globals@^29.7.0":
+  version "29.7.0"
+  resolved "https://registry.yarnpkg.com/@jest/globals/-/globals-29.7.0.tgz#8d9290f9ec47ff772607fa864ca1d5a2efae1d4d"
+  integrity sha512-mpiz3dutLbkW2MNFubUGUEVLkTGiqW6yLVTA+JbP6fI6J5iL9Y0Nlg8k95pcF8ctKwCS7WVxteBs29hhfAotzQ==
+  dependencies:
+    "@jest/environment" "^29.7.0"
+    "@jest/expect" "^29.7.0"
+    "@jest/types" "^29.6.3"
+    jest-mock "^29.7.0"
 
 "@jest/pattern@30.0.1":
   version "30.0.1"
