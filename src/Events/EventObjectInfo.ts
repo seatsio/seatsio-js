@@ -19,6 +19,7 @@ export class EventObjectInfo {
     categoryLabel?: string
     channel?: string
     displayedObjectType?: string
+    parentDisplayedObjectType?: string
     distanceToFocalPoint?: number
     entrance?: string
     extraData?: object
@@ -77,6 +78,7 @@ export class EventObjectInfo {
         this.isCompanionSeat = json.isCompanionSeat
         this.hasRestrictedView = json.hasRestrictedView
         this.displayedObjectType = json.displayedObjectType
+        this.parentDisplayedObjectType = json.parentDisplayedObjectType
         this.leftNeighbour = json.leftNeighbour
         this.rightNeighbour = json.rightNeighbour
         this.isAvailable = json.isAvailable
