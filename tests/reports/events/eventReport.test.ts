@@ -37,6 +37,7 @@ test('report properties', async () => {
     expect(reportItem.isCompanionSeat).toBe(false)
     expect(reportItem.hasRestrictedView).toBe(false)
     expect(reportItem.displayedObjectType).toBe(undefined)
+    expect(reportItem.parentDisplayedObjectType).toBe(undefined)
     expect(reportItem.leftNeighbour).toBe(undefined)
     expect(reportItem.rightNeighbour).toBe('A-2')
     expect(reportItem.isAvailable).toBe(false)
@@ -102,6 +103,7 @@ test('report properties for GA', async () => {
     expect(reportItem.isCompanionSeat).toBe(undefined)
     expect(reportItem.hasRestrictedView).toBe(undefined)
     expect(reportItem.displayedObjectType).toBe(undefined)
+    expect(reportItem.parentDisplayedObjectType).toBe(undefined)
     expect(reportItem.bookAsAWhole).toBe(false)
 })
 
