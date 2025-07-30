@@ -1,10 +1,10 @@
+import { Axios } from 'axios'
 import { Lister } from '../Lister'
 import { Page } from '../Page'
-import { Chart, ChartJson } from './Chart'
-import { Axios } from 'axios'
-import { ChartListParams } from './ChartListParams'
 import { CategoryJson, CategoryKey } from './Category'
 import { CategoryUpdateParams } from './CategoryUpdateParams'
+import { Chart, ChartJson, Venue } from './Chart'
+import { ChartListParams } from './ChartListParams'
 
 export class Charts {
     archive: Lister<Chart, ChartJson>
@@ -18,7 +18,7 @@ export class Charts {
         })
     }
 
-    create (name: string | null = null, venueType: string | null = null, categories: CategoryJson[] | null = null) {
+    create (name: string | null = null, venueType: Venue | null = null, categories: CategoryJson[] | null = null) {
         const requestParameters: any = {}
 
         if (name !== null) {

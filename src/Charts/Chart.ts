@@ -1,10 +1,11 @@
+import { Dict } from '../Dict'
+import { Event, EventJson } from '../Events/Event'
 import { EventDeserializer } from '../Events/EventDeserializer'
 import { ChartValidation } from './ChartValidation'
-import { Event, EventJson } from '../Events/Event'
-import { Dict } from '../Dict'
 import { Zone, ZoneJson } from './Zone'
 
 export type ChartJson = Dict<any>
+export type Venue = 'SIMPLE' | 'WITH_SECTIONS_AND_FLOORS' | 'WITH_ZONES'
 
 export class Chart {
     archived: boolean
@@ -17,7 +18,7 @@ export class Chart {
     status: string
     tags: string[]
     validation?: ChartValidation
-    venueType?: string
+    venueType?: Venue
     zones?: Zone[]
 
     constructor (chart: ChartJson) {
