@@ -11,7 +11,7 @@ export class EventLogItem {
     constructor (json: EventLogItemJson) {
         this.id = json.id
         this.type = json.type
-        this.timestamp = new Date(json.date)
+        this.timestamp = new Date(json.timestamp)
         this.data = json.data
     }
 }
