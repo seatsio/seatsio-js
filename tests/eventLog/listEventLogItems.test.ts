@@ -27,6 +27,7 @@ test('properties', async () => {
 
     expect(eventLogItem.id).toBeGreaterThan(0)
     expect(eventLogItem.type).toEqual('chart.created')
-    expect(eventLogItem.timestamp).toBeTruthy()
+    expect(eventLogItem.timestamp).toBeInstanceOf(Date)
+    expect(eventLogItem.timestamp.getTime()).not.toBeNaN()
     expect(eventLogItem.data).toEqual({ key: chart.key, workspaceKey: workspace.key })
 })
