@@ -58,7 +58,7 @@ export class SeatsioClient {
         this.ticketBuyers = new TicketBuyers(this.client, this)
     }
 
-    _axiosConfig (baseUrl: string, secretKey: string, workspaceKey: string, sandboxKey: string, extraHeaders: any) {
+    _axiosConfig (baseUrl: string, secretKey: string, workspaceKey: string, sandboxKey: string | undefined, extraHeaders: any) {
         const config = {
             baseURL: baseUrl,
             auth: {
