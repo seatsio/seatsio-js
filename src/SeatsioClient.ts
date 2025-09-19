@@ -33,9 +33,9 @@ export class SeatsioClient {
     eventLog: EventLog
     ticketBuyers: TicketBuyers
 
-    constructor (region: Region, secretKey?: string, workspaceKey: string | undefined = undefined, sandboxKey: string | undefined = undefined, extraHeaders: object = {}) {
+    constructor (region: Region, secretKey?: string, workspaceKey: string | undefined = undefined, extraHeaders: object = {}) {
         // @ts-expect-error TS(2345): Argument of type '{ baseURL: string; auth: { username... Remove this comment to see the full error message
-        this.client = axios.create(this._axiosConfig(region.url, secretKey, workspaceKey, sandboxKey, extraHeaders))
+        this.client = axios.create(this._axiosConfig(region.url, secretKey, workspaceKey, extraHeaders))
 
         this._setupRequestListenerInterceptors()
         // @ts-ignore
@@ -58,7 +58,7 @@ export class SeatsioClient {
         this.ticketBuyers = new TicketBuyers(this.client, this)
     }
 
-    _axiosConfig (baseUrl: string, secretKey: string, workspaceKey: string, sandboxKey: string | undefined, extraHeaders: any) {
+    _axiosConfig (baseUrl: string, secretKey: string, workspaceKey: string, extraHeaders: any) {
         const config = {
             baseURL: baseUrl,
             auth: {
@@ -76,10 +76,6 @@ export class SeatsioClient {
 
         if (workspaceKey) {
             config.headers['X-Workspace-Key'] = workspaceKey
-        }
-
-        if (sandboxKey) {
-            config.headers['X-Sandbox-Key'] = sandboxKey
         }
 
         return config
