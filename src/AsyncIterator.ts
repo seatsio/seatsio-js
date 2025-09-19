@@ -45,7 +45,7 @@ export class AsyncIterator<T, Y> {
                 }
 
                 const page = this.pageCreator(res.data)
-                this.items = page.items
+                this.items = [...this.items, ...page.items]
                 this.pages.push(page)
             })
     }
