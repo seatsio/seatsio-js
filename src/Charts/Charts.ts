@@ -12,7 +12,7 @@ export class Charts {
 
     constructor (client: Axios) {
         this.client = client
-        this.archive = new Lister<Chart, ChartJson>('/charts/archive', this.client, 'charts', data => {
+        this.archive = new Lister<Chart, ChartJson>('/charts/archive', this.client, data => {
             const charts = data.items.map((chartData: ChartJson) => new Chart(chartData))
             return new Page(charts, data.next_page_starts_after, data.previous_page_ends_before)
         })
@@ -176,7 +176,7 @@ export class Charts {
     }
 
     iterator () {
-        return new Lister<Chart, ChartJson>('/charts', this.client, 'charts', data => {
+        return new Lister<Chart, ChartJson>('/charts', this.client, data => {
             const charts = data.items.map(chartData => new Chart(chartData))
             return new Page(charts, data.next_page_starts_after, data.previous_page_ends_before)
         })

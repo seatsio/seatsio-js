@@ -110,21 +110,21 @@ export class Workspaces {
     }
 
     iterator () {
-        return new Lister<Workspace, WorkspaceJson>('/workspaces', this.client, 'workspaces', data => {
+        return new Lister<Workspace, WorkspaceJson>('/workspaces', this.client, data => {
             const workspaces = data.items.map(json => new Workspace(json))
             return new Page(workspaces, data.next_page_starts_after, data.previous_page_ends_before)
         })
     }
 
     activeWorkspacesIterator () {
-        return new Lister<Workspace, WorkspaceJson>('/workspaces/active', this.client, 'workspaces', data => {
+        return new Lister<Workspace, WorkspaceJson>('/workspaces/active', this.client, data => {
             const workspaces = data.items.map(json => new Workspace(json))
             return new Page(workspaces, data.next_page_starts_after, data.previous_page_ends_before)
         })
     }
 
     inactiveWorkspacesIterator () {
-        return new Lister<Workspace, WorkspaceJson>('/workspaces/inactive', this.client, 'workspaces', data => {
+        return new Lister<Workspace, WorkspaceJson>('/workspaces/inactive', this.client, data => {
             const workspaces = data.items.map(json => new Workspace(json))
             return new Page(workspaces, data.next_page_starts_after, data.previous_page_ends_before)
         })

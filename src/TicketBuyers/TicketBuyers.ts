@@ -38,7 +38,7 @@ export class TicketBuyers {
     }
 
     iterator (): Lister<string, string> {
-        return new Lister<string, string>('/ticket-buyers', this.client, 'ticketBuyerIds', data => {
+        return new Lister<string, string>('/ticket-buyers', this.client, data => {
             return new Page<string>(data.items, data.next_page_starts_after, data.previous_page_ends_before)
         })
     }

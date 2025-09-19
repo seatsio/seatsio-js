@@ -196,21 +196,21 @@ export class Events {
     }
 
     iterator () {
-        return new Lister<Event, EventJson>('/events', this.client, 'events', data => {
+        return new Lister<Event, EventJson>('/events', this.client, data => {
             const events = data.items.map(eventData => new EventDeserializer().fromJson(eventData))
             return new Page(events, data.next_page_starts_after, data.previous_page_ends_before)
         })
     }
 
     statusChanges (eventKey: string) {
-        return new Lister<StatusChange, StatusChangeJson>(`/events/${encodeURIComponent(eventKey)}/status-changes`, this.client, 'statusChanges', data => {
+        return new Lister<StatusChange, StatusChangeJson>(`/events/${encodeURIComponent(eventKey)}/status-changes`, this.client, data => {
             const statusChanges = data.items.map(statusChangesData => new StatusChange(statusChangesData))
             return new Page<StatusChange>(statusChanges, data.next_page_starts_after, data.previous_page_ends_before)
         })
     }
 
     statusChangesForObject (eventKey: string, objectId: string) {
-        return new Lister<StatusChange, StatusChangeJson>(`/events/${encodeURIComponent(eventKey)}/objects/${encodeURIComponent(objectId)}/status-changes`, this.client, 'statusChanges', data => {
+        return new Lister<StatusChange, StatusChangeJson>(`/events/${encodeURIComponent(eventKey)}/objects/${encodeURIComponent(objectId)}/status-changes`, this.client, data => {
             const statusChanges = data.items.map(statusChangesData => new StatusChange(statusChangesData))
             return new Page(statusChanges, data.next_page_starts_after, data.previous_page_ends_before)
         })
