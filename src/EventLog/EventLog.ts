@@ -30,7 +30,7 @@ export class EventLog {
     }
 
     iterator () {
-        return new Lister<EventLogItem, EventLogItemJson>('/event-log', this.client, 'eventLogItems', data => {
+        return new Lister<EventLogItem, EventLogItemJson>('/event-log', this.client, data => {
             const eventLogItems = data.items.map(json => new EventLogItem(json))
             return new Page(eventLogItems, data.next_page_starts_after, data.previous_page_ends_before)
         })

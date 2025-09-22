@@ -51,7 +51,7 @@ export class Users {
     }
 
     iterator () {
-        return new Lister<User, UserJson>('/users', this.client, 'users', data => {
+        return new Lister<User, UserJson>('/users', this.client, data => {
             const users = data.items.map(usersData => new User(usersData))
             return new Page(users, data.next_page_starts_after, data.previous_page_ends_before)
         })

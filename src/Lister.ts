@@ -6,17 +6,15 @@ import { Page } from './Page'
 export class Lister<T, Y> {
     client: Axios
     pageFetcher: PageFetcher<T, Y>
-    type: string
     url: string
-    constructor (url: string, client: Axios, type: string, pageCreatorFunction: (data: PaginatedJson<Y>) => Page<T>) {
+    constructor (url: string, client: Axios, pageCreatorFunction: (data: PaginatedJson<Y>) => Page<T>) {
         this.pageFetcher = new PageFetcher<T, Y>(url, client, pageCreatorFunction)
         this.url = url
         this.client = client
-        this.type = type
     }
 
     all (queryParams: object | null = null) {
-        return new AsyncIterator<T>(this.url, this.client, this.type, Lister.serialize(queryParams) || {})
+        return new AsyncIterator<T, Y>(this.url, this.client, this.pageFetcher.pageCreator, Lister.serialize(queryParams) || {})
     }
 
     firstPage (queryParams: object | null = null, pageSize: number | null = null) {
