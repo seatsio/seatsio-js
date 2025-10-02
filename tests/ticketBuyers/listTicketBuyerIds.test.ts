@@ -1,12 +1,11 @@
 import { TestUtils } from '../testUtils'
-import { v4 as randomUuid } from 'uuid'
 
 test('can list ticket buyer ids', async () => {
     const { client } = await TestUtils.createTestUserAndClient()
 
-    const ticketBuyerId1 = randomUuid()
-    const ticketBuyerId2 = randomUuid()
-    const ticketBuyerId3 = randomUuid()
+    const ticketBuyerId1 = crypto.randomUUID()
+    const ticketBuyerId2 = crypto.randomUUID()
+    const ticketBuyerId3 = crypto.randomUUID()
 
     await client.ticketBuyers.add([ticketBuyerId1, ticketBuyerId2, ticketBuyerId3])
 
