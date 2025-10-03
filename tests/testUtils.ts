@@ -1,5 +1,4 @@
 import axios from 'axios'
-import { v4 as uuidv4 } from 'uuid'
 import * as fs from 'fs'
 import path from 'path'
 import { Labels } from '../src/Common/Labels'
@@ -29,7 +28,7 @@ export class TestUtils {
     }
 
     static getChartKey () {
-        return uuidv4()
+        return crypto.randomUUID()
     }
 
     static createClient (secretKey: string, workspaceKey?: string) {
@@ -86,7 +85,7 @@ export class TestUtils {
     }
 
     static getRandomEmail () {
-        return uuidv4() + '@mailinator.com'
+        return crypto.randomUUID() + '@mailinator.com'
     }
 
     static async createArray (length: number, fn: Function) {
