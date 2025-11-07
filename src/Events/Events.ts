@@ -249,8 +249,8 @@ export class Events {
         return result
     }
 
-    // @deprecated
-    markAsForSale (eventKey: string, objects: string[] | null = null, areaPlaces: object | null = null, categories: string[] | null = null) {
+    replaceForSaleConfig (eventKey: string, forSale: boolean, objects: string[] | null = null, areaPlaces: object | null = null, categories: string[] | null = null) {
+        const action = forSale ? 'mark-as-for-sale' : 'mark-as-not-for-sale'
         const requestParameters: Dict<any> = {}
         if (objects !== null) {
             requestParameters.objects = objects
@@ -262,23 +262,17 @@ export class Events {
             requestParameters.categories = categories
         }
 
-        return this.client.post(`events/${encodeURIComponent(eventKey)}/actions/mark-as-for-sale`, requestParameters)
+        return this.client.post(`events/${encodeURIComponent(eventKey)}/actions/` + action, requestParameters)
+    }
+
+    // @deprecated
+    markAsForSale (eventKey: string, objects: string[] | null = null, areaPlaces: object | null = null, categories: string[] | null = null) {
+        return this.replaceForSaleConfig(eventKey, true, objects, areaPlaces, categories)
     }
 
     // @deprecated
     markAsNotForSale (eventKey: string, objects: string[] | null = null, areaPlaces: object | null = null, categories: string[] | null = null) {
-        const requestParameters: Dict<any> = {}
-        if (objects !== null) {
-            requestParameters.objects = objects
-        }
-        if (areaPlaces !== null) {
-            requestParameters.areaPlaces = areaPlaces
-        }
-        if (categories !== null) {
-            requestParameters.categories = categories
-        }
-
-        return this.client.post(`events/${encodeURIComponent(eventKey)}/actions/mark-as-not-for-sale`, requestParameters)
+        return this.replaceForSaleConfig(eventKey, false, objects, areaPlaces, categories)
     }
 
     markEverythingAsForSale (eventKey: string) {
