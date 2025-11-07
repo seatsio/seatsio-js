@@ -5,7 +5,7 @@ import { EventObjectInfo } from '../../../src/Events/EventObjectInfo'
 import { TableBookingConfig } from '../../../src/Events/TableBookingConfig'
 import { CreateEventParams } from '../../../src/Events/CreateEventParams'
 import { Channel } from '../../../src/Events/Channel'
-import { SeasonParams } from '../../../src/Seasons/SeasonParams'
+import { CreateSeasonParams } from '../../../src/Seasons/CreateSeasonParams'
 
 test('report properties', async () => {
     const { client, user } = await TestUtils.createTestUserAndClient()
@@ -71,7 +71,7 @@ test('report has seasonStatusOverriddenQuantity', async () => {
     const { client, user } = await TestUtils.createTestUserAndClient()
     const chartKey = TestUtils.getChartKey()
     await TestUtils.createTestChart(chartKey, user.secretKey)
-    const season = await client.seasons.create(chartKey, new SeasonParams().numberOfEvents(1))
+    const season = await client.seasons.create(chartKey, new CreateSeasonParams().numberOfEvents(1))
     const event = season.events![0]
     await client.events.overrideSeasonObjectStatus(event.key, ['A-1'])
 

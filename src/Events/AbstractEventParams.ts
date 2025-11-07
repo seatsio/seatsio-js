@@ -1,6 +1,5 @@
 import { TableBookingConfig } from './TableBookingConfig'
 import { Category } from '../Charts/Category'
-import { LocalDate } from '../LocalDate'
 
 export abstract class AbstractEventParams {
     key?: string
@@ -8,7 +7,6 @@ export abstract class AbstractEventParams {
     objectCategories?: object
     categories?: Category[]
     name?: string
-    date?: LocalDate
 
     withKey (key: string) {
         this.key = key
@@ -32,11 +30,6 @@ export abstract class AbstractEventParams {
 
     withName (name: string) {
         this.name = name
-        return this
-    }
-
-    withDate (date: LocalDate) {
-        this.date = date
         return this
     }
 }

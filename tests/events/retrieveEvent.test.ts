@@ -1,6 +1,6 @@
 import { TestUtils } from '../testUtils'
 import { TableBookingConfig } from '../../src/Events/TableBookingConfig'
-import { SeasonParams } from '../../src/Seasons/SeasonParams'
+import { CreateSeasonParams } from '../../src/Seasons/CreateSeasonParams'
 import { Season } from '../../src/Seasons/Season'
 import { Event } from '../../src/Events/Event'
 
@@ -31,7 +31,7 @@ test('retrieve season', async () => {
     const { client, user } = await TestUtils.createTestUserAndClient()
     const chartKey = TestUtils.getChartKey()
     await TestUtils.createTestChart(chartKey, user.secretKey)
-    const season = await client.seasons.create(chartKey, new SeasonParams().eventKeys(['event1', 'event2']))
+    const season = await client.seasons.create(chartKey, new CreateSeasonParams().eventKeys(['event1', 'event2']))
     const partialSeason1 = await client.seasons.createPartialSeason(season.key)
     const partialSeason2 = await client.seasons.createPartialSeason(season.key)
 
@@ -60,7 +60,7 @@ test('retrieve partial season', async () => {
     const { client, user } = await TestUtils.createTestUserAndClient()
     const chartKey = TestUtils.getChartKey()
     await TestUtils.createTestChart(chartKey, user.secretKey)
-    const season = await client.seasons.create(chartKey, new SeasonParams().eventKeys(['event1', 'event2']))
+    const season = await client.seasons.create(chartKey, new CreateSeasonParams().eventKeys(['event1', 'event2']))
     const partialSeason1 = await client.seasons.createPartialSeason(season.key, null, null, ['event1', 'event2'])
     await client.seasons.createPartialSeason(season.key)
 
@@ -88,7 +88,7 @@ test('retrieve event in season', async () => {
     const { client, user } = await TestUtils.createTestUserAndClient()
     const chartKey = TestUtils.getChartKey()
     await TestUtils.createTestChart(chartKey, user.secretKey)
-    const season = await client.seasons.create(chartKey, new SeasonParams().eventKeys(['event1', 'event2']))
+    const season = await client.seasons.create(chartKey, new CreateSeasonParams().eventKeys(['event1', 'event2']))
 
     const retrievedEvent = await client.events.retrieve('event1')
 

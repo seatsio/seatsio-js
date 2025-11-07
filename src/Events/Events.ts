@@ -13,6 +13,13 @@ import { StatusChangeRequest } from './StatusChangeRequest'
 import { CreateEventParams } from './CreateEventParams'
 import { UpdateEventParams } from './UpdateEventParams'
 import { BestAvailableParams } from './BestAvailableParams'
+import { ForSaleConfig } from './ForSaleConfig'
+import { ForSaleConfigParams } from './ForSaleConfigParams'
+
+export interface ObjectAndQuantity {
+    object: string
+    quantity?: number
+}
 
 export interface ObjectIdAndTicketType {
     objectId: string
@@ -216,6 +223,33 @@ export class Events {
         })
     }
 
+    async editForSaleConfig (eventKey: string, forSale: ObjectAndQuantity[] | null = null, notForSale: ObjectAndQuantity[] | null = null) {
+        const requestParameters: Dict<any> = {}
+        if (forSale !== null) {
+            requestParameters.forSale = forSale
+        }
+        if (notForSale !== null) {
+            requestParameters.notForSale = notForSale
+        }
+
+        const res = await this.client.post(`events/${encodeURIComponent(eventKey)}/actions/edit-for-sale-config`, requestParameters)
+        const json = res.data
+        return new ForSaleConfig(json.forSaleConfig.forSale, json.forSaleConfig.objects, json.forSaleConfig.areaPlaces, json.forSaleConfig.categories)
+    }
+
+    async editForSaleConfigForEvents (events: Dict<ForSaleConfigParams>): Promise<Dict<ForSaleConfig>> {
+        const res = await this.client.post('events/actions/edit-for-sale-config', { events })
+        const json = res.data
+
+        const result: Dict<ForSaleConfig> = {}
+        for (const eventKey of Object.keys(json)) {
+            const forSaleConfigJson = json[eventKey].forSaleConfig
+            result[eventKey] = new ForSaleConfig(forSaleConfigJson.forSale, forSaleConfigJson.objects, forSaleConfigJson.areaPlaces, forSaleConfigJson.categories)
+        }
+        return result
+    }
+
+    // @deprecated
     markAsForSale (eventKey: string, objects: string[] | null = null, areaPlaces: object | null = null, categories: string[] | null = null) {
         const requestParameters: Dict<any> = {}
         if (objects !== null) {
@@ -231,6 +265,7 @@ export class Events {
         return this.client.post(`events/${encodeURIComponent(eventKey)}/actions/mark-as-for-sale`, requestParameters)
     }
 
+    // @deprecated
     markAsNotForSale (eventKey: string, objects: string[] | null = null, areaPlaces: object | null = null, categories: string[] | null = null) {
         const requestParameters: Dict<any> = {}
         if (objects !== null) {
