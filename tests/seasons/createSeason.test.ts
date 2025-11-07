@@ -100,9 +100,8 @@ test('for sale propagated flag can be passed in', async () => {
     const { client, user } = await TestUtils.createTestUserAndClient()
     const chartKey = TestUtils.getChartKey()
     await TestUtils.createTestChart(chartKey, user.secretKey)
-    const forSaleConfig = new ForSaleConfig(false, ['A-1'], { GA1: 5 }, ['Cat1'])
 
-    const season = await client.seasons.create(chartKey, new CreateSeasonParams().forSaleConfig(forSaleConfig).forSalePropagated(false))
+    const season = await client.seasons.create(chartKey, new CreateSeasonParams().forSalePropagated(false))
 
     expect(season.forSalePropagated).toBe(false)
 })
