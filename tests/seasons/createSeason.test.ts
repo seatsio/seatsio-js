@@ -4,6 +4,7 @@ import { Event } from '../../src/Events/Event'
 import { TableBookingConfig } from '../../src/Events/TableBookingConfig'
 import { Channel } from '../../src/Events/Channel'
 import { ForSaleConfig } from '../../src/Events/ForSaleConfig'
+import { Category } from '../../src/Charts/Category'
 
 test('chart key is required', async () => {
     const { client, user } = await TestUtils.createTestUserAndClient()
@@ -104,4 +105,29 @@ test('for sale propagated flag can be passed in', async () => {
     const season = await client.seasons.create(chartKey, new CreateSeasonParams().forSalePropagated(false))
 
     expect(season.forSalePropagated).toBe(false)
+})
+
+test('object categories can be passed in', async () => {
+    const { client, user } = await TestUtils.createTestUserAndClient()
+    const chartKey = TestUtils.getChartKey()
+    await TestUtils.createTestChart(chartKey, user.secretKey)
+
+    const season = await client.seasons.create(chartKey, new CreateSeasonParams().objectCategories({ 'A-1': 10 }))
+
+    expect(season.objectCategories).toEqual({ 'A-1': 10 })
+})
+
+test('categories can be passed in', async () => {
+    const { client, user } = await TestUtils.createTestUserAndClient()
+    const chartKey = TestUtils.getChartKey()
+    await TestUtils.createTestChart(chartKey, user.secretKey)
+
+    const eventCategory = new Category('eventCat1', 'Event Level Category', '#AAABBB', false)
+
+    const season = await client.seasons.create(chartKey, new CreateSeasonParams().categories([eventCategory]))
+
+    expect(season.categories!.length).toEqual(4) // 3 from sampleChart.json, 1 event level category
+    expect(season.categories!.filter((cat: Category) => cat.key === 'eventCat1').length).toEqual(1)
+    expect(season.categories!.filter((cat: Category) => cat.key === 'eventCat1')[0].label).toEqual('Event Level Category')
+    expect(season.categories!.filter((cat: Category) => cat.key === 'eventCat1')[0].color).toEqual('#AAABBB')
 })
