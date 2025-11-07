@@ -27,3 +27,15 @@ test('should mark objects as not for sale', async () => {
     expect(retrievedEvent.forSaleConfig!.forSale).toBe(false)
     expect(retrievedEvent.forSaleConfig!.objects).toEqual(['A-1', 'A-2'])
 })
+
+test('should mark places in area as not for sale', async () => {
+    const { client, user } = await TestUtils.createTestUserAndClient()
+    const chartKey = TestUtils.getChartKey()
+    await TestUtils.createTestChart(chartKey, user.secretKey)
+    const event = await client.events.create(chartKey)
+
+    await client.events.editForSaleConfig(event.key, null, [{ object: 'GA1', quantity: 5 }])
+
+    const retrievedEvent = await client.events.retrieve(event.key)
+    expect(retrievedEvent.forSaleConfig!.areaPlaces).toEqual({ GA1: 5 })
+})
