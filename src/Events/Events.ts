@@ -13,6 +13,13 @@ import { StatusChangeRequest } from './StatusChangeRequest'
 import { CreateEventParams } from './CreateEventParams'
 import { UpdateEventParams } from './UpdateEventParams'
 import { BestAvailableParams } from './BestAvailableParams'
+import { ForSaleConfigParams } from './ForSaleConfigParams'
+import { EditForSaleConfigResult } from './EditForSaleConfigResult'
+
+export interface ObjectAndQuantity {
+    object: string
+    quantity?: number
+}
 
 export interface ObjectIdAndTicketType {
     objectId: string
@@ -216,22 +223,33 @@ export class Events {
         })
     }
 
-    markAsForSale (eventKey: string, objects: string[] | null = null, areaPlaces: object | null = null, categories: string[] | null = null) {
+    async editForSaleConfig (eventKey: string, forSale: ObjectAndQuantity[] | null = null, notForSale: ObjectAndQuantity[] | null = null) {
         const requestParameters: Dict<any> = {}
-        if (objects !== null) {
-            requestParameters.objects = objects
+        if (forSale !== null) {
+            requestParameters.forSale = forSale
         }
-        if (areaPlaces !== null) {
-            requestParameters.areaPlaces = areaPlaces
-        }
-        if (categories !== null) {
-            requestParameters.categories = categories
+        if (notForSale !== null) {
+            requestParameters.notForSale = notForSale
         }
 
-        return this.client.post(`events/${encodeURIComponent(eventKey)}/actions/mark-as-for-sale`, requestParameters)
+        const res = await this.client.post(`events/${encodeURIComponent(eventKey)}/actions/edit-for-sale-config`, requestParameters)
+        const json = res.data
+        return EditForSaleConfigResult.fromJson(json)
     }
 
-    markAsNotForSale (eventKey: string, objects: string[] | null = null, areaPlaces: object | null = null, categories: string[] | null = null) {
+    async editForSaleConfigForEvents (events: Dict<ForSaleConfigParams>): Promise<Dict<EditForSaleConfigResult>> {
+        const res = await this.client.post('events/actions/edit-for-sale-config', { events })
+        const json = res.data
+
+        const result: Dict<EditForSaleConfigResult> = {}
+        for (const eventKey of Object.keys(json)) {
+            result[eventKey] = EditForSaleConfigResult.fromJson(json[eventKey])
+        }
+        return result
+    }
+
+    replaceForSaleConfig (eventKey: string, forSale: boolean, objects: string[] | null = null, areaPlaces: object | null = null, categories: string[] | null = null) {
+        const action = forSale ? 'mark-as-for-sale' : 'mark-as-not-for-sale'
         const requestParameters: Dict<any> = {}
         if (objects !== null) {
             requestParameters.objects = objects
@@ -243,7 +261,17 @@ export class Events {
             requestParameters.categories = categories
         }
 
-        return this.client.post(`events/${encodeURIComponent(eventKey)}/actions/mark-as-not-for-sale`, requestParameters)
+        return this.client.post(`events/${encodeURIComponent(eventKey)}/actions/` + action, requestParameters)
+    }
+
+    // @deprecated
+    markAsForSale (eventKey: string, objects: string[] | null = null, areaPlaces: object | null = null, categories: string[] | null = null) {
+        return this.replaceForSaleConfig(eventKey, true, objects, areaPlaces, categories)
+    }
+
+    // @deprecated
+    markAsNotForSale (eventKey: string, objects: string[] | null = null, areaPlaces: object | null = null, categories: string[] | null = null) {
+        return this.replaceForSaleConfig(eventKey, false, objects, areaPlaces, categories)
     }
 
     markEverythingAsForSale (eventKey: string) {

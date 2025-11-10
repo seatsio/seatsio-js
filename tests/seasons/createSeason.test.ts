@@ -1,9 +1,10 @@
 import { TestUtils } from '../testUtils'
-import { SeasonParams } from '../../src/Seasons/SeasonParams'
+import { CreateSeasonParams } from '../../src/Seasons/CreateSeasonParams'
 import { Event } from '../../src/Events/Event'
 import { TableBookingConfig } from '../../src/Events/TableBookingConfig'
 import { Channel } from '../../src/Events/Channel'
 import { ForSaleConfig } from '../../src/Events/ForSaleConfig'
+import { Category } from '../../src/Charts/Category'
 
 test('chart key is required', async () => {
     const { client, user } = await TestUtils.createTestUserAndClient()
@@ -28,7 +29,7 @@ test('key can be passed in', async () => {
     const { client } = await TestUtils.createTestUserAndClient()
     const chart = await client.charts.create()
 
-    const season = await client.seasons.create(chart.key, new SeasonParams().key('aSeason'))
+    const season = await client.seasons.create(chart.key, new CreateSeasonParams().key('aSeason'))
 
     expect(season.key).toBe('aSeason')
 })
@@ -37,7 +38,7 @@ test('name can be passed in', async () => {
     const { client } = await TestUtils.createTestUserAndClient()
     const chart = await client.charts.create()
 
-    const season = await client.seasons.create(chart.key, new SeasonParams().name('aSeason'))
+    const season = await client.seasons.create(chart.key, new CreateSeasonParams().name('aSeason'))
 
     expect(season.name).toBe('aSeason')
 })
@@ -46,7 +47,7 @@ test('number of events can be passed in', async () => {
     const { client } = await TestUtils.createTestUserAndClient()
     const chart = await client.charts.create()
 
-    const season = await client.seasons.create(chart.key, new SeasonParams().numberOfEvents(2))
+    const season = await client.seasons.create(chart.key, new CreateSeasonParams().numberOfEvents(2))
 
     expect(season.events!.length).toBe(2)
 })
@@ -55,7 +56,7 @@ test('event keys can be passed in', async () => {
     const { client } = await TestUtils.createTestUserAndClient()
     const chart = await client.charts.create()
 
-    const season = await client.seasons.create(chart.key, new SeasonParams().eventKeys(['event1', 'event2']))
+    const season = await client.seasons.create(chart.key, new CreateSeasonParams().eventKeys(['event1', 'event2']))
 
     expect(season.events!.map((event: Event) => event.key)).toEqual(['event1', 'event2'])
 })
@@ -66,7 +67,7 @@ test('table booking config can be passed in', async () => {
     await TestUtils.createTestChartWithTables(chartKey, user.secretKey)
     const tableBookingConfig = TableBookingConfig.custom({ T1: 'BY_TABLE', T2: 'BY_SEAT' })
 
-    const season = await client.seasons.create(chartKey, new SeasonParams().tableBookingConfig(tableBookingConfig))
+    const season = await client.seasons.create(chartKey, new CreateSeasonParams().tableBookingConfig(tableBookingConfig))
 
     expect(season.tableBookingConfig).toEqual(tableBookingConfig)
 })
@@ -80,18 +81,53 @@ test('channels can be passed in', async () => {
         new Channel({ key: 'channelKey2', name: 'channel 2', color: 'red', index: 2, objects: ['A-3'] })
     ]
 
-    const season = await client.seasons.create(chartKey, new SeasonParams().channels(channels))
+    const season = await client.seasons.create(chartKey, new CreateSeasonParams().channels(channels))
 
     expect(season.channels).toEqual(channels)
 })
 
-test('for-sale config can be passed in', async () => {
+test('for sale config can be passed in', async () => {
     const { client, user } = await TestUtils.createTestUserAndClient()
     const chartKey = TestUtils.getChartKey()
     await TestUtils.createTestChart(chartKey, user.secretKey)
     const forSaleConfig = new ForSaleConfig(false, ['A-1'], { GA1: 5 }, ['Cat1'])
 
-    const season = await client.seasons.create(chartKey, new SeasonParams().forSaleConfig(forSaleConfig))
+    const season = await client.seasons.create(chartKey, new CreateSeasonParams().forSaleConfig(forSaleConfig))
 
     expect(season.forSaleConfig).toEqual(forSaleConfig)
+})
+
+test('for sale propagated flag can be passed in', async () => {
+    const { client, user } = await TestUtils.createTestUserAndClient()
+    const chartKey = TestUtils.getChartKey()
+    await TestUtils.createTestChart(chartKey, user.secretKey)
+
+    const season = await client.seasons.create(chartKey, new CreateSeasonParams().forSalePropagated(false))
+
+    expect(season.forSalePropagated).toBe(false)
+})
+
+test('object categories can be passed in', async () => {
+    const { client, user } = await TestUtils.createTestUserAndClient()
+    const chartKey = TestUtils.getChartKey()
+    await TestUtils.createTestChart(chartKey, user.secretKey)
+
+    const season = await client.seasons.create(chartKey, new CreateSeasonParams().objectCategories({ 'A-1': 10 }))
+
+    expect(season.objectCategories).toEqual({ 'A-1': 10 })
+})
+
+test('categories can be passed in', async () => {
+    const { client, user } = await TestUtils.createTestUserAndClient()
+    const chartKey = TestUtils.getChartKey()
+    await TestUtils.createTestChart(chartKey, user.secretKey)
+
+    const eventCategory = new Category('eventCat1', 'Event Level Category', '#AAABBB', false)
+
+    const season = await client.seasons.create(chartKey, new CreateSeasonParams().categories([eventCategory]))
+
+    expect(season.categories!.length).toEqual(4) // 3 from sampleChart.json, 1 event level category
+    expect(season.categories!.filter((cat: Category) => cat.key === 'eventCat1').length).toEqual(1)
+    expect(season.categories!.filter((cat: Category) => cat.key === 'eventCat1')[0].label).toEqual('Event Level Category')
+    expect(season.categories!.filter((cat: Category) => cat.key === 'eventCat1')[0].color).toEqual('#AAABBB')
 })

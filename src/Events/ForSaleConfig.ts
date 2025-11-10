@@ -12,4 +12,8 @@ export class ForSaleConfig {
         this.objects = objects
         this.categories = categories
     }
+
+    static fromJson (json: any) {
+        return new ForSaleConfig(json.forSale, json.objects, json.areaPlaces, json.categories)
+    }
 }

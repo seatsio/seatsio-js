@@ -13,6 +13,7 @@ export class Event {
     chartKey: string
     createdOn: Date | null
     forSaleConfig: null | ForSaleConfig
+    forSalePropagated: boolean | null
     id: number
     isEventInSeason: boolean
     isPartialSeason: boolean
@@ -34,6 +35,7 @@ export class Event {
         this.tableBookingConfig = json.tableBookingConfig
         this.supportsBestAvailable = json.supportsBestAvailable
         this.forSaleConfig = json.forSaleConfig ? new ForSaleConfig(json.forSaleConfig!.forSale, json.forSaleConfig!.objects, json.forSaleConfig!.areaPlaces, json.forSaleConfig!.categories) : null
+        this.forSalePropagated = json.forSalePropagated === undefined ? null : json.forSalePropagated
         this.chartKey = json.chartKey
         this.createdOn = json.createdOn ? new Date(json.createdOn) : null
         this.updatedOn = json.updatedOn ? new Date(json.updatedOn) : null

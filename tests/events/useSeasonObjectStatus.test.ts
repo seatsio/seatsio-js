@@ -1,12 +1,12 @@
 import { EventObjectInfo } from '../../src/Events/EventObjectInfo'
 import { TestUtils } from '../testUtils'
-import { SeasonParams } from '../../src/Seasons/SeasonParams'
+import { CreateSeasonParams } from '../../src/Seasons/CreateSeasonParams'
 
 test('should use the season object status', async () => {
     const { client, user } = await TestUtils.createTestUserAndClient()
     const chartKey = TestUtils.getChartKey()
     await TestUtils.createTestChart(chartKey, user.secretKey)
-    const season = await client.seasons.create(chartKey, new SeasonParams().eventKeys(['anEvent']))
+    const season = await client.seasons.create(chartKey, new CreateSeasonParams().eventKeys(['anEvent']))
     await client.events.book(season.key, ['A-1', 'A-2'])
     await client.events.overrideSeasonObjectStatus('anEvent', ['A-1', 'A-2'])
 

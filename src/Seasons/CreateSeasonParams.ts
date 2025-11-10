@@ -1,15 +1,19 @@
 import { TableBookingConfig } from '../Events/TableBookingConfig'
 import { Channel } from '../Events/Channel'
 import { ForSaleConfig } from '../Events/ForSaleConfig'
+import { Category } from '../Charts/Category'
 
-export class SeasonParams {
+export class CreateSeasonParams {
     _eventKeys?: string[]
     _key?: string
     _name?: string
     _numberOfEvents?: number
     _tableBookingConfig?: TableBookingConfig
+    _objectCategories?: object
+    _categories?: Category[]
     _channels?: Channel[]
     _forSaleConfig?: ForSaleConfig
+    _forSalePropagated?: boolean
 
     key (key: string) {
         this._key = key
@@ -43,6 +47,21 @@ export class SeasonParams {
 
     forSaleConfig (forSaleConfig: ForSaleConfig) {
         this._forSaleConfig = forSaleConfig
+        return this
+    }
+
+    forSalePropagated (forSalePropagated: boolean) {
+        this._forSalePropagated = forSalePropagated
+        return this
+    }
+
+    objectCategories (objectCategories: object) {
+        this._objectCategories = objectCategories
+        return this
+    }
+
+    categories (categories: Category[]) {
+        this._categories = categories
         return this
     }
 }

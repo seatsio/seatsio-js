@@ -4,7 +4,7 @@ import { TestUtils } from '../testUtils'
 import { LocalDate } from '../../src/LocalDate'
 import { CreateEventParams } from '../../src/Events/CreateEventParams'
 import { UpdateEventParams } from '../../src/Events/UpdateEventParams'
-import { SeasonParams } from '../../src/Seasons/SeasonParams'
+import { CreateSeasonParams } from '../../src/Seasons/CreateSeasonParams'
 
 test('should update event key', async () => {
     const { client } = await TestUtils.createTestUserAndClient()
@@ -22,7 +22,7 @@ test('should update event key', async () => {
 test('should mark the event as in the past', async () => {
     const { client } = await TestUtils.createTestUserAndClient()
     const chart = await client.charts.create()
-    await client.seasons.create(chart.key, new SeasonParams().eventKeys(['event1', 'event2']))
+    await client.seasons.create(chart.key, new CreateSeasonParams().eventKeys(['event1', 'event2']))
 
     await client.events.update('event1', new UpdateEventParams().withIsInThePast(true))
 

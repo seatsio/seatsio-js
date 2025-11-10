@@ -3,7 +3,7 @@ import { EventObjectInfo } from '../../src/Events/EventObjectInfo'
 import { StatusChangeRequest } from '../../src/Events/StatusChangeRequest'
 import { CreateEventParams } from '../../src/Events/CreateEventParams'
 import { Channel } from '../../src/Events/Channel'
-import { SeasonParams } from '../../src/Seasons/SeasonParams'
+import { CreateSeasonParams } from '../../src/Seasons/CreateSeasonParams'
 
 test('should change object status in batch', async () => {
     const { client, user } = await TestUtils.createTestUserAndClient()
@@ -116,7 +116,7 @@ test('override season status in batch', async () => {
     const { client, user } = await TestUtils.createTestUserAndClient()
     const chartKey = TestUtils.getChartKey()
     await TestUtils.createTestChart(chartKey, user.secretKey)
-    const season = await client.seasons.create(chartKey, new SeasonParams().eventKeys(['event1']))
+    const season = await client.seasons.create(chartKey, new CreateSeasonParams().eventKeys(['event1']))
     await client.events.book(season.key, ['A-1'])
 
     const result = await client.events.changeObjectStatusInBatch([
@@ -132,7 +132,7 @@ test('use season status in batch', async () => {
     const { client, user } = await TestUtils.createTestUserAndClient()
     const chartKey = TestUtils.getChartKey()
     await TestUtils.createTestChart(chartKey, user.secretKey)
-    const season = await client.seasons.create(chartKey, new SeasonParams().eventKeys(['event1']))
+    const season = await client.seasons.create(chartKey, new CreateSeasonParams().eventKeys(['event1']))
     await client.events.book(season.key, ['A-1'])
     await client.events.overrideSeasonObjectStatus('event1', ['A-1'])
 

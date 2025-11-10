@@ -1,5 +1,5 @@
 import { TestUtils } from '../testUtils'
-import { SeasonParams } from '../../src/Seasons/SeasonParams'
+import { CreateSeasonParams } from '../../src/Seasons/CreateSeasonParams'
 import { Season } from '../../src/Seasons/Season'
 import { Event } from '../../src/Events/Event'
 import { TableBookingConfig } from '../../src/Events/TableBookingConfig'
@@ -8,7 +8,7 @@ test('retrieve season', async () => {
     const { client, user } = await TestUtils.createTestUserAndClient()
     const chartKey = TestUtils.getChartKey()
     await TestUtils.createTestChart(chartKey, user.secretKey)
-    const season = await client.seasons.create(chartKey, new SeasonParams().eventKeys(['event1', 'event2']))
+    const season = await client.seasons.create(chartKey, new CreateSeasonParams().eventKeys(['event1', 'event2']))
     const partialSeason1 = await client.seasons.createPartialSeason(season.key)
     const partialSeason2 = await client.seasons.createPartialSeason(season.key)
 

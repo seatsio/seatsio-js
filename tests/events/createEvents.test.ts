@@ -157,7 +157,7 @@ test('it supports channels', async () => {
     expect(events[0].channels).toEqual(channels)
 })
 
-test('it supports for-sale config', async () => {
+test('it supports for sale config', async () => {
     const { client, user } = await TestUtils.createTestUserAndClient()
     const chartKey = TestUtils.getChartKey()
     await TestUtils.createTestChart(chartKey, user.secretKey)
