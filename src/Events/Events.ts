@@ -243,8 +243,7 @@ export class Events {
 
         const result: Dict<EditForSaleConfigResult> = {}
         for (const eventKey of Object.keys(json)) {
-            const forSaleConfigJson = json[eventKey].forSaleConfig
-            result[eventKey] = EditForSaleConfigResult.fromJson(forSaleConfigJson)
+            result[eventKey] = EditForSaleConfigResult.fromJson(json[eventKey])
         }
         return result
     }
