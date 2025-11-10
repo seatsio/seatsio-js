@@ -15,6 +15,21 @@ test('should mark objects as for sale', async () => {
     expect(retrievedEvent.forSaleConfig!.objects).toEqual(['A-3'])
 })
 
+test('returns result', async () => {
+    const { client, user } = await TestUtils.createTestUserAndClient()
+    const chartKey = TestUtils.getChartKey()
+    await TestUtils.createTestChart(chartKey, user.secretKey)
+    const event = await client.events.create(chartKey, new CreateEventParams().withForSaleConfig(new ForSaleConfig(false, ['A-1', 'A-2', 'A-3'], {}, [])))
+
+    const result = await client.events.editForSaleConfig(event.key, [{ object: 'A-1' }, { object: 'A-2' }])
+
+    expect(result.forSaleConfig.forSale).toBe(false)
+    expect(result.forSaleConfig.objects).toEqual(['A-3'])
+
+    expect(result.rateLimitInfo.rateLimitRemainingCalls).toBe(9)
+    expect(result.rateLimitInfo.rateLimitResetDate).toBeTruthy()
+})
+
 test('should mark objects as not for sale', async () => {
     const { client, user } = await TestUtils.createTestUserAndClient()
     const chartKey = TestUtils.getChartKey()

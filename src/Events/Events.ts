@@ -13,8 +13,8 @@ import { StatusChangeRequest } from './StatusChangeRequest'
 import { CreateEventParams } from './CreateEventParams'
 import { UpdateEventParams } from './UpdateEventParams'
 import { BestAvailableParams } from './BestAvailableParams'
-import { ForSaleConfig } from './ForSaleConfig'
 import { ForSaleConfigParams } from './ForSaleConfigParams'
+import { EditForSaleConfigResult } from './EditForSaleConfigResult'
 
 export interface ObjectAndQuantity {
     object: string
@@ -234,17 +234,17 @@ export class Events {
 
         const res = await this.client.post(`events/${encodeURIComponent(eventKey)}/actions/edit-for-sale-config`, requestParameters)
         const json = res.data
-        return new ForSaleConfig(json.forSaleConfig.forSale, json.forSaleConfig.objects, json.forSaleConfig.areaPlaces, json.forSaleConfig.categories)
+        return EditForSaleConfigResult.fromJson(json)
     }
 
-    async editForSaleConfigForEvents (events: Dict<ForSaleConfigParams>): Promise<Dict<ForSaleConfig>> {
+    async editForSaleConfigForEvents (events: Dict<ForSaleConfigParams>): Promise<Dict<EditForSaleConfigResult>> {
         const res = await this.client.post('events/actions/edit-for-sale-config', { events })
         const json = res.data
 
-        const result: Dict<ForSaleConfig> = {}
+        const result: Dict<EditForSaleConfigResult> = {}
         for (const eventKey of Object.keys(json)) {
             const forSaleConfigJson = json[eventKey].forSaleConfig
-            result[eventKey] = new ForSaleConfig(forSaleConfigJson.forSale, forSaleConfigJson.objects, forSaleConfigJson.areaPlaces, forSaleConfigJson.categories)
+            result[eventKey] = EditForSaleConfigResult.fromJson(forSaleConfigJson)
         }
         return result
     }
