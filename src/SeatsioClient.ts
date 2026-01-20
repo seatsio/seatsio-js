@@ -1,17 +1,19 @@
+import axios, { Axios, type AxiosRequestConfig, type RawAxiosRequestHeaders } from 'axios'
 import { Accounts } from './Accounts/Accounts'
 import { Charts } from './Charts/Charts'
+import { errorResponseHandler } from './errorInterceptor'
+import { EventLog } from './EventLog/EventLog'
 import { Events } from './Events/Events'
-import { Workspaces } from './Workspaces/Workspaces'
 import { HoldTokens } from './HoldTokens/HoldTokens'
+import { Region } from './Region'
 import { ChartReports } from './Reports/ChartReports'
 import { EventReports } from './Reports/EventReports'
 import { UsageReports } from './Reports/UsageReports'
-import { errorResponseHandler } from './errorInterceptor'
 import { Seasons } from './Seasons/Seasons'
-import { Region } from './Region'
-import axios, { Axios } from 'axios'
-import { EventLog } from './EventLog/EventLog'
 import { TicketBuyers } from './TicketBuyers/TicketBuyers'
+import { Workspaces } from './Workspaces/Workspaces'
+
+const TEN_SECONDS = 10000
 
 export class SeatsioClient {
     accounts: Accounts
@@ -29,7 +31,7 @@ export class SeatsioClient {
     eventLog: EventLog
     ticketBuyers: TicketBuyers
 
-    constructor (region: Region, secretKey: string, workspaceKey: string | undefined = undefined, extraHeaders: object = {}) {
+    constructor (region: Region, secretKey: string, workspaceKey: string | undefined = undefined, extraHeaders: RawAxiosRequestHeaders = {}) {
         this.client = axios.create(this._axiosConfig(region.url, secretKey, workspaceKey, extraHeaders))
 
         this._setupRequestListenerInterceptors()
@@ -50,24 +52,24 @@ export class SeatsioClient {
         this.ticketBuyers = new TicketBuyers(this.client, this)
     }
 
-    _axiosConfig (baseUrl: string, secretKey: string, workspaceKey: string | undefined, extraHeaders: any) {
-        const config = {
+    _axiosConfig (baseUrl: string, secretKey: string, workspaceKey: string | undefined, extraHeaders: RawAxiosRequestHeaders) {
+        const headers: RawAxiosRequestHeaders = {
+            ...extraHeaders,
+            'X-Client-Lib': 'js',
+            ...(workspaceKey ? { 'X-Workspace-Key': workspaceKey } : {})
+        }
+
+        const config: AxiosRequestConfig = {
             baseURL: baseUrl,
             auth: {
                 username: secretKey,
                 password: ''
             },
-            headers: extraHeaders,
-            errorHandle: false,
+            headers,
+            timeout: TEN_SECONDS,
             paramsSerializer: {
                 indexes: null
             }
-        }
-
-        config.headers['X-Client-Lib'] = 'js'
-
-        if (workspaceKey) {
-            config.headers['X-Workspace-Key'] = workspaceKey
         }
 
         return config
