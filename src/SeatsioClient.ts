@@ -113,28 +113,27 @@ export class SeatsioClient {
 }
 
 function exponentialBackoffInterceptor (axios: any) {
-    return (response: any) => {
-        if (response.response.status !== 429) {
-            return Promise.reject(response)
+    return (error: any) => {
+        if (error.response?.status !== 429) {
+            return Promise.reject(error)
         }
 
-        const config = response.config
+        const config = error.config
         if (!config) {
-            return Promise.reject(response)
+            return Promise.reject(error)
         }
 
         config.__retryCount = config.__retryCount || 0
         if (config.__retryCount >= axios.maxRetries) {
-            return Promise.reject(response)
+            return Promise.reject(error)
         }
 
-        const backoff = new Promise(resolve => {
+        const backoff = new Promise<void>(resolve => {
             const waitTime = Math.pow(2, config.__retryCount + 2) * 100
             config.__retryCount++
-            // @ts-expect-error TS(2794): Expected 1 arguments, but got 0. Did you forget to... Remove this comment to see the full error message
             setTimeout(() => resolve(), waitTime)
         })
 
-        return backoff.then(() => axios(config))
+        return backoff.then(() => axios.request(config))
     }
 }
