@@ -12,3 +12,10 @@ test('check error handling', async () => {
         expect(e.messages[0]).toContain('Chart not found: unexisting chart was not found in workspace')
     }
 })
+
+test('check timeout error', async () => {
+    const { client } = await TestUtils.createTestUserAndClient()
+    client.client.defaults.timeout = 10
+
+    await expect(client.charts.create()).rejects.toThrow('timeout')
+})
