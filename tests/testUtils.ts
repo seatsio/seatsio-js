@@ -21,7 +21,11 @@ export class TestUtils {
     static createTestCompany () {
         return axios({
             method: 'POST',
-            url: baseUrl + 'system/public/users/actions/create-test-company'
+            url: baseUrl + 'system/private/create-test-company',
+            auth: {
+                username: this.systemApiSecret(),
+                password: ''
+            }
         }).then(response => {
             return response.data
         })
@@ -164,5 +168,13 @@ export class TestUtils {
 
     static isDemoCompanySecretKeySet () {
         return process.env.DEMO_COMPANY_SECRET_KEY !== undefined
+    }
+
+    static systemApiSecret () {
+        const systemAPISecret = process.env.CORE_V2_STAGING_EU_SYSTEM_API_SECRET
+        if (systemAPISecret === undefined) {
+            throw new Error('CORE_V2_STAGING_EU_SYSTEM_API_SECRET must be set')
+        }
+        return systemAPISecret!
     }
 }
