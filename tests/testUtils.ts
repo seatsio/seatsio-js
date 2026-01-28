@@ -7,7 +7,7 @@ import { SeatsioClient } from '../src/SeatsioClient'
 import { Region } from '../src/Region'
 import { LabelAndType } from '../src/Common/LabelAndType'
 
-const baseUrl = 'https://api-staging-eu.seatsio.net/'
+const baseUrl = process.env.API_URL || 'http://localhost:9001'
 
 export class TestUtils {
     static async createTestUserAndClient () {
@@ -21,7 +21,7 @@ export class TestUtils {
     static createTestCompany () {
         return axios({
             method: 'POST',
-            url: baseUrl + 'system/private/create-test-company',
+            url: baseUrl + '/system/private/create-test-company',
             auth: {
                 username: this.systemApiSecret(),
                 password: ''
@@ -71,7 +71,7 @@ export class TestUtils {
                 password: '' // TODO bver check this! Was null in js, is not nullable in ts
             }
         })
-        const url = `${baseUrl}system/public/charts/${chartKey}`
+        const url = `${baseUrl}/system/public/charts/${chartKey}`
         return client.post(url, requestBody)
     }
 
@@ -171,10 +171,6 @@ export class TestUtils {
     }
 
     static systemApiSecret () {
-        const systemAPISecret = process.env.CORE_V2_STAGING_EU_SYSTEM_API_SECRET
-        if (systemAPISecret === undefined) {
-            throw new Error('CORE_V2_STAGING_EU_SYSTEM_API_SECRET must be set')
-        }
-        return systemAPISecret!
+        return process.env.CORE_V2_STAGING_EU_SYSTEM_API_SECRET || 'superSecretSystemApi'
     }
 }
