@@ -31,6 +31,11 @@ export class EventObjectInfo {
     isAccessible?: boolean
     isAvailable: boolean
     isCompanionSeat?: boolean
+    hasLiftUpArmrests?: boolean
+    isHearingImpaired?: boolean
+    isSemiAmbulatorySeat?: boolean
+    hasSignLanguageInterpretation?: boolean
+    isPlusSize?: boolean
     label: string
     labels: Labels
     leftNeighbour?: string
@@ -76,6 +81,11 @@ export class EventObjectInfo {
         this.extraData = json.extraData
         this.isAccessible = json.isAccessible
         this.isCompanionSeat = json.isCompanionSeat
+        this.hasLiftUpArmrests = json.hasLiftUpArmrests
+        this.isHearingImpaired = json.isHearingImpaired
+        this.isSemiAmbulatorySeat = json.isSemiAmbulatorySeat
+        this.hasSignLanguageInterpretation = json.hasSignLanguageInterpretation
+        this.isPlusSize = json.isPlusSize
         this.hasRestrictedView = json.hasRestrictedView
         this.displayedObjectType = json.displayedObjectType
         this.parentDisplayedObjectType = json.parentDisplayedObjectType

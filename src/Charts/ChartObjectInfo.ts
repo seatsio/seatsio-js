@@ -23,6 +23,11 @@ export class ChartObjectInfo {
     section?: string
     isAccessible?: boolean
     isCompanionSeat?: boolean
+    hasLiftUpArmrests?: boolean
+    isHearingImpaired?: boolean
+    isSemiAmbulatorySeat?: boolean
+    hasSignLanguageInterpretation?: boolean
+    isPlusSize?: boolean
     hasRestrictedView?: boolean
     zone?: string
     floor?: Floor
@@ -44,6 +49,11 @@ export class ChartObjectInfo {
         this.numSeats = json.numSeats
         this.isAccessible = json.isAccessible
         this.isCompanionSeat = json.isCompanionSeat
+        this.hasLiftUpArmrests = json.hasLiftUpArmrests
+        this.isHearingImpaired = json.isHearingImpaired
+        this.isSemiAmbulatorySeat = json.isSemiAmbulatorySeat
+        this.hasSignLanguageInterpretation = json.hasSignLanguageInterpretation
+        this.isPlusSize = json.isPlusSize
         this.hasRestrictedView = json.hasRestrictedView
         this.zone = json.zone
         this.floor = json.floor ? new Floor(json.floor.name, json.floor.displayName) : undefined
