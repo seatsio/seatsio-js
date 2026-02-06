@@ -112,7 +112,6 @@ test('report properties for GA', async () => {
     expect(reportItem.hasSignLanguageInterpretation).toBe(undefined)
     expect(reportItem.isPlusSize).toBe(undefined)
     expect(reportItem.hasRestrictedView).toBe(undefined)
-    expect(reportItem.hasRestrictedView).toBe(undefined)
     expect(reportItem.displayedObjectType).toBe(undefined)
     expect(reportItem.parentDisplayedObjectType).toBe(undefined)
     expect(reportItem.bookAsAWhole).toBe(false)
