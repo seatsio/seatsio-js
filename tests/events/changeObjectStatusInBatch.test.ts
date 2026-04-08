@@ -128,6 +128,22 @@ test('override season status in batch', async () => {
     expect(retrievedObjectStatuses['A-1'].status).toEqual(EventObjectInfo.FREE)
 })
 
+test('override season status in batch with season key', async () => {
+    const { client, user } = await TestUtils.createTestUserAndClient()
+    const chartKey = TestUtils.getChartKey()
+    await TestUtils.createTestChart(chartKey, user.secretKey)
+    const season = await client.seasons.create(chartKey, new CreateSeasonParams().eventKeys(['event1']))
+    await client.events.book(season.key, ['A-1'])
+
+    const result = await client.events.changeObjectStatusInBatch([
+        new StatusChangeRequest().withType(StatusChangeRequest.TYPE_OVERRIDE_SEASON_STATUS).withEventKey('event1').withObjects(['A-1']).withSeasonKey(season.key)
+    ])
+
+    expect(result[0].objects['A-1'].status).toBe(EventObjectInfo.FREE)
+    const retrievedObjectStatuses = await client.events.retrieveObjectInfos('event1', ['A-1'])
+    expect(retrievedObjectStatuses['A-1'].status).toEqual(EventObjectInfo.FREE)
+})
+
 test('use season status in batch', async () => {
     const { client, user } = await TestUtils.createTestUserAndClient()
     const chartKey = TestUtils.getChartKey()
@@ -138,6 +154,23 @@ test('use season status in batch', async () => {
 
     const result = await client.events.changeObjectStatusInBatch([
         new StatusChangeRequest().withType(StatusChangeRequest.TYPE_USE_SEASON_STATUS).withEventKey('event1').withObjects(['A-1'])
+    ])
+
+    expect(result[0].objects['A-1'].status).toBe(EventObjectInfo.BOOKED)
+    const retrievedObjectStatuses = await client.events.retrieveObjectInfos('event1', ['A-1'])
+    expect(retrievedObjectStatuses['A-1'].status).toEqual(EventObjectInfo.BOOKED)
+})
+
+test('use season status in batch with season key', async () => {
+    const { client, user } = await TestUtils.createTestUserAndClient()
+    const chartKey = TestUtils.getChartKey()
+    await TestUtils.createTestChart(chartKey, user.secretKey)
+    const season = await client.seasons.create(chartKey, new CreateSeasonParams().eventKeys(['event1']))
+    await client.events.book(season.key, ['A-1'])
+    await client.events.overrideSeasonObjectStatus('event1', ['A-1'])
+
+    const result = await client.events.changeObjectStatusInBatch([
+        new StatusChangeRequest().withType(StatusChangeRequest.TYPE_USE_SEASON_STATUS).withEventKey('event1').withObjects(['A-1']).withSeasonKey(season.key)
     ])
 
     expect(result[0].objects['A-1'].status).toBe(EventObjectInfo.BOOKED)

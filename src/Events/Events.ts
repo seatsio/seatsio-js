@@ -278,12 +278,20 @@ export class Events {
         return this.client.post(`events/${encodeURIComponent(eventKey)}/actions/mark-everything-as-for-sale`)
     }
 
-    overrideSeasonObjectStatus (eventKey: string, objects: string[]) {
-        return this.client.post(`/events/${encodeURIComponent(eventKey)}/actions/override-season-status`, { objects })
+    overrideSeasonObjectStatus (eventKey: string, objects: string[], seasonKey: string | null = null) {
+        const request: Dict<any> = { objects }
+        if (seasonKey !== null) {
+            request.season = seasonKey
+        }
+        return this.client.post(`/events/${encodeURIComponent(eventKey)}/actions/override-season-status`, request)
     }
 
-    useSeasonObjectStatus (eventKey: string, objects: string[]) {
-        return this.client.post(`/events/${encodeURIComponent(eventKey)}/actions/use-season-status`, { objects })
+    useSeasonObjectStatus (eventKey: string, objects: string[], seasonKey: string | null = null) {
+        const request: Dict<any> = { objects }
+        if (seasonKey !== null) {
+            request.season = seasonKey
+        }
+        return this.client.post(`/events/${encodeURIComponent(eventKey)}/actions/use-season-status`, request)
     }
 
     updateExtraData (eventKey: string, obj: string, extraData: object) {
@@ -347,6 +355,9 @@ export class Events {
                 r.resaleListingId
             )
             json.event = r.eventKey
+            if (r.season !== null) {
+                json.season = r.season
+            }
             return json
         })
         const request = { statusChanges: requests }

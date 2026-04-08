@@ -18,6 +18,7 @@ export class StatusChangeRequest {
     allowedPreviousStatuses: string[] | null = null
     rejectedPreviousStatuses: string[] | null = null
     resaleListingId: string | null = null
+    season: string | null = null
 
     withType (type: string) {
         this.type = type
@@ -76,6 +77,11 @@ export class StatusChangeRequest {
 
     withResaleListingId (resaleListingId: string) {
         this.resaleListingId = resaleListingId
+        return this
+    }
+
+    withSeasonKey (seasonKey: string) {
+        this.season = seasonKey
         return this
     }
 }
