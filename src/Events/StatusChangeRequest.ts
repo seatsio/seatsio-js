@@ -80,8 +80,8 @@ export class StatusChangeRequest {
         return this
     }
 
-    withSeason (season: string) {
-        this.season = season
+    withSeasonKey (seasonKey: string) {
+        this.season = seasonKey
         return this
     }
 }

@@ -136,7 +136,7 @@ test('override season status in batch with season key', async () => {
     await client.events.book(season.key, ['A-1'])
 
     const result = await client.events.changeObjectStatusInBatch([
-        new StatusChangeRequest().withType(StatusChangeRequest.TYPE_OVERRIDE_SEASON_STATUS).withEventKey('event1').withObjects(['A-1']).withSeason(season.key)
+        new StatusChangeRequest().withType(StatusChangeRequest.TYPE_OVERRIDE_SEASON_STATUS).withEventKey('event1').withObjects(['A-1']).withSeasonKey(season.key)
     ])
 
     expect(result[0].objects['A-1'].status).toBe(EventObjectInfo.FREE)
@@ -170,7 +170,7 @@ test('use season status in batch with season key', async () => {
     await client.events.overrideSeasonObjectStatus('event1', ['A-1'])
 
     const result = await client.events.changeObjectStatusInBatch([
-        new StatusChangeRequest().withType(StatusChangeRequest.TYPE_USE_SEASON_STATUS).withEventKey('event1').withObjects(['A-1']).withSeason(season.key)
+        new StatusChangeRequest().withType(StatusChangeRequest.TYPE_USE_SEASON_STATUS).withEventKey('event1').withObjects(['A-1']).withSeasonKey(season.key)
     ])
 
     expect(result[0].objects['A-1'].status).toBe(EventObjectInfo.BOOKED)

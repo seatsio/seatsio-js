@@ -278,18 +278,18 @@ export class Events {
         return this.client.post(`events/${encodeURIComponent(eventKey)}/actions/mark-everything-as-for-sale`)
     }
 
-    overrideSeasonObjectStatus (eventKey: string, objects: string[], season: string | null = null) {
+    overrideSeasonObjectStatus (eventKey: string, objects: string[], seasonKey: string | null = null) {
         const request: Dict<any> = { objects }
-        if (season !== null) {
-            request.season = season
+        if (seasonKey !== null) {
+            request.season = seasonKey
         }
         return this.client.post(`/events/${encodeURIComponent(eventKey)}/actions/override-season-status`, request)
     }
 
-    useSeasonObjectStatus (eventKey: string, objects: string[], season: string | null = null) {
+    useSeasonObjectStatus (eventKey: string, objects: string[], seasonKey: string | null = null) {
         const request: Dict<any> = { objects }
-        if (season !== null) {
-            request.season = season
+        if (seasonKey !== null) {
+            request.season = seasonKey
         }
         return this.client.post(`/events/${encodeURIComponent(eventKey)}/actions/use-season-status`, request)
     }
