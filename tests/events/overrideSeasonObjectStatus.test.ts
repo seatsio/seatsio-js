@@ -29,4 +29,3 @@ test('should override the season object status with season key', async () => {
     expect(retrievedObjectStatuses['A-1'].status).toEqual(EventObjectInfo.FREE)
     expect(retrievedObjectStatuses['A-2'].status).toEqual(EventObjectInfo.FREE)
 })
-
