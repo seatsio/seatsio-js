@@ -17,7 +17,8 @@ test('update name', async () => {
             name: 'new channel name',
             color: '#FFFF98',
             index: 1,
-            objects: ['A-1', 'A-2']
+            objects: ['A-1', 'A-2'],
+            areaPlaces: {}
         })
     ])
 })
@@ -38,7 +39,8 @@ test('update color', async () => {
             name: 'channel 1',
             color: 'red',
             index: 1,
-            objects: ['A-1', 'A-2']
+            objects: ['A-1', 'A-2'],
+            areaPlaces: {}
         })
     ])
 })
@@ -59,7 +61,30 @@ test('update objects', async () => {
             name: 'channel 1',
             color: '#FFFF98',
             index: 1,
-            objects: ['B-1']
+            objects: ['B-1'],
+            areaPlaces: {}
+        })
+    ])
+})
+
+test('update areaPlaces', async () => {
+    const { client, user } = await TestUtils.createTestUserAndClient()
+    const chartKey = TestUtils.getChartKey()
+    await TestUtils.createTestChart(chartKey, user.secretKey)
+    const event = await client.events.create(chartKey)
+    await client.events.channels.add(event.key, 'channelKey1', 'channel 1', '#FFFF98', 1, ['A-1', 'A-2'])
+
+    await client.events.channels.update(event.key, 'channelKey1', undefined, undefined, undefined, { GA1: 5 })
+
+    const retrievedEvent = await client.events.retrieve(event.key)
+    expect(retrievedEvent.channels).toEqual([
+        new Channel({
+            key: 'channelKey1',
+            name: 'channel 1',
+            color: '#FFFF98',
+            index: 1,
+            objects: ['A-1', 'A-2'],
+            areaPlaces: { GA1: 5 }
         })
     ])
 })

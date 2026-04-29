@@ -8,6 +8,7 @@ export class Channel {
     key: string
     name: string
     objects: string[]
+    areaPlaces: Dict<number>
 
     constructor (json: ChannelJson) {
         this.key = json.key
@@ -15,5 +16,6 @@ export class Channel {
         this.color = json.color
         this.index = json.index
         this.objects = json.objects
+        this.areaPlaces = json.areaPlaces
     }
 }

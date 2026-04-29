@@ -21,7 +21,8 @@ test('can remove a channel', async () => {
             name: 'channel 1',
             color: '#FFFF98',
             index: 1,
-            objects: ['A-1', 'A-2']
+            objects: ['A-1', 'A-2'],
+            areaPlaces: {}
         })
     ])
 })
