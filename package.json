@@ -37,7 +37,7 @@
     "prettier": "3.8.3",
     "semver": "7.7.4",
     "ts-jest": "29.4.9",
-    "typescript": "5.9.3",
+    "typescript": "6.0.3",
     "zx": "8.8.5"
   }
 }
