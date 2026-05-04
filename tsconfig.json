@@ -11,7 +11,8 @@
       "es2017"
     ],
     "outDir": "./dist",
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "types": ["jest", "node"]
   },
   "include": [
     "src/**/*",
