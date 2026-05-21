@@ -1,5 +1,5 @@
 import { Axios } from 'axios'
-import { Channel } from './Channel'
+import { Channel, ChannelCreationParams } from './Channel'
 import { Dict } from '../Dict'
 
 export class Channels {
@@ -20,7 +20,7 @@ export class Channels {
         })
     }
 
-    addMultiple (eventKey: string, channelCreationParams: Channel[]) {
+    addMultiple (eventKey: string, channelCreationParams: ChannelCreationParams[]) {
         return this.client.post(`/events/${encodeURIComponent(eventKey)}/channels`, channelCreationParams)
     }
 

@@ -2,6 +2,15 @@ import { Dict } from '../Dict'
 
 export type ChannelJson = Dict<any>
 
+export interface ChannelCreationParams {
+    key: string
+    name: string
+    color?: string
+    index?: number
+    objects?: string[]
+    areaPlaces?: Dict<number>
+}
+
 export class Channel {
     color: string
     index: number
