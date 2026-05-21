@@ -21,14 +21,16 @@ test('can add objects, moving them from one channel to another', async () => {
             name: 'channel 1',
             color: '#FFFF98',
             index: 1,
-            objects: ['A-1', 'A-2', 'A-3', 'A-4']
+            objects: ['A-1', 'A-2', 'A-3', 'A-4'],
+            areaPlaces: {}
         }),
         new Channel({
             key: 'channelKey2',
             name: 'channel 2',
             color: '#FFFF99',
             index: 2,
-            objects: []
+            objects: [],
+            areaPlaces: {}
         })
     ])
 })
