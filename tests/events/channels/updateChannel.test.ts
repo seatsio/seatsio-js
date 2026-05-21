@@ -18,7 +18,6 @@ test('update name', async () => {
             color: '#FFFF98',
             index: 1,
             objects: ['A-1', 'A-2'],
-            areaPlaces: {}
         })
     ])
 })
@@ -40,7 +39,6 @@ test('update color', async () => {
             color: 'red',
             index: 1,
             objects: ['A-1', 'A-2'],
-            areaPlaces: {}
         })
     ])
 })
@@ -62,7 +60,6 @@ test('update objects', async () => {
             color: '#FFFF98',
             index: 1,
             objects: ['B-1'],
-            areaPlaces: {}
         })
     ])
 })

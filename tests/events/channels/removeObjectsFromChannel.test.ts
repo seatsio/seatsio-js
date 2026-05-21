@@ -21,7 +21,6 @@ test('can remove objects from channels', async () => {
             color: '#FFFF98',
             index: 1,
             objects: ['A-1', 'A-2'],
-            areaPlaces: {}
         })
     ])
 })
