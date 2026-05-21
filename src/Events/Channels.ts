@@ -20,7 +20,7 @@ export class Channels {
         })
     }
 
-    addMultiple (eventKey: string, channelCreationParams: any) {
+    addMultiple (eventKey: string, channelCreationParams: Channel[]) {
         return this.client.post(`/events/${encodeURIComponent(eventKey)}/channels`, channelCreationParams)
     }
 
@@ -28,7 +28,7 @@ export class Channels {
         return this.client.delete(`/events/${encodeURIComponent(eventKey)}/channels/${encodeURIComponent(channelKey)}`)
     }
 
-    update (eventKey: string, channelKey: string, newChannelName: any, newColor: any, newObjects: any, newAreaPlaces: Dict<number> | undefined = undefined) {
+    update (eventKey: string, channelKey: string, newChannelName: string | undefined, newColor: string | undefined, newObjects: string[] | undefined, newAreaPlaces: Dict<number> | undefined = undefined) {
         return this.client.post(`/events/${encodeURIComponent(eventKey)}/channels/${encodeURIComponent(channelKey)}`, {
             name: newChannelName,
             color: newColor,
