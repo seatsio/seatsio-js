@@ -17,7 +17,7 @@ test('update name', async () => {
             name: 'new channel name',
             color: '#FFFF98',
             index: 1,
-            objects: ['A-1', 'A-2'],
+            objects: ['A-1', 'A-2']
         })
     ])
 })
@@ -38,7 +38,7 @@ test('update color', async () => {
             name: 'channel 1',
             color: 'red',
             index: 1,
-            objects: ['A-1', 'A-2'],
+            objects: ['A-1', 'A-2']
         })
     ])
 })
@@ -59,7 +59,7 @@ test('update objects', async () => {
             name: 'channel 1',
             color: '#FFFF98',
             index: 1,
-            objects: ['B-1'],
+            objects: ['B-1']
         })
     ])
 })
