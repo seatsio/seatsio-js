@@ -1,4 +1,5 @@
 import { TestUtils } from '../../testUtils'
+import { Channel } from '../../../src/Events/Channel'
 
 test('update name', async () => {
     const { client, user } = await TestUtils.createTestUserAndClient()
@@ -10,15 +11,9 @@ test('update name', async () => {
     await client.events.channels.update(event.key, 'channelKey1', 'new channel name', undefined, undefined)
 
     const retrievedEvent = await client.events.retrieve(event.key)
+    const [ch1] = retrievedEvent.channels!
     expect(retrievedEvent.channels).toEqual([
-        expect.objectContaining({
-            key: 'channelKey1',
-            name: 'new channel name',
-            color: '#FFFF98',
-            index: 1,
-            objects: ['A-1', 'A-2'],
-            areaPlaces: {}
-        })
+        new Channel({ id: ch1.id, key: 'channelKey1', name: 'new channel name', color: '#FFFF98', index: 1, objects: ['A-1', 'A-2'], areaPlaces: {} })
     ])
 })
 
@@ -32,15 +27,9 @@ test('update color', async () => {
     await client.events.channels.update(event.key, 'channelKey1', undefined, 'red', undefined)
 
     const retrievedEvent = await client.events.retrieve(event.key)
+    const [ch1] = retrievedEvent.channels!
     expect(retrievedEvent.channels).toEqual([
-        expect.objectContaining({
-            key: 'channelKey1',
-            name: 'channel 1',
-            color: 'red',
-            index: 1,
-            objects: ['A-1', 'A-2'],
-            areaPlaces: {}
-        })
+        new Channel({ id: ch1.id, key: 'channelKey1', name: 'channel 1', color: 'red', index: 1, objects: ['A-1', 'A-2'], areaPlaces: {} })
     ])
 })
 
@@ -54,15 +43,9 @@ test('update objects', async () => {
     await client.events.channels.update(event.key, 'channelKey1', undefined, undefined, ['B-1'])
 
     const retrievedEvent = await client.events.retrieve(event.key)
+    const [ch1] = retrievedEvent.channels!
     expect(retrievedEvent.channels).toEqual([
-        expect.objectContaining({
-            key: 'channelKey1',
-            name: 'channel 1',
-            color: '#FFFF98',
-            index: 1,
-            objects: ['B-1'],
-            areaPlaces: {}
-        })
+        new Channel({ id: ch1.id, key: 'channelKey1', name: 'channel 1', color: '#FFFF98', index: 1, objects: ['B-1'], areaPlaces: {} })
     ])
 })
 
@@ -76,14 +59,8 @@ test('update areaPlaces', async () => {
     await client.events.channels.update(event.key, 'channelKey1', undefined, undefined, undefined, { GA1: 5 })
 
     const retrievedEvent = await client.events.retrieve(event.key)
+    const [ch1] = retrievedEvent.channels!
     expect(retrievedEvent.channels).toEqual([
-        expect.objectContaining({
-            key: 'channelKey1',
-            name: 'channel 1',
-            color: '#FFFF98',
-            index: 1,
-            objects: ['A-1', 'A-2'],
-            areaPlaces: { GA1: 5 }
-        })
+        new Channel({ id: ch1.id, key: 'channelKey1', name: 'channel 1', color: '#FFFF98', index: 1, objects: ['A-1', 'A-2'], areaPlaces: { GA1: 5 } })
     ])
 })

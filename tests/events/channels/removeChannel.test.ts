@@ -1,4 +1,5 @@
 import { TestUtils } from '../../testUtils'
+import { Channel } from '../../../src/Events/Channel'
 
 test('can remove a channel', async () => {
     const {
@@ -14,14 +15,8 @@ test('can remove a channel', async () => {
     await client.events.channels.remove(event.key, 'channelKey2')
 
     const retrievedEvent = await client.events.retrieve(event.key)
+    const [ch1] = retrievedEvent.channels!
     expect(retrievedEvent.channels).toEqual([
-        expect.objectContaining({
-            key: 'channelKey1',
-            name: 'channel 1',
-            color: '#FFFF98',
-            index: 1,
-            objects: ['A-1', 'A-2'],
-            areaPlaces: {}
-        })
+        new Channel({ id: ch1.id, key: 'channelKey1', name: 'channel 1', color: '#FFFF98', index: 1, objects: ['A-1', 'A-2'], areaPlaces: {} })
     ])
 })
