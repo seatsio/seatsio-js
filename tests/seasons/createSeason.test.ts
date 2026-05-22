@@ -3,6 +3,7 @@ import { CreateSeasonParams } from '../../src/Seasons/CreateSeasonParams'
 import { Event } from '../../src/Events/Event'
 import { TableBookingConfig } from '../../src/Events/TableBookingConfig'
 import { ForSaleConfig } from '../../src/Events/ForSaleConfig'
+import { Channel } from '../../src/Events/Channel'
 import { Category } from '../../src/Charts/Category'
 
 test('chart key is required', async () => {
@@ -83,8 +84,8 @@ test('channels can be passed in', async () => {
     const season = await client.seasons.create(chartKey, new CreateSeasonParams().channels(channels))
 
     expect(season.channels).toEqual([
-        expect.objectContaining({ key: 'channelKey1', name: 'channel 1', color: 'blue', index: 1, objects: ['A-1', 'A-2'] }),
-        expect.objectContaining({ key: 'channelKey2', name: 'channel 2', color: 'red', index: 2, objects: ['A-3'] })
+        new Channel({ id: season.channels![0].id, key: 'channelKey1', name: 'channel 1', color: 'blue', index: 1, objects: ['A-1', 'A-2'], areaPlaces: {} }),
+        new Channel({ id: season.channels![1].id, key: 'channelKey2', name: 'channel 2', color: 'red', index: 2, objects: ['A-3'], areaPlaces: {} })
     ])
 })
 

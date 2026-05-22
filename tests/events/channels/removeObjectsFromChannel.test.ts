@@ -1,4 +1,5 @@
 import { TestUtils } from '../../testUtils'
+import { Channel } from '../../../src/Events/Channel'
 
 test('can remove objects from channels', async () => {
     const { client, user } = await TestUtils.createTestUserAndClient()
@@ -10,8 +11,9 @@ test('can remove objects from channels', async () => {
     await client.events.channels.removeObjects(event.key, 'channelKey1', ['A-3', 'A-4'])
 
     const retrievedEvent = await client.events.retrieve(event.key)
+    const [ch1] = retrievedEvent.channels!
     expect(retrievedEvent.channels).toEqual([
-        expect.objectContaining({ key: 'channelKey1', name: 'channel 1', color: '#FFFF98', index: 1, objects: ['A-1', 'A-2'], areaPlaces: {} })
+        new Channel({ id: ch1.id, key: 'channelKey1', name: 'channel 1', color: '#FFFF98', index: 1, objects: ['A-1', 'A-2'], areaPlaces: {} })
     ])
 })
 
@@ -25,7 +27,8 @@ test('can remove areaPlaces from a channel', async () => {
     await client.events.channels.removeObjects(event.key, 'channelKey1', [], { GA1: 2 })
 
     const retrievedEvent = await client.events.retrieve(event.key)
+    const [ch1] = retrievedEvent.channels!
     expect(retrievedEvent.channels).toEqual([
-        expect.objectContaining({ key: 'channelKey1', name: 'channel 1', color: '#FFFF98', index: 1, objects: [], areaPlaces: { GA1: 3 } })
+        new Channel({ id: ch1.id, key: 'channelKey1', name: 'channel 1', color: '#FFFF98', index: 1, objects: [], areaPlaces: { GA1: 3 } })
     ])
 })
