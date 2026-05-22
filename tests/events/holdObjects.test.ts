@@ -1,7 +1,6 @@
 import { TestUtils } from '../testUtils'
 import { EventObjectInfo } from '../../src/Events/EventObjectInfo'
 import { CreateEventParams } from '../../src/Events/CreateEventParams'
-import { Channel } from '../../src/Events/Channel'
 
 test('should hold objects', async () => {
     const { client, user } = await TestUtils.createTestUserAndClient()
@@ -41,7 +40,7 @@ test('should accept channel keys', async () => {
     const chartKey = TestUtils.getChartKey()
     await TestUtils.createTestChart(chartKey, user.secretKey)
     const event = await client.events.create(chartKey, new CreateEventParams().withChannels([
-        new Channel({ key: 'channelKey1', name: 'channel 1', color: 'blue', index: 1, objects: ['A-1'] })
+        { key: 'channelKey1', name: 'channel 1', color: 'blue', index: 1, objects: ['A-1'] }
     ]))
     const holdToken = await client.holdTokens.create()
     await client.events.hold(event.key, ['A-1'], holdToken.holdToken, null, null, null, ['channelKey1'])
@@ -55,7 +54,7 @@ test('should accept ignoreChannels', async () => {
     const chartKey = TestUtils.getChartKey()
     await TestUtils.createTestChart(chartKey, user.secretKey)
     const event = await client.events.create(chartKey, new CreateEventParams().withChannels([
-        new Channel({ key: 'channel1', name: 'channel 1', color: 'blue', index: 1, objects: ['A-1'] })
+        { key: 'channel1', name: 'channel 1', color: 'blue', index: 1, objects: ['A-1'] }
     ]))
     const holdToken = await client.holdTokens.create()
 

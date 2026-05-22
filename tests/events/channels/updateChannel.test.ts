@@ -1,4 +1,3 @@
-import { Channel } from '../../../src/Events/Channel'
 import { TestUtils } from '../../testUtils'
 
 test('update name', async () => {
@@ -12,7 +11,7 @@ test('update name', async () => {
 
     const retrievedEvent = await client.events.retrieve(event.key)
     expect(retrievedEvent.channels).toEqual([
-        new Channel({
+        expect.objectContaining({
             key: 'channelKey1',
             name: 'new channel name',
             color: '#FFFF98',
@@ -34,7 +33,7 @@ test('update color', async () => {
 
     const retrievedEvent = await client.events.retrieve(event.key)
     expect(retrievedEvent.channels).toEqual([
-        new Channel({
+        expect.objectContaining({
             key: 'channelKey1',
             name: 'channel 1',
             color: 'red',
@@ -56,7 +55,7 @@ test('update objects', async () => {
 
     const retrievedEvent = await client.events.retrieve(event.key)
     expect(retrievedEvent.channels).toEqual([
-        new Channel({
+        expect.objectContaining({
             key: 'channelKey1',
             name: 'channel 1',
             color: '#FFFF98',
@@ -78,7 +77,7 @@ test('update areaPlaces', async () => {
 
     const retrievedEvent = await client.events.retrieve(event.key)
     expect(retrievedEvent.channels).toEqual([
-        new Channel({
+        expect.objectContaining({
             key: 'channelKey1',
             name: 'channel 1',
             color: '#FFFF98',

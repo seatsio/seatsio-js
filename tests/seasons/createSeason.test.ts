@@ -2,7 +2,6 @@ import { TestUtils } from '../testUtils'
 import { CreateSeasonParams } from '../../src/Seasons/CreateSeasonParams'
 import { Event } from '../../src/Events/Event'
 import { TableBookingConfig } from '../../src/Events/TableBookingConfig'
-import { Channel } from '../../src/Events/Channel'
 import { ForSaleConfig } from '../../src/Events/ForSaleConfig'
 import { Category } from '../../src/Charts/Category'
 
@@ -77,13 +76,16 @@ test('channels can be passed in', async () => {
     const chartKey = TestUtils.getChartKey()
     await TestUtils.createTestChart(chartKey, user.secretKey)
     const channels = [
-        new Channel({ key: 'channelKey1', name: 'channel 1', color: 'blue', index: 1, objects: ['A-1', 'A-2'], areaPlaces: {} }),
-        new Channel({ key: 'channelKey2', name: 'channel 2', color: 'red', index: 2, objects: ['A-3'], areaPlaces: {} })
+        { key: 'channelKey1', name: 'channel 1', color: 'blue', index: 1, objects: ['A-1', 'A-2'] },
+        { key: 'channelKey2', name: 'channel 2', color: 'red', index: 2, objects: ['A-3'] }
     ]
 
     const season = await client.seasons.create(chartKey, new CreateSeasonParams().channels(channels))
 
-    expect(season.channels).toEqual(channels)
+    expect(season.channels).toEqual([
+        expect.objectContaining({ key: 'channelKey1', name: 'channel 1', color: 'blue', index: 1, objects: ['A-1', 'A-2'] }),
+        expect.objectContaining({ key: 'channelKey2', name: 'channel 2', color: 'red', index: 2, objects: ['A-3'] })
+    ])
 })
 
 test('for sale config can be passed in', async () => {

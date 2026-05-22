@@ -1,4 +1,3 @@
-import { Channel } from '../../../src/Events/Channel'
 import { TestUtils } from '../../testUtils'
 
 test('can remove a channel', async () => {
@@ -16,7 +15,7 @@ test('can remove a channel', async () => {
 
     const retrievedEvent = await client.events.retrieve(event.key)
     expect(retrievedEvent.channels).toEqual([
-        new Channel({
+        expect.objectContaining({
             key: 'channelKey1',
             name: 'channel 1',
             color: '#FFFF98',

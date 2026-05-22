@@ -1,14 +1,14 @@
 import { AbstractEventParams } from './AbstractEventParams'
-import { Channel } from './Channel'
+import { ChannelCreationParams } from './Channel'
 import { ForSaleConfig } from './ForSaleConfig'
 import { LocalDate } from '../LocalDate'
 
 export class CreateEventParams extends AbstractEventParams {
-    channels?: Channel[]
+    channels?: ChannelCreationParams[]
     forSaleConfig?: ForSaleConfig
     date?: LocalDate
 
-    withChannels (channels: Channel[]) {
+    withChannels (channels: ChannelCreationParams[]) {
         this.channels = channels
         return this
     }
