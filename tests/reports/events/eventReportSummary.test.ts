@@ -1,7 +1,6 @@
 import { TestUtils } from '../../testUtils'
 import { ObjectProperties } from '../../../src/Events/ObjectProperties'
 import { CreateEventParams } from '../../../src/Events/CreateEventParams'
-import { Channel } from '../../../src/Events/Channel'
 
 test('summaryByStatus', async () => {
     const { client, user } = await TestUtils.createTestUserAndClient()
@@ -425,7 +424,7 @@ test('summaryByChannel', async () => {
     const chartKey = TestUtils.getChartKey()
     await TestUtils.createTestChart(chartKey, user.secretKey)
     const event = await client.events.create(chartKey, new CreateEventParams().withChannels([
-        new Channel({ key: 'channel1', name: 'channel 1', color: 'blue', index: 1, objects: ['A-1', 'A-2'] })
+        { key: 'channel1', name: 'channel 1', color: 'blue', index: 1, objects: ['A-1', 'A-2'] }
     ]))
 
     const report = await client.eventReports.summaryByChannel(event.key)

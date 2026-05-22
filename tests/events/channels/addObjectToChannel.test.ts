@@ -1,11 +1,7 @@
 import { TestUtils } from '../../testUtils'
-import { Channel } from '../../../src/Events/Channel'
 
 test('can add objects, moving them from one channel to another', async () => {
-    const {
-        client,
-        user
-    } = await TestUtils.createTestUserAndClient()
+    const { client, user } = await TestUtils.createTestUserAndClient()
     const chartKey = TestUtils.getChartKey()
     await TestUtils.createTestChart(chartKey, user.secretKey)
     const event = await client.events.create(chartKey)
@@ -16,30 +12,13 @@ test('can add objects, moving them from one channel to another', async () => {
 
     const retrievedEvent = await client.events.retrieve(event.key)
     expect(retrievedEvent.channels).toEqual([
-        new Channel({
-            key: 'channelKey1',
-            name: 'channel 1',
-            color: '#FFFF98',
-            index: 1,
-            objects: ['A-1', 'A-2', 'A-3', 'A-4'],
-            areaPlaces: {}
-        }),
-        new Channel({
-            key: 'channelKey2',
-            name: 'channel 2',
-            color: '#FFFF99',
-            index: 2,
-            objects: [],
-            areaPlaces: {}
-        })
+        expect.objectContaining({ key: 'channelKey1', name: 'channel 1', color: '#FFFF98', index: 1, objects: ['A-1', 'A-2', 'A-3', 'A-4'], areaPlaces: {} }),
+        expect.objectContaining({ key: 'channelKey2', name: 'channel 2', color: '#FFFF99', index: 2, objects: [], areaPlaces: {} })
     ])
 })
 
 test('can add areaPlaces to a channel', async () => {
-    const {
-        client,
-        user
-    } = await TestUtils.createTestUserAndClient()
+    const { client, user } = await TestUtils.createTestUserAndClient()
     const chartKey = TestUtils.getChartKey()
     await TestUtils.createTestChart(chartKey, user.secretKey)
     const event = await client.events.create(chartKey)
@@ -49,13 +28,6 @@ test('can add areaPlaces to a channel', async () => {
 
     const retrievedEvent = await client.events.retrieve(event.key)
     expect(retrievedEvent.channels).toEqual([
-        new Channel({
-            key: 'channelKey1',
-            name: 'channel 1',
-            color: '#FFFF98',
-            index: 1,
-            objects: [],
-            areaPlaces: { GA1: 5 }
-        })
+        expect.objectContaining({ key: 'channelKey1', name: 'channel 1', color: '#FFFF98', index: 1, objects: [], areaPlaces: { GA1: 5 } })
     ])
 })

@@ -1,5 +1,5 @@
 import { TableBookingConfig } from '../Events/TableBookingConfig'
-import { Channel } from '../Events/Channel'
+import { ChannelCreationParams } from '../Events/Channel'
 import { ForSaleConfig } from '../Events/ForSaleConfig'
 import { Category } from '../Charts/Category'
 
@@ -11,7 +11,7 @@ export class CreateSeasonParams {
     _tableBookingConfig?: TableBookingConfig
     _objectCategories?: object
     _categories?: Category[]
-    _channels?: Channel[]
+    _channels?: ChannelCreationParams[]
     _forSaleConfig?: ForSaleConfig
     _forSalePropagated?: boolean
 
@@ -40,7 +40,7 @@ export class CreateSeasonParams {
         return this
     }
 
-    channels (channels: Channel[]) {
+    channels (channels: ChannelCreationParams[]) {
         this._channels = channels
         return this
     }

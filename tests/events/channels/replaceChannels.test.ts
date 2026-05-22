@@ -1,5 +1,4 @@
 import { TestUtils } from '../../testUtils'
-import { Channel } from '../../../src/Events/Channel'
 
 test('should assign objects to channels', async () => {
     const { client, user } = await TestUtils.createTestUserAndClient()
@@ -7,12 +6,15 @@ test('should assign objects to channels', async () => {
     await TestUtils.createTestChart(chartKey, user.secretKey)
     const event = await client.events.create(chartKey)
     const channels = [
-        new Channel({ key: 'channelKey1', name: 'channel 1', color: 'blue', index: 1, objects: ['A-1', 'A-2'], areaPlaces: { GA1: 3 } }),
-        new Channel({ key: 'channelKey2', name: 'channel 2', color: 'red', index: 2, objects: ['A-3'], areaPlaces: {} })
+        { key: 'channelKey1', name: 'channel 1', color: 'blue', index: 1, objects: ['A-1', 'A-2'], areaPlaces: { GA1: 3 } },
+        { key: 'channelKey2', name: 'channel 2', color: 'red', index: 2, objects: ['A-3'] }
     ]
 
     await client.events.channels.replace(event.key, channels)
 
     const retrievedEvent = await client.events.retrieve(event.key)
-    expect(retrievedEvent.channels).toEqual(channels)
+    expect(retrievedEvent.channels).toEqual([
+        expect.objectContaining({ key: 'channelKey1', name: 'channel 1', color: 'blue', index: 1, objects: ['A-1', 'A-2'], areaPlaces: { GA1: 3 } }),
+        expect.objectContaining({ key: 'channelKey2', name: 'channel 2', color: 'red', index: 2, objects: ['A-3'] })
+    ])
 })

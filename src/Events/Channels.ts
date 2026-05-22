@@ -1,5 +1,5 @@
 import { Axios } from 'axios'
-import { Channel, ChannelCreationParams } from './Channel'
+import { ChannelCreationParams } from './Channel'
 import { Dict } from '../Dict'
 
 export class Channels {
@@ -50,7 +50,7 @@ export class Channels {
         })
     }
 
-    replace (eventKey: string, channels: Channel[]) {
+    replace (eventKey: string, channels: ChannelCreationParams[]) {
         return this.client.post(`/events/${encodeURIComponent(eventKey)}/channels/replace`, { channels })
     }
 }

@@ -2,7 +2,6 @@ import { TestUtils } from '../testUtils'
 import { EventObjectInfo } from '../../src/Events/EventObjectInfo'
 import { StatusChangeRequest } from '../../src/Events/StatusChangeRequest'
 import { CreateEventParams } from '../../src/Events/CreateEventParams'
-import { Channel } from '../../src/Events/Channel'
 import { CreateSeasonParams } from '../../src/Seasons/CreateSeasonParams'
 
 test('should change object status in batch', async () => {
@@ -35,7 +34,7 @@ test('should accept channel keys', async () => {
     const chartKey = TestUtils.getChartKey()
     await TestUtils.createTestChart(chartKey, user.secretKey)
     const event = await client.events.create(chartKey, new CreateEventParams().withChannels([
-        new Channel({ key: 'channelKey1', name: 'channel 1', color: 'blue', index: 1, objects: ['A-1'] })
+        { key: 'channelKey1', name: 'channel 1', color: 'blue', index: 1, objects: ['A-1'] }
     ]))
 
     const result = await client.events.changeObjectStatusInBatch([
@@ -50,7 +49,7 @@ test('should accept ignoreChannels', async () => {
     const chartKey = TestUtils.getChartKey()
     await TestUtils.createTestChart(chartKey, user.secretKey)
     const event = await client.events.create(chartKey, new CreateEventParams().withChannels([
-        new Channel({ key: 'channel1', name: 'channel 1', color: 'blue', index: 1, objects: ['A-1', 'A-2'] })
+        { key: 'channel1', name: 'channel 1', color: 'blue', index: 1, objects: ['A-1', 'A-2'] }
     ]))
 
     const result = await client.events.changeObjectStatusInBatch([

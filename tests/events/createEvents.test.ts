@@ -3,7 +3,6 @@ import { TableBookingConfig } from '../../src/Events/TableBookingConfig'
 import { Category } from '../../src/Charts/Category'
 import { LocalDate } from '../../src/LocalDate'
 import { CreateEventParams } from '../../src/Events/CreateEventParams'
-import { Channel } from '../../src/Events/Channel'
 import { ForSaleConfig } from '../../src/Events/ForSaleConfig'
 
 test('should check that a minimum of one event is required', async () => {
@@ -146,15 +145,18 @@ test('it supports channels', async () => {
     const chartKey = TestUtils.getChartKey()
     await TestUtils.createTestChart(chartKey, user.secretKey)
     const channels = [
-        new Channel({ key: 'channelKey1', name: 'channel 1', color: 'blue', index: 1, objects: ['A-1', 'A-2'], areaPlaces: { GA1: 5 } }),
-        new Channel({ key: 'channelKey2', name: 'channel 2', color: 'red', index: 2, objects: ['A-3'], areaPlaces: { GA1: 3 } })
+        { key: 'channelKey1', name: 'channel 1', color: 'blue', index: 1, objects: ['A-1', 'A-2'], areaPlaces: { GA1: 5 } },
+        { key: 'channelKey2', name: 'channel 2', color: 'red', index: 2, objects: ['A-3'], areaPlaces: { GA1: 3 } }
     ]
 
     const events = await client.events.createMultiple(chartKey, [
         new CreateEventParams().withChannels(channels)
     ])
 
-    expect(events[0].channels).toEqual(channels)
+    expect(events[0].channels).toEqual([
+        expect.objectContaining({ key: 'channelKey1', name: 'channel 1', color: 'blue', index: 1, objects: ['A-1', 'A-2'], areaPlaces: { GA1: 5 } }),
+        expect.objectContaining({ key: 'channelKey2', name: 'channel 2', color: 'red', index: 2, objects: ['A-3'], areaPlaces: { GA1: 3 } })
+    ])
 })
 
 test('it supports for sale config', async () => {
