@@ -68,6 +68,20 @@ test('billable rendering report for company', async () => {
     }])
 })
 
+test('billable rendering report for chart in month', async () => {
+    if (!TestUtils.isDemoCompanySecretKeySet()) {
+        return warnAboutDemoCompanySecretKeyNotSet()
+    }
+
+    const client = TestUtils.createClient(TestUtils.demoCompanySecretKey())
+
+    const report = await client.usageReports.billableRenderingsForChartInMonth('demoChartLargeTheatre', '2026-05')
+
+    expect(report.length).toBeGreaterThan(0)
+    expect(report[0].date).toEqual('2026-05-26T07:17:43.626Z')
+    expect(report[0].url).toBeTruthy()
+})
+
 function warnAboutDemoCompanySecretKeyNotSet () {
     console.warn('DEMO_COMPANY_SECRET_KEY environment variable not set, skipping test')
 }
