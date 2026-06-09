@@ -14,6 +14,16 @@ export class UsageReports {
             }))
     }
 
+    billableRenderingsSummaryForAllMonths () {
+        return this.client.get('/reports/usage/rendering')
+            .then(res => res.data)
+    }
+
+    billableRenderingsForChartInMonth (chartKey: string, month: string) {
+        return this.client.get(`/reports/usage/rendering/month/${month}/chart/${chartKey}`)
+            .then(res => res.data)
+    }
+
     detailsForMonth (month: string) {
         return this.client.get(`/reports/usage/month/${month}`)
             .then(res => res.data)
