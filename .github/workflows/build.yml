@@ -8,21 +8,24 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
+    strategy:
+      matrix:
+        environment: [node, jsdom]
+    name: Build (${{ matrix.environment }})
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: 22
           registry-url: https://registry.npmjs.org/
+          cache: yarn
       - run: yarn install
       - run: yarn lint
       - uses: zcong1993/setup-timezone@master
         with:
           timezone: Europe/Brussels
-      - run: yarn test
+      - run: yarn test --environment ${{ matrix.environment }}
         env:
           API_URL: https://api-staging-eu.seatsio.net
           DEMO_COMPANY_SECRET_KEY: ${{ secrets.DEMO_COMPANY_SECRET_KEY }}
