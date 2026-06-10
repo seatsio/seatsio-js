@@ -1,4 +1,4 @@
-import { TestUtils } from '../testUtils'
+import { TestUtils } from '../testUtils.js'
 
 test('should validate published version of a chart', async () => {
     const { client, user } = await TestUtils.createTestUserAndClient()

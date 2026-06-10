@@ -1,11 +1,11 @@
 import axios from 'axios'
 import * as fs from 'fs'
 import path from 'path'
-import { Labels } from '../src/Common/Labels'
-import { Category } from '../src/Charts/Category'
-import { SeatsioClient } from '../src/SeatsioClient'
-import { Region } from '../src/Region'
-import { LabelAndType } from '../src/Common/LabelAndType'
+import { Labels } from '../src/Common/Labels.js'
+import { Category } from '../src/Charts/Category.js'
+import { SeatsioClient } from '../src/SeatsioClient.js'
+import { Region } from '../src/Region.js'
+import { LabelAndType } from '../src/Common/LabelAndType.js'
 
 const baseUrl = process.env.API_URL || 'http://localhost:9001'
 

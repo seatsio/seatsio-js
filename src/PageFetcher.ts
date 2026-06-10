@@ -1,6 +1,6 @@
 import { Axios } from 'axios'
-import { Page } from './Page'
-import { PaginatedJson } from './AsyncIterator'
+import { Page } from './Page.js'
+import { PaginatedJson } from './AsyncIterator.js'
 
 export class PageFetcher<T, Y> {
     client: Axios

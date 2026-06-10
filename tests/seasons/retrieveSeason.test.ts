@@ -1,8 +1,8 @@
-import { TestUtils } from '../testUtils'
-import { CreateSeasonParams } from '../../src/Seasons/CreateSeasonParams'
-import { Season } from '../../src/Seasons/Season'
-import { Event } from '../../src/Events/Event'
-import { TableBookingConfig } from '../../src/Events/TableBookingConfig'
+import { TestUtils } from '../testUtils.js'
+import { CreateSeasonParams } from '../../src/Seasons/CreateSeasonParams.js'
+import { Season } from '../../src/Seasons/Season.js'
+import { Event } from '../../src/Events/Event.js'
+import { TableBookingConfig } from '../../src/Events/TableBookingConfig.js'
 
 test('retrieve season', async () => {
     const { client, user } = await TestUtils.createTestUserAndClient()

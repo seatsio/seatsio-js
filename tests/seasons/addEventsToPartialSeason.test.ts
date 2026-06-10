@@ -1,6 +1,6 @@
-import { TestUtils } from '../testUtils'
-import { CreateSeasonParams } from '../../src/Seasons/CreateSeasonParams'
-import { Event } from '../../src/Events/Event'
+import { TestUtils } from '../testUtils.js'
+import { CreateSeasonParams } from '../../src/Seasons/CreateSeasonParams.js'
+import { Event } from '../../src/Events/Event.js'
 
 test('add events to partial season', async () => {
     const { client } = await TestUtils.createTestUserAndClient()

@@ -1,8 +1,8 @@
-import { Dict } from '../Dict'
-import { Event, EventJson } from '../Events/Event'
-import { EventDeserializer } from '../Events/EventDeserializer'
-import { ChartValidation } from './ChartValidation'
-import { Zone, ZoneJson } from './Zone'
+import { Dict } from '../Dict.js'
+import { Event, EventJson } from '../Events/Event.js'
+import { EventDeserializer } from '../Events/EventDeserializer.js'
+import { ChartValidation } from './ChartValidation.js'
+import { Zone, ZoneJson } from './Zone.js'
 
 export type ChartJson = Dict<any>
 export type Venue = 'SIMPLE' | 'WITH_SECTIONS_AND_FLOORS' | 'WITH_ZONES'

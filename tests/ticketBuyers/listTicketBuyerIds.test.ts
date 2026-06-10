@@ -1,4 +1,4 @@
-import { TestUtils } from '../testUtils'
+import { TestUtils } from '../testUtils.js'
 
 test('can list ticket buyer ids', async () => {
     const { client } = await TestUtils.createTestUserAndClient()

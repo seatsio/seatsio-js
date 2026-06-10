@@ -1,6 +1,6 @@
 import { Axios } from 'axios'
-import { ChannelCreationParams } from './Channel'
-import { Dict } from '../Dict'
+import { ChannelCreationParams } from './Channel.js'
+import { Dict } from '../Dict.js'
 
 export class Channels {
     client: Axios

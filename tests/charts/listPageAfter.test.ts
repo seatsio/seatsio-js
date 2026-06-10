@@ -1,6 +1,6 @@
-import { TestUtils } from '../testUtils'
-import { ChartListParams } from '../../src/Charts/ChartListParams'
-import { Chart } from '../../src/Charts/Chart'
+import { TestUtils } from '../testUtils.js'
+import { ChartListParams } from '../../src/Charts/ChartListParams.js'
+import { Chart } from '../../src/Charts/Chart.js'
 
 test('should list charts after a given chart id', async () => {
     const { client } = await TestUtils.createTestUserAndClient()

@@ -1,6 +1,6 @@
-import { Workspace, WorkspaceJson } from './Workspace'
-import { Lister } from '../Lister'
-import { Page } from '../Page'
+import { Workspace, WorkspaceJson } from './Workspace.js'
+import { Lister } from '../Lister.js'
+import { Page } from '../Page.js'
 import { Axios } from 'axios'
 
 export class Workspaces {

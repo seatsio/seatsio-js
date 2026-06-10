@@ -1,8 +1,8 @@
-import { HelperFunctions } from '../utilities/helperFunctions'
-import { IDs } from '../Common/IDs'
-import { Labels } from '../Common/Labels'
-import { Dict } from '../Dict'
-import { Floor } from '../Common/Floor'
+import { HelperFunctions } from '../utilities/helperFunctions.js'
+import { IDs } from '../Common/IDs.js'
+import { Labels } from '../Common/Labels.js'
+import { Dict } from '../Dict.js'
+import { Floor } from '../Common/Floor.js'
 
 export type EventObjectInfoJson = Dict<any>
 

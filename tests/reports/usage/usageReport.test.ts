@@ -1,4 +1,4 @@
-import { TestUtils } from '../../testUtils'
+import { TestUtils } from '../../testUtils.js'
 
 test('usage report for all months', async () => {
     if (!TestUtils.isDemoCompanySecretKeySet()) {

@@ -1,5 +1,5 @@
-import { TestUtils } from '../testUtils'
-import { Workspace } from '../../src/Workspaces/Workspace'
+import { TestUtils } from '../testUtils.js'
+import { Workspace } from '../../src/Workspaces/Workspace.js'
 
 test('should list workspaces in first page', async () => {
     const { client } = await TestUtils.createTestUserAndClient()

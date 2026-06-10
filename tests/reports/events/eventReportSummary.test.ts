@@ -1,6 +1,6 @@
-import { TestUtils } from '../../testUtils'
-import { ObjectProperties } from '../../../src/Events/ObjectProperties'
-import { CreateEventParams } from '../../../src/Events/CreateEventParams'
+import { TestUtils } from '../../testUtils.js'
+import { ObjectProperties } from '../../../src/Events/ObjectProperties.js'
+import { CreateEventParams } from '../../../src/Events/CreateEventParams.js'
 
 test('summaryByStatus', async () => {
     const { client, user } = await TestUtils.createTestUserAndClient()

@@ -1,5 +1,5 @@
-import { TestUtils } from '../testUtils'
-import { Event } from '../../src/Events/Event'
+import { TestUtils } from '../testUtils.js'
+import { Event } from '../../src/Events/Event.js'
 
 test('create events in season by event keys', async () => {
     const { client } = await TestUtils.createTestUserAndClient()

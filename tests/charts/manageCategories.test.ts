@@ -1,5 +1,5 @@
-import { TestUtils } from '../testUtils'
-import { CategoryUpdateParams } from '../../src/Charts/CategoryUpdateParams'
+import { TestUtils } from '../testUtils.js'
+import { CategoryUpdateParams } from '../../src/Charts/CategoryUpdateParams.js'
 
 test('should add a category', async () => {
     const { client } = await TestUtils.createTestUserAndClient()

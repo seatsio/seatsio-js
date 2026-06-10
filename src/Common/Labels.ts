@@ -1,4 +1,4 @@
-import { LabelAndType } from './LabelAndType'
+import { LabelAndType } from './LabelAndType.js'
 
 export class Labels {
     own: LabelAndType

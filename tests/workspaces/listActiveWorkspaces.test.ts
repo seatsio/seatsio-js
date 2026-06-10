@@ -1,4 +1,4 @@
-import { TestUtils } from '../testUtils'
+import { TestUtils } from '../testUtils.js'
 
 test('should list active workspaces', async () => {
     const { client, workspace } = await TestUtils.createTestUserAndClient()

@@ -1,9 +1,9 @@
-import { ForSaleConfig } from './ForSaleConfig'
-import { Channel, ChannelJson } from './Channel'
-import { Category } from '../Charts/Category'
-import { TableBookingConfig } from './TableBookingConfig'
-import { Dict } from '../Dict'
-import { LocalDate } from '../LocalDate'
+import { ForSaleConfig } from './ForSaleConfig.js'
+import { Channel, ChannelJson } from './Channel.js'
+import { Category } from '../Charts/Category.js'
+import { TableBookingConfig } from './TableBookingConfig.js'
+import { Dict } from '../Dict.js'
+import { LocalDate } from '../LocalDate.js'
 
 export type EventJson = Dict<any>
 

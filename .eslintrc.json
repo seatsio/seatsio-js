@@ -16,11 +16,8 @@
   ],
   "settings": {
     "import/resolver": {
-      "node": {
-        "extensions": [".ts"]
-      },
       "typescript": {
-        "directory": "./tsconfig.json"
+        "project": "./tsconfig.json"
       }
     }
   },

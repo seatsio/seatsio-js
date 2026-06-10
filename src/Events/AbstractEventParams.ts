@@ -1,5 +1,5 @@
-import { TableBookingConfig } from './TableBookingConfig'
-import { Category } from '../Charts/Category'
+import { TableBookingConfig } from './TableBookingConfig.js'
+import { Category } from '../Charts/Category.js'
 
 export abstract class AbstractEventParams {
     key?: string

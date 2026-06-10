@@ -1,5 +1,5 @@
-import { AccountSettings } from './AccountSettings'
-import { Dict } from '../Dict'
+import { AccountSettings } from './AccountSettings.js'
+import { Dict } from '../Dict.js'
 
 type AccountJson = Dict<any>
 

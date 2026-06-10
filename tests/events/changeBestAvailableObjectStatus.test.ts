@@ -1,7 +1,7 @@
-import { EventObjectInfo } from '../../src/Events/EventObjectInfo'
-import { TestUtils } from '../testUtils'
-import { CreateEventParams } from '../../src/Events/CreateEventParams'
-import { BestAvailableParams } from '../../src/Events/BestAvailableParams'
+import { EventObjectInfo } from '../../src/Events/EventObjectInfo.js'
+import { TestUtils } from '../testUtils.js'
+import { CreateEventParams } from '../../src/Events/CreateEventParams.js'
+import { BestAvailableParams } from '../../src/Events/BestAvailableParams.js'
 
 test('should change best available object status', async () => {
     const { client, user } = await TestUtils.createTestUserAndClient()

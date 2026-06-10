@@ -1,5 +1,5 @@
-import { Utilities } from '../utilities/reportUtility'
-import { Dict } from '../Dict'
+import { Utilities } from '../utilities/reportUtility.js'
+import { Dict } from '../Dict.js'
 
 export class BestAvailableObjects {
     nextToEachOther: boolean

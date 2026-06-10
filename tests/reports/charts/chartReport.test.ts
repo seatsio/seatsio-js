@@ -1,10 +1,10 @@
-import { TestUtils } from '../../testUtils'
-import { IDs } from '../../../src/Common/IDs'
-import { ChartObjectInfo } from '../../../src/Charts/ChartObjectInfo'
-import { Dict } from '../../../src/Dict'
-import { SeatsioClient } from '../../../src/SeatsioClient'
-import { Versions } from '../../../src/Reports/ChartReports'
-import { Floor } from '../../../src/Common/Floor'
+import { TestUtils } from '../../testUtils.js'
+import { IDs } from '../../../src/Common/IDs.js'
+import { ChartObjectInfo } from '../../../src/Charts/ChartObjectInfo.js'
+import { Dict } from '../../../src/Dict.js'
+import { SeatsioClient } from '../../../src/SeatsioClient.js'
+import { Versions } from '../../../src/Reports/ChartReports.js'
+import { Floor } from '../../../src/Common/Floor.js'
 
 describe('chart report properties', () => {
     it.each([

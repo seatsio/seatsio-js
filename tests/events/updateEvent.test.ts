@@ -1,10 +1,10 @@
-import { TableBookingConfig } from '../../src/Events/TableBookingConfig'
-import { Category } from '../../src/Charts/Category'
-import { TestUtils } from '../testUtils'
-import { LocalDate } from '../../src/LocalDate'
-import { CreateEventParams } from '../../src/Events/CreateEventParams'
-import { UpdateEventParams } from '../../src/Events/UpdateEventParams'
-import { CreateSeasonParams } from '../../src/Seasons/CreateSeasonParams'
+import { TableBookingConfig } from '../../src/Events/TableBookingConfig.js'
+import { Category } from '../../src/Charts/Category.js'
+import { TestUtils } from '../testUtils.js'
+import { LocalDate } from '../../src/LocalDate.js'
+import { CreateEventParams } from '../../src/Events/CreateEventParams.js'
+import { UpdateEventParams } from '../../src/Events/UpdateEventParams.js'
+import { CreateSeasonParams } from '../../src/Seasons/CreateSeasonParams.js'
 
 test('should update event key', async () => {
     const { client } = await TestUtils.createTestUserAndClient()

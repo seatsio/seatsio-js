@@ -1,10 +1,10 @@
-import { TestUtils } from '../testUtils'
-import { TableBookingConfig } from '../../src/Events/TableBookingConfig'
-import { Category } from '../../src/Charts/Category'
-import { LocalDate } from '../../src/LocalDate'
-import { CreateEventParams } from '../../src/Events/CreateEventParams'
-import { Channel } from '../../src/Events/Channel'
-import { ForSaleConfig } from '../../src/Events/ForSaleConfig'
+import { TestUtils } from '../testUtils.js'
+import { TableBookingConfig } from '../../src/Events/TableBookingConfig.js'
+import { Category } from '../../src/Charts/Category.js'
+import { LocalDate } from '../../src/LocalDate.js'
+import { CreateEventParams } from '../../src/Events/CreateEventParams.js'
+import { Channel } from '../../src/Events/Channel.js'
+import { ForSaleConfig } from '../../src/Events/ForSaleConfig.js'
 
 test('should check that only chart key is required', async () => {
     const { client, user } = await TestUtils.createTestUserAndClient()

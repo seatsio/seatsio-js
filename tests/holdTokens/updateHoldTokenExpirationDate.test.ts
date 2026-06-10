@@ -1,4 +1,4 @@
-import { TestUtils } from '../testUtils'
+import { TestUtils } from '../testUtils.js'
 
 test('should update hold token expiration date', async () => {
     const { client } = await TestUtils.createTestUserAndClient()

@@ -1,4 +1,4 @@
-import { TestUtils } from './testUtils'
+import { TestUtils } from './testUtils.js'
 
 test('workspace key can be passed in', async () => {
     const { client, user } = await TestUtils.createTestUserAndClient()

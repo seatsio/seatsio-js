@@ -1,5 +1,5 @@
-import { TestUtils } from '../testUtils'
-import { Zone } from '../../src/Charts/Zone'
+import { TestUtils } from '../testUtils.js'
+import { Zone } from '../../src/Charts/Zone.js'
 
 test('should retrieve chart', async () => {
     const { client } = await TestUtils.createTestUserAndClient()

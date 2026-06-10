@@ -1,4 +1,4 @@
-import { TestUtils } from '../testUtils'
+import { TestUtils } from '../testUtils.js'
 
 test('updates a setting', async () => {
     const { client } = await TestUtils.createTestUserAndClient()

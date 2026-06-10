@@ -1,10 +1,10 @@
 import { Axios } from 'axios'
-import { SeatsioClient } from '../SeatsioClient'
-import { Dict } from '../Dict'
-import { AddTicketBuyerIdsResponse } from './AddTicketBuyerIdsResponse'
-import { RemoveTicketBuyerIdsResponse } from './RemoveTicketBuyerIdsResponse'
-import { Lister } from '../Lister'
-import { Page } from '../Page'
+import { SeatsioClient } from '../SeatsioClient.js'
+import { Dict } from '../Dict.js'
+import { AddTicketBuyerIdsResponse } from './AddTicketBuyerIdsResponse.js'
+import { RemoveTicketBuyerIdsResponse } from './RemoveTicketBuyerIdsResponse.js'
+import { Lister } from '../Lister.js'
+import { Page } from '../Page.js'
 
 export class TicketBuyers {
     client: Axios

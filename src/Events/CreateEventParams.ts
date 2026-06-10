@@ -1,7 +1,7 @@
-import { AbstractEventParams } from './AbstractEventParams'
-import { ChannelCreationParams } from './Channel'
-import { ForSaleConfig } from './ForSaleConfig'
-import { LocalDate } from '../LocalDate'
+import { AbstractEventParams } from './AbstractEventParams.js'
+import { ChannelCreationParams } from './Channel.js'
+import { ForSaleConfig } from './ForSaleConfig.js'
+import { LocalDate } from '../LocalDate.js'
 
 export class CreateEventParams extends AbstractEventParams {
     channels?: ChannelCreationParams[]

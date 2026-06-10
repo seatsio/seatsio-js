@@ -1,5 +1,5 @@
-import { TestUtils } from '../testUtils'
-import { ObjectProperties } from '../../src/Events/ObjectProperties'
+import { TestUtils } from '../testUtils.js'
+import { ObjectProperties } from '../../src/Events/ObjectProperties.js'
 
 test('should change object status for multiple objects as an array of string', async () => {
     const { client, user } = await TestUtils.createTestUserAndClient()

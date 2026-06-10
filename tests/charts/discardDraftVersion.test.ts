@@ -1,4 +1,4 @@
-import { TestUtils } from '../testUtils'
+import { TestUtils } from '../testUtils.js'
 
 test('should discard draft version of the chart', async () => {
     const { client } = await TestUtils.createTestUserAndClient()

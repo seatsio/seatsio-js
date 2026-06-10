@@ -1,7 +1,7 @@
-import { TestUtils } from '../testUtils'
-import { CreateEventParams } from '../../src/Events/CreateEventParams'
-import { ForSaleConfig } from '../../src/Events/ForSaleConfig'
-import { ForSaleConfigParams } from '../../src/Events/ForSaleConfigParams'
+import { TestUtils } from '../testUtils.js'
+import { CreateEventParams } from '../../src/Events/CreateEventParams.js'
+import { ForSaleConfig } from '../../src/Events/ForSaleConfig.js'
+import { ForSaleConfigParams } from '../../src/Events/ForSaleConfigParams.js'
 
 test('should mark objects as for sale', async () => {
     const { client, user } = await TestUtils.createTestUserAndClient()
