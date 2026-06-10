@@ -1,6 +1,6 @@
-import { Utilities } from '../utilities/reportUtility'
-import { EventObjectInfo, EventObjectInfoJson } from './EventObjectInfo'
-import { Dict } from '../Dict'
+import { Utilities } from '../utilities/reportUtility.js'
+import { EventObjectInfo, EventObjectInfoJson } from './EventObjectInfo.js'
+import { Dict } from '../Dict.js'
 
 export class ChangeObjectStatusResult {
     objects: Dict<EventObjectInfo>

@@ -1,8 +1,8 @@
 import { Axios } from 'axios'
-import { SeatsioClient } from '../SeatsioClient'
-import { Lister } from '../Lister'
-import { Page } from '../Page'
-import { EventLogItem, EventLogItemJson } from './EventLogItem'
+import { SeatsioClient } from '../SeatsioClient.js'
+import { Lister } from '../Lister.js'
+import { Page } from '../Page.js'
+import { EventLogItem, EventLogItemJson } from './EventLogItem.js'
 
 export class EventLog {
     client: Axios

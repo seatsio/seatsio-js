@@ -1,11 +1,11 @@
-import { Season } from './Season'
-import { EventDeserializer } from '../Events/EventDeserializer'
+import { Season } from './Season.js'
+import { EventDeserializer } from '../Events/EventDeserializer.js'
 import { Axios } from 'axios'
-import { SeatsioClient } from '../SeatsioClient'
-import { EventJson } from '../Events/Event'
-import { CreateSeasonParams } from './CreateSeasonParams'
-import { Dict } from '../Dict'
-import { UpdateSeasonParams } from './UpdateSeasonParams'
+import { SeatsioClient } from '../SeatsioClient.js'
+import { EventJson } from '../Events/Event.js'
+import { CreateSeasonParams } from './CreateSeasonParams.js'
+import { Dict } from '../Dict.js'
+import { UpdateSeasonParams } from './UpdateSeasonParams.js'
 
 export class Seasons {
     client: Axios

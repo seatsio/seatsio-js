@@ -1,4 +1,4 @@
-import { TestUtils } from '../../testUtils'
+import { TestUtils } from '../../testUtils.js'
 
 test('areaPartitionLabel combines area label with channel id', async () => {
     const { client, user } = await TestUtils.createTestUserAndClient()

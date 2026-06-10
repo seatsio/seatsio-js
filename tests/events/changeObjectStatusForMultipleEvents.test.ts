@@ -1,5 +1,5 @@
-import { TestUtils } from '../testUtils'
-import { EventObjectInfo } from '../../src/Events/EventObjectInfo'
+import { TestUtils } from '../testUtils.js'
+import { EventObjectInfo } from '../../src/Events/EventObjectInfo.js'
 
 test('should change object status for multiple events', async () => {
     const { client, user } = await TestUtils.createTestUserAndClient()

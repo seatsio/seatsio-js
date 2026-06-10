@@ -1,5 +1,5 @@
-import { Season } from '../Seasons/Season'
-import { Event, EventJson } from './Event'
+import { Season } from '../Seasons/Season.js'
+import { Event, EventJson } from './Event.js'
 
 export class EventDeserializer {
     fromJson (json: EventJson) {

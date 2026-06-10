@@ -1,6 +1,6 @@
-import { ChartValidationSettings } from './ChartValidationSettings'
-import { DefaultRendererSettings } from './DefaultRendererSettings'
-import { Dict } from '../Dict'
+import { ChartValidationSettings } from './ChartValidationSettings.js'
+import { DefaultRendererSettings } from './DefaultRendererSettings.js'
+import { Dict } from '../Dict.js'
 
 type AccountSettingsJson = Dict<any>
 

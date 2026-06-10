@@ -1,10 +1,10 @@
-import { TestUtils } from '../../testUtils'
-import { IDs } from '../../../src/Common/IDs'
-import { ObjectProperties } from '../../../src/Events/ObjectProperties'
-import { EventObjectInfo } from '../../../src/Events/EventObjectInfo'
-import { TableBookingConfig } from '../../../src/Events/TableBookingConfig'
-import { CreateEventParams } from '../../../src/Events/CreateEventParams'
-import { CreateSeasonParams } from '../../../src/Seasons/CreateSeasonParams'
+import { TestUtils } from '../../testUtils.js'
+import { IDs } from '../../../src/Common/IDs.js'
+import { ObjectProperties } from '../../../src/Events/ObjectProperties.js'
+import { EventObjectInfo } from '../../../src/Events/EventObjectInfo.js'
+import { TableBookingConfig } from '../../../src/Events/TableBookingConfig.js'
+import { CreateEventParams } from '../../../src/Events/CreateEventParams.js'
+import { CreateSeasonParams } from '../../../src/Seasons/CreateSeasonParams.js'
 
 test('report properties', async () => {
     const { client, user } = await TestUtils.createTestUserAndClient()

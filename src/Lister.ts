@@ -1,7 +1,7 @@
-import { PageFetcher } from './PageFetcher'
-import { AsyncIterator, PaginatedJson } from './AsyncIterator'
+import { PageFetcher } from './PageFetcher.js'
+import { AsyncIterator, PaginatedJson } from './AsyncIterator.js'
 import { Axios } from 'axios'
-import { Page } from './Page'
+import { Page } from './Page.js'
 
 export class Lister<T, Y> {
     client: Axios

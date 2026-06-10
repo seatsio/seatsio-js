@@ -1,4 +1,4 @@
-import { TestUtils } from '../testUtils'
+import { TestUtils } from '../testUtils.js'
 
 test('should copy to workspace', async () => {
     const { client, user } = await TestUtils.createTestUserAndClient()

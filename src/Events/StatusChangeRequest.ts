@@ -1,4 +1,4 @@
-import { ObjectOrObjects } from './Events'
+import { ObjectOrObjects } from './Events.js'
 
 export class StatusChangeRequest {
     static TYPE_RELEASE = 'RELEASE'

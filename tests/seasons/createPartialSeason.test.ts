@@ -1,6 +1,6 @@
-import { TestUtils } from '../testUtils'
-import { CreateSeasonParams } from '../../src/Seasons/CreateSeasonParams'
-import { Event } from '../../src/Events/Event'
+import { TestUtils } from '../testUtils.js'
+import { CreateSeasonParams } from '../../src/Seasons/CreateSeasonParams.js'
+import { Event } from '../../src/Events/Event.js'
 
 test('key can be passed in', async () => {
     const { client } = await TestUtils.createTestUserAndClient()

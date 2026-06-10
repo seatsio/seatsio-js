@@ -1,4 +1,4 @@
-import { TestUtils } from '../testUtils'
+import { TestUtils } from '../testUtils.js'
 
 test('should remove tag', async () => {
     const { client } = await TestUtils.createTestUserAndClient()

@@ -1,4 +1,4 @@
-import { Dict } from '../Dict'
+import { Dict } from '../Dict.js'
 
 export type CategoryJson = Dict<any>
 export type CategoryKey = string | number

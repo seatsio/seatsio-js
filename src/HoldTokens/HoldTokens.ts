@@ -1,4 +1,4 @@
-import { HoldToken } from './HoldToken'
+import { HoldToken } from './HoldToken.js'
 import { Axios } from 'axios'
 
 export class HoldTokens {

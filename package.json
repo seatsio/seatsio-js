@@ -3,6 +3,7 @@
   "version": "87.11.0",
   "main": "dist/src/index.js",
   "types": "dist/src/index.d.ts",
+  "type": "module",
   "files": [
     "/dist/src"
   ],
@@ -29,6 +30,7 @@
     "ctix": "2.8.1",
     "eslint": "8.57.1",
     "eslint-config-standard": "17.1.0",
+    "eslint-import-resolver-typescript": "4.4.5",
     "eslint-plugin-import": "2.32.0",
     "eslint-plugin-n": "16.6.2",
     "eslint-plugin-promise": "6.6.0",

@@ -1,4 +1,4 @@
-import { TestUtils } from '../testUtils'
+import { TestUtils } from '../testUtils.js'
 // eslint-disable-next-line import/no-named-as-default
 import Axios from 'axios'
 

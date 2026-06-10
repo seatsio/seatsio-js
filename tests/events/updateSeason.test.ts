@@ -1,8 +1,8 @@
-import { TestUtils } from '../testUtils'
-import { TableBookingConfig } from '../../src/Events/TableBookingConfig'
-import { Category } from '../../src/Charts/Category'
-import { UpdateSeasonParams } from '../../src/Seasons/UpdateSeasonParams'
-import { CreateSeasonParams } from '../../src/Seasons/CreateSeasonParams'
+import { TestUtils } from '../testUtils.js'
+import { TableBookingConfig } from '../../src/Events/TableBookingConfig.js'
+import { Category } from '../../src/Charts/Category.js'
+import { UpdateSeasonParams } from '../../src/Seasons/UpdateSeasonParams.js'
+import { CreateSeasonParams } from '../../src/Seasons/CreateSeasonParams.js'
 
 test('should update event key', async () => {
     const { client } = await TestUtils.createTestUserAndClient()

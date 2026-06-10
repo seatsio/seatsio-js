@@ -1,5 +1,5 @@
-import { TestUtils } from '../testUtils'
-import { Chart } from '../../src/Charts/Chart'
+import { TestUtils } from '../testUtils.js'
+import { Chart } from '../../src/Charts/Chart.js'
 
 test('should list all charts in archive', async () => {
     const { client } = await TestUtils.createTestUserAndClient()

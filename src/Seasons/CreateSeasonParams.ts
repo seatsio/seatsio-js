@@ -1,7 +1,7 @@
-import { TableBookingConfig } from '../Events/TableBookingConfig'
-import { ChannelCreationParams } from '../Events/Channel'
-import { ForSaleConfig } from '../Events/ForSaleConfig'
-import { Category } from '../Charts/Category'
+import { TableBookingConfig } from '../Events/TableBookingConfig.js'
+import { ChannelCreationParams } from '../Events/Channel.js'
+import { ForSaleConfig } from '../Events/ForSaleConfig.js'
+import { Category } from '../Charts/Category.js'
 
 export class CreateSeasonParams {
     _eventKeys?: string[]

@@ -1,6 +1,6 @@
-import { TestUtils } from '../testUtils'
-import { EventObjectInfo } from '../../src/Events/EventObjectInfo'
-import { CreateEventParams } from '../../src/Events/CreateEventParams'
+import { TestUtils } from '../testUtils.js'
+import { EventObjectInfo } from '../../src/Events/EventObjectInfo.js'
+import { CreateEventParams } from '../../src/Events/CreateEventParams.js'
 
 test('should hold objects', async () => {
     const { client, user } = await TestUtils.createTestUserAndClient()

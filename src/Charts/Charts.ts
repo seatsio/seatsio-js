@@ -1,10 +1,10 @@
 import { Axios } from 'axios'
-import { Lister } from '../Lister'
-import { Page } from '../Page'
-import { CategoryJson, CategoryKey } from './Category'
-import { CategoryUpdateParams } from './CategoryUpdateParams'
-import { Chart, ChartJson, Venue } from './Chart'
-import { ChartListParams } from './ChartListParams'
+import { Lister } from '../Lister.js'
+import { Page } from '../Page.js'
+import { CategoryJson, CategoryKey } from './Category.js'
+import { CategoryUpdateParams } from './CategoryUpdateParams.js'
+import { Chart, ChartJson, Venue } from './Chart.js'
+import { ChartListParams } from './ChartListParams.js'
 
 export class Charts {
     archive: Lister<Chart, ChartJson>

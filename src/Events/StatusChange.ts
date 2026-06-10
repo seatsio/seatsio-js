@@ -1,5 +1,5 @@
-import { StatusChangeOrigin } from './StatusChangeOrigin'
-import { Dict } from '../Dict'
+import { StatusChangeOrigin } from './StatusChangeOrigin.js'
+import { Dict } from '../Dict.js'
 
 export type StatusChangeJson = Dict<any>
 

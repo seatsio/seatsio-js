@@ -1,4 +1,4 @@
-import { Page } from './Page'
+import { Page } from './Page.js'
 import { Axios } from 'axios'
 
 export interface PaginatedJson<T> {

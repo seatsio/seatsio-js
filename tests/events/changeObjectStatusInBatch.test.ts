@@ -1,8 +1,8 @@
-import { TestUtils } from '../testUtils'
-import { EventObjectInfo } from '../../src/Events/EventObjectInfo'
-import { StatusChangeRequest } from '../../src/Events/StatusChangeRequest'
-import { CreateEventParams } from '../../src/Events/CreateEventParams'
-import { CreateSeasonParams } from '../../src/Seasons/CreateSeasonParams'
+import { TestUtils } from '../testUtils.js'
+import { EventObjectInfo } from '../../src/Events/EventObjectInfo.js'
+import { StatusChangeRequest } from '../../src/Events/StatusChangeRequest.js'
+import { CreateEventParams } from '../../src/Events/CreateEventParams.js'
+import { CreateSeasonParams } from '../../src/Seasons/CreateSeasonParams.js'
 
 test('should change object status in batch', async () => {
     const { client, user } = await TestUtils.createTestUserAndClient()

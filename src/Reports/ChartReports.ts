@@ -1,4 +1,4 @@
-import { Utilities } from '../utilities/reportUtility'
+import { Utilities } from '../utilities/reportUtility.js'
 import { Axios } from 'axios'
 
 export class Versions {

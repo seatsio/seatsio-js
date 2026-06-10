@@ -1,6 +1,6 @@
-import { ChartObjectInfo, ChartObjectInfoJson } from '../Charts/ChartObjectInfo'
-import { EventObjectInfo, EventObjectInfoJson } from '../Events/EventObjectInfo'
-import { Dict } from '../Dict'
+import { ChartObjectInfo, ChartObjectInfoJson } from '../Charts/ChartObjectInfo.js'
+import { EventObjectInfo, EventObjectInfoJson } from '../Events/EventObjectInfo.js'
+import { Dict } from '../Dict.js'
 
 export class Utilities {
     static createChangeObjectStatusDetails (data: Dict<EventObjectInfoJson>) {

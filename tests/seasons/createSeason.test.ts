@@ -1,10 +1,10 @@
-import { TestUtils } from '../testUtils'
-import { CreateSeasonParams } from '../../src/Seasons/CreateSeasonParams'
-import { Event } from '../../src/Events/Event'
-import { TableBookingConfig } from '../../src/Events/TableBookingConfig'
-import { ForSaleConfig } from '../../src/Events/ForSaleConfig'
-import { Channel } from '../../src/Events/Channel'
-import { Category } from '../../src/Charts/Category'
+import { TestUtils } from '../testUtils.js'
+import { CreateSeasonParams } from '../../src/Seasons/CreateSeasonParams.js'
+import { Event } from '../../src/Events/Event.js'
+import { TableBookingConfig } from '../../src/Events/TableBookingConfig.js'
+import { ForSaleConfig } from '../../src/Events/ForSaleConfig.js'
+import { Channel } from '../../src/Events/Channel.js'
+import { Category } from '../../src/Charts/Category.js'
 
 test('chart key is required', async () => {
     const { client, user } = await TestUtils.createTestUserAndClient()

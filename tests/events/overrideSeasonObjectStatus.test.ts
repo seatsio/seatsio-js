@@ -1,6 +1,6 @@
-import { EventObjectInfo } from '../../src/Events/EventObjectInfo'
-import { TestUtils } from '../testUtils'
-import { CreateSeasonParams } from '../../src/Seasons/CreateSeasonParams'
+import { EventObjectInfo } from '../../src/Events/EventObjectInfo.js'
+import { TestUtils } from '../testUtils.js'
+import { CreateSeasonParams } from '../../src/Seasons/CreateSeasonParams.js'
 
 test('should override the season object status', async () => {
     const { client, user } = await TestUtils.createTestUserAndClient()

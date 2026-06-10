@@ -1,5 +1,5 @@
-import { TestUtils } from '../../testUtils'
-import { Channel } from '../../../src/Events/Channel'
+import { TestUtils } from '../../testUtils.js'
+import { Channel } from '../../../src/Events/Channel.js'
 
 test('should assign objects to channels', async () => {
     const { client, user } = await TestUtils.createTestUserAndClient()

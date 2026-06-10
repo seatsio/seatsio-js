@@ -1,4 +1,4 @@
-import { TestUtils } from '../testUtils'
+import { TestUtils } from '../testUtils.js'
 
 test('should move an event to a new chart copy', async () => {
     const { client } = await TestUtils.createTestUserAndClient()

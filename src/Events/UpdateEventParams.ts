@@ -1,5 +1,5 @@
-import { AbstractEventParams } from './AbstractEventParams'
-import { LocalDate } from '../LocalDate'
+import { AbstractEventParams } from './AbstractEventParams.js'
+import { LocalDate } from '../LocalDate.js'
 
 export class UpdateEventParams extends AbstractEventParams {
     isInThePast?: boolean

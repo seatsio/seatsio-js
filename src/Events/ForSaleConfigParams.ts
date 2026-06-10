@@ -1,4 +1,4 @@
-import { ObjectAndQuantity } from './Events'
+import { ObjectAndQuantity } from './Events.js'
 
 export class ForSaleConfigParams {
     forSale?: ObjectAndQuantity[]

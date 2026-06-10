@@ -1,6 +1,6 @@
-import { Utilities } from '../utilities/reportUtility'
+import { Utilities } from '../utilities/reportUtility.js'
 import { Axios } from 'axios'
-import { CategoryKey } from '../Charts/Category'
+import { CategoryKey } from '../Charts/Category.js'
 
 export class EventReports {
     client: Axios

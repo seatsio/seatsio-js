@@ -1,5 +1,5 @@
-import { Labels } from '../Common/Labels'
-import { LabelAndType } from '../Common/LabelAndType'
+import { Labels } from '../Common/Labels.js'
+import { LabelAndType } from '../Common/LabelAndType.js'
 
 export class HelperFunctions {
     static labelCreator (json: any) {

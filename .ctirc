@@ -10,6 +10,7 @@
         "project": "./tsconfig.json",
         "overwrite": true,
         "backup": false,
+        "fileExt": "to-js",
         "output": "src"
       }
   ]

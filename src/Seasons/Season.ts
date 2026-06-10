@@ -1,5 +1,5 @@
-import { Event, EventJson } from '../Events/Event'
-import { Dict } from '../Dict'
+import { Event, EventJson } from '../Events/Event.js'
+import { Dict } from '../Dict.js'
 
 export type SeasonJson = Dict<any>
 

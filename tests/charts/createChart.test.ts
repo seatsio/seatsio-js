@@ -1,5 +1,5 @@
-import { TestUtils } from '../testUtils'
-import { Category } from '../../src/Charts/Category'
+import { TestUtils } from '../testUtils.js'
+import { Category } from '../../src/Charts/Category.js'
 
 test('should create a chart with default parameters', async () => {
     const { client } = await TestUtils.createTestUserAndClient()

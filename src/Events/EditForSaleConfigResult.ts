@@ -1,5 +1,5 @@
-import { ForSaleConfig } from './ForSaleConfig'
-import { ForSaleRateLimitInfo } from './ForSaleRateLimitInfo'
+import { ForSaleConfig } from './ForSaleConfig.js'
+import { ForSaleRateLimitInfo } from './ForSaleRateLimitInfo.js'
 
 export class EditForSaleConfigResult {
     forSaleConfig: ForSaleConfig

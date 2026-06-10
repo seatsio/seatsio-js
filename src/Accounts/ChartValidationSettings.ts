@@ -1,4 +1,4 @@
-import { Dict } from '../Dict'
+import { Dict } from '../Dict.js'
 
 type ChartValidationSettingsJson = Dict<any>
 
