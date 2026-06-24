@@ -8,6 +8,6 @@ export class Month {
     }
 
     toString () {
-        return `${this.year}-${this.month}`
+        return this.year + '-' + String(this.month).padStart(2, '0')
     }
 }
