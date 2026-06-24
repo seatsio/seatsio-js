@@ -19,12 +19,12 @@ export class UsageReports {
 
     async billableRenderingsSummaryForAllMonths () {
         return this.client.get('/reports/usage/rendering')
-            .then(res => BillableRenderings.fromResponse(res.data))
+            .then(res => BillableRenderings.fromJson(res.data))
     }
 
     async billableRenderingsSummaryForMonth (month: Month) {
         return this.client.get(`/reports/usage/rendering/month/${month}`)
-            .then(res => MonthlyBillableRenderings.fromResponse(res.data))
+            .then(res => MonthlyBillableRenderings.fromJson(res.data))
     }
 
     async billableRenderingsForChartInMonth (chartKey: string, month: Month) {

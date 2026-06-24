@@ -33,7 +33,7 @@ export class MonthlyBillableRenderings {
         this.usage = usage
     }
 
-    static fromResponse (data: any): MonthlyBillableRenderings {
+    static fromJson (data: any): MonthlyBillableRenderings {
         const month = new Month(data.month.year, data.month.month)
         const usage: { [k: string]: WorkspaceBillableRenderings } = {}
         for (const workspaceKey of Object.keys(data.usage)) {

@@ -20,7 +20,7 @@ export class BillableRenderings {
         this.usage = usage
     }
 
-    static fromResponse (data: any): BillableRenderings {
+    static fromJson (data: any): BillableRenderings {
         const usage: { [monthKey: string]: MonthBillableRenderings } = {}
         for (const monthKey of Object.keys(data.usage)) {
             const monthEntry = data.usage[monthKey]
