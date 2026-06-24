@@ -7,7 +7,7 @@ import { SeatsioClient } from '../src/SeatsioClient.js'
 import { Region } from '../src/Region.js'
 import { LabelAndType } from '../src/Common/LabelAndType.js'
 
-const baseUrl = process.env.API_URL || 'https://api-staging.seatsio.net'
+const baseUrl = process.env.API_URL || 'http://localhost:9001'
 
 export class TestUtils {
     static async createTestUserAndClient () {
