@@ -1,4 +1,7 @@
 import { TestUtils } from '../../testUtils.js'
+import { Month } from '../../../src/Common/Month.js'
+import { BillableRenderings } from '../../../src/Reports/BillableRenderings.js'
+import { MonthlyBillableRenderings } from '../../../src/Reports/MonthlyBillableRenderings.js'
 
 test('usage report for all months', async () => {
     if (!TestUtils.isDemoCompanySecretKeySet()) {
@@ -58,28 +61,51 @@ test('billable rendering report for company', async () => {
 
     const client = TestUtils.createClient(TestUtils.demoCompanySecretKey())
 
-    const report = await client.usageReports.billableRenderingsSummaryForAllMonths()
+    const report: BillableRenderings = await client.usageReports.billableRenderingsSummaryForAllMonths()
 
-    expect(report.length).toBeGreaterThan(0)
-    expect(report[0].month).toEqual({ month: 5, year: 2026 })
-    expect(report[0].usage[0].usageForCharts).toEqual([{
-        chartKey: 'demoChartLargeTheatre',
-        numBillableRenderings: 1
-    }])
+    expect(report.companyId).toBeTruthy()
+    expect(Object.keys(report.usage).length).toBeGreaterThan(0)
+
+    const firstMonthKey = Object.keys(report.usage)[0]
+    const firstMonth = report.usage[firstMonthKey]
+    expect(firstMonth.month).toBeInstanceOf(Month)
+    expect(Object.keys(firstMonth.usage).length).toBeGreaterThan(0)
+
+    const firstWorkspaceKey = Object.keys(firstMonth.usage)[0]
+    const firstWorkspace = firstMonth.usage[firstWorkspaceKey]
+    expect(firstWorkspace.workspaceKey).toBeTruthy()
+    expect(firstWorkspace.workspaceId).toBeTruthy()
+    expect(Object.keys(firstWorkspace.usage).length).toBeGreaterThan(0)
+
+    const firstChartKey = Object.keys(firstWorkspace.usage)[0]
+    const firstChart = firstWorkspace.usage[firstChartKey]
+    expect(firstChart.chartKey).toBeTruthy()
+    expect(firstChart.numBillableRenderings).toBeGreaterThan(0)
 })
 
-test('billable rendering report for chart in month', async () => {
+test('billable rendering report for company in month', async () => {
     if (!TestUtils.isDemoCompanySecretKeySet()) {
         return warnAboutDemoCompanySecretKeyNotSet()
     }
 
     const client = TestUtils.createClient(TestUtils.demoCompanySecretKey())
 
-    const report = await client.usageReports.billableRenderingsForChartInMonth('demoChartLargeTheatre', '2026-05')
+    const report: MonthlyBillableRenderings = await client.usageReports.billableRenderingsSummaryForMonth(new Month(2026, 6))
 
-    expect(report.length).toBeGreaterThan(0)
-    expect(report[0].date).toEqual('2026-05-26T07:17:43.626Z')
-    expect(report[0].url).toBeTruthy()
+    expect(report.companyId).toBeTruthy()
+    expect(report.month).toBeInstanceOf(Month)
+    expect(Object.keys(report.usage).length).toBeGreaterThan(0)
+
+    const firstWorkspaceKey = Object.keys(report.usage)[0]
+    const firstWorkspace = report.usage[firstWorkspaceKey]
+    expect(firstWorkspace.workspaceKey).toBeTruthy()
+    expect(firstWorkspace.workspaceId).toBeTruthy()
+    expect(Object.keys(firstWorkspace.usage).length).toBeGreaterThan(0)
+
+    const firstChartKey = Object.keys(firstWorkspace.usage)[0]
+    const firstChart = firstWorkspace.usage[firstChartKey]
+    expect(firstChart.chartKey).toBeTruthy()
+    expect(firstChart.numBillableRenderings).toBeGreaterThanOrEqual(0)
 })
 
 function warnAboutDemoCompanySecretKeyNotSet () {
