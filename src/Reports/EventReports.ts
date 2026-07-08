@@ -1,11 +1,22 @@
 import { Utilities } from '../utilities/reportUtility.js'
 import { Axios } from 'axios'
 import { CategoryKey } from '../Charts/Category.js'
+import { EventObjectInfo } from '../Events/EventObjectInfo.js'
 
 export class EventReports {
     client: Axios
     constructor (client: Axios) {
         this.client = client
+    }
+
+    flatList (eventKey: string): Promise<EventObjectInfo[]> {
+        return this.client.get(`/reports/events/${encodeURIComponent(eventKey)}`)
+            .then(res => (res.data as any[]).map(d => new EventObjectInfo(d)))
+    }
+
+    flatListCsv (eventKey: string): Promise<string> {
+        return this.client.get(`/reports/events/${encodeURIComponent(eventKey)}.csv`)
+            .then(res => res.data as string)
     }
 
     byStatus (eventKey: string, status: string | null = null) {
