@@ -32,5 +32,3 @@ test('flatListCsv returns a plain string', async () => {
     expect(csv).toContain('A-1')
     expect(csv).toContain(EventObjectInfo.BOOKED)
 })
-
-
