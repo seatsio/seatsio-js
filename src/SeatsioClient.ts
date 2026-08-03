@@ -69,7 +69,8 @@ export class SeatsioClient {
             timeout: TEN_SECONDS,
             paramsSerializer: {
                 indexes: null
-            }
+            },
+            adapter: 'http'
         }
 
         return config
