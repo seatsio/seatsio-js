@@ -14,8 +14,19 @@ export class Accounts {
         return this.client.get(baseUrl).then(res => new Account(res.data))
     }
 
+    /**
+     * @deprecated use addSecretKey() and removeSecretKey() instead
+     */
     regenerateSecretKey () {
         return this.client.post(baseUrl + '/secret-key/actions/regenerate').then(res => res.data.secretKey)
+    }
+
+    addSecretKey () {
+        return this.client.post(baseUrl + '/secret-key/actions/add').then(res => res.data.secretKey)
+    }
+
+    removeSecretKey (secretKeyToRemove: string) {
+        return this.client.post(baseUrl + '/secret-key/actions/remove', { secretKey: secretKeyToRemove })
     }
 
     regenerateDesignerKey () {

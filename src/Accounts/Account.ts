@@ -11,6 +11,7 @@ export class Account {
     role: string
     secretKey: string
     settings: AccountSettings
+    secretKeys: string[]
 
     constructor (json: AccountJson) {
         this.secretKey = json.secretKey
@@ -20,5 +21,6 @@ export class Account {
         this.company = json.company
         this.email = json.email
         this.role = json.role
+        this.secretKeys = json.secretKeys
     }
 }

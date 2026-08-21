@@ -11,6 +11,7 @@ export class Workspace {
     name: string
     secretKey: string
     settings: any
+    secretKeys: string[]
 
     constructor (json: WorkspaceJson) {
         this.id = json.id
@@ -21,5 +22,6 @@ export class Workspace {
         this.isDefault = json.isDefault
         this.isTest = json.isTest
         this.isActive = json.isActive
+        this.secretKeys = json.secretKeys
     }
 }

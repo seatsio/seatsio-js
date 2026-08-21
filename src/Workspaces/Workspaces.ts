@@ -28,9 +28,21 @@ export class Workspaces {
         return this.client.post(`/workspaces/actions/set-default/${key}`, requestParameters)
     }
 
+    /**
+     * @deprecated use addSecretKey(string) and removeSecretKey(string, string) instead
+     */
     regenerateSecretKey (key: string) {
         return this.client.post(`/workspaces/${key}/actions/regenerate-secret-key`)
             .then(res => res.data.secretKey)
+    }
+
+    addSecretKey (key: string) {
+        return this.client.post(`/workspaces/${key}/actions/add-secret-key`)
+            .then(res => res.data.secretKey)
+    }
+
+    removeSecretKey (key: string, secretKeyToRemove: string) {
+        return this.client.post(`/workspaces/${key}/actions/remove-secret-key`, { secretKey: secretKeyToRemove })
     }
 
     activate (key: string) {
