@@ -14,10 +14,6 @@ export class Accounts {
         return this.client.get(baseUrl).then(res => new Account(res.data))
     }
 
-    regenerateSecretKey () {
-        return this.client.post(baseUrl + '/secret-key/actions/regenerate').then(res => res.data.secretKey)
-    }
-
     regenerateDesignerKey () {
         return this.client.post(baseUrl + '/designer-key/actions/regenerate').then(res => res.data.designerKey)
     }

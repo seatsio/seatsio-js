@@ -1,6 +1,6 @@
 import { TestUtils } from '../testUtils.js'
 
-test('should retrieve a workspace', async () => {
+test('should regenerate the secret key of a workspace', async () => {
     const { client } = await TestUtils.createTestUserAndClient()
     const workspace = await client.workspaces.create('a workspace')
 
