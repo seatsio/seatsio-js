@@ -1,5 +1,4 @@
 import { configDefaults, defineConfig } from 'vitest/config'
-import { closeTestServer, startTestServer } from './tests/support/browserTestServer.js'
 import { getTestConfig, readFixture } from './tests/support/browserTestUtils.js'
 
 export default defineConfig({
@@ -25,7 +24,7 @@ export default defineConfig({
                         provider: 'playwright',
                         headless: true,
                         instances: [{ browser: 'chromium' }],
-                        commands: { startTestServer, closeTestServer, readFixture, getTestConfig }
+                        commands: { readFixture, getTestConfig }
                     }
                 }
             }
