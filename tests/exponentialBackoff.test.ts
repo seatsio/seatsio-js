@@ -40,19 +40,11 @@ function alwaysRespond (status: number): Handler {
     }
 }
 
-function respondWithRatio (weights: Array<[number, number]>): Handler {
+function respondWithPattern (pattern: number[]): Handler {
+    let index = 0
     return (_req, res) => {
-        const roll = Math.random()
-        let cumulative = 0
-        for (const [status, weight] of weights) {
-            cumulative += weight
-            if (roll < cumulative) {
-                res.writeHead(status)
-                res.end()
-                return
-            }
-        }
-        res.writeHead(weights[weights.length - 1][0])
+        res.writeHead(pattern[index % pattern.length])
+        index++
         res.end()
     }
 }
@@ -113,7 +105,7 @@ test('aborts directly if server returns 429 but max retries 0', async () => {
 })
 
 test('returns successfully when the server sends a 429 first, but then a successful response', async () => {
-    const { url, close } = await startTestServer(respondWithRatio([[429, 0.25], [204, 0.75]]))
+    const { url, close } = await startTestServer(respondWithPattern([429, 204, 204, 204]))
     try {
         const client = new SeatsioClient(new Region(url), '')
         for (let i = 0; i < 20; ++i) {
