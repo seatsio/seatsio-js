@@ -5,4 +5,5 @@ build
 *.iml
 tmp
 dist
+**/__screenshots__
 src/index.ts
