@@ -1,13 +1,10 @@
 import axios from 'axios'
-import * as fs from 'fs'
-import path from 'path'
 import { Labels } from '../src/Common/Labels.js'
 import { Category } from '../src/Charts/Category.js'
 import { SeatsioClient } from '../src/SeatsioClient.js'
 import { Region } from '../src/Region.js'
 import { LabelAndType } from '../src/Common/LabelAndType.js'
-
-const baseUrl = process.env.API_URL || 'http://localhost:9001'
+import { getConfig, readFixture } from './support/testEnvironment.js'
 
 export class TestUtils {
     static async createTestUserAndClient () {
@@ -21,7 +18,7 @@ export class TestUtils {
     static createTestCompany () {
         return axios({
             method: 'POST',
-            url: baseUrl + '/system/private/create-test-company',
+            url: getConfig().baseUrl + '/system/private/create-test-company',
             auth: {
                 username: this.systemApiSecret(),
                 password: ''
@@ -36,7 +33,7 @@ export class TestUtils {
     }
 
     static createClient (secretKey: string, workspaceKey?: string) {
-        return new SeatsioClient(new Region(baseUrl), secretKey, workspaceKey)
+        return new SeatsioClient(new Region(getConfig().baseUrl), secretKey, workspaceKey)
     }
 
     static createTestChart (chartKey: string, secretKey: string) {
@@ -64,14 +61,14 @@ export class TestUtils {
     }
 
     static async createTestChartFromFile (filePath: string, chartKey: string, secretKey: string) {
-        const requestBody = fs.readFileSync(path.join(__dirname, filePath), 'utf-8')
+        const requestBody = await readFixture(filePath)
         const client = axios.create({
             auth: {
                 username: secretKey,
                 password: '' // TODO bver check this! Was null in js, is not nullable in ts
             }
         })
-        const url = `${baseUrl}/system/public/charts/${chartKey}`
+        const url = `${getConfig().baseUrl}/system/public/charts/${chartKey}`
         return client.post(url, requestBody)
     }
 
@@ -159,7 +156,7 @@ export class TestUtils {
     ]
 
     static demoCompanySecretKey () {
-        const demoCompanySecretKey = process.env.DEMO_COMPANY_SECRET_KEY
+        const demoCompanySecretKey = getConfig().demoCompanySecretKey
         if (demoCompanySecretKey === undefined) {
             throw new Error('DEMO_COMPANY_SECRET_KEY must be set')
         }
@@ -167,10 +164,10 @@ export class TestUtils {
     }
 
     static isDemoCompanySecretKeySet () {
-        return process.env.DEMO_COMPANY_SECRET_KEY !== undefined
+        return getConfig().demoCompanySecretKey !== undefined
     }
 
     static systemApiSecret () {
-        return process.env.CORE_V2_STAGING_EU_SYSTEM_API_SECRET || 'superSecretSystemApi'
+        return getConfig().systemApiSecret
     }
 }
