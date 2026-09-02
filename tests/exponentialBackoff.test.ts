@@ -22,8 +22,12 @@ function startTestServer (handler: Handler) {
         }
         handler(req, res)
     })
-    return new Promise<TestServer>(resolve => {
+    return new Promise<TestServer>((resolve, reject) => {
+        const onStartupError = (err: Error) => reject(err)
+        server.once('error', onStartupError)
         server.listen(0, '127.0.0.1', () => {
+            server.removeListener('error', onStartupError)
+            server.on('error', err => console.error('Test server error:', err))
             const { port } = server.address() as AddressInfo
             resolve({
                 url: `http://127.0.0.1:${port}`,
