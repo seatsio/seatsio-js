@@ -6,6 +6,34 @@ import { TableBookingConfig } from '../../../src/Events/TableBookingConfig.js'
 import { CreateEventParams } from '../../../src/Events/CreateEventParams.js'
 import { CreateSeasonParams } from '../../../src/Seasons/CreateSeasonParams.js'
 
+test('withSeasonBookingsNotPropagated returns a new instance rather than mutating the original', async () => {
+    const { client, user } = await TestUtils.createTestUserAndClient()
+    const chartKey = TestUtils.getChartKey()
+    await TestUtils.createTestChart(chartKey, user.secretKey)
+    const event = await client.events.create(chartKey)
+
+    const withoutPropagation = client.eventReports.withSeasonBookingsNotPropagated()
+    expect(withoutPropagation).not.toBe(client.eventReports)
+
+    const reportFromOriginal = await client.eventReports.byLabel(event.key)
+    expect(reportFromOriginal['A-1'].length).toBe(1)
+})
+
+test('withSeasonBookingsNotPropagated can be used to fetch a report for an event in a season', async () => {
+    const { client, user } = await TestUtils.createTestUserAndClient()
+    const chartKey = TestUtils.getChartKey()
+    await TestUtils.createTestChart(chartKey, user.secretKey)
+    const season = await client.seasons.create(chartKey, new CreateSeasonParams().numberOfEvents(1))
+    const event = season.events![0]
+    await client.events.book(season.key, ['A-1', 'A-2'])
+    await client.events.book(event.key, ['A-3'])
+
+    const report = await client.eventReports.withSeasonBookingsNotPropagated().byLabel(event.key)
+
+    expect(report['A-1'][0].status).not.toBe(EventObjectInfo.BOOKED)
+    expect(report['A-3'][0].status).toBe(EventObjectInfo.BOOKED)
+})
+
 test('report properties', async () => {
     const { client, user } = await TestUtils.createTestUserAndClient()
     const chartKey = TestUtils.getChartKey()
@@ -157,6 +185,25 @@ test('report by specific object status', async () => {
     const report = await client.eventReports.byStatus(event.key, 'lolzor')
 
     expect(report.lolzor.length).toBe(2)
+})
+
+test('byStatus with season bookings not propagated', async () => {
+    const { client, user } = await TestUtils.createTestUserAndClient()
+    const chartKey = TestUtils.getChartKey()
+    await TestUtils.createTestChart(chartKey, user.secretKey)
+    const season = await client.seasons.create(chartKey, new CreateSeasonParams().numberOfEvents(1))
+    const event = season.events![0]
+    await client.events.book(season.key, ['A-1', 'A-2'])
+    await client.events.book(event.key, ['A-3'])
+
+    const reportWithPropagation = await client.eventReports.byStatus(season.key)
+    const reportWithoutPropagation = await client.eventReports.withSeasonBookingsNotPropagated().byStatus(season.key)
+
+    const findByLabel = (report: any, label: string): EventObjectInfo =>
+        Object.values(report).flat().find((item: any) => item.label === label) as EventObjectInfo
+
+    expect(findByLabel(reportWithPropagation, 'A-3').status).toBe(EventObjectInfo.BOOKED)
+    expect(findByLabel(reportWithoutPropagation, 'A-3').status).not.toBe(EventObjectInfo.BOOKED)
 })
 
 test('report by category label', async () => {
