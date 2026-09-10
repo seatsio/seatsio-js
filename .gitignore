@@ -6,4 +6,5 @@ build
 tmp
 dist
 **/__screenshots__
+.vitest-attachments
 src/index.ts

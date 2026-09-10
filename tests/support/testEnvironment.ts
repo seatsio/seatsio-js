@@ -6,7 +6,7 @@ interface TestConfig {
     systemApiSecret: string
 }
 
-declare module '@vitest/browser/context' {
+declare module 'vitest/internal/browser' {
     // eslint-disable-next-line no-unused-vars
     interface BrowserCommands {
         readFixture: (name: string) => Promise<string>
@@ -31,13 +31,13 @@ export function getConfig (): TestConfig {
 }
 
 export async function initTestEnvironment (): Promise<void> {
-    const { commands } = await import('@vitest/browser/context')
+    const { commands } = await import('vitest/browser')
     config = await commands.getTestConfig()
 }
 
 export async function readFixture (name: string): Promise<string> {
     if (isBrowser) {
-        const { commands } = await import('@vitest/browser/context')
+        const { commands } = await import('vitest/browser')
         return commands.readFixture(name)
     }
     const { readFile } = await import('node:fs/promises')
