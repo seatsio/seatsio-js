@@ -1,3 +1,4 @@
+import { playwright } from '@vitest/browser-playwright'
 import { configDefaults, defineConfig } from 'vitest/config'
 import { getTestConfig, readFixture } from './tests/support/browserTestUtils.js'
 
@@ -21,7 +22,7 @@ export default defineConfig({
                     setupFiles: ['./tests/support/browserSetup.ts'],
                     browser: {
                         enabled: true,
-                        provider: 'playwright',
+                        provider: playwright(),
                         headless: true,
                         instances: [{ browser: 'chromium' }],
                         commands: { readFixture, getTestConfig }
