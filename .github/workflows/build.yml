@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     services:
       httpbin:
-        image: mccutchen/go-httpbin:v2.25.0
+        image: mccutchen/go-httpbin:2.25.0
         ports:
           - 8080:8080
     strategy:
