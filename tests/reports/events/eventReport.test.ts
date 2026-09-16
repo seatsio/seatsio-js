@@ -5,6 +5,7 @@ import { EventObjectInfo } from '../../../src/Events/EventObjectInfo.js'
 import { TableBookingConfig } from '../../../src/Events/TableBookingConfig.js'
 import { CreateEventParams } from '../../../src/Events/CreateEventParams.js'
 import { CreateSeasonParams } from '../../../src/Seasons/CreateSeasonParams.js'
+import { AreaTypes } from '../../../src/Common/AreaType.js'
 
 test('withSeasonBookingsNotPropagated returns a new instance rather than mutating the original', async () => {
     const { client, user } = await TestUtils.createTestUserAndClient()
@@ -78,6 +79,7 @@ test('report properties', async () => {
     expect(reportItem.distanceToFocalPoint).toBeTruthy()
     expect(reportItem.seasonStatusOverriddenQuantity).toBe(0)
     expect(reportItem.resaleListingId).toBe(undefined)
+    expect(reportItem.areaType).toBe(undefined)
 
     const gaItem = report.GA1[0]
     expect(gaItem.variableOccupancy).toBe(true)
@@ -142,6 +144,7 @@ test('report properties for GA', async () => {
     expect(reportItem.displayedObjectType).toBe(undefined)
     expect(reportItem.parentDisplayedObjectType).toBe(undefined)
     expect(reportItem.bookAsAWhole).toBe(false)
+    expect(reportItem.areaType).toBe(AreaTypes.GENERAL_ADMISSION)
 })
 
 test('report properties for table', async () => {

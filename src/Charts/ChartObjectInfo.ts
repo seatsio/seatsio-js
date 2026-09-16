@@ -3,6 +3,7 @@ import { IDs } from '../Common/IDs.js'
 import { Labels } from '../Common/Labels.js'
 import { Dict } from '../Dict.js'
 import { Floor } from '../Common/Floor.js'
+import { AreaType } from '../Common/AreaType.js'
 
 export type ChartObjectInfoJson = Dict<any>
 
@@ -31,6 +32,7 @@ export class ChartObjectInfo {
     hasRestrictedView?: boolean
     zone?: string
     floor?: Floor
+    areaType?: AreaType
 
     constructor (json: ChartObjectInfoJson) {
         this.label = json.label
@@ -57,5 +59,6 @@ export class ChartObjectInfo {
         this.hasRestrictedView = json.hasRestrictedView
         this.zone = json.zone
         this.floor = json.floor ? new Floor(json.floor.name, json.floor.displayName) : undefined
+        this.areaType = json.areaType
     }
 }

@@ -3,6 +3,7 @@ import { IDs } from '../Common/IDs.js'
 import { Labels } from '../Common/Labels.js'
 import { Dict } from '../Dict.js'
 import { Floor } from '../Common/Floor.js'
+import { AreaType } from '../Common/AreaType.js'
 
 export type EventObjectInfoJson = Dict<any>
 
@@ -57,6 +58,7 @@ export class EventObjectInfo {
     zone?: string
     floor?: Floor
     resaleListingId?: string
+    areaType?: AreaType
 
     constructor (json: EventObjectInfoJson) {
         this.label = json.label
@@ -104,5 +106,6 @@ export class EventObjectInfo {
         this.zone = json.zone
         this.floor = json.floor ? new Floor(json.floor.name, json.floor.displayName) : undefined
         this.resaleListingId = json.resaleListingId
+        this.areaType = json.areaType
     }
 }
