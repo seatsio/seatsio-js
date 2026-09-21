@@ -6,6 +6,7 @@ export default defineConfig({
     test: {
         globals: true,
         testTimeout: 60000,
+        maxWorkers: 8,
         projects: [
             {
                 extends: true,
