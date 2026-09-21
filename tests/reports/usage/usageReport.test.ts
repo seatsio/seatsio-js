@@ -4,11 +4,11 @@ import { BillableRenderings } from '../../../src/Reports/BillableRenderings.js'
 import { MonthlyBillableRenderings } from '../../../src/Reports/MonthlyBillableRenderings.js'
 
 test('usage report for all months', async () => {
-    if (!TestUtils.isDemoCompanySecretKeySet()) {
-        return warnAboutDemoCompanySecretKeyNotSet()
+    if (!TestUtils.isUsageReportingConfigured()) {
+        return warnAboutUsageReportingNotConfigured()
     }
 
-    const client = TestUtils.createClient(TestUtils.demoCompanySecretKey())
+    const client = TestUtils.createUsageReportingClient()
 
     const report = await client.usageReports.summaryForAllMonths()
 
@@ -18,11 +18,11 @@ test('usage report for all months', async () => {
 })
 
 test('usage report for month', async () => {
-    if (!TestUtils.isDemoCompanySecretKeySet()) {
-        return warnAboutDemoCompanySecretKeyNotSet()
+    if (!TestUtils.isUsageReportingConfigured()) {
+        return warnAboutUsageReportingNotConfigured()
     }
 
-    const client = TestUtils.createClient(TestUtils.demoCompanySecretKey())
+    const client = TestUtils.createUsageReportingClient()
 
     const report = await client.usageReports.detailsForMonth('2021-11')
 
@@ -37,11 +37,11 @@ test('usage report for month', async () => {
 })
 
 test('usage report for event in month', async () => {
-    if (!TestUtils.isDemoCompanySecretKeySet()) {
-        return warnAboutDemoCompanySecretKeyNotSet()
+    if (!TestUtils.isUsageReportingConfigured()) {
+        return warnAboutUsageReportingNotConfigured()
     }
 
-    const client = TestUtils.createClient(TestUtils.demoCompanySecretKey())
+    const client = TestUtils.createUsageReportingClient()
 
     const report = await client.usageReports.detailsForEventInMonth(580293, '2021-11')
 
@@ -55,11 +55,11 @@ test('usage report for event in month', async () => {
 })
 
 test('billable rendering report for company', async () => {
-    if (!TestUtils.isDemoCompanySecretKeySet()) {
-        return warnAboutDemoCompanySecretKeyNotSet()
+    if (!TestUtils.isUsageReportingConfigured()) {
+        return warnAboutUsageReportingNotConfigured()
     }
 
-    const client = TestUtils.createClient(TestUtils.demoCompanySecretKey())
+    const client = TestUtils.createUsageReportingClient()
 
     const report: BillableRenderings = await client.usageReports.billableRenderingsSummaryForAllMonths()
 
@@ -84,11 +84,11 @@ test('billable rendering report for company', async () => {
 })
 
 test('billable rendering report for company in month', async () => {
-    if (!TestUtils.isDemoCompanySecretKeySet()) {
-        return warnAboutDemoCompanySecretKeyNotSet()
+    if (!TestUtils.isUsageReportingConfigured()) {
+        return warnAboutUsageReportingNotConfigured()
     }
 
-    const client = TestUtils.createClient(TestUtils.demoCompanySecretKey())
+    const client = TestUtils.createUsageReportingClient()
 
     const report: MonthlyBillableRenderings = await client.usageReports.billableRenderingsSummaryForMonth(new Month(2026, 6))
 
@@ -108,6 +108,6 @@ test('billable rendering report for company in month', async () => {
     expect(firstChart.numBillableRenderings).toBeGreaterThanOrEqual(0)
 })
 
-function warnAboutDemoCompanySecretKeyNotSet () {
-    console.warn('DEMO_COMPANY_SECRET_KEY environment variable not set, skipping test')
+function warnAboutUsageReportingNotConfigured () {
+    console.warn('USAGE_REPORTING_TESTS_API_URL and/or USAGE_REPORTING_TESTS_SECRET_KEY environment variables not set, skipping test')
 }
