@@ -44,7 +44,8 @@ jobs:
           echo "httpbin did not start in time" && exit 1
       - run: yarn test --project ${{ matrix.environment }}
         env:
-          API_URL: https://api-staging-eu.seatsio.net
-          DEMO_COMPANY_SECRET_KEY: ${{ secrets.DEMO_COMPANY_SECRET_KEY }}
-          CORE_V2_STAGING_EU_SYSTEM_API_SECRET: ${{ secrets.CORE_V2_STAGING_EU_SYSTEM_API_SECRET }}
+          API_URL: https://api-staging-na.seatsio.net
+          USAGE_REPORTING_TESTS_API_URL: https://api-staging-eu.seatsio.net
+          USAGE_REPORTING_TESTS_SECRET_KEY: ${{ secrets.DEMO_COMPANY_SECRET_KEY }}
+          CORE_V2_API_SECRET: ${{ secrets.CORE_V2_STAGING_NA_SYSTEM_API_SECRET }}
           HTTPBIN_URL: http://localhost:8080

@@ -155,19 +155,21 @@ export class TestUtils {
         new Category('string11', 'Cat3', '#5E42BB', false)
     ]
 
-    static demoCompanySecretKey () {
-        const demoCompanySecretKey = getConfig().demoCompanySecretKey
-        if (demoCompanySecretKey === undefined) {
-            throw new Error('DEMO_COMPANY_SECRET_KEY must be set')
-        }
-        return demoCompanySecretKey!
+    static createUsageReportingClient () {
+        const { usageReportingTestsApiUrl, usageReportingTestsSecretKey } = getConfig()
+        return new SeatsioClient(new Region(usageReportingTestsApiUrl!), usageReportingTestsSecretKey!)
     }
 
-    static isDemoCompanySecretKeySet () {
-        return getConfig().demoCompanySecretKey !== undefined
+    static isUsageReportingConfigured () {
+        const { usageReportingTestsApiUrl, usageReportingTestsSecretKey } = getConfig()
+        return isSet(usageReportingTestsApiUrl) && isSet(usageReportingTestsSecretKey)
     }
 
     static systemApiSecret () {
         return getConfig().systemApiSecret
     }
+}
+
+function isSet (value?: string) {
+    return value !== undefined && value.trim() !== ''
 }
