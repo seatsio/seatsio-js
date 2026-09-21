@@ -2,7 +2,8 @@ export const isBrowser = typeof document !== 'undefined'
 
 interface TestConfig {
     baseUrl: string
-    demoCompanySecretKey?: string
+    usageReportingTestsApiUrl?: string
+    usageReportingTestsSecretKey?: string
     systemApiSecret: string
     httpbinUrl: string
 }
@@ -24,8 +25,9 @@ export function getConfig (): TestConfig {
         }
         config = {
             baseUrl: process.env.API_URL || 'http://localhost:9001',
-            demoCompanySecretKey: process.env.DEMO_COMPANY_SECRET_KEY,
-            systemApiSecret: process.env.CORE_V2_STAGING_EU_SYSTEM_API_SECRET || 'superSecretSystemApi',
+            usageReportingTestsApiUrl: process.env.USAGE_REPORTING_TESTS_API_URL,
+            usageReportingTestsSecretKey: process.env.USAGE_REPORTING_TESTS_SECRET_KEY,
+            systemApiSecret: process.env.CORE_V2_API_SECRET || 'superSecretSystemApi',
             httpbinUrl: process.env.HTTPBIN_URL || 'https://httpbingo.org'
         }
     }
