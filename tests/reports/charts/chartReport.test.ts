@@ -6,6 +6,7 @@ import { SeatsioClient } from '../../../src/SeatsioClient.js'
 import { Versions } from '../../../src/Reports/ChartReports.js'
 import { Floor } from '../../../src/Common/Floor.js'
 import { AreaTypes } from '../../../src/Common/AreaType.js'
+import { TableTypes } from '../../../src/Common/TableType.js'
 
 describe('chart report properties', () => {
     it.each([
@@ -50,6 +51,7 @@ describe('chart report properties', () => {
         expect(reportItem.hasRestrictedView).toBe(false)
         expect(reportItem.floor).toBeUndefined()
         expect(reportItem.areaType).toBeUndefined()
+        expect(reportItem.tableType).toBeUndefined()
     })
 })
 
@@ -78,6 +80,7 @@ describe('chart report properties for GA', () => {
         expect(reportItem.objectType).toBe('generalAdmission')
         expect(reportItem.bookAsAWhole).toBe(false)
         expect(reportItem.areaType).toBe(AreaTypes.GENERAL_ADMISSION)
+        expect(reportItem.tableType).toBeUndefined()
     })
 })
 
@@ -104,6 +107,7 @@ describe('chart report properties for table', () => {
         const reportItem = report.T1[0]
         expect(reportItem.numSeats).toBe(6)
         expect(reportItem.bookAsAWhole).toBe(false)
+        expect(reportItem.tableType).toBe(TableTypes.BOOK_BY_SEAT)
     })
 })
 
