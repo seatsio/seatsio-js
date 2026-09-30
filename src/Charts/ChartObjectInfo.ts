@@ -4,6 +4,7 @@ import { Labels } from '../Common/Labels.js'
 import { Dict } from '../Dict.js'
 import { Floor } from '../Common/Floor.js'
 import { AreaType } from '../Common/AreaType.js'
+import { TableType } from '../Common/TableType.js'
 
 export type ChartObjectInfoJson = Dict<any>
 
@@ -33,6 +34,7 @@ export class ChartObjectInfo {
     zone?: string
     floor?: Floor
     areaType?: AreaType
+    tableType?: TableType
 
     constructor (json: ChartObjectInfoJson) {
         this.label = json.label
@@ -60,5 +62,6 @@ export class ChartObjectInfo {
         this.zone = json.zone
         this.floor = json.floor ? new Floor(json.floor.name, json.floor.displayName) : undefined
         this.areaType = json.areaType
+        this.tableType = json.tableType
     }
 }

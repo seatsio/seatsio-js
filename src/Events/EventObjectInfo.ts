@@ -4,6 +4,7 @@ import { Labels } from '../Common/Labels.js'
 import { Dict } from '../Dict.js'
 import { Floor } from '../Common/Floor.js'
 import { AreaType } from '../Common/AreaType.js'
+import { TableType } from '../Common/TableType.js'
 
 export type EventObjectInfoJson = Dict<any>
 
@@ -59,6 +60,7 @@ export class EventObjectInfo {
     floor?: Floor
     resaleListingId?: string
     areaType?: AreaType
+    tableType?: TableType
 
     constructor (json: EventObjectInfoJson) {
         this.label = json.label
@@ -107,5 +109,6 @@ export class EventObjectInfo {
         this.floor = json.floor ? new Floor(json.floor.name, json.floor.displayName) : undefined
         this.resaleListingId = json.resaleListingId
         this.areaType = json.areaType
+        this.tableType = json.tableType
     }
 }
