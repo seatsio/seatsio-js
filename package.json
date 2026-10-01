@@ -22,7 +22,7 @@
     "axios": "1.20.0"
   },
   "devDependencies": {
-    "@types/node": "26.4.0",
+    "@types/node": "26.6.3",
     "@typescript-eslint/eslint-plugin": "5.62.0",
     "@typescript-eslint/parser": "5.62.0",
     "@vitest/browser": "4.1.11",
@@ -34,8 +34,8 @@
     "eslint-plugin-import": "2.32.0",
     "eslint-plugin-n": "16.6.2",
     "eslint-plugin-promise": "6.6.0",
-    "playwright": "1.62.1",
-    "prettier": "3.9.6",
+    "playwright": "1.63.0",
+    "prettier": "3.9.9",
     "semver": "7.8.5",
     "typescript": "6.0.3",
     "vitest": "4.1.11",
