@@ -2,6 +2,7 @@ import { Workspace, WorkspaceJson } from './Workspace.js'
 import { Lister } from '../Lister.js'
 import { Page } from '../Page.js'
 import { Axios } from 'axios'
+import { ForSaleMode } from './ForSaleMode.js'
 
 export class Workspaces {
     client: Axios
@@ -10,15 +11,15 @@ export class Workspaces {
         this.client = client
     }
 
-    create (name: string, isTest = false) {
-        const requestParameters = { name, isTest }
+    create (name: string, isTest = false, forSaleMode?: ForSaleMode) {
+        const requestParameters = { name, isTest, forSaleMode }
 
         return this.client.post('/workspaces', requestParameters)
             .then(res => new Workspace(res.data))
     }
 
-    update (key: string, name: string) {
-        const requestParameters = { name }
+    update (key: string, name: string, forSaleMode?: ForSaleMode) {
+        const requestParameters = { name, forSaleMode }
 
         return this.client.post(`/workspaces/${key}`, requestParameters)
     }
