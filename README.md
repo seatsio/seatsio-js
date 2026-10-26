@@ -325,6 +325,18 @@ let client = new SeatsioClient(Region.EU(), <WORKSPACE SECRET KEY>).setMaxRetrie
 
 Passing in 0 disables exponential backoff completely. In that case, the client will never retry a failed request.
 
+## Timeouts
+
+By default, requests time out after 30 seconds. To change this, create the `SeatsioClient` as follows:
+
+```js
+import { SeatsioClient, Region } from 'seatsio'
+
+let client = new SeatsioClient(Region.EU(), <WORKSPACE SECRET KEY>).setTimeout(60000)
+```
+
+The timeout is expressed in milliseconds. Requests that time out are not retried.
+
 ## TypeScript
 
 Since v76, this package contains TypeScript definitions.

@@ -13,7 +13,7 @@ import { Seasons } from './Seasons/Seasons.js'
 import { TicketBuyers } from './TicketBuyers/TicketBuyers.js'
 import { Workspaces } from './Workspaces/Workspaces.js'
 
-const TEN_SECONDS = 10000
+const THIRTY_SECONDS = 30000
 
 export class SeatsioClient {
     accounts: Accounts
@@ -66,7 +66,7 @@ export class SeatsioClient {
                 password: ''
             },
             headers,
-            timeout: TEN_SECONDS,
+            timeout: THIRTY_SECONDS,
             paramsSerializer: {
                 indexes: null
             }
@@ -108,6 +108,11 @@ export class SeatsioClient {
     setMaxRetries (maxRetries: number) {
         // @ts-ignore
         this.client.maxRetries = maxRetries
+        return this
+    }
+
+    setTimeout (milliseconds: number) {
+        this.client.defaults.timeout = milliseconds
         return this
     }
 }
