@@ -5,6 +5,8 @@ import { CategoryJson, CategoryKey } from './Category.js'
 import { CategoryUpdateParams } from './CategoryUpdateParams.js'
 import { Chart, ChartJson, Venue } from './Chart.js'
 import { ChartListParams } from './ChartListParams.js'
+import { Event, EventJson } from '../Events/Event.js'
+import { EventDeserializer } from '../Events/EventDeserializer.js'
 
 export class Charts {
     archive: Lister<Chart, ChartJson>
@@ -173,6 +175,13 @@ export class Charts {
 
     listPageBefore (beforeId: number, chartListParams: ChartListParams | null = null, pageSize: number | null = null) {
         return this.iterator().pageBefore(beforeId, chartListParams, pageSize)
+    }
+
+    events (chartKey: string) {
+        return new Lister<Event, EventJson>(`/charts/${encodeURIComponent(chartKey)}/events`, this.client, data => {
+            const events = data.items.map(eventData => new EventDeserializer().fromJson(eventData))
+            return new Page(events, data.next_page_starts_after, data.previous_page_ends_before)
+        })
     }
 
     iterator () {
