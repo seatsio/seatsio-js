@@ -186,6 +186,14 @@ export class Events {
             .then(res => new EventDeserializer().fromJson(res.data))
     }
 
+    moveEventsToChartCopy (eventKeys: string[]): Promise<Event[]> {
+        return this.client.post('/events/actions/move-to-new-chart-copy', { events: eventKeys })
+            .then(res => {
+                const deserializer = new EventDeserializer()
+                return res.data.events.map((event: EventJson) => deserializer.fromJson(event))
+            })
+    }
+
     listAll (requestParameters = {}) {
         return this.iterator().all(requestParameters)
     }
